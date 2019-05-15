@@ -5,7 +5,7 @@ published: true
 ---
 
 ### Purpose
-To share information with current students and colleagues relating to **education**, **physics**, and **computer science**.
+To share information with current students and colleagues relating to education, physics, and computer science.
 
 ### How This Site Works:
 This is my first blog post using [Jekyll](https://github.com/barryclark/jekyll-now), running on [GitHub Pages](https://mvpoirier.github.io/).
