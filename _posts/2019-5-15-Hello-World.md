@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'Hello World! Jekyll, GitHub Pages, and Prose.io'
+title: 'Hello World: Jekyll, GitHub Pages, and Prose.io'
 published: true
 ---
 
