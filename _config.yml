@@ -69,7 +69,6 @@ kramdown:
   syntax_highlighter_opts:
     # Use existing pygments syntax highlighting css
     css_class: 'highlight'
-    #css_class: 'syntax'
     # Add line numbers when using “fenced_code_blocks” with triple backticks (```)
     span:
       line_numbers: false
@@ -79,7 +78,8 @@ kramdown:
 
 # Set the Sass partials directory, as we're using @imports
 sass:
-  style: :expanded # You might prefer to minify using :compressed
+  #style: :expanded # You might prefer to minify using :compressed
+  style:  :compressed
 
 # Use the following plug-ins
 gems:
