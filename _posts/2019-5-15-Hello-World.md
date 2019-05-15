@@ -16,6 +16,8 @@ The code is hosted on my personal GitHub repository @ <http://github.com/mvpoiri
 To add more posts: go into /_posts/ and update the Hello World markdown file. For more instructions head over to the [Jekyll Now repository](https://github.com/barryclark/jekyll-now).
 
 ### Testing with Code Blocks in Markdown
+The syntax highlighting was modified on the default Jekyll Now installation for proper line numbers using the [minimal-mistakes Jekyll theme](https://github.com/mmistakes/minimal-mistakes/tree/master/_sass/minimal-mistakes), by importing both the variables and syntax style sheets, then importing them appropriately in the base style.css sheet.
+
 To add code blocks, use triple _backticks_ to start syntax highlighting, as shared and described [here](https://frankindev.com/2017/03/18/syntax-highlight-with-rouge-in-jekyll/):
 
 ```java
@@ -29,3 +31,8 @@ x = 5
 for i in range(3):
 	print("bacon!")
 {% endhighlight %}
+
+## What's Next?
+-Begin adding sections for education, physics, and computer science
+-Consider the best way to host resources (Google Drive, Dropbox, Github, Wix)
+-Provide a better layout (more width) for readability
