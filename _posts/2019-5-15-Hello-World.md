@@ -10,7 +10,7 @@ To share information with students and colleagues relating to what I'm working o
 ### How This Site Works:
 This is my first blog post using [Jekyll](https://github.com/barryclark/jekyll-now), running on [GitHub Pages](https://mvpoirier.github.io/).
 
-The code hosted on <http://github.com/mvpoirier/> and edited using [prose.io](https://prose.io).
+The code is hosted on my personal GitHub repository @ <http://github.com/mvpoirier/>, and edited using [prose.io](https://prose.io).
 
 ### Reminder to Myself:
 To add more posts: go into /_posts/ and update the Hello World markdown file. For more instructions head over to the [Jekyll Now repository](https://github.com/barryclark/jekyll-now).
