@@ -5,8 +5,8 @@ permalink: /compsci/
 published: true
 ---
 
-## Diploma Programme
-- DP Computer Science (Year 1)  
+## Diploma Programme Courses (ABA 2019-2020)
+- [DP Computer Science (Year 1)]("{{ site.baseurl }}/courses/2019-2020-ABA-CS.html")
 - DP Computer Science (Year 2) 
 
 ## Resources
