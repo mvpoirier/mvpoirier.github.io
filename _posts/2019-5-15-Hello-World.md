@@ -20,14 +20,14 @@ The syntax highlighting was modified on the default Jekyll Now installation for 
 
 To add code blocks, use triple _backticks_ to start syntax highlighting, as shared and described [here](https://frankindev.com/2017/03/18/syntax-highlight-with-rouge-in-jekyll/):
 
-Example 1: Using `triple backticks` method
+Example 1: Using _triple backticks_ method
 ```java
 public static void main (String[] args){
   System.out.println("Hello World!");
 }
 ```
   
-Example 2: Using the `(% highlight %}` method
+Example 2: Using the `{% highlight %}` method
 {% highlight python linenos %}
 x = 5
 for i in range(3):
