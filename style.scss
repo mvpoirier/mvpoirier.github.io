@@ -7,7 +7,11 @@
 
 @import "reset";
 @import "variables";
+
+// import variables from minimal-mistakes Jekyll theme (renamed as variables2)
+// https://github.com/mmistakes/minimal-mistakes/tree/master/_sass/minimal-mistakes
 @import "variables2"; //from other theme
+
 // Syntax highlighting @import is at the bottom of this file
 
 /**************/
@@ -286,6 +290,12 @@ footer {
 
 // Settled on moving the import of syntax highlighting to the bottom of the CSS
 // ... Otherwise it really bloats up the top of the CSS file and makes it difficult to find the start
+
+// Ignore original syntax highlighting style 'highlights'
 //@import "highlights";
+
+// Import syntax style sheet from minimal-mistakes Jekyll theme
+// https://github.com/mmistakes/minimal-mistakes/tree/master/_sass/minimal-mistakes
 @import "syntax";
+
 @import "svg-icons";
