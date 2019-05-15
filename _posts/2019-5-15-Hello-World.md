@@ -16,7 +16,9 @@ The code hosted on <http://github.com/mvpoirier/> and edited using [prose.io](ht
 To add more posts: go into /_posts/ and update the Hello World markdown file. For more instructions head over to the [Jekyll Now repository](https://github.com/barryclark/jekyll-now).
 
 ### Testing with Code Blocks in Markdown
-To add code blocks, use triple 'backticks' to start syntax highlighting "\\\":
-\\\ public static void main (String[] args){
-\\\		System.out.println("Hello World!");
-\\\ }
+To add code blocks, use triple _backticks_ to start syntax highlighting:
+```java
+public static void main (String[] args){
+  System.out.println("Hello World!");
+}
+```
