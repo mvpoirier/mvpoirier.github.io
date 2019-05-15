@@ -17,8 +17,15 @@ To add more posts: go into /_posts/ and update the Hello World markdown file. Fo
 
 ### Testing with Code Blocks in Markdown
 To add code blocks, use triple _backticks_ to start syntax highlighting, as shared and described [here](https://frankindev.com/2017/03/18/syntax-highlight-with-rouge-in-jekyll/):
+
 ```java
 public static void main (String[] args){
   System.out.println("Hello World!");
 }
 ```
+
+{% highlight python linenos %}
+x = 5
+for i in range(3):
+	print("bacon!")
+{% endhighlight %}
