@@ -1,10 +1,8 @@
 ---
 published: true
 ---
----
-layout: post
----
+## ABA Computer Science 2019-2020: How to Make Course Blog/Site
 
-## A New Post: Class Test for ABA Computer Science 2019-2020
+- Develop a separate folder in _posts_: ABA-CS-2019
+- The course page `course/ABA-CS-2019-2020.html` uses a **post category** called `ABA-CS-2019`
 
-Enter text in [Markdown](http://daringfireball.net/projects/markdown/). Use the toolbar above, or click the **?** button for formatting help.
