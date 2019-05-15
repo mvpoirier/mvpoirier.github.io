@@ -4,7 +4,7 @@ title: 'Hello World: Jekyll, GitHub Pages, and Prose.io'
 published: true
 ---
 
-## Purpose
+### Purpose
 To share information with students and colleagues relating to what I'm working on in education, relating to **physics**, **computer science**, and **robotics**.
 
 ### How This Site Works:
@@ -20,12 +20,14 @@ The syntax highlighting was modified on the default Jekyll Now installation for 
 
 To add code blocks, use triple _backticks_ to start syntax highlighting, as shared and described [here](https://frankindev.com/2017/03/18/syntax-highlight-with-rouge-in-jekyll/):
 
+Example 1: Using `triple backticks` method
 ```java
 public static void main (String[] args){
   System.out.println("Hello World!");
 }
 ```
-
+  
+Example 2: Using the `(% highlight %}` method
 {% highlight python linenos %}
 x = 5
 for i in range(3):
@@ -35,4 +37,4 @@ for i in range(3):
 ### What's Next?
 - Begin adding sections for education, physics, and computer science  
 - Consider the best way to host resources (Google Drive, Dropbox, Github, Wix)  
-- Provide a better layout (more width) for readability  
+- Provide a better layout (more width) for readability
