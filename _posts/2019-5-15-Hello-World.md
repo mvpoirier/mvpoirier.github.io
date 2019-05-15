@@ -5,7 +5,7 @@ published: true
 ---
 
 ### Purpose
-To share information with students and colleagues relating to what I'm working on in education, relating to **physics**, **computer science**, and **robotics**.
+To share information with current students and colleagues relating to **education**, **physics**, and **computer science**.
 
 ### How This Site Works:
 This is my first blog post using [Jekyll](https://github.com/barryclark/jekyll-now), running on [GitHub Pages](https://mvpoirier.github.io/).
@@ -13,7 +13,7 @@ This is my first blog post using [Jekyll](https://github.com/barryclark/jekyll-n
 The code is hosted on my personal GitHub repository @ <http://github.com/mvpoirier/>, and edited using [prose.io](https://prose.io).
 
 ### Reminder to Myself:
-To add more posts: go into /_posts/ and update the Hello World markdown file. For more instructions head over to the [Jekyll Now repository](https://github.com/barryclark/jekyll-now).
+To add more posts: go into /_posts/ and update the Hello World markdown file. For more instructions, check out the [Jekyll Now](https://github.com/barryclark/jekyll-now) GitHub repository.
 
 ### Testing with Code Blocks in Markdown
 The syntax highlighting was modified on the default Jekyll Now installation for proper line numbers using the [minimal-mistakes Jekyll theme](https://github.com/mmistakes/minimal-mistakes/tree/master/_sass/minimal-mistakes), by importing both the variables and syntax style sheets, then importing them appropriately in the base style.css sheet.
