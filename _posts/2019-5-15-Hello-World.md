@@ -32,7 +32,7 @@ for i in range(3):
 	print("bacon!")
 {% endhighlight %}
 
-## What's Next?
--Begin adding sections for education, physics, and computer science
--Consider the best way to host resources (Google Drive, Dropbox, Github, Wix)
--Provide a better layout (more width) for readability
+### What's Next?
+- Begin adding sections for education, physics, and computer science  
+- Consider the best way to host resources (Google Drive, Dropbox, Github, Wix)  
+- Provide a better layout (more width) for readability  
