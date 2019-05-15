@@ -2,6 +2,7 @@
 layout: page
 title: Physics
 permalink: /physics/
+published: true
 ---
 
 ## Diploma Programme
