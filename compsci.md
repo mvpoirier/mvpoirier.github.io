@@ -6,7 +6,7 @@ published: true
 ---
 
 ## Diploma Programme Courses (ABA 2019-2020)
-- [DP Computer Science (Year 1)]("{{site}}/courses/2019-2020-ABA-CS.html")
+- [DP Computer Science (Year 1)]("courses/2019-2020-ABA-CS.html")
 - DP Computer Science (Year 2) 
 
 ## Resources
