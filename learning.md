@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Learning
-permalink: /learning/
+title: About
+permalink: /about/
 published: true
 ---
 
