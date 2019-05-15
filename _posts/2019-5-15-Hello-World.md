@@ -1,11 +1,16 @@
 ---
 layout: post
-title: Hello World!
+title: 'Hello World! Jekyll, GitHub Pages, and Prose.io'
 published: true
 ---
 
-This is my first post using the [Jekyll Now Blog](https://github.com/barryclark/jekyll-now), and running on GitHub Pages: <https://mvpoirier.github.io/>.
+## Purpose
+To share information with students and colleagues relating to what I'm working on in education, relating to **physics**, **computer science**, and **robotics**.
 
-The code hosted on <http://github.com/mvpoirier/> is being edited using [prose.io](https://prose.io).
+### How This Site Works:
+This is my first blog post using [Jekyll](https://github.com/barryclark/jekyll-now), running on [GitHub Pages](https://mvpoirier.github.io/).
 
-To add more posts: go into /_posts/ and update the Hello World markdown file. For more instructions head over to the [Jekyll Now repository](https://github.com/barryclark/jekyll-now) on GitHub.
+The code hosted on <http://github.com/mvpoirier/> and edited using [prose.io](https://prose.io).
+
+### Reminder to Myself:
+To add more posts: go into /_posts/ and update the Hello World markdown file. For more instructions head over to the [Jekyll Now repository](https://github.com/barryclark/jekyll-now).
