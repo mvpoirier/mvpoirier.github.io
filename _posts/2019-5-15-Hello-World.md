@@ -27,7 +27,7 @@ public static void main (String[] args){
 }
 ```
   
-Example 2: Using the `{% highlight %}` method
+Example 2: Using the _highlight_ method
 {% highlight python linenos %}
 x = 5
 for i in range(3):
