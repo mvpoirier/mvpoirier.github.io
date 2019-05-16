@@ -11,9 +11,6 @@ published: true
       <h1 style = background-color:Gainsboro;>{{ post.date | date: "%B %e, %Y" }} - {{ post.title }}</h1>
       
       {% if post.path contains 'blog' %}
-      	<div class="date">
-        	Blog
-      	</div>
       {% elsif  post.path contains '2019-ABA-CS' %}
         <div class="date">
         	2019 ABA DP Computer Science
