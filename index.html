@@ -6,20 +6,22 @@ published: true
 
 <div class="posts">
   {% for post in site.posts %}
-    <article class="post">
+    <article class="post">'
+      
+      <h1 style = background-color:LightGray;>{{ post.date | date: "%B %e, %Y" }} - {{ post.title }}</h1>
       
       {% if post.path contains 'blog' %}
-      	<h1 style = background-color:Tomato;>{{ post.date | date: "%B %e, %Y" }} - {{ post.title }}</h1>
       	<div class="date">
         	Blog
       	</div>
       {% elsif  post.path contains '2019-ABA-CS' %}
-      	<h1 style = background-color:SpringGreen;>{{ post.date | date: "%B %e, %Y" }} - {{ post.title }}</h1>
         <div class="date">
         	2019 ABA DP Computer Science
       	</div>
       {% else %}
-      <h1 style = background-color:LightGray;>{{ post.date | date: "%B %e, %Y" }} - {{ post.title }}</h1>
+      	<div class="date">
+        	Uncategorized
+      	</div>
       {% endif %}
       
       <!-- ORIGINAL JEKYLL NOW CODE
