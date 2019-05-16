@@ -1,11 +1,10 @@
 ---
 layout: post
-title: 'Hello World: Jekyll, GitHub Pages, and Prose.io'
+title: Hello World!
 published: true
 ---
 
-### Purpose
-To share information with current students and colleagues relating to education, physics, and computer science.
+Hello, and welcome to my site! The purpose of this website is to share information with current students and colleagues relating to education, physics, and computer science.
 
 ### How This Site Works:
 This is my first blog post using [Jekyll](https://github.com/barryclark/jekyll-now), running on [GitHub Pages](https://mvpoirier.github.io/).
