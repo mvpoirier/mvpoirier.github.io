@@ -13,8 +13,8 @@ layout: post
 
 - Here is the code. Because this is written in the liquid template format, the code must be wrapped in _raw_ and _endraw_ liquid tags, as discussed here: <https://github.com/jekyll/jekyll/issues/6430>:  
   
-```html
 {% raw %}
+```html
     <div class="posts">
       {% for post in site.posts %}
       	{% if post.path contains 'ABA-CS-2019' %}
@@ -28,5 +28,5 @@ layout: post
         {% endif %}
       {% endfor %}
     </div>
-{% endraw %}
 ```
+{% endraw %}
