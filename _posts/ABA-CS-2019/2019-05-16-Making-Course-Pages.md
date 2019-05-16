@@ -13,7 +13,7 @@ layout: post
 
 - Here is the code:  
   
-```
+```liquid
     <div class="posts">
       {% for post in site.posts %}
       	{% if post.path contains 'ABA-CS-2019' %}
