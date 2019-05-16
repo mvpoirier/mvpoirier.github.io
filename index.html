@@ -10,8 +10,14 @@ published: true
       
       {% if post.path contains 'blog' %}
       	<h1 style = background-color:Tomato;>{{ post.date | date: "%B %e, %Y" }} - {{ post.title }}</h1>
+      	<div class="date">
+        	Category: Blog
+      	</div>
       {% elsif  post.path contains 'ABA-CS-2019' %}
       	<h1 style = background-color:SpringGreen;>{{ post.date | date: "%B %e, %Y" }} - {{ post.title }}</h1>
+        <div class="date">
+        	Category: Computer Science
+      	</div>
       {% else %}
       <h1 style = background-color:LightGray;>{{ post.date | date: "%B %e, %Y" }} - {{ post.title }}</h1>
       {% endif %}
