@@ -2,13 +2,19 @@
 layout: default
 published: true
 ---
-<h1 style = background-color:SlateBlue;color:White; align="center">Recent Posts</h1>
+<h1 style = background-color:SlateBlue;color:White; align="center">All Recent Posts</h1>
 
 <div class="posts">
   {% for post in site.posts %}
     <article class="post">
       
-      <h1 style = background-color:LightGray;>{{ post.date | date: "%B %e, %Y" }} - {{ post.title }}</h1>
+      {% if post.path contains 'ABA-CS-2019' %}
+      	<h1 style = background-color:Tomato;>{{ post.date | date: "%B %e, %Y" }} - {{ post.title }}</h1>
+      {% endif}
+      
+      {% if post.path contains 'blog' %}
+      	<h1 style = background-color:LightGray;>{{ post.date | date: "%B %e, %Y" }} - {{ post.title }}</h1>
+      {% endif}
       
       <!-- ORIGINAL JEKYLL NOW CODE
       <h1><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h1>
