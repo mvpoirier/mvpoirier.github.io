@@ -2,30 +2,30 @@
 layout: default
 published: true
 ---
-<h1 style = background-color:SlateBlue;color:White; align="center">What's New?</h1>
+<h1 style=background-color:SlateBlue;color:White; align="center">What's New?</h1>
 
 <div class="posts">
   {% for post in site.posts %}
-    <article class="post">
-      
-      <h1 style = background-color:Gainsboro;>{{ post.date | date: "%B %e, %Y" }} - {{ post.title }}</h1>
-      
-      {% if post.path contains 'blog' %}
-        <div class="date">
-          <p style = color:ForestGreen>Category: <b>Blog</b></p>
-      	</div>
-      {% elsif  post.path contains '2019-ABA-CS' %}
-        <div class="date">
-          <p style = color:OrangeRed>Category: <b>2019 DP Computer Science</b></p>
-      	</div>
-      {% else %}
-      {% endif %}
-      
-      <div class="entry">
-        {{ post.excerpt }}
-      </div>
+  <article class="post">
 
-      <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read More</a>
-    </article>
+    <h1 style=background-color:Gainsboro;>{{ post.date | date: "%B %e, %Y" }} - {{ post.title }}</h1>
+
+    {% if post.path contains 'blog' %}
+    <div class="date">
+      <p style=color:ForestGreen>Category: <b>Blog</b></p>
+    </div>
+    {% elsif  post.path contains '2019-ABA-CS' %}
+    <div class="date">
+      <p style=color:OrangeRed>Category: <b>2019 DP Computer Science</b></p>
+    </div>
+    {% else %}
+    {% endif %}
+
+    <div class="entry">
+      {{ post.excerpt }}
+    </div>
+
+    <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read More</a>
+  </article>
   {% endfor %}
 </div>
