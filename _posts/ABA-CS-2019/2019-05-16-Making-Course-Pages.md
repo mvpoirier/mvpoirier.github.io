@@ -3,7 +3,7 @@ published: true
 title: Making Course Pages in Jekyll
 layout: post
 ---
-## How to Make Course Blog using Jekyll & Categories
+## How to Make a Course Blog using Jekyll & Categories
 
 - Develop a separate folder in posts, which will act as a category: ABA-CS-2019  
   
