@@ -13,18 +13,20 @@ layout: post
   
 - The results are shown below:
   
-{% highlight linenos %}
-  <div class="posts">
-    {% for post in site.posts %}
-      {% if post.path contains 'ABA-CS-2019' %}
-          <article class="post">
-              <h1 style = background-color:LightGray;>{{ post.date | date: "%B %e, %Y" }} - {{ post.title }}</h1>
+```html
+    <div class="posts">
+      {% for post in site.posts %}
+        {% if post.path contains 'ABA-CS-2019' %}
+            <article class="post">
+                <h1 style = background-color:LightGray;>{{ post.date | date: "%B %e, %Y" }} - {{ post.title }}</h1>
 
-              <div class="entry">
-                  {{ post.content }}
-              </div>
-           </article>
-      {% endif %}
-    {% endfor %}
-  </div>
-{% endhighlight %}
+                <div class="entry">
+                    {{ post.content }}
+                </div>
+             </article>
+        {% endif %}
+      {% endfor %}
+    </div>
+```
+
+End
