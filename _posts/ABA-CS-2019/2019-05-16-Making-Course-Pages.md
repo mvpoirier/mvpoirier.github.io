@@ -13,7 +13,8 @@ layout: post
 
 - Here is the code:  
   
-```liquid
+```html
+{% raw %}
     <div class="posts">
       {% for post in site.posts %}
       	{% if post.path contains 'ABA-CS-2019' %}
@@ -27,4 +28,5 @@ layout: post
         {% endif %}
       {% endfor %}
     </div>
+{% endraw %}
 ```
