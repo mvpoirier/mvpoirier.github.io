@@ -2,16 +2,21 @@
 layout: default
 published: true
 ---
+<h1 style = background-color:Tomato;color:White; align="center">Recent Activity</h1>
 
 <div class="posts">
   {% for post in site.posts %}
     <article class="post">
       
+      <h1 style = background-color:LightGray;>{{ post.date | date: "%B %e, %Y" }} - {{ post.title }}</h1>
+      
+      <!-- ORIGINAL JEKYLL NOW CODE
       <h1><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h1>
       
       <div class="date">
         {{ post.date | date: "%B %e, %Y" }}
       </div>
+      -->
       
       <div class="entry">
         {{ post.excerpt }}
