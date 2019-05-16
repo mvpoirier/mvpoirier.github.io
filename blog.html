@@ -10,7 +10,7 @@ published: true
   {% for post in site.posts %}
   	{% if post.path contains 'blog' %}
   		<article class="post">
-          	<h1 style = background-color:LightGray;>{{ post.date | date: "%B %e, %Y" }} - {{ post.title }}</h1>
+          	<h1 style = background-color:Gainsboro;>{{ post.date | date: "%B %e, %Y" }} - {{ post.title }}</h1>
       
         	<div class="entry">
           		{{ post.content }}
