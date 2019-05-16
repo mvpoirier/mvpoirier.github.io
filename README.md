@@ -4,8 +4,8 @@ This site is:
 - Using [Jekyll](https://github.com/jekyll/jekyll), a static site generator that is perfect for GitHub hosted blogs
 - A fork of the [Jekyll Now Theme](https://github.com/barryclark/jekyll-now/), which allows instant use on GitHub
 - Hosted on [GitHub Pages](https://github.io/) at <https://mvpoirier.github.io/>
-- Edited online using the [Prose.io](http://prose.io/) online editor
-- A majority of the pages are coded using Markdown
+- Edited online using the [Prose.io](http://prose.io/) online editor and with [Git & GitHub on VSCode](https://www.youtube.com/watch?v=9cMWR-EGFuY)
+- Developed with majority of the pages coded using Markdown, for readability
 - This [Markdown Cheatsheet](http://www.jekyllnow.com/Markdown-Style-Guide/) might come in handy.
 
 # Why are you using it?
