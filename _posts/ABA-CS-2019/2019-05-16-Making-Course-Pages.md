@@ -11,7 +11,7 @@ layout: post
   
 - Finally, setup so that the posts show all content, rather than only an excerpt
 
-- Here is the code:  
+- Here is the code. Because this is written in the liquid template format, the code must be wrapped in _raw_ and _endraw_ liquid tags, as discussed here: <https://github.com/jekyll/jekyll/issues/6430>:  
   
 ```html
 {% raw %}
