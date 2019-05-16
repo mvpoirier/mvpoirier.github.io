@@ -1,5 +1,7 @@
 ---
 published: false
+layout: post
+title: Maker Faire
 ---
 ## A New Post About Maker Faire
 
