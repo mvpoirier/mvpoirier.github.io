@@ -13,15 +13,19 @@ figure.highlight {
   font-size: $type-size-6;
   line-height: 1.8;
   border-radius: $border-radius;
-  overflow: scroll;
+  
   /*
   overflow: auto;
+  overflow: scroll;
   */
 
   > pre,
   pre.highlight {
     margin: 0;
     padding: 1em;
+    word-wrap: normal;
+    overflow-x: auto;
+    white-space: pre;
   }
 }
 
