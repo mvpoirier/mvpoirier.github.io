@@ -17,4 +17,16 @@ published: true
 
 <script src="https://raw.githack.com/mvpoirier/Javascript/master/p5-js-testbed/sketch.js"></script>
 
+- Testing with ajax injection on html:
+
+  <div id="ajaxContent"></div>
+  <script>
+  var Webflow = Webflow || [];
+  Webflow.push(function() {
+    $.get('https://rawcdn.githack.com/mvpoirier/p5js/677a284ab2b01db06b1b2148c28c24ced95b2e36/p5-js-testbed/index.html', function(data) {
+      $('#ajaxContent').append(data);
+    });
+  });
+  </script>
+
 - EOF
