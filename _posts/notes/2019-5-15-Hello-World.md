@@ -1,10 +1,10 @@
 ---
 layout: post
-title: Hello World!
+title: Hello World! Blogging with Jekyll.
 published: true
 ---
 
-Hello, and welcome to my site! The purpose of this website is to share information with current students and colleagues relating to education, physics, and computer science.
+The purpose of this website is to share information with students and colleagues relating to education, physics, and computer science.
 
 ### How This Site Works:
 This is my first blog post using [Jekyll](https://github.com/barryclark/jekyll-now), running on [GitHub Pages](https://mvpoirier.github.io/).
