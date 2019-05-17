@@ -12,3 +12,9 @@ published: true
 ## Resources
 - Favorite Websites
 - A [p5.js demo](https://rawcdn.githack.com/mvpoirier/p5js/677a284ab2b01db06b1b2148c28c24ced95b2e36/p5-js-testbed/index.html) using [Raw Git Hack](https://raw.githack.com/).
+
+- Testing with embedded script:
+
+<script src="https://raw.githack.com/mvpoirier/Javascript/master/p5-js-testbed/sketch.js"></script>
+
+- EOF
