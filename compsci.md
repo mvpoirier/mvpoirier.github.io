@@ -29,4 +29,4 @@ published: true
   });
   </script>
 
-- EOF
+- <h1>EOF</h1>
