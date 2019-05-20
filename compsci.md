@@ -28,7 +28,7 @@ published: true
 - To be added.
 
 ### And for all of you Winnipeg Jets Fans...
-```Java
+```java
 for (int i = 0; i < 5; i++){
     System.out.println("Go Jets Go!");
 }
