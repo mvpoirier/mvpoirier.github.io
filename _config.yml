@@ -9,7 +9,7 @@ name: Mike Poirier
 description: Education, Physics, and Computer Science
 
 # URL of your avatar or profile pic (you could use your GitHub profile pic)
-avatar: site.url/images/identicon_mvpoirier.png
+avatar: {{ site.url }}/images/identicon_mvpoirier.png
 #avatar: https://identicons.github.com/mvpoirier.png
 
 #
