@@ -28,9 +28,9 @@ published: true
 ## Python
 - *To be added.*
 
-### And for all of you Winnipeg Jets Fans...
+### And for all of you [Winnipeg Jets](https://www.nhl.com/jets) fans...
 ```java
-for (int i = 0; i < 5; i++){
+for (int i = 0; i < 3; i++){
     System.out.println("Go Jets Go!");
 }
 ```
