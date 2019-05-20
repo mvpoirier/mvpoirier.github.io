@@ -26,3 +26,10 @@ published: true
 
 ## Resources: Python
 - To be added.
+
+### And for all of you Winnipeg Jets Fans...
+```Java
+for (int i = 0; i < 5; i++){
+    System.out.println("Go Jets Go!");
+}
+```
