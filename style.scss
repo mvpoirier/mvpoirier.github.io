@@ -1,6 +1,3 @@
----
----
-
 //
 // IMPORTS
 //
@@ -115,6 +112,9 @@ strong, b {
 img {
   max-width: 100%;
 }
+
+// ADDED: for inline code highlighting
+.inlined { display:inline; }
 
 // Fixes images in popup boxes from Google Translate
 .gmnoprint img {
