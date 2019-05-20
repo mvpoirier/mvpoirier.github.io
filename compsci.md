@@ -5,7 +5,7 @@ permalink: /compsci/
 published: true
 ---
 
-<h3 style = color:ForestGreen; align="center"><i>Resources for the DP Computer Science Program.</i></h3>
+<div><h3 style = color:ForestGreen; align="center"><i>Resources for the DP Computer Science Program.</i></h3></div>
 
 ## Diploma Programme Course Pages
 - [ABA Class of 2020 (DP Year 2)](pages/2019-ABA-CS.html)
