@@ -5,11 +5,12 @@
 
  //ADD FOR CODE ` TICKS INLINE  
    code {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: Courier;
     //font-family: $monospace;
+    color: black;
     font-size: $type-size-6;
-    font-weight: bold;
-    background-color: gray;
+    //font-weight: bold;
+    background-color: gainsboro;
   }
 
 div.highlighter-rouge,
