@@ -3,7 +3,7 @@
    Syntax highlighting
    ========================================================================== */
 
- //ADD FOR CODE ` TICKS INLINE  
+ //ADDED FOR CODE ` TICKS INLINE  
    code.highlighter-rouge {
     font-family: $monospace;
     color: black;
@@ -78,9 +78,6 @@ figure.highlight {
   background-color: $base06;
 }
 .highlight {
-  
-  // ADDED: for inline code highlighting
-  .inlined { display:inline; }
 
   .c {
     /* Comment */

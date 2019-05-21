@@ -34,7 +34,20 @@ for i in range(3):
 {% endhighlight %}
   
 ### Inline Syntax Highligting Test
-This is some java code {% highlight java %} System.out.println("Test"); {% endhighlight %}{: .inlined } that is inline (hopefully). Try that again with the code tag <code>Test();</code>. Going to try one more time with regular backticks `System.out.println("Test");` maybe that works.
+This is some standard code `System.out.println("Test");` written in-line.
+
+**CSS added to _syntax.scss to enable inline syntax highlights with backticks**
+{% raw %}
+```css
+ //ADDED FOR CODE ` TICKS INLINE  
+   code.highlighter-rouge {
+    font-family: $monospace;
+    color: black;
+    font-size: $type-size-6;
+    background-color: gainsboro;
+  }
+  ```
+{% endraw %}
 
 ### What's Next?
 - Begin adding sections for education, physics, and computer science  
