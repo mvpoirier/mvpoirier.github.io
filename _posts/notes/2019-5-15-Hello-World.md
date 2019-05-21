@@ -39,4 +39,4 @@ for i in range(3):
 - Provide a better layout (more width) for readability
 
 ### Inline Syntax Highligting Test
-This is some java code {% highlight java %} System.out.println("Test"); {% endhighlight %}{: .inlined } that is inline (hopefully). Try that again with the code tag <code>Test</code>.
+This is some java code {% highlight java %} System.out.println("Test"); {% endhighlight %}{: .inlined } that is inline (hopefully). Try that again with the code tag <code>Test();</code>. Going to try one more time with regular backticks `System.out.println("Test");` maybe that works.
