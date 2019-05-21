@@ -9,7 +9,7 @@ layout: post
   
 - The posts displayed are setup to show all content, `post.content`, rather than only an excerpt.
 
-- Here is the code, written in the [Jekyll Liquid Template Language](https://shopify.github.io/liquid/) and CSS. Because this is written in the liquid template format, the code must be wrapped in {% raw %} `{% raw %}` {% endraw %} and {% raw %} `{% endraw %}` {% endraw %} liquid tags, as discussed here: <https://github.com/jekyll/jekyll/issues/6430>:  
+- Here is the code, written in the [Jekyll Liquid Template Language](https://shopify.github.io/liquid/) and CSS. Because this is written in the liquid template format, the code must be wrapped in `% raw %` and `% endraw %` liquid tags, enclosed in `{ }`, as discussed here: <https://github.com/jekyll/jekyll/issues/6430>:  
   
 {% raw %}
 ```html
