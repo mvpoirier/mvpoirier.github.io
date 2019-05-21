@@ -58,7 +58,9 @@ figure.highlight {
 
   //ADDED CODE
   code {
-    font-family: 'Courier New', Courier, monospace;
+    //font-family: 'Courier New', Courier, monospace;
+    font-family: $monospace;
+    font-size: $type-size-6;
   }
 
   pre {
