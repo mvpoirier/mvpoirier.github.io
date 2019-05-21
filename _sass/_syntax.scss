@@ -5,9 +5,11 @@
 
  //ADD FOR CODE ` TICKS INLINE  
    code {
-    //font-family: 'Courier New', Courier, monospace;
-    font-family: $monospace;
+    font-family: 'Courier New', Courier, monospace;
+    //font-family: $monospace;
     font-size: $type-size-6;
+    font-weight: bold;
+    background-color: gray;
   }
 
 div.highlighter-rouge,
@@ -61,13 +63,6 @@ figure.highlight {
     &.rouge-code {
       padding-left: 1em;
     }
-  }
-
-  //ADDED CODE
-  code {
-    //font-family: 'Courier New', Courier, monospace;
-    font-family: $monospace;
-    font-size: $type-size-6;
   }
 
   pre {
