@@ -34,7 +34,7 @@ for i in range(3):
 {% endhighlight %}
   
 ### Inline Syntax Highlighting Test
-This is some standard code `System.out.println("Test");` written in-line. The CSS code which was added to /_layouts/_syntax.scss to enable in-line syntax highlights with backticks is shared below:
+This is some standard code `System.out.println("Test");` written in-line. The CSS code which was added to /_sass/_syntax.scss to enable in-line syntax highlights with backticks is shared below:
 
 {% raw %}
 ```css
