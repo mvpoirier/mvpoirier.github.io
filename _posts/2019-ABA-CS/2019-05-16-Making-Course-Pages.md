@@ -5,11 +5,11 @@ layout: post
 ---
 - Develop a separate folder in posts, which will act as a category: 2019-ABA-CS  
   
-- The course page `pages/2019-ABA-CS.html` uses a _post category_ when handeling posts located in subdirectories, such as posts/2019-ABA-CS/
+- The course page `pages/2019-ABA-CS.html` uses a `post category` when handeling posts located in subdirectories, such as `posts/2019-ABA-CS/`
   
 - The posts displayed are setup to show all content, `post.content`, rather than only an excerpt.
 
-- Here is the code, written in the [Jekyll Liquid Template Language](https://shopify.github.io/liquid/) and CSS. Because this is written in the liquid template format, the code must be wrapped in _raw_ and _endraw_ liquid tags, as discussed here: <https://github.com/jekyll/jekyll/issues/6430>:  
+- Here is the code, written in the [Jekyll Liquid Template Language](https://shopify.github.io/liquid/) and CSS. Because this is written in the liquid template format, the code must be wrapped in `{% raw %}` and `{% endraw %}` liquid tags, as discussed here: <https://github.com/jekyll/jekyll/issues/6430>:  
   
 {% raw %}
 ```html
