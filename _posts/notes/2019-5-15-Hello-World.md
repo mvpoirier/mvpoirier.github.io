@@ -33,7 +33,7 @@ for i in range(3):
 	print("bacon!")
 {% endhighlight %}
   
-### Inline Syntax Highlighting Test
+### Inline Syntax Highlighting
 This is some standard code `System.out.println("Test");` written in-line. The CSS code which was added to _/\_sass/\_syntax.scss_ to enable in-line syntax highlights with backticks is shared below:
 
 {% raw %}
