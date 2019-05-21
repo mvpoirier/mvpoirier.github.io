@@ -37,3 +37,6 @@ for i in range(3):
 - Begin adding sections for education, physics, and computer science  
 - Consider the best way to host resources (Google Drive, Dropbox, Github, Wix)  
 - Provide a better layout (more width) for readability
+
+### Inline Syntax Highligting Test
+This is some java code {% highlight java %} System.out.println("Test"); {% endhighlight %}{: .inlined } that is inline (hopefully).

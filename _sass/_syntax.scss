@@ -69,6 +69,10 @@ figure.highlight {
   background-color: $base06;
 }
 .highlight {
+  
+  // ADDED: for inline code highlighting
+  .inlined { display:inline; }
+
   .c {
     /* Comment */
     color: $base04;
