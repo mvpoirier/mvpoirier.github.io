@@ -23,9 +23,12 @@ published: true
 
 ## Javascript
 - [processing.js](http://processingjs.org/): A port of the processing visualization language for Javascript
-- My own [p5.js demo](https://rawcdn.githack.com/mvpoirier/p5js/677a284ab2b01db06b1b2148c28c24ced95b2e36/p5-js-testbed/index.html), hosted using [Raw Git Hack](https://raw.githack.com/):
+- My own [p5.js demo](https://rawcdn.githack.com/mvpoirier/p5js/677a284ab2b01db06b1b2148c28c24ced95b2e36/p5-js-testbed/index.html), hosted using [Raw Git Hack](https://raw.githack.com/), embedded with `<iframe>`:
 
-<iframe src="https://rawcdn.githack.com/mvpoirier/p5js/677a284ab2b01db06b1b2148c28c24ced95b2e36/p5-js-testbed/index.html" 
+<iframe 
+width="500" height="500"
+frameborder="2" 
+src="https://rawcdn.githack.com/mvpoirier/p5js/677a284ab2b01db06b1b2148c28c24ced95b2e36/p5-js-testbed/index.html" 
 ></iframe>
 
 ## Python
