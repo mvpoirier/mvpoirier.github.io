@@ -6,10 +6,11 @@
  //ADDED FOR CODE ` TICKS INLINE  
    code.highlighter-rouge {
     font-family: $monospace;
-    color: $darkerGray;
-    font-size: $type-size-7;
-    //font-weight: bold;
-    background-color: gainsboro;
+    color: $base05;
+    font-size: $type-size-6;
+    background-color: $base00;
+    border-radius: $border-radius;
+    line-height: 1.8;
   }
 
 div.highlighter-rouge,
