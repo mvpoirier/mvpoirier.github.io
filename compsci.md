@@ -26,7 +26,7 @@ published: true
 - My own [p5.js](https://p5js.org/) demonstration, hosted using [Raw Git Hack](https://raw.githack.com/), and embedded with `<iframe>`:
 
 <iframe 
-width="500" height="500"
+width="505" height="505"
 frameborder="1" 
 src="https://raw.githack.com/mvpoirier/Javascript/master/squareCircle/index.html">
 </iframe>
