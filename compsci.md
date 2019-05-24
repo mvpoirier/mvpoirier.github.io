@@ -25,8 +25,9 @@ published: true
 - [processing.js](http://processingjs.org/): A port of the processing visualization language for Javascript
 - My own [p5.js](https://p5js.org/) demonstration, hosted using [Raw Git Hack](https://raw.githack.com/), and embedded with `<iframe>`:
 
+<!-- Added extra 25px to width and height to prevent iframe scrolling -->
 <iframe 
-width="505" height="505"
+width="525" height="525"
 frameborder="1" 
 src="https://raw.githack.com/mvpoirier/Javascript/master/squareCircle/index.html">
 </iframe>
