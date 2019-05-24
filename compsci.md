@@ -23,13 +23,15 @@ published: true
 
 ## Javascript
 - [processing.js](http://processingjs.org/): A port of the processing visualization language for Javascript
-- My own [p5.js demo](https://rawcdn.githack.com/mvpoirier/p5js/677a284ab2b01db06b1b2148c28c24ced95b2e36/p5-js-testbed/index.html), hosted using [Raw Git Hack](https://raw.githack.com/), embedded with `<iframe>`:
+- My own [p5.js](https://p5js.org/) demonstration, hosted using [Raw Git Hack](https://raw.githack.com/), and embedded with `<iframe>`:
 
+`https://github.com/mvpoirier/Javascript/tree/master/squareCircle/index.html`
 <iframe 
 width="550" height="550"
 frameborder="1" 
-src="https://raw.githack.com/mvpoirier/Javascript/master/p5-js-testbed/index.html">
+src="https://raw.githack.com/mvpoirier/Javascript/master/squareCircle/index.html">
 </iframe>
+_Click [here](https://github.com/mvpoirier/Javascript/blob/master/squareCircle/sketch.js) to see the Javascript sketch._
 
 ## Python
 - *To be added.*
