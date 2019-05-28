@@ -34,7 +34,7 @@ src="https://raw.githack.com/mvpoirier/Javascript/master/squareCircle/index.html
 
 - Here is another demo, this time visualizing `Bubble Sort` with p5.js:
 <iframe 
-width="825" height="225"
+width="825" height="250"
 frameborder="0" 
 src="https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/index.html">
 </iframe>
