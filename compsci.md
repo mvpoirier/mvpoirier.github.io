@@ -46,9 +46,8 @@ src="https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/in
 &nbsp;
 &nbsp;
 &nbsp;
-#### ...and for all of you [Winnipeg Jets](https://www.nhl.com/jets) fans...
-```java
-for (int i = 0; i < 3; i++){
-    System.out.println("Go Jets Go!");
-}
+#### ...for all of you [Winnipeg Jets](https://www.nhl.com/jets) fans in `python`...
+```python
+for i in range (3):
+    print("Go Jets Go!")
 ```
