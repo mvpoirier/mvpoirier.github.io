@@ -28,7 +28,7 @@ published: true
 <!-- Added extra 25px to width and height to prevent iframe scrolling -->
 <iframe 
 width="525" height="525"
-frameborder="1" 
+frameborder="0" 
 src="https://raw.githack.com/mvpoirier/Javascript/master/squareCircle/index.html">
 </iframe>
 
