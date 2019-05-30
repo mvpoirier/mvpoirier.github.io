@@ -32,11 +32,17 @@ frameborder="0"
 src="https://raw.githack.com/mvpoirier/Javascript/master/squareCircle/index.html">
 </iframe>
 
-- Here is another demo, this time visualizing `Bubble Sort` with p5.js:
+- Here is another demo, this time visualizing `Bubble Sort` and `Selection Sort` with p5.js:
 <iframe 
 width="825" height="250"
 frameborder="0" 
 src="https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/bubbleSort.html">
+</iframe>
+
+<iframe 
+width="825" height="250"
+frameborder="0" 
+src="https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/selectionSort.html">
 </iframe>
 
 ## Python
