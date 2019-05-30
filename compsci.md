@@ -36,7 +36,7 @@ src="https://raw.githack.com/mvpoirier/Javascript/master/squareCircle/index.html
 <iframe 
 width="825" height="250"
 frameborder="0" 
-src="https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/index.html">
+src="https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/bubbleSort.html">
 </iframe>
 
 ## Python
