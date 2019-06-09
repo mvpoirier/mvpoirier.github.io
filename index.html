@@ -9,7 +9,7 @@ published: true
   <article class="post">
 
     <h2 style=background-color:Gainsboro;>{{ post.date | date: "%B %e, %Y" }} - {{ post.title }}</h2>
-
+<!--
     {% if post.path contains 'notes' %}
     <div class="date">
       <p style=color:ForestGreen><b>Notes</b></p>
@@ -24,7 +24,7 @@ published: true
     <div class="entry">
       {{ post.excerpt }}
     </div>
-
+-->
     <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read More</a>
   </article>
   {% endfor %}
