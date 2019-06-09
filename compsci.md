@@ -5,11 +5,7 @@ permalink: /compsci/
 published: true
 ---
 
-## Course Pages
-- [ABA Class of 2020 (DP CS Year 2)](pages/2019-ABA-CS.html)
-- *ABA Class of 2021 (DP CS Year 1)*
-
-## DP Computer Science Resources
+## Diploma Programme
 - [IB DP Computer Science Guide](http://xmltwo.ibo.org/publications/DP/Group5/d_5_comsc_gui_1201_1/html/67.207.142.65/exist/rest/app/gui.xql@doc=d_5_comsc_gui_1201_1_e&part=1&chapter=1.html)
 - [IB DP Computer Science Teacher Support Material (TSM)](https://ibpublishing.ibo.org/live-exist/rest/app/tsm.xql?doc=d_4_comsc_tsm_1201_2_e&part=1&chapter=1)
 - [FIS DP Computer Science 2018](https://sites.google.com/a/fis.edu/fiscomp/)
