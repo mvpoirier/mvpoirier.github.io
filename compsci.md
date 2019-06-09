@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Computer Science
+title: Computer Science Resources
 permalink: /compsci/
 published: true
 ---
