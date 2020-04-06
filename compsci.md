@@ -11,13 +11,10 @@ published: true
 - [FIS DP Computer Science 2018](https://sites.google.com/a/fis.edu/fiscomp/)
 - [IB CompSci Hub](https://ib.compscihub.net/)
 
-## Editors, IDEs, Software
+## My Workflow: Editors, IDEs, Software, ect.
 - *To be added.*
 
-## Java
-- *To be added.*
-
-## Javascript
+## Javascript, P5.js, Processing
 - [processing.js](http://processingjs.org/): A port of the processing visualization language for Javascript
 - My own [p5.js](https://p5js.org/) demonstration, hosted using [Raw Git Hack](https://raw.githack.com/), and embedded with `<iframe>`:
 
@@ -40,9 +37,6 @@ width="825" height="250"
 frameborder="0" 
 src="https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/selectionSort.html">
 </iframe>
-
-## Python
-- *To be added.*
 
 <!--Add spacing-->
 &nbsp;
