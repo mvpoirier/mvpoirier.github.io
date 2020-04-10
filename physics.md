@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Physics Resources
+title: Physics
 permalink: /physics/
 published: true
 ---

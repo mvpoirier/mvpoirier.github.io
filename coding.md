@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Computer Science Resources
-permalink: /compsci/
+title: Coding
+permalink: /coding/
 published: true
 ---
 

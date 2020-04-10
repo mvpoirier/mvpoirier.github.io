@@ -9,5 +9,5 @@
 # Why am I using it?
 - Communicate with students and colleagues on what I'm doing relating to education, physics, and computer science
 - Allow a convenient place to link my programming on GitHub
-- Take advantage of the syntax-highlighting capabilities of Jekyll for CompSci demos
-- Have a place to archive what I'm doing between different schools, with more ownership rights
+- Take advantage of the syntax-highlighting capabilities of Jekyll for coding demos
+- Have a place to archive what I'm doing in a central location
