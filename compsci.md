@@ -29,7 +29,7 @@ published: true
 Coding projects I've completed can be found on my personal [Github Repository](https://github.com/mvpoirier/).
 
 
-## Examples
+## A Few Examples...
 The following [p5.js](https://p5js.org/) scripts are hosted using [Raw Git Hack](https://raw.githack.com/), and embedded with `<iframe>`:
 
 - Interactive visual with changing colour and shape based on canvas location and user input:
@@ -54,7 +54,7 @@ frameborder="0"
 src="https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/selectionSort.html">
 </iframe>
 
-#### ...and for all of you [Winnipeg Jets](https://www.nhl.com/jets) and `python` fans:
+#### ...and for all of you [Winnipeg Jets](https://www.nhl.com/jets) and `Python 3` fans:
 ```python
 for i in range (3):
     print("Go Jets Go!")
