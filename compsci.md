@@ -5,25 +5,34 @@ permalink: /compsci/
 published: true
 ---
 
-## Diploma Programme
-- [IB DP Computer Science Guide](http://xmltwo.ibo.org/publications/DP/Group5/d_5_comsc_gui_1201_1/html/67.207.142.65/exist/rest/app/gui.xql@doc=d_5_comsc_gui_1201_1_e&part=1&chapter=1.html)
-- [IB DP Computer Science Teacher Support Material (TSM)](https://ibpublishing.ibo.org/live-exist/rest/app/tsm.xql?doc=d_4_comsc_tsm_1201_2_e&part=1&chapter=1)
-- [FIS DP Computer Science 2018](https://sites.google.com/a/fis.edu/fiscomp/)
-- [IB CompSci Hub](https://ib.compscihub.net/)
+## Workflow & Software
+- Editor: [Visual Studio Code](https://code.visualstudio.com/)
+    - Extensions: [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer), [Beautify](https://marketplace.visualstudio.com/items?itemName=HookyQR.beautify)
+- IDE Java: [Eclipse](https://www.eclipse.org/downloads/)
+    - Extensions: [WindowBuilder](https://www.eclipse.org/windowbuilder/)
+- Source Control: [Git](https://git-scm.com/) & [Github](https://github.com/)
+- Terminal: [iTerm2](https://www.iterm2.com/)
+    - [Homebrew](https://brew.sh/)
+    - [Oh My ZSH](https://ohmyz.sh/)
+    - [SDKMAN!](https://sdkman.io/)
 
-## My Workflow: Editors, IDEs, Software, ect.
-- *To be added.*
+
+## Languages & Builds
+- Javascript: [p5.js](https://p5js.org/), [processing.js](http://processingjs.org/)
+- Java: [OpenJDK14](https://openjdk.java.net/) Binaries with SDKMAN! @ [AdoptOpenJDK](https://adoptopenjdk.net/)
+- Python: [Python 3](https://www.python.org/downloads/)
+
 
 ## ePortfolio
-- [squareCircle](https://raw.githack.com/mvpoirier/Javascript/master/squareCircle/index.html)
-    - An interactive visual in [p5.js](https://p5js.org/).
-&nbsp;
-- [processing.js](http://processingjs.org/): A port of the processing visualization language for Javascript
-&nbsp;
-- My own [p5.js](https://p5js.org/) demonstration, hosted using [Raw Git Hack](https://raw.githack.com/), and embedded with `<iframe>`:
+- Coding projects and examples I've made can be found on my personal [Github Repository](https://github.com/mvpoirier/).
+- A few highlighted examples:
+    1. [squareCircle](https://raw.githack.com/mvpoirier/Javascript/master/squareCircle/index.html)
+        - An interactive visual in [p5.js](https://p5js.org/).
 
+## Embedded Examples
+
+- The following exmaples are hosted using [Raw Git Hack](https://raw.githack.com/), and embedded with `<iframe>`:
 <!-- Added extra 25px to width and height to prevent iframe scrolling -->
-<!-- EMBED CODE EXAMPLES START
 <iframe 
 width="525" height="525"
 frameborder="0" 
@@ -42,10 +51,8 @@ width="825" height="250"
 frameborder="0" 
 src="https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/selectionSort.html">
 </iframe>
-EMBED CODE EXAMPLES END-->
 
 <!--Add spacing-->
-&nbsp;
 &nbsp;
 &nbsp;
 #### ...and for all of you [Winnipeg Jets](https://www.nhl.com/jets) and `python` fans:
