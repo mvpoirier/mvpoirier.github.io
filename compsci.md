@@ -20,9 +20,9 @@ published: true
 
 
 ## Programming Languages
-- Javascript: [p5.js](https://p5js.org/), [processing.js](http://processingjs.org/)
-- Java: [OpenJDK14](https://openjdk.java.net/) @ [AdoptOpenJDK](https://adoptopenjdk.net/)
-- Python: [Python 3](https://www.python.org/downloads/)
+- **Javascript**: [p5.js](https://p5js.org/), [processing.js](http://processingjs.org/)
+- **Python**: [Python 3](https://www.python.org/downloads/)
+- **Java**: [OpenJDK14](https://openjdk.java.net/) @ [AdoptOpenJDK](https://adoptopenjdk.net/)
 
 
 ## ePortfolio
@@ -47,15 +47,13 @@ frameborder="0"
 src="https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/bubbleSort.html">
 </iframe>
 
--Visualizing the `Selection Sort` algorithm:
+- Visualizing the `Selection Sort` algorithm:
 <iframe 
 width="825" height="250"
 frameborder="0" 
 src="https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/selectionSort.html">
 </iframe>
 
-<!--Add spacing-->
-&nbsp;
 #### ...and for all of you [Winnipeg Jets](https://www.nhl.com/jets) and `python` fans:
 ```python
 for i in range (3):
