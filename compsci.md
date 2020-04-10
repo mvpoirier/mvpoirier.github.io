@@ -17,7 +17,9 @@ published: true
 ## ePortfolio
 - [squareCircle](https://raw.githack.com/mvpoirier/Javascript/master/squareCircle/index.html)
     - An interactive visual in [p5.js](https://p5js.org/).
+&nbsp;
 - [processing.js](http://processingjs.org/): A port of the processing visualization language for Javascript
+&nbsp;
 - My own [p5.js](https://p5js.org/) demonstration, hosted using [Raw Git Hack](https://raw.githack.com/), and embedded with `<iframe>`:
 
 <!-- Added extra 25px to width and height to prevent iframe scrolling -->
