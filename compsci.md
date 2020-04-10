@@ -14,12 +14,15 @@ published: true
 ## My Workflow: Editors, IDEs, Software, ect.
 - *To be added.*
 
-## Javascript, P5.js, Processing
+## ePortfolio of Coding Examples
+### Javascript, [p5.js](https://p5js.org/), Processing
+### Python
 - Example #1: [squareCircle](https://raw.githack.com/mvpoirier/Javascript/master/squareCircle/index.html)
 - [processing.js](http://processingjs.org/): A port of the processing visualization language for Javascript
 - My own [p5.js](https://p5js.org/) demonstration, hosted using [Raw Git Hack](https://raw.githack.com/), and embedded with `<iframe>`:
 
 <!-- Added extra 25px to width and height to prevent iframe scrolling -->
+<!-- EMBED CODE EXAMPLES START
 <iframe 
 width="525" height="525"
 frameborder="0" 
@@ -38,6 +41,7 @@ width="825" height="250"
 frameborder="0" 
 src="https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/selectionSort.html">
 </iframe>
+EMBED CODE EXAMPLES END-->
 
 <!--Add spacing-->
 &nbsp;
