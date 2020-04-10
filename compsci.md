@@ -33,7 +33,7 @@ published: true
 ## Embedded p5.js Examples
 The following [p5.js](https://p5js.org/) examples are hosted using [Raw Git Hack](https://raw.githack.com/), and embedded with `<iframe>`:
 
-- Interactive visual and morphing shapes based on location:
+- Interactive visual, with changing colour and shape based on canvas location:
 <!-- Added extra 25px to width and height to prevent iframe scrolling -->
 <iframe 
 width="525" height="525"
