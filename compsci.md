@@ -19,20 +19,20 @@ published: true
     - [SDKMAN!](https://sdkman.io/)
 
 
-## Languages & Builds
+## Programming Languages
 - Javascript: [p5.js](https://p5js.org/), [processing.js](http://processingjs.org/)
 - Java: [OpenJDK14](https://openjdk.java.net/) @ [AdoptOpenJDK](https://adoptopenjdk.net/)
 - Python: [Python 3](https://www.python.org/downloads/)
 
 
 ## ePortfolio
-- Coding projects and examples I've made can be found on my personal [Github Repository](https://github.com/mvpoirier/).
+Coding projects I've completed can be found on my personal [Github Repository](https://github.com/mvpoirier/).
 
 
-## Embedded p5.js Examples
-The following [p5.js](https://p5js.org/) examples are hosted using [Raw Git Hack](https://raw.githack.com/), and embedded with `<iframe>`:
+## Examples
+The following [p5.js](https://p5js.org/) scripts are hosted using [Raw Git Hack](https://raw.githack.com/), and embedded with `<iframe>`:
 
-- Interactive visual, with changing colour and shape based on canvas location:
+- Interactive visual with changing colour and shape based on canvas location and user input:
 <!-- Added extra 25px to width and height to prevent iframe scrolling -->
 <iframe 
 width="525" height="525"
@@ -40,13 +40,14 @@ frameborder="0"
 src="https://raw.githack.com/mvpoirier/Javascript/master/squareCircle/index.html">
 </iframe>
 
-- Visualizing `Bubble Sort` and `Selection Sort` algorithms:
+- Visualizing the `Bubble Sort` algorithm:
 <iframe 
 width="825" height="250"
 frameborder="0" 
 src="https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/bubbleSort.html">
 </iframe>
 
+-Visualizing the `Selection Sort` algorithm:
 <iframe 
 width="825" height="250"
 frameborder="0" 
