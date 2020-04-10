@@ -2,14 +2,14 @@
 layout: default
 published: true
 ---
-<h1 style=background-color:SlateBlue;color:White; align="center">Blog: What's New?</h1>
+<h1 style=background-color:SlateBlue;color:White; align="center">Blog</h1>
 
 <div class="posts">
   {% for post in site.posts %}
   <article class="post">
 
     <h2 style=background-color:Gainsboro;>{{ post.date | date: "%B %e, %Y" }} - {{ post.title }}</h2>
-<!--
+    <!--
     {% if post.path contains 'notes' %}
     <div class="date">
       <p style=color:ForestGreen><b>Notes</b></p>
