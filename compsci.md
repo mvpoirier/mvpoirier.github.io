@@ -48,7 +48,7 @@ EMBED CODE EXAMPLES END-->
 &nbsp;
 &nbsp;
 &nbsp;
-#### ...for all of you [Winnipeg Jets](https://www.nhl.com/jets) fans in `python`...
+#### ...and for all of you [Winnipeg Jets](https://www.nhl.com/jets) and `python` fans:
 ```python
 for i in range (3):
     print("Go Jets Go!")
