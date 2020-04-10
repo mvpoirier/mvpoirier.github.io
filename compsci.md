@@ -56,7 +56,6 @@ src="https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/se
 
 <!--Add spacing-->
 &nbsp;
-&nbsp;
 #### ...and for all of you [Winnipeg Jets](https://www.nhl.com/jets) and `python` fans:
 ```python
 for i in range (3):
