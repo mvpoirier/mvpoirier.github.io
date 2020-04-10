@@ -6,15 +6,14 @@ published: true
 ---
 
 ## Workflow & Software
-- Editor: [Visual Studio Code](https://code.visualstudio.com/)
-    - Extensions: [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer), [Beautify](https://marketplace.visualstudio.com/items?itemName=HookyQR.beautify)
-- IDE: [Eclipse](https://www.eclipse.org/downloads/)
-    - Extensions: [WindowBuilder](https://www.eclipse.org/windowbuilder/)
-- Source Control
-    - [Git](https://git-scm.com/)
+- **Editor: [Visual Studio Code](https://code.visualstudio.com/)**
+    - [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
+    - [Beautify](https://marketplace.visualstudio.com/items?itemName=HookyQR.beautify)
+- **IDE: [Eclipse](https://www.eclipse.org/downloads/)**
+    - [WindowBuilder](https://www.eclipse.org/windowbuilder/)
+- **Source Control: [Git](https://git-scm.com/)**
     - [Github](https://github.com/)
-- Terminal
-    - [iTerm2](https://www.iterm2.com/)
+- **Terminal: [iTerm2](https://www.iterm2.com/)**
     - [Homebrew](https://brew.sh/)
     - [Oh My ZSH](https://ohmyz.sh/)
     - [SDKMAN!](https://sdkman.io/)
