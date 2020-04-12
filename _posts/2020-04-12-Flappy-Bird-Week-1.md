@@ -5,7 +5,7 @@ layout: post
 ---
 **Overview**
 - Based on Daniel Shiffman's [Coding Train YouTube Channel](https://www.youtube.com/user/shiffman/featured), I've been following his [Coding Challenge 31 - Flappy Bird](https://www.youtube.com/watch?v=cXgA1d_E-jY) video tutorial and [CC 31 Github Repository](https://github.com/CodingTrain/Flappy-Bird-Clone) to develop my own Flappy Bird Clone.
-- All of my progress can be found at [github.com/mvpoirier](https://github.com/mvpoirier/Javascript/tree/master/flappyBirdClones).
+- My daily progress can be found at [github.com/mvpoirier](https://github.com/mvpoirier/Javascript/tree/master/flappyBirdClones).
 
 **Key Changes**
 - Setup `bird.js` and `sketch.js` and html wrapper for development using my [p5.js template](https://github.com/mvpoirier/Javascript/tree/master/p5-js-template).
