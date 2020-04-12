@@ -26,7 +26,7 @@ if (!(this.y < 0 + this.height / 2) && !(this.y > height - this.height / 2)) {
 
 <!--Added additional pixels to width and height to remove iframe scrolling -->
 <iframe 
-width="875" height="675"
+width="875" height="700"
 frameborder="0" 
 src="https://raw.githack.com/mvpoirier/Javascript/master/flappyBirdClones/flappyBird_P5JS/DAY1/flappybird_mp.html">
 </iframe>
