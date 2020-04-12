@@ -1,6 +1,6 @@
 ---
 published: true
-title: Flappy Bird Week 1 Progress (Quarantine Edition)
+title: Flappy Bird Clone > Week 1 Progress
 layout: post
 ---
 **Overview**
@@ -47,3 +47,4 @@ src="https://raw.githack.com/mvpoirier/Javascript/master/flappyBirdClones/flappy
 - Background & parallax motion
 - Pipes / obstacles (difficulty levels)
 - Scoring
+- Graphics (toggle between shapes or icons)
