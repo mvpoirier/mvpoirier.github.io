@@ -14,7 +14,7 @@ published: true
 - **Source Control: [Git](https://git-scm.com/)**
     - [Github](https://github.com/)
     - [gitignore.io](https://gitignore.io/)
-- **Content Delivery: [cdnjs](https://cdnjs.com/)**
+- **Content Delivery: [jsDelivr](https://www.jsdelivr.com/) & [cdnjs](https://cdnjs.com/)**
     - [raw.githack.com](https://raw.githack.com/)
 - **Terminal: [iTerm2](https://www.iterm2.com/)**
     - [Homebrew](https://brew.sh/)
