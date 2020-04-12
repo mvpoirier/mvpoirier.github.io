@@ -10,13 +10,13 @@ layout: post
 **Key Changes**
 - Setup `bird.js` and `sketch.js` and html wrapper for development using my [p5.js template](https://github.com/mvpoirier/Javascript/tree/master/p5-js-template).
 
-- Tweaked the Bird object's gravity and lift values:
+- Modified the Bird object's gravity and lift values (tweaking to continue):
 ```javascript
 this.gravity = 0.4;
 this.lift = -15;
 ```
 
-- Modified the Bird's `up()` function so that the bird cannot go off the screen:
+- Modified it so that the bird cannot go off the screen:
 ```javascript
 if (!(this.y < 0 + this.height / 2) && !(this.y > height - this.height / 2)) {
     this.velocity += this.lift;
