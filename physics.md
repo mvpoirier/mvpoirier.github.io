@@ -5,6 +5,8 @@ permalink: /physics/
 published: true
 ---
 
+*To do: Add physics bookmarks list (import Firefox HTML)*
+
 ## Learning
 - [Doc Schuster](https://www.youtube.com/user/diggitydev/videos)
 - [Chris Doner](https://www.youtube.com/user/exportationality/videos)
