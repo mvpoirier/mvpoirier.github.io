@@ -1,10 +1,11 @@
 ---
 published: true
-title: Flappy Bird - Day 1 Progress
+title: Flappy Bird - Day 1 Progress (Quarantine Edition)
 layout: post
 ---
-**Progress So Far...***
-Based on Daniel Shiffman's [Coding Train YouTube Channel](https://www.youtube.com/user/shiffman/featured), I've been following his [Coding Challenge 31 - Flappy Bird](https://www.youtube.com/watch?v=cXgA1d_E-jY) video tutorial and [Github Repository](https://github.com/CodingTrain/Flappy-Bird-Clone) to develop my own Flappy Bird Clone.
+**Overview**
+- Based on Daniel Shiffman's [Coding Train YouTube Channel](https://www.youtube.com/user/shiffman/featured), I've been following his [Coding Challenge 31 - Flappy Bird](https://www.youtube.com/watch?v=cXgA1d_E-jY) video tutorial and [CC 31 Github Repository](https://github.com/CodingTrain/Flappy-Bird-Clone) to develop my own Flappy Bird Clone.
+- All of my source code and progress can be found at https://github.com/mvpoirier.
 
 **Key Changes**
 - Setup `bird.js` and `sketch.js` and html wrapper for development using my [p5.js template](https://github.com/mvpoirier/Javascript/tree/master/p5-js-template).
