@@ -3,7 +3,7 @@ published: true
 title: Flappy Bird - Day 1 Progress
 layout: post
 ---
-**Progress So Far...**
+**Progress So Far...***
 Based on Daniel Shiffman's [Coding Train YouTube Channel](https://www.youtube.com/user/shiffman/featured), I've been following his [Coding Challenge 31 - Flappy Bird](https://www.youtube.com/watch?v=cXgA1d_E-jY) video tutorial and [Github Repository](https://github.com/CodingTrain/Flappy-Bird-Clone) to develop my own Flappy Bird Clone.
 
 **Key Changes**
@@ -23,7 +23,6 @@ if (!(this.y < 0 + this.height / 2) && !(this.y > height - this.height / 2)) {
 }
 ```
 
-**p5.js Javscript sketch - DAY 1**
 <iframe 
 width="850" height="650"
 frameborder="0" 
