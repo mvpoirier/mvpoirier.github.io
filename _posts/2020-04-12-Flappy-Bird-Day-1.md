@@ -15,6 +15,7 @@ layout: post
 this.gravity = 0.4;
 this.lift = -15;
 ```
+
 - Modified the Bird's `up()` function so that the bird cannot go off the screen:
 ```javascript
 if (!(this.y < 0 + this.height / 2) && !(this.y > height - this.height / 2)) {
@@ -22,6 +23,16 @@ if (!(this.y < 0 + this.height / 2) && !(this.y > height - this.height / 2)) {
 } else {
     this.velocity = 0;
 }
+```
+
+- Disabled the user ability to use the spacebar to scroll the browser, *[source](https://stackoverflow.com/questions/8916620/disable-arrow-key-scrolling-in-users-browser)*:
+```javascript
+window.addEventListener("keydown", function (e) {
+    // spacebar = 32
+    if ([32].indexOf(e.keyCode) > -1) {
+        e.preventDefault(); // prevents default browser behaviour when interacting with p5.js
+    }
+}, false);
 ```
 
 <!--Added additional pixels to width and height to remove iframe scrolling -->
