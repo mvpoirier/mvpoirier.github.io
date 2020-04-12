@@ -25,7 +25,7 @@ if (!(this.y < 0 + this.height / 2) && !(this.y > height - this.height / 2)) {
 
 **p5.js Javscript sketch - DAY 1**
 <iframe 
-width="825" height="625"
+width="850" height="650"
 frameborder="0" 
 src="https://raw.githack.com/mvpoirier/Javascript/master/flappyBirdClones/flappyBird_P5JS/DAY1/flappybird_mp.html">
 </iframe>
