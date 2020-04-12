@@ -1,6 +1,6 @@
 ---
 published: true
-title: Flappy Bird - Day 1 Progress (Quarantine Edition)
+title: Flappy Bird Day 1 Progress (Quarantine Edition)
 layout: post
 ---
 **Overview**
