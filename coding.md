@@ -32,11 +32,12 @@ published: true
 
 
 ## ePortfolio
-All coding projects I've completed can be found on my personal [Github Repository](https://github.com/mvpoirier/).
+All coding projects I've completed can be found on my **[personal Github Repository](https://github.com/mvpoirier/)**.
 
-**In the meantime, a few examples...** the scripts below are written in [p5.js](https://p5js.org/), hosted using [Raw Git Hack](https://raw.githack.com/), and embedded with `<iframe>`:
+**In the meantime, a few examples...**
+The scripts below are written in [p5.js](https://p5js.org/), hosted using [Raw Git Hack](https://raw.githack.com/), and embedded with `<iframe>`:
 
-1. Interactive visual with changing colour and shape based on canvas location and user input:
+- Interactive visual with changing colour and shape based on canvas location and user input:
 <!-- Added extra 25px to width and height to prevent iframe scrolling -->
 <iframe 
 width="525" height="525"
@@ -44,14 +45,14 @@ frameborder="0"
 src="https://raw.githack.com/mvpoirier/Javascript/master/squareCircle/index.html">
 </iframe>
 
-2. Visualizing the `Bubble Sort` algorithm:
+- Visualizing the `Bubble Sort` algorithm:
 <iframe 
 width="825" height="250"
 frameborder="0" 
 src="https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/bubbleSort.html">
 </iframe>
 
-3. Visualizing the `Selection Sort` algorithm:
+- Visualizing the `Selection Sort` algorithm:
 <iframe 
 width="825" height="250"
 frameborder="0" 
