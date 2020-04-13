@@ -7,6 +7,7 @@ published: true
 
 ## Workflow & Software
 - **Editor: [Visual Studio Code](https://code.visualstudio.com/)**
+    - [Atom One Dark Theme](https://marketplace.visualstudio.com/items?itemName=akamud.vscode-theme-onedark)
     - [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
     - [Beautify](https://marketplace.visualstudio.com/items?itemName=HookyQR.beautify)
 - **IDE: [Eclipse](https://www.eclipse.org/downloads/)**
@@ -24,8 +25,8 @@ published: true
     - [SDKMAN!](https://sdkman.io/)
 
 
-## Programming Languages
-- **Javascript**: [p5.js](https://p5js.org/), [processing.js](http://processingjs.org/)
+## Languages
+- **Javascript**: [p5.js](https://p5js.org/)
 - **Python**: [Python 3](https://www.python.org/downloads/)
 - **Java**: [OpenJDK14](https://openjdk.java.net/) @ [AdoptOpenJDK](https://adoptopenjdk.net/)
 
@@ -33,11 +34,9 @@ published: true
 ## ePortfolio
 Coding projects I've completed can be found on my personal [Github Repository](https://github.com/mvpoirier/).
 
+**A few examples...** the following [p5.js](https://p5js.org/) scripts are hosted using [Raw Git Hack](https://raw.githack.com/), and embedded with `<iframe>`:
 
-## A Few Examples...
-The following [p5.js](https://p5js.org/) scripts are hosted using [Raw Git Hack](https://raw.githack.com/), and embedded with `<iframe>`:
-
-- Interactive visual with changing colour and shape based on canvas location and user input:
+1. Interactive visual with changing colour and shape based on canvas location and user input:
 <!-- Added extra 25px to width and height to prevent iframe scrolling -->
 <iframe 
 width="525" height="525"
@@ -45,14 +44,14 @@ frameborder="0"
 src="https://raw.githack.com/mvpoirier/Javascript/master/squareCircle/index.html">
 </iframe>
 
-- Visualizing the `Bubble Sort` algorithm:
+2. Visualizing the `Bubble Sort` algorithm:
 <iframe 
 width="825" height="250"
 frameborder="0" 
 src="https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/bubbleSort.html">
 </iframe>
 
-- Visualizing the `Selection Sort` algorithm:
+3. Visualizing the `Selection Sort` algorithm:
 <iframe 
 width="825" height="250"
 frameborder="0" 
