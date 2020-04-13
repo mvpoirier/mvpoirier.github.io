@@ -10,7 +10,7 @@ published: true
     - [Atom One Dark Theme](https://marketplace.visualstudio.com/items?itemName=akamud.vscode-theme-onedark)
     - [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
     - [Beautify](https://marketplace.visualstudio.com/items?itemName=HookyQR.beautify)
-- **IDE: [Eclipse](https://www.eclipse.org/downloads/)**
+- **IDE: [Eclipse](https://www.eclipse.org/downloads/) & [Fast/Clean Install](https://gist.github.com/mvpoirier/90e3e2d7aa55ec78902f63416f147fde)**
     - [WindowBuilder](https://www.eclipse.org/windowbuilder/)
     - [DevStyle - Darkest Dark Theme](https://www.genuitec.com/products/devstyle/)
     - [EasyShell](marketplace.eclipse.org/content/easyshell)
