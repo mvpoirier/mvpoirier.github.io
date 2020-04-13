@@ -32,9 +32,9 @@ published: true
 
 
 ## ePortfolio
-Coding projects I've completed can be found on my personal [Github Repository](https://github.com/mvpoirier/).
+All coding projects I've completed can be found on my personal [Github Repository](https://github.com/mvpoirier/).
 
-**A few examples...** the following [p5.js](https://p5js.org/) scripts are hosted using [Raw Git Hack](https://raw.githack.com/), and embedded with `<iframe>`:
+**In the meantime, a few examples...** the scripts below are written in [p5.js](https://p5js.org/), hosted using [Raw Git Hack](https://raw.githack.com/), and embedded with `<iframe>`:
 
 1. Interactive visual with changing colour and shape based on canvas location and user input:
 <!-- Added extra 25px to width and height to prevent iframe scrolling -->
@@ -58,7 +58,7 @@ frameborder="0"
 src="https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/selectionSort.html">
 </iframe>
 
-#### ...and for all of you [Winnipeg Jets](https://www.nhl.com/jets) and `Python 3` fans:
+#### ...and for all of you [Winnipeg Jets](https://www.nhl.com/jets) and [Python 3](https://www.python.org/downloads/) fans:
 ```python
 for i in range (3):
     print("Go Jets Go!")
