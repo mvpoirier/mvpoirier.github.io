@@ -5,7 +5,7 @@ permalink: /coding/
 published: true
 ---
 
-## Workflow & Software
+## Workflow
 - **Editor: [Visual Studio Code](https://code.visualstudio.com/)**
     - [Atom One Dark Theme](https://marketplace.visualstudio.com/items?itemName=akamud.vscode-theme-onedark)
     - [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
