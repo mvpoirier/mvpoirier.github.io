@@ -11,6 +11,8 @@ published: true
     - [Beautify](https://marketplace.visualstudio.com/items?itemName=HookyQR.beautify)
 - **IDE: [Eclipse](https://www.eclipse.org/downloads/)**
     - [WindowBuilder](https://www.eclipse.org/windowbuilder/)
+    - [DevStyle - Darkest Dark Theme](https://www.genuitec.com/products/devstyle/)
+    - [EasyShell](marketplace.eclipse.org/content/easyshell)
 - **Source Control: [Git](https://git-scm.com/)**
     - [Github](https://github.com/)
     - [gitignore.io](https://gitignore.io/)
