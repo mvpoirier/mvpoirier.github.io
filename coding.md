@@ -34,7 +34,7 @@ published: true
 ## ePortfolio
 All coding projects I've completed can be found on my **[personal Github Repository](https://github.com/mvpoirier/)**.
 
-**In the meantime, a few examples...**
+**In the meantime, a few examples...**  
 The scripts below are written in [p5.js](https://p5js.org/), hosted using [Raw Git Hack](https://raw.githack.com/), and embedded with `<iframe>`:
 
 - Interactive visual with changing colour and shape based on canvas location and user input:
