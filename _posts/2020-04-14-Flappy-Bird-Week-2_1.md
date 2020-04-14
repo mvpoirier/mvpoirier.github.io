@@ -1,0 +1,22 @@
+---
+published: true
+title: Flappy Bird Clone > Week 2.1 Progress
+layout: post
+---
+**Key Changes**
+- Added `pipe.js` to support pipe objects scrolling across the screen.
+- Colour changes of bird and pipe based on location
+
+**Current State**
+<!--Added additional pixels to width and height to remove iframe scrolling -->
+<iframe 
+width="875" height="700"
+frameborder="0" 
+src="https://raw.githack.com/mvpoirier/Javascript/master/flappyBirdClones/flappyBird_P5JS/WEEK2_1/flappybird_mp.html">
+</iframe>
+
+**Next Steps**
+- Two players
+- Multiple pipes
+- Hit detection
+- Scoring
