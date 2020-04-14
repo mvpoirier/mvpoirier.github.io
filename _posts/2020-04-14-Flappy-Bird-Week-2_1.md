@@ -10,7 +10,7 @@ layout: post
 **Current State**
 <!--Added additional pixels to width and height to remove iframe scrolling -->
 <iframe 
-width="875" height="700"
+width="825" height="525"
 frameborder="0" 
 src="https://raw.githack.com/mvpoirier/Javascript/master/flappyBirdClones/flappyBird_P5JS/WEEK2_1/index.html">
 </iframe>
