@@ -15,7 +15,7 @@ frameborder="0"
 src="https://raw.githack.com/mvpoirier/Javascript/master/flappyBirdClones/flappyBird_P5JS/WEEK2_1/flappybird_mp.html">
 </iframe>
 
-**Next Steps**
+**Next Steps**gi
 - Two players
 - Multiple pipes
 - Hit detection
