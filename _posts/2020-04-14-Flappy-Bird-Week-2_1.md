@@ -12,10 +12,10 @@ layout: post
 <iframe 
 width="875" height="700"
 frameborder="0" 
-src="https://raw.githack.com/mvpoirier/Javascript/master/flappyBirdClones/flappyBird_P5JS/WEEK2_1/flappybird_mp.html">
+src="https://raw.githack.com/mvpoirier/Javascript/master/flappyBirdClones/flappyBird_P5JS/WEEK2_1/index.html">
 </iframe>
 
-**Next Steps**gi
+**Next Steps**
 - Two players
 - Multiple pipes
 - Hit detection
