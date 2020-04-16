@@ -35,6 +35,8 @@ layout: post
 ```
 
 **Current State**
+Player 1 = Spacebar
+Player 2 = Left Shift Key
 <!--Added additional pixels to width and height to remove iframe scrolling -->
 <iframe 
 width="475" height="625"
