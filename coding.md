@@ -5,6 +5,9 @@ permalink: /coding/
 published: true
 ---
 
+## Teaching & Learning Resources
+- [Computer Science, Coding, and Robotics Bookmark Archive](/media/compsci_bookmarks.html)
+
 ## Workflow
 - **Editor: [Visual Studio Code](https://code.visualstudio.com/)**
     - [Atom One Dark Theme](https://marketplace.visualstudio.com/items?itemName=akamud.vscode-theme-onedark)
