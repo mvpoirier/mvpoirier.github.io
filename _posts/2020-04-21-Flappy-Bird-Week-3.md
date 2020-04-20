@@ -69,7 +69,8 @@ function showScores() {
 ```
 
 ## What Could Be Next?
+- Ability to mute sound effects (e.g. s = toggle)
 - Difficulty settings (toggle or progressively more challenging)
 - Local multiplayer
 - Network multiplayer: [socket.io](https://socket.io/)
-- Update from geometric shapes to graphics (icons)
+- Update from geometric shapes to graphical icons
