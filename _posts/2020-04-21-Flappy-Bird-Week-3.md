@@ -1,9 +1,9 @@
 ---
-published: false
+published: true
 title: Flappy Bird Clone > Week 3 Progress
 layout: post
 ---
-**Key Changes**
+## Key Changes
 - Back to one player game
 - Splash screen
 - 
@@ -43,7 +43,7 @@ frameborder="0"
 src="https://raw.githack.com/mvpoirier/Javascript/master/flappyBirdClones/WEEK3/index.html">
 </iframe>
 
-**What Could Be Next?**
+## What Could Be Next?
 - Difficulty settings (toggle or progressively more challenging)
 - Local multiplayer
 - Network multiplayer: [socket.io](https://socket.io/)
