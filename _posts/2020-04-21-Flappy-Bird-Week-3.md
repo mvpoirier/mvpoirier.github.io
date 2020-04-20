@@ -10,6 +10,7 @@ width="475" height="625"
 frameborder="0" 
 src="https://raw.githack.com/mvpoirier/Javascript/master/flappyBirdClones/WEEK3/index.html">
 </iframe>
+Source: https://github.com/mvpoirier/Javascript/tree/master/flappyBirdClones
 
 ## Key Changes
 - Back to one player game
