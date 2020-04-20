@@ -9,7 +9,7 @@ layout: post
 - Sound effects: Annoying on pupose! :-)
 - Keeps track of current and highscore (with indicators)
 - Tweaked visual cues and transitions
-- Source: https://github.com/mvpoirier/Javascript/tree/master/flappyBirdClones
+- Source Code: [Github Repository](https://github.com/mvpoirier/Javascript/tree/master/flappyBirdClones)
 
 ## Current State
 <!--Added additional pixels to width and height to remove iframe scrolling -->
