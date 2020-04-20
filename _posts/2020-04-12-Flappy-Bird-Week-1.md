@@ -40,7 +40,7 @@ window.addEventListener("keydown", function (e) {
 <iframe 
 width="875" height="700"
 frameborder="0" 
-src="https://raw.githack.com/mvpoirier/Javascript/master/flappyBirdClones/flappyBird_P5JS/WEEK1/flappybird_mp.html">
+src="https://raw.githack.com/mvpoirier/Javascript/master/flappyBirdClones/WEEK1/flappybird_mp.html">
 </iframe>
 
 **Next Steps**

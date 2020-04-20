@@ -1,11 +1,12 @@
 ---
-published: true
-title: Flappy Bird Clone > Week 2.2 Progress
+published: false
+title: Flappy Bird Clone > Week 3 Progress
 layout: post
 ---
 **Key Changes**
-- Added two players... but will return to one player.
-- Infinite pipes and hit detection.
+- Back to one player game
+- Splash screen
+- 
 
 **pipe.js Class**
 ```javascript
@@ -34,16 +35,15 @@ layout: post
     }
 ```
 
-**Current State**  
-**Player 1** = Spacebar  
-**Player 2** = Left Shift Key  
+**Current State** 
 <!--Added additional pixels to width and height to remove iframe scrolling -->
 <iframe 
 width="475" height="625"
 frameborder="0" 
-src="https://raw.githack.com/mvpoirier/Javascript/master/flappyBirdClones/WEEK2_2/index.html">
+src="https://raw.githack.com/mvpoirier/Javascript/master/flappyBirdClones/WEEK3/index.html">
 </iframe>
 
-**Next Steps**
-- Scoring
-- Pause Game on Game Over
+**What Could Be Next?**
+- Difficulty settings (toggle or progressively more challenging)
+- Local multiplayer
+- Network multiplayer: [socket.io](https://socket.io/)

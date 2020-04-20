@@ -12,7 +12,7 @@ layout: post
 <iframe 
 width="825" height="525"
 frameborder="0" 
-src="https://raw.githack.com/mvpoirier/Javascript/master/flappyBirdClones/flappyBird_P5JS/WEEK2_1/index.html">
+src="https://raw.githack.com/mvpoirier/Javascript/master/flappyBirdClones/WEEK2_1/index.html">
 </iframe>
 
 **Next Steps**
