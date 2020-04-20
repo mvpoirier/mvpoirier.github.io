@@ -3,6 +3,14 @@ published: true
 title: Flappy Bird Clone > Week 3 Progress
 layout: post
 ---
+## Key Changes
+- Back to one player game
+- Introductory splash screen
+- Sound effects: Annoying on pupose! :-)
+- Keeps track of current and highscore (with indicators)
+- Tweaked visual cues and transitions
+- Source: https://github.com/mvpoirier/Javascript/tree/master/flappyBirdClones
+
 ## Current State
 <!--Added additional pixels to width and height to remove iframe scrolling -->
 <iframe 
@@ -10,14 +18,6 @@ width="475" height="625"
 frameborder="0" 
 src="https://raw.githack.com/mvpoirier/Javascript/master/flappyBirdClones/WEEK3/index.html">
 </iframe>
-Source: https://github.com/mvpoirier/Javascript/tree/master/flappyBirdClones
-
-## Key Changes
-- Back to one player game
-- Introductory splash screen
-- Sound effects: Annoying on pupose! :-)
-- Keeps track of current and highscore (with indicators)
-- Tweaked visual cues and transitions
 
 **pipe.js - Colour Transition (x-axis)**
 ```javascript
