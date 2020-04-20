@@ -41,14 +41,6 @@ src="https://raw.githack.com/mvpoirier/Javascript/master/flappyBirdClones/WEEK3/
 **sketch.js - New Record After 1st Round**
 ```javascript
 function showScores() {
-    fill(255);
-    rect(235, 0, width - 235, 65);
-
-    textSize(32);
-    fill(0, 0, 255);
-    text('current: ' + score, 242, 25);
-
-    //determine if there is new highscore
     if (score > maxScore) {
         maxScore = score;
 
@@ -59,6 +51,10 @@ function showScores() {
             text("New Record!", 160, 275);
         }
     }
+
+    textSize(32);
+    fill(0, 0, 255);
+    text('current: ' + score, 242, 25);
 
     if (!firstPlayThrough) {
         textSize(32);
