@@ -9,9 +9,11 @@ layout: post
 - Sound effects: Annoying on pupose! :-)
 - Keeps track of current and highscore (with indicators)
 - Tweaked visual cues and transitions
-- Source Code: [Github Repository](https://github.com/mvpoirier/Javascript/tree/master/flappyBirdClones)
 
 ## Current State
+- Runnable Java Applet: [WEEK 3 Flappy Bird Clone](https://rawcdn.githack.com/mvpoirier/Javascript/10c9ddfab73272a126eefb6ac23b20ef061236a2/flappyBirdClones/WEEK3/index.html)
+- Source Code: [Github Repository](https://github.com/mvpoirier/Javascript/tree/master/flappyBirdClones)
+
 <!--Added additional pixels to width and height to remove iframe scrolling -->
 <iframe 
 width="475" height="625"
