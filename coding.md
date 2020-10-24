@@ -7,6 +7,8 @@ published: true
 
 ## Teaching & Learning Resources
 - [Computer Science, Coding, and Robotics Bookmark Archive](/media/compsci_bookmarks.html)
+- [The Coding Train](https://thecodingtrain.com/)
+- [CodingBat for Java & Python](https://codingbat.com/python)
 
 ## Workflow
 - **Editor: [Visual Studio Code](https://code.visualstudio.com/)**
@@ -32,7 +34,7 @@ published: true
 
 
 ## Languages
-- **Javascript**: [p5.js](https://p5js.org/), [ml5.js](https://ml5js.org/), 
+- **Javascript**: [p5.js](https://p5js.org/), [ml5.js](https://ml5js.org/), [matter.js](https://brm.io/matter-js/)
 - **Python**: [Python 3](https://www.python.org/downloads/)
 - **Java**: [OpenJDK14](https://openjdk.java.net/) @ [AdoptOpenJDK](https://adoptopenjdk.net/)
 
