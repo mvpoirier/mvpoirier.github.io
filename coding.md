@@ -6,7 +6,7 @@ published: true
 ---
 
 ## Teaching & Learning Resources
-- [Computer Science, Coding, and Robotics Bookmark Archive](/media/compsci_bookmarks.html)
+- [Computer Science, Coding, and Robotics Bookmark Archive](/media/compsci_bookmarks.html){:target="_blank"}
 - [The Coding Train](https://thecodingtrain.com/)
 - [CodingBat for Java & Python](https://codingbat.com/python)
 
