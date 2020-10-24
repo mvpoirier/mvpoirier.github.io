@@ -20,11 +20,11 @@ published: true
 - **Source Control: [Git](https://git-scm.com/)**
     - [Github](https://github.com/)
     - [gitignore.io](https://gitignore.io/)
-- **Content Delivery: ***
+- **Content Delivery:**
     - [raw.githack.com](https://raw.githack.com/)
     - [UNPKG](https://unpkg.com/)
     - [jsDelivr](https://www.jsdelivr.com/)
-    - [cdnjs](https://cdnjs.com/)**
+    - [cdnjs](https://cdnjs.com/)
 - **Terminal: [iTerm2](https://www.iterm2.com/)**
     - [Homebrew](https://brew.sh/)
     - [Oh My ZSH](https://ohmyz.sh/)
