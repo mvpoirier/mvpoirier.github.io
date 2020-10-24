@@ -20,8 +20,11 @@ published: true
 - **Source Control: [Git](https://git-scm.com/)**
     - [Github](https://github.com/)
     - [gitignore.io](https://gitignore.io/)
-- **Content Delivery: [jsDelivr](https://www.jsdelivr.com/) & [cdnjs](https://cdnjs.com/)**
+- **Content Delivery: ***
     - [raw.githack.com](https://raw.githack.com/)
+    - [UNPKG](https://unpkg.com/)
+    - [jsDelivr](https://www.jsdelivr.com/)
+    - [cdnjs](https://cdnjs.com/)**
 - **Terminal: [iTerm2](https://www.iterm2.com/)**
     - [Homebrew](https://brew.sh/)
     - [Oh My ZSH](https://ohmyz.sh/)
@@ -29,19 +32,22 @@ published: true
 
 
 ## Languages
-- **Javascript**: [p5.js](https://p5js.org/)
+- **Javascript**: [p5.js](https://p5js.org/), [ml5.js](https://ml5js.org/), 
 - **Python**: [Python 3](https://www.python.org/downloads/)
 - **Java**: [OpenJDK14](https://openjdk.java.net/) @ [AdoptOpenJDK](https://adoptopenjdk.net/)
 
 
-## ePortfolio
-All coding projects I've completed can be found on my **[personal Github Repository](https://github.com/mvpoirier/)**.
+## ePortfolio & Coding Projects
+All coding projects I've completed, student exemplars, and learning resources, can be found on my **[Github Repository](https://github.com/mvpoirier/)**.
 
-**In the meantime, a few examples...**  
-The scripts below are written in [p5.js](https://p5js.org/), hosted using [Raw Git Hack](https://raw.githack.com/), and embedded with `<iframe>`:
+A small sample of interactive Javascript sketches are linked below, and hosted using [Raw Git Hack](https://raw.githack.com/).
 
-- Interactive visual with changing colour and shape based on canvas location and user input:
-<!-- Added extra 25px to width and height to prevent iframe scrolling -->
+- [Sooty Image Detector](https://raw.githack.com/mvpoirier/Javascript/master/sootyDetector/index.html)
+- [Interactive Visuals](https://raw.githack.com/mvpoirier/Javascript/master/squareCircle/index.html)
+- [Bubble Sort Visualization](https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/bubbleSort.html)
+- [Selection Sort Visualization](https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/selectionSort.html)
+
+<!--
 <iframe 
 width="525" height="525"
 frameborder="0" 
@@ -61,6 +67,7 @@ width="825" height="250"
 frameborder="0" 
 src="https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/selectionSort.html">
 </iframe>
+-->
 
 #### ...and for all of you [Winnipeg Jets](https://www.nhl.com/jets) and [Python 3](https://www.python.org/downloads/) fans:
 ```python
