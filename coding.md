@@ -15,6 +15,7 @@ published: true
 Completed projects, student exemplars, and learning resources can be found on my **[Github Repository](https://github.com/mvpoirier/){:target="_blank"}**. A select sample of Javascript sketches are linked below:
 
 - [Sooty MusCAT Image Detector](https://raw.githack.com/mvpoirier/Javascript/master/sootyDetector/index.html){:target="_blank"}
+- [FlappyBird Clone with Sound](https://rawcdn.githack.com/mvpoirier/Javascript/10c9ddfab73272a126eefb6ac23b20ef061236a2/flappyBirdClones/WEEK3/index.html){:target="_blank"}
 - [Interactive Visuals](https://raw.githack.com/mvpoirier/Javascript/master/squareCircle/index.html){:target="_blank"}
 - [Bubble Sort Visualization](https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/bubbleSort.html){:target="_blank"}
 - [Selection Sort Visualization](https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/selectionSort.html){:target="_blank"}
