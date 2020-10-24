@@ -9,16 +9,17 @@ published: true
 - [Computer Science, Coding, and Robotics Bookmark Archive](/media/compsci_bookmarks.html){:target="_blank"}
 - [The Coding Train](https://thecodingtrain.com/){:target="_blank"}
 - [CodingBat for Java & Python](https://codingbat.com/python){:target="_blank"}
+- [Invent with Python](https://inventwithpython.com/){:target="_blank"}
 
-## ePortfolio & Coding Projects
-All of my completed projects, student exemplars, and learning resources can be found on my **[Github Repository](https://github.com/mvpoirier/){:target="_blank"}**. A small sample of my interactive Javascript sketches are linked below:
+## ePortfolio
+Completed projects, student exemplars, and learning resources can be found on my **[Github Repository](https://github.com/mvpoirier/){:target="_blank"}**. A select sample of Javascript sketches are linked below:
 
 - [Sooty MusCAT Image Detector](https://raw.githack.com/mvpoirier/Javascript/master/sootyDetector/index.html){:target="_blank"}
 - [Interactive Visuals](https://raw.githack.com/mvpoirier/Javascript/master/squareCircle/index.html){:target="_blank"}
 - [Bubble Sort Visualization](https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/bubbleSort.html){:target="_blank"}
 - [Selection Sort Visualization](https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/selectionSort.html){:target="_blank"}
 
-## Languages & Libraries
+## Preferred Languages & Libraries
 - **Javascript**: [p5.js](https://p5js.org/), [ml5.js](https://ml5js.org/), [matter.js](https://brm.io/matter-js/)
 - **Python**: [Python 3](https://www.python.org/downloads/), [pygame](https://www.pygame.org/news)
 - **Java**: [OpenJDK14](https://openjdk.java.net/) @ [AdoptOpenJDK](https://adoptopenjdk.net/)
