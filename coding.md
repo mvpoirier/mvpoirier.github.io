@@ -10,6 +10,18 @@ published: true
 - [The Coding Train](https://thecodingtrain.com/)
 - [CodingBat for Java & Python](https://codingbat.com/python)
 
+## ePortfolio & Coding Projects
+All of my completed projects, student exemplars, and learning resources can be found on my **[Github Repository](https://github.com/mvpoirier/)**.
+
+A **small sample of interactive Javascript sketches are linked below** and hosted using [Raw Git Hack](https://raw.githack.com/):
+
+- [Sooty Image Detector](https://raw.githack.com/mvpoirier/Javascript/master/sootyDetector/index.html)
+- [Interactive Visuals](https://raw.githack.com/mvpoirier/Javascript/master/squareCircle/index.html)
+- [Bubble Sort Visualization](https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/bubbleSort.html)
+- [Selection Sort Visualization](https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/selectionSort.html)
+
+
+
 ## Workflow
 - **Editor: [Visual Studio Code](https://code.visualstudio.com/)**
     - [Atom One Dark Theme](https://marketplace.visualstudio.com/items?itemName=akamud.vscode-theme-onedark)
@@ -33,21 +45,11 @@ published: true
     - [SDKMAN!](https://sdkman.io/)
 
 
+
 ## Languages
 - **Javascript**: [p5.js](https://p5js.org/), [ml5.js](https://ml5js.org/), [matter.js](https://brm.io/matter-js/)
 - **Python**: [Python 3](https://www.python.org/downloads/)
 - **Java**: [OpenJDK14](https://openjdk.java.net/) @ [AdoptOpenJDK](https://adoptopenjdk.net/)
-
-
-## ePortfolio & Coding Projects
-All coding projects I've completed, student exemplars, and learning resources, can be found on my **[Github Repository](https://github.com/mvpoirier/)**.
-
-A small sample of interactive Javascript sketches are linked below, and hosted using [Raw Git Hack](https://raw.githack.com/).
-
-- [Sooty Image Detector](https://raw.githack.com/mvpoirier/Javascript/master/sootyDetector/index.html)
-- [Interactive Visuals](https://raw.githack.com/mvpoirier/Javascript/master/squareCircle/index.html)
-- [Bubble Sort Visualization](https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/bubbleSort.html)
-- [Selection Sort Visualization](https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/selectionSort.html)
 
 <!--
 <iframe 
