@@ -26,15 +26,19 @@ Completed projects, student exemplars, and learning resources can be found on my
 - **Java**: [OpenJDK14](https://openjdk.java.net/) @ [AdoptOpenJDK](https://adoptopenjdk.net/)
 
 ## Workflow
-- **Editor: [Visual Studio Code](https://code.visualstudio.com/)**
-    - [Atom One Dark Theme](https://marketplace.visualstudio.com/items?itemName=akamud.vscode-theme-onedark)
-    - [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
-    - [Beautify](https://marketplace.visualstudio.com/items?itemName=HookyQR.beautify)
-- **IDE: [Eclipse](https://www.eclipse.org/downloads/) & [Fast/Clean Install](https://gist.github.com/mvpoirier/90e3e2d7aa55ec78902f63416f147fde)**
-    - [WindowBuilder](https://www.eclipse.org/windowbuilder/)
-    - [DevStyle - Darkest Dark Theme](https://www.genuitec.com/products/devstyle/)
-    - [EasyShell](marketplace.eclipse.org/content/easyshell)
-- **Source Control: [Git](https://git-scm.com/)**
+- **Editor:**
+    - [Visual Studio Code](https://code.visualstudio.com/)
+    - [VSC - Atom One Dark Theme](https://marketplace.visualstudio.com/items?itemName=akamud.vscode-theme-onedark)
+    - [VSC - Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
+    - [VSC - Beautify](https://marketplace.visualstudio.com/items?itemName=HookyQR.beautify)
+- **IDE (Java):**
+    - [Eclipse](https://www.eclipse.org/downloads/)
+    - [Eclipse - Fast/Clean Install](https://gist.github.com/mvpoirier/90e3e2d7aa55ec78902f63416f147fde)**
+    - [Eclipse - WindowBuilder](https://www.eclipse.org/windowbuilder/)
+    - [Eclipse - DevStyle (Darkest Dark Theme)](https://www.genuitec.com/products/devstyle/)
+    - [Eclipse - EasyShell](marketplace.eclipse.org/content/easyshell)
+- **Source Control:**
+    - [Git](https://git-scm.com/)
     - [Github](https://github.com/)
     - [gitignore.io](https://gitignore.io/)
 - **Content Delivery:**
@@ -42,7 +46,8 @@ Completed projects, student exemplars, and learning resources can be found on my
     - [UNPKG](https://unpkg.com/)
     - [jsDelivr](https://www.jsdelivr.com/)
     - [cdnjs](https://cdnjs.com/)
-- **Terminal: [iTerm2](https://www.iterm2.com/)**
+- **Terminal (OSX):**
+    - [iTerm2](https://www.iterm2.com/)
     - [Homebrew](https://brew.sh/)
     - [Oh My ZSH](https://ohmyz.sh/)
     - [SDKMAN!](https://sdkman.io/)
