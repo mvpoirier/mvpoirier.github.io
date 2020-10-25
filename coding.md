@@ -12,7 +12,7 @@ published: true
 - [Invent with Python](https://inventwithpython.com/){:target="_blank"}
 
 ## ePortfolio
-Completed projects, learning/teaching resources, and student exemplars can be found on my **[Github Repository](https://github.com/mvpoirier/){:target="_blank"}**. A select sample of Javascript sketches are linked below:
+Completed projects, teaching resources, and student exemplars can be found on my **[Github Repository](https://github.com/mvpoirier/){:target="_blank"}**. A select sample of Javascript sketches are linked below:
 
 - [Sooty MusCAT Image Detector](https://raw.githack.com/mvpoirier/Javascript/master/sootyDetector/index.html){:target="_blank"}
 - [FlappyBird Clone with Sound](https://rawcdn.githack.com/mvpoirier/Javascript/10c9ddfab73272a126eefb6ac23b20ef061236a2/flappyBirdClones/WEEK3/index.html){:target="_blank"}
