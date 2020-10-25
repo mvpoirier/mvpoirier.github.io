@@ -12,7 +12,7 @@ published: true
 - [Invent with Python](https://inventwithpython.com/){:target="_blank"}
 
 ## ePortfolio
-Completed projects, student exemplars, and learning resources can be found on my **[Github Repository](https://github.com/mvpoirier/){:target="_blank"}**. A select sample of Javascript sketches are linked below:
+Completed projects, learning/teaching resources, and student exemplars can be found on my **[Github Repository](https://github.com/mvpoirier/){:target="_blank"}**. A select sample of Javascript sketches are linked below:
 
 - [Sooty MusCAT Image Detector](https://raw.githack.com/mvpoirier/Javascript/master/sootyDetector/index.html){:target="_blank"}
 - [FlappyBird Clone with Sound](https://rawcdn.githack.com/mvpoirier/Javascript/10c9ddfab73272a126eefb6ac23b20ef061236a2/flappyBirdClones/WEEK3/index.html){:target="_blank"}
@@ -33,7 +33,7 @@ Completed projects, student exemplars, and learning resources can be found on my
     - [VSC - Beautify](https://marketplace.visualstudio.com/items?itemName=HookyQR.beautify)
 - **IDE (Java):**
     - [Eclipse](https://www.eclipse.org/downloads/)
-    - [Eclipse - Fast/Clean Install](https://gist.github.com/mvpoirier/90e3e2d7aa55ec78902f63416f147fde)**
+    - [Eclipse - Fast/Clean Install](https://gist.github.com/mvpoirier/90e3e2d7aa55ec78902f63416f147fde)
     - [Eclipse - WindowBuilder](https://www.eclipse.org/windowbuilder/)
     - [Eclipse - DevStyle (Darkest Dark Theme)](https://www.genuitec.com/products/devstyle/)
     - [Eclipse - EasyShell](marketplace.eclipse.org/content/easyshell)
@@ -52,29 +52,7 @@ Completed projects, student exemplars, and learning resources can be found on my
     - [Oh My ZSH](https://ohmyz.sh/)
     - [SDKMAN!](https://sdkman.io/)
 
-<!--
-<iframe 
-width="525" height="525"
-frameborder="0" 
-src="https://raw.githack.com/mvpoirier/Javascript/master/squareCircle/index.html">
-</iframe>
-
-- Visualizing the `Bubble Sort` algorithm:
-<iframe 
-width="825" height="250"
-frameborder="0" 
-src="https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/bubbleSort.html">
-</iframe>
-
-- Visualizing the `Selection Sort` algorithm:
-<iframe 
-width="825" height="250"
-frameborder="0" 
-src="https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/selectionSort.html">
-</iframe>
--->
-
-#### ...and for all of you [Winnipeg Jets](https://www.nhl.com/jets) and [Python 3](https://www.python.org/downloads/) fans:
+#### ...and for all of you [Winnipeg Jets](https://www.nhl.com/jets) fans:
 ```python
 for i in range (3):
     print("Go Jets Go!")

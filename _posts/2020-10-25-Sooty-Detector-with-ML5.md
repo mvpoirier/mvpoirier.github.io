@@ -4,18 +4,19 @@ title: Sooty MusCAT Detector with ML5.js
 layout: post
 ---
 ## When Life Gives You Lockdown... make things!
-- We're still currently under lockdown restrictions so I thought I would try implmeneting Machine Learning and image processing using the [p5.js](https://p5js.org/) and [ml5.js](https://ml5js.org/) Javascript frameworks, and the [COCO-SSD image dataset](https://cocodataset.org/#explore) based on Google's [Tensorflow]((https://github.com/tensorflow/tfjs-models/tree/master/coco-ssd)) machine learning algorithms.
-- There is a great tutorial on implementing this on [The Coding Train's YouTube Channel)](https://www.youtube.com/watch?v=QEzRxnuaZCk)
+- Still under COVID-19 lockdown restrictions, so I decided to try coding a project that uses machine learning and image processing using the [p5.js](https://p5js.org/) and [ml5.js](https://ml5js.org/) Javascript frameworks.
+- The program looks at a given image, and locates any objects that are in the [COCO-SSD image dataset](https://cocodataset.org/#explore) using an [object dectection model based on Google's Tensorflow](https://github.com/tensorflow/tfjs-models/tree/master/coco-ssd).
+- There is a great tutorial by [Daniel Shiffman](https://shiffman.net/) on how to implement this over at his [Coding Train YouTube Channel](https://www.youtube.com/watch?v=QEzRxnuaZCk).
 
-## The program (embedded iFrame)
-<!--Added additional 25 pixels to width and height to remove iframe scrolling -->
+## The Program
+<!--Added additional 25 pixels to both width and height to remove iframe scrolling -->
 <iframe 
 width="825" height="625"
 frameborder="0" 
 src="https://raw.githack.com/mvpoirier/Javascript/master/sootyDetector/index.html">
 </iframe>
 
-## How it works in a nutshell...
+## How it Works in a Nutshell...
 **index.html - import p5.js and ml5.js libraries**
 ```html
     <head>
