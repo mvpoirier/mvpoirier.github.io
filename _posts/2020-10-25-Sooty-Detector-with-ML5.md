@@ -4,7 +4,8 @@ title: Sooty MusCAT Detector with ML5.js
 layout: post
 ---
 ## When Life Gives You Lockdown... make things!
-We're still currently under lockdown restrictions, so I thought I would try implmeneting Machine Learning and image processing using the p5.js and ml5.js Javascript frameworks.
+- We're still currently under lockdown restrictions so I thought I would try implmeneting Machine Learning and image processing using the [p5.js](https://p5js.org/) and [ml5.js](https://ml5js.org/) Javascript frameworks, and the [COCO-SSD image dataset](https://cocodataset.org/#explore) based on Google's [Tensorflow]((https://github.com/tensorflow/tfjs-models/tree/master/coco-ssd)) machine learning algorithms.
+- There is a great tutorial on implementing this on [The Coding Train's YouTube Channel)](https://www.youtube.com/watch?v=QEzRxnuaZCk)
 
 ## The program (embedded iFrame)
 <!--Added additional 25 pixels to width and height to remove iframe scrolling -->
