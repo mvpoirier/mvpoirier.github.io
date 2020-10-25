@@ -15,7 +15,7 @@ src="https://raw.githack.com/mvpoirier/Javascript/master/sootyDetector/index.htm
 </iframe>
 
 ## How it works in a nutshell...
-**index.html - import p5.js and ml5.js libraries using the npm UNKPG content delivery system**
+**index.html - import p5.js and ml5.js libraries**
 ```html
     <head>
         <meta charset="utf-8" />
@@ -35,6 +35,26 @@ src="https://raw.githack.com/mvpoirier/Javascript/master/sootyDetector/index.htm
 
         // Initiate COCO-SSD object detector through ml5.js framework
         detector = ml5.objectDetector('cocossd');
+    }
+```
+
+**sketch.js - if the object detected is a 'cat' draw a rectangle and label as Sooty!**
+```javascript
+    for (let i = 0; i < results.length; i++){
+        let object = results[i];
+        
+        if (object.label == "cat"){
+            stroke(0, 255, 0);
+            strokeWeight(2);
+            noFill();
+            rect(object.x, object.y, object.width, object.height);
+            
+            noStroke();
+            fill(0,255,0);
+            textSize(14);
+            text("Sooty! " + round(object.confidence*100, 0) + "%", object.x + 10, object.y + 24);
+            foundSooty = true;
+        }
     }
 ```
 
