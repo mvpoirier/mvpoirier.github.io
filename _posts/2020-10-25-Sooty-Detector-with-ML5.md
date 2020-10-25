@@ -1,0 +1,44 @@
+---
+published: true
+title: Sooty MusCAT Detector with ML5.js
+layout: post
+---
+## When Life Gives You Lockdown... make things!
+We're still currently under lockdown restrictions, so I thought I would try implmeneting Machine Learning and image processing using the p5.js and ml5.js Javascript frameworks.
+
+## The program (embedded iFrame)
+<!--Added additional 25 pixels to width and height to remove iframe scrolling -->
+<iframe 
+width="825" height="625"
+frameborder="0" 
+src="https://raw.githack.com/mvpoirier/Javascript/master/sootyDetector/index.html">
+</iframe>
+
+## How it works in a nutshell...
+**index.html - import p5.js and ml5.js libraries using the npm UNKPG content delivery system**
+```html
+    <head>
+        <meta charset="utf-8" />
+        <!-- Load p5.js and ml5.js libraries from UNPKG content delivery network -->
+        <script src="https://unpkg.com/p5@1.1.9/lib/p5.min.js"></script>
+        <script src="https://unpkg.com/ml5@0.5.0/dist/ml5.min.js"></script>
+    </head>
+```
+
+**sketch.js - preload images, initiate ml5 object detector with COCO-SSD dataset**
+```javascript
+    function preload() {
+        // Load all sooty#.jpg images from 1 to NUM
+        for (let i = 0; i < NUM; i++){
+            img[i] = loadImage('sooty'  + (i + 1) + '.jpg');
+        }
+
+        // Initiate COCO-SSD object detector through ml5.js framework
+        detector = ml5.objectDetector('cocossd');
+    }
+```
+
+## What's next?
+- Add video capture feed with webcam
+- Look at detecting human gestures with other aspects of Machine Learning and COCO
+- Implement a physics demo with matter.js framework
