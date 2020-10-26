@@ -14,7 +14,6 @@ published: true
 
 ## Teaching Resources
 - [PhysPort](https://www.physport.org/){:target="_blank"}
-- *Resources to support the IB DP Physics curriculum to be added soon...*
 
 ## Multimedia
 - [The Sagan Series - Reid Gower](https://www.youtube.com/watch?v=oY59wZdCDo0&list=PLF17F07CFC3208E29){:target="_blank"}
