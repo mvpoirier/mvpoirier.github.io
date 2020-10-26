@@ -61,7 +61,8 @@ src="https://raw.githack.com/mvpoirier/Javascript/master/sootyDetector/index.htm
     }
 ```
 
-## What's next?
-- Add video capture feed with webcam
-- Look at detecting human gestures with other aspects of Machine Learning and COCO
-- Implement a physics demo with matter.js framework
+## What could be next?
+- Update program with a video capture feed (webcam) for real-time image detection.
+- Detecting human postures with [COCO DensePose](http://densepose.org/).
+- Implement a physics demo with [matter.js](https://brm.io/matter-js/).
+- Implement a multiplayer demo with [socket.io](https://socket.io/).
