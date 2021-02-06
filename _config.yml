@@ -9,7 +9,8 @@ name: Mike Poirier
 description: Teaching, Physics, and Coding
 
 # URL of your avatar or profile pic (you could use your GitHub profile pic)
-avatar: https://mvpoirier.github.io/images/identicon_mvpoirier.png
+avatar:
+#avatar: https://mvpoirier.github.io/images/identicon_mvpoirier.png
 #avatar: https://identicons.github.com/mvpoirier.png
 
 #
