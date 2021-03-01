@@ -36,8 +36,8 @@ Completed projects, teaching resources, and student exemplars can be found on my
     - [Eclipse](https://www.eclipse.org/downloads/)
     - [Eclipse - Fast/Clean Install](https://gist.github.com/mvpoirier/90e3e2d7aa55ec78902f63416f147fde)
     - [Eclipse - WindowBuilder](https://www.eclipse.org/windowbuilder/)
-    - [Eclipse - DevStyle (Darkest Dark Theme)](https://www.genuitec.com/products/devstyle/)
-    - [Eclipse - EasyShell](marketplace.eclipse.org/content/easyshell)
+    - [Eclipse - DevStyle (Darkest Dark Theme)](https://marketplace.eclipse.org/content/darkest-dark-theme-devstyle)
+    - [Eclipse - EasyShell](https://marketplace.eclipse.org/content/easyshell)
 - **Source Control:**
     - [Git](https://git-scm.com/)
     - [Github](https://github.com/)
