@@ -4,8 +4,9 @@ title: Teaching Portfolio
 permalink: /portfolio/
 published: true
 ---
+<p></p>
 
-*Photos of student learning and teaching, and an updated CV/résumé are available privately upon request.*
+*Photos of student learning, updated CV/résumé, and additional teaching artifacts are available on request*
 
 ## Social Media
 - [Twitter](https://twitter.com/mvpoirier){:target="_blank"}
