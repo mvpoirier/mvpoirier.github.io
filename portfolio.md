@@ -1,29 +1,26 @@
 ---
 layout: page
-title: Portfolio
+title: Teaching Portfolio
 permalink: /portfolio/
 published: true
 ---
+A password is required to view PDF documents, which will be shared on request.
+
+## Résumé / Curriculum Vitae
+- [Michael Poirier CV](https://drive.google.com/file/d/1AW1wUjR162ylQ9LRmofH-d-evRJPzD8D/view?usp=sharing){:target="_blank"} (Updated: June 2021)
+
+## Online Resources & Social Media
+- [Github Code Repository](https://github.com/mvpoirier){:target="_blank"}
+- [Repl.it Online Lessons](https://repl.it/@mpoirier){:target="_blank"}
+- [Twitter](https://twitter.com/mvpoirier){:target="_blank"}
+- [LinkedIn](https://www.linkedin.com/in/mvpoirier8){:target="_blank"}
+
 ## Physics
 
 ## Computer Science
 
 ## Robotics
 
-## Design
+## Teaching & Learning Artifacts
 
 ## Extracurricular
-
-## 2019-2021 ABA International School
-- [Physics Bookmark Archive](/media/physics_bookmarks.html){:target="_blank"}
-- [Grade Gorilla](https://www.gradegorilla.com/IB-physics-revision-questions.php){:target="_blank"}
-- [Think IB DP Physics](http://www.thinkib.net/physics){:target="_blank"}
-- [Surendranath HTML5 Applets](http://www.surendranath.org/){:target="_blank"}
-- [Mathcha.io Equation Editor](https://www.mathcha.io/editor){:target="_blank"}
-
-## 2014-2019 Branksome Hall Asia
-- [PhysPort](https://www.physport.org/){:target="_blank"}
-
-## 2013-2014 CMIS
-- [The Sagan Series](https://www.youtube.com/watch?v=oY59wZdCDo0&list=PLF17F07CFC3208E29){:target="_blank"}
-- [The Feynman Series](https://www.youtube.com/watch?v=cRmbwczTC6E&list=PL92F9FC91BBE2210D){:target="_blank"}
