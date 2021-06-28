@@ -9,7 +9,7 @@ name: Mike Poirier
 description: Teaching, Physics, and Coding
 
 # URL of your avatar or profile pic (you could use your GitHub profile pic)
-avatar:
+avatar: https://mvpoirier.github.io/images/mvpoirier.png
 #avatar: https://mvpoirier.github.io/images/identicon_mvpoirier.png
 #avatar: https://identicons.github.com/mvpoirier.png
 
@@ -28,7 +28,7 @@ footer-links:
   linkedin:
   pinterest:
   rss: 
-  twitter: 
+  twitter: mvpoirier
   stackoverflow: # your stackoverflow profile, e.g. "users/50476/bart-kiers"
   youtube: # channel/<your_long_string> or user/<user-name>
   googleplus: # anything in your profile username that comes after plus.google.com/
