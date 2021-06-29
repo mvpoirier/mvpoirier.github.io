@@ -11,12 +11,12 @@ published: true
 [x] **Example Resources**
 [x] **Learning Artifacts**
 
-| Subject             | Grade | Resource #1 | Resource #2 | Resource #3 |
-|---------------------|-------|-------------|-------------|-------------|
-| DP Physics          |       |             |             |             |
-| DP Computer Science |       |             |             |             |
-| MYP Physics         |       |             |             |             |
-| MYP Design          |       |             |             |             |
+|       Subject       | Grade |          Topic         | Resource #1 |  Resource #2 |   Resource #3  |   Resource #4  |
+|:-------------------:|:-----:|:----------------------:|:-----------:|:------------:|:--------------:|:--------------:|
+| DP Physics          |   12  | Atomic Physics         | Notes       | Whiteboard   | Practical Work | Assignment     |
+| DP Computer Science |   11  | Computational Thinking | Notes       | Repl.it Task | Assignment     | Video Tutorial |
+| MYP Physics         |   10  | Electromagnetism       | Notes       |              |                |                |
+| MYP Design          |   9   | Interactive Stories    | Notes       |              |                |                |
 
 ## DP Physics: Topic 7 - Atomic, Nuclear, and Particle Physics
 - Notes
