@@ -7,9 +7,16 @@ published: true
 
 *Additional evidence of student learning, teaching materials, and CV/résumé are available on request.*
 
-### Contact Me & Social Media
-- [Twitter](https://twitter.com/mvpoirier){:target="_blank"}
-- [LinkedIn](https://www.linkedin.com/in/mvpoirier8){:target="_blank"}
+- [x] Student Learning
+- [x] Example Resources
+- [x] Learning Artifacts
+
+| Top Heading               |
+| ------------------------- |
+| Syntax      | Description |
+| ----------- | ----------- |
+| Header      | Title       |
+| Paragraph   | Text        |
 
 ## DP Physics: Topic 7 - Atomic, Nuclear, and Particle Physics
 - Notes
