@@ -7,9 +7,9 @@ published: true
 
 *Additional evidence of student learning, teaching materials, and CV/résumé are available on request.*
 
-[x] **Student Learning**
-[x] **Example Resources**
-[x] **Learning Artifacts**
+- [x] **Student Learning**
+- [x] **Example Resources**
+- [x] **Learning Artifacts**
 
 |       Subject       | Grade |          Topic         | Resource #1 |  Resource #2 |   Resource #3  |   Resource #4  |
 |:-------------------:|:-----:|:----------------------:|:-----------:|:------------:|:--------------:|:--------------:|
@@ -18,7 +18,7 @@ published: true
 | MYP Physics         |   10  | Electromagnetism       | Notes       |              |                |                |
 | MYP Design          |   9   | Interactive Stories    | Notes       |              |                |                |
 
-## DP Physics: Topic 7 - Atomic, Nuclear, and Particle Physics
+### DP Physics: Topic 7 - Atomic, Nuclear, and Particle Physics
 - Notes
 - Whiteboard
 - Assignment
