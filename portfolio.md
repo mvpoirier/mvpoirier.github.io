@@ -18,6 +18,9 @@ published: true
 | MYP Physics         |   10  | Electromagnetism       | Notes       |              |                |                |
 | MYP Design          |   9   | Interactive Stories    | Notes       |              |                |                |
 
+<h1 style=background-color:SlateBlue;color:White; align="center">Resources</h1>
+
+
 ### DP Physics: Topic 7 - Atomic, Nuclear, and Particle Physics
 - Notes
 - Whiteboard
