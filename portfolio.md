@@ -7,16 +7,16 @@ published: true
 
 *Additional evidence of student learning, teaching materials, and CV/résumé are available on request.*
 
-- [x] Student Learning
-- [x] Example Resources
-- [x] Learning Artifacts
+[x] **Student Learning**
+[x] **Example Resources**
+[x] **Learning Artifacts**
 
-| Top Heading               |
-| ------------------------- |
-| Syntax      | Description |
-| ----------- | ----------- |
-| Header      | Title       |
-| Paragraph   | Text        |
+| Subject             | Grade | Resource #1 | Resource #2 | Resource #3 |
+|---------------------|-------|-------------|-------------|-------------|
+| DP Physics          |       |             |             |             |
+| DP Computer Science |       |             |             |             |
+| MYP Physics         |       |             |             |             |
+| MYP Design          |       |             |             |             |
 
 ## DP Physics: Topic 7 - Atomic, Nuclear, and Particle Physics
 - Notes
