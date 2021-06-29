@@ -20,7 +20,6 @@ published: true
 
 <h1 style=background-color:SlateBlue;color:White; align="center">Resources</h1>
 
-
 ### DP Physics: Topic 7 - Atomic, Nuclear, and Particle Physics
 - Notes
 - Whiteboard
