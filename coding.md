@@ -5,7 +5,7 @@ permalink: /coding/
 published: true
 ---
 
-### Mike's Contributions & Resoruces
+### Mike's Coding Resources
 Computer Science resources I've developed over the years to support teaching and student learning.
 - [DP Computer Science Resources](www.google.ca){:target="_blank"}
 - [Github Repository](https://github.com/mvpoirier/){:target="_blank"}
@@ -21,7 +21,7 @@ A select sample of Javascript sketches are linked below, which will run safely i
 - [Bubble Sort Visualization](https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/bubbleSort.html){:target="_blank"}
 - [Selection Sort Visualization](https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/selectionSort.html){:target="_blank"}
 
-### Favorite Coding Websites
+### Favorite Websites
 Some of my favorite online resources towards teaching and promoting coding in the classroom.
 - [CEMC Canadian Computing Competition](https://cemc.uwaterloo.ca/contests/computing.html){:target="_blank"}
 - [IB CompSci Hub](http://ib.compscihub.net/){:target="_blank"}
