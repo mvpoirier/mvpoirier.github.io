@@ -33,20 +33,27 @@ published: true
 - [Mike's Github Code Repository](https://github.com/mvpoirier){:target="_blank"}
 - [Mike's Coding Resources and Examples](https://mvpoirier.github.io/coding/)
 
+---
+
 ### MYP Physics: Year 4 & 5
 - Unit of study
+
+---
 
 ### MYP Design: Year 2 & 4
 - Interactive Stories
 - Collaborated with Grade 4 teachers/students for 9 Digital Design project
 - Interactive Stories: November 11th 2016 to January 24, 2017
 
+---
 
-### Robotics & Coding After-School Programs
+### After-School Programs
 - ABA Creative and Competitive Coding Club
 - ABA Robotics Club
 - BHA FIRST Tech Challenge Robotics Academy
 - CMIS Coding Club
+
+---
 
 ### Additional Teaching & Learning Artifacts
 - General resources (e.g. reflection sheets, compass points)
@@ -54,6 +61,8 @@ published: true
 - CS
 - Design
 - Mathematics
+
+---
 
 ### Extracurricular Activities
 - Teaching Roles & Responsibilites

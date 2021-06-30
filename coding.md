@@ -13,6 +13,8 @@ Computer Science resources I've developed over the years to support teaching and
 - [DP Computer Science Quizlet Vocabulary](https://quizlet.com/mvpoirier/folders/dp-computer-science){:target="_blank"}
 - [Coding Bookmark Archive](/media/compsci_bookmarks.html){:target="_blank"}
 
+---
+
 ### Completed Javascript Projects
 A sample of Javascript sketches I've created for teaching and fun, and will run automatically in your web browser.
 - [Bubble Sort Visualization](https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/bubbleSort.html){:target="_blank"}
@@ -20,6 +22,8 @@ A sample of Javascript sketches I've created for teaching and fun, and will run 
 - ['FlappyBird' Game Clone (with sound)](https://rawcdn.githack.com/mvpoirier/Javascript/10c9ddfab73272a126eefb6ac23b20ef061236a2/flappyBirdClones/WEEK3/index.html){:target="_blank"}
 - [Sooty MusCAT Image Detector](https://raw.githack.com/mvpoirier/Javascript/master/sootyDetector/index.html){:target="_blank"}
 - [Interactive Visuals Demonstration](https://raw.githack.com/mvpoirier/Javascript/master/squareCircle/index.html){:target="_blank"}
+
+---
 
 ### Favorite Websites
 Some of my favorite online resources towards teaching and promoting coding in the classroom.
@@ -29,12 +33,16 @@ Some of my favorite online resources towards teaching and promoting coding in th
 - [CodingBat for Java & Python](https://codingbat.com/python){:target="_blank"}
 - [Invent with Python](https://inventwithpython.com/){:target="_blank"}
 
+---
+
 ### Languages & Libraries
 Programming languages and libraries I've used to teach students computer science principles are shared below.
 - **Java**: [OpenJDK](https://openjdk.java.net/){:target="_blank"}, [AdoptOpenJDK](https://adoptopenjdk.net/){:target="_blank"}
 - **Python**: [Python 3](https://www.python.org/downloads/){:target="_blank"}, [pygame](https://www.pygame.org/news){:target="_blank"}
 - **Javascript**: [p5.js](https://p5js.org/){:target="_blank"}, [ml5.js](https://ml5js.org/){:target="_blank"}, [matter.js](https://brm.io/matter-js/){:target="_blank"}
 - **HTML**, **CSS**, and **Markdown**
+
+---
 
 #### ...and for all of you [Winnipeg Jets](https://www.nhl.com/jets){:target="_blank"} fans:
 ```python

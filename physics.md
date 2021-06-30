@@ -12,6 +12,8 @@ Physics resources I've developed over the years to support teaching and student 
 - [DP Physics Quizlet Vocabulary](https://quizlet.com/mvpoirier/folders/dp-physics/sets){:target="_blank"}
 - [Physics Bookmark Archive](/media/physics_bookmarks.html){:target="_blank"}
 
+---
+
 ### Favorite Websites
 Some of my favorite online resources towards teaching and promoting physics in the classroom.
 - [Surendranath HTML5 Applets](http://www.surendranath.org/){:target="_blank"}
