@@ -10,3 +10,4 @@
 - Communicate what I'm doing relating to coding, physics, and teaching.
 - Allow a convenient place share my coding projects.
 - Take advantage of the syntax-highlighting capabilities of Jekyll for coding demos.
+- A place to showcase and share resources to a wider audience.
