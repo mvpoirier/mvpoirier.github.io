@@ -6,7 +6,7 @@ published: true
 ---
 <p align='right'><i>Updated: July 2021</i></p>
 
-### Thank you for taking the time to explore my online portfolio!
+### Welcome to my online portfolio!
 I hope that the resources shared below will highlight my potential contributions to your school:
 - [x] Examples of **student work**  
 - [x] **Teaching resources** to support learning
@@ -52,8 +52,12 @@ I hope that the resources shared below will highlight my potential contributions
 ---
 
 ### Additional Teaching & Learning Artifacts
-- General resources (e.g. reflection sheets, compass points)
-- Mathematics
+#### Scaffolded Learning
+- Reflection sheets
+#### Mathematics
+- Pre-Calculus  
+#### Pastoral Advisor
+- Compass Points
 
 ---
 
@@ -61,13 +65,15 @@ I hope that the resources shared below will highlight my potential contributions
 #### Coding Robotics
 - ABA Creative and Competitive Coding Club
 - ABA Robotics Club
-- BHA FIRST Tech Challenge Robotics Academy
-- CMIS Coding Club
+- BHA FIRST Tech Challenge Robotics Academy  
+- CMIS Coding Club  
 #### Athletics
 - Coaching
 
 ---
 
 ### Extracurricular Activities
+#### Personal Interests and Skills
 - Personal Interests & Skills
+#### Travel and Adventures
 - Travel & Adventures
