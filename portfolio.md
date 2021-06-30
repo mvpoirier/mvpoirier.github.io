@@ -7,11 +7,12 @@ published: true
 Last updated: July 2021
 
 ### Thank you for your time exploring my online portfolio! Here you will find:
-- [x] **Curated sample of resources** I've developed over the years
-- [x] Example **student work**
-- [x] Teaching and **learning artifacts**
-
-*Additional evidence of student learning, teaching materials, and CV/résumé are available on request.*
+- [x] Example **student work and learning artifacts**
+- [x] **Teaching resources** I've developed over the years
+- [x] Additional resources and **contributions to teaching and learning**
+- [x] Extracurricular **activites, personal interests, and travel**
+- [ ] *Photos of classes and students aren't shared publically due to privacy concerns*
+- [ ] *Evidence of student learning, teaching, and CV/résumé are available on request*
 
 ### DP Physics: Topic 7 - Atomic, Nuclear, and Particle Physics
 - Notes
@@ -46,6 +47,6 @@ Last updated: July 2021
 - Design
 - Mathematics
 
-### Extracurricular
+### Extracurricular Activities
 - Teaching Roles & Responsibilites
 - Travel & Adventures
