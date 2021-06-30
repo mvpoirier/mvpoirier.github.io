@@ -7,17 +7,18 @@ published: true
 <p align='right'><i>Updated: July 2021</i></p>
 
 ### Thank you for taking the time to explore my online portfolio!
-> I hope that the resources shared below will highlight my potential contributions to your school:
->> - [x] Example **student work and learning artifacts**  
->> - [x] **Teaching resources** I've developed to support effective student learning
->> - [x] Evidence of **after-school programs** and events
->> - [x] Extracurricular **activities and personal interests** 
->> - [ ] *Photos of student learning aren't shared publicly due to privacy concerns*  
->> - [ ] *Additional evidence, photos, and updated CV/résumé are available on request*  
+I hope that the resources shared below will highlight my potential contributions to your school:
+- [x] Examples of **student work**  
+- [x] **Teaching resources** to support learning
+- [x] Evidence of **after-school programs**
+- [x] Extracurricular **activities and interests** 
+- [ ] *Photos with students aren't shared due to privacy concerns*  
+- [ ] *Additional evidence, photos, and updated CV/résumé are available on request*  
 
 ---
 
-### DP Physics: Topic 7 - Atomic, Nuclear, and Particle Physics
+### DP Physics
+#### Topic 7 - Atomic, Nuclear, and Particle Physics
 - Notes / 2020
 - Digital Whiteboard Lesson / 2021
 - Assignment / 2020
@@ -26,7 +27,8 @@ published: true
 
 ---
 
-### DP Computer Science: Topic 4 - Computational Thinking
+### DP Computer Science
+#### Topic 4 - Computational Thinking
 - Sample of resources to support the DP Physics syllabus
 - Sample of whiteboard notes during COVID-19 for online and blended learning (2020-2021)
 - [Mike's Repl.it Online Lessons](https://repl.it/@mpoirier){:target="_blank"}
@@ -35,36 +37,37 @@ published: true
 
 ---
 
-### MYP Physics: Year 4 & 5
+### MYP Physics
+#### Year 5 - Electromagnetism
 - Unit of study
 
 ---
 
-### MYP Design: Year 2 & 4
+### MYP Design
+#### Year 4 - Interactive Digital Stories
 - Interactive Stories
 - Collaborated with Grade 4 teachers/students for 9 Digital Design project
 - Interactive Stories: November 11th 2016 to January 24, 2017
 
 ---
 
-### After-School Programs
-- ABA Creative and Competitive Coding Club
-- ABA Robotics Club
-- BHA FIRST Tech Challenge Robotics Academy
-- CMIS Coding Club
-
----
-
 ### Additional Teaching & Learning Artifacts
 - General resources (e.g. reflection sheets, compass points)
-- Physics
-- CS
-- Design
 - Mathematics
 
 ---
 
+### After-School Programs
+#### Coding Robotics
+- ABA Creative and Competitive Coding Club
+- ABA Robotics Club
+- BHA FIRST Tech Challenge Robotics Academy
+- CMIS Coding Club
+#### Athletics
+- Coaching
+
+---
+
 ### Extracurricular Activities
-- Teaching Roles & Responsibilites
-- Interests
+- Personal Interests & Skills
 - Travel & Adventures
