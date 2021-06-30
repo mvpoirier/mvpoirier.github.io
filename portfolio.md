@@ -9,7 +9,8 @@ published: true
 ### Thank you for taking the time to explore my online portfolio!
 I hope that you find the collection of resources shared below will help highlight my potential contributions to your school:
 - [x] Example **student work and learning artifacts**  
-- [x] **Teaching resources** I've developed over the years  
+- [x] **Teaching resources** I've developed to support effective student learning
+- [x] Evidence of **after-school programs** and events
 - [x] Extracurricular and personal **interests, activities and travel**  
 - [ ] *Photos of student learning aren't shared publicly due to privacy concerns*  
 - [ ] *Additional evidence, photos, and updated CV/résumé are available on request*  
