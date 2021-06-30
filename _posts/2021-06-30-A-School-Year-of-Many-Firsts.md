@@ -8,7 +8,7 @@ layout: post
 Better things to come?
 
 ## The vaccination race continues...
-<iframe src="https://public.domo.com/cards/31O7r" width="450" height="300" marginheight="0" marginwidth="0" frameborder="0"></iframe>
+<iframe src="https://public.domo.com/cards/31O7r" width="640" height="385" marginheight="0" marginwidth="0" frameborder="0"></iframe>
 
 ## What could be next?
 - Update program with a video capture feed (webcam) for real-time image detection.
