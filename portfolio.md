@@ -10,8 +10,8 @@ published: true
 I hope that the resources shared below will highlight my potential contributions to your school, including:
 - [x] Examples of **student work**  
 - [x] **Teaching resources** to support learning
-- [x] Contributing to **after-school programs**
-- [x] Extracurricular **activities and interests** 
+- [x] Contributions to **after-school programs**
+- [x] **Extracurricular activities** and interests
 
 ---
 
@@ -43,40 +43,29 @@ I hope that the resources shared below will highlight my potential contributions
 
 ### MYP Design
 #### Year 4 - Interactive Digital Stories
+*Descrption of the unit, and context provided*
 - Interactive Stories
 - Collaborated with Grade 4 teachers/students for 9 Digital Design project
 - Interactive Stories: November 11th 2016 to January 24, 2017
 
 ---
 
-### Additional Teaching & Learning Artifacts  
-#### Scaffolded Learning  
-- Reflection sheets  
-  
-#### Mathematics
-- Pre-Calculus  
-  
-#### Pastoral Advisor
-- Compass Points
+### Supporting After-School Programs
 
----
-
-### After-School Programs
-
-#### Coding Robotics
-- ABA Creative and Competitive Coding Club
+#### Robotics
 - ABA Robotics Club
 - BHA FIRST Tech Challenge Robotics Academy  
+
+#### Coding
+- ABA Creative and Competitive Coding Club
+- BHA STEM and Coding Club
 - CMIS Coding Club  
   
 #### Athletics
-- Coaching
+- Coaching high school sports academies
 
 ---
 
-### Extracurricular Activities
-#### Personal Interests and Skills
-- Personal Interests & Skills  
-  
-#### Travel and Adventures
-- Travel & Adventures
+### Extracurricular Activities & Interests
+- Sports (Photo Gallery)
+- Travel (Photo Gallery)
