@@ -6,13 +6,13 @@ published: true
 ---
 <p align='right'>Last updated: July 2021</p>
 
-### Thank you for your time exploring my online portfolio! Here you will find:
+### Thank you for taking the time to explore my online portfolio!
 - [x] Example **student work and learning artifacts**
 - [x] **Teaching resources** I've developed over the years
-- [x] Additional resources and **contributions to teaching and learning**
+- [x] **Contributions** I've made to teaching and learning
 - [x] Extracurricular **activites, personal interests, and travel**
 - [ ] *Photos of classes and students aren't shared publically due to privacy concerns*
-- [ ] *Evidence of student learning, teaching, and CV/résumé are available on request*
+- [ ] *Additional evidence of student learning, teaching, and CV/résumé are available on request*
 
 ### DP Physics: Topic 7 - Atomic, Nuclear, and Particle Physics
 - Notes
