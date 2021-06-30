@@ -47,7 +47,7 @@ I hope that the resources shared below will highlight my potential contributions
 
 ### MYP Design
 #### Year 4 - Interactive Digital Stories
-*Descrption of the unit, and context provided*
+> Description of the unit, and context provided
 - Interactive Stories
 - Collaborated with Grade 4 teachers/students for 9 Digital Design project
 - Interactive Stories: November 11th 2016 to January 24, 2017
