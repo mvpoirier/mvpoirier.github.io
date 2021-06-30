@@ -10,7 +10,7 @@ Computer Science resources I've developed over the years to support teaching and
 - [DP Computer Science Resources](www.google.ca){:target="_blank"}
 - [Github Repository](https://github.com/mvpoirier/){:target="_blank"}
 - [Repl.it Online Lessons](https://repl.it/@mpoirier){:target="_blank"}
-- [DP Computer Science Quizlet](https://quizlet.com/mvpoirier/folders/dp-computer-science){:target="_blank"}
+- [DP Computer Science Quizlet Vocabulary](https://quizlet.com/mvpoirier/folders/dp-computer-science){:target="_blank"}
 - [Coding Bookmark Archive](/media/compsci_bookmarks.html){:target="_blank"}
 
 ### Sample Javascript Projects
@@ -21,7 +21,7 @@ A select sample of Javascript sketches are linked below, which will run safely i
 - [Bubble Sort Visualization](https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/bubbleSort.html){:target="_blank"}
 - [Selection Sort Visualization](https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/selectionSort.html){:target="_blank"}
 
-### Favorites
+### Favorite Coding Websites
 Some of my favorite online resources towards teaching and promoting coding in the classroom.
 - [CEMC Canadian Computing Competition](https://cemc.uwaterloo.ca/contests/computing.html){:target="_blank"}
 - [IB CompSci Hub](http://ib.compscihub.net/){:target="_blank"}

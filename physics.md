@@ -9,9 +9,10 @@ published: true
 Physics resources I've developed over the years to support teaching and student learning.
 - [DP Physics Resources](www.google.ca){:target="_blank"}
 - [MYP Physics Resources](www.google.ca){:target="_blank"}
+- [DP Physics Quizlet Vocabulary](https://quizlet.com/mvpoirier/folders/dp-physics/sets){:target="_blank"}
 - [Physics Bookmark Archive](/media/physics_bookmarks.html){:target="_blank"}
 
-### Favorites
+### Favorite Physics Websites
 Some of my favorite online resources towards teaching and promoting physics in the classroom.
 - [Surendranath HTML5 Applets](http://www.surendranath.org/){:target="_blank"}
 - [Mathcha.io Equation Editor](https://www.mathcha.io/editor){:target="_blank"}
