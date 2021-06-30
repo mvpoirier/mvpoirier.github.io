@@ -7,7 +7,7 @@ published: true
 <p align='right'><i>Updated July 2021</i></p>
 
 ### Welcome to my online portfolio!
-I hope that the resources shared below will highlight my potential contributions to your school:
+I hope that the resources shared below will highlight my potential contributions to your school, including:
 - [x] Examples of **student work**  
 - [x] **Teaching resources** to support learning
 - [x] Contributing to **after-school programs**
