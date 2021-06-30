@@ -5,55 +5,34 @@ permalink: /coding/
 published: true
 ---
 
-## Teaching & Learning Resources
-- [Computer Science, Coding, and Robotics Bookmark Archive](/media/compsci_bookmarks.html){:target="_blank"}
-- [The Coding Train](https://thecodingtrain.com/){:target="_blank"}
-- [Repl.it Online Coding Environment](https://repl.it/){:target="_blank"}
-- [CodingBat for Java & Python](https://codingbat.com/python){:target="_blank"}
-- [Invent with Python](https://inventwithpython.com/){:target="_blank"}
+### Mike's Contributions & Resoruces
+- [DP Computer Science Resources](www.google.ca){:target="_blank"}
+- [Github Repository](https://github.com/mvpoirier/){:target="_blank"}
+- [Repl.it Online Lessons](https://repl.it/@mpoirier){:target="_blank"}
+- [DP Computer Science Quizlet](https://quizlet.com/mvpoirier/folders/dp-computer-science){:target="_blank"}
+- [Coding Bookmark Archive](/media/compsci_bookmarks.html){:target="_blank"}
 
-## ePortfolio
-Completed projects, teaching resources, and student exemplars can be found on my **[Github Repository](https://github.com/mvpoirier/){:target="_blank"}**. A select sample of Javascript sketches are linked below:
-
+### Sample Javascript Projects
+A select sample of Javascript sketches are linked below, which will run safely in your web browser.
 - [Sooty MusCAT Image Detector](https://raw.githack.com/mvpoirier/Javascript/master/sootyDetector/index.html){:target="_blank"}
 - [FlappyBird Clone with Sound](https://rawcdn.githack.com/mvpoirier/Javascript/10c9ddfab73272a126eefb6ac23b20ef061236a2/flappyBirdClones/WEEK3/index.html){:target="_blank"}
 - [Interactive Visuals](https://raw.githack.com/mvpoirier/Javascript/master/squareCircle/index.html){:target="_blank"}
 - [Bubble Sort Visualization](https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/bubbleSort.html){:target="_blank"}
 - [Selection Sort Visualization](https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/selectionSort.html){:target="_blank"}
 
-## Preferred Languages & Libraries
-- **Javascript**: [p5.js](https://p5js.org/), [ml5.js](https://ml5js.org/), [matter.js](https://brm.io/matter-js/)
-- **Python**: [Python 3](https://www.python.org/downloads/), [pygame](https://www.pygame.org/news)
-- **Java**: [OpenJDK14](https://openjdk.java.net/) @ [AdoptOpenJDK](https://adoptopenjdk.net/)
+### Favorites
+- [CEMC Canadian Computing Competition](https://cemc.uwaterloo.ca/contests/computing.html){:target="_blank"}
+- [IB CompSci Hub](http://ib.compscihub.net/){:target="_blank"}
+- [The Coding Train](https://thecodingtrain.com/){:target="_blank"}
+- [CodingBat for Java & Python](https://codingbat.com/python){:target="_blank"}
+- [Invent with Python](https://inventwithpython.com/){:target="_blank"}
 
-## Workflow
-- **Editor:**
-    - [Visual Studio Code](https://code.visualstudio.com/)
-    - [VSC - Atom One Dark Theme](https://marketplace.visualstudio.com/items?itemName=akamud.vscode-theme-onedark)
-    - [VSC - Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
-    - [VSC - Beautify](https://marketplace.visualstudio.com/items?itemName=HookyQR.beautify)
-- **IDE (Java):**
-    - [Eclipse](https://www.eclipse.org/downloads/)
-    - [Eclipse - Fast/Clean Install](https://gist.github.com/mvpoirier/90e3e2d7aa55ec78902f63416f147fde)
-    - [Eclipse - WindowBuilder](https://www.eclipse.org/windowbuilder/)
-    - [Eclipse - DevStyle (Darkest Dark Theme)](https://marketplace.eclipse.org/content/darkest-dark-theme-devstyle)
-    - [Eclipse - EasyShell](https://marketplace.eclipse.org/content/easyshell)
-- **Source Control:**
-    - [Git](https://git-scm.com/)
-    - [Github](https://github.com/)
-    - [gitignore.io](https://gitignore.io/)
-- **Content Delivery:**
-    - [raw.githack.com](https://raw.githack.com/)
-    - [UNPKG](https://unpkg.com/)
-    - [jsDelivr](https://www.jsdelivr.com/)
-    - [cdnjs](https://cdnjs.com/)
-- **Terminal (OSX):**
-    - [iTerm2](https://www.iterm2.com/)
-    - [Homebrew](https://brew.sh/)
-    - [Oh My ZSH](https://ohmyz.sh/)
-    - [SDKMAN!](https://sdkman.io/)
+### Preferred Languages & Libraries
+- **Java**: [OpenJDK](https://openjdk.java.net/){:target="_blank"}, [AdoptOpenJDK](https://adoptopenjdk.net/){:target="_blank"}
+- **Python**: [Python 3](https://www.python.org/downloads/){:target="_blank"}, [pygame](https://www.pygame.org/news){:target="_blank"}
+- **Javascript**: [p5.js](https://p5js.org/){:target="_blank"}, [ml5.js](https://ml5js.org/){:target="_blank"}, [matter.js](https://brm.io/matter-js/){:target="_blank"}
 
-#### ...and for all of you [Winnipeg Jets](https://www.nhl.com/jets) fans:
+#### ...and for all of you [Winnipeg Jets](https://www.nhl.com/jets){:target="_blank"} fans:
 ```python
 for i in range (3):
     print("Go Jets Go!")

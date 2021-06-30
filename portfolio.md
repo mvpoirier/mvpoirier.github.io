@@ -1,24 +1,16 @@
 ---
 layout: page
-title: Teaching Portfolio
+title: Mike's Online Portfolio
 permalink: /portfolio/
 published: true
 ---
+Last updated: July 2021
 
+### Thank you for exploring my online portfolio! Here you will find:
+- [x] **Curated resources I've developed over the years**
+- [x] **Example student work**
+- [x] **Teaching and learning artifacts**
 *Additional evidence of student learning, teaching materials, and CV/résumé are available on request.*
-
-- [x] **Student Learning**
-- [x] **Example Resources**
-- [x] **Learning Artifacts**
-
-|       Subject       | Grade |          Topic         | Resource #1 |  Resource #2 |   Resource #3  |   Resource #4  |
-|:-------------------:|:-----:|:----------------------:|:-----------:|:------------:|:--------------:|:--------------:|
-| DP Physics          |   12  | Atomic Physics         | Notes       | Whiteboard   | Practical Work | Assignment     |
-| DP Computer Science |   11  | Computational Thinking | Notes       | Repl.it Task | Assignment     | Video Tutorial |
-| MYP Physics         |   10  | Electromagnetism       | Notes       |              |                |                |
-| MYP Design          |   9   | Interactive Stories    | Notes       |              |                |                |
-
-<h1 style=background-color:SlateBlue;color:White; align="center">Resources</h1>
 
 ### DP Physics: Topic 7 - Atomic, Nuclear, and Particle Physics
 - Notes
@@ -27,34 +19,32 @@ published: true
 - Pracical Work / Tasks & Sample Data
 - [Mike's Physics Resources](https://mvpoirier.github.io/coding/)
 
-## MYP Physics: Year 4
-
-## MYP Physics: Year 5
-
-## DP Computer Science: Topic 4 - Computational Thinking
+### DP Computer Science: Topic 4 - Computational Thinking
 - Sample of resources to support the DP Physics syllabus
 - Sample of whiteboard notes during COVID-19 for online and blended learning (2020-2021)
-
 - [Mike's Repl.it Online Lessons](https://repl.it/@mpoirier){:target="_blank"}
 - [Mike's Github Code Repository](https://github.com/mvpoirier){:target="_blank"}
 - [Mike's Coding Resources and Examples](https://mvpoirier.github.io/coding/)
 
+### MYP Physics: Year 4 & 5
+- Unit of study
 
+### MYP Design: Year 2 & 4
+- Interactive Stories
 
+### Robotics & Coding After-School Programs
+- ABA Creative and Competitive Coding Club
+- ABA Robotics Club
+- BHA FIRST Tech Challenge Robotics Academy
+- CMIS Coding Club
 
-
-
-## Robotics
-- ABA Club
-- BHA Robotics
-- Design
-
-## Teaching & Learning Artifacts
+### Additional Teaching & Learning Artifacts
+- General resources (e.g. reflection sheets, compass points)
 - Physics
 - CS
 - Design
 - Mathematics
 
-## Extracurricular
+### Extracurricular
 - Teaching Roles & Responsibilites
 - Travel & Adventures
