@@ -6,6 +6,7 @@ published: true
 ---
 
 ### Mike's Contributions & Resoruces
+Computer Science resources I've developed over the years to support teaching and student learning.
 - [DP Computer Science Resources](www.google.ca){:target="_blank"}
 - [Github Repository](https://github.com/mvpoirier/){:target="_blank"}
 - [Repl.it Online Lessons](https://repl.it/@mpoirier){:target="_blank"}
@@ -21,16 +22,19 @@ A select sample of Javascript sketches are linked below, which will run safely i
 - [Selection Sort Visualization](https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/selectionSort.html){:target="_blank"}
 
 ### Favorites
+Some of my favorite online resources towards teaching and promoting coding in the classroom.
 - [CEMC Canadian Computing Competition](https://cemc.uwaterloo.ca/contests/computing.html){:target="_blank"}
 - [IB CompSci Hub](http://ib.compscihub.net/){:target="_blank"}
 - [The Coding Train](https://thecodingtrain.com/){:target="_blank"}
 - [CodingBat for Java & Python](https://codingbat.com/python){:target="_blank"}
 - [Invent with Python](https://inventwithpython.com/){:target="_blank"}
 
-### Preferred Languages & Libraries
+### Languages & Libraries
+Programming languages and libraries I've used to teach students computer science principles are shared below.
 - **Java**: [OpenJDK](https://openjdk.java.net/){:target="_blank"}, [AdoptOpenJDK](https://adoptopenjdk.net/){:target="_blank"}
 - **Python**: [Python 3](https://www.python.org/downloads/){:target="_blank"}, [pygame](https://www.pygame.org/news){:target="_blank"}
 - **Javascript**: [p5.js](https://p5js.org/){:target="_blank"}, [ml5.js](https://ml5js.org/){:target="_blank"}, [matter.js](https://brm.io/matter-js/){:target="_blank"}
+- **HTML**, **CSS**, and **Markdown**
 
 #### ...and for all of you [Winnipeg Jets](https://www.nhl.com/jets){:target="_blank"} fans:
 ```python
