@@ -12,8 +12,6 @@ I hope that the resources shared below will highlight my potential contributions
 - [x] **Teaching resources** to support learning
 - [x] Evidence of **after-school programs**
 - [x] Extracurricular **activities and interests** 
-- [ ] *Photos with students aren't shared due to privacy concerns*  
-- [ ] *Additional evidence, photos, and updated CV/résumé are available on request*  
 
 ---
 
