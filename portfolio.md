@@ -4,7 +4,7 @@ title: Portfolio
 permalink: /portfolio/
 published: true
 ---
-<p align='right'><i>Updated: July 2021</i></p>
+<p align='right'><i>Updated July 2021</i></p>
 
 ### Welcome to my online portfolio!
 I hope that the resources shared below will highlight my potential contributions to your school:
