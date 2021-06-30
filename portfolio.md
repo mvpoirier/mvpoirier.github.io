@@ -70,7 +70,7 @@ I hope that the resources shared below will highlight my potential contributions
 - ABA Robotics Club
 - BHA FIRST Tech Challenge Robotics Academy  
 - CMIS Coding Club  
-
+  
 #### Athletics
 - Coaching
 
@@ -79,5 +79,6 @@ I hope that the resources shared below will highlight my potential contributions
 ### Extracurricular Activities
 #### Personal Interests and Skills
 - Personal Interests & Skills  
+  
 #### Travel and Adventures
 - Travel & Adventures
