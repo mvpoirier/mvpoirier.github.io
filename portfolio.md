@@ -11,7 +11,7 @@ published: true
 - [x] **Teaching resources** I've developed over the years
 - [x] Extracurricular and personal **interests, activities and travel**
 - [ ] *Photos of student learning aren't shared publicly due to privacy concerns*
-- [ ] *Additional evidence and CV/résumé are available on request*
+- [ ] *Additional evidence/photos and CV/résumé are available on request*
 
 ### DP Physics: Topic 7 - Atomic, Nuclear, and Particle Physics
 - Notes
@@ -32,6 +32,9 @@ published: true
 
 ### MYP Design: Year 2 & 4
 - Interactive Stories
+- Collaborated with Grade 4 teachers/students for 9 Digital Design project
+- Interactive Stories: November 11th 2016 to January 24, 2017
+
 
 ### Robotics & Coding After-School Programs
 - ABA Creative and Competitive Coding Club
