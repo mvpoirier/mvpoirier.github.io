@@ -4,6 +4,7 @@ title: Mike's Online Portfolio
 permalink: /portfolio/
 published: true
 ---
+<p align='right'>Farhan Khan</p>
 Last updated: July 2021
 
 ### Thank you for your time exploring my online portfolio! Here you will find:
