@@ -15,6 +15,10 @@ I hope that the resources shared below will highlight my potential contributions
 
 ---
 
+*Ideas: Flipgrid, Padlet, Kahoot, Google Classroom/suites, Online learning, quizlet, wheel decide, video tutorials, repl.it, kognity, managebac, thinkib.net, PhET simulations...*
+
+---
+
 ### DP Physics
 #### Topic 7 - Atomic and Particle Physics
 - Notes / 2020
@@ -22,10 +26,6 @@ I hope that the resources shared below will highlight my potential contributions
 - Assignment / 2020
 - Pracical Work / Tasks & Sample Data
 - [Mike's Physics Resources](https://mvpoirier.github.io/coding/)
-
----
-
-Ideas: Flipgrid, Padlet, Kahoot, Google Classroom/suites, Online learning, quizlet, wheel decide, video tutorials, repl.it, kognity, managebac, thinkib.net, PhET simulations...
 
 ---
 
