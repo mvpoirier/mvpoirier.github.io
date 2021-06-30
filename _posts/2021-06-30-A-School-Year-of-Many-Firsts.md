@@ -4,6 +4,8 @@ title: Another School Year of Many Firsts!
 layout: post
 ---
 
+While my wife and I wait out the remaining few days of our [14-day quarantine in Canada](https://www.canada.ca/en/public-health/services/diseases/coronavirus-disease-covid-19.html), I thought it's probably a good time to reflect on the *blur* that has been the past 18 months since the COVID-19 pandemic changed how we've had to approach teaching and learning. **What did I learn from this experience so far? What can I take with me going forward?**
+
 ## Farewell 2020-2021 School Year! - A year in reflection
 Better things to come?
 
