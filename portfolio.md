@@ -25,6 +25,10 @@ I hope that the resources shared below will highlight my potential contributions
 
 ---
 
+Ideas: Flipgrid, Padlet, Kahoot, Google Classroom/suites, Online learning, quizlet, wheel decide, video tutorials, repl.it, kognity, managebac, thinkib.net, PhET simulations...
+
+---
+
 ### DP Computer Science
 #### Topic 4 - Computational Thinking
 - Sample of resources to support the DP Physics syllabus
