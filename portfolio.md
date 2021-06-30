@@ -19,7 +19,7 @@ I hope that the resources shared below will highlight my potential contributions
 
 ---
 
-### DP Physics
+### DP Physics SL/HL
 #### Topic 7 - Atomic and Particle Physics
 - Notes / 2020
 - Digital Whiteboard Lesson / 2021
@@ -29,7 +29,7 @@ I hope that the resources shared below will highlight my potential contributions
 
 ---
 
-### DP Computer Science
+### DP Computer Science SL/HL
 #### Topic 4 - Computational Thinking
 - Sample of resources to support the DP Physics syllabus
 - Sample of whiteboard notes during COVID-19 for online and blended learning (2020-2021)
@@ -47,14 +47,22 @@ I hope that the resources shared below will highlight my potential contributions
 
 ### MYP Design
 #### Year 4 - Interactive Digital Stories
-> Description of the unit, and context provided
+*Description of the unit, and context provided*
 - Interactive Stories
 - Collaborated with Grade 4 teachers/students for 9 Digital Design project
 - Interactive Stories: November 11th 2016 to January 24, 2017
 
 ---
 
-### Supporting After-School Programs
+### Secondary Mathematics
+#### MECY Canadian Curriculum: Pre-Calculus Mathematics (Grades 11 & 12)
+- one
+- two
+- three
+
+---
+
+### After-School Programs
 
 #### Robotics
 - ABA Robotics Club
@@ -70,6 +78,7 @@ I hope that the resources shared below will highlight my potential contributions
 
 ---
 
-### Extracurricular Activities & Interests
+### Extracurricular Activities
 - Sports (Photo Gallery)
+- Activities
 - Travel (Photo Gallery)
