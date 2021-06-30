@@ -18,7 +18,7 @@ I hope that the resources shared below will highlight my potential contributions
 ---
 
 ### DP Physics
-#### Topic 7 - Atomic, Nuclear, and Particle Physics
+#### Topic 7 - Atomic and Particle Physics
 - Notes / 2020
 - Digital Whiteboard Lesson / 2021
 - Assignment / 2020
