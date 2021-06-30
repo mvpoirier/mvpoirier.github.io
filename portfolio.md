@@ -4,8 +4,7 @@ title: Mike's Online Portfolio
 permalink: /portfolio/
 published: true
 ---
-<p align='right'>Farhan Khan</p>
-Last updated: July 2021
+<p align='right'>Last updated: July 2021</p>
 
 ### Thank you for your time exploring my online portfolio! Here you will find:
 - [x] Example **student work and learning artifacts**
