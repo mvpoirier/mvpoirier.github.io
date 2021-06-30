@@ -4,12 +4,15 @@ title: Another School Year of Many Firsts!
 layout: post
 ---
 
-While my wife and I wait out the remaining few days of our [14-day quarantine in Canada](https://www.canada.ca/en/public-health/services/diseases/coronavirus-disease-covid-19.html), I thought it's probably a good time to reflect on the *blur* that has been the past 18 months since the COVID-19 pandemic changed how we've had to approach teaching and learning. **What did I learn from this experience so far? What can I take with me going forward?**
+While my wife and I wait out the remaining few days of our [14-day quarantine in Canada](https://www.canada.ca/en/public-health/services/diseases/coronavirus-disease-covid-19.html), I thought it's probably a good time to reflect on the *blur* that has been the past 18 months since the COVID-19 pandemic changed how we've had to approach teaching and learning. **What did I learn from all of this? What can I take with me going forward?**
 
-## Farewell 2020-2021 School Year! - A year in reflection
+![Distance Learning is Hard.](https://covid-19archive.org/files/large/d756d9711a220a433229f8cc1455a9559fee0194.jpg)
+
+## Memes aside, what did I walk away with this year?
 Better things to come?
 
-## The vaccination race continues...
+## The Continued Impact of COVID-19
+While vaccination rates have stalled in some countries, or simply have failed to get started in others, it appears that COVID-19 will continue to have a lasting impact into the 2021-2022 school year and beyond.
 <iframe src="https://public.domo.com/cards/31O7r" width="640" height="385" marginheight="0" marginwidth="0" frameborder="0"></iframe>
 
 ## What could be next?
