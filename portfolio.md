@@ -4,8 +4,7 @@ title: Portfolio
 permalink: /portfolio/
 published: true
 ---
-<p align='right'><i>Last updated: July 2021</i></p>  
-<p align='center'>###Thank you for taking the time to explore my online portfolio!</p>  
+<p align='right'>Updated: July 2021</p>  
 
 ### Thank you for taking the time to explore my online portfolio!
 I hope that you find the resources shared below will help highlight my potential contributions to your school:
@@ -17,9 +16,9 @@ I hope that you find the resources shared below will help highlight my potential
 - [ ] *Additional evidence, photos, and updated CV/résumé are available on request*  
 
 ### DP Physics: Topic 7 - Atomic, Nuclear, and Particle Physics
-- Notes
-- Whiteboard
-- Assignment
+- Notes / 2020
+- Digital Whiteboard Lesson / 2021
+- Assignment / 2020
 - Pracical Work / Tasks & Sample Data
 - [Mike's Physics Resources](https://mvpoirier.github.io/coding/)
 
