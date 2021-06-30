@@ -1,18 +1,17 @@
 ---
 layout: page
-title: Mike's Online Portfolio
+title: Portfolio
 permalink: /portfolio/
 published: true
 ---
 <p align='right'>Last updated: July 2021</p>
 
-### Thank you for taking the time to explore my online portfolio!
+### Thank you for taking the time to explore my online portfolio! What you'll find:
 - [x] Example **student work and learning artifacts**
 - [x] **Teaching resources** I've developed over the years
-- [x] **Contributions** I've made to teaching and learning
-- [x] Extracurricular **activites, personal interests, and travel**
-- [ ] *Photos of classes and students aren't shared publically due to privacy concerns*
-- [ ] *Additional evidence of student learning, teaching, and CV/résumé are available on request*
+- [x] Extracurricular and personal **interests, activities and travel**
+- [ ] *Photos of student learning aren't shared publicly due to privacy concerns*
+- [ ] *Additional evidence and CV/résumé are available on request*
 
 ### DP Physics: Topic 7 - Atomic, Nuclear, and Particle Physics
 - Notes
@@ -49,4 +48,5 @@ published: true
 
 ### Extracurricular Activities
 - Teaching Roles & Responsibilites
+- Interests
 - Travel & Adventures
