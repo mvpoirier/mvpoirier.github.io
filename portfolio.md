@@ -10,7 +10,7 @@ published: true
 I hope that the resources shared below will highlight my potential contributions to your school:
 - [x] Examples of **student work**  
 - [x] **Teaching resources** to support learning
-- [x] Evidence of **after-school programs**
+- [x] Contributing to **after-school programs**
 - [x] Extracurricular **activities and interests** 
 
 ---
