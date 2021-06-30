@@ -51,22 +51,26 @@ I hope that the resources shared below will highlight my potential contributions
 
 ---
 
-### Additional Teaching & Learning Artifacts
-#### Scaffolded Learning
-- Reflection sheets
+### Additional Teaching & Learning Artifacts  
+#### Scaffolded Learning  
+- Reflection sheets  
+  
 #### Mathematics
 - Pre-Calculus  
+  
 #### Pastoral Advisor
 - Compass Points
 
 ---
 
 ### After-School Programs
+
 #### Coding Robotics
 - ABA Creative and Competitive Coding Club
 - ABA Robotics Club
 - BHA FIRST Tech Challenge Robotics Academy  
 - CMIS Coding Club  
+
 #### Athletics
 - Coaching
 
@@ -74,6 +78,6 @@ I hope that the resources shared below will highlight my potential contributions
 
 ### Extracurricular Activities
 #### Personal Interests and Skills
-- Personal Interests & Skills
+- Personal Interests & Skills  
 #### Travel and Adventures
 - Travel & Adventures
