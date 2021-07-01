@@ -46,7 +46,7 @@ published: true
 
 ### Grade 12 Pre-Calculus Mathematics
 #### Unit 3 - Quadratic Functions / 2014
-- ([MECY Curriculum - Manitoba, Canada](https://www.edu.gov.mb.ca/k12/cur/math/framework_9-12/index.html))
+- [Curriculum - Manitoba, Canada](https://www.edu.gov.mb.ca/k12/cur/math/framework_9-12/index.html)
 - one
 - two
 - three
@@ -65,3 +65,7 @@ published: true
 - Sports
 - Activities & Interests
 - Travel
+
+---
+
+*Additional photos and evidence of student learning available on request.*
