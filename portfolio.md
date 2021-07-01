@@ -4,7 +4,8 @@ title: Portfolio
 permalink: /portfolio/
 published: true
 ---
-
+*Updated July 2021*  
+  
 **Thank you for taking the time to explore my porfolio!** I hope that the samples shared below will help highlight my potential contributions to your school, and the future impact I could make for your students. You can also find out more about me and my interests on **[Twitter](https://twitter.com/mvpoirier)** and **[LinkedIn](https://www.linkedin.com/in/mvpoirier8)**.
 
 ---
@@ -36,8 +37,7 @@ published: true
 ---
 
 ### MYP Design
-#### Year 4 - Interactive Digital Stories
-##### 2017
+#### Year 4 - Interactive Digital Stories / 2017
 - Interactive Stories
 - Collaborated with Grade 4 teachers/students for 9 Digital Design project
 - Interactive Stories: November 11th 2016 to January 24, 2017
