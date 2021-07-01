@@ -44,8 +44,9 @@ published: true
 
 ---
 
-### Secondary Mathematics
-#### Grade 12 Pre-Calculus Mathematics ([Manitoba Curriculum](https://www.edu.gov.mb.ca/k12/cur/math/framework_9-12/index.html)) / 2014
+### Grade 12 Pre-Calculus Mathematics
+#### Unit 3 - Quadratic Functions / 2014
+- ([MECY Curriculum - Manitoba, Canada](https://www.edu.gov.mb.ca/k12/cur/math/framework_9-12/index.html))
 - one
 - two
 - three
