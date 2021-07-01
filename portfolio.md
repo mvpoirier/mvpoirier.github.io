@@ -63,7 +63,3 @@ published: true
 ### Extracurricular
 - Activities & Interests
 - Travel
-
----
-
-*Additional photos and evidence of student learning available on request.*
