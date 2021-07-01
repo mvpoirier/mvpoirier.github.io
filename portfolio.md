@@ -57,12 +57,11 @@ published: true
 - Robotics
 - Coding
 - STEM
-- Sports Academies
+- Sports
 
 ---
 
-### Extracurricular Activities
-- Sports
+### Extracurricular
 - Activities & Interests
 - Travel
 
