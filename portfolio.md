@@ -12,11 +12,10 @@ published: true
 
 ### DP Physics SL/HL
 #### Topic 7 - Atomic and Particle Physics / 2020
-- Notes / 2020
-- Digital Whiteboard Lesson / 2021
-- Assignment / 2020
-- Pracical Work / Tasks & Sample Data
-- [Mike's Physics Resources](https://mvpoirier.github.io/physics/)
+- Notes
+- Digital Whiteboard Lesson
+- Assignment
+- Pracical Work & Sample Data
 
 ---
 
