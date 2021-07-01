@@ -38,6 +38,7 @@ Some of my favorite online sites and resources towards teaching and promoting co
 ### Languages & Libraries
 Programming languages and libraries I've used to teach students computer science principles are shared below.
 - **Java**: [OpenJDK](https://openjdk.java.net/){:target="_blank"}, [AdoptOpenJDK](https://adoptopenjdk.net/){:target="_blank"}
+-- Eclipse, WindowBuilder
 - **Python**: [Python 3](https://www.python.org/downloads/){:target="_blank"}, [pygame](https://www.pygame.org/news){:target="_blank"}
 - **Javascript**: [p5.js](https://p5js.org/){:target="_blank"}, [ml5.js](https://ml5js.org/){:target="_blank"}, [matter.js](https://brm.io/matter-js/){:target="_blank"}
 - **HTML**, **CSS**, and **Markdown**
