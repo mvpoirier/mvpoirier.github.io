@@ -1,6 +1,6 @@
 ---
 published: true
-title: Another School Year of Many Firsts!
+title: Another Year of Many Firsts!
 layout: post
 ---
 

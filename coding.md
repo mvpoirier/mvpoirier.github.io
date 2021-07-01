@@ -5,7 +5,7 @@ permalink: /coding/
 published: true
 ---
 
-### Mike's Coding Resources
+### Mike's Coding Stuff
 Computer Science resources I've developed over the years to support teaching and student learning.
 - [DP Computer Science Resources](www.google.ca){:target="_blank"}
 - [Github Repository](https://github.com/mvpoirier/){:target="_blank"}
@@ -15,8 +15,8 @@ Computer Science resources I've developed over the years to support teaching and
 
 ---
 
-### Completed Javascript Projects
-A sample of Javascript sketches I've created for teaching and fun, and will run automatically in your web browser.
+### Mike's Javascript Projects
+A sample of Javascript sketches I've created for teaching and fun. They will run automatically in your web browser. Keyboard and mouse are required for interaction.
 - [Bubble Sort Visualization](https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/bubbleSort.html){:target="_blank"}
 - [Selection Sort Visualization](https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/selectionSort.html){:target="_blank"}
 - ['FlappyBird' Game Clone (with sound)](https://rawcdn.githack.com/mvpoirier/Javascript/10c9ddfab73272a126eefb6ac23b20ef061236a2/flappyBirdClones/WEEK3/index.html){:target="_blank"}
@@ -25,8 +25,8 @@ A sample of Javascript sketches I've created for teaching and fun, and will run 
 
 ---
 
-### Favorite Websites
-Some of my favorite online resources towards teaching and promoting coding in the classroom.
+### Favorite Coding Sites
+Some of my favorite online sites and resources towards teaching and promoting coding in the classroom.
 - [CEMC Canadian Computing Competition](https://cemc.uwaterloo.ca/contests/computing.html){:target="_blank"}
 - [IB CompSci Hub](http://ib.compscihub.net/){:target="_blank"}
 - [The Coding Train](https://thecodingtrain.com/){:target="_blank"}

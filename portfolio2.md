@@ -1,12 +1,21 @@
 ---
 layout: page
-title: Portfolio
-permalink: /portfolio/
-published: true
+title: Portfolio2
+permalink: /portfolio2/
+published: false
 ---
-<p align='right' font-size='10px'><i>Updated July 2021</i></p>
+<p align='right'><i>Updated July 2021</i></p>
 
-**Thank you for taking the time to explore my porfolio!** I hope that the samples shared below will help highlight my potential contributions to your school, and the future impact I could make for your students. You can also find out more about me and my interests on **[Twitter](https://twitter.com/mvpoirier)** and **[LinkedIn](https://www.linkedin.com/in/mvpoirier8)**.
+### Welcome to my online portfolio!
+I hope that the resources shared below will highlight my potential contributions to your school, including:
+- [x] Examples of **student work**  
+- [x] **Teaching resources** to support learning
+- [x] Contributions to **after-school programs**
+- [x] **Extracurricular activities** and interests
+
+---
+
+*Ideas: Flipgrid, Padlet, Kahoot, Google Classroom/suites, Online learning, quizlet, wheel decide, video tutorials, repl.it, kognity, managebac, thinkib.net, PhET simulations...*
 
 ---
 
@@ -16,7 +25,7 @@ published: true
 - Digital Whiteboard Lesson / 2021
 - Assignment / 2020
 - Pracical Work / Tasks & Sample Data
-- [Mike's Physics Resources](https://mvpoirier.github.io/physics/)
+- [Mike's Physics Resources](https://mvpoirier.github.io/coding/)
 
 ---
 
@@ -53,15 +62,23 @@ published: true
 
 ---
 
-### After School Programs
-- Robotics
-- Coding
-- STEM
-- Sports Academies
+### After-School Programs
+
+#### Robotics
+- ABA Robotics Club
+- BHA FIRST Tech Challenge Robotics Academy  
+
+#### Coding
+- ABA Creative and Competitive Coding Club
+- BHA STEM and Coding Club
+- CMIS Coding Club  
+  
+#### Athletics
+- Coaching high school sports academies
 
 ---
 
 ### Extracurricular Activities
-- Sports
-- Activities & Interests
-- Travel
+- Sports (Photo Gallery)
+- Activities
+- Travel (Photo Gallery)
