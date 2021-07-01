@@ -16,7 +16,7 @@ Computer Science resources I've developed over the years to support teaching and
 ---
 
 ### Mike's Javascript Projects
-A sample of Javascript sketches I've created for teaching and fun. They will run automatically in your web browser. Keyboard and mouse are required for interaction.
+A sample of Javascript sketches I've created for teaching and fun. They will run automatically in your web browser.
 - [Bubble Sort Visualization](https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/bubbleSort.html){:target="_blank"}
 - [Selection Sort Visualization](https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/selectionSort.html){:target="_blank"}
 - ['FlappyBird' Game Clone (with sound)](https://rawcdn.githack.com/mvpoirier/Javascript/10c9ddfab73272a126eefb6ac23b20ef061236a2/flappyBirdClones/WEEK3/index.html){:target="_blank"}
