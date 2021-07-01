@@ -4,7 +4,6 @@ title: Portfolio
 permalink: /portfolio/
 published: true
 ---
-<p align='right' font-size='10px'><i>Updated July 2021</i></p>
 
 **Thank you for taking the time to explore my porfolio!** I hope that the samples shared below will help highlight my potential contributions to your school, and the future impact I could make for your students. You can also find out more about me and my interests on **[Twitter](https://twitter.com/mvpoirier)** and **[LinkedIn](https://www.linkedin.com/in/mvpoirier8)**.
 
