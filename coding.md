@@ -35,13 +35,14 @@ Some of my favorite online sites and resources towards teaching and promoting co
 
 ---
 
-### Languages & Libraries
-Programming languages, software, and libraries I've used to teach students computer science principles are shared below.
-- **Java**: [OpenJDK](https://openjdk.java.net/){:target="_blank"}, [AdoptOpenJDK](https://adoptopenjdk.net/){:target="_blank"}
-    - Eclipse IDE, WindowBuilder GUI Designer
+### Programming Languages & Workflow
+Some of the programming languages, software, and libraries I've used to teach students how to code and apply computer science principles include:
+- **Java**: [Oracle](https://www.oracle.com/ca-en/java/technologies/javase-downloads.html){:target="_blank"}, [OpenJDK](https://openjdk.java.net/){:target="_blank"}, [AdoptOpenJDK](https://adoptopenjdk.net/){:target="_blank"}
+    - [Eclipse IDE](https://www.eclipse.org/downloads/){:target="_blank"}, [WindowBuilder GUI Designer](https://www.eclipse.org/windowbuilder/download.php){:target="_blank"}
 - **Python**: [Python 3](https://www.python.org/downloads/){:target="_blank"}, [pygame](https://www.pygame.org/news){:target="_blank"}
 - **Javascript**: [p5.js](https://p5js.org/){:target="_blank"}, [ml5.js](https://ml5js.org/){:target="_blank"}, [matter.js](https://brm.io/matter-js/){:target="_blank"}
 - **HTML**, **CSS**, and **Markdown**
+- [Visual Studio Code](https://code.visualstudio.com/){:target="_blank"}
 
 ---
 
