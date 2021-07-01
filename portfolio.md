@@ -11,7 +11,7 @@ published: true
 ---
 
 ### DP Physics SL/HL
-#### Topic 7 - Atomic and Particle Physics
+#### Topic 7 - Atomic and Particle Physics / 2020
 - Notes / 2020
 - Digital Whiteboard Lesson / 2021
 - Assignment / 2020
@@ -21,7 +21,7 @@ published: true
 ---
 
 ### DP Computer Science SL/HL
-#### Topic 4 - Computational Thinking
+#### Topic 4 - Computational Thinking / 2021
 - Sample of resources to support the DP Physics syllabus
 - Sample of whiteboard notes during COVID-19 for online and blended learning (2020-2021)
 - [Mike's Repl.it Online Lessons](https://repl.it/@mpoirier){:target="_blank"}
@@ -31,7 +31,7 @@ published: true
 ---
 
 ### MYP Physics
-#### Year 5 - Electromagnetism
+#### Year 5 - Electromagnetism / 2019
 - Unit of study
 
 ---
@@ -45,7 +45,7 @@ published: true
 ---
 
 ### Secondary Mathematics
-#### Grade 12 Pre-Calculus Mathematics ([Manitoba Curriculum](https://www.edu.gov.mb.ca/k12/cur/math/framework_9-12/index.html))
+#### Grade 12 Pre-Calculus Mathematics ([Manitoba Curriculum](https://www.edu.gov.mb.ca/k12/cur/math/framework_9-12/index.html)) / 2014
 - one
 - two
 - three
