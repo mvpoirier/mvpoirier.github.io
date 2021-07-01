@@ -46,7 +46,7 @@ published: true
 ---
 
 ### Secondary Mathematics
-#### MECY Canadian Curriculum: Pre-Calculus Mathematics (Grades 11 & 12)
+#### Grade 12 Pre-Calculus Mathematics ([Manitoba Curriculum](https://www.edu.gov.mb.ca/k12/cur/math/framework_9-12/index.html))
 - one
 - two
 - three
