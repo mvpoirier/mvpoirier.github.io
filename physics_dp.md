@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Mike's DP Physics Resources
-permalink: /physics_DP/
+permalink: /physics_dp/
 published: true
 ---
 
