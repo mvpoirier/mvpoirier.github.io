@@ -6,7 +6,9 @@ published: true
 ---
 *Updated July 2021*  
   
-**Thank you for taking the time to explore my teaching porfolio!** You can also find out more about my qualifications and interests on my **[CV/Résumé](https://docs.google.com/document/d/1sGqsb1ApCbV2Ya4ywrwnAJydd8VkqxLeSaRW46eZuR4/edit?usp=sharing)**, **[LinkedIn](https://www.linkedin.com/in/mvpoirier8)**, and **[Twitter](https://twitter.com/mvpoirier)**.
+**Thank you for taking the time to explore my teaching porfolio!**
+  
+You can also find out more about my qualifications, experience, and interests on my **[CV/Résumé](https://docs.google.com/document/d/1sGqsb1ApCbV2Ya4ywrwnAJydd8VkqxLeSaRW46eZuR4/edit?usp=sharing)**, **[LinkedIn](https://www.linkedin.com/in/mvpoirier8)**, and **[Twitter](https://twitter.com/mvpoirier)**.
 
 ---
 
