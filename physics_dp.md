@@ -1,14 +1,14 @@
 ---
 layout: page
-title: Physics
-permalink: /physics/
+title: Mike's DP Physics Resources
+permalink: /physics_DP/
 published: true
 ---
 
 ### Mike's Physics Stuff
-Resources I've developed over the years to support teaching and student learning.
-- [DP Physics]("{{ site.baseurl }}/physics_dp"){:target="_blank"}
-- [MYP Physics](http://www.google.ca){:target="_blank"}
+Physics resources I've developed over the years to support teaching and student learning.
+- [DP Physics Resources](http://www.google.ca){:target="_blank"}
+- [MYP Physics Resources](http://www.google.ca){:target="_blank"}
 - [DP Physics Quizlet Vocabulary](https://quizlet.com/mvpoirier/folders/dp-physics/sets){:target="_blank"}
 - [Physics Bookmark Archive](/media/physics_bookmarks.html){:target="_blank"}
 

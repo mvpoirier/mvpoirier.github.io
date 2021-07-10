@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Portfolio
+title: Mike's Teaching Portfolio
 permalink: /portfolio/
 published: true
 ---
