@@ -12,13 +12,8 @@ You can also find out more about my qualifications, experience, and interests on
 
 ---
 
-### Physics
-#### DP Physics
-- Notes
-- Digital Whiteboard Lesson
-- Assignment
-- Pracical Work & Sample Data
-#### MYP Physics
+### DP Physics SL/HL
+#### Topic 7 - Atomic and Particle Physics / 2020
 - Notes
 - Digital Whiteboard Lesson
 - Assignment
@@ -26,23 +21,32 @@ You can also find out more about my qualifications, experience, and interests on
 
 ---
 
-### Computer Science
-#### DP Computer Science
+### DP Computer Science SL/HL
+#### Topic 4 - Computational Thinking / 2021
 - Sample of resources to support the DP Physics syllabus
 - Sample of whiteboard notes during COVID-19 for online and blended learning (2020-2021)
 - [Mike's Repl.it Online Lessons](https://repl.it/@mpoirier){:target="_blank"}
 - [Mike's Github Code Repository](https://github.com/mvpoirier){:target="_blank"}
 - [Mike's Coding Resources and Examples](https://mvpoirier.github.io/coding/)
-#### MYP Digital Design
-- Year 4 Interactive Stories / 2017
+
+---
+
+### MYP Physics
+#### Year 5 - Electromagnetism / 2019
+- Unit of study
+
+---
+
+### MYP Design
+#### Year 4 - Interactive Digital Stories / 2017
+- Interactive Stories
 - Collaborated with Grade 4 teachers/students for 9 Digital Design project
 - Interactive Stories: November 11th 2016 to January 24, 2017
 
 ---
 
-### Mathematics
-#### Grade 12 Pre-Calculus Mathematics
-- Unit 3 - Quadratic Functions / 2014
+### Grade 12 Pre-Calculus Mathematics
+#### Unit 3 - Quadratic Functions / 2014
 - [Curriculum - Manitoba, Canada](https://www.edu.gov.mb.ca/k12/cur/math/framework_9-12/index.html)
 - one
 - two
@@ -50,7 +54,14 @@ You can also find out more about my qualifications, experience, and interests on
 
 ---
 
-### Robotics, Coding, and STEAM (After-School Programs)
-- Robotics Clubs
-- Coding Clubs
-- STEM Clubs
+### After School Programs
+- Robotics
+- Coding
+- STEM
+- Sports
+
+---
+
+### Extracurricular
+- Activities & Interests
+- Travel
