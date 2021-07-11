@@ -17,7 +17,8 @@ You can also find out more about my qualifications, experience, and interests on
 - Notes
 - Digital Whiteboard Lesson
 - Assignment
-- Pracical Work & Sample Data
+- Pracical Work & Sample Data  
+  
 #### MYP Physics
 - Notes
 - Digital Whiteboard Lesson
@@ -32,7 +33,8 @@ You can also find out more about my qualifications, experience, and interests on
 - Sample of whiteboard notes during COVID-19 for online and blended learning (2020-2021)
 - [Mike's Repl.it Online Lessons](https://repl.it/@mpoirier){:target="_blank"}
 - [Mike's Github Code Repository](https://github.com/mvpoirier){:target="_blank"}
-- [Mike's Coding Resources and Examples](https://mvpoirier.github.io/coding/)
+- [Mike's Coding Resources and Examples](https://mvpoirier.github.io/coding/)  
+  
 #### MYP Digital Design
 - Year 4 Interactive Stories / 2017
 - Collaborated with Grade 4 teachers/students for 9 Digital Design project
@@ -50,7 +52,7 @@ You can also find out more about my qualifications, experience, and interests on
 
 ---
 
-### Robotics, Coding, and STEAM (After-School Programs)
+### Robotics, Coding, and STEM
 - Robotics Clubs
 - Coding Clubs
 - STEM Clubs
