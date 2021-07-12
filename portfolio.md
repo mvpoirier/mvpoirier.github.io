@@ -10,6 +10,7 @@ You can also find out more about my qualifications, experience, and interests on
   
 ---
   
+<h1 style=background-color:#1c4587;color:White; align="center">Physics</h1>
 ### Physics
 #### DP Physics
 <iframe src="https://drive.google.com/embeddedfolderview?id=1pA6bdFvxmsir_gH1V8oTpFycaNysMXYT#list" width="100%" height="100%" style="border:1px solid black;"></iframe>
