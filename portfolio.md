@@ -6,7 +6,7 @@ published: true
 ---
 *Updated July 2021*  
   
-**Welcome to Mike Poirier's online portfolio!**
+**Welcome to my online portfolio!**
   
 You can also find out more about my qualifications, experience, and interests on my **[CV/Résumé](https://drive.google.com/file/d/1glDde-ajDM7koyvnCMvvCRr3JIPvvafF/view?usp=sharing)**, **[LinkedIn](https://www.linkedin.com/in/mvpoirier8)**, and **[Twitter](https://twitter.com/mvpoirier)**.
   
@@ -67,9 +67,9 @@ Testing 1 2 3
   
 ---
   
-**Thank you for exploring my portfolio!** I look forward to the opportunity to discuss my qualifications, experience, and teaching philosophy with you soon, and how I can make a positive impact at your school.
+**Thank you for exploring my portfolio!**  
+I look forward to the opportunity to discuss my qualifications, experience, and teaching philosophy with you soon, and how I could make a positive impact at your school.
   
 *Thank you for your consideration,*
   
 *Michael Poirier*
-*mpoirier@gmail.com*
