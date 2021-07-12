@@ -67,10 +67,8 @@ A small collection of photos from my life as an international teacher across Can
   
 ---
   
-**Thank you for exploring my portfolio!**  
-  
 I look forward to the opportunity to discuss my qualifications, experience, and teaching philosophy with you soon, and how I could make a positive impact at your school.
   
-*Thank you again for your consideration,*
+***Thank you for your consideration,***
   
-*Michael Poirier*
+***Michael Poirier***
