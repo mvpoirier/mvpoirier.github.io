@@ -18,14 +18,14 @@ You can also find out more about my qualifications, experience, and interests on
 - Digital Whiteboard Lesson
 - Assignment
 - Pracical Work & Sample Data
-<iframe src="https://drive.google.com/embeddedfolderview?id=1pA6bdFvxmsir_gH1V8oTpFycaNysMXYT#list" width="100%" height="100%" frameborder="2"></iframe>
+<iframe src="https://drive.google.com/embeddedfolderview?id=1pA6bdFvxmsir_gH1V8oTpFycaNysMXYT#list" width="100%" height="100%" style="border:1px solid black;"></iframe>
   
 #### MYP Physics
 - Notes
 - Digital Whiteboard Lesson
 - Assignment
 - Pracical Work & Sample Data
-<iframe src="https://drive.google.com/embeddedfolderview?id=1pA6bdFvxmsir_gH1V8oTpFycaNysMXYT#grid" width="100%" height="100%" frameborder="1"></iframe>
+<iframe src="https://drive.google.com/embeddedfolderview?id=1pA6bdFvxmsir_gH1V8oTpFycaNysMXYT#grid" width="100%" height="100%" style="border:1px solid black;"></iframe>
   
 ---
   
@@ -37,10 +37,18 @@ You can also find out more about my qualifications, experience, and interests on
 - [Mike's Github Code Repository](https://github.com/mvpoirier){:target="_blank"}
 - [Mike's Coding Resources and Examples](https://mvpoirier.github.io/coding/)  
   
+---
+  
+### Design
 #### MYP Digital Design
 - Year 4 Interactive Stories / 2017
 - Collaborated with Grade 4 teachers/students for 9 Digital Design project
 - Interactive Stories: November 11th 2016 to January 24, 2017
+
+#### MYP Product Design
+- 1 autocad
+- 2 robotics?
+- 3 fabric, ect.
   
 ---
   
@@ -54,10 +62,11 @@ You can also find out more about my qualifications, experience, and interests on
   
 ---
   
-### Robotics, Coding, and STEM
+### After-School Programs: Robotics, Coding, and STEM
 - Robotics Clubs
 - Coding Clubs
 - STEM Clubs
+- Sports
   
 ---
   
