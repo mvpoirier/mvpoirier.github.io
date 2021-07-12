@@ -1,14 +1,12 @@
 ---
 layout: page
-title: Teaching Portfolio
+title: Portfolio
 permalink: /portfolio/
 published: true
 ---
 *Updated July 2021*  
   
-**Thank you for taking the time to explore my online teaching portfolio!**
-  
-I hope that the samples and resources shared below will help highlight my potential contributions to your school.
+**Thank you for taking the time to explore my portfolio!**
   
 You can also find out more about my qualifications, experience, and interests on my **[CV/Résumé](https://drive.google.com/file/d/1glDde-ajDM7koyvnCMvvCRr3JIPvvafF/view?usp=sharing)**, **[LinkedIn](https://www.linkedin.com/in/mvpoirier8)**, and **[Twitter](https://twitter.com/mvpoirier)**.
   
