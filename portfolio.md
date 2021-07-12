@@ -63,7 +63,7 @@ You can also find out more about my qualifications, experience, and interests on
   
 ### Photo Gallery
 A small collection of photos from my life as an international teacher across Canada (2009), China (2009-2013), South Korea (2013-2019), and Oman (2019-present).
-<iframe src="https://drive.google.com/embeddedfolderview?id=0B6pDDaLlP7i9RU5XVTJQb1ptWkU#grid" width="100%" height="100%" frameborder="0" style="border:1px solid black;"></iframe>
+<iframe src="https://drive.google.com/embeddedfolderview?id=0B6pDDaLlP7i9RU5XVTJQb1ptWkU#grid" width="100%" height="100%" style="border:1px solid black;"></iframe>
   
 ***Thank you for your consideration,***
   
