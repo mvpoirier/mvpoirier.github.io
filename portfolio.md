@@ -56,5 +56,5 @@ A small collection of photos, along with my wife Amy Ivany, throughout our inter
 <br>
 Thank you for your consideration,
   
-**Michael Poirier**  
+**Mike Poirier**  
 *August 2021*
