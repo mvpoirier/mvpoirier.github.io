@@ -9,11 +9,11 @@ published: true
 **Thank you for taking the time to explore my online teaching portfolio!**
   
 I hope that the samples and resources shared below will help highlight my potential contributions to your school.
-
+  
 You can also find out more about my qualifications, experience, and interests on my **[CV/Résumé](https://drive.google.com/file/d/1glDde-ajDM7koyvnCMvvCRr3JIPvvafF/view?usp=sharing)**, **[LinkedIn](https://www.linkedin.com/in/mvpoirier8)**, and **[Twitter](https://twitter.com/mvpoirier)**.
-
+  
 ---
-
+  
 ### Physics
 #### DP Physics
 - Notes
@@ -28,9 +28,9 @@ You can also find out more about my qualifications, experience, and interests on
 - Assignment
 - Pracical Work & Sample Data
 <iframe src="https://drive.google.com/embeddedfolderview?id=1pA6bdFvxmsir_gH1V8oTpFycaNysMXYT#grid" width="100%" height="500" frameborder="0"></iframe>
-
+  
 ---
-
+  
 ### Computer Science
 #### DP Computer Science
 - Sample of resources to support the DP Physics syllabus
@@ -43,9 +43,9 @@ You can also find out more about my qualifications, experience, and interests on
 - Year 4 Interactive Stories / 2017
 - Collaborated with Grade 4 teachers/students for 9 Digital Design project
 - Interactive Stories: November 11th 2016 to January 24, 2017
-
+  
 ---
-
+  
 ### Mathematics
 #### Grade 12 Pre-Calculus Mathematics
 - Unit 3 - Quadratic Functions / 2014
@@ -53,9 +53,9 @@ You can also find out more about my qualifications, experience, and interests on
 - one
 - two
 - three
-
+  
 ---
-
+  
 ### Robotics, Coding, and STEM
 - Robotics Clubs
 - Coding Clubs
