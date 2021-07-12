@@ -52,9 +52,7 @@ You can also find out more about my qualifications, experience, and interests on
 <h1 style="background-color:#1c4587;color:White;" align="center">Photo Gallery</h1>
 A small collection of photos, along with my wife Amy Ivany, throughout our international teaching careers.  
 <iframe src="https://drive.google.com/embeddedfolderview?id=0B6pDDaLlP7i9RU5XVTJQb1ptWkU#grid" width="100%" height="100%" style="border:1px solid black;"></iframe>  
-  
-  
-  
+<br><br>
 Thank you for your consideration,
   
 **Michael Poirier**  
