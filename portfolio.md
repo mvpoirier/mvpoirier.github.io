@@ -25,17 +25,12 @@ You can also find out more about my qualifications, experience, and interests on
 - [Mike's Github Code Repository](https://github.com/mvpoirier){:target="_blank"}
 - [Mike's Coding Resources and Examples](https://mvpoirier.github.io/coding/)  
   
-<h1 style="background-color:#1c4587;color:White;" align="center">Design</h1>
-
 #### MYP Digital Design
 - Year 4 Interactive Stories / 2017
 - Collaborated with Grade 4 teachers/students for 9 Digital Design project
 - Interactive Stories: November 11th 2016 to January 24, 2017
-
-#### MYP Product Design
-- 1 autocad
+- 1 autocad / 3d printing
 - 2 robotics?
-- 3 fabric, ect.
   
 <h1 style="background-color:#1c4587;color:White;" align="center">Mathematics</h1>
 
