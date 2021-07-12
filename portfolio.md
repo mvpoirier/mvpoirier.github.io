@@ -68,6 +68,7 @@ Testing 1 2 3
 ---
   
 **Thank you for exploring my portfolio!**  
+  
 I look forward to the opportunity to discuss my qualifications, experience, and teaching philosophy with you soon, and how I could make a positive impact at your school.
   
 *Thank you for your consideration,*
