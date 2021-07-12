@@ -6,8 +6,10 @@ published: true
 ---
 *Updated July 2021*  
   
-**Thank you for taking the time to explore my teaching porfolio!**
+**Thank you for taking the time to explore my teaching portfolio!**
   
+I hope that the samples and resources shared below will highlight my potential contributions to your school.
+
 You can also find out more about my qualifications, experience, and interests on my **[CV/Résumé](https://drive.google.com/file/d/1glDde-ajDM7koyvnCMvvCRr3JIPvvafF/view?usp=sharing)**, **[LinkedIn](https://www.linkedin.com/in/mvpoirier8)**, and **[Twitter](https://twitter.com/mvpoirier)**.
 
 ---
