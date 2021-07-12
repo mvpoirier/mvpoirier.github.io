@@ -6,7 +6,7 @@ published: true
 ---
 *Updated July 2021*  
   
-**Thank you for taking the time to explore my portfolio!**
+**Welcome to Mike Poirier's online portfolio!**
   
 You can also find out more about my qualifications, experience, and interests on my **[CV/Résumé](https://drive.google.com/file/d/1glDde-ajDM7koyvnCMvvCRr3JIPvvafF/view?usp=sharing)**, **[LinkedIn](https://www.linkedin.com/in/mvpoirier8)**, and **[Twitter](https://twitter.com/mvpoirier)**.
   
@@ -18,14 +18,14 @@ You can also find out more about my qualifications, experience, and interests on
 - Digital Whiteboard Lesson
 - Assignment
 - Pracical Work & Sample Data
-<iframe src="https://drive.google.com/embeddedfolderview?id=1pA6bdFvxmsir_gH1V8oTpFycaNysMXYT#list" width="100%" height="100%" frameborder="0"></iframe>
+<iframe src="https://drive.google.com/embeddedfolderview?id=1pA6bdFvxmsir_gH1V8oTpFycaNysMXYT#list" width="100%" height="100%" frameborder="2"></iframe>
   
 #### MYP Physics
 - Notes
 - Digital Whiteboard Lesson
 - Assignment
 - Pracical Work & Sample Data
-<iframe src="https://drive.google.com/embeddedfolderview?id=1pA6bdFvxmsir_gH1V8oTpFycaNysMXYT#grid" width="100%" height="100%" frameborder="0"></iframe>
+<iframe src="https://drive.google.com/embeddedfolderview?id=1pA6bdFvxmsir_gH1V8oTpFycaNysMXYT#grid" width="100%" height="100%" frameborder="1"></iframe>
   
 ---
   
@@ -63,4 +63,13 @@ You can also find out more about my qualifications, experience, and interests on
   
 ### Photo Gallery
 Testing 1 2 3
-<iframe src="https://drive.google.com/embeddedfolderview?id=0B6pDDaLlP7i9RU5XVTJQb1ptWkU#grid" width="100%" height="100%" frameborder="0"></iframe>
+<iframe src="https://drive.google.com/embeddedfolderview?id=0B6pDDaLlP7i9RU5XVTJQb1ptWkU#grid" width="100%" height="100%" frameborder="1"></iframe>
+  
+---
+  
+**Thank you for exploring my portfolio!** I look forward to the opportunity to discuss my qualifications, experience, and teaching philosophy with you soon, and how I can make a positive impact at your school.
+  
+*Thank you for your consideration,*
+  
+*Michael Poirier*
+*mpoirier@gmail.com*
