@@ -8,8 +8,6 @@ published: true
   
 You can also find out more about my qualifications, experience, and interests on my **[CV/Résumé](https://drive.google.com/file/d/1glDde-ajDM7koyvnCMvvCRr3JIPvvafF/view?usp=sharing)**, **[LinkedIn](https://www.linkedin.com/in/mvpoirier8)**, and **[Twitter](https://twitter.com/mvpoirier)**.
   
----
-  
 <h1 style="background-color:#1c4587;color:White;" align="center">Physics</h1>
   
 #### DP Physics
@@ -17,8 +15,6 @@ You can also find out more about my qualifications, experience, and interests on
   
 #### MYP Physics
 <iframe src="https://drive.google.com/embeddedfolderview?id=1pA6bdFvxmsir_gH1V8oTpFycaNysMXYT#grid" width="100%" height="100%" style="border:1px solid black;"></iframe>
-  
----
   
 <h1 style="background-color:#1c4587;color:White;" align="center">Computer Science</h1>
 
@@ -28,8 +24,6 @@ You can also find out more about my qualifications, experience, and interests on
 - [Mike's Repl.it Online Lessons](https://repl.it/@mpoirier){:target="_blank"}
 - [Mike's Github Code Repository](https://github.com/mvpoirier){:target="_blank"}
 - [Mike's Coding Resources and Examples](https://mvpoirier.github.io/coding/)  
-  
----
   
 <h1 style="background-color:#1c4587;color:White;" align="center">Design</h1>
 
@@ -43,8 +37,6 @@ You can also find out more about my qualifications, experience, and interests on
 - 2 robotics?
 - 3 fabric, ect.
   
----
-  
 <h1 style="background-color:#1c4587;color:White;" align="center">Mathematics</h1>
 
 #### Grade 12 Pre-Calculus Mathematics
@@ -53,8 +45,6 @@ You can also find out more about my qualifications, experience, and interests on
 - one
 - two
 - three
-  
----
 
 <h1 style="background-color:#1c4587;color:White;" align="center">After-School Programs</h1>
   
@@ -64,11 +54,11 @@ You can also find out more about my qualifications, experience, and interests on
 - STEM Clubs
 - Sports
   
----
-  
 <h1 style="background-color:#1c4587;color:White;" align="center">Photo Gallery</h1>
 A small collection of photos from my life as an international teacher, along with my wife Amy Ivany, across Canada (2009), China (2009-2013), South Korea (2013-2019), and Oman (2019-present).
 <iframe src="https://drive.google.com/embeddedfolderview?id=0B6pDDaLlP7i9RU5XVTJQb1ptWkU#grid" width="100%" height="100%" style="border:1px solid black;"></iframe>
+  
+--
   
 Thank you for your consideration,
   
