@@ -4,8 +4,6 @@ title: Portfolio
 permalink: /portfolio/
 published: true
 ---
-*Updated July 2021*  
-  
 **Welcome to my online portfolio!**
   
 You can also find out more about my qualifications, experience, and interests on my **[CV/Résumé](https://drive.google.com/file/d/1glDde-ajDM7koyvnCMvvCRr3JIPvvafF/view?usp=sharing)**, **[LinkedIn](https://www.linkedin.com/in/mvpoirier8)**, and **[Twitter](https://twitter.com/mvpoirier)**.
@@ -66,6 +64,8 @@ You can also find out more about my qualifications, experience, and interests on
 A small collection of photos from my life as an international teacher across Canada (2009), China (2009-2013), South Korea (2013-2019), and Oman (2019-present).
 <iframe src="https://drive.google.com/embeddedfolderview?id=0B6pDDaLlP7i9RU5XVTJQb1ptWkU#grid" width="100%" height="100%" style="border:1px solid black;"></iframe>
   
-***Thank you for your consideration,***
   
-***Michael Poirier***
+Thank you for your consideration,
+  
+**Michael Poirier**
+*August 2021*
