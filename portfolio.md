@@ -43,7 +43,7 @@ You can also find out more about my qualifications, experience, and interests on
 
 <h1 style="background-color:#1c4587;color:White;" align="center">After-School Programs</h1>
   
-#### Robotics, Coding, STEM, Sports
+#### Robotics, Coding, STEM, and Athletics
 - Robotics Clubs
 - Coding Clubs
 - STEM Clubs
