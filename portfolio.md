@@ -16,7 +16,7 @@ You can also find out more about my qualifications, experience, and interests on
 #### MYP Physics
 <iframe src="https://drive.google.com/embeddedfolderview?id=1pA6bdFvxmsir_gH1V8oTpFycaNysMXYT#grid" width="100%" height="100%" style="border:1px solid black;"></iframe>
   
-<h1 style="background-color:#1c4587;color:White;" align="center">Computer Science</h1>
+<h1 style="background-color:#1c4587;color:White;" align="center">Computer Science & Design</h1>
 
 #### DP Computer Science
 - Sample of resources to support the DP Physics syllabus
