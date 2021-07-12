@@ -71,6 +71,6 @@ A small collection of photos from my teaching and personal life as an internatio
   
 I look forward to the opportunity to discuss my qualifications, experience, and teaching philosophy with you soon, and how I could make a positive impact at your school.
   
-*Thank you for your consideration,*
+*Thank you again for your consideration,*
   
 *Michael Poirier*
