@@ -63,7 +63,7 @@ You can also find out more about my qualifications, experience, and interests on
   
 ### Photo Gallery
 Testing 1 2 3
-<iframe src="https://drive.google.com/embeddedfolderview?id=0B6pDDaLlP7i9RU5XVTJQb1ptWkU#grid" width="100%" height="100%" frameborder="1"></iframe>
+<iframe src="https://drive.google.com/embeddedfolderview?id=0B6pDDaLlP7i9RU5XVTJQb1ptWkU#grid" width="100%" height="100%" frameborder="1" style="border:1px solid black;"></iframe>
   
 ---
   
