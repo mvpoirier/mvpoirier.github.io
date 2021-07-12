@@ -67,5 +67,5 @@ A small collection of photos from my life as an international teacher across Can
   
 Thank you for your consideration,
   
-**Michael Poirier**
+**Michael Poirier**  
 *August 2021*
