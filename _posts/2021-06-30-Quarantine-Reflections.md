@@ -12,7 +12,7 @@ I've wondered lately what have we done in the past 18 months which can be built 
 
 ---
 
-The Office memes and joking aside, there has beene a *LOT* to unpack over the past year and half of trying to understand and adapt to the pandemic so that our students can learn as effectively as possible.
+The Office memes and joking aside, there has been *a lot* to unpack over the past year and half of trying to understand and adapt to the pandemic so that our students can learn as effectively as possible.
 
 **A few things that come to mind that I hope to continue going forward**:
 - [x] Prioritizing student and colleague wellness before academics
