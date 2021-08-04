@@ -9,9 +9,7 @@ While Amy and I wait out the remaining few days of our 14-day quarantine since r
 I've wondered lately what have we done in the past 18 months which can be built upon, expanded, and potentially brought forward into the classroom as we all prepare for face-to-face learning to come back again.
 
 <img src="https://covid-19archive.org/files/large/d756d9711a220a433229f8cc1455a9559fee0194.jpg" alt="Distance Learning is Hard." width="400"/>
-
----
-
+  
 The Office memes and joking aside, there has been *a lot* to unpack over the past year and half of trying to understand and adapt to the pandemic so that our students can learn as effectively as possible.
 
 **A few things that come to mind that I hope to continue going forward**:
