@@ -1,14 +1,18 @@
 ---
 published: true
-title: Replit Probject Based Learning: A Text-Based Adventure
+title: Replit Probject Based Learning Workshop: A Text Adventure
 layout: post
 ---
 
-Replit PD on Project Based Learning on June 26th.
-- [x] Use of Python dictionaries for an inventory
-- [x] Providing instructions using Markdown within each Replit project
-- [x] Scaffolding from individual excercises and skill-building to final project
+A week ago I was lucky enough to attend [Replit's online workshop on Project Based Learning in Computer Science](https://www.eventbrite.com/e/replit-professional-development-project-based-learning-tickets-153561997067), where I was able to collaborate with other CS teachers and learn a lot from a collection of keynote speakers.
 
-<iframe frameborder="0" width="100%" height="500px" src="https://replit.com/@PDJuly2021/Input-Loop-Adventure09Project-Text-Based-Adventu-mpoirier?lite=true"></iframe>
+**Some of my big takeaways from this workshop were**:
+- [x] Use of [Python dictionaries](https://www.w3schools.com/python/python_dictionaries.asp) for an inventory
+- [x] Providing instructions using [Markdown](https://www.markdownguide.org/) files (.md) within each Replit project
+- [x] Scaffolding from individual excercises and skill-building to final project development
+
+**Mike's Replit Text Adventure**
+Below is my brief text adventure proof-of-concept. You can also open this code in Replit which will create your own fork where you can edit/modify it yourself! :-)
+<iframe frameborder="1" width="100%" height="500px" src="https://replit.com/@PDJuly2021/Input-Loop-Adventure09Project-Text-Based-Adventu-mpoirier?lite=true"></iframe>
 
 Mike
