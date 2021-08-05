@@ -1,6 +1,6 @@
 ---
 published: true
-title: Replit Probject Based Learning Workshop: A Text Adventure
+title: Replit Project Based Learning - A Text Adventure
 layout: post
 ---
 
