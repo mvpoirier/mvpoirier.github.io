@@ -4,7 +4,7 @@ title: Project Based Learning with Replit
 layout: post
 ---
 
-A week ago I was lucky enough to attend [Replit's online workshop on Project Based Learning in Computer Science](https://www.eventbrite.com/e/replit-professional-development-project-based-learning-tickets-153561997067), where I had the opportunity to collaborate and share ideas with other CS teachers and learn a lot from a collection of keynote speakers.
+A week ago I was lucky enough to attend [Replit's](www.replit.com) online workshop on [Project Based Learning](https://www.eventbrite.com/e/replit-professional-development-project-based-learning-tickets-153561997067), where I had the opportunity to collaborate and share ideas with other CS teachers and learn a lot from a collection of keynote speakers.
 
 **Some of my big takeaways from this workshop were**:  
 - [x] Considering the [PRIMM Framework](https://primmportal.com/) when introducing new programming concepts and tasks
