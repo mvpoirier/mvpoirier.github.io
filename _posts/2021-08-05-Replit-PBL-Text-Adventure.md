@@ -1,6 +1,6 @@
 ---
 published: true
-title: Replit Project Based Learning - A Text Adventure
+title: Project Based Learning with Replit
 layout: post
 ---
 
