@@ -66,3 +66,5 @@ src="https://raw.githack.com/mvpoirier/Javascript/master/sootyDetector/index.htm
 - Detecting human postures with [COCO DensePose](http://densepose.org/).
 - Implement a physics demo with [matter.js](https://brm.io/matter-js/).
 - Implement a multiplayer demo with [socket.io](https://socket.io/).
+
+Mike
