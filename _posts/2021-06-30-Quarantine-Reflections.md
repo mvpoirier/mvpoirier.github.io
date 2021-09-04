@@ -27,6 +27,6 @@ The Office memes and joking aside, there has been *a lot* to unpack over the pas
 - [ ] Integrate more action-research invididually and as a science department as we develop our curriculum review cycle and new intiatives to improve on effective student learning
   
 **A silver linining to every cloud...**  
-The pandemic has been challenging as we continue to oscillate between face-to-face, online, and blended learning environments. The silver lining to all of this is that as a profession we've been resilient, learning new skills, and hopefully using COVID-19 as an opportunity to [Buid Back Better](https://schoolsonline.education.ed.ac.uk/2020/06/17/john-hattie-interview-by-chris-cox-build-back-better/) our schools than we ever could have before.
+The pandemic has been challenging as we continue to oscillate between face-to-face, online, and blended learning environments. The silver lining to all of this is that as a profession we've been resilient, learning new skills, and hopefully using COVID-19 as an opportunity to [Build Back Better](https://schoolsonline.education.ed.ac.uk/2020/06/17/john-hattie-interview-by-chris-cox-build-back-better/) our schools than we ever could have before.
   
 Mike
