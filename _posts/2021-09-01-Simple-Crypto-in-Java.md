@@ -16,7 +16,7 @@ The **Ja**va **S**implified Encr**ypt**ion Library (Jasypt) has shown to be a us
 - [StackOverflow: Simple Encryption in Java Discussion](https://stackoverflow.com/questions/29226813/simple-encryption-in-java-no-key-password)
 
 
-**A Quick Example: The Beginnings of a Login Screen...**
+**A Quick Example: The Beginnings of a Login Screen...**  
 In this quick example ([Source Code](https://github.com/mvpoirier/Java/tree/master/LoginCrypto)), I show how to encrypt and decrypt a the message title bar for two GUI windows (JFrames). This is can be viewed as the beginning towards developing your own login screen which requires encrypted passwords. A great next step would be to use `FileReader`, `BufferedReader`, `FileWriter`, and `PrintWriter` from the `java.io.*` built-in package to quickly and securily input, encrypt, save, and, load, and decrypt usernames and passwords for your programs.
 
 A few key features and code snippets from the example:
