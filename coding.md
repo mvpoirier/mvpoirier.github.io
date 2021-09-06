@@ -16,7 +16,7 @@ Computer Science resources I've developed over the years to support teaching and
 ---
 
 ### Mike's Javascript Projects
-A sample of Javascript sketches I've created for teaching and fun. They will run automatically in your web browser.
+A sample of Javascript sketches I've created for teaching and fun, usually based on the p5.js framework. Each one will run automatically in your web browser.
 - [Bubble Sort Visualization](https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/bubbleSort.html){:target="_blank"}
 - [Selection Sort Visualization](https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/selectionSort.html){:target="_blank"}
 - ['FlappyBird' Game Clone (with sound)](https://rawcdn.githack.com/mvpoirier/Javascript/10c9ddfab73272a126eefb6ac23b20ef061236a2/flappyBirdClones/WEEK3/index.html){:target="_blank"}
@@ -36,9 +36,8 @@ Some of my favorite online sites and resources towards teaching and promoting co
 ---
 
 ### Programming Languages & Workflow
-Some of the programming languages, software, and libraries I've used to teach students how to code and apply computer science principles include:
-- **Java**: [Oracle](https://www.oracle.com/ca-en/java/technologies/javase-downloads.html){:target="_blank"}, [OpenJDK](https://openjdk.java.net/){:target="_blank"}, [AdoptOpenJDK](https://adoptopenjdk.net/){:target="_blank"}
-    - [Eclipse IDE](https://www.eclipse.org/downloads/){:target="_blank"}, [WindowBuilder GUI Designer](https://www.eclipse.org/windowbuilder/download.php){:target="_blank"}
+Some of the programming languages, software, and libraries I use to teach students how to code and apply computer science principles:
+- **Java**: [Eclipse IDE](https://www.eclipse.org/downloads/){:target="_blank"}, [WindowBuilder GUI Designer](https://www.eclipse.org/windowbuilder/download.php){:target="_blank"}
 - **Python**: [Python 3](https://www.python.org/downloads/){:target="_blank"}, [pygame](https://www.pygame.org/news){:target="_blank"}
 - **Javascript**: [p5.js](https://p5js.org/){:target="_blank"}, [ml5.js](https://ml5js.org/){:target="_blank"}, [matter.js](https://brm.io/matter-js/){:target="_blank"}
 - **HTML**, **CSS**, and **Markdown**
