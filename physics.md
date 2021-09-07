@@ -14,7 +14,7 @@ Resources I've developed over the years to support teaching and student learning
 
 ---
 
-### Favorite Sites
+### Favorite Physics Sites
 Some of my favorite online sites and resources towards teaching and promoting physics in the classroom.
 - [Surendranath HTML5 Applets](http://www.surendranath.org/){:target="_blank"}
 - [PhET Simulations](https://phet.colorado.edu/){:target="_blank"}
