@@ -5,7 +5,7 @@ permalink: /physics_dp/
 published: true
 ---
 
-I hope other teachers find some use from the resources I've developed over the years for DP Physics Standard and Higher Level. The resources below are for the IB DP Physic SL/HL 2014 curriculum (first exams May 2016).
+Below are resources I've developed over the years to support teaching the **IB DP Physics SL/HL 2014 curriculum (first exams May 2016)**.
 
 ### DP Physics Standard Level Notes
 DP Physics SL/HL notes: Topics 1 to 12, and Option D.1 to D.5 (Astrophysics)
@@ -20,5 +20,5 @@ A collection of investigations I've developed to support practical work in DP Ph
 ---
 
 ### DP Physics Odds & Ends
-Miscellaneous resources that relate to and support DP Physics teaching.
+Miscellaneous resources that support DP Physics teaching and student learning
 <iframe src="https://drive.google.com/embeddedfolderview?id=1pA6bdFvxmsir_gH1V8oTpFycaNysMXYT#list" width="100%" height="100%" style="border:1px solid black;"></iframe>
