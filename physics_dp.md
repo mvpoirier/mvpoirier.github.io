@@ -5,12 +5,26 @@ permalink: /physics_dp/
 published: true
 ---
 
-### Mike's Physics Stuff
-Physics resources I've developed over the years to support teaching and student learning.
-- [DP Physics Resources](http://www.google.ca){:target="_blank"}
-- [MYP Physics Resources](http://www.google.ca){:target="_blank"}
-- [DP Physics Quizlet Vocabulary](https://quizlet.com/mvpoirier/folders/dp-physics/sets){:target="_blank"}
-- [Physics Bookmark Archive](/media/physics_bookmarks.html){:target="_blank"}
+### DP Physics Standard Level Notes
+DP Physics SL notes (Topics 1 to 8) I've created for the 2014 curriculum.
+<iframe src="https://drive.google.com/embeddedfolderview?id=1pA6bdFvxmsir_gH1V8oTpFycaNysMXYT#list" width="100%" height="100%" style="border:1px solid black;"></iframe>
+
+---
+
+### DP Physics Higher Level Notes
+DP Physics HL notes (Topics 9 to 12) I've created for the 2014 curriculum.
+<iframe src="https://drive.google.com/embeddedfolderview?id=1pA6bdFvxmsir_gH1V8oTpFycaNysMXYT#list" width="100%" height="100%" style="border:1px solid black;"></iframe>
+
+---
+
+### DP Physics Investigations
+A collection of investigations I've developed to support practical work for DP Physics SL/HL and Internal Assessments for the 2014 curriculum.
+<iframe src="https://drive.google.com/embeddedfolderview?id=1pA6bdFvxmsir_gH1V8oTpFycaNysMXYT#list" width="100%" height="100%" style="border:1px solid black;"></iframe>
+
+---
+
+### DP Physics Odds & Ends
+Other miscellaneous resources that relate to DP Physics
 
 ---
 
