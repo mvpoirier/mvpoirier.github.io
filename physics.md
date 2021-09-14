@@ -7,7 +7,7 @@ published: true
 
 ### Mike's Physics Stuff
 Resources I've developed over the years to support teaching and student learning.
-- [DP Physics (incomplete)](/physics_dp)
+- [DP Physics Resources](/physics_dp)
 - MYP Physics (incomplete)
 - [DP Physics Quizlet Vocabulary](https://quizlet.com/mvpoirier/folders/dp-physics/sets){:target="_blank"}
 - [Physics Bookmark Archive](/media/physics_bookmarks.html){:target="_blank"}
