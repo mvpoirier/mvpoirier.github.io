@@ -4,16 +4,17 @@ title: Physics
 permalink: /physics/
 published: true
 ---
-I hope you find some use from the physics resources shared below! If you are interested in continuing the conversation and chatting more, you can always find me on [Twitter](https://twitter.com/mvpoirier) and [LinkedIn](https://www.linkedin.com/in/mvpoirier8).
+
+I hope you find some use from the physics resources shared below! If you are interested in continuing the conversation and chatting more, you can always find me on [Twitter](https://twitter.com/mvpoirier){:target="_blank"} and [LinkedIn](https://www.linkedin.com/in/mvpoirier8){:target="_blank"}.
+
 ---
 
 ### Mike's Physics Stuff
 Resources I've developed over the years to support teaching and student learning.
 - [DP Physics Resources](/physics_dp)
-- MYP Physics (incomplete)
-- [DP Physics Quizlet Vocabulary](https://quizlet.com/mvpoirier/folders/dp-physics/sets){:target="_blank"}
+- [MYP Physics (Incomplete)](/physics_myp)
 - [Physics Bookmark Archive](/media/physics_bookmarks.html){:target="_blank"}
-
+- [DP Physics Quizlet Vocabulary](https://quizlet.com/mvpoirier/folders/dp-physics/sets){:target="_blank"}
 ---
 
 ### Favorite Physics Sites
@@ -22,7 +23,7 @@ Some of my favorite online sites and resources towards teaching and promoting ph
 - [PhET Simulations](https://phet.colorado.edu/){:target="_blank"}
 - [Flipping Physics](https://www.flippingphysics.com/){:target="_blank"}
 - [PhysPort: Research-based Teaching](https://www.physport.org/){:target="_blank"}
-- [Think IB: DP Physics](http://www.thinkib.net/physics){:target="_blank"}
+- [Thinkib.net - DP Physics](http://www.thinkib.net/physics){:target="_blank"}
 - [Grade Gorilla](https://www.gradegorilla.com/IB-physics-revision-questions.php){:target="_blank"}
 
 ---
