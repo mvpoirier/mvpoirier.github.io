@@ -6,15 +6,16 @@ published: true
 ---
 
 I hope you find some use from the physics resources shared below! If you are interested in continuing the conversation and chatting more, you can always find me on [Twitter](https://twitter.com/mvpoirier){:target="_blank"} and [LinkedIn](https://www.linkedin.com/in/mvpoirier8){:target="_blank"}.
-
+  
 ---
-
+  
 ### Mike's Physics Stuff
 Resources I've developed over the years to support teaching and student learning.
 - [DP Physics Resources](/physics_dp)
 - [MYP Physics (Incomplete)](/physics_myp)
 - [Physics Bookmark Archive](/media/physics_bookmarks.html){:target="_blank"}
 - [DP Physics Quizlet Vocabulary](https://quizlet.com/mvpoirier/folders/dp-physics/sets){:target="_blank"}
+  
 ---
 
 ### Favorite Physics Sites
