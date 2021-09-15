@@ -4,6 +4,8 @@ title: Physics
 permalink: /physics/
 published: true
 ---
+I hope you find some use from the physics resources shared below! If you are interested in continuing the conversation and chatting more, you can always find me on [Twitter](https://twitter.com/mvpoirier) and [LinkedIn](https://www.linkedin.com/in/mvpoirier8).
+---
 
 ### Mike's Physics Stuff
 Resources I've developed over the years to support teaching and student learning.
