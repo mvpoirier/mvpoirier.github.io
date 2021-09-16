@@ -20,5 +20,5 @@ Investigations I've developed to support practical work in DP Physics SL/HL
 ---
 
 ### DP Physics Odds & Ends
-A collection of miscellaneous resources
+A collection of miscellaneous resources for DP Physics teaching and learning.
 <iframe src="https://drive.google.com/embeddedfolderview?id=1pA6bdFvxmsir_gH1V8oTpFycaNysMXYT#list" width="100%" height="100%" style="border:1px solid black;"></iframe>
