@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Mike's MYP Physics Resources
-permalink: /physics_dp/
+permalink: /physics_myp/
 published: true
 ---
 
