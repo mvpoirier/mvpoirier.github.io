@@ -2,11 +2,11 @@
 layout: page
 title: Portfolio
 permalink: /portfolio/
-published: true
+published: false
 ---
 ## Welcome to my online portfolio!
   
-You can also find out more about my qualifications, experience, and interests on my **[CV/Résumé](https://drive.google.com/file/d/1glDde-ajDM7koyvnCMvvCRr3JIPvvafF/view?usp=sharing)**, **[LinkedIn](https://www.linkedin.com/in/mvpoirier8)**, and **[Twitter](https://twitter.com/mvpoirier)**.
+You can find out more about my qualifications, experience, and interests on my **[CV/Résumé](https://drive.google.com/file/d/1glDde-ajDM7koyvnCMvvCRr3JIPvvafF/view?usp=sharing)**, **[LinkedIn](https://www.linkedin.com/in/mvpoirier8)**, and **[Twitter](https://twitter.com/mvpoirier)**.
   
 <h1 style="background-color:#1c4587;color:White;" align="center">Physics</h1>
   
@@ -55,6 +55,5 @@ A small collection of photos, along with my wife Amy Ivany, throughout our inter
   
 <br>
 Thank you for your consideration,
-  
+
 **Mike Poirier**  
-*August 2021*

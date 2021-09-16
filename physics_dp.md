@@ -5,7 +5,7 @@ permalink: /physics_dp/
 published: true
 ---
 
-Below are resources I've developed over the years to support teaching and student learning for the IB DP Physics 2014 curriculum (first exams May 2016). If you are interested in continuing the conversation and chatting more, you can always find me on [Twitter](https://twitter.com/mvpoirier){:target="_blank"} and [LinkedIn](https://www.linkedin.com/in/mvpoirier8){:target="_blank"}.
+Below are resources I've developed over the years to support teaching and student learning for the IB DP Physics 2014 curriculum (first exams May 2016). If you are interested in continuing the conversation and chatting more, you can find me on [Twitter](https://twitter.com/mvpoirier){:target="_blank"} and [LinkedIn](https://www.linkedin.com/in/mvpoirier8){:target="_blank"}.
 
 ### DP Physics Standard & Higher Level Notes
 DP Physics SL/HL notes: Topics 1 to 12, and Option D.1 to D.5 (Astrophysics)
