@@ -19,6 +19,6 @@ Notes, investigations, and resources I've developed to support Grade 10 MYP Phys
 
 ---
 
-### MYP Physics Odds & Ends
-A collection of miscellaneous resources for MYP Physics teaching and learning.
+### MYP Science and MYP Physics Odds & Ends
+A collection of miscellaneous resources for MYP Science & MYP Physics.
 <iframe src="https://drive.google.com/embeddedfolderview?id=16fx30AXuvzOzKW9iMtK_oZRm98zFpJyU#list" width="100%" height="100%" style="border:1px solid black;"></iframe>
