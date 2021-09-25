@@ -12,7 +12,7 @@ I hope you find some use from the physics resources shared below. If you are int
 ### Mike's Physics Stuff
 Resources I've developed over the years to support teaching and student learning.
 - [DP Physics Resources](/physics_dp)
-- [MYP Physics (Incomplete)](/physics_myp)
+- [MYP Physics Resources](/physics_myp)
 - [Physics Bookmark Archive](/media/physics_bookmarks.html){:target="_blank"}
 - [DP Physics Quizlet Vocabulary](https://quizlet.com/mvpoirier/folders/dp-physics/sets){:target="_blank"}
   
