@@ -29,7 +29,7 @@ I hope the information, resources, and photos collected and shared below will he
 - I value respectful dialogue and following the [Norms of Collaboration](https://drive.google.com/file/d/1XRhRGtsAmd1xsIBP97jlvEeLmLhFTHSd/view?usp=sharing){:target="_blank"}
 - I enjoy making friends both in and out of school, and value those relationships
 - I am proactive in meeting with colleagues to clarify misunderstandings
-- I can be trusted to meet deadlines, expectations, and to do the best I can each day
+- I can be trusted to meet deadlines, expectations, and help others when needed
 - I value the well-being of those around me, and strive for a healthy work-life balance
   
 <h1 style="background-color:#1c4587;color:White;" align="center">Physics</h1>
