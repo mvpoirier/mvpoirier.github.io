@@ -6,7 +6,7 @@ published: true
 ---
 ## Welcome to my online portfolio!
   
-I hope the information, resources, and photos collected and shared below will help illustrate the potential benefit and impact I can make at your school. You can also find out more about my qualifications, experience, and interests on my **[CV/Résumé](https://drive.google.com/file/d/1glDde-ajDM7koyvnCMvvCRr3JIPvvafF/view?usp=sharing){:target="_blank"}**, **[LinkedIn](https://www.linkedin.com/in/mvpoirier8){:target="_blank"}**, and **[Twitter](https://twitter.com/mvpoirier){:target="_blank"}**.
+I hope the information, resources, and photos collected and shared below will help illustrate the potential benefit and impact I can make at your school. You can also find out more about my qualifications, experience, and interests on my **[CV/Résumé](https://drive.google.com/file/d/1qzE-WX_8jcSoO0RaCrOvLCab0GqjfB5N/view?usp=sharing){:target="_blank"}**, **[LinkedIn](https://www.linkedin.com/in/mvpoirier8){:target="_blank"}**, and **[Twitter](https://twitter.com/mvpoirier){:target="_blank"}**.
 
 <h1 style="background-color:#1c4587;color:White;" align="center">Teaching Philosophy</h1>
 
