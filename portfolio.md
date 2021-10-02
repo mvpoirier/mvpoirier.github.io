@@ -50,10 +50,12 @@ You can find out more about my qualifications, experience, and interests on my *
 - Sports
   
 <h1 style="background-color:#1c4587;color:White;" align="center">Photo Gallery</h1>
-A small collection of photos, along with my wife Amy Ivany, throughout our international teaching careers.  
-<iframe src="https://drive.google.com/embeddedfolderview?id=0B6pDDaLlP7i9RU5XVTJQb1ptWkU#grid" width="100%" height="100%" style="border:1px solid black;"></iframe>  
+A small collection of photos from my international teaching experience and travels.
+<iframe src="https://drive.google.com/embeddedfolderview?id=1ze-c7pArKdb_ZVdRN_NtHbPRVUAanBTL#grid" width="100%" height="200%" style="border:1px solid black;"></iframe>  
   
 <br>
-Thank you for your consideration,
-
+Thank you for your consideration of my application to your school,  
+  
 **Mike Poirier**  
+  
+October 2021
