@@ -10,6 +10,9 @@ I hope the information, resources, and photos collected and shared below will he
 
 <h1 style="background-color:#1c4587;color:White;" align="center">Teaching Philosophy</h1>
 
+#### As an international educator...
+- I value the pastoral role that teachers have in the day-to-day lives of our students
+
 #### As a physics teacher...
 - I value having students [make their thinking visible](https://pz.harvard.edu/thinking-routines)
 - I value how students *arrive* at the final answer: the journey vs. the destination
@@ -17,13 +20,12 @@ I hope the information, resources, and photos collected and shared below will he
 - I value practical work as an important part of developing students' conceptual understanding
 
 #### As a computer science teacher...
-
-#### As a department head and leader...
-- I value respectful dialogue and following [the norms of collaboration]().
-
-#### As a pastoral and student advisor...
+- I find that collaboration and peer work is a crucial aspect of good coding practice
 
 #### As a colleague...
+- I value respectful dialogue and following the *Norms of Collaboration*
+- I try to celebrate our differences, and be involved in the school community
+- I enjoy making friends both in and out of school, and value those relationships
   
 <h1 style="background-color:#1c4587;color:White;" align="center">Physics</h1>
   
