@@ -12,6 +12,9 @@ I hope the information, resources, and photos collected and shared below will he
 
 #### As an international educator...
 - I value the pastoral role that teachers have in the day-to-day lives of our students
+- I recognized the need to celebrate our differences and share our cultures
+- I try to be involved in the school community, both during and outside of school hours
+- I am grateful to be a part of a caring and professional teaching community
 
 #### As a physics teacher...
 - I value having students [make their thinking visible](https://pz.harvard.edu/thinking-routines)
@@ -21,11 +24,15 @@ I hope the information, resources, and photos collected and shared below will he
 
 #### As a computer science teacher...
 - I find that collaboration and peer work is a crucial aspect of good coding practice
+- Emphasis must be placed on logical thinking, prior to coding
+
 
 #### As a colleague...
 - I value respectful dialogue and following the *Norms of Collaboration*
-- I try to celebrate our differences, and be involved in the school community
 - I enjoy making friends both in and out of school, and value those relationships
+- I am proactive in meeting with colleagues to clarify misunderstandings
+- I can be trusted to meet deadlines, expectations, and to do the best I can each day
+- I value the well-being of those around me, and strive for a healthy work-life balance
   
 <h1 style="background-color:#1c4587;color:White;" align="center">Physics</h1>
   
