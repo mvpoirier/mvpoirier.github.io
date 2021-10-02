@@ -16,13 +16,15 @@ I hope the information, resources, and photos collected and shared below will he
 - I try to be involved in the school community, and make authentic connections with others
 - I am grateful to be a part of a caring and professional teaching community
 
-#### As a teacher of physics and computer science...
+#### As a physics and computer science teacher...
 - I value having students [make their thinking visible](https://pz.harvard.edu/thinking-routines)
 - I value how students *arrive* at the final answer: the journey vs. the destination
 - I focus and place emphasis on *unit analysis* as a distinction between math and physics
 - I value practical work as an important part of developing students' conceptual understanding
-- I find that collaboration and communication are crucial aspects of good coding practice
+- I find that collaboration and communication are vital for both good teaching and effective student learning
 - I try to leverage technology and online learning to improve understanding of key concepts
+- I make sure to scaffold lessons and assessments so that students know how to be successful
+- I place emphasis on the learning journey, and how students can *close the gap* to improve
 
 #### As a colleague...
 - I value respectful dialogue and following the *Norms of Collaboration*
