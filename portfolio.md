@@ -17,7 +17,7 @@ I hope the information, resources, and photos collected and shared below will he
 - I am grateful to be a part of a caring and professional teaching community
 
 #### As a physics and computer science teacher...
-- I value having students [make their thinking visible](https://pz.harvard.edu/thinking-routines)
+- I value having students [make their thinking visible](https://pz.harvard.edu/thinking-routines){:target="_blank"}
 - I value *how* students arrive at the final answer: the journey vs. the destination
 - I value practical work as an important part of developing students' conceptual understanding
 - I find that collaboration and communication are vital for both good teaching and effective student learning
@@ -48,9 +48,15 @@ A collection of photos and investigations I've conducted over the years. I look 
 
 #### DP Resources
 Resources I've developed over the years to support teaching computer science.
+- [Mike's Coding Resources and Examples](https://mvpoirier.github.io/coding/){:target="_blank"}
 - [Replit Online Lessons](https://repl.it/@mpoirier){:target="_blank"}
 - [Github Code Repository](https://github.com/mvpoirier){:target="_blank"}
-- [Resources and Examples](https://mvpoirier.github.io/coding/)  
+
+### Coding Examples
+A small sample of Javascript sketches I've created with students for teaching coding concepts. Each one will run automatically in your web browser:
+- [Bubble Sort Visualization](https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/bubbleSort.html){:target="_blank"}
+- [Selection Sort Visualization](https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/selectionSort.html){:target="_blank"}
+- ['FlappyBird' Game Clone (with sound)](https://rawcdn.githack.com/mvpoirier/Javascript/10c9ddfab73272a126eefb6ac23b20ef061236a2/flappyBirdClones/WEEK3/index.html){:target="_blank"}
   
 <h1 style="background-color:#1c4587;color:White;" align="center">Photo Gallery</h1>
 A collection of photos from my international teaching experience so far. I look forward to the opportunity to discuss any photos that may be of interest to you.
