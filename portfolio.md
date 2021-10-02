@@ -42,7 +42,7 @@ Resources I've developed over the years to support teaching physics.
 
 ### Physics Practicals
 A collection of photos and investigations I've conducted over the years. I look forward to the opportunity to discuss any photos that may be of interest to you.
-<iframe src="https://drive.google.com/embeddedfolderview?id=0B6pDDaLlP7i9d3hkbzZySTBfLTQ#grid" width="100%" height="400px" style="border:1px solid black;"></iframe>  
+<iframe src="https://drive.google.com/embeddedfolderview?id=0B6pDDaLlP7i9d3hkbzZySTBfLTQ#grid" width="100%" height="100%" style="border:1px solid black;"></iframe>  
   
 <h1 style="background-color:#1c4587;color:White;" align="center">Computer Science</h1>
 
@@ -60,7 +60,7 @@ A small sample of Javascript sketches I've created with students for teaching co
   
 <h1 style="background-color:#1c4587;color:White;" align="center">Photo Gallery</h1>
 A collection of photos from my international teaching experience so far. I look forward to the opportunity to discuss any photos that may be of interest to you.
-<iframe src="https://drive.google.com/embeddedfolderview?id=1ze-c7pArKdb_ZVdRN_NtHbPRVUAanBTL#grid" width="100%" height="400px" style="border:1px solid black;"></iframe>  
+<iframe src="https://drive.google.com/embeddedfolderview?id=1ze-c7pArKdb_ZVdRN_NtHbPRVUAanBTL#grid" width="100%" height="100%" style="border:1px solid black;"></iframe>  
   
 <br>
 Thank you for considering my application to your school,  
