@@ -2,7 +2,7 @@
 layout: page
 title: Portfolio
 permalink: /portfolio/
-published: false
+published: true
 ---
 ## Welcome to my online portfolio!
   
