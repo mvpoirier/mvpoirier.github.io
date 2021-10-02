@@ -10,13 +10,20 @@ I hope the information, resources, and photos collected and shared below will he
 
 <h1 style="background-color:#1c4587;color:White;" align="center">Teaching Philosophy</h1>
 
-#### As a colleague...
-
-#### As a pastoral advisor and student mentor...
-
 #### As a physics teacher...
+- I value having students [make their thinking visible](https://pz.harvard.edu/thinking-routines)
+- I value how students *arrive* at the final answer: the journey vs. the destination
+- I focus and place emphasis on *unit analysis* as a distinction between math and physics
+- I value practical work as an important part of developing students' conceptual understanding
 
 #### As a computer science teacher...
+
+#### As a department head and leader...
+- I value respectful dialogue and following [the norms of collaboration]().
+
+#### As a pastoral and student advisor...
+
+#### As a colleague...
   
 <h1 style="background-color:#1c4587;color:White;" align="center">Physics</h1>
   
@@ -28,7 +35,7 @@ Resources I've developed over the years to support teaching physics.
 
 ### Physics Practicals
 A collection of photos of investigations I've conducted over the years.
-<iframe src="https://drive.google.com/embeddedfolderview?id=0B6pDDaLlP7i9d3hkbzZySTBfLTQ#grid" width="100%" height="300px" style="border:1px solid black;"></iframe>  
+<iframe src="https://drive.google.com/embeddedfolderview?id=0B6pDDaLlP7i9d3hkbzZySTBfLTQ#grid" width="100%" height="400px" style="border:1px solid black;"></iframe>  
   
 <h1 style="background-color:#1c4587;color:White;" align="center">Computer Science</h1>
 
