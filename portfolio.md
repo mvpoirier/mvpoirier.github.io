@@ -26,7 +26,7 @@ I hope the information, resources, and photos collected and shared below will he
 - I place emphasis on the learning journey, and try to cultivate a *growth mindset* towards learning
 
 #### As a colleague...
-- I value respectful dialogue and following the *Norms of Collaboration*
+- I value respectful dialogue and following the [Norms of Collaboration](https://drive.google.com/file/d/1XRhRGtsAmd1xsIBP97jlvEeLmLhFTHSd/view?usp=sharing){:target="_blank"}
 - I enjoy making friends both in and out of school, and value those relationships
 - I am proactive in meeting with colleagues to clarify misunderstandings
 - I can be trusted to meet deadlines, expectations, and to do the best I can each day
