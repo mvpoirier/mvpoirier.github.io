@@ -46,7 +46,7 @@ A collection of photos and investigations I've conducted over the years. I look 
   
 <h1 style="background-color:#1c4587;color:White;" align="center">Computer Science</h1>
 
-#### DP Resources
+### DP Resources
 Resources I've developed over the years to support teaching computer science.
 - [Mike's Coding Resources and Examples](https://mvpoirier.github.io/coding/){:target="_blank"}
 - [Replit Online Lessons](https://repl.it/@mpoirier){:target="_blank"}
