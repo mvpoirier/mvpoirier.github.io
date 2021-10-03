@@ -47,7 +47,7 @@ A collection of photos and investigations I've conducted over the years. I look 
 
 ### DP Resources
 Resources I've developed over the years to support teaching computer science.
-- [DP Computer Science Resources](/coding_dp)
+- [DP Computer Science Resources](/coding_dp){:target="_blank"}
 - [Replit Online Lessons](https://replit.com/@mpoirier){:target="_blank"}
 - [GitHub Repository](https://github.com/mvpoirier/){:target="_blank"}
 - [DP Computer Science Quizlet Vocabulary](https://quizlet.com/mvpoirier/folders/dp-computer-science){:target="_blank"}
@@ -66,7 +66,7 @@ A collection of photos that highlight contributions I've made to schools to prom
 A collection of photos highlighting some of my international teaching experience so far. I look forward to the opportunity to discuss any photos that may be of interest to you.
 <iframe src="https://drive.google.com/embeddedfolderview?id=1ze-c7pArKdb_ZVdRN_NtHbPRVUAanBTL#grid" width="100%" height="400px" style="border:1px solid black;"></iframe>-->  
 
-Thank you for considering my application to your school, and I look forward to continuing the conversation in the near future.
+Thank you for considering my application to your school.
   
 Sincerely,
   
