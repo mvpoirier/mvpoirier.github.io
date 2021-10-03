@@ -11,7 +11,7 @@ I hope you find some use from the coding resources shared below. If you are inte
 
 ### Mike's Coding Stuff
 Computer Science resources I've developed over the years to support teaching and student learning.
-- [DP Computer Science Resources (Incomplete)](/coding_dp)
+- [DP Computer Science Resources](/coding_dp)
 - [GitHub Repository](https://github.com/mvpoirier/){:target="_blank"}
 - [Replit Online Lessons](https://replit.com/@mpoirier){:target="_blank"}
 - [Coding Bookmark Archive](/media/compsci_bookmarks.html){:target="_blank"}
