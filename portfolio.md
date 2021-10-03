@@ -6,7 +6,7 @@ published: true
 ---
 ## Welcome to my online portfolio!
   
-I hope the information, resources, and photos collected and shared below will help illustrate the potential benefit and impact I can make at your school. You can also find out more about my qualifications, experience, and interests on my **[CV/Résumé](https://drive.google.com/file/d/1qzE-WX_8jcSoO0RaCrOvLCab0GqjfB5N/view?usp=sharing){:target="_blank"}**, **[LinkedIn](https://www.linkedin.com/in/mvpoirier8){:target="_blank"}**, and **[Twitter](https://twitter.com/mvpoirier){:target="_blank"}**.
+I hope the information, resources, and photos collected and shared below will help illustrate the potential benefit and impact I can make at your school. You can also find out more about my qualifications, experience, and interests on my **[CV/Résumé](https://drive.google.com/file/d/1vLFd7euhzultzFlA_tjfIHuWGXcyO88I/view?usp=sharing){:target="_blank"}**, **[LinkedIn](https://www.linkedin.com/in/mvpoirier8){:target="_blank"}**, and **[Twitter](https://twitter.com/mvpoirier){:target="_blank"}**.
 
 <h1 style="background-color:#1c4587;color:White;" align="center">Teaching Philosophy</h1>
 
@@ -26,9 +26,8 @@ I hope the information, resources, and photos collected and shared below will he
 - I place emphasis on the learning journey, and try to cultivate a *growth mindset* towards learning
 
 #### As a colleague...
-- I value respectful dialogue and following the [Norms of Collaboration](https://drive.google.com/file/d/1XRhRGtsAmd1xsIBP97jlvEeLmLhFTHSd/view?usp=sharing){:target="_blank"}
-- I enjoy making friends both in and out of school, and value those relationships
-- I am proactive in meeting with colleagues to clarify misunderstandings
+- I value respectful and productive dialogue and following the [Norms of Collaboration](https://drive.google.com/file/d/1XRhRGtsAmd1xsIBP97jlvEeLmLhFTHSd/view?usp=sharing){:target="_blank"}
+- I am proactive in meeting with colleagues to clarify misunderstandings and next steps
 - I can be trusted to meet deadlines, expectations, and help others when needed
 - I value the well-being of those around me, and strive for a healthy work-life balance
   
@@ -44,7 +43,7 @@ Resources I've developed over the years to support teaching physics.
 A collection of photos and investigations I've conducted over the years. I look forward to the opportunity to discuss any photos that may be of interest to you.
 <iframe src="https://drive.google.com/embeddedfolderview?id=0B6pDDaLlP7i9d3hkbzZySTBfLTQ#grid" width="100%" height="400px" style="border:1px solid black;"></iframe>  
   
-<h1 style="background-color:#1c4587;color:White;" align="center">Computer Science</h1>
+<h1 style="background-color:#1c4587;color:White;" align="center">Computer Science & STEM</h1>
 
 ### DP Resources
 Resources I've developed over the years to support teaching computer science.
@@ -57,9 +56,13 @@ A small sample of Javascript sketches I've created with students for teaching co
 - [Bubble Sort Visualization](https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/bubbleSort.html){:target="_blank"}
 - [Selection Sort Visualization](https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/selectionSort.html){:target="_blank"}
 - ['FlappyBird' Game Clone (with sound)](https://rawcdn.githack.com/mvpoirier/Javascript/10c9ddfab73272a126eefb6ac23b20ef061236a2/flappyBirdClones/WEEK3/index.html){:target="_blank"}
-  
+
+### Robotics, Coding, Design, and STEM
+A collection of photos that highlight contributions I've made to schools to promote  robotics, coding, design, and STEM. I look forward to the opportunity to discuss any photos that may be of interest to you.
+<iframe src="https://drive.google.com/embeddedfolderview?id=1h_Vd5_l0wNhV4EJgykBVR7qFrVMwgjH8#grid" width="100%" height="400px" style="border:1px solid black;"></iframe>  
+
 <h1 style="background-color:#1c4587;color:White;" align="center">Photo Gallery</h1>
-A collection of photos from my international teaching experience so far. I look forward to the opportunity to discuss any photos that may be of interest to you.
+A collection of photos highlighting some of my international teaching experience so far. I look forward to the opportunity to discuss any photos that may be of interest to you.
 <iframe src="https://drive.google.com/embeddedfolderview?id=1ze-c7pArKdb_ZVdRN_NtHbPRVUAanBTL#grid" width="100%" height="400px" style="border:1px solid black;"></iframe>  
   
 <br>
