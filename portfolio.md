@@ -8,7 +8,7 @@ published: true
   
 I hope the information, resources, and photos collected and shared below will help illustrate the potential benefit and impact I can make at your school. You can also find out more about my qualifications, experience, and interests on my **[CV/Résumé](https://drive.google.com/file/d/1Qp4k7uuWQ9XDlfr7Ogj8mFnMqeSkfvRX/view?usp=sharing){:target="_blank"}**, **[LinkedIn](https://www.linkedin.com/in/mvpoirier8){:target="_blank"}**, and **[Twitter](https://twitter.com/mvpoirier){:target="_blank"}**.
 
-<h1 style="background-color:#1c4587;color:White;" align="center">Teaching Philosophy</h1>
+<h1 style="background-color:#1c4587;color:White;" align="center">My Teaching Philosophy</h1>
 
 #### As an international educator...
 - I value the pastoral role that teachers have in the day-to-day lives of our students
