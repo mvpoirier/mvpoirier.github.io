@@ -22,7 +22,7 @@ I hope the information, resources, and photos collected and shared below will he
 - I value practical work as an important part of developing students' conceptual understanding
 - I find that collaboration and communication are vital for both good teaching and effective student learning
 - I try to leverage technology and online tools, when needed, to enhance the learning experience
-- I scaffold lessons and assessments so that students know how to be successful
+- I scaffold lessons and assessments so that students learn and know how to be successful
 - I place emphasis on the learning journey, and try to cultivate a *growth mindset* towards learning
 
 #### As a colleague...
