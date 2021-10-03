@@ -65,10 +65,11 @@ A collection of photos that highlight contributions I've made to schools to prom
 <!--<h1 style="background-color:#1c4587;color:White;" align="center">Photo Gallery</h1>
 A collection of photos highlighting some of my international teaching experience so far. I look forward to the opportunity to discuss any photos that may be of interest to you.
 <iframe src="https://drive.google.com/embeddedfolderview?id=1ze-c7pArKdb_ZVdRN_NtHbPRVUAanBTL#grid" width="100%" height="400px" style="border:1px solid black;"></iframe>-->  
+
+Thank you for considering my application to your school, and I look forward to continuing the conversation in the near future.
   
-<br>
-Thank you for considering my application to your school,  
+Sincerely,
   
-**Mike Poirier**  
+**Michael Poirier**  
   
 October 2021
