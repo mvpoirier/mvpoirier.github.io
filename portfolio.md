@@ -50,8 +50,8 @@ Resources I've developed over the years to support teaching physics.
 - [DP Physics Quizlet Vocabulary](https://quizlet.com/mvpoirier/folders/dp-physics/sets){:target="_blank"}
 
 ### Physics Practicals and Investigations
-A [collection of physics investigations](https://drive.google.com/embeddedfolderview?id=0B6pDDaLlP7i9d3hkbzZySTBfLTQ) I've conducted over the years. I look forward to the opportunity to discuss any photos that may be of interest to you.
-<iframe src="https://drive.google.com/embeddedfolderview?id=0B6pDDaLlP7i9d3hkbzZySTBfLTQ#list" width="100%" height="400px" style="border:1px solid black;"></iframe>  
+A [collection of physics investigations](https://drive.google.com/embeddedfolderview?id=0B6pDDaLlP7i9d3hkbzZySTBfLTQ?resourcekey=0-_oMV31-A1WrRO-x-Jl8PBA) I've conducted over the years. I look forward to the opportunity to discuss any photos that may be of interest to you.
+<iframe src="https://drive.google.com/embeddedfolderview?id=0B6pDDaLlP7i9d3hkbzZySTBfLTQ?id=0B6pDDaLlP7i9d3hkbzZySTBfLTQ?resourcekey=0-_oMV31-A1WrRO-x-Jl8PBA#grid" width="100%" height="400px" style="border:1px solid black;"></iframe>  
   
 <h1 style="background-color:#1c4587;color:White;" align="center">Computer Science & STEM</h1>
 
