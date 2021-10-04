@@ -6,8 +6,8 @@ published: true
 ---
 ## Welcome to my online portfolio!
   
-My wife [Amy Ivany](https://sites.google.com/view/amyivanyportfolio) and I are greatful to have been teaching overseas now for over 10 years at international schools China, South Korea, and Oman. We are excited to continue this adventure and hope we can contribute to your school.
-
+My wife [Amy Ivany](https://sites.google.com/view/amyivanyportfolio) and I are greatful to have been teaching overseas now for over 10 years at international schools China, South Korea, and Oman. We are excited to continue this adventure and grow as both teachers and life long learners.
+  
 <p align="center">
   <img alt="Mike & Amy - 2018 Winter Olympics" src="{{ site.baseurl }}/images/mike_amy_olympics.jpg" width="32%">
 &nbsp; &nbsp;
@@ -15,9 +15,8 @@ My wife [Amy Ivany](https://sites.google.com/view/amyivanyportfolio) and I are g
 &nbsp; &nbsp;
   <img alt="Mike & Amy - 2019 Paris" src="{{ site.baseurl }}/images/mike_amy_paris.jpg" width="32%">
 </p>
-
-
-I hope the information, resources, and photos shared below will help illustrate the potential impact I can make at your school. You can also find out more about my qualifications, experience, and interests on my **[CV/Résumé](https://drive.google.com/file/d/1Qp4k7uuWQ9XDlfr7Ogj8mFnMqeSkfvRX/view?usp=sharing){:target="_blank"}**, **[LinkedIn](https://www.linkedin.com/in/mvpoirier8){:target="_blank"}**, and **[Twitter](https://twitter.com/mvpoirier){:target="_blank"}**.
+  
+The information, resources, and photos shared below I hope will help illustrate the potential impact I can make at your school. You can also find out more about my qualifications, experience, and interests on my **[CV/Résumé](){:target="_blank"}**.
 
 <h1 style="background-color:#1c4587;color:White;" align="center">My Teaching Philosophy</h1>
 
@@ -72,10 +71,6 @@ A small sample of Javascript sketches I've created to help teach coding concepts
 ### Robotics, Coding, Design, and STEM
 A collection of photos that highlight contributions I've made to schools to promote  robotics, coding, design, and STEM. I look forward to the opportunity to discuss any photos that may be of interest to you.
 <iframe src="https://drive.google.com/embeddedfolderview?id=1h_Vd5_l0wNhV4EJgykBVR7qFrVMwgjH8#grid" width="100%" height="400px" style="border:1px solid black;"></iframe>  
-
-<!--<h1 style="background-color:#1c4587;color:White;" align="center">Photo Gallery</h1>
-A collection of photos highlighting some of my international teaching experience so far. I look forward to the opportunity to discuss any photos that may be of interest to you.
-<iframe src="https://drive.google.com/embeddedfolderview?id=1ze-c7pArKdb_ZVdRN_NtHbPRVUAanBTL#grid" width="100%" height="400px" style="border:1px solid black;"></iframe>-->  
 
 Thank you for considering my application.
   
