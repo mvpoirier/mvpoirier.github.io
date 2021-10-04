@@ -44,35 +44,35 @@ The information, resources, and photos shared below I hope will help illustrate 
 <h1 style="background-color:#1c4587;color:White;" align="center">Physics</h1>
   
 ### Resources
-Resources I've developed over the years to support teaching physics.
+Resources I've developed over the years to support teaching physics:
 - [DP Physics Resources](/physics_dp){:target="_blank"}
 - [MYP Physics Resources](/physics_myp){:target="_blank"}
 - [DP Physics Quizlet Vocabulary](https://quizlet.com/mvpoirier/folders/dp-physics/sets){:target="_blank"}
 
 ### Physics Practicals and Investigations
-A [collection of physics investigations](https://drive.google.com/embeddedfolderview?id=1T3tvd9Hb7FEzu3MVFnUcb8m6yUqomjwK) I've conducted over the years. I look forward to the opportunity to discuss any photos that may be of interest to you.
+A [collection of physics investigations](https://drive.google.com/embeddedfolderview?id=1T3tvd9Hb7FEzu3MVFnUcb8m6yUqomjwK) I've designed and conducted over the years:
 <iframe src="https://drive.google.com/embeddedfolderview?id=1T3tvd9Hb7FEzu3MVFnUcb8m6yUqomjwK#grid" width="100%" height="400px" style="border:1px solid black;"></iframe>  
   
 <h1 style="background-color:#1c4587;color:White;" align="center">Computer Science & STEM</h1>
 
 ### DP Resources
-Resources I've developed over the years to support teaching computer science.
+Resources I've developed over the years to support teaching computer science:
 - [DP Computer Science Resources](/coding_dp){:target="_blank"}
 - [Replit Online Lessons](https://replit.com/@mpoirier){:target="_blank"}
 - [GitHub Repository](https://github.com/mvpoirier/){:target="_blank"}
 - [DP Computer Science Quizlet Vocabulary](https://quizlet.com/mvpoirier/folders/dp-computer-science){:target="_blank"}
 
 ### Interactive Coding Examples
-A small sample of Javascript sketches I've created to help teach coding concepts and encourage project-based learning. Each one will run automatically in your web browser:
+A small sample of Javascript sketches I've created to help teach coding concepts and encourage project-based learning:
 - [Bubble Sort Visualization](https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/bubbleSort.html){:target="_blank"}
 - [Selection Sort Visualization](https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/selectionSort.html){:target="_blank"}
 - [Flappy Bird Clone (with sound)](https://rawcdn.githack.com/mvpoirier/Javascript/10c9ddfab73272a126eefb6ac23b20ef061236a2/flappyBirdClones/WEEK3/index.html){:target="_blank"}
 
 ### STEM: Robotics, Design, and Coding
-A [collection highlighting STEM contributions](https://drive.google.com/embeddedfolderview?id=1h_Vd5_l0wNhV4EJgykBVR7qFrVMwgjH8) I've made to schools to promote robotics, design, and coding. I look forward to the opportunity to discuss any photos that may be of interest to you.
+A [collection highlighting STEM contributions](https://drive.google.com/embeddedfolderview?id=1h_Vd5_l0wNhV4EJgykBVR7qFrVMwgjH8) I've made to schools to promote robotics, design, and coding:
 <iframe src="https://drive.google.com/embeddedfolderview?id=1h_Vd5_l0wNhV4EJgykBVR7qFrVMwgjH8#grid" width="100%" height="400px" style="border:1px solid black;"></iframe>  
 
-Thank you for considering my application! I look forward to the opportunity to discuss any photos, resources, or teaching experiences that may be of interest to you and how I might be a good fit for your school.
+Thank you for considering my application! I look forward to the opportunity to discuss any photos, resources, or teaching experiences that may be of interest to you, and how I may be a potential good fit for your school.
   
 Sincerely,
   
