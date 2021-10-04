@@ -9,11 +9,11 @@ published: true
 My wife [Amy Ivany](https://sites.google.com/view/amyivanyportfolio) and I are greatful to have been teaching overseas now for over 10 years at international schools China, South Korea, and Oman. We are excited to continue this adventure and hope we can contribute to your school.
 
 <p align="center">
-  <img alt="Mike & Amy - 2018 Winter Olympics" src="{{ site.baseurl }}/images/mike_amy_olympics.jpg" width="28%">
+  <img alt="Mike & Amy - 2018 Winter Olympics" src="{{ site.baseurl }}/images/mike_amy_olympics.jpg" width="32%">
 &nbsp; &nbsp;
-  <img alt="Mike & Amy - Jeju Korea 10K Race" src="{{ site.baseurl }}/images/mike_amy_jeju10k.jpg" width="28%">
+  <img alt="Mike & Amy - Jeju Korea 10K Race" src="{{ site.baseurl }}/images/mike_amy_jeju10k.jpg" width="32%">
 &nbsp; &nbsp;
-  <img alt="Mike & Amy - 2019 Paris" src="{{ site.baseurl }}/images/mike_amy_paris.jpg" width="28%">
+  <img alt="Mike & Amy - 2019 Paris" src="{{ site.baseurl }}/images/mike_amy_paris.jpg" width="32%">
 </p>
 
 
