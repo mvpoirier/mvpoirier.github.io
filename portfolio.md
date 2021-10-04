@@ -6,7 +6,7 @@ published: true
 ---
 ## Welcome to my online portfolio!
   
-My wife [Amy Ivany](https://sites.google.com/view/amyivanyportfolio) and I are greatful to have been teaching overseas now for over 10 years at international schools China, South Korea, and Oman. We are excited to continue this adventure and grow as both teachers and life long learners.
+My wife [Amy Ivany](https://sites.google.com/view/amyivanyportfolio) and I are grateful to have been teaching overseas now for over 10 years at international schools China, South Korea, and Oman. We are excited to continue this adventure and grow as both teachers and life long learners.
   
 <p align="center">
   <img alt="Mike & Amy - 2018 Winter Olympics" src="{{ site.baseurl }}/images/mike_amy_olympics.jpg" width="30%" style="border:1px solid black;">
