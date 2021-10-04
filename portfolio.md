@@ -50,7 +50,7 @@ Resources I've developed over the years to support teaching physics.
 - [DP Physics Quizlet Vocabulary](https://quizlet.com/mvpoirier/folders/dp-physics/sets){:target="_blank"}
 
 ### Physics Practicals and Investigations
-A collection of photos and investigations I've conducted over the years. I look forward to the opportunity to discuss any photos that may be of interest to you.
+A [collection of physics investigations](https://drive.google.com/embeddedfolderview?id=0B6pDDaLlP7i9d3hkbzZySTBfLTQ) I've conducted over the years. I look forward to the opportunity to discuss any photos that may be of interest to you.
 <iframe src="https://drive.google.com/embeddedfolderview?id=0B6pDDaLlP7i9d3hkbzZySTBfLTQ#list" width="100%" height="400px" style="border:1px solid black;"></iframe>  
   
 <h1 style="background-color:#1c4587;color:White;" align="center">Computer Science & STEM</h1>
@@ -69,7 +69,7 @@ A small sample of Javascript sketches I've created to help teach coding concepts
 - [Flappy Bird Clone (with sound)](https://rawcdn.githack.com/mvpoirier/Javascript/10c9ddfab73272a126eefb6ac23b20ef061236a2/flappyBirdClones/WEEK3/index.html){:target="_blank"}
 
 ### Robotics, Coding, Design, and STEM
-A collection of photos that highlight contributions I've made to schools to promote  robotics, coding, design, and STEM. I look forward to the opportunity to discuss any photos that may be of interest to you.
+A [collection highlighting STEM contributions](https://drive.google.com/embeddedfolderview?id=1h_Vd5_l0wNhV4EJgykBVR7qFrVMwgjH8) I've made to schools to promote robotics, coding, and design. I look forward to the opportunity to discuss any photos that may be of interest to you.
 <iframe src="https://drive.google.com/embeddedfolderview?id=1h_Vd5_l0wNhV4EJgykBVR7qFrVMwgjH8#grid" width="100%" height="400px" style="border:1px solid black;"></iframe>  
 
 Thank you for considering my application.
