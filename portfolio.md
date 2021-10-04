@@ -68,7 +68,7 @@ A small sample of Javascript sketches I've created to help teach coding concepts
 - [Selection Sort Visualization](https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/selectionSort.html){:target="_blank"}
 - [Flappy Bird Clone (with sound)](https://rawcdn.githack.com/mvpoirier/Javascript/10c9ddfab73272a126eefb6ac23b20ef061236a2/flappyBirdClones/WEEK3/index.html){:target="_blank"}
 
-### Robotics, Coding, Design, and STEM
+### STEM: Robotics, Design, and Coding
 A [collection highlighting STEM contributions](https://drive.google.com/embeddedfolderview?id=1h_Vd5_l0wNhV4EJgykBVR7qFrVMwgjH8) I've made to schools to promote robotics, coding, and design. I look forward to the opportunity to discuss any photos that may be of interest to you.
 <iframe src="https://drive.google.com/embeddedfolderview?id=1h_Vd5_l0wNhV4EJgykBVR7qFrVMwgjH8#grid" width="100%" height="400px" style="border:1px solid black;"></iframe>  
 
