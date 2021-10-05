@@ -40,6 +40,8 @@ The information, resources, and photos shared below I hope will help illustrate 
 - I am proactive in meeting with colleagues to clarify misunderstandings and next steps
 - I can be trusted to meet deadlines, expectations, and help others when needed
 - I value the well-being of those around me, and strive for a healthy work-life balance
+
+<iframe src="https://drive.google.com/embeddedfolderview?id=1ze-c7pArKdb_ZVdRN_NtHbPRVUAanBTL#grid" width="100%" height="400px" style="border:1px solid black;"></iframe> 
   
 <h1 style="background-color:#1c4587;color:White;" align="center">Physics</h1>
   
