@@ -16,7 +16,7 @@ My wife [Amy Ivany](https://sites.google.com/view/amyivanyportfolio) (*PYP & Ear
   <img alt="Mike & Amy - 2019 Paris" src="{{ site.baseurl }}/images/mike_amy_paris.jpg" width="30%" style="border:1px solid black;">
 </p>
   
-The information, resources, and photos shared below I hope will help illustrate the potential impact I can make at your school.
+I hope the information shared below will help illustrate the potential impact I can make at your school.
 
 <h1 style="background-color:#1c4587;color:White;" align="center">My Teaching Philosophy</h1>
 
