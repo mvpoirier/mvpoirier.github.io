@@ -16,7 +16,7 @@ My wife [Amy Ivany](https://sites.google.com/view/amyivanyportfolio) and I are g
   <img alt="Mike & Amy - 2019 Paris" src="{{ site.baseurl }}/images/mike_amy_paris.jpg" width="30%" style="border:1px solid black;">
 </p>
   
-The information, resources, and photos shared below I hope will help illustrate the potential impact I can make at your school. You can also find out more about my qualifications, experience, and interests on my **[CV/Résumé](){:target="_blank"}**.
+The information, resources, and photos shared below I hope will help illustrate the potential impact I can make at your school.
 
 <h1 style="background-color:#1c4587;color:White;" align="center">My Teaching Philosophy</h1>
 
