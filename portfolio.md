@@ -4,7 +4,7 @@ title: Portfolio
 permalink: /portfolio/
 published: true
 ---
-## Welcome to my online portfolio!
+## Michael Poirier's Online Portfolio
   
 My wife [Amy Ivany (PYP & Early Childhood teacher)](https://sites.google.com/view/amyivanyportfolio) and I are grateful to have been teaching overseas now for over 10 years at international schools in China, South Korea, and Oman. We are excited to continue this adventure and grow as teachers, global citizens, and lifelong learners. It's my hope that the information shared below will help illustrate the potential impact I can make at your school.
   
@@ -76,6 +76,6 @@ Thank you for considering my application! I look forward to the opportunity to d
   
 Sincerely,
   
-**Michael Poirier**  
+**Mike Poirier**  
   
 October 2021
