@@ -16,7 +16,7 @@ My wife [Amy Ivany (PYP & Early Childhood teacher)](https://sites.google.com/vie
   <img alt="Mike & Amy - 2019 Paris" src="{{ site.baseurl }}/images/mike_amy_paris.jpg" width="30%" style="border:1px solid black;">
 </p>
   
-<h1 style="background-color:#1c4587;color:White;" align="center">My Teaching Philosophy</h1>
+<h1 style="background-color:#1c4587;color:White;" align="center">My Thoughts on Teaching</h1>
 
 #### As an international educator...
 - I value the pastoral role that teachers have in the day-to-day lives of our students
