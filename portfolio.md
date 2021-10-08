@@ -69,13 +69,7 @@ A small sample of Javascript sketches I've created to help teach coding concepts
 - [Flappy Bird Clone (with sound)](https://rawcdn.githack.com/mvpoirier/Javascript/10c9ddfab73272a126eefb6ac23b20ef061236a2/flappyBirdClones/WEEK3/index.html){:target="_blank"}
 
 ### Video Tutorial on Coding GUIs in Java
-A 20-minute video tutorial I made for my DP Computer Science students in March 2021, during online distance learning, on how to develop a functional Graphical User Interface (GUI) in Java:
-<iframe width="100%"
-src="https://youtube.com/embed/tQPgqTJ87Kc"
-frameborder="0"
-allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-allowfullscreen
-style="border:1px solid black;"></iframe>
+A [20-minute video tutorial](https://youtube.com/embed/tQPgqTJ87Kc) I made for my DP Computer Science students in March 2021, during online distance learning, on how to develop a functional Graphical User Interface (GUI) in Java.
 
 ### STEM: Robotics, Design, and Coding
 A [collection highlighting STEM contributions](https://drive.google.com/embeddedfolderview?id=1h_Vd5_l0wNhV4EJgykBVR7qFrVMwgjH8) I've made to schools to promote robotics, design, and coding:
