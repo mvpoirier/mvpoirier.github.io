@@ -61,15 +61,13 @@ Resources I've developed over the years to support teaching computer science:
 - [Replit Online Lessons](https://replit.com/@mpoirier){:target="_blank"}
 - [GitHub Repository](https://github.com/mvpoirier/){:target="_blank"}
 - [DP Computer Science Quizlet Vocabulary](https://quizlet.com/mvpoirier/folders/dp-computer-science){:target="_blank"}
+- A [20 minute video tutorial](https://youtu.be/tQPgqTJ87Kc) for my DP Computer Science students, on how to develop a functional Graphical User Interface (GUI) in Java.
 
 ### Interactive Coding Examples
 A small sample of Javascript sketches I've created to help teach coding concepts and encourage project-based learning:
 - [Bubble Sort Visualization](https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/bubbleSort.html){:target="_blank"}
 - [Selection Sort Visualization](https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/selectionSort.html){:target="_blank"}
 - [Flappy Bird Clone (with sound)](https://rawcdn.githack.com/mvpoirier/Javascript/10c9ddfab73272a126eefb6ac23b20ef061236a2/flappyBirdClones/WEEK3/index.html){:target="_blank"}
-
-### Video Tutorial on Coding GUIs in Java
-I made a [20 minute video tutorial](https://youtu.be/tQPgqTJ87Kc) for my DP Computer Science students in March 2021, during online distance learning, on how to develop a functional Graphical User Interface (GUI) in Java.
 
 ### STEM: Robotics, Design, and Coding
 A [collection highlighting STEM contributions](https://drive.google.com/embeddedfolderview?id=1h_Vd5_l0wNhV4EJgykBVR7qFrVMwgjH8) I've made to schools to promote robotics, design, and coding:
