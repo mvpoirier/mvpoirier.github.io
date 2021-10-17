@@ -25,17 +25,17 @@ My wife [Amy Ivany (PYP & Early Childhood teacher)](https://sites.google.com/vie
 - I am grateful to be a part of a caring and professional teaching community
 
 #### As a physics and computer science teacher...
-- I value having students [make their thinking visible](https://pz.harvard.edu/thinking-routines){:target="_blank"}
-- I value *how* students arrive at the final answer: the journey vs. the destination
+- I design lessons and engagements that allow students to make their thinking visible
 - I value practical work as an important part of developing students' conceptual understanding
 - I find that collaboration and communication are vital for both good teaching and effective student learning
 - I try to leverage technology and online tools, when needed, to enhance the learning experience
-- I scaffold lessons and assessments so that students learn and know how to be successful
-- I place emphasis on the learning journey, and try to cultivate a *growth mindset* towards learning
+- I value how students arrive at the final answer: the journey vs. the destination
+- I scaffold lessons and assessments so that students learn how to be successful
+- I place emphasis on the learning journey, and try to cultivate a growth mindset towards learning
 
 #### As a colleague...
-- I value respectful and productive dialogue and following the [Norms of Collaboration](https://drive.google.com/file/d/1XRhRGtsAmd1xsIBP97jlvEeLmLhFTHSd/view?usp=sharing){:target="_blank"}
 - I am proactive in meeting with colleagues to clarify misunderstandings and next steps
+- I value respectful and productive dialogue and following the Norms of Collaboration
 - I can be trusted to meet deadlines, expectations, and help others when needed
 - I value the well-being of those around me, and strive for a healthy work-life balance
 
