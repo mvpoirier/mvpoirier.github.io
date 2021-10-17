@@ -30,7 +30,7 @@ My wife [Amy Ivany (PYP & Early Childhood teacher)](https://sites.google.com/vie
 - I strive for a healthy work-life balance, and value the well-being of those around me
 
 #### As a science teacher...
-- I give opportunities for students participcate and make their thinking visible
+- I give opportunities for students to participate and make their thinking visible
 - I value practical work as an important part of developing students' understanding
 - I try to leverage technology and online tools to enhance the learning experience
 - I scaffold tasks and learning outcomes to help guide students on how to be successful
