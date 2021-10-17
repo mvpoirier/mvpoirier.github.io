@@ -30,7 +30,7 @@ My wife [Amy Ivany (PYP & Early Childhood teacher)](https://sites.google.com/vie
 - I find that collaboration and communication are vital for both good teaching and effective student learning
 - I try to leverage technology and online tools, when needed, to enhance the learning experience
 - I value how students arrive at the final answer: the journey vs. the destination
-- I scaffold lessons and assessments so that students learn how to be successful
+- I scaffold tasks, skills, assessments, and rubrics so that students learn how to be successful
 - I place emphasis on the learning journey, and try to cultivate a growth mindset towards learning
 
 #### As a colleague...
