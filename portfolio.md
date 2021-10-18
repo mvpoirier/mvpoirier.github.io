@@ -20,10 +20,10 @@ My wife [Amy Ivany (PYP & Early Childhood Educator)](https://sites.google.com/vi
 
 #### As an international educator...
 - I recognize the need to celebrate our differences and share our unique cultures
-- I am involved in the school community and try to make authentic connections
-- I appreciate the pastoral role teachers have in the day-to-day lives of students
-- I prioritize building strong relatioships, and meeting the affective needs of other
-- I reflect as part of my teaching practice, and try to model lifelong learning
+- I am involved in the school community and work towards building strong relationships
+- I appreciate the pastoral role teachers have in the day-to-day lives of our students
+- I prioritize meeting the affective needs of others as a prerequisite to learning
+- I reflect as regular part of my teaching practice, and try to model lifelong learning
 
 #### As a colleague...
 - I value respectful and productive dialogue following The Norms of Collaboration
