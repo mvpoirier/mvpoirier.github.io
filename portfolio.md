@@ -6,7 +6,7 @@ published: true
 ---
 ## Michael Poirier's Online Portfolio
   
-My wife [Amy Ivany (PYP & Early Childhood teacher)](https://sites.google.com/view/amyivanyportfolio) and I are grateful to have been teaching overseas now for over 10 years at international schools in China, South Korea, and Oman. We are excited to continue this adventure and grow as teachers, global citizens, and lifelong learners. It's my hope that the information shared below will help illustrate the potential impact I can make at your school.
+My wife [Amy Ivany (PYP & Early Childhood Educator)](https://sites.google.com/view/amyivanyportfolio) and I are grateful to have been teaching overseas now for over 10 years at international schools in China, South Korea, and Oman. We are excited to continue this adventure and grow as teachers, global citizens, and lifelong learners. It's my hope that the information shared below will help illustrate the potential impact I can make at your school.
   
 <p align="center">
   <img alt="Mike & Amy - 2018 Winter Olympics" src="{{ site.baseurl }}/images/mike_amy_olympics.jpg" width="30%" style="border:1px solid black;">
