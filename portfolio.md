@@ -28,8 +28,8 @@ My wife [Amy Ivany (PYP & Early Childhood Educator)](https://sites.google.com/vi
 #### As a colleague...
 - I value respectful and productive dialogue following The Norms of Collaboration
 - I can be trusted to meet deadlines and expectations, and help others when needed
-- I focus my goals and actions on how to provide effective student learning
-- I am proactive to clarify misunderstandings and work towards next steps
+- I focus my goals and actions on what is needed for effective student learning to take place
+- I am proactive to clarify misunderstandings with others, and work towards next steps
 - I strive for a healthy work-life balance, and value the well-being of those around me
 
 #### As a science teacher...
