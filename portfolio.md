@@ -21,19 +21,20 @@ My wife [Amy Ivany (PYP & Early Childhood teacher)](https://sites.google.com/vie
 #### As an international educator...
 - I recognize the need to celebrate our differences and share our cultures with each other
 - I value the pastoral role that teachers have in the day-to-day lives of our students
-- I try to be involved in the school community, and make authentic connections with others
+- I try to be involved in the school community and make authentic connections with others
+- I reflect often on my teaching practice, and try to model lifelong learning
 
 #### As a colleague...
 - I am proactive in meeting with colleagues to clarify misunderstandings and next steps
-- I value respectful and productive dialogue, following The Norms of Collaboration
+- I value respectful and productive dialogue following The Norms of Collaboration
 - I can be trusted to meet deadlines and expectations, and help others when needed
 - I strive for a healthy work-life balance, and value the well-being of those around me
 
 #### As a science teacher...
-- I give opportunities for students to participate and make their thinking visible
+- I give opportunities for students to make their thinking visible
 - I value practical work as an important part of developing students' understanding
-- I try to leverage technology and online tools to enhance the learning experience
 - I scaffold tasks and learning outcomes to help guide students on how to be successful
+- I try to leverage technology and online tools to enhance the learning experience
 - I emphasize the learning journey, and try to cultivate a growth mindset towards learning
 
 <iframe src="https://drive.google.com/embeddedfolderview?id=1ze-c7pArKdb_ZVdRN_NtHbPRVUAanBTL#grid" width="100%" height="400px" style="border:1px solid black;"></iframe> 
