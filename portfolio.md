@@ -61,7 +61,7 @@ Resources I've developed over the years to support teaching computer science:
 - [Replit Online Lessons](https://replit.com/@mpoirier){:target="_blank"}
 - [GitHub Repository](https://github.com/mvpoirier/){:target="_blank"}
 - [DP Computer Science Quizlet Vocabulary](https://quizlet.com/mvpoirier/folders/dp-computer-science){:target="_blank"}
-- A [20 minute video tutorial](https://youtu.be/tQPgqTJ87Kc) for my DP Computer Science students, on how to develop a functional Graphical User Interface (GUI) in Java.
+- A [20 minute video tutorial](https://youtu.be/tQPgqTJ87Kc) on how to develop Graphical User Interfaces in Java
 
 ### Interactive Coding Examples
 A small sample of Javascript sketches I've created to help teach coding concepts and encourage project-based learning:
