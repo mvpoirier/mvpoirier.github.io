@@ -34,7 +34,7 @@ My wife [Amy Ivany (PYP & Early Childhood Educator)](https://sites.google.com/vi
 
 #### As a science teacher...
 - I invite students to inquire about the natural world, and make their thinking visible
-- I view practical work as a critical part of developing students' understanding
+- I view practical work as a critical part of developing students' conceptual understanding
 - I scaffold learning tasks and outcomes to help guide students on how to be successful
 - I leverage technology and online tools to enhance the learning experience
 - I emphasize the learning journey, and try to cultivate a growth mindset
