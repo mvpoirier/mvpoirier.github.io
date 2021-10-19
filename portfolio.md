@@ -78,4 +78,4 @@ Thank you for considering my application! I look forward to the opportunity to d
 Sincerely,
   
 **Mike Poirier**  
-October 2021
+October 18th, 2021
