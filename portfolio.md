@@ -2,7 +2,7 @@
 layout: page
 title: Portfolio
 permalink: /portfolio/
-published: true
+published: false
 ---
 ## Michael Poirier's Online Portfolio
   
