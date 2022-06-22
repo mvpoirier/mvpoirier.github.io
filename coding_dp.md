@@ -5,7 +5,7 @@ permalink: /coding_dp/
 published: true
 ---
 
-Below are resources I've developed over the years to support teaching and student learning for the **International Baccalaureate DP Computer Science 2012 curriculum (first exams May 2014)**. These works are licensed under a Creative Commons Attribution-NonCommercial 4.0 International License ([CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)).  
+Below are resources I've developed over the years to support teaching and student learning for the **International Baccalaureate DP Computer Science 2012 curriculum** (first exams May 2014).
   
 ### DP Computer Science Standard & Higher Level Notes
 DP CS SL/HL notes: Topics 1 to 7, and Option D (Object Oriented Programming - OOP)
