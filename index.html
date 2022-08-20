@@ -5,7 +5,10 @@ published: true
 <!--<h1 style=background-color:SlateBlue;color:White; align="center">Blog</h1>-->
 <h1 style=background-color:#1c4587;color:White; align="center">Updates</h1>
 
-{% include_relative physics.md %}
+<!--{% include_relative physics.md %}-->
+
+{% capture my_include %}{% include physics.md %}{% endcapture %}
+{{ my_include | markdownify }}
 
 <div class="posts">
   {% for post in site.posts %}
