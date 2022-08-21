@@ -3,28 +3,29 @@ layout: default
 published: true
 ---
 <!--<h1 style=background-color:SlateBlue;color:White; align="center">Blog</h1>-->
-<h1 style=background-color:#1c4587;color:White; align="center">Welcome</h1>
+<h1 style=background-color:#1c4587;color:White; align="center">Home</h1>
 
-<div class="posts">
+<div class="posts" markdown="1">
   
-  Welcome to my site.
+Welcome to my site!
   
+I hope you find some use from the resources shared. If you are interested in continuing the conversation and chatting more, you can find me on [Twitter](https://twitter.com/mvpoirier){:target="_blank"} and [LinkedIn](https://www.linkedin.com/in/mvpoirier8){:target="_blank"}.
+  
+---
+  
+### Resources
+- [Physics](/physics)
+- [Coding](/coding)
+
+All the best,
+  
+Mike
+  <!--
+
   {% for post in site.posts %}
   <article class="post">
 
     <h2 style=background-color:Gainsboro;>{{ post.date | date: "%B %e, %Y" }} - {{ post.title }}</h2>
-    <!--
-    {% if post.path contains 'notes' %}
-    <div class="date">
-      <p style=color:ForestGreen><b>Notes</b></p>
-    </div>
-    {% elsif  post.path contains '2019-ABA-CS' %}
-    <div class="date">
-      <p style=color:OrangeRed><b>ABA 2019: Computer Science</b></p>
-    </div>
-    {% else %}
-    {% endif %}
-    -->
     
     <div class="entry">
       {{ post.excerpt }}
@@ -33,4 +34,7 @@ published: true
     <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read More</a>
   </article>
   {% endfor %}
+  
+  -->
+
 </div>
