@@ -3,36 +3,31 @@ layout: default
 published: true
 ---
 <!--<h1 style=background-color:SlateBlue;color:White; align="center">Blog</h1>-->
-<h1 style=background-color:#1c4587;color:White; align="center">Home5</h1>
+<!--<h1 style=background-color:#1c4587;color:White; align="center">Home</h1>-->
 
 <div>
-{{ '### Welcome to my site!' | markdownify }}
+{{ '## Hey there! 👋' | markdownify }}
+  
+{{ 'I’m Mike, and I enjoy working on things related to education, physics, computer science, and STEM.<br><br>
 
-{{ 'I hope you find some use from the resources shared. If you are interested in continuing the conversation and chatting more, you can find me on [Twitter](https://twitter.com/mvpoirier) and [LinkedIn](https://www.linkedin.com/in/mvpoirier8).' | markdownify }}
+I've been teaching science internationally since 2009, and made this site to help share things I've made or have found useful over the years to support my teaching. I hope you too can find some use from the resources shared.<br><br>
 
-{{ '### Resources <br>
+Currently, I'm living and teaching in Bangkok, Thailand. If you are at all interested in continuing the conversation or chatting more, you can find me online at a few different places linked at the bottom of this website.' | markdownify }}
+
+{{ '### Teaching Resources ☕<br>
 - [Physics](/physics)<br>
 - [Coding](/coding)<br>' | markdownify }}
   
-{{ 'All the best,<br>Mike' | markdownify }}
+{{ '### Contact 📫<br>
+[@mvpoirier](https://twitter.com/mvpoirier) on **Twitter**<br>
+[@mvpoirier8](https://www.linkedin.com/in/mvpoirier8) on **LinkedIn**<br>  
+[@mpoirier](https://replit.com/@mpoirier) on **Replit**<br>' | markdownify }}
+  
+{{ 'All the best,<br><br>Mike' | markdownify }}
 </div>
 
+<!--
 <div class="posts">
-  
-Welcome to my site!
-  
-I hope you find some use from the resources shared. If you are interested in continuing the conversation and chatting more, you can find me on [Twitter](https://twitter.com/mvpoirier){:target="_blank"} and [LinkedIn](https://www.linkedin.com/in/mvpoirier8){:target="_blank"}.
-  
----
-  
-### Resources
-- [Physics](/physics)
-- [Coding](/coding)
-
-All the best,
-  
-Mike
-  <!--
 
   {% for post in site.posts %}
   <article class="post">
@@ -46,7 +41,5 @@ Mike
     <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read More</a>
   </article>
   {% endfor %}
-  
-  -->
-
 </div>
+-->
