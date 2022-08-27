@@ -5,10 +5,6 @@ permalink: /coding/
 published: true
 ---
 
-I hope you find some use from the coding resources shared below. If you are interested in continuing the conversation and chatting more, you can find me on [Twitter](https://twitter.com/mvpoirier){:target="_blank"}, [LinkedIn](https://www.linkedin.com/in/mvpoirier8){:target="_blank"}, [GitHub](https://github.com/mvpoirier/){:target="_blank"}, and [Replit](https://replit.com/@mpoirier){:target="_blank"}.
-
----
-
 ### Mike's Coding Stuff
 Computer Science resources I've developed over the years to support teaching and student learning:
 - [DP Computer Science Resources](/coding_dp)
