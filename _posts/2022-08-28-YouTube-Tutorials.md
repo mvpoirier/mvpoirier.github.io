@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 title: YouTube Tutorials for DP Physics & DP CompSci
 layout: post
 ---
