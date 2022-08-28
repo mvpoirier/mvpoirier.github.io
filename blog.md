@@ -7,6 +7,8 @@ published: true
 
 Welcome to my __rarely updated__ blog! This is/was a place for me to share long-form writing on education, musings, and code snippets.
 
+---
+
 <div class="posts">
   {% for post in site.posts %}
   <article class="post">
