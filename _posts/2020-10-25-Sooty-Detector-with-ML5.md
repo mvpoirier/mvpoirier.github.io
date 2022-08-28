@@ -3,13 +3,13 @@ published: true
 title: Sooty MusCAT Detector with ML5.js
 layout: post
 ---
-## When Life Gives You Lockdown... make things!
+### When Life Gives You Lockdown... make things!
 - Still under COVID-19 lockdown restrictions, so I coded a project that uses machine learning and image processing.
 - Implements both [p5.js](https://p5js.org/) and [ml5.js](https://ml5js.org/) Javascript libraries.
 - The program locates any objects that are in the [COCO-SSD image dataset](https://cocodataset.org/#explore) using an [object dectection model based on Google's Tensorflow](https://github.com/tensorflow/tfjs-models/tree/master/coco-ssd)... with a focus on trying to locate our cat *Sooty* in each given image.
 - There is a great tutorial by [Daniel Shiffman](https://shiffman.net/) on how to implement this over at his [Coding Train YouTube Channel](https://www.youtube.com/watch?v=QEzRxnuaZCk).
 
-## The Program
+### The Program
 <!--Added additional 25 pixels to both width and height to remove iframe scrolling -->
 <iframe 
 width="825" height="625"
@@ -17,7 +17,7 @@ frameborder="0"
 src="https://raw.githack.com/mvpoirier/Javascript/master/sootyDetector/index.html">
 </iframe>
 
-## How it Works in a Nutshell...
+### How it Works in a Nutshell...
 **index.html - import p5.js and ml5.js libraries**
 ```html
     <head>
@@ -61,7 +61,7 @@ src="https://raw.githack.com/mvpoirier/Javascript/master/sootyDetector/index.htm
     }
 ```
 
-## What could be next?
+### What could be next?
 - Update program with a video capture feed (webcam) for real-time image detection.
 - Detecting human postures with [COCO DensePose](http://densepose.org/).
 - Implement a physics demo with [matter.js](https://brm.io/matter-js/).
