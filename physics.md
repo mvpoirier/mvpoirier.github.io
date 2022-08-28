@@ -36,7 +36,7 @@ Media and resources that extend outside of the classroom...
 - [The Feynman Series](https://www.youtube.com/watch?v=cRmbwczTC6E&list=PL92F9FC91BBE2210D){:target="_blank"}
   
   
-> "**If it disagrees with experiment, 
+> "**If it disagrees with experiment,  
 > its wrong.**  
 > In that simple statement,  
 > is **the key to science.**  
