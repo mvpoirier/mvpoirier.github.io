@@ -5,7 +5,7 @@ permalink: /physics_myp/
 published: true
 ---
 
-Below are resources I've developed over the years to support teaching and student learning for the **International Baccalaureate MYP Next Chapter (2014)** Physics curriculum. If you find these resources useful to use in your classroom, please share the link to this site as part of the [Creative Commons CC BY-NC-SA 4.0 License](https://creativecommons.org/licenses/by-nc-sa/4.0/){:target="_blank"}.
+Below are resources I've developed over the years to support teaching and student learning for the **International Baccalaureate MYP Next Chapter (2014)** Physics curriculum. If you find these resources useful for use in your classes, please link to this site as part of the [Creative Commons CC BY-NC-SA 4.0 License](https://creativecommons.org/licenses/by-nc-sa/4.0/){:target="_blank"}.
   
 ### MYP Year 4 Physics
 Notes, investigations, and resources I've developed to support Grade 9 MYP 4 Physics.
