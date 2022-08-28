@@ -48,4 +48,4 @@ Media and resources that extend outside of the classroom...
 > or what your name is,  
 > **if it disagrees with experiment,  
 > its wrong.**"  
-> -- [Richard Feynman](https://youtu.be/OL6-x0modwY){:target="_blank"}
+> -- *[Richard Feynman](https://youtu.be/OL6-x0modwY){:target="_blank"}*
