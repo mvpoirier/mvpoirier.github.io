@@ -10,13 +10,23 @@ Computer Science resources I've developed over the years to support teaching and
 - [DP Computer Science Resources](/coding_dp)
 - [GitHub Repository](https://github.com/mvpoirier/){:target="_blank"}
 - [Replit Online Lessons](https://replit.com/@mpoirier){:target="_blank"}
-- [Coding Bookmark Archive](/media/compsci_bookmarks.html){:target="_blank"}
 - [DP Computer Science Vocabulary - Quizlet](https://quizlet.com/mvpoirier/folders/dp-computer-science){:target="_blank"}
 - [DP Command Terms - Quizlet](https://quizlet.com/kr/308164418/dp-command-terms-flash-cards/){:target="_blank"}
 
 ---
 
-### Mike's Javascript Projects
+### Mikes Favorite Coding Sites
+Some of my favorite online sites towards teaching and promoting coding in the classroom:
+- [Mike's Coding Bookmark Archive (April 2020)](/media/compsci_bookmarks.html){:target="_blank"}
+- [CEMC Canadian Computing Competition](https://cemc.uwaterloo.ca/contests/computing.html){:target="_blank"}
+- [IB CompSci Hub](http://ib.compscihub.net/){:target="_blank"}
+- [The Coding Train](https://thecodingtrain.com/){:target="_blank"}
+- [CodingBat for Java & Python](https://codingbat.com/python){:target="_blank"}
+- [Invent with Python](https://inventwithpython.com/){:target="_blank"}
+
+---
+
+### Mike's Javascript Sketches
 A sample of Javascript sketches I've created for teaching and fun, based on the [p5.js](https://p5js.org/){:target="_blank"} framework. Each will run automatically in your web browser:
 - [Bubble Sort Visualization](https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/bubbleSort.html){:target="_blank"}
 - [Selection Sort Visualization](https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/selectionSort.html){:target="_blank"}
@@ -26,18 +36,8 @@ A sample of Javascript sketches I've created for teaching and fun, based on the 
 
 ---
 
-### Favorite Coding Sites
-Some of my favorite online sites towards teaching and promoting coding in the classroom:
-- [CEMC Canadian Computing Competition](https://cemc.uwaterloo.ca/contests/computing.html){:target="_blank"}
-- [IB CompSci Hub](http://ib.compscihub.net/){:target="_blank"}
-- [The Coding Train](https://thecodingtrain.com/){:target="_blank"}
-- [CodingBat for Java & Python](https://codingbat.com/python){:target="_blank"}
-- [Invent with Python](https://inventwithpython.com/){:target="_blank"}
-
----
-
 ### Programming Languages
-Some of the programming languages, libraries, and software I enjoy using:
+Some of the programming languages, libraries, and software I've used over the years:
 - **Java** using [Eclipse IDE](https://www.eclipse.org/downloads/){:target="_blank"} and [WindowBuilder GUI Designer](https://www.eclipse.org/windowbuilder/download.php){:target="_blank"}
 - **Python**: [Python 3](https://www.python.org/downloads/){:target="_blank"}, [pygame](https://www.pygame.org/news){:target="_blank"}
 - **Javascript**: [p5.js](https://p5js.org/){:target="_blank"}, [ml5.js](https://ml5js.org/){:target="_blank"}
