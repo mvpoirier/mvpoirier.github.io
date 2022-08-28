@@ -5,14 +5,14 @@ permalink: /blog/
 published: true
 ---
 
-## Mike's __Mostly Outdated__ Collection of Blog Posts
-
 <div class="posts">
   {% for post in site.posts %}
   <article class="post">
 
-    <div markdown = "0">
     <h2 style=background-color:Gainsboro;>{{ post.date | date: "%B %e, %Y" }} - {{ post.title }}</h2>
+    
+    <div style=background-color:Gainsboro;> 
+    	## {{ post.date | date: "%B %e, %Y" }} - {{ post.title }}
     </div>
     
     <div class="entry">
