@@ -5,7 +5,7 @@ permalink: /physics_dp/
 published: true
 ---
 
-Below are resources I've developed over the years to support teaching and student learning for the **International Baccalaureate DP Physics 2014 curriculum** (first exams May 2016). If you find these resources useful for use in your classes, please link to this site as part of the [Creative Commons CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/){:target="_blank"}  license.
+Below are resources I've developed over the years to support teaching and student learning for the **International Baccalaureate DP Physics 2014 curriculum** (first exams May 2016). If you find these resources useful for use in your classes, please link to this site as part of the [Creative Commons CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/){:target="_blank"} license.
   
 ### DP Physics Standard & Higher Level Notes
 DP Physics SL/HL notes: Topics 1 to 12, and Option D.1 to D.5 (Astrophysics)
