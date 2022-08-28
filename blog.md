@@ -1,3 +1,10 @@
+---
+layout: page
+title: Blog
+permalink: /blog/
+published: true
+---
+
 ## Blog - collection of blog posts
 
 Enter text in [Markdown](http://daringfireball.net/projects/markdown/). Use the toolbar above, or click the **?** button for formatting help.
