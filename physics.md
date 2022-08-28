@@ -9,7 +9,6 @@ published: true
 Resources I've developed over the years to support teaching and student learning.
 - [DP Physics Resources](/physics_dp)
 - [MYP Physics Resources](/physics_myp)
-- [Physics Bookmark Archive](/media/physics_bookmarks.html){:target="_blank"}
 - [DP Physics Vocabulary - Quizlet](https://quizlet.com/mvpoirier/folders/dp-physics/sets){:target="_blank"}
 - [DP Command Terms - Quizlet](https://quizlet.com/kr/308164418/dp-command-terms-flash-cards/){:target="_blank"}
   
@@ -17,6 +16,7 @@ Resources I've developed over the years to support teaching and student learning
 
 ### Favorite Physics Sites
 Some of my favorite online sites, resources, and tools I use towards teaching and promoting physics in the classroom.
+- [Mike's Physics Bookmark Archive (April 2020)](/media/physics_bookmarks.html){:target="_blank"}
 - [Surendranath HTML5 Applets](http://www.surendranath.org/){:target="_blank"}
 - [PhET Simulations](https://phet.colorado.edu/){:target="_blank"}
 - [Flipping Physics](https://www.flippingphysics.com/){:target="_blank"}
