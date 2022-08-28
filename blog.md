@@ -9,7 +9,7 @@ published: true
   {% for post in site.posts %}
   <article class="post">
     
-    ## {{ post.date | date: "%B %e, %Y" }} - {{ post.title }}
+    <h2>{{ post.date | date: "%B %e, %Y" }} - {{ post.title }}</h2>
     
     <div class="entry">
       {{ post.excerpt }}
