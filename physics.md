@@ -14,7 +14,7 @@ Resources I've developed over the years to support teaching and student learning
   
 ---
 
-### Favorite Physics Sites
+### Mike's Favorite Physics Sites
 Some of my favorite online sites, resources, and tools I use towards teaching and promoting physics in the classroom.
 - [Mike's Physics Bookmark Archive (April 2020)](/media/physics_bookmarks.html){:target="_blank"}
 - [Surendranath HTML5 Applets](http://www.surendranath.org/){:target="_blank"}
@@ -28,7 +28,7 @@ Some of my favorite online sites, resources, and tools I use towards teaching an
 ---
   
 ### Media & Outreach
-Media and resources that extend outside of the classroom...  
+Media and resources that extend beyond the classroom...  
 - [PhysPort: Research-based Physics Teaching](https://www.physport.org/){:target="_blank"}
 - [The Feynman Lectures](https://www.feynmanlectures.caltech.edu/){:target="_blank"}
 - [Astronomy Picture of the Day (APoD)](https://apod.nasa.gov/apod/astropix.html){:target="_blank"}
