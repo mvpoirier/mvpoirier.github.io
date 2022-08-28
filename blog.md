@@ -5,7 +5,7 @@ permalink: /blog/
 published: true
 ---
 
-Welcome to my __rarely updated__ blog! This is/was a place for me to share long-form writing on education, musings, and code snippets.
+Welcome to my *rarely updated* blog! This is/was a place for me to share long-form writing on education, musings, and code snippets. The majority of these posts supported my teaching during the COVID-19 pandemic.
 
 ---
 
