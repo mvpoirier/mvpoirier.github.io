@@ -3,14 +3,14 @@ published: true
 title: Flappy Bird Clone > Week 3 Progress
 layout: post
 ---
-## Key Changes
+### Key Changes
 - Back to one player game
 - Introductory splash screen
 - Sound effects: Annoying on pupose! :-)
 - Keeps track of current and highscore (with indicators)
 - Tweaked visual cues and transitions
 
-## Current State
+### Current State
 - Runnable Java Applet: [WEEK 3 Flappy Bird Clone](https://rawcdn.githack.com/mvpoirier/Javascript/10c9ddfab73272a126eefb6ac23b20ef061236a2/flappyBirdClones/WEEK3/index.html)
 - Source Code: [Github Repository](https://github.com/mvpoirier/Javascript/tree/master/flappyBirdClones)
 
@@ -66,7 +66,7 @@ function showScores() {
 }
 ```
 
-## What Could Be Next?
+### What Could Be Next?
 - Ability to mute sound effects (e.g. s = toggle)
 - Difficulty settings (toggle or progressively more challenging)
 - Local multiplayer
