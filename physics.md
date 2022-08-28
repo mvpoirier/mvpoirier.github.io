@@ -15,20 +15,15 @@ Resources I've developed over the years to support teaching and student learning
 ---
 
 ### Favorite Physics Sites
-Some of my favorite online sites and resources towards teaching and promoting physics in the classroom.
+Some of my favorite online sites, resources, and tools I use towards teaching and promoting physics in the classroom.
 - [Surendranath HTML5 Applets](http://www.surendranath.org/){:target="_blank"}
 - [PhET Simulations](https://phet.colorado.edu/){:target="_blank"}
 - [Flipping Physics](https://www.flippingphysics.com/){:target="_blank"}
 - [PhysPort: Research-based Teaching](https://www.physport.org/){:target="_blank"}
 - [Thinkib.net - DP Physics](http://www.thinkib.net/physics){:target="_blank"}
 - [Grade Gorilla](https://www.gradegorilla.com/IB-physics-revision-questions.php){:target="_blank"}
-
----
-
-### Software & Technology
-Things I use to help teach and communicate physics concepts with my students.
-- [Vernier & Logger Pro](https://www.vernier.com/){:target="_blank"}
-- [Mathcha.io Equation Editor](https://www.mathcha.io/editor){:target="_blank"}
+- [Vernier Logger Pro](https://www.vernier.com/downloads/){:target="_blank"}
+- [GoodNotes Digital Whiteboard](https://www.goodnotes.com/){:target="_blank"}
   
 ---
   
