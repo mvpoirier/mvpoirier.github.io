@@ -11,7 +11,7 @@ Welcome to my __rarely updated__ blog! This is/was a place for me to share long-
   {% for post in site.posts %}
   <article class="post">
     
-    <div style=background-color:Gainsboro;>
+    <div style="background-color:Gainsboro;">
       <h2>{{ post.date | date: "%B %e, %Y" }} - {{ post.title }}</h2>
     </div>
     
