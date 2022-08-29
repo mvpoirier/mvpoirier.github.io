@@ -5,9 +5,7 @@ permalink: /blog/
 published: true
 ---
 
-**Welcome to my *rarely updated* blog!** This is/was a place for me to share long-form writing on education, musings, and code snippets. The majority of these posts have helped support my teaching during the COVID-19 pandemic.
-  
----
+Welcome to my *rarely updated* blog! This is/was a place for me to share long-form writing on education, coding projects, and anything else worth writing about.
   
 <div class="posts">
   {% for post in site.posts %}
