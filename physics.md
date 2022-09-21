@@ -36,15 +36,15 @@ Media and resources that extend beyond the classroom...
 - [The Feynman Series](https://www.youtube.com/watch?v=cRmbwczTC6E&list=PL92F9FC91BBE2210D){:target="_blank"}
   
   
-> "**If it disagrees with experiment,  
-> its wrong.**  
+> "If it disagrees with experiment,  
+> its wrong.  
 > In that simple statement,  
-> is **the key to science.**  
+> is the key to science.  
 > It doesn't make a difference,  
 > how beautiful your guess is,  
 > it doesn't make a difference,  
 > how smart you are,  
 > or what your name is,  
-> **if it disagrees with experiment,  
-> its wrong.**"  
+> if it disagrees with experiment,  
+> its wrong."  
 > -- *[Richard Feynman](https://youtu.be/OL6-x0modwY){:target="_blank"}*
