@@ -45,7 +45,7 @@ Some of the programming languages, libraries, and software I've used over the ye
 
 ---
 
-#### ...and for all of you [Winnipeg Jets](https://www.nhl.com/jets){:target="_blank"} fans:
+...and for all of you [Winnipeg Jets](https://www.nhl.com/jets){:target="_blank"} fans:
 ```python
 for i in range (3):
     print("Go Jets Go!")
