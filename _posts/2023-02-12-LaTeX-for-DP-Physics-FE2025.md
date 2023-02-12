@@ -14,7 +14,7 @@ Starting in August 2023 our DP Year 1 students will be introduced to the new DP 
 - [The LaTeX Project](https://www.latex-project.org/get/)
 - [Mathcha Equation Editor](https://www.mathcha.io)
 - [Overleaf LaTeX Editor](https://www.overleaf.com/project)
-- [LaTeX YouTube Tutorial Playlist](https://youtube.com/playlist?list=PLHXZ9OQGMqxcWWkx2DMnQmj5os2X5ZR73) by Dr. Trefor Bazett (Highly Recommended)
+- [LaTeX YouTube Tutorial Playlist by Dr. Trefor Bazett](https://youtube.com/playlist?list=PLHXZ9OQGMqxcWWkx2DMnQmj5os2X5ZR73) (Highly Recommended)
 
 #### LaTeX Equation Example with Mathcha
 Embedded document can be found [here](https://www.mathcha.io/editor/nZeKei7QSeWt1d2xDviJmPMzPUdx3yZMTYvvep). Each equation can be easily exported as a transparent SVG or PNG file which can then be copy/pasted into presentations or documents.
