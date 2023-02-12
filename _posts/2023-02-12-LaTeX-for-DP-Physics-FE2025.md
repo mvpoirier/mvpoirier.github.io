@@ -3,12 +3,12 @@ published: true
 layout: post
 title: LaTeX & ChatGPT for DP Physics FE2025
 ---
-Starting in August 2023 our DP Year 1 students will be introduced to the new DP Physics curriculum with the First Exams starting in May 2025 (FE2025). It's long overdue, but I've now recently decided the launch of the new curriculum is a great time finally learn to use **[LaTeX](https://www.latex-project.org/get/)** to support teaching, learning, and writing tasks for DP Physics.
+Starting in August 2023 our DP Year 1 students will be introduced to the new DP Physics curriculum with the First Exams starting in May 2025 (FE2025). It's long overdue, but with the change in curriculum, now seems to be a great time to finally learn to how to code, implement, and use **[LaTeX](https://www.latex-project.org/get/)** to support student learning and teaching.
 
-### Why LaTeX & Potential Uses for DP Physics
+### Potential Uses of LaTeX in the Classroom
 - Provides consistent display of equations, formulas, diagrams, and graphical information
-- Can be used to display DP Physics equations correctly for teacher-led presentations
-- Can be used for DP Physics Extended Essay writing, either as individual copy/paste of PNG or SVG Equations via [Mathcha](https://www.mathcha.io) __or__ as a full-fledged LaTeX document using [Overleaf](https://www.overleaf.com/project)
+- Teachers can display DP Physics equations and derviations correctly during classroom lessons
+- Can be used for writing DP Physics Extended Essays, Internal Assessments, and Lab Reports
 
 ### LaTeX Resources
 - [The LaTeX Project](https://www.latex-project.org/get/)
