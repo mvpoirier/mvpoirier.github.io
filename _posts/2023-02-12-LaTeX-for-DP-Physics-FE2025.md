@@ -29,6 +29,7 @@ Each equation, graph, or diagram can be easily exported as a transparent SVG or 
 
 <iframe frameBorder="0" width="100%" height="100%" style="min-width: 400px; min-height:400px" src="https://www.mathcha.io/editor/nZeKei7QSeWt1d2xDviJmPMzPUdx3yZMTYvvep?embedded=true" ></iframe>
 *Source can be found [here](https://www.mathcha.io/editor/nZeKei7QSeWt1d2xDviJmPMzPUdx3yZMTYvvep)*
-
-That's all for now,
-Mike
+  
+  
+That's all for now,  
+Mike  
