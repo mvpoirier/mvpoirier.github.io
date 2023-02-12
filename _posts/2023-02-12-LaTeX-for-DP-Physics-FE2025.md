@@ -19,9 +19,16 @@ Starting in August 2023 our DP Year 1 students will be introduced to the new DP 
 ### Using ChatGPT for LaTeX Code Generation with Overleaf
 Unsure how to begin for writing a specific equation in LaTeX, or need a head start? No problem: just ask [ChatGPT](https://chat.openai.com/chat)! After a short series of questions, the increasingly popular AI Chatbot can help provide a scaffold for writing more complicated LaTeX code.
 
-Here's an example I made using the ChatGPT code generated with Overleaf: [https://www.overleaf.com/read/xkhpyjdpctws]
+Here's an example I made using the ChatGPT code generated with Overleaf:
+
+<iframe src="https://drive.google.com/file/d/1saQX9NKQeZeekMILUg2jtCFZaYCbS2Wp/preview" frameBorder="0" width="100%" height="100%" style="min-width: 640px; min-height:480px"></iframe>
+*Source can be found [here](https://www.overleaf.com/read/xkhpyjdpctws)*
 
 ### LaTeX Equation Example with Mathcha
-Embedded document can be found [here](https://www.mathcha.io/editor/nZeKei7QSeWt1d2xDviJmPMzPUdx3yZMTYvvep). Each equation, graph, or diagram can be easily exported as a transparent SVG or PNG file, or LaTeX source code, which can then be copy/pasted into presentations, documents, or other editors.
+Each equation, graph, or diagram can be easily exported as a transparent SVG or PNG file, or LaTeX source code, which can then be copy/pasted into presentations, documents, or other editors. 
 
 <iframe frameBorder="0" width="100%" height="100%" style="min-width: 400px; min-height:400px" src="https://www.mathcha.io/editor/nZeKei7QSeWt1d2xDviJmPMzPUdx3yZMTYvvep?embedded=true" ></iframe>
+*Source can be found [here](https://www.mathcha.io/editor/nZeKei7QSeWt1d2xDviJmPMzPUdx3yZMTYvvep)*
+
+That's all for now,
+Mike
