@@ -22,8 +22,8 @@ Unsure how to begin for writing a specific equation in LaTeX, or need a head sta
 <iframe src="https://drive.google.com/file/d/12X0Y7cuawFceaNP-BkE5EVV53xjChXgI/preview" frameBorder="0" width="100%" height="100%" style="min-width: 640px; min-height:480px"></iframe>
 *Source code can be found [here](https://www.overleaf.com/read/xkhpyjdpctws)*
 
-### Generating LaTeX Equations with Mathcha
-Each equation, graph, or diagram can be easily exported as a transparent SVG or PNG file, or LaTeX source code, which can then be copy/pasted into presentations, documents, or other editors. Here's an example I made using [Mathcha](https://www.mathcha.io):
+### Generating LaTeX Equations and Graphs with Mathcha
+Each equation, graph, or diagram can be easily exported as a transparent SVG or PNG file, or into LaTeX source code, which can then be copy/pasted into presentations, documents, or other editors. Here's an example I made using [Mathcha](https://www.mathcha.io):
 
 <iframe frameBorder="0" width="100%" height="100%" style="min-width: 400px; min-height:400px" src="https://www.mathcha.io/editor/nZeKei7QSeWt1d2xDviJmPMzPUdx3yZMTYvvep?embedded=true" ></iframe>
 *Source code can be found [here](https://www.mathcha.io/editor/nZeKei7QSeWt1d2xDviJmPMzPUdx3yZMTYvvep)*
