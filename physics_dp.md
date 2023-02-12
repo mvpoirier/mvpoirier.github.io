@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Mike's DP Physics Resources
+title: Mike's DP Physics Resources (FE 2016)
 permalink: /physics_dp/
 published: true
 ---
