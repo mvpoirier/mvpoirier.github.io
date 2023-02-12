@@ -21,8 +21,6 @@ Unsure how to begin for writing a specific equation in LaTeX, or need a head sta
 
 Here's an example I made using the ChatGPT code generated with Overleaf:
 
-
-
 <iframe src="https://drive.google.com/file/d/12X0Y7cuawFceaNP-BkE5EVV53xjChXgI/preview" frameBorder="0" width="100%" height="100%" style="min-width: 640px; min-height:480px"></iframe>
 *Source can be found [here](https://www.overleaf.com/read/xkhpyjdpctws)*
 
