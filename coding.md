@@ -42,6 +42,7 @@ Some of the programming languages, libraries, and software I've used over the ye
 - **Python**: [Python 3](https://www.python.org/downloads/){:target="_blank"}, [pygame](https://www.pygame.org/news){:target="_blank"}
 - **Javascript**: [p5.js](https://p5js.org/){:target="_blank"}, [ml5.js](https://ml5js.org/){:target="_blank"}
 - **HTML**, **CSS**, and **Markdown** with [Visual Studio Code](https://code.visualstudio.com/){:target="_blank"}
+- **LaTeX** with [Mathcha.io](https://www.mathcha.io/editor) and [Overleaf](https://www.overleaf.com/project) editors
 
 ---
 
