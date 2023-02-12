@@ -10,8 +10,8 @@ Computer Science resources I've developed over the years to support teaching and
 - [DP Computer Science Resources](/coding_dp)
 - [GitHub Repository](https://github.com/mvpoirier/){:target="_blank"}
 - [Replit Online Lessons](https://replit.com/@mpoirier){:target="_blank"}
-- [DP Computer Science Vocabulary - Quizlet](https://quizlet.com/mvpoirier/folders/dp-computer-science){:target="_blank"}
-- [DP Command Terms - Quizlet](https://quizlet.com/kr/308164418/dp-command-terms-flash-cards/){:target="_blank"}
+- [DP Computer Science Vocabulary (Quizlet)](https://quizlet.com/mvpoirier/folders/dp-computer-science){:target="_blank"}
+- [DP Command Terms (Quizlet)](https://quizlet.com/kr/308164418/dp-command-terms-flash-cards/){:target="_blank"}
 
 ---
 
