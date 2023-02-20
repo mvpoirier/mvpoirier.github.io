@@ -43,7 +43,7 @@ Centered:
 `\\[ x = {-b \pm \sqrt{b^2-4ac} \over 2a} \\]`  
 \\[ x = {-b \pm \sqrt{b^2-4ac} \over 2a} \\]
 
-Or we can write this equatoin inline, where the code is `\\( ax^2 + \sqrt{bx} + c = 0 \\)` \\( ax^2 + \sqrt{bx} + c = 0 \\) which can be useful, too.
+We can also write this equatoin inline, where the code is `\\( ax^2 + \sqrt{bx} + c = 0 \\)` \\( ax^2 + \sqrt{bx} + c = 0 \\) which can be useful, too.
   
 Here's one more example using the `\begin{equation}` syntax:
 
