@@ -47,7 +47,7 @@ Adding LaTeX to a Markdown document requires you to use the MathJax delimiters, 
 Centered Equation: `\\[ x = {-b \pm \sqrt{b^2-4ac} \over 2a} \\]`  
 \\[ x = {-b \pm \sqrt{b^2-4ac} \over 2a} \\]
   
-Inline Equation: We can also write \\( ax^2 + \sqrt{bx} + c = 0 \\) inline, where the code is `\\( ax^2 + \sqrt{bx} + c = 0 \\)` which can be useful, too.
+We can also write \\( x = {-b \pm \sqrt{b^2-4ac} \over 2a} \\) inline, with the code `\\( ax^2 + \sqrt{bx} + c = 0 \\)`.
   
   
 Here's one more example using the `\begin{equation}` syntax:
