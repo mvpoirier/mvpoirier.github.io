@@ -51,11 +51,12 @@ F=ma
 
 Determining the speed of light from mass-energy equivalance:
 $$ E=\Delta mc^{2}
-\\
+\\\\
 \therefore c & =\sqrt{\frac{E}{m}}
 $$
 ```latex
-$$ E=\Delta mc^{2}\\
+$$ E=\Delta mc^{2}
+\\\\
 \therefore c & =\sqrt{\frac{E}{m}}$$
 ```
 
