@@ -7,7 +7,7 @@ published: true
 
 ### Mike's Physics Stuff
 Resources I've developed over the years to support teaching and student learning.
-- DP Physics Resources (First Exams 2025) _Coming Soon..._
+- <span style="color:grey">DP Physics Resources (First Exams 2025) <i>Coming Soon...</i></span>
 - [DP Physics Resources (First Exams 2016)](/physics_dp)
 - [MYP Physics Resources (New Chapter 2014)](/physics_myp)
 - [DP Physics Vocabulary - Quizlet](https://quizlet.com/mvpoirier/folders/dp-physics/sets){:target="_blank"}
