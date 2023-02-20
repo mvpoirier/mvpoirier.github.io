@@ -30,23 +30,22 @@ Each equation, graph, or diagram can be easily exported as a transparent SVG or 
 
 ### 3. Using MathJax with Markdown for LaTeX Code Display in Jekyll
 
-One way to use LaTeX in Markdown, is that you need to import the package [MathJax](https://www.mathjax.org/) to to your webite. To do so, add the [following](https://talk.jekyllrb.com/t/how-to-use-latex-on-jekyll/4119/3) to **_\_layouts/post.html_**:  
+One way to use LaTeX in Markdown, is to import the package [MathJax](https://www.mathjax.org/) into to your webite. To do so for [Jekyll](https://jekyllrb.com/), add the [following code](https://talk.jekyllrb.com/t/how-to-use-latex-on-jekyll/4119/3) to **_\_layouts/post.html_**: 
+  
 ```html
 <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 ```
-
-Adding mathematical formulae to a markdown document simply requires you to use the MathJax delimiters to start and end each formula as follows:
+  
+Adding LaTeX to a Markdown document requires you to use the MathJax delimiters, rather than `$` or `$$` to start and end each formula as follows:
 - For centered formulae, use `\\[` and `\\]`.
 - For inline formulae, use `\\(` and `\\)`.
-    
-Centered:  
-`\\[ x = {-b \pm \sqrt{b^2-4ac} \over 2a} \\]`  
+  
+Centered Equation: `\\[ x = {-b \pm \sqrt{b^2-4ac} \over 2a} \\]`  
 \\[ x = {-b \pm \sqrt{b^2-4ac} \over 2a} \\]
-
-We can also write this equatoin inline, where the code is `\\( ax^2 + \sqrt{bx} + c = 0 \\)` \\( ax^2 + \sqrt{bx} + c = 0 \\) which can be useful, too.
+  
+Inline Equation: We can also write this equatoin inline, where the code is `\\( ax^2 + \sqrt{bx} + c = 0 \\)` \\( ax^2 + \sqrt{bx} + c = 0 \\) which can be useful, too.
   
 Here's one more example using the `\begin{equation}` syntax:
-
 \begin{equation}
   \int_0^\infty \frac{x^3}{e^x-1}\,dx = \frac{\pi^4}{15}
   \label{eq:sample}
@@ -57,6 +56,7 @@ Here's one more example using the `\begin{equation}` syntax:
   \label{eq:sample}
 \end{equation}
 ```
+  
 If you're keen to learn more about the differences between LaTeX and MathJax, you can read the MathJax documentation [here](https://docs.mathjax.org/en/latest/index.html).  
   
 That's all for now,  
