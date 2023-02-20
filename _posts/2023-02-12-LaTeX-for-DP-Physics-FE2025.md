@@ -36,14 +36,17 @@ One way to use LaTeX in Markdown, is to import the package [MathJax](https://www
 <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 ```
   
+  
 Adding LaTeX to a Markdown document requires you to use the MathJax delimiters, rather than `$` or `$$` to start and end each formula as follows:
 - For centered formulae, use `\\[` and `\\]`.
 - For inline formulae, use `\\(` and `\\)`.
+  
   
 Centered Equation: `\\[ x = {-b \pm \sqrt{b^2-4ac} \over 2a} \\]`  
 \\[ x = {-b \pm \sqrt{b^2-4ac} \over 2a} \\]
   
 Inline Equation: We can also write \\( ax^2 + \sqrt{bx} + c = 0 \\) inline, where the code is `\\( ax^2 + \sqrt{bx} + c = 0 \\)` which can be useful, too.
+  
   
 Here's one more example using the `\begin{equation}` syntax:
 \begin{equation}
@@ -54,6 +57,7 @@ Here's one more example using the `\begin{equation}` syntax:
   \int_0^\infty \frac{x^3}{e^x-1}\,dx = \frac{\pi^4}{15}
 \end{equation}
 ```
+  
   
 If you're keen to learn more about the differences between LaTeX and MathJax, you can read the MathJax documentation [here](https://docs.mathjax.org/en/latest/index.html).  
   
