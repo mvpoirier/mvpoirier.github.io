@@ -34,12 +34,12 @@ Centered:
 
 Or we can go inline where the code is \\( ax^2 + \sqrt{bx} + c = 0 \\) which can be useful, too.
 ```
-
+Centered:
 \\[ x = {-b \pm \sqrt{b^2-4ac} \over 2a} \\]
 
 Or we can go inline where the code is \\( ax^2 + \sqrt{bx} + c = 0 \\) which can be useful, too.
 
-Newton's Second Law of Motion:
+We can also use \begin{equation} tags, such as for Newton's Second Law of Motion:
 \begin{equation}
 F=ma
 \end{equation}
@@ -50,16 +50,13 @@ F=ma
 ```
 
 Determining the speed of light from mass-energy equivalance:
-$$ E=\Delta mc^{2}\\
-\therefore c & =\sqrt{\frac{E}{m}}$$
+$$ E=\Delta mc^{2}
+\\
+\therefore c & =\sqrt{\frac{E}{m}}
+$$
 ```latex
 $$ E=\Delta mc^{2}\\
 \therefore c & =\sqrt{\frac{E}{m}}$$
-```
-
-Adding an equation in-line such as $p=mv$ can be done too.
-```latex
-Adding an equation in-line such as $p=mv$ can be done too.
 ```
 
 ### Using ChatGPT for LaTeX Code Generation with Overleaf
