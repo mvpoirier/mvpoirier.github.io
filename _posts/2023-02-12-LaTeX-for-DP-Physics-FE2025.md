@@ -44,8 +44,8 @@ Centered:
 \\[ x = {-b \pm \sqrt{b^2-4ac} \over 2a} \\]
 
 Or we can write this equatoin inline, where the code is `\\( ax^2 + \sqrt{bx} + c = 0 \\)` \\( ax^2 + \sqrt{bx} + c = 0 \\) which can be useful, too.
-
-Another example with `\begin{equation}` syntax:
+  
+Here's one more example using the `\begin{equation}` syntax:
 
 \begin{equation}
   \int_0^\infty \frac{x^3}{e^x-1}\,dx = \frac{\pi^4}{15}
@@ -57,7 +57,7 @@ Another example with `\begin{equation}` syntax:
   \label{eq:sample}
 \end{equation}
 ```
-If you're keen to learn more, you can find the MathJax documentation [here](https://docs.mathjax.org/en/latest/index.html).  
+If you're keen to learn more about the differences between LaTeX and MathJax, you can read the MathJax documentation [here](https://docs.mathjax.org/en/latest/index.html).  
   
 That's all for now,  
 Mike
