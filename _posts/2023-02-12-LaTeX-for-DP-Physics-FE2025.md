@@ -30,7 +30,7 @@ Each equation, graph, or diagram can be easily exported as a transparent SVG or 
 
 ### 3. Using MathJax with Markdown for LaTeX Code Display in Jekyll
 
-One way to use LaTeX in Markdown, is that you need to import the package [MathJax](https://www.mathjax.org/) to to your webite. To do so, add the [following](https://talk.jekyllrb.com/t/how-to-use-latex-on-jekyll/4119/3) to **_\_layouts/post.html_**:
+One way to use LaTeX in Markdown, is that you need to import the package [MathJax](https://www.mathjax.org/) to to your webite. To do so, add the [following](https://talk.jekyllrb.com/t/how-to-use-latex-on-jekyll/4119/3) to **_\_layouts/post.html_**:  
 ```html
 <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 ```
@@ -39,23 +39,11 @@ Adding mathematical formulae to a markdown document simply requires you to use t
 - For centered formulae, use `\\[` and `\\]`.
 - For inline formulae, use `\\(` and `\\)`.
     
-Centered:
-`\\[ x = {-b \pm \sqrt{b^2-4ac} \over 2a} \\]`
+Centered:  
+`\\[ x = {-b \pm \sqrt{b^2-4ac} \over 2a} \\]`  
 \\[ x = {-b \pm \sqrt{b^2-4ac} \over 2a} \\]
 
 Or we can go inline where the code is `\\( ax^2 + \sqrt{bx} + c = 0 \\)` \\( ax^2 + \sqrt{bx} + c = 0 \\) which can be useful, too.
-
-Determining the speed of light from mass-energy equivalance:
-\\[ E=\Delta mc^{2}
-\\\\
-\therefore c & =\sqrt{\frac{E}{m}}
-\\]
-```latex
-\\[ E=\Delta mc^{2}
-\\\\
-\therefore c & =\sqrt{\frac{E}{m}}
-\\]
-```
   
 That's all for now,  
 Mike
