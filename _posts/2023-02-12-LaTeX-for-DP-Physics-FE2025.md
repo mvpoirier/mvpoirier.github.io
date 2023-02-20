@@ -18,46 +18,31 @@ Starting in August 2023 our DP Year 1 students will be introduced to the new DP 
 
 ### Using Markdown for LaTeX Code Display in Jekyll
 
-To use LaTeX in Markdown, you need to import the package [MathJax](https://www.mathjax.org/) to to your webite. To do so, add the [following](https://talk.jekyllrb.com/t/how-to-use-latex-on-jekyll/4119/3) to _\_layouts/post.html_:
+To use LaTeX in Markdown, you need to import the package [MathJax](https://www.mathjax.org/) to to your webite. To do so, add the [following](https://talk.jekyllrb.com/t/how-to-use-latex-on-jekyll/4119/3) to **_\_layouts/post.html_**:
 ```html
 <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 ```
 
-```
 Adding mathematical formulae to a markdown document simply requires you to use the MathJax delimiters to start and end each formula as follows:
-
-    For centered formulae, use \\[ and \\].
-    For inline formulae, use \\( and \\).
+- For centered formulae, use `\\[` and `\\]`.
+- For inline formulae, use `\\(` and `\\)`.
     
 Centered:
+`\\[ x = {-b \pm \sqrt{b^2-4ac} \over 2a} \\]`
 \\[ x = {-b \pm \sqrt{b^2-4ac} \over 2a} \\]
 
-Or we can go inline where the code is \\( ax^2 + \sqrt{bx} + c = 0 \\) which can be useful, too.
-```
-Centered:
-\\[ x = {-b \pm \sqrt{b^2-4ac} \over 2a} \\]
-
-Or we can go inline where the code is \\( ax^2 + \sqrt{bx} + c = 0 \\) which can be useful, too.
-
-We can also use \begin{equation} tags, such as for Newton's Second Law of Motion:
-\begin{equation}
-F=ma
-\end{equation}
-```latex
-\begin{equation}
-F=ma
-\end{equation}
-```
+Or we can go inline where the code is `\\( ax^2 + \sqrt{bx} + c = 0 \\)` \\( ax^2 + \sqrt{bx} + c = 0 \\) which can be useful, too.
 
 Determining the speed of light from mass-energy equivalance:
-$$ E=\Delta mc^{2}
+\\[ E=\Delta mc^{2}
 \\\\
 \therefore c & =\sqrt{\frac{E}{m}}
-$$
+\\]
 ```latex
-$$ E=\Delta mc^{2}
+\\[ E=\Delta mc^{2}
 \\\\
-\therefore c & =\sqrt{\frac{E}{m}}$$
+\therefore c & =\sqrt{\frac{E}{m}}
+\\]
 ```
 
 ### Using ChatGPT for LaTeX Code Generation with Overleaf
