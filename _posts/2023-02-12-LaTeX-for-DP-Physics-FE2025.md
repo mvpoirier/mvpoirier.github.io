@@ -18,7 +18,7 @@ Starting in August 2023 our DP Year 1 students will be introduced to the new DP 
 
 ### Using Markdown for LaTeX Code Display in Jekyll
 
-Add the [following](https://talk.jekyllrb.com/t/how-to-use-latex-on-jekyll/4119/3) to **_layouts/post.html**:
+Add the [following](https://talk.jekyllrb.com/t/how-to-use-latex-on-jekyll/4119/3) to _\_layouts/post.html_:
 ```html
 <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 ```
