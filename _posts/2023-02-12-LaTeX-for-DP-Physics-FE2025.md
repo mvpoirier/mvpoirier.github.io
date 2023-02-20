@@ -57,6 +57,7 @@ Another example with `\begin{equation}` syntax:
   \label{eq:sample}
 \end{equation}
 ```
+If you're keen to learn more, you can find the MathJax documentation [here](https://docs.mathjax.org/en/latest/index.html).  
   
 That's all for now,  
 Mike
