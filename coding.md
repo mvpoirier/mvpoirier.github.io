@@ -7,7 +7,7 @@ published: true
 
 ### Mike's Coding Stuff
 Computer Science resources I've developed over the years to support teaching and student learning:
-- [DP Computer Science Resources (FE2014)](/coding_dp)
+- [DP Computer Science Resources (First Exams 2014)](/coding_dp)
 - [GitHub Repository](https://github.com/mvpoirier/){:target="_blank"}
 - [Replit Online Lessons](https://replit.com/@mpoirier){:target="_blank"}
 - [DP Computer Science Vocabulary (Quizlet)](https://quizlet.com/mvpoirier/folders/dp-computer-science){:target="_blank"}
