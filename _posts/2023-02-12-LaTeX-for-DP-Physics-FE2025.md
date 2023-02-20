@@ -44,6 +44,18 @@ Centered:
 \\[ x = {-b \pm \sqrt{b^2-4ac} \over 2a} \\]
 
 Or we can go inline where the code is `\\( ax^2 + \sqrt{bx} + c = 0 \\)` \\( ax^2 + \sqrt{bx} + c = 0 \\) which can be useful, too.
+
+Finally, if you subsitute `$` or `$$` symbols with `\\[` and `\\]`, then you can import equations directly from \\(\latex\\) to your website:
+\\[\displaystyle \begin{aligned}
+E & =E=\Delta mc^{2}\\
+\therefore c & =\sqrt{\frac{E}{m}}
+\end{aligned}\\]
+```
+\\[\displaystyle \begin{aligned}
+E & =E=\Delta mc^{2}\\
+\therefore c & =\sqrt{\frac{E}{m}}
+\end{aligned}\\]
+```
   
 That's all for now,  
 Mike
