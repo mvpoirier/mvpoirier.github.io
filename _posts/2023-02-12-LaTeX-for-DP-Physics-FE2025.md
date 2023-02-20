@@ -16,9 +16,21 @@ Starting in August 2023 our DP Year 1 students will be introduced to the new DP 
 - [Overleaf LaTeX Editor](https://www.overleaf.com/project)
 - [LaTeX YouTube Tutorial Playlist by Dr. Trefor Bazett](https://youtube.com/playlist?list=PLHXZ9OQGMqxcWWkx2DMnQmj5os2X5ZR73) (Highly Recommended)
 
-### Using Markdown for LaTeX Code Display in Jekyll
+### 1. Using ChatGPT for LaTeX Code Generation with Overleaf
+Unsure how to begin for writing a specific equation in LaTeX, or need a head start? No problem: just ask [ChatGPT](https://chat.openai.com/chat)! After a short series of questions, the increasingly popular AI Chatbot can help provide a scaffold for writing more complicated LaTeX code. Here's an example I made using the ChatGPT code generated with [Overleaf](https://www.overleaf.com/project):
 
-To use LaTeX in Markdown, you need to import the package [MathJax](https://www.mathjax.org/) to to your webite. To do so, add the [following](https://talk.jekyllrb.com/t/how-to-use-latex-on-jekyll/4119/3) to **_\_layouts/post.html_**:
+<iframe src="https://drive.google.com/file/d/12X0Y7cuawFceaNP-BkE5EVV53xjChXgI/preview" frameBorder="0" width="100%" height="100%" style="min-height:400px"></iframe>
+*Source code can be found [here](https://www.overleaf.com/read/xkhpyjdpctws)*
+
+### 2. Generating LaTeX Equations and Graphs with Mathcha
+Each equation, graph, or diagram can be easily exported as a transparent SVG or PNG file, or into LaTeX source code, which can then be copy/pasted into presentations, documents, or other editors. Here's an example I made using [Mathcha](https://www.mathcha.io):
+
+<iframe frameBorder="0" width="100%" height="100%" style="min-height:400px" src="https://www.mathcha.io/editor/nZeKei7QSeWt1d2xDviJmPMzPUdx3yZMTYvvep?embedded=true" ></iframe>
+*Source code can be found [here](https://www.mathcha.io/editor/nZeKei7QSeWt1d2xDviJmPMzPUdx3yZMTYvvep)*
+
+### 3. Using MathJax with Markdown for LaTeX Code Display in Jekyll
+
+One way to use LaTeX in Markdown, is that you need to import the package [MathJax](https://www.mathjax.org/) to to your webite. To do so, add the [following](https://talk.jekyllrb.com/t/how-to-use-latex-on-jekyll/4119/3) to **_\_layouts/post.html_**:
 ```html
 <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 ```
@@ -44,19 +56,6 @@ Determining the speed of light from mass-energy equivalance:
 \therefore c & =\sqrt{\frac{E}{m}}
 \\]
 ```
-
-### Using ChatGPT for LaTeX Code Generation with Overleaf
-Unsure how to begin for writing a specific equation in LaTeX, or need a head start? No problem: just ask [ChatGPT](https://chat.openai.com/chat)! After a short series of questions, the increasingly popular AI Chatbot can help provide a scaffold for writing more complicated LaTeX code. Here's an example I made using the ChatGPT code generated with [Overleaf](https://www.overleaf.com/project):
-
-<iframe src="https://drive.google.com/file/d/12X0Y7cuawFceaNP-BkE5EVV53xjChXgI/preview" frameBorder="0" width="100%" height="100%" style="min-height:400px"></iframe>
-*Source code can be found [here](https://www.overleaf.com/read/xkhpyjdpctws)*
-
-### Generating LaTeX Equations and Graphs with Mathcha
-Each equation, graph, or diagram can be easily exported as a transparent SVG or PNG file, or into LaTeX source code, which can then be copy/pasted into presentations, documents, or other editors. Here's an example I made using [Mathcha](https://www.mathcha.io):
-
-<iframe frameBorder="0" width="100%" height="100%" style="min-height:400px" src="https://www.mathcha.io/editor/nZeKei7QSeWt1d2xDviJmPMzPUdx3yZMTYvvep?embedded=true" ></iframe>
-*Source code can be found [here](https://www.mathcha.io/editor/nZeKei7QSeWt1d2xDviJmPMzPUdx3yZMTYvvep)*
-  
   
 That's all for now,  
 Mike
