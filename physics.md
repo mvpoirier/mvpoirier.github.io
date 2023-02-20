@@ -11,9 +11,9 @@ Resources I've developed over the years to support teaching and student learning
 - [MYP Physics Resources](/physics_myp)
 - [DP Physics Vocabulary - Quizlet](https://quizlet.com/mvpoirier/folders/dp-physics/sets){:target="_blank"}
 - [DP Command Terms - Quizlet](https://quizlet.com/kr/308164418/dp-command-terms-flash-cards/){:target="_blank"}
-  
----
 
+<br>
+<br>
 ### Mike's Favorite Physics Resources
 Some of my favorite online sites, resources, and tools I use towards teaching and promoting physics in the classroom.
 - [Mike's Physics Bookmark Archive (Updated April 2020)](/media/physics_bookmarks.html){:target="_blank"}
@@ -26,17 +26,17 @@ Some of my favorite online sites, resources, and tools I use towards teaching an
 - [GoodNotes Digital Whiteboard](https://www.goodnotes.com/){:target="_blank"}
 - [Mathcha.io LaTeX Editor](https://www.mathcha.io/editor){:target="_blank"}
 - [Overleaf LaTeX Editor](https://www.overleaf.com/project){:target="_blank"}
-  
----
-  
+
+<br>
+<br>
 ### Media & Outreach
 Additional media and outreach that extend beyond classroom teaching.  
 - [PhysPort: Research-based Physics Teaching](https://www.physport.org/){:target="_blank"}
 - [The Feynman Lectures](https://www.feynmanlectures.caltech.edu/){:target="_blank"}
 - [Astronomy Picture of the Day (APoD)](https://apod.nasa.gov/apod/astropix.html){:target="_blank"}
 - [The Sagan Series](https://www.youtube.com/watch?v=oY59wZdCDo0&list=PLF17F07CFC3208E29){:target="_blank"}
-- [The Feynman Series](https://www.youtube.com/watch?v=cRmbwczTC6E&list=PL92F9FC91BBE2210D){:target="_blank"}
-    
+- [The Feynman Series](https://www.youtube.com/watch?v=cRmbwczTC6E&list=PL92F9FC91BBE2210D){:target="_blank"} 
+
 <br>
 <br>
 > "If it disagrees with experiment,  
