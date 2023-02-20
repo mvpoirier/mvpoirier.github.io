@@ -64,4 +64,4 @@ Here's one more example using the `\begin{equation}` syntax:
 If you're keen to learn more about the differences between LaTeX and MathJax, you can read the [MathJax documentation here](https://docs.mathjax.org/en/latest/index.html).  
   
 That's all for now,  
-Mike
+\\( M = i^ke \\)
