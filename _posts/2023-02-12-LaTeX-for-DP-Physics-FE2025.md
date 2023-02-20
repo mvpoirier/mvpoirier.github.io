@@ -25,12 +25,17 @@ Starting in August 2023 our DP Year 1 students will be introduced to the new DP 
 ```
 
 Newton's Second Law of Motion:
-$F=ma$
+\begin{equation}
+F=ma
+\end{equation}
 ```latex
 Newton's Second Law of Motion:
-$F=ma$
+\begin{equation}
+F=ma
+\end{equation}
 ```
 
+Determining the speed of light from mass-energy equivalance:
 $\displaystyle \begin{aligned}
 E & =E=\Delta mc^{2}\\
 \therefore c & =\sqrt{\frac{E}{m}}
