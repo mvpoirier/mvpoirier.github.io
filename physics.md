@@ -31,7 +31,7 @@ Additional media and outreach that extend beyond classroom teaching.
 - [The Feynman Lectures](https://www.feynmanlectures.caltech.edu/){:target="_blank"}
 - [Astronomy Picture of the Day (APoD)](https://apod.nasa.gov/apod/astropix.html){:target="_blank"}
 - [The Sagan Series](https://www.youtube.com/watch?v=oY59wZdCDo0&list=PLF17F07CFC3208E29){:target="_blank"}
-- [The Feynman Series](https://www.youtube.com/watch?v=cRmbwczTC6E&list=PL92F9FC91BBE2210D){:target="_blank"} 
+- [The Feynman Series](https://www.youtube.com/watch?v=cRmbwczTC6E&list=PL92F9FC91BBE2210D){:target="_blank"}
   
 <br>
 > "If it disagrees with experiment,  
