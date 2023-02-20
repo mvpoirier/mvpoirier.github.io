@@ -48,12 +48,10 @@ Inline Equation: We can also write \\( ax^2 + \sqrt{bx} + c = 0 \\) inline, wher
 Here's one more example using the `\begin{equation}` syntax:
 \begin{equation}
   \int_0^\infty \frac{x^3}{e^x-1}\,dx = \frac{\pi^4}{15}
-  \label{eq:sample}
 \end{equation}
 ```
 \begin{equation}
   \int_0^\infty \frac{x^3}{e^x-1}\,dx = \frac{\pi^4}{15}
-  \label{eq:sample}
 \end{equation}
 ```
   
