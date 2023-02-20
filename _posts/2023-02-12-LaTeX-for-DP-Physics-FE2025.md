@@ -3,7 +3,7 @@ published: true
 layout: post
 title: LaTeX & ChatGPT for DP Physics FE2025
 ---
-Starting in August 2023 our DP Year 1 students will be introduced to the new DP Physics curriculum with the First Exams starting in May 2025 (FE2025). It's long overdue, but with the change in curriculum, now seems to be a great time to finally learn to how to code, implement, and use **[LaTeX](https://www.latex-project.org/get/)** to support student learning and teaching.
+Starting in August 2023 our DP Year 1 students will be introduced to the new DP Physics curriculum with the First Exams starting in May 2025 (FE2025). With the change in curriculum, now seems to be a great time to learn to how to use **[LaTeX](https://www.latex-project.org/get/)** to support student learning and teaching.
 
 ### Potential Uses of LaTeX in the Classroom
 - Provides consistent display of equations, formulas, diagrams, and graphical information
