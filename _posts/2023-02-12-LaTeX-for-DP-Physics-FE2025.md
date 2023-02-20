@@ -23,6 +23,22 @@ Add the [following](https://talk.jekyllrb.com/t/how-to-use-latex-on-jekyll/4119/
 <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 ```
 
+```
+Adding mathematical formulae to a markdown document simply requires you to use the MathJax delimiters to start and end each formula as follows:
+
+    For centered formulae, use \\[ and \\].
+    For inline formulae, use \\( and \\).
+    
+Centered:
+\\[ x = {-b \pm \sqrt{b^2-4ac} \over 2a} \\]
+
+Or we can go inline where the code is \\( ax^2 + \sqrt{bx} + c = 0 \\) which can be useful, too.
+```
+
+\\[ x = {-b \pm \sqrt{b^2-4ac} \over 2a} \\]
+
+Or we can go inline where the code is \\( ax^2 + \sqrt{bx} + c = 0 \\) which can be useful, too.
+
 Newton's Second Law of Motion:
 \begin{equation}
 F=ma
