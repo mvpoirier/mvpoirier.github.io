@@ -38,6 +38,7 @@ Some of the programming languages, libraries, and software I've used over the ye
 - **HTML**, **CSS**, and **Markdown** with [Visual Studio Code](https://code.visualstudio.com/){:target="_blank"}
 - **LaTeX** with [Mathcha.io](https://www.mathcha.io/editor){:target="_blank"} and [Overleaf](https://www.overleaf.com/project){:target="_blank"} editors
   
+<br>
 ...and for all of you [Winnipeg Jets](https://www.nhl.com/jets){:target="_blank"} fans:
 ```python
 while True:
