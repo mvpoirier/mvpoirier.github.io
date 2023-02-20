@@ -9,7 +9,7 @@ Below are resources I've developed over the years to support teaching and studen
   
 ### DP Physics Standard & Higher Level Notes
 DP Physics SL/HL notes: Topics 1 to 12, and Option D.1 to D.5 (Astrophysics)
-<iframe src="https://drive.google.com/embeddedfolderview?id=1MSyUEFRDhUt1I0qFVv5cwW0fhDq3Am4i#list" width="100%" height="100%" style="border:1px solid black;" style="min-height:400px"></iframe><br>
+<iframe src="https://drive.google.com/embeddedfolderview?id=1MSyUEFRDhUt1I0qFVv5cwW0fhDq3Am4i#list" width="100%" height="100%" style="border:1px solid black; min-height:400px;"></iframe><br>
   
 ---
   
