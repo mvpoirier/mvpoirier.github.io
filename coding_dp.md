@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Mike's DP Computer Science Resources
+title: Mike's DP Computer Science Resources (FE 2014)
 permalink: /coding_dp/
 published: true
 ---
