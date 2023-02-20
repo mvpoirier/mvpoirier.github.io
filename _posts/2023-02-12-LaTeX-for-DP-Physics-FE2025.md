@@ -20,7 +20,6 @@ Starting in August 2023 our DP Year 1 students will be introduced to the new DP 
 
 Add the [following](https://talk.jekyllrb.com/t/how-to-use-latex-on-jekyll/4119/3) to **_layouts/post.html**:
 ```html
-<!-- MathJax support for LaTeX Code in Jekyll -->
 <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 ```
 
@@ -29,26 +28,22 @@ Newton's Second Law of Motion:
 F=ma
 \end{equation}
 ```latex
-Newton's Second Law of Motion:
 \begin{equation}
 F=ma
 \end{equation}
 ```
 
 Determining the speed of light from mass-energy equivalance:
-$\displaystyle \begin{aligned}
-E & =E=\Delta mc^{2}\\
-\therefore c & =\sqrt{\frac{E}{m}}
-\end{aligned}$
+$$ E=\Delta mc^{2}\\
+\therefore c & =\sqrt{\frac{E}{m}}$$
 ```latex
-Determining the speed of light from mass-energy equivalance:
-$
-\displaystyle
-\begin{aligned}
-	E & =E=\Delta mc^{2}\\
-\therefore c & =\sqrt{\frac{E}{m}}
-\end{aligned}
-$
+$$ E=\Delta mc^{2}\\
+\therefore c & =\sqrt{\frac{E}{m}}$$
+```
+
+Adding an equation in-line such as $p=mv$ can be done too.
+```latex
+Adding an equation in-line such as $p=mv$ can be done too.
 ```
 
 ### Using ChatGPT for LaTeX Code Generation with Overleaf
