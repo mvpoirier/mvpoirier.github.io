@@ -16,6 +16,36 @@ Starting in August 2023 our DP Year 1 students will be introduced to the new DP 
 - [Overleaf LaTeX Editor](https://www.overleaf.com/project)
 - [LaTeX YouTube Tutorial Playlist by Dr. Trefor Bazett](https://youtube.com/playlist?list=PLHXZ9OQGMqxcWWkx2DMnQmj5os2X5ZR73) (Highly Recommended)
 
+### Using Markdown for LaTeX Code Display in Jekyll
+
+```html
+<!-- Adding MathJax support for LaTeX Code -->
+<!-- https://talk.jekyllrb.com/t/how-to-use-latex-on-jekyll/4119/3 -->
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+```
+
+Newton's Second Law of Motion:
+$F=ma$
+```latex
+Newton's Second Law of Motion:
+$F=ma$
+```
+
+$\displaystyle \begin{aligned}
+E & =E=\Delta mc^{2}\\
+\therefore c & =\sqrt{\frac{E}{m}}
+\end{aligned}$
+```latex
+Determining the speed of light from mass-energy equivalance:
+$
+\displaystyle
+\begin{aligned}
+	E & =E=\Delta mc^{2}\\
+\therefore c & =\sqrt{\frac{E}{m}}
+\end{aligned}
+$
+```
+
 ### Using ChatGPT for LaTeX Code Generation with Overleaf
 Unsure how to begin for writing a specific equation in LaTeX, or need a head start? No problem: just ask [ChatGPT](https://chat.openai.com/chat)! After a short series of questions, the increasingly popular AI Chatbot can help provide a scaffold for writing more complicated LaTeX code. Here's an example I made using the ChatGPT code generated with [Overleaf](https://www.overleaf.com/project):
 
