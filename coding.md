@@ -36,7 +36,7 @@ Some of the languages, libraries, and software I've used over the years:
 - **Python**: [Python 3](https://www.python.org/downloads/){:target="_blank"}, [pygame](https://www.pygame.org/news){:target="_blank"}
 - **Javascript**: [p5.js](https://p5js.org/){:target="_blank"}, [ml5.js](https://ml5js.org/){:target="_blank"}
 - **HTML**, **CSS**, and **Markdown** with [Visual Studio Code](https://code.visualstudio.com/){:target="_blank"}
-- **\\(LaTeX\\)** with [Overleaf](https://www.overleaf.com/project){:target="_blank"} and [Mathcha.io](https://www.mathcha.io/editor){:target="_blank"} online editors
+- **\\(\LaTeX\\)** with [Overleaf](https://www.overleaf.com/project){:target="_blank"} and [Mathcha.io](https://www.mathcha.io/editor){:target="_blank"} online editors
   
 <br>
 ...and for all of you [Winnipeg Jets](https://www.nhl.com/jets){:target="_blank"} fans:
