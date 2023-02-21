@@ -30,13 +30,13 @@ A sample of Javascript sketches I've created for both teaching and little bit of
 - [Sooty MusCAT Detector](https://raw.githack.com/mvpoirier/Javascript/master/sootyDetector/index.html){:target="_blank"}
 - [Interactive Visuals](https://raw.githack.com/mvpoirier/Javascript/master/squareCircle/index.html){:target="_blank"}
   
-### Programming Languages
-Some of the programming languages, libraries, and software I've used over the years:
+### Programming & Markup Languages
+Some of the languages, libraries, and software I've used over the years:
 - **Java** using [Eclipse IDE](https://www.eclipse.org/downloads/){:target="_blank"} and [WindowBuilder GUI Designer](https://www.eclipse.org/windowbuilder/download.php){:target="_blank"}
 - **Python**: [Python 3](https://www.python.org/downloads/){:target="_blank"}, [pygame](https://www.pygame.org/news){:target="_blank"}
 - **Javascript**: [p5.js](https://p5js.org/){:target="_blank"}, [ml5.js](https://ml5js.org/){:target="_blank"}
 - **HTML**, **CSS**, and **Markdown** with [Visual Studio Code](https://code.visualstudio.com/){:target="_blank"}
-- **LaTeX** with [Mathcha.io](https://www.mathcha.io/editor){:target="_blank"} and [Overleaf](https://www.overleaf.com/project){:target="_blank"} editors
+- **\\(LaTeX\\)** with [Overleaf](https://www.overleaf.com/project){:target="_blank"} and [Mathcha.io](https://www.mathcha.io/editor){:target="_blank"} online editors
   
 <br>
 ...and for all of you [Winnipeg Jets](https://www.nhl.com/jets){:target="_blank"} fans:
