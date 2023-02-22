@@ -14,6 +14,7 @@ Starting in August 2023 our DP Year 1 students will be introduced to the new DP 
 - [The LaTeX Project](https://www.latex-project.org/get/)
 - [Mathcha Equation Editor](https://www.mathcha.io)
 - [Overleaf LaTeX Editor](https://www.overleaf.com/project)
+- [LaTeX Table Generator](https://www.tablesgenerator.com/)
 - [LaTeX YouTube Tutorial Playlist by Dr. Trefor Bazett](https://youtube.com/playlist?list=PLHXZ9OQGMqxcWWkx2DMnQmj5os2X5ZR73) (Highly Recommended)
 
 ### 1. Using ChatGPT for LaTeX Code Generation with Overleaf
@@ -47,7 +48,7 @@ Adding LaTeX to a Markdown document requires you to use the MathJax delimiters, 
 Centered Equation: `\\[ x = {-b \pm \sqrt{b^2-4ac} \over 2a} \\]`  
 \\[ x = {-b \pm \sqrt{b^2-4ac} \over 2a} \\]
   
-We can also write \\( x = {-b \pm \sqrt{b^2-4ac} \over 2a} \\) inline, with the code `\\( ax^2 + \sqrt{bx} + c = 0 \\)`.
+We can also write equations like \\( ax^2 + \sqrt{bx} + c = 0 \\) inline, with the code `\\( ax^2 + \sqrt{bx} + c = 0 \\)`.
   
   
 Here's one more example using the `\begin{equation}` syntax:
