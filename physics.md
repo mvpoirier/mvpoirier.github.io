@@ -9,7 +9,7 @@ published: true
 Resources I've developed over the years to support teaching and student learning.
 - <span style="color:grey"><i>Coming Soon: DP Physics Resources for First Exams 2025</i></span>
 - [DP Physics Resources (First Exams 2016)](/physics_dp)
-- [MYP Physics Resources (New Chapter 2014)](/physics_myp)
+- [MYP Physics Resources (Next Chapter 2014)](/physics_myp)
 - [DP Physics Vocabulary - Quizlet](https://quizlet.com/mvpoirier/folders/dp-physics/sets){:target="_blank"}
 - [DP Command Terms - Quizlet](https://quizlet.com/kr/308164418/dp-command-terms-flash-cards/){:target="_blank"}
 
