@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Mike's MYP Physics Resources (NC 2014)
+title: Mike's MYP Physics Resources
 permalink: /physics_myp/
 published: true
 ---
