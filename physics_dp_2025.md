@@ -9,13 +9,13 @@ Below are resources I've developed for the NEW **International Baccalaureate DP 
 Because this is a new curriculum, I'll be adding resources bit by bit over time.
   
 ### DP Physics FE2025 Standard Level (SL) & Higher Level (HL) Notes
-DP Physics SL and HL notes for Topics A, B, C, D, and E
+Notes for Topics A, B, C, D, and E in DP Physics SL and HL
 <!--iframe src="https://drive.google.com/embeddedfolderview?id=1MSyUEFRDhUt1I0qFVv5cwW0fhDq3Am4i#list" width="100%" height="100%" style="min-height:400px;"></iframe-->
   
-### DP Physics FE2025 IA & Lab Work
-Investigations I've developed to support practical work and the Internal Assessment (IA)
+### DP Physics FE2025 Internal Assessment (IA) & Skills in the Study of Physics (SSP)
+Investigations I've developed to support practical work and skills in DP Physics
 <!--iframe src="https://drive.google.com/embeddedfolderview?id=1JQkWaMRqpPUVfuP74xRaUqqL4WUTT6NO#list" width="100%" height="100%" style="min-height:400px;"></iframe-->
   
 ### DP Physics FE2025 Nuts & Bolts
-An extra collection of resources to support teaching and learning in DP Physics
+A collection of resources to support teaching and learning in DP Physics
 <!--iframe src="https://drive.google.com/embeddedfolderview?id=1pA6bdFvxmsir_gH1V8oTpFycaNysMXYT#list" width="100%" height="100%" style="min-height:400px;"></iframe-->
