@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Mike's DP Physics Resources (FE2025) "NEW"
+title: Mike's DP Physics Resources (FE2025)
 permalink: /physics_dp_2025/
 published: true
 ---
