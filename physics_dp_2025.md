@@ -14,7 +14,7 @@ Notes for Topics A, B, C, D, and E in DP Physics SL and HL
   
 ### DP Physics FE2025 Internal Assessment (IA) & Skills in the Study of Physics (SSP)
 Investigations I've developed to support practical work and skills in DP Physics
-<!--iframe src="https://drive.google.com/embeddedfolderview?id=1JQkWaMRqpPUVfuP74xRaUqqL4WUTT6NO#list" width="100%" height="100%" style="min-height:400px;"></iframe-->
+<iframe src="https://drive.google.com/embeddedfolderview?id=1pWcKStPeRES0EM35ETh4ErNpKnk7glxO#list" width="100%" height="100%" style="min-height:400px;"></iframe>
   
 ### DP Physics FE2025 Nuts & Bolts
 A collection of resources to support teaching and learning in DP Physics
