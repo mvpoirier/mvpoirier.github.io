@@ -7,15 +7,15 @@ published: true
 
 ### Mike's Physics Stuff
 Resources I've developed over the years to support teaching and student learning.
-- [DP Physics Resources (FE2025) NEW](/physics_dp_2025)
-- [DP Physics Resources (FE2016) OLD](/physics_dp_2016)
-- [MYP Physics Resources (NC2014)](/physics_myp)
+- [DP Physics FE2025 Resources (NEW)](/physics_dp_2025)
+- [DP Physics FE2016 Resources (OLD)](/physics_dp_2016)
+- [MYP Physics Resources](/physics_myp)
 - [DP Physics Vocabulary Quizlet](https://quizlet.com/mvpoirier/folders/dp-physics/sets){:target="_blank"}
 - [DP Command Terms Quizlet](https://quizlet.com/kr/308164418/dp-command-terms-flash-cards/){:target="_blank"}
 
 ### Mike's Favorite Physics Resources
 Some of my favorite online sites, resources, and tools I use towards teaching and promoting physics in the classroom.
-- [Mike's Physics Bookmark Archive (Updated April 2020)](/media/physics_bookmarks.html){:target="_blank"}
+- [Mike's Physics Bookmarks (Updated April 2020)](/media/physics_bookmarks.html){:target="_blank"}
 - [Surendranath HTML5 Applets](http://www.surendranath.org/){:target="_blank"}
 - [PhET Simulations](https://phet.colorado.edu/){:target="_blank"}
 - [Kognity](https://kognity.com/){:target="_blank"}
