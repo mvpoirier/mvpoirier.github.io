@@ -7,7 +7,7 @@ published: true
 
 Below are resources I've developed over the years to support teaching and student learning for the **International Baccalaureate DP Physics 2014 curriculum** (First Exams May 2016). If you find these resources useful for use in your classes, please link to this site as part of the [Creative Commons CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/){:target="_blank"} license.
 
-**The FE2016 resources will no longer be updated.** If you're looking for updated resources for the most recent curriculum starting August 2023, please check out the DP Physics FE2025 Resources here.
+**The FE2016 resources will no longer be updated.** If you're looking for updated resources for the most recent curriculum starting August 2023, please check out the [DP Physics FE2025 Resources here](/physics_dp_2025).
   
 ### DP Physics FE2016 Standard Level (HL) & Higher Level (HL) Notes
 DP Physics SL and HL notes: Topics 1 to 12, and Option D.1 to D.5 (Astrophysics)
