@@ -6,7 +6,7 @@ published: true
 ---
 Below are resources I've developed for the NEW **International Baccalaureate DP Physics 2023 curriculum** (First Exams May 2025). If you find these resources useful for use in your classes, please link to this site as part of the [Creative Commons CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/){:target="_blank"} license.
 
-Because this is a new curriculum, I'll be adding resources bit by bit over time.
+Because this is a new curriculum, I'll be adding resources bit by bit over time as things are developed and refined.
   
 ### DP Physics FE2025 Standard Level (SL) & Higher Level (HL) Notes
 Notes for Topics A, B, C, D, and E in DP Physics SL and HL
