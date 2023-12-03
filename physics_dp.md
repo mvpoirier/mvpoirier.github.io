@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Mike's DP Physics Resources (FE 2016)
-permalink: /physics_dp/
+title: Mike's DP Physics Resources (FE2016)
+permalink: /physics_dp_2016/
 published: true
 ---
 
