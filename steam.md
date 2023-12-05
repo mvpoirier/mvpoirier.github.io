@@ -1,10 +1,10 @@
 ---
 layout: page
-title: STEAM
+title: 'Science, Technology, Engineering, Arts, and Mathematics'
 permalink: /steam/
 published: true
 ---
 
-## STEAM - Science, Technology, Enegineering, Arts, and Mathematics
+## STEAM - Science, Technology, Engineering, Arts, and Mathematics
 
 To be added soon...
