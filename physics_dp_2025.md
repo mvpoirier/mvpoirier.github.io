@@ -8,7 +8,7 @@ Below are resources I've developed for the new **International Baccalaureate DP 
 
 Because this new curriculum just started in August 2023, I'll be _slowly but surely_ adding more resources as the course is further developed and refined. My personal goal is to have all resources completed by April 2025 in time for the first cohort to complete the new course.
 
-<span style="color:orange">**Looking for something not here?**</span> Additional course notes, lab investigations, and other resources can be found relating to the older [DP Physics FE2016 curriculum here](/physics_dp_2016) or the [Physics section](/physics) of this site.
+<span style="color:orange">**Looking for something not here?**</span> Additional course notes, lab investigations, and other resources can be found relating to the older [DP Physics FE2016 curriculum here](/physics_dp_2016) or the general [Physics section](/physics) of this site.
   
 ### DP Physics FE2025 Course Notes
 _Updated SL & HL notes for Topics A, B, C, D, and E_
