@@ -5,6 +5,6 @@ permalink: /steam/
 published: true
 ---
 
-## STEAM - Science, Technology, Engineering, Arts, and Mathematics
+## STEAM: Science, Technology, Engineering, Arts, and Mathematics
 
 To be added soon...
