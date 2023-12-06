@@ -3,7 +3,7 @@ published: false
 layout: post
 title: Reflecting on DP Physics FE2025
 ---
-With the [newest revision to the IB DP Physics curriculum](https://www.ibo.org/university-admission/latest-curriculum-updates/physics-updates/) starting August 2023 (First Exams May 2025) now well underway, I thought it would be a good time to briefly reflect on the first semester tackling this new course - the good, the bad, and the _ugly_.
+With the [newest revision to the IB DP Physics curriculum](https://www.ibo.org/university-admission/latest-curriculum-updates/physics-updates/) starting August 2023 (First Exams May 2025) now well underway, I thought it would be a good time to reflect on the first semester tackling this new course: the good, the bad, and the _ugly_.
 
 ## The Good
 - All major textbook publishers have provided great resources that outline new curriculum changes
