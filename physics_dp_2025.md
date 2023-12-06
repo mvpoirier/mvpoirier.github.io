@@ -9,7 +9,7 @@ Below are resources I've developed for the new **International Baccalaureate DP 
 <span style="color:green">**Looking for something not here?**</span> Additional course notes, lab investigations, and other resources can be found relating to the older [DP Physics FE2016 Curriculum](/physics_dp_2016) or the general [Physics](/physics) section of this site.
   
 ### DP Physics FE2025 Course Notes
-_Updated Standard & Higher Level notes for Topics A, B, C, D, E_
+_Select sample of Standard & Higher Level notes for Topics A, B, C, D, E. More will be added in the future..._
 <iframe src="https://drive.google.com/embeddedfolderview?id=14RB8bEV9POD_1nyFy7sVjNn5wlLzG41k#list" width="100%" height="100%" style="min-height:400px;"></iframe>
   
 ### DP Physics FE2025 Skills in the Study of Physics (SSP)
