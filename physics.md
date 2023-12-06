@@ -8,7 +8,7 @@ published: true
 ### Mike's Physics Stuff
 Resources I've developed over the years to support teaching and student learning.
 - [DP Physics FE2025 Resources (NEW)](/physics_dp_2025)
-- [DP Physics FE2016 Resources (OLD)](/physics_dp_2016)
+- [DP Physics FE2016 Resources](/physics_dp_2016)
 - [MYP Physics Resources](/physics_myp)
 - [DP Physics Vocabulary Quizlet](https://quizlet.com/mvpoirier/folders/dp-physics/sets){:target="_blank"}
 - [DP Command Terms Quizlet](https://quizlet.com/kr/308164418/dp-command-terms-flash-cards/){:target="_blank"}
