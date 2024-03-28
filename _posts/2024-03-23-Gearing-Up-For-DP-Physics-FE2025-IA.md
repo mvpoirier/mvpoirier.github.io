@@ -6,7 +6,7 @@ With the [newest revision to the IB DP Physics curriculum](https://www.ibo.org/u
 
 ## DP Physics: Skills in the Study of Physics (SSP)
 With the unfortuante removal of Topic 1: Measuremnt and Uncertainties, it is a new challenge to prepare our students with the knowledge, concepts, and skills required to be successful on the IA. To that end, I've developed a summary of skills required to analyze data for the DP Physics FE2025 course:
-<iframe src="https://drive.google.com/file/d/1qACHas-aAYSp2OEeWZwuVMe_3krDs17m/preview" frameBorder="0" width="100%" height="100%" style="min-height:400px"></iframe>
+<iframe src="https://drive.google.com/file/d/1qACHas-aAYSp2OEeWZwuVMe_3krDs17m/preview" frameBorder="0" width="100%" height="100%" style="min-height:500px"></iframe>
 
 ## DP Physics IA: Assessment Rubric
 The IA Rubric for DP Physics FE2025 has now been updated and revised for both both teachers and students. Some attention has been paid to provided a student reminder checklist as well as for students to consider and predict their own score before submitting both their draft and final submission.
