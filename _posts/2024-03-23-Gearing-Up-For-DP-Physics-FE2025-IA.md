@@ -36,10 +36,8 @@ A summary of successful IA submissions from former students, to help others gene
 <iframe src="https://drive.google.com/file/d/1WYXK9YKkZyhsUZm1x23T_Xl96yXY_Pwq/preview" frameBorder="0" width="100%" height="100%" style="min-height:400px"></iframe>
 
 ## Where Are We Going?
-- Continue developing and refining resources for all remaining topics for DP Year 1 & DP Year 2
-- Look ahead for DP Year 2 and making sure students are successful on both their IA and Exams
-- Continue sharing new [FE2025 DP Physics Resources](/physics_dp_2025), which you can find [here](/physics_dp_2025)
-
+- Continue developing and sharing new [FE2025 DP Physics Resources](/physics_dp_2025), which you can find always find [here](/physics_dp_2025)
+- Look ahead to DP Year 2, and make sure students will be successful on their IAs and Exams
 
 All the best,
 
