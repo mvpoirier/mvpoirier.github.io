@@ -28,11 +28,13 @@ A summary of successful IA submissions from former students, to help others gene
 - Students have completed Topics A1-3, B1, B3, B5, C1-4, A4(HL), and now starting B4(HL)
 - Remaining for DP Year 1: D2, D3, and finalizing their IA Topic
 - We feel like we're in a good spot right now for students to begin the IA process
+- You can find our current working teaching timeline for DP Physics FE2025:
+<iframe src="https://drive.google.com/file/d/1WYXK9YKkZyhsUZm1x23T_Xl96yXY_Pwq/preview" frameBorder="0" width="100%" height="100%" style="min-height:400px"></iframe>
 
 ## Where Are We Going?
 - Continue developing and refining resources for all remaining topics for DP Year 1 & DP Year 2
 - Look ahead for DP Year 2 and making sure students are successful on both their IA and Exams
-- Continue developing new [FE2025 DP Physics Resources](/physics_dp_2025), which you can find [here](/physics_dp_2025)
+- Continue sharing new [FE2025 DP Physics Resources](/physics_dp_2025), which you can find [here](/physics_dp_2025)
 
 
 All the best,
