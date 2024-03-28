@@ -1,26 +1,38 @@
 ---
-published: false
 layout: post
 title: Gearing Up for DP Physics FE2025 IA
 ---
-With the [newest revision to the IB DP Physics curriculum](https://www.ibo.org/university-admission/latest-curriculum-updates/physics-updates/) starting August 2023 (First Exams May 2025) now well underway, we're now starting to introduce the new Internal Assessment guide to our students.
+With the [newest revision to the IB DP Physics curriculum](https://www.ibo.org/university-admission/latest-curriculum-updates/physics-updates/) starting August 2023 (First Exams May 2025) now well underway, we're now starting to introduce the new Internal Assessment guide to our students. Below are a few resources I've developed to support the new DP Physics FE2025 Internal assessment:
 
-## The Rubric
-- All major textbook publishers have provided great resources that outline new curriculum changes
-- [Kognity](https://kognity.com/) is a very useful tool for both students and teachers
-- Developed new resources for DP Physics FE2025, some are shared [here](/physics_dp_2025)
+## DP Physics IA: Assessment Rubric
+The IA Rubric for DP Physics FE2025 has now been updated and revised for both both teachers and students. Some attention has been paid to provided a student reminder checklist as well as for students to consider and predict their own score before submitting both their draft and final submission.
+<iframe src="https://drive.google.com/file/d/1lhUZPIl-nc1aPudTPrUhxZVwynTLwYDl/preview" frameBorder="0" width="100%" height="100%" style="min-height:400px"></iframe>
 
-## The Bad
-- Not having an explicit Measurements & Uncertainties unit (Topic 1) seems counterintuitive
-- Difficult to provide the upskilling needed for students to be successful on practical work
+## DP Physics IA: Student Checklist
+An IA student checklist, with the support of my colleagues and IB workshop attendees, in order to provide students more specific guidances as they develop their IA report during our 10 in-class hours.
+<iframe src="https://drive.google.com/file/d/1tYEhTG6qHswMvAiM5OO14-mpEhERakik/preview" frameBorder="0" width="100%" height="100%" style="min-height:400px"></iframe>
 
-## The Ugly
-- Integrating the _Skills in the Study of Physics_ is not easy, and requires careful planning
-- The new guide lacks deliniated/numbered curriculum learning outcomes for reference
+## DP Physics IA: Lab Report Headings Guide
+A short & sweet guide for students to remember the major sections of the IA lab report process. It's not an exhaustive list, and students are encouraged to find their own writing style while still meeting all IA criteria requirements.
+<iframe src="https://drive.google.com/file/d/1mqT_ftU4sTFLfd83iTjJQBedEozsoFfk/preview" frameBorder="0" width="100%" height="100%" style="min-height:400px"></iframe>
 
-## Next Steps
-- Continue developing and refining resources for all topics
-- Begin developing resources for the new HL Only Topics: A4, B4, A5
+## DP Physics IA: Topic Approval Form
+My approach for students to begin brainstorming (usually around April of Year 1) their IA ideas, which will need to be finalized and approved before summer break.
+<iframe src="https://drive.google.com/file/d/1MP6TvycGrDEkD_h73gCz5FA-yRZcJPPn/preview" frameBorder="0" width="100%" height="100%" style="min-height:400px"></iframe>
+
+## DP Physics IA: Topic/RQ Student Archive from 2016 to 2024
+A summary of successful IA submissions from former students, to help others generate meaningful ideas. Its important that my students, when they find an idea, must convince me how their investigation will be unique/personal/different from others.
+<iframe src="https://drive.google.com/file/d/1js0pRRLGBPc40pxsKffXMl7eH1SNkehW/preview" frameBorder="0" width="100%" height="100%" style="min-height:400px"></iframe>
+
+## Where Are We Now?
+- Students have completed Topics A1-3, B1, B3, B5, C1-4, A4(HL), and now starting B4(HL)
+- Remaining for DP Year 1: D2, D3, and finalizing their IA Topic
+- We feel like we're in a good spot right now for students to begin the IA process
+
+## Where Are We Going?
+- Continue developing and refining resources for all remaining topics for DP Year 1 & DP Year 2
+- Look ahead for DP Year 2 and making sure students are successful on both their IA and Exams
+- Continue developing new [FE2025 DP Physics Resources](/physics_dp_2025), which you can find [here](/physics_dp_2025)
 
 
 All the best,
