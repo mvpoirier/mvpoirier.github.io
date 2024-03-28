@@ -27,10 +27,11 @@ Some of my favorite online sites & resources I use for teaching & learning
 Great YouTube channels on physics, astronomy, and science
 - [Chris Donner (DP Physics FE2025)](https://www.youtube.com/@donerphysics/playlists){:target="_blank"}
 - [OSC Guide (DP Physics FE2025)](https://www.youtube.com/@OSC1990){:target="_blank"}
-- [Doc Schuster](https://www.youtube.com/@DocSchuster){:target="_blank"}
-- [PBS Space Time](https://www.youtube.com/@pbsspacetime){:target="_blank"}
+- [Sixty Symbols](https://www.youtube.com/@sixtysymbols){:target="_blank"}
 - [Kurzgesagt](https://www.youtube.com/@kurzgesagt){:target="_blank"}
+- [PBS Space Time](https://www.youtube.com/@pbsspacetime){:target="_blank"}
 - [Veritasium](https://www.youtube.com/@veritasium){:target="_blank"}
+- [Doc Schuster](https://www.youtube.com/@DocSchuster){:target="_blank"}
 
 ### Favorite Online Tools
 Great online tools to support physics teaching & learning
