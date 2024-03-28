@@ -2,7 +2,11 @@
 layout: post
 title: Gearing Up for DP Physics FE2025 IA
 ---
-With the [newest revision to the IB DP Physics curriculum](https://www.ibo.org/university-admission/latest-curriculum-updates/physics-updates/) starting August 2023 (First Exams May 2025) now well underway, we're now starting to introduce the new Internal Assessment guide to our students. Below are a few resources I've developed to support the new DP Physics FE2025 Internal assessment:
+With the [newest revision to the IB DP Physics curriculum](https://www.ibo.org/university-admission/latest-curriculum-updates/physics-updates/) now well underway (First Exams 2025), we're beginning to introduce the new Internal Assessment (IA) to our students. Below are a few resources I've developed to support the new DP Physics FE2025 IA:
+
+## DP Physics: Skills in the Study of Physics (SSP)
+With the unfortuante removal of Topic 1: Measuremnt and Uncertainties, it is a new challenge to prepare our students with the knowledge, concepts, and skills required to be successful on the IA. To that end, I've developed a summary of skills required to analyze data for the DP Physics FE2025 course:
+<iframe src="https://drive.google.com/file/d/1qACHas-aAYSp2OEeWZwuVMe_3krDs17m/preview" frameBorder="0" width="100%" height="100%" style="min-height:400px"></iframe>
 
 ## DP Physics IA: Assessment Rubric
 The IA Rubric for DP Physics FE2025 has now been updated and revised for both both teachers and students. Some attention has been paid to provided a student reminder checklist as well as for students to consider and predict their own score before submitting both their draft and final submission.
