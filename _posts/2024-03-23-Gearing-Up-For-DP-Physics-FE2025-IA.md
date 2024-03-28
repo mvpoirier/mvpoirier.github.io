@@ -1,11 +1,11 @@
 ---
 published: false
 layout: post
-title: Reflecting on DP Physics FE2025
+title: Gearing Up for DP Physics FE2025 IA
 ---
-With the [newest revision to the IB DP Physics curriculum](https://www.ibo.org/university-admission/latest-curriculum-updates/physics-updates/) starting August 2023 (First Exams May 2025) now well underway, I thought it would be a good time to reflect on the first semester tackling this new course: the good, the bad, and the _ugly_.
+With the [newest revision to the IB DP Physics curriculum](https://www.ibo.org/university-admission/latest-curriculum-updates/physics-updates/) starting August 2023 (First Exams May 2025) now well underway, we're now starting to introduce the new Internal Assessment guide to our students.
 
-## The Good
+## The Rubric
 - All major textbook publishers have provided great resources that outline new curriculum changes
 - [Kognity](https://kognity.com/) is a very useful tool for both students and teachers
 - Developed new resources for DP Physics FE2025, some are shared [here](/physics_dp_2025)
