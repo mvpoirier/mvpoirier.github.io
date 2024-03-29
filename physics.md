@@ -33,7 +33,7 @@ Great YouTube channels on physics, astronomy, and science
 - [Veritasium](https://www.youtube.com/@veritasium){:target="_blank"}
 - [Doc Schuster](https://www.youtube.com/@DocSchuster){:target="_blank"}
 
-### Favorite Online Tools
+### Favorite Tools
 Great online tools to support physics teaching & learning
 - [Mathcha.io LaTeX Equation Editor](https://www.mathcha.io/editor){:target="_blank"}
 - [Vernier Logger Pro](https://www.vernier.com/downloads/){:target="_blank"}
