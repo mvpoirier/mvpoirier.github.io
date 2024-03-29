@@ -34,9 +34,9 @@ A summary of successful IA submissions from former students I've taught in the p
 - We feel like we're in a good spot right now for students to begin the IA process
 
 ## Where Are We Going?
-- Continue developing and sharing new [FE2025 DP Physics Resources](/physics_dp_2025), which you can find always find [here](/physics_dp_2025)
-- Look ahead to DP Year 2, and make sure students will be successful on their IAs and Exams
-- You can find our current teaching timeline for DP Physics FE2025 here:
+- Continue developing [FE2025 DP Physics Resources](/physics_dp_2025) to support teaching & learning
+- Look ahead to DP Year 2, to make sure students will be successful on both their IAs and Exams
+- You can explore our current teaching timeline for DP Physics FE2025 here:
 <iframe src="https://drive.google.com/file/d/1WYXK9YKkZyhsUZm1x23T_Xl96yXY_Pwq/preview" frameBorder="0" width="100%" height="100%" style="min-height:400px"></iframe>
 
 All the best,
