@@ -5,14 +5,14 @@ layout: post
 ---
 In October 2021 I decided to have a first attempt at making a YouTube screencast tutorial to help [DP Computer Science students create Graphical User Interfaces in Java](https://youtu.be/tQPgqTJ87Kc){:target="_blank"}. Since then, I recently created a second tutorial video this month in August 2022 to help my new [DP Physics students create Graphs using Logger Pro](https://youtu.be/PINQP8pR2lo){:target="_blank"}.
 
-## DP Computer Science: How To Create GUIs in Java
+### DP Computer Science: How To Create GUIs in Java
 <iframe width="640" height="385"
 src="https://www.youtube.com/embed/tQPgqTJ87Kc"
 frameborder="0" 
 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
 allowfullscreen></iframe>
 
-## DP Physics: How To Create Graphs Using Logger Pro
+### DP Physics: How To Create Graphs Using Logger Pro
 <iframe width="640" height="385"
 src="https://www.youtube.com/embed/PINQP8pR2lo"
 frameborder="0" 
