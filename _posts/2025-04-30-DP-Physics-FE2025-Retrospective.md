@@ -1,5 +1,5 @@
 ---
 layout: post
-title: DP Physics FE2025 - A Retrospective
+title: Retrospective on DP Physics FE202E
 ---
-To be added...
+To be added soon...
