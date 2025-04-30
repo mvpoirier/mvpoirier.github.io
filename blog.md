@@ -5,8 +5,8 @@ permalink: /blog/
 published: true
 ---
 
-Welcome to my _rarely_ updated blog! A place for me to share posts that are [longer than a tweet](https://twitter.com/mvpoirier) on education, physics, coding projects, random geeky stuff, and anything else worth writing about.
-  
+Welcome to my _rarely_ updated blog! A place for me to share things on education, physics, coding projects, and other random geeky stuff.
+
 <div class="posts">
   {% for post in site.posts %}
   <article class="post">
