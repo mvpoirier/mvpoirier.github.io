@@ -15,7 +15,7 @@ Resources I've developed over the years to support teaching and student learning
 
 ### DP Physics Interactive Simulations
 _A collection of simulations I've created using AI-assisted code_
-- [A5 Spacetime Intervals & Graphs (Canva AI)](https://raw.githack.com/mvpoirier/Javascript/master/spacetimeGraph/index.html){:target="_blank"}
+- [A5 Spacetime Intervals & Graphs (Canva AI)](https://raw.githack.com/mvpoirier/Javascript/master/CanvaAI/spacetimeGraph.html){:target="_blank"}
 
 ### Favorite Physics Websites
 Some of my favorite online sites & resources I use for teaching & learning
