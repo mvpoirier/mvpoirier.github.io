@@ -13,6 +13,10 @@ Resources I've developed over the years to support teaching and student learning
 - [DP Physics FE2016 Quizlet](https://quizlet.com/mvpoirier/folders/dp-physics/sets){:target="_blank"}
 - [DP Command Terms Quizlet](https://quizlet.com/kr/308164418/dp-command-terms-flash-cards/){:target="_blank"}
 
+### DP Physics Interactive Simulations
+_A collection of simulations created using AI-assisted code_
+- [A5 Spacetime Intervals & Graphs](https://raw.githack.com/mvpoirier/Javascript/master/spacetimeGraph/index.html){:target="_blank"}
+
 ### Favorite Physics Websites
 Some of my favorite online sites & resources I use for teaching & learning
 - [Mike's Physics Bookmarks (Updated April 2020)](/media/physics_bookmarks.html){:target="_blank"}
