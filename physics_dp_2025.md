@@ -10,7 +10,7 @@ Below are resources I've developed for the new **International Baccalaureate DP 
 
 ### DP Physics FE2025 Course Notes
 _A selected sample of my course notes for Topics A, B, C, D, and E_
-<iframe src="https://drive.google.com/embeddedfolderview?id=14RB8bEV9POD_1nyFy7sVjNn5wlLzG41k#list" width="100%" height="100%" style="min-height:400px;"></iframe>
+<iframe src="https://drive.google.com/embeddedfolderview?id=14RB8bEV9POD_1nyFy7sVjNn5wlLzG41k#list" width="100%" height="100%" style="min-height:300px;"></iframe>
   
 ### DP Physics FE2025 Skills in the Study of Physics (SSP)
 _Resources for developing SSP and the Internal Assessment_
