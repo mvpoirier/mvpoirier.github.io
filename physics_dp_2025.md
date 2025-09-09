@@ -7,7 +7,11 @@ published: true
 Below are resources I've developed for the new **International Baccalaureate DP Physics 2023 curriculum** (First Exams May 2025). If you find these resources useful for use in your classes, please link to this site as part of the [Creative Commons CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/){:target="_blank"} license.
 
 <span style="color:green">**Looking for something not here?**</span> Additional course notes, lab investigations, and other resources can be found relating to the older [DP Physics FE2016 Curriculum](/physics_dp_2016) or the general [Physics](/physics) section of this site.
-  
+
+### DP Physics Interactive Simulations
+_A collection of simulations created using AI-assisted code_
+- [A5 Spacetime Intervals & Graphs](https://raw.githack.com/mvpoirier/Javascript/master/spacetimeGraph/index.html){:target="_blank"}
+
 ### DP Physics FE2025 Course Notes
 _A selected sample of my course notes for Topics A, B, C, D, and E_
 <iframe src="https://drive.google.com/embeddedfolderview?id=14RB8bEV9POD_1nyFy7sVjNn5wlLzG41k#list" width="100%" height="100%" style="min-height:400px;"></iframe>
