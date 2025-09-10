@@ -15,6 +15,7 @@ Resources I've developed over the years to support teaching and student learning
 
 ### DP Physics Interactive Simulations via [Github](https://github.com/mvpoirier/Javascript/tree/master/CanvaAI){:target="_blank"} 🚀
 Simulations I've made using AI-assisted code from [Canva AI](https://www.canva.com/ai){:target="_blank"}, hosted using [Githack](https://raw.githack.com/){:target="_blank"}
+- [A1 suvat Generator](https://raw.githack.com/mvpoirier/Javascript/master/CanvaAI/suvatGenerator.html){:target="_blank"}
 - [A2 Dynamic Frictional Forces](https://raw.githack.com/mvpoirier/Javascript/master/CanvaAI/dynamicFriction.html){:target="_blank"}
 - [A5 Relativistic Velocity Calculator](https://raw.githack.com/mvpoirier/Javascript/master/CanvaAI/relativisticVelocity.html){:target="_blank"}
 - [A5 Spacetime Intervals & Graphs](https://raw.githack.com/mvpoirier/Javascript/master/CanvaAI/spacetimeGraph.html){:target="_blank"}
