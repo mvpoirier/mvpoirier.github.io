@@ -23,7 +23,7 @@ Some of my favorite online sites towards teaching and promoting coding in the cl
 - [Invent with Python](https://inventwithpython.com/){:target="_blank"}
 - [CodingBat for Java & Python](https://codingbat.com/python){:target="_blank"}
   
-### Mike's Javascript Sketches
+### Mike's p5.js Javascript Sketches
 A sample of Javascript sketches I've created for both teaching and little bit of fun. Each is based on the [p5.js](https://p5js.org/){:target="_blank"} framework, and will run automatically in your web browser. If you are intersested in learning how they work, you can find the source code on my [GitHub Repository](https://github.com/mvpoirier/){:target="_blank"}:
 - [Mike's 'FlappyBird' Clone (with sound)](https://rawcdn.githack.com/mvpoirier/Javascript/10c9ddfab73272a126eefb6ac23b20ef061236a2/flappyBirdClones/WEEK3/index.html){:target="_blank"}
 - [Bubble Sort Visualization](https://raw.githack.com/mvpoirier/Javascript/master/sortingVisualization/bubbleSort.html){:target="_blank"}
