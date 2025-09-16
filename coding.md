@@ -14,7 +14,7 @@ Computer Science resources I've developed over the years to support teaching and
 - [DP Command Terms Quizlet](https://quizlet.com/kr/308164418/dp-command-terms-flash-cards/){:target="_blank"}
 - [DP Physics & Educational Simulations](https://github.com/mvpoirier/Javascript/tree/master/CanvaAI){:target="_blank"}
   
-### Mikes Favorite Coding Sites
+### Mike's Favorite Coding Sites
 Some of my favorite online sites towards teaching and promoting coding in the classroom:
 - [Mike's Coding Bookmark Archive (Updated April 2020)](/media/compsci_bookmarks.html){:target="_blank"}
 - [CEMC Canadian Computing Competition](https://cemc.uwaterloo.ca/contests/computing.html){:target="_blank"}
