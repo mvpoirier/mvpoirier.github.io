@@ -12,6 +12,7 @@ Computer Science resources I've developed over the years to support teaching and
 - [Replit Online Lessons](https://replit.com/@mpoirier){:target="_blank"}
 - [DP Computer Science Vocabulary Quizlet](https://quizlet.com/mvpoirier/folders/dp-computer-science){:target="_blank"}
 - [DP Command Terms Quizlet](https://quizlet.com/kr/308164418/dp-command-terms-flash-cards/){:target="_blank"}
+- [DP Physics & Educational Simulations](https://github.com/mvpoirier/Javascript/tree/master/CanvaAI){:target="_blank"}
   
 ### Mikes Favorite Coding Sites
 Some of my favorite online sites towards teaching and promoting coding in the classroom:
