@@ -5,20 +5,16 @@ permalink: /physics/
 published: true
 ---
 
-### Mike's Physics Stuff
+### Mike's New Physics Stuff
 Resources I've developed over the years to support teaching and student learning.
 - [DP Physics FE2025 Resources](/physics_dp_2025)
+- [DP Physics Simulations](https://github.com/mvpoirier/Javascript/tree/master/CanvaAI){:target="_blank"}
+- [DP Command Terms Quizlet](https://quizlet.com/kr/308164418/dp-command-terms-flash-cards/){:target="_blank"}
+
+### Mike's Old Physics Stuff
 - [DP Physics FE2016 Resources](/physics_dp_2016)
 - [MYP Physics Resources](/physics_myp)
 - [DP Physics FE2016 Quizlet](https://quizlet.com/mvpoirier/folders/dp-physics/sets){:target="_blank"}
-- [DP Command Terms Quizlet](https://quizlet.com/kr/308164418/dp-command-terms-flash-cards/){:target="_blank"}
-
-### DP Physics Interactive Simulations via [Github](https://github.com/mvpoirier/Javascript/tree/master/CanvaAI){:target="_blank"} 🚀
-Simulations I've made using AI-assisted code, hosted using [Githack](https://raw.githack.com/){:target="_blank"}
-- [A1 suvat Generator](https://raw.githack.com/mvpoirier/Javascript/master/CanvaAI/suvatGenerator.html){:target="_blank"}
-- [A2 Dynamic Frictional Forces](https://raw.githack.com/mvpoirier/Javascript/master/CanvaAI/dynamicFriction.html){:target="_blank"}
-- [A5 Relativistic Velocity Calculator](https://raw.githack.com/mvpoirier/Javascript/master/CanvaAI/relativisticVelocity.html){:target="_blank"}
-- [A5 Spacetime Intervals & Graphs](https://raw.githack.com/mvpoirier/Javascript/master/CanvaAI/spacetimeGraph.html){:target="_blank"}
 
 ### Favorite Physics Websites
 Some of my favorite online sites & resources I use for teaching & learning
