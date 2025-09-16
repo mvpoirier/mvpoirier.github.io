@@ -6,12 +6,13 @@ published: true
 ---
 
 ### Mike's New Physics Stuff
-Resources I've developed over the years to support teaching and student learning.
+Resources I've developed for the current DP Physics FE2025 syllabus
 - [DP Physics FE2025 Resources](/physics_dp_2025)
-- [DP Physics Simulations](https://github.com/mvpoirier/Javascript/tree/master/CanvaAI){:target="_blank"}
+- [DP Physics & Educational Simulations](https://github.com/mvpoirier/Javascript/tree/master/CanvaAI){:target="_blank"}
 - [DP Command Terms Quizlet](https://quizlet.com/kr/308164418/dp-command-terms-flash-cards/){:target="_blank"}
 
 ### Mike's Old Physics Stuff
+Resources that have depreciated or not currently using anymore in my teaching
 - [DP Physics FE2016 Resources](/physics_dp_2016)
 - [MYP Physics Resources](/physics_myp)
 - [DP Physics FE2016 Quizlet](https://quizlet.com/mvpoirier/folders/dp-physics/sets){:target="_blank"}
