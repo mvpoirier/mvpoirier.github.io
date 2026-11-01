@@ -3,6 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--
+  MVPhysics Revision Lab: IB DP Physics revision (SL and HL)
+  Version: 1.0 RC1 (offline edition) · Built: 1 November 2026
+  Author: Mike Poirier (https://github.com/mvpoirier), developed with Claude (Anthropic)
+  Licence: CC BY-NC-SA 4.0, https://creativecommons.org/licenses/by-nc-sa/4.0/
+  Site: https://mvpoirier.github.io/revision-lab/ · Offline edition: https://mvpoirier.github.io/revision-lab/offline.html
+  Repository: https://github.com/mvpoirier/mvpoirier.github.io
+  Original questions in the style of the IB DP Physics course (first assessment 2025). Not affiliated with or endorsed by the IB.
+  No student data leaves the browser: progress is stored on the device (localStorage).
+  Bundled: MathJax 3.2.2 (Apache License 2.0); Archivo, IBM Plex Sans, IBM Plex Mono and Press Start 2P fonts (SIL Open Font License 1.1).
+-->
 <title>(Offline) MVPhysics Revision Lab</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Revision for IB DP Physics: practice, exam mode, gauntlet, recall drills, notes and stats.">
@@ -16806,6 +16817,22 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
       <p class="muted small">You get one file. Open it in any browser and choose Print, then Save as PDF. Answers start on a new page.</p>
       <div class="row"><button class="btn primary" id="wsMake">Download worksheet</button><span class="muted small" id="wsStatus"></span></div></details>`;
   }
+  /* Printable files (worksheets, exam results): authorship comment at the top, and a watermark line on every printed page
+     (CSS page-margin boxes: Chrome and Edge) plus a footer at the end of the document (all browsers). */
+  const SITE_URL = 'https://mvpoirier.github.io/revision-lab/', REPO_URL = 'https://github.com/mvpoirier/mvpoirier.github.io';
+  const DOC_DATE = '1 November 2026';
+  const docComment = (what, id) => `<!--
+  MVPhysics Revision Lab · ${what}${id ? ' · ' + id : ''}
+  Made with version ${APP_VERSION} (built ${DOC_DATE}) on ${new Date().toISOString().slice(0, 10)}
+  Author: Mike Poirier (https://github.com/mvpoirier), developed with Claude (Anthropic)
+  Licence: CC BY-NC-SA 4.0, https://creativecommons.org/licenses/by-nc-sa/4.0/
+  Site: ${SITE_URL} · Repository: ${REPO_URL}
+  Original questions in the style of the IB DP Physics course (first assessment 2025). Not affiliated with or endorsed by the IB.
+-->
+`;
+  const cssStr = (t) => '"' + t.replace(/\\/g, '\\\\').replace(/"/g, '\\"') + '"';
+  const docWatermark = (id) => `<style>@page { @bottom-left { content: ${cssStr(`MVPhysics Revision Lab · ${APP_VERSION} · © Mike Poirier · CC BY-NC-SA 4.0 · mvpoirier.github.io/revision-lab${id ? ' · ' + id : ''}`)}; font: 7pt "IBM Plex Sans", Arial, sans-serif; color: #888; } @bottom-right { content: "Page " counter(page) " of " counter(pages); font: 7pt "IBM Plex Sans", Arial, sans-serif; color: #888; } }</style>`;
+  const docFooter = (id) => `<div class="wm"><b>MVPhysics Revision Lab</b> · Version ${APP_VERSION} (${DOC_DATE})${id ? ` · ${esc(id)}` : ''}<br>© Mike Poirier, developed with Claude · <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> · <a href="${SITE_URL}">${SITE_URL.replace('https://', '')}</a> · <a href="${REPO_URL}">${REPO_URL.replace('https://', '')}</a><br>Original questions in the style of the IB DP Physics course (first assessment 2025). Not affiliated with or endorsed by the IB.</div>`;
   const WS_CSS = `
     @page { size: A4; margin: 16mm 15mm; }
     .wshead { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
@@ -16832,6 +16859,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     .sol { break-inside: avoid; margin: 10px 0 14px; padding-left: 10px; border-left: 2px solid #2547c9; }
     .ms div { margin: 2px 0; } .notes { color: #444; font-size: 9.5pt; font-style: italic; }
     .answers { break-before: page; page-break-before: always; }
+    .wm { break-inside: avoid; page-break-inside: avoid; margin-top: 28px; padding-top: 8px; border-top: 1px solid #ccc; font-size: 8pt; color: #777; text-align: center; line-height: 1.5; } .wm a { color: #777; }
     table.data { border-collapse: collapse; margin: 6px 0; } table.data th, table.data td { border: 1px solid #888; padding: 3px 10px; text-align: center; }
     table.data th { background: #f1f1f1; }
     svg.graph { width: 100%; max-width: 360px; height: auto; display: block; margin: 6px 0; } svg.graph.sketch { max-width: 170px; }
@@ -16877,7 +16905,8 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     const qHTML = $('#wsQ', box).innerHTML, aHTML = WS.answers ? $('#wsA', box).innerHTML : '';
     box.remove();
     const date = new Date().toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' });
-    const doc = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MVPhysics Revision Lab worksheet</title>
+    const doc = `<!doctype html>
+${docComment('Practice paper', 'Class code ' + code.str)}<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MVPhysics Revision Lab worksheet</title>
 <style>${mjCss}${WS_CSS}</style></head><body>
 <div class="hint"><span>To make a PDF: Print this page, then choose <b>Save as PDF</b>.${WS.answers ? ' The answers start on a new page.' : ''}</span><button onclick="window.print()">Print</button></div>
 <div class="wshead"><h1><b>MVP</b>hysics Revision Lab · Practice Paper</h1><div class="wscode">${code.str}</div></div>
@@ -16885,7 +16914,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
 <div class="namebox"><span>Name:</span><span>Date:</span><span class="sc"><span style="border:0;padding:0">Score:</span><span style="border:0;padding:0">/ ${total}</span></span></div>
 <h2>Questions</h2>${qHTML}
 ${WS.answers ? `<div class="answers"><h2>Answers and markschemes <span class="wscode small">${code.str}</span></h2>${aHTML}</div>` : ''}
-<p class="meta">${FOOTER_TEXT}</p></body></html>`;
+${docWatermark('Class code ' + code.str)}${docFooter('Class code ' + code.str)}</body></html>`;
     const filename = `MVPhysics-paper-${code.str}.html`;
     if (mode === 'open') return showDoc(w, filename, doc, status, `✅ Opened in a new tab: choose Print, or Save as PDF. Class code <b class="num">${code.str}</b> will recreate the paper.`);
     await saveFile(filename, doc, status, `✅ File saved! Class code <b class="num">${code.str}</b> will recreate the paper.`);
@@ -16930,7 +16959,8 @@ ${WS.answers ? `<div class="answers"><h2>Answers and markschemes <span class="ws
     const taken = new Date(EX.takenAt || EX.start), dateStr = taken.toLocaleString(undefined, { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
     const seedTxt = EX.code ? `Class code ${EX.code.str}` : `Paper seed ${EX.seed}`;
     const rows = EX.items.map((x, i) => { const sc = x.q.paper === '1A' ? (x.answer === x.inst.answer ? 1 : 0) : writtenScore(x.inst, x.ticks); return `<tr><td>${i + 1}</td><td>${PAPER_NAME[x.q.paper]}</td><td>${esc(x.q.title)}</td><td>${sc} / ${x.q.marks}</td><td>${fmtMin(x.time / 1000)}</td><td>${x.seed}</td></tr>`; }).join('');
-    const doc = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MVPhysics Revision Lab exam results</title>
+    const doc = `<!doctype html>
+${docComment('Exam results', seedTxt)}<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MVPhysics Revision Lab exam results</title>
 <style>${mjCss}${WS_CSS}${REP_CSS}</style></head><body>
 <div class="hint"><span>To make a PDF: Print this page, then choose <b>Save as PDF</b>.</span><button onclick="window.print()">Print</button></div>
 <div class="wshead"><h1><b>MVP</b>hysics Revision Lab · Exam Results</h1><div class="wscode">${esc(seedTxt)}</div></div>
@@ -16941,7 +16971,7 @@ ${WS.answers ? `<div class="answers"><h2>Answers and markschemes <span class="ws
 <p class="meta">The estimated DP grade uses typical IB DP Physics grade boundaries for the percentage scored. Real boundaries change each session and include the IA, so it is a guide only.${r.unmarked ? ' <b>No written marks were awarded, so the grade may be too low.</b>' : ''}</p>
 <h2>Summary</h2><table class="rs"><thead><tr><th>#</th><th>Paper</th><th>Question</th><th>Marks</th><th>Time</th><th>Seed</th></tr></thead><tbody>${rows}</tbody></table>
 <h2>Questions, your answers and markschemes</h2>${body}
-<p class="meta">${FOOTER_TEXT}</p></body></html>`;
+${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     const stamp = `${taken.getFullYear()}-${String(taken.getMonth() + 1).padStart(2, '0')}-${String(taken.getDate()).padStart(2, '0')}`;
     const fname = `MVPhysics-results-${stamp}-${EX.code ? EX.code.str : EX.seed}.html`;
     if (mode === 'open') return showDoc(w, fname, doc, status, '✅ Opened in a new tab: choose Print, or Save as PDF.');
@@ -17047,7 +17077,7 @@ ${WS.answers ? `<div class="answers"><h2>Answers and markschemes <span class="ws
     { v: '0.58 alpha', d: '1 November 2026', items: ['All remaining topics added: D.1 Gravitational fields, D.2 Electric and magnetic fields, D.3 Motion in electromagnetic fields, E.1 Structure of the atom, E.2 Quantum physics (HL), E.3 Radioactive decay, E.4 Fission, E.5 Fusion and stars, and B.4 Thermodynamics (HL). Every topic in the guide is now on the site.', 'Each new topic has Paper 1A, 1B and 2 questions, notes with data-booklet equations and FE2028 changes, recall cards, Who’s Right? items and data-booklet pages. Paper 1B includes historic experiments (Millikan, Rutherford, the photoelectric effect, Compton scattering).', 'Thinner topics (A.4, A.5, B.2, C.1–C.5, D.4) and the SSP skills now have more questions and cards, so every strand has at least 8 Paper 1A questions, 3 cards and a Who’s Right? item, and every topic at least 5 Paper 2 and 3 Paper 1B questions.', 'Exam Mode shares marks between topics in proportion to the IB teaching hours, so large question banks no longer crowd out smaller topics.', 'Who’s Right?: the better answer is now Student A or Student B about equally often.'] },
     { v: '0.59 alpha', d: '1 November 2026', items: ['Pause button on every timer except Last Man Standing: Practice (pace coach), Exam Mode, Blitz Classic and Match It!. While paused, the timer stops and the question is hidden until you resume.', 'Exam Mode results show how many times the paper was paused and the total time paused; Stats lists pauses for each recent exam.'] },
     { v: '0.60 alpha', d: '1 November 2026', items: ['Notes: new FE2028 changes at a glance panel at the top, listing every September 2026 change for exams from May 2028, grouped into data booklet changes, guide additions and clarifications, and removals, for all topics. ','Estimated DP grade (1–7) from your score, using typical IB DP Physics grade boundaries for SL or HL. It is a guide only: real boundaries change each session and include the IA.', 'Download results: one file with every question, your answers, the markschemes you ticked, your score, time, pauses, seed and estimated grade. Print it or save it as a PDF.', 'Stats: recent exam papers list the estimated grade and seed, and a new table shows the approximate grade boundaries used.', 'Flashcards: new Reverse option shows the definition first (the term is hidden) so you recall the term. Equation and question cards are shown the usual way.'] },,
-    { v: '1.0 RC1', d: '1 November 2026', items: ['First release candidate for student testing. Versions 0.1–0.60 were internal alpha builds.', 'All 25 topics, 102 strands and 1,131 question templates (Paper 1A, 1B and 2), 377 recall cards and 107 Who’s Right? items.', 'Open to print: worksheets and exam results open in a new tab, ready to print or save as PDF (Download is still there). If pop-ups are blocked, the file downloads instead.', 'Offline version: one file with the fonts and maths library inside, so it works without the internet (see About).', 'Send Report: each report box (and Send results to teacher in Exam Mode) opens your teacher’s Google Form already filled in; you press Submit. Sign in with your school account. Copy Report stays as a backup.', 'Report a problem is now everywhere: under every question (Practice, Exam Mode, Blitz misses), every flashcard and answered Recall game, every Notes strand, the FE2028 summary and the data booklet. A Feedback or report a problem box in the footer covers the rest of the site (Stats, About, ideas, bugs) and adds the page you are on.']}
+    { v: '1.0 RC1', d: '1 November 2026', items: ['First release candidate for student testing. Versions 0.1–0.60 were internal alpha builds.', 'All 25 topics, 102 strands and 1,131 question templates (Paper 1A, 1B and 2), 377 recall cards and 107 Who’s Right? items.', 'Open to print: worksheets and exam results open in a new tab, ready to print or save as PDF (Download is still there). If pop-ups are blocked, the file downloads instead.', 'Printed and downloaded papers and results carry the version, author, licence and site on every page, with page numbers.', 'Offline version: one file with the fonts and maths library inside, so it works without the internet (see About).', 'Send Report: each report box (and Send results to teacher in Exam Mode) opens your teacher’s Google Form already filled in; you press Submit. Sign in with your school account. Copy Report stays as a backup.', 'Report a problem is now everywhere: under every question (Practice, Exam Mode, Blitz misses), every flashcard and answered Recall game, every Notes strand, the FE2028 summary and the data booklet. A Feedback or report a problem box in the footer covers the rest of the site (Stats, About, ideas, bugs) and adds the page you are on.']}
   ];
   HISTORY.forEach(h => { h.items = h.items.map(TL); });
   const fmtBig = (n) => n >= 1e6 ? (n / 1e6).toFixed(1) + ' million' : n.toLocaleString('en-GB');
