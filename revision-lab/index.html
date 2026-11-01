@@ -1,3 +1,8 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MVPhysics Revision Lab</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Revision for IB DP Physics: practice, exam mode, gauntlet, recall drills, notes and stats.">
@@ -15919,8 +15924,8 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
           ${EX.code ? '' : `<div class="exrow"><div class="exlab">Class code <span class="exopt">optional</span></div><div class="exctl">
             <div class="codeform"><input type="text" id="exCodeIn" placeholder="MVP-…" autocomplete="off" spellcheck="false" aria-label="Class code"><button class="btn sm" id="exUse">Use</button><button class="linkbtn" id="exMake">Create one</button></div>
             <span class="muted small">Same code, same questions and values for everyone.</span></div></div>`}
-          <div class="exgo"><div class="row"><button class="btn primary" id="exStart">Start</button><button class="btn" id="wsMake">🖨 Download &amp; Print</button></div>
-            <p class="muted small" id="wsStatus">Timed at IB pace. Printed papers include the answer key and their class code.</p></div>
+          <div class="exgo"><div class="row"><button class="btn primary" id="exStart">Start</button><button class="btn" id="wsOpen">🖨 Open to print</button><button class="btn" id="wsMake">⬇ Download</button></div>
+            <p class="muted small" id="wsStatus">Open to print shows the paper in a new tab (Print, or Save as PDF). Papers include the answer key and their class code.</p></div>
         </section>` : emptySel());
       return;
     }
@@ -16009,8 +16014,8 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
         else b = `<div class="qbody">${inst.intro}</div><div class="parts">${inst.parts.map(p => `<div class="part"><span class="plabel">(${p.label})</span><div class="pbody qbody">${partPrompt(p)}</div><span class="pmarks">[${p.marks}]</span>${x.texts[p.label] ? `<div class="ms" style="border-left-color:var(--line)"><span class="muted small">Your answer</span><div>${esc(x.texts[p.label])}</div></div>` : ''}${msBlock(p, x.ticks, i + ':' + p.label, EX.saved)}</div>`).join('')}</div>`;
         return `<article class="sheet exam-item"><div class="qmeta"><span class="paper">${PAPER_NAME[q.paper]}</span>${chiliIcon(q.chili)}<span class="marks">Question ${i + 1} [${q.marks}]</span><span>${esc(q.title)}</span><span class="num">${fmtMin(x.time / 1000)}</span></div>${b}${reportBox(q, x.seed, 'Exam Mode' + (EX.code ? ' ' + EX.code.str : ''))}</article>`;
       }).join('')}
-      <div class="row">${EX.saved ? '<span class="pill good">Results saved to your stats</span>' : '<button class="btn primary" id="exSave">Save results to my stats</button>'}<button class="btn" id="exDownload">⬇ Download results</button>${FORM.url ? `<a class="btn send-report" id="exSend" href="${FORM.url}" target="_blank" rel="noopener">📤 Send results to teacher ↗</a>` : ''}<button class="btn" id="exNew">New paper</button></div>
-      <p class="muted small" id="exDlStatus">The download has every question, your answers, the markschemes you ticked, your score, time, pauses and estimated grade. Send results to teacher opens your teacher’s Google Form with your score filled in.</p>`;
+      <div class="row">${EX.saved ? '<span class="pill good">Results saved to your stats</span>' : '<button class="btn primary" id="exSave">Save results to my stats</button>'}<button class="btn" id="exPrint">🖨 Open results to print</button><button class="btn" id="exDownload">⬇ Download results</button>${FORM.url ? `<a class="btn send-report" id="exSend" href="${FORM.url}" target="_blank" rel="noopener">📤 Send results to teacher ↗</a>` : ''}<button class="btn" id="exNew">New paper</button></div>
+      <p class="muted small" id="exDlStatus">Open to print shows the results in a new tab: choose Print, or Save as PDF. The file has every question, your answers, the markschemes you ticked, your score, time, pauses and estimated grade. Send results to teacher opens your teacher’s Google Form with your score filled in.</p>`;
     $$('.exam-item', main).forEach(typeset);
   }
   function bindExam(main) {
@@ -16073,6 +16078,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
           EX.saved = true; save(); renderExamReview(main); renderRail(); toast('Results saved.'); return;
         }
         if (b.id === 'exDownload') { examReport(); return; }
+        if (b.id === 'exPrint') { examReport('open'); return; }
         if (b.id === 'exNew') { EX = { phase: 'setup', mode: EX.mode, paper: EX.paper, target: EX.target, marks: EX.marks, strict: EX.strict, hideClock: EX.hideClock, code: EX.code }; renderExam(main); return; }
       }
     };
@@ -16817,7 +16823,8 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     if (q.paper === '1A') return `<section class="sol"><div class="qh"><span>${n}.</span><span>Answer ${LETTERS[inst.answer]}</span><span class="mk">[1]</span></div><div>${inst.solution}</div></section>`;
     return `<section class="sol"><div class="qh"><span>${n}.</span><span>${esc(q.title)}</span><span class="mk">[${q.marks}]</span></div>${inst.parts.map(p => `<div class="ms"><b>(${p.label})</b> <span class="pm">[${p.marks}${p.mps.length > p.marks ? ', max' : ''}]</span>${p.mps.map(m => `<div>${m}</div>`).join('')}${p.answerSvg ? p.answerSvg : ''}${p.notes ? `<div class="notes">${p.notes}</div>` : ''}</div>`).join('')}</section>`;
   }
-  async function makeWorksheet() {
+  async function makeWorksheet(mode) {
+    const w = mode === 'open' ? openWin('Preparing your paper…') : null;
     const status = $('#wsStatus');
     WS.answers = true;
     const code = EX && EX.code ? EX.code : makeClassCode();
@@ -16848,6 +16855,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
 ${WS.answers ? `<div class="answers"><h2>Answers and markschemes <span class="wscode small">${code.str}</span></h2>${aHTML}</div>` : ''}
 <p class="meta">${FOOTER_TEXT}</p></body></html>`;
     const filename = `MVPhysics-paper-${code.str}.html`;
+    if (mode === 'open') return showDoc(w, filename, doc, status, `✅ Opened in a new tab: choose Print, or Save as PDF. Class code <b class="num">${code.str}</b> will recreate the paper.`);
     await saveFile(filename, doc, status, `✅ File saved! Class code <b class="num">${code.str}</b> will recreate the paper.`);
   }
   const REP_CSS = `
@@ -16875,7 +16883,8 @@ ${WS.answers ? `<div class="answers"><h2>Answers and markschemes <span class="ws
     }
     return h + '</div>';
   }
-  async function examReport() {
+  async function examReport(mode) {
+    const w = mode === 'open' ? openWin('Preparing your results…') : null;
     const status = $('#exDlStatus');
     status.textContent = 'Preparing…';
     if (window.MathJax && MathJax.startup && MathJax.startup.promise) await MathJax.startup.promise;
@@ -16902,7 +16911,23 @@ ${WS.answers ? `<div class="answers"><h2>Answers and markschemes <span class="ws
 <h2>Questions, your answers and markschemes</h2>${body}
 <p class="meta">${FOOTER_TEXT}</p></body></html>`;
     const stamp = `${taken.getFullYear()}-${String(taken.getMonth() + 1).padStart(2, '0')}-${String(taken.getDate()).padStart(2, '0')}`;
-    await saveFile(`MVPhysics-results-${stamp}-${EX.code ? EX.code.str : EX.seed}.html`, doc, status, '✅ Results saved. Open the file to read or print it.');
+    const fname = `MVPhysics-results-${stamp}-${EX.code ? EX.code.str : EX.seed}.html`;
+    if (mode === 'open') return showDoc(w, fname, doc, status, '✅ Opened in a new tab: choose Print, or Save as PDF.');
+    await saveFile(fname, doc, status, '✅ Results saved. Open the file to read or print it.');
+  }
+  /* Open to print: the tab is opened straight away (inside the click, so pop-up blockers allow it), then filled when the page is ready.
+     If pop-ups are blocked, the file is downloaded instead. */
+  function openWin(msg) {
+    let w = null; try { w = window.open('', '_blank'); } catch (e) { w = null; }
+    if (w) try { w.document.write(`<!doctype html><title>MVPhysics Revision Lab</title><p style="font:16px system-ui,sans-serif;padding:24px;color:#444">${msg}</p>`); } catch (e) { /* cross-origin: fine */ }
+    return w;
+  }
+  async function showDoc(w, filename, doc, status, okMsg) {
+    if (w && !w.closed) {
+      try { w.location.href = URL.createObjectURL(new Blob([doc], { type: 'text/html' })); status.innerHTML = okMsg; return; }
+      catch (e) { try { w.document.open(); w.document.write(doc); w.document.close(); status.innerHTML = okMsg; return; } catch (e2) { try { w.close(); } catch (e3) { /* ignore */ } } }
+    }
+    await saveFile(filename, doc, status, '✅ Pop-ups are blocked here, so the file was downloaded instead. Open it and choose Print.');
   }
   async function saveFile(filename, doc, status, okMsg) {
     const dl = window.claude && window.claude.use ? await window.claude.use('downloads') : undefined;
@@ -16916,7 +16941,7 @@ ${WS.answers ? `<div class="answers"><h2>Answers and markschemes <span class="ws
       status.innerHTML = okMsg;
     }
   }
-  document.addEventListener('click', (e) => { if (e.target.closest('#wsMake')) { e.stopPropagation(); makeWorksheet(); } }, true);
+  document.addEventListener('click', (e) => { if (e.target.closest('#wsMake')) { e.stopPropagation(); makeWorksheet(); } else if (e.target.closest('#wsOpen')) { e.stopPropagation(); makeWorksheet('open'); } }, true);
 
   /* ======================= shell ======================= */
   function head(t, sub) { return `<div class="view-head"><div><h2>${t}</h2>${sub ? `<p>${sub}</p>` : ''}</div></div>`; }
@@ -16990,7 +17015,7 @@ ${WS.answers ? `<div class="answers"><h2>Answers and markschemes <span class="ws
     { v: '0.58 alpha', d: '1 November 2026', items: ['All remaining topics added: D.1 Gravitational fields, D.2 Electric and magnetic fields, D.3 Motion in electromagnetic fields, E.1 Structure of the atom, E.2 Quantum physics (HL), E.3 Radioactive decay, E.4 Fission, E.5 Fusion and stars, and B.4 Thermodynamics (HL). Every topic in the guide is now on the site.', 'Each new topic has Paper 1A, 1B and 2 questions, notes with data-booklet equations and FE2028 changes, recall cards, Who’s Right? items and data-booklet pages. Paper 1B includes historic experiments (Millikan, Rutherford, the photoelectric effect, Compton scattering).', 'Thinner topics (A.4, A.5, B.2, C.1–C.5, D.4) and the SSP skills now have more questions and cards, so every strand has at least 8 Paper 1A questions, 3 cards and a Who’s Right? item, and every topic at least 5 Paper 2 and 3 Paper 1B questions.', 'Exam Mode shares marks between topics in proportion to the IB teaching hours, so large question banks no longer crowd out smaller topics.', 'Who’s Right?: the better answer is now Student A or Student B about equally often.'] },
     { v: '0.59 alpha', d: '1 November 2026', items: ['Pause button on every timer except Last Man Standing: Practice (pace coach), Exam Mode, Blitz Classic and Match It!. While paused, the timer stops and the question is hidden until you resume.', 'Exam Mode results show how many times the paper was paused and the total time paused; Stats lists pauses for each recent exam.'] },
     { v: '0.60 alpha', d: '1 November 2026', items: ['Notes: new FE2028 changes at a glance panel at the top, listing every September 2026 change for exams from May 2028, grouped into data booklet changes, guide additions and clarifications, and removals, for all topics. ','Estimated DP grade (1–7) from your score, using typical IB DP Physics grade boundaries for SL or HL. It is a guide only: real boundaries change each session and include the IA.', 'Download results: one file with every question, your answers, the markschemes you ticked, your score, time, pauses, seed and estimated grade. Print it or save it as a PDF.', 'Stats: recent exam papers list the estimated grade and seed, and a new table shows the approximate grade boundaries used.', 'Flashcards: new Reverse option shows the definition first (the term is hidden) so you recall the term. Equation and question cards are shown the usual way.'] },,
-    { v: '1.0 RC1', d: '1 November 2026', items: ['First release candidate for student testing. Versions 0.1–0.60 were internal alpha builds.', 'All 25 topics, 102 strands and 1,131 question templates (Paper 1A, 1B and 2), 377 recall cards and 107 Who’s Right? items.', 'Send Report: each report box (and Send results to teacher in Exam Mode) opens your teacher’s Google Form already filled in; you press Submit. Sign in with your school account. Copy Report stays as a backup.', 'Report a problem is now everywhere: under every question (Practice, Exam Mode, Blitz misses), every flashcard and answered Recall game, every Notes strand, the FE2028 summary and the data booklet. A Feedback or report a problem box in the footer covers the rest of the site (Stats, About, ideas, bugs) and adds the page you are on.']}
+    { v: '1.0 RC1', d: '1 November 2026', items: ['First release candidate for student testing. Versions 0.1–0.60 were internal alpha builds.', 'All 25 topics, 102 strands and 1,131 question templates (Paper 1A, 1B and 2), 377 recall cards and 107 Who’s Right? items.', 'Open to print: worksheets and exam results open in a new tab, ready to print or save as PDF (Download is still there). If pop-ups are blocked, the file downloads instead.', 'Offline version: one file with the fonts and maths library inside, so it works without the internet (see About).', 'Send Report: each report box (and Send results to teacher in Exam Mode) opens your teacher’s Google Form already filled in; you press Submit. Sign in with your school account. Copy Report stays as a backup.', 'Report a problem is now everywhere: under every question (Practice, Exam Mode, Blitz misses), every flashcard and answered Recall game, every Notes strand, the FE2028 summary and the data booklet. A Feedback or report a problem box in the footer covers the rest of the site (Stats, About, ideas, bugs) and adds the page you are on.']}
   ];
   HISTORY.forEach(h => { h.items = h.items.map(TL); });
   const fmtBig = (n) => n >= 1e6 ? (n / 1e6).toFixed(1) + ' million' : n.toLocaleString('en-GB');
@@ -17037,7 +17062,11 @@ ${WS.answers ? `<div class="answers"><h2>Answers and markschemes <span class="ws
         <li>Recall cards are checked so every Fill the Gap! keyword and Spot It! phrase exists in the card.</li>
         <li>Each mode is tested in a browser on desktop and phone sizes, in light and dark mode, including class codes and printed papers.</li>
       </ul></section>
-      <section class="panel"><h3>Privacy</h3><p>Nothing you do leaves your browser. Progress, recall schedules and settings are stored on this device only; use Stats → Backup to move them to another device.</p></section>
+      <section class="panel"><h3>Privacy</h3><p>Nothing you do leaves your browser. Progress, recall schedules and settings are stored on this device only; use Stats → Backup to move them to another device.</p><p>Send Report and Send results to teacher open your teacher’s Google Form in a new tab. Nothing is sent unless you press Submit there, and the form records your school email when you do.</p></section>
+      <section class="panel" id="offlineInfo"><h3>Offline version</h3>${window.__OFFLINE
+        ? '<p>You are using the <b>offline version</b>: the fonts and the maths library are inside this file, so it works without the internet (Send Report still needs a connection). Your progress here is separate from the online site; use Stats → Backup to move it.</p>'
+        : '<p>The offline version is one file with everything inside, including the fonts and the maths library, so it works without the internet. <a href="https://mvpoirier.github.io/revision-lab/offline.html" target="_blank" rel="noopener">Open the offline version</a>, then save it (Ctrl+S or ⌘S, “Webpage, HTML only”) and open the saved file any time. Its progress is stored separately from this site; use Stats → Backup to move it.</p>'}
+        <p class="muted small">Fonts: Archivo, IBM Plex Sans, IBM Plex Mono and Press Start 2P (SIL Open Font License 1.1). Maths: MathJax 3.2.2 (Apache License 2.0).</p></section>
       <section class="panel"><h3>Revision history</h3><ol class="history">${HISTORY.slice().reverse().map(h => `<li><div class="hv"><span class="ver">v${h.v}</span><span class="muted small">${h.d}</span></div><ul>${h.items.map(i => `<li>${i}</li>`).join('')}</ul></li>`).join('')}</ol></section>`;
     typeset(main);
   }
