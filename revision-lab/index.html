@@ -707,6 +707,7 @@ details.note .report, .fe28sum .report { margin-top: 12px; border-top: 1px dashe
 .foot-report { margin: 12px 0 4px; padding: 10px 22px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .foot-report summary { cursor: pointer; font-weight: 600; }
 .foot-report .report-body { margin-top: 8px; }
+a.btn { text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
 
 </style>
 <header class="top"><div class="top-inner">
@@ -735,7 +736,7 @@ details.note .report, .fe28sum .report { margin-top: 12px; border-top: 1px dashe
       <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener license">CC BY-NC-SA 4.0</a>
     </nav>
   </div>
-  <details class="report report-general foot-report"><summary><span class="flag" aria-hidden="true">⚑&#xFE0E;</span> Feedback or report a problem</summary><div class="report-body"><textarea class="report-note" rows="3" placeholder="Your feedback: a bug, an idea, something confusing… Say which page or feature." aria-label="Your feedback"></textarea><div class="row"><button type="button" class="btn sm" data-report="general|||footer">Copy Report</button><span class="muted small">Then paste it into a message or email to your teacher. The page you are on is added automatically.</span></div></div></details>
+  <details class="report report-general foot-report"><summary><span class="flag" aria-hidden="true">⚑&#xFE0E;</span> Feedback or report a problem</summary><div class="report-body"><textarea class="report-note" rows="3" placeholder="Your feedback: a bug, an idea, something confusing… Say which page or feature." aria-label="Your feedback"></textarea><div class="row"><a class="btn sm primary send-report" href="#" target="_blank" rel="noopener" data-send="general|||footer">Send Report ↗</a><button type="button" class="btn sm" data-report="general|||footer">Copy Report</button><span class="muted small">Send Report opens your teacher’s Google Form (sign in with your school account). The page you are on is added automatically. Copy Report is a backup.</span></div></div></details>
   <div class="foot-meta">
     <span>Developed by <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a> using Claude</span>
     <span class="foot-ver">Version 1.0 RC1 · Updated 1 November 2026</span>
@@ -15524,8 +15525,39 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   const REPORT_HINT = { question: 'What looks wrong? eg the answer, a value, a diagram, a typo', card: 'What looks wrong? eg the definition, the term, a typo', which: 'What looks wrong? eg the right answer, the explanation', note: 'What looks wrong or is missing? eg an equation, a link, a typo', booklet: 'What looks wrong? eg an equation, a constant, a typo', general: 'Your feedback: a bug, an idea, something confusing…' };
   const reportBox = (q, seed, where) => reportBoxFor('question', q.id, seed, where);
   function reportBoxFor(kind, ref, seed, where, label) {
-    return `<details class="report report-${kind}"><summary><span class="flag" aria-hidden="true">⚑&#xFE0E;</span> ${label || (kind === 'general' ? 'Feedback or report a problem' : 'Report a problem')}</summary><div class="report-body"><textarea class="report-note" rows="2" placeholder="${REPORT_HINT[kind]}" aria-label="${REPORT_HINT[kind]}"></textarea><div class="row"><button type="button" class="btn sm" data-report="${kind}|${esc(String(ref))}|${seed || ''}|${esc(where)}">Copy Report</button><span class="muted small">Then paste it into a message or email to your teacher.</span></div></div></details>`;
+    return `<details class="report report-${kind}"><summary><span class="flag" aria-hidden="true">⚑&#xFE0E;</span> ${label || (kind === 'general' ? 'Feedback or report a problem' : 'Report a problem')}</summary><div class="report-body"><textarea class="report-note" rows="2" placeholder="${REPORT_HINT[kind]}" aria-label="${REPORT_HINT[kind]}"></textarea><div class="row">${sendBtn(`${kind}|${esc(String(ref))}|${seed || ''}|${esc(where)}`)}<button type="button" class="btn sm" data-report="${kind}|${esc(String(ref))}|${seed || ''}|${esc(where)}">Copy Report</button><span class="muted small">${SEND_NOTE}</span></div></div></details>`;
   }
+  /* Google Form (Mike's): Send Report opens it pre-filled; the student presses Submit. Nothing is sent by the site itself. */
+  const FORM = { url: 'https://docs.google.com/forms/d/e/1FAIpQLSd6tH4w78fknFF4OhnkrmaG5_kla0wubaOrKyUkcIefcC5D9Q/viewform',
+    type: 'entry.2063788013', id: 'entry.891388905', title: 'entry.404100289', paper: 'entry.8003874', seed: 'entry.1249440615', where: 'entry.906033337', version: 'entry.264325338', note: '' /* add the "What looks wrong" entry id to pre-fill the note */ };
+  const FORM_TYPE = { 'Problem': 'Problem with a question', 'General feedback': 'General feedback', 'Exam results': 'Exam results' };
+  const SEND_NOTE = 'Send Report opens your teacher’s Google Form (sign in with your school account). Copy Report is a backup.';
+  const sendBtn = (data) => FORM.url ? `<a class="btn sm primary send-report" href="${FORM.url}" target="_blank" rel="noopener" data-send="${data}">Send Report ↗</a>` : '';
+  function formURL(f, note) {
+    const p = new URLSearchParams({ usp: 'pp_url' });
+    const put = (k, v) => { if (FORM[k] && v !== undefined && v !== null && String(v) !== '') p.set(FORM[k], String(v).slice(0, 1500)); };
+    put('type', FORM_TYPE[f.type] || f.type); put('id', f.id); put('title', f.title); put('paper', f.paper); put('seed', f.seed); put('where', f.where); put('version', f.version); put('note', note);
+    return FORM.url + '?' + p.toString();
+  }
+  function copyText(text, ok) { (navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject()).then(ok, () => { const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); ok(); } catch (err) { /* ignore */ } ta.remove(); }); }
+  // Send Report: set the link's address at click time so it carries the student's note and the current page
+  // Exam Mode: send a one-line summary of the results to the teacher's form
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('#exSend'); if (!a || !EX || EX.phase !== 'review') return;
+    const r = exScore(), used = (EX.finishedAt - EX.start) / 1000;
+    const papers = PAPERS.filter(p => EX.items.some(x => x.q.paper === p)).map(p => { const its = EX.items.filter(x => x.q.paper === p); const got = its.reduce((n, x) => n + (p === '1A' ? (x.answer === x.inst.answer ? 1 : 0) : writtenScore(x.inst, x.ticks)), 0); return `${PAPER_NAME[p]} ${got}/${its.reduce((n, x) => n + x.q.marks, 0)}`; }).join(' · ');
+    const f = { type: 'Exam results', id: EX.code ? EX.code.str : String(EX.seed), title: `Score ${r.score}/${EX.total} (${r.pct}%) · est. grade ${r.grade} · ${EX.hl ? 'HL' : 'SL'}${r.unmarked ? ' · written not marked' : ''}`, paper: papers, seed: EX.code ? '' : EX.seed, where: `Exam Mode · ${fmtClock(used)} used of ${fmtClock(EX.allowed)}${EX.pauses ? ` · paused ${EX.pauses}× (${fmtClock(EX.pausedMs / 1000)})` : ''}`, version: APP_VERSION };
+    a.href = formURL(f, ''); toast('Form opened in a new tab. Press Submit there to send your results.');
+  }, true);
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('[data-send]'); if (!a) return;
+    const [kind, ref, seed, where0] = a.dataset.send.split('|');
+    const where = kind === 'general' ? (VIEW_NAME[currentView()] || 'Site') + (where0 && where0 !== 'footer' ? ' · ' + where0 : '') : where0;
+    const box = a.closest('.report'), note = box ? (box.querySelector('.report-note').value || '').trim() : '';
+    a.href = formURL(reportFields(kind, ref, seed, where), note);
+    if (note && !FORM.note) copyText(note, () => toast('Form opened. Your note is copied: paste it into the form.'));
+    else toast('Form opened in a new tab. Press Submit there to send it.');
+  }, true);
   const VIEW_NAME = { practice: 'Practice', exam: 'Exam Mode', blitz: 'Blitz', recall: 'Recall', notes: 'Notes', stats: 'Stats', about: 'About' };
   function reportFields(kind, ref, seed, where) {
     const f = { type: kind === 'general' ? 'General feedback' : 'Problem', id: ref, title: '', paper: '', seed: seed || '', where, version: APP_VERSION };
@@ -15977,8 +16009,8 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
         else b = `<div class="qbody">${inst.intro}</div><div class="parts">${inst.parts.map(p => `<div class="part"><span class="plabel">(${p.label})</span><div class="pbody qbody">${partPrompt(p)}</div><span class="pmarks">[${p.marks}]</span>${x.texts[p.label] ? `<div class="ms" style="border-left-color:var(--line)"><span class="muted small">Your answer</span><div>${esc(x.texts[p.label])}</div></div>` : ''}${msBlock(p, x.ticks, i + ':' + p.label, EX.saved)}</div>`).join('')}</div>`;
         return `<article class="sheet exam-item"><div class="qmeta"><span class="paper">${PAPER_NAME[q.paper]}</span>${chiliIcon(q.chili)}<span class="marks">Question ${i + 1} [${q.marks}]</span><span>${esc(q.title)}</span><span class="num">${fmtMin(x.time / 1000)}</span></div>${b}${reportBox(q, x.seed, 'Exam Mode' + (EX.code ? ' ' + EX.code.str : ''))}</article>`;
       }).join('')}
-      <div class="row">${EX.saved ? '<span class="pill good">Results saved to your stats</span>' : '<button class="btn primary" id="exSave">Save results to my stats</button>'}<button class="btn" id="exDownload">⬇ Download results</button><button class="btn" id="exNew">New paper</button></div>
-      <p class="muted small" id="exDlStatus">The download has every question, your answers, the markschemes you ticked, your score, time, pauses and estimated grade.</p>`;
+      <div class="row">${EX.saved ? '<span class="pill good">Results saved to your stats</span>' : '<button class="btn primary" id="exSave">Save results to my stats</button>'}<button class="btn" id="exDownload">⬇ Download results</button>${FORM.url ? `<a class="btn send-report" id="exSend" href="${FORM.url}" target="_blank" rel="noopener">📤 Send results to teacher ↗</a>` : ''}<button class="btn" id="exNew">New paper</button></div>
+      <p class="muted small" id="exDlStatus">The download has every question, your answers, the markschemes you ticked, your score, time, pauses and estimated grade. Send results to teacher opens your teacher’s Google Form with your score filled in.</p>`;
     $$('.exam-item', main).forEach(typeset);
   }
   function bindExam(main) {
@@ -16958,7 +16990,7 @@ ${WS.answers ? `<div class="answers"><h2>Answers and markschemes <span class="ws
     { v: '0.58 alpha', d: '1 November 2026', items: ['All remaining topics added: D.1 Gravitational fields, D.2 Electric and magnetic fields, D.3 Motion in electromagnetic fields, E.1 Structure of the atom, E.2 Quantum physics (HL), E.3 Radioactive decay, E.4 Fission, E.5 Fusion and stars, and B.4 Thermodynamics (HL). Every topic in the guide is now on the site.', 'Each new topic has Paper 1A, 1B and 2 questions, notes with data-booklet equations and FE2028 changes, recall cards, Who’s Right? items and data-booklet pages. Paper 1B includes historic experiments (Millikan, Rutherford, the photoelectric effect, Compton scattering).', 'Thinner topics (A.4, A.5, B.2, C.1–C.5, D.4) and the SSP skills now have more questions and cards, so every strand has at least 8 Paper 1A questions, 3 cards and a Who’s Right? item, and every topic at least 5 Paper 2 and 3 Paper 1B questions.', 'Exam Mode shares marks between topics in proportion to the IB teaching hours, so large question banks no longer crowd out smaller topics.', 'Who’s Right?: the better answer is now Student A or Student B about equally often.'] },
     { v: '0.59 alpha', d: '1 November 2026', items: ['Pause button on every timer except Last Man Standing: Practice (pace coach), Exam Mode, Blitz Classic and Match It!. While paused, the timer stops and the question is hidden until you resume.', 'Exam Mode results show how many times the paper was paused and the total time paused; Stats lists pauses for each recent exam.'] },
     { v: '0.60 alpha', d: '1 November 2026', items: ['Notes: new FE2028 changes at a glance panel at the top, listing every September 2026 change for exams from May 2028, grouped into data booklet changes, guide additions and clarifications, and removals, for all topics. ','Estimated DP grade (1–7) from your score, using typical IB DP Physics grade boundaries for SL or HL. It is a guide only: real boundaries change each session and include the IA.', 'Download results: one file with every question, your answers, the markschemes you ticked, your score, time, pauses, seed and estimated grade. Print it or save it as a PDF.', 'Stats: recent exam papers list the estimated grade and seed, and a new table shows the approximate grade boundaries used.', 'Flashcards: new Reverse option shows the definition first (the term is hidden) so you recall the term. Equation and question cards are shown the usual way.'] },,
-    { v: '1.0 RC1', d: '1 November 2026', items: ['First release candidate for student testing. Versions 0.1–0.60 were internal alpha builds.', 'All 25 topics, 102 strands and 1,131 question templates (Paper 1A, 1B and 2), 377 recall cards and 107 Who’s Right? items.', 'Report a problem is now everywhere: under every question (Practice, Exam Mode, Blitz misses), every flashcard and answered Recall game, every Notes strand, the FE2028 summary and the data booklet. A Feedback or report a problem box in the footer covers the rest of the site (Stats, About, ideas, bugs) and adds the page you are on.']}
+    { v: '1.0 RC1', d: '1 November 2026', items: ['First release candidate for student testing. Versions 0.1–0.60 were internal alpha builds.', 'All 25 topics, 102 strands and 1,131 question templates (Paper 1A, 1B and 2), 377 recall cards and 107 Who’s Right? items.', 'Send Report: each report box (and Send results to teacher in Exam Mode) opens your teacher’s Google Form already filled in; you press Submit. Sign in with your school account. Copy Report stays as a backup.', 'Report a problem is now everywhere: under every question (Practice, Exam Mode, Blitz misses), every flashcard and answered Recall game, every Notes strand, the FE2028 summary and the data booklet. A Feedback or report a problem box in the footer covers the rest of the site (Stats, About, ideas, bugs) and adds the page you are on.']}
   ];
   HISTORY.forEach(h => { h.items = h.items.map(TL); });
   const fmtBig = (n) => n >= 1e6 ? (n / 1e6).toFixed(1) + ' million' : n.toLocaleString('en-GB');
