@@ -6,7 +6,7 @@
 <!--
   MVPhysics Revision Lab: IB DP Physics revision (SL and HL)
   Version: 1.0 Beta (offline edition) · Built: 2 November 2026
-  Author: Mike Poirier (https://github.com/mvpoirier), developed with Claude (Anthropic)
+  Author: Mike Poirier (https://github.com/mvpoirier), developed with Claude (Opus 5.5-Medium) by Anthropic
   Licence: CC BY-NC-SA 4.0, https://creativecommons.org/licenses/by-nc-sa/4.0/
   Site: https://mvpoirier.github.io/revision-lab/ · Offline edition: https://mvpoirier.github.io/revision-lab/offline.html
   Repository: https://github.com/mvpoirier/mvpoirier.github.io
@@ -730,6 +730,13 @@ details.hist-stage > ol.history { margin-top: 12px; }
 details.hist-stage > summary { list-style: none; } details.hist-stage > summary::-webkit-details-marker { display: none; }
 details.hist-stage > summary::before { content: "▸"; color: var(--accent); transition: transform .15s; display: inline-block; }
 details.hist-stage[open] > summary::before { transform: rotate(90deg); }
+/* Floating tooltip (replaces the ::after tooltips, which were cut off at panel edges) */
+.hbar [data-tip]:hover::after, .hbar [data-tip]:focus-visible::after, .chili.tip:hover::after, .chili.tip:focus-visible::after, .tip[data-tip]:hover::after, .tip[data-tip]:focus-visible::after { content: none; display: none; }
+.tipbox { position: fixed; z-index: 1000; max-width: min(260px, calc(100vw - 16px)); width: max-content; background: var(--ink); color: var(--paper); font: 500 12.5px/1.35 var(--f-body); padding: 6px 9px; border-radius: 6px; pointer-events: none; box-shadow: 0 4px 14px rgba(0,0,0,.18); text-align: left; }
+.tipbox[hidden] { display: none; }
+/* Equations: never cut off on the left when wider than their box */
+.eqgrid .eq { justify-content: safe center; }
+.eqgrid .eq mjx-container[display="true"] { max-width: 100%; }
 
 </style>
 <header class="top"><div class="top-inner">
@@ -760,7 +767,7 @@ details.hist-stage[open] > summary::before { transform: rotate(90deg); }
   </div>
   <details class="report report-general foot-report"><summary><span class="flag" aria-hidden="true">⚑&#xFE0E;</span> Feedback or report a problem</summary><div class="report-body"><textarea class="report-note" rows="3" placeholder="Your feedback: a bug, an idea, something confusing… Say which page or feature." aria-label="Your feedback"></textarea><div class="row"><a class="btn sm primary send-report" href="#" target="_blank" rel="noopener" data-send="general|||footer">Send Report ↗</a><button type="button" class="btn sm" data-report="general|||footer">Copy Report</button><span class="muted small">Send Report opens your teacher’s Google Form (sign in with your school account). The page you are on is added automatically. Copy Report is a backup.</span></div></div></details>
   <div class="foot-meta">
-    <span>Developed by <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a> using Claude</span>
+    <span>Developed by <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a> using Claude (Opus 5.5-Medium)</span>
     <span class="foot-ver">Version 1.0 Beta · Updated 2 November 2026</span>
   </div>
 </div></footer>
@@ -15367,7 +15374,7 @@ WHICH.push(
 
 </script>
 <script>
-const FOOTER_TEXT = 'Questions are original and written in the style of the IB DP Physics course (first assessment 2025).<br>Developed by <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a> using Claude. Licensed under CC BY-NC-SA 4.0.<br>Version 1.0 Beta · Last updated: 2 November 2026';
+const FOOTER_TEXT = 'Questions are original and written in the style of the IB DP Physics course (first assessment 2025).<br>Developed by <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a> using Claude (Opus 5.5-Medium). Licensed under CC BY-NC-SA 4.0.<br>Version 1.0 Beta · Last updated: 2 November 2026';
 /* ===== DP Physics Revision Lab — app ===== */
 (function () {
   'use strict';
@@ -15442,13 +15449,40 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   }
 
   window.__mjPending = window.__mjPending || [];
+  // equations wider than their box in Notes span two columns (or the whole row) instead of being cut off
+  function fitWide(el) {
+    $$('.eqgrid .eq', el).forEach(b => {
+      b.style.gridColumn = ''; b.style.fontSize = '';
+      let w = b.scrollWidth, c = b.clientWidth; if (w > c + 2) b.style.gridColumn = w > c * 2 ? '1 / -1' : 'span 2';
+      w = b.scrollWidth; c = b.clientWidth; if (w > c + 2) b.style.fontSize = Math.max(70, Math.floor(100 * (c - 4) / w)) + '%'; // phones: one column, so shrink (then scroll if still too wide)
+    });
+  }
   function typeset(el) {
     if (!el) return;
-    if (window.MathJax && MathJax.typesetPromise) { MathJax.typesetPromise([el]).catch(() => {}); }
+    if (window.MathJax && MathJax.typesetPromise) { MathJax.typesetPromise([el]).then(() => fitWide(el)).catch(() => {}); }
     else window.__mjPending.push(el);
   }
   window.__mjFlush = () => { const p = window.__mjPending.splice(0); p.forEach(typeset); };
 
+  /* Tooltips: one floating box positioned in the viewport, so it is never cut off by a scrolling panel or the window edge. */
+  (function tips() {
+    let box = null, cur = null;
+    const show = (el) => {
+      const t = el.getAttribute('data-tip'); if (!t) return;
+      if (!box) { box = document.createElement('div'); box.className = 'tipbox'; box.setAttribute('role', 'tooltip'); document.body.appendChild(box); }
+      cur = el; box.textContent = t; box.hidden = false; box.style.left = '0px'; box.style.top = '0px';
+      const r = el.getBoundingClientRect(), b = box.getBoundingClientRect(), pad = 8, vw = document.documentElement.clientWidth, vh = window.innerHeight;
+      let x = r.left + r.width / 2 - b.width / 2; x = Math.max(pad, Math.min(x, vw - b.width - pad));
+      let y = r.bottom + 6; if (y + b.height > vh - pad && r.top - 6 - b.height > pad) y = r.top - 6 - b.height;
+      box.style.left = x + 'px'; box.style.top = y + 'px';
+    };
+    const hide = () => { if (box) box.hidden = true; cur = null; };
+    document.addEventListener('mouseover', (e) => { const el = e.target.closest && e.target.closest('[data-tip]'); if (el && el !== cur) show(el); else if (!el && cur) hide(); });
+    document.addEventListener('focusin', (e) => { const el = e.target.closest && e.target.closest('[data-tip]'); if (el) show(el); });
+    document.addEventListener('focusout', hide);
+    window.addEventListener('scroll', hide, true); window.addEventListener('resize', hide);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hide(); });
+  })();
   let toastT;
   function toast(msg) {
     let t = $('.toast'); if (!t) { t = document.createElement('div'); t.className = 'toast'; t.setAttribute('role', 'status'); document.body.appendChild(t); }
@@ -16839,7 +16873,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   const docComment = (what, id) => `<!--
   MVPhysics Revision Lab · ${what}${id ? ' · ' + id : ''}
   Made with version ${APP_VERSION} (built ${DOC_DATE}) on ${new Date().toISOString().slice(0, 10)}
-  Author: Mike Poirier (https://github.com/mvpoirier), developed with Claude (Anthropic)
+  Author: Mike Poirier (https://github.com/mvpoirier), developed with Claude (Opus 5.5-Medium) by Anthropic
   Licence: CC BY-NC-SA 4.0, https://creativecommons.org/licenses/by-nc-sa/4.0/
   Site: ${SITE_URL} · Repository: ${REPO_URL}
   Original questions in the style of the IB DP Physics course (first assessment 2025). Not affiliated with or endorsed by the IB.
@@ -16847,7 +16881,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
 `;
   const cssStr = (t) => '"' + t.replace(/\\/g, '\\\\').replace(/"/g, '\\"') + '"';
   const docWatermark = (id) => `<style>@page { @bottom-left { content: ${cssStr(`MVPhysics Revision Lab · ${APP_VERSION} · © Mike Poirier · CC BY-NC-SA 4.0 · mvpoirier.github.io/revision-lab${id ? ' · ' + id : ''}`)}; font: 7pt "IBM Plex Sans", Arial, sans-serif; color: #888; } @bottom-right { content: "Page " counter(page) " of " counter(pages); font: 7pt "IBM Plex Sans", Arial, sans-serif; color: #888; } }</style>`;
-  const docFooter = (id) => `<div class="wm"><b>MVPhysics Revision Lab</b> · Version ${APP_VERSION} (${DOC_DATE})${id ? ` · ${esc(id)}` : ''}<br>© Mike Poirier, developed with Claude · <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> · <a href="${SITE_URL}">${SITE_URL.replace('https://', '')}</a> · <a href="${REPO_URL}">${REPO_URL.replace('https://', '')}</a><br>Original questions in the style of the IB DP Physics course (first assessment 2025). Not affiliated with or endorsed by the IB.</div>`;
+  const docFooter = (id) => `<div class="wm"><b>MVPhysics Revision Lab</b> · Version ${APP_VERSION} (${DOC_DATE})${id ? ` · ${esc(id)}` : ''}<br>© Mike Poirier, developed with Claude (Opus 5.5-Medium) · <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> · <a href="${SITE_URL}">${SITE_URL.replace('https://', '')}</a> · <a href="${REPO_URL}">${REPO_URL.replace('https://', '')}</a><br>Original questions in the style of the IB DP Physics course (first assessment 2025). Not affiliated with or endorsed by the IB.</div>`;
   const WS_CSS = `
     @page { size: A4; margin: 16mm 15mm; }
     .wshead { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
@@ -17092,7 +17126,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     { v: '0.58 alpha', d: '1 November 2026', items: ['All remaining topics added: D.1 Gravitational fields, D.2 Electric and magnetic fields, D.3 Motion in electromagnetic fields, E.1 Structure of the atom, E.2 Quantum physics (HL), E.3 Radioactive decay, E.4 Fission, E.5 Fusion and stars, and B.4 Thermodynamics (HL). Every topic in the guide is now on the site.', 'Each new topic has Paper 1A, 1B and 2 questions, notes with data-booklet equations and FE2028 changes, recall cards, Who’s Right? items and data-booklet pages. Paper 1B includes historic experiments (Millikan, Rutherford, the photoelectric effect, Compton scattering).', 'Thinner topics (A.4, A.5, B.2, C.1–C.5, D.4) and the SSP skills now have more questions and cards, so every strand has at least 8 Paper 1A questions, 3 cards and a Who’s Right? item, and every topic at least 5 Paper 2 and 3 Paper 1B questions.', 'Exam Mode shares marks between topics in proportion to the IB teaching hours, so large question banks no longer crowd out smaller topics.', 'Who’s Right?: the better answer is now Student A or Student B about equally often.'] },
     { v: '0.59 alpha', d: '1 November 2026', items: ['Pause button on every timer except Last Man Standing: Practice (pace coach), Exam Mode, Blitz Classic and Match It!. While paused, the timer stops and the question is hidden until you resume.', 'Exam Mode results show how many times the paper was paused and the total time paused; Stats lists pauses for each recent exam.'] },
     { v: '0.60 alpha', d: '1 November 2026', items: ['Notes: new FE2028 changes at a glance panel at the top, listing every September 2026 change for exams from May 2028, grouped into data booklet changes, guide additions and clarifications, and removals, for all topics. ','Estimated DP grade (1–7) from your score, using typical IB DP Physics grade boundaries for SL or HL. It is a guide only: real boundaries change each session and include the IA.', 'Download results: one file with every question, your answers, the markschemes you ticked, your score, time, pauses, seed and estimated grade. Print it or save it as a PDF.', 'Stats: recent exam papers list the estimated grade and seed, and a new table shows the approximate grade boundaries used.', 'Flashcards: new Reverse option shows the definition first (the term is hidden) so you recall the term. Equation and question cards are shown the usual way.'] },,
-    { v: '1.0 Beta', d: '1 November 2026', items: ['First beta, for student testing. Versions 0.1–0.60 were internal alpha builds.', 'All 25 topics, 102 strands and 1,131 question templates (Paper 1A, 1B and 2), 377 recall cards and 107 Who’s Right? items.', 'Open to print: worksheets and exam results open in a new tab, ready to print or save as PDF (Download is still there). If pop-ups are blocked, the file downloads instead.', 'Printed and downloaded papers and results carry the version, author, licence and site on every page, with page numbers.', 'Offline version: one file with the fonts and maths library inside, so it works without the internet (see About).', 'Send Report: each report box (and Send results to teacher in Exam Mode) opens your teacher’s Google Form already filled in; you press Submit. Sign in with your school account. Copy Report stays as a backup.', 'Report a problem is now everywhere: under every question (Practice, Exam Mode, Blitz misses), every flashcard and answered Recall game, every Notes strand, the FE2028 summary and the data booklet. A Feedback or report a problem box in the footer covers the rest of the site (Stats, About, ideas, bugs) and adds the page you are on.']}
+    { v: '1.0 Beta', d: '2 November 2026', items: ['First beta, for student testing. Versions 0.1–0.60 were internal alpha builds.', 'All 25 topics, 102 strands and 1,131 question templates (Paper 1A, 1B and 2), 377 recall cards and 107 Who’s Right? items.', 'Open to print: worksheets and exam results open in a new tab, ready to print or save as PDF (Download is still there). If pop-ups are blocked, the file downloads instead.', 'Fixed: tooltips no longer cut off at the edge of a panel or the screen, and wide equations in Notes are no longer cut off (they widen or shrink to fit).', 'Printed and downloaded papers and results carry the version, author, licence and site on every page, with page numbers.', 'Offline version: one file with the fonts and maths library inside, so it works without the internet (see About).', 'Send Report: each report box (and Send results to teacher in Exam Mode) opens your teacher’s Google Form already filled in; you press Submit. Sign in with your school account. Copy Report stays as a backup.', 'Report a problem is now everywhere: under every question (Practice, Exam Mode, Blitz misses), every flashcard and answered Recall game, every Notes strand, the FE2028 summary and the data booklet. A Feedback or report a problem box in the footer covers the rest of the site (Stats, About, ideas, bugs) and adds the page you are on.']}
   ];
   HISTORY.forEach(h => { h.items = h.items.map(TL); });
   const fmtBig = (n) => n >= 1e6 ? (n / 1e6).toFixed(1) + ' million' : n.toLocaleString('en-GB');
