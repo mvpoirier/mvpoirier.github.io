@@ -15160,6 +15160,11 @@ const MORE_LINKS = {
 for (const [id, extra] of Object.entries(MORE_LINKS)) if (NOTES[id]) { const have = new Set((NOTES[id].links || []).map(l => l.url)); NOTES[id].links = [...extra.filter(l => !have.has(l.url)), ...(NOTES[id].links || [])]; }
 addBooklet('b2-albedo', [L`S = 1.36\times10^{3}\,\mathrm{W\,m^{-2}}`, L`\sigma = 5.67\times10^{-8}\,\mathrm{W\,m^{-2}\,K^{-4}}`]); addBooklet('b2-balance', [L`L = \sigma AT^4`, L`\sigma = 5.67\times10^{-8}\,\mathrm{W\,m^{-2}\,K^{-4}}`]); addBooklet('b2-gases', [L`\lambda_\text{max}T = 2.9\times10^{-3}\,\mathrm{m\,K}`]);
 
+/* Hidden 2 Nov 2026: ibphysics.net pages no longer load (link check + Mike by hand). The IBP entries above are kept so a
+   replacement source can be dropped in later; set SHOW_IBP = true to bring them back. */
+const SHOW_IBP = false;
+if (!SHOW_IBP) for (const n of Object.values(NOTES)) if (n.links) n.links = n.links.filter(l => !/ibphysics\.net/.test(l.url));
+
 /* ===== Recall games for B.1, B.3 and B.5: term groups (Pick the term) and "Which answer gets the mark?" ===== */
 TERM_GROUPS.push(
   ['internal energy', 'absolute temperature', 'thermal equilibrium', 'specific heat capacity', 'specific latent heat'],
