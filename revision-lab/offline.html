@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--
   MVPhysics Revision Lab: IB DP Physics revision (SL and HL)
-  Version: 1.0 RC1 (offline edition) · Built: 1 November 2026
+  Version: 1.0 Beta (offline edition) · Built: 2 November 2026
   Author: Mike Poirier (https://github.com/mvpoirier), developed with Claude (Anthropic)
   Licence: CC BY-NC-SA 4.0, https://creativecommons.org/licenses/by-nc-sa/4.0/
   Site: https://mvpoirier.github.io/revision-lab/ · Offline edition: https://mvpoirier.github.io/revision-lab/offline.html
@@ -722,10 +722,18 @@ details.note .report, .fe28sum .report { margin-top: 12px; border-top: 1px dashe
 .foot-report summary { cursor: pointer; font-weight: 600; }
 .foot-report .report-body { margin-top: 8px; }
 a.btn { text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
+details.hist-stage { border-top: 1px solid var(--line); padding: 10px 0; }
+details.hist-stage:first-of-type { border-top: 0; padding-top: 2px; }
+details.hist-stage > summary { cursor: pointer; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+details.hist-stage > summary b { font-family: var(--f-display); font-size: 16px; }
+details.hist-stage > ol.history { margin-top: 12px; }
+details.hist-stage > summary { list-style: none; } details.hist-stage > summary::-webkit-details-marker { display: none; }
+details.hist-stage > summary::before { content: "▸"; color: var(--accent); transition: transform .15s; display: inline-block; }
+details.hist-stage[open] > summary::before { transform: rotate(90deg); }
 
 </style>
 <header class="top"><div class="top-inner">
-  <div class="brand"><h1><b class="mvp">MVP</b>hysics Revision Lab <span class="trophy" aria-hidden="true">🏆</span><span class="beta-tag" title="Release candidate for student testing: version 1.0 RC1">RC1</span></h1></div>
+  <div class="brand"><h1><b class="mvp">MVP</b>hysics Revision Lab <span class="trophy" aria-hidden="true">🏆</span><span class="beta-tag" title="Beta for student testing: version 1.0 Beta">Beta</span></h1></div>
   <nav class="tabs" id="tabs" aria-label="Modes"></nav>
   <div class="hbar">
     <div class="course-seg" id="courseSeg" role="group" aria-label="Course level" data-tip="SL hides HL-only content"><button type="button" data-course="SL" aria-pressed="false">SL</button><button type="button" data-course="HL" aria-pressed="true">HL</button></div>
@@ -743,7 +751,7 @@ a.btn { text-decoration: none; display: inline-flex; align-items: center; gap: 4
 <footer class="site-foot"><div class="foot-wrap">
   <div class="foot-inner">
     <div class="foot-brand">
-      <div class="foot-name"><b class="mvp">MVP</b>hysics Revision Lab <span class="trophy" aria-hidden="true">🏆</span><span class="beta-tag" title="Release candidate for student testing: version 1.0 RC1">RC1</span></div>
+      <div class="foot-name"><b class="mvp">MVP</b>hysics Revision Lab <span class="trophy" aria-hidden="true">🏆</span><span class="beta-tag" title="Beta for student testing: version 1.0 Beta">Beta</span></div>
     </div>
     <nav class="foot-links" aria-label="Site">
       <a href="#about">About</a>
@@ -753,7 +761,7 @@ a.btn { text-decoration: none; display: inline-flex; align-items: center; gap: 4
   <details class="report report-general foot-report"><summary><span class="flag" aria-hidden="true">⚑&#xFE0E;</span> Feedback or report a problem</summary><div class="report-body"><textarea class="report-note" rows="3" placeholder="Your feedback: a bug, an idea, something confusing… Say which page or feature." aria-label="Your feedback"></textarea><div class="row"><a class="btn sm primary send-report" href="#" target="_blank" rel="noopener" data-send="general|||footer">Send Report ↗</a><button type="button" class="btn sm" data-report="general|||footer">Copy Report</button><span class="muted small">Send Report opens your teacher’s Google Form (sign in with your school account). The page you are on is added automatically. Copy Report is a backup.</span></div></div></details>
   <div class="foot-meta">
     <span>Developed by <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a> using Claude</span>
-    <span class="foot-ver">Version 1.0 RC1 · Updated 1 November 2026</span>
+    <span class="foot-ver">Version 1.0 Beta · Updated 2 November 2026</span>
   </div>
 </div></footer>
 <script>window.__OFFLINE=true;</script>
@@ -15352,7 +15360,7 @@ WHICH.push(
 
 </script>
 <script>
-const FOOTER_TEXT = 'Questions are original and written in the style of the IB DP Physics course (first assessment 2025).<br>Developed by <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a> using Claude. Licensed under CC BY-NC-SA 4.0.<br>Version 1.0 RC1 · Last updated: 1 November 2026';
+const FOOTER_TEXT = 'Questions are original and written in the style of the IB DP Physics course (first assessment 2025).<br>Developed by <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a> using Claude. Licensed under CC BY-NC-SA 4.0.<br>Version 1.0 Beta · Last updated: 2 November 2026';
 /* ===== DP Physics Revision Lab — app ===== */
 (function () {
   'use strict';
@@ -15564,7 +15572,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   }
 
   /* ---------- question rendering ---------- */
-  const APP_VERSION = '1.0 RC1';
+  const APP_VERSION = '1.0 Beta';
   const INFO_ICON = '<svg class="info-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M12 10.6v6.2"/><circle class="dot" cx="12" cy="7.4" r="1.15"/></svg>';
   /* Report a problem: copies the exact question (id + seed) so the teacher can recreate what the student saw */
   /* ---------- Report a problem / feedback, everywhere ----------
@@ -16820,7 +16828,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   /* Printable files (worksheets, exam results): authorship comment at the top, and a watermark line on every printed page
      (CSS page-margin boxes: Chrome and Edge) plus a footer at the end of the document (all browsers). */
   const SITE_URL = 'https://mvpoirier.github.io/revision-lab/', REPO_URL = 'https://github.com/mvpoirier/mvpoirier.github.io';
-  const DOC_DATE = '1 November 2026';
+  const DOC_DATE = '2 November 2026';
   const docComment = (what, id) => `<!--
   MVPhysics Revision Lab · ${what}${id ? ' · ' + id : ''}
   Made with version ${APP_VERSION} (built ${DOC_DATE}) on ${new Date().toISOString().slice(0, 10)}
@@ -17077,7 +17085,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     { v: '0.58 alpha', d: '1 November 2026', items: ['All remaining topics added: D.1 Gravitational fields, D.2 Electric and magnetic fields, D.3 Motion in electromagnetic fields, E.1 Structure of the atom, E.2 Quantum physics (HL), E.3 Radioactive decay, E.4 Fission, E.5 Fusion and stars, and B.4 Thermodynamics (HL). Every topic in the guide is now on the site.', 'Each new topic has Paper 1A, 1B and 2 questions, notes with data-booklet equations and FE2028 changes, recall cards, Who’s Right? items and data-booklet pages. Paper 1B includes historic experiments (Millikan, Rutherford, the photoelectric effect, Compton scattering).', 'Thinner topics (A.4, A.5, B.2, C.1–C.5, D.4) and the SSP skills now have more questions and cards, so every strand has at least 8 Paper 1A questions, 3 cards and a Who’s Right? item, and every topic at least 5 Paper 2 and 3 Paper 1B questions.', 'Exam Mode shares marks between topics in proportion to the IB teaching hours, so large question banks no longer crowd out smaller topics.', 'Who’s Right?: the better answer is now Student A or Student B about equally often.'] },
     { v: '0.59 alpha', d: '1 November 2026', items: ['Pause button on every timer except Last Man Standing: Practice (pace coach), Exam Mode, Blitz Classic and Match It!. While paused, the timer stops and the question is hidden until you resume.', 'Exam Mode results show how many times the paper was paused and the total time paused; Stats lists pauses for each recent exam.'] },
     { v: '0.60 alpha', d: '1 November 2026', items: ['Notes: new FE2028 changes at a glance panel at the top, listing every September 2026 change for exams from May 2028, grouped into data booklet changes, guide additions and clarifications, and removals, for all topics. ','Estimated DP grade (1–7) from your score, using typical IB DP Physics grade boundaries for SL or HL. It is a guide only: real boundaries change each session and include the IA.', 'Download results: one file with every question, your answers, the markschemes you ticked, your score, time, pauses, seed and estimated grade. Print it or save it as a PDF.', 'Stats: recent exam papers list the estimated grade and seed, and a new table shows the approximate grade boundaries used.', 'Flashcards: new Reverse option shows the definition first (the term is hidden) so you recall the term. Equation and question cards are shown the usual way.'] },,
-    { v: '1.0 RC1', d: '1 November 2026', items: ['First release candidate for student testing. Versions 0.1–0.60 were internal alpha builds.', 'All 25 topics, 102 strands and 1,131 question templates (Paper 1A, 1B and 2), 377 recall cards and 107 Who’s Right? items.', 'Open to print: worksheets and exam results open in a new tab, ready to print or save as PDF (Download is still there). If pop-ups are blocked, the file downloads instead.', 'Printed and downloaded papers and results carry the version, author, licence and site on every page, with page numbers.', 'Offline version: one file with the fonts and maths library inside, so it works without the internet (see About).', 'Send Report: each report box (and Send results to teacher in Exam Mode) opens your teacher’s Google Form already filled in; you press Submit. Sign in with your school account. Copy Report stays as a backup.', 'Report a problem is now everywhere: under every question (Practice, Exam Mode, Blitz misses), every flashcard and answered Recall game, every Notes strand, the FE2028 summary and the data booklet. A Feedback or report a problem box in the footer covers the rest of the site (Stats, About, ideas, bugs) and adds the page you are on.']}
+    { v: '1.0 Beta', d: '1 November 2026', items: ['First beta, for student testing. Versions 0.1–0.60 were internal alpha builds.', 'All 25 topics, 102 strands and 1,131 question templates (Paper 1A, 1B and 2), 377 recall cards and 107 Who’s Right? items.', 'Open to print: worksheets and exam results open in a new tab, ready to print or save as PDF (Download is still there). If pop-ups are blocked, the file downloads instead.', 'Printed and downloaded papers and results carry the version, author, licence and site on every page, with page numbers.', 'Offline version: one file with the fonts and maths library inside, so it works without the internet (see About).', 'Send Report: each report box (and Send results to teacher in Exam Mode) opens your teacher’s Google Form already filled in; you press Submit. Sign in with your school account. Copy Report stays as a backup.', 'Report a problem is now everywhere: under every question (Practice, Exam Mode, Blitz misses), every flashcard and answered Recall game, every Notes strand, the FE2028 summary and the data booklet. A Feedback or report a problem box in the footer covers the rest of the site (Stats, About, ideas, bugs) and adds the page you are on.']}
   ];
   HISTORY.forEach(h => { h.items = h.items.map(TL); });
   const fmtBig = (n) => n >= 1e6 ? (n / 1e6).toFixed(1) + ' million' : n.toLocaleString('en-GB');
@@ -17129,8 +17137,16 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
         ? '<p>You are using the <b>offline version</b>: the fonts and the maths library are inside this file, so it works without the internet (Send Report still needs a connection). Your progress here is separate from the online site; use Stats → Backup to move it.</p>'
         : '<p>The offline version is one file with everything inside, including the fonts and the maths library, so it works without the internet. <a href="https://mvpoirier.github.io/revision-lab/offline.html" target="_blank" rel="noopener">Open the offline version</a>, then save it (Ctrl+S or ⌘S, “Webpage, HTML only”) and open the saved file any time. Its progress is stored separately from this site; use Stats → Backup to move it.</p>'}
         <p class="muted small">Fonts: Archivo, IBM Plex Sans, IBM Plex Mono and Press Start 2P (SIL Open Font License 1.1). Maths: MathJax 3.2.2 (Apache License 2.0).</p></section>
-      <section class="panel"><h3>Revision history</h3><ol class="history">${HISTORY.slice().reverse().map(h => `<li><div class="hv"><span class="ver">v${h.v}</span><span class="muted small">${h.d}</span></div><ul>${h.items.map(i => `<li>${i}</li>`).join('')}</ul></li>`).join('')}</ol></section>`;
+      <section class="panel"><h3>Revision history</h3>${historyHTML()}</section>`;
     typeset(main);
+  }
+  // Revision history in stages: releases (1.0+) and beta open, internal alpha builds folded away
+  function historyHTML() {
+    const stage = (h) => /alpha/i.test(h.v) ? 'alpha' : /beta|rc/i.test(h.v) ? 'beta' : 'release';
+    const item = (h) => `<li><div class="hv"><span class="ver">v${h.v}</span><span class="muted small">${h.d}</span></div><ul>${h.items.map(i => `<li>${i}</li>`).join('')}</ul></li>`;
+    const groups = [['release', 'Releases', 'Official versions, from 1.0.', true], ['beta', 'Beta', 'Tested by students. Report anything that looks wrong.', true], ['alpha', 'Alpha', 'Internal builds while the site was being written (0.1–0.60).', false]];
+    return groups.map(([k, title, sub, open]) => { const hs = HISTORY.filter(h => stage(h) === k).reverse(); if (!hs.length) return '';
+      return `<details class="hist-stage" data-stage="${k}" ${open ? 'open' : ''}><summary><b>${title}</b><span class="muted small">${hs.length} version${hs.length > 1 ? 's' : ''} · ${sub}</span></summary><ol class="history">${hs.map(item).join('')}</ol></details>`; }).join('');
   }
   function bindAbout() {}
   const VIEWS = {
