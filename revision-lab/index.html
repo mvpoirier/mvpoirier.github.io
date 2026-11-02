@@ -6628,7 +6628,7 @@ Object.assign(NOTES, {
     ],
     mistakes: [L`Using $^\circ\mathrm{C}$ in $\Delta Q/T$.`, L`Saying the second law forbids any entropy decrease anywhere.`],
     video: 'IB physics HL entropy second law microstates',
-    links: [LK('read', 'HyperPhysics: Entropy', 'http://hyperphysics.phy-astr.gsu.edu/hbase/therm/entrop.html')],
+    links: [LK('read', 'HyperPhysics: Entropy', 'http://hyperphysics.phy-astr.gsu.edu/hbase/Therm/entrop.html')],
   },
   'b4-engines': {
     booklet: [L`\eta = \dfrac{\text{useful work}}{\text{input energy}}`, L`\eta_\text{Carnot} = 1 - \dfrac{T_c}{T_h}`], bookletSection: 'B.4 (additional higher level)',
@@ -14946,7 +14946,9 @@ const FE2028_SUMMARY = [
 /* ===== Notes: further-help links and "learn or derive" equations (not in the data booklet) ===== */
 
 const PHET = (slug, name) => ({ kind: 'sim', label: `PhET: ${name}`, url: `https://phet.colorado.edu/en/simulations/${slug}` });
-const PC = (path, name) => ({ kind: 'read', label: `Physics Classroom: ${name}`, url: `https://www.physicsclassroom.com/class/${path}` });
+// Physics Classroom moved its tutorials from /class/… to /tutorial/… (link check, 2 Nov 2026)
+const PC_PATH = { '1DKin': '1d-kinematics', circles: 'circular-and-satellite-motion', circuits: 'electric-circuits', energy: 'work-and-energy', light: 'light-waves-and-colors', momentum: 'momentum-collisions-and-explosions', newtlaws: 'newtons-laws', refrn: 'refraction-and-lenses', sound: 'sound-waves', thermalP: 'thermal-physics', vectors: 'vectors-and-projectiles', waves: 'vibrations-and-waves' };
+const PC = (path, name) => ({ kind: 'read', label: `Physics Classroom: ${name}`, url: PC_PATH[path] ? `https://www.physicsclassroom.com/tutorial/${PC_PATH[path]}` : `https://www.physicsclassroom.com/class/${path}` });
 
 /* ibphysics.net has one page per syllabus topic (checked 31 Oct 2026); its IA resources page suits the Paper 1B skills. */
 const IBP = (slug, name) => ({ kind: 'read', label: `ibphysics.net: ${name}`, url: `https://www.ibphysics.net/${slug}` });
@@ -15092,7 +15094,7 @@ const FP = (slug, name) => ({ kind: 'video', label: `Flipping Physics: ${name}`,
 const OP = (page, name) => ({ kind: 'sim', label: `oPhysics: ${name}`, url: `https://ophysics.com/${page}.html` });
 const SN = (path, name) => ({ kind: 'sim', label: `Surendranath: ${name}`, url: `https://surendranath.org/GPA/${path}` });
 const WF = (slug, name) => ({ kind: 'sim', label: `Walter Fendt: ${name}`, url: `https://www.walter-fendt.de/html5/phen/${slug}_en.htm` });
-const FAL = (path, name) => ({ kind: 'sim', label: `Falstad: ${name}`, url: `http://www.falstad.com/${path}/` });
+const FAL = (path, name) => ({ kind: 'sim', label: `Falstad: ${name}`, url: `https://www.falstad.com/${path}/` });
 const GGB = (id, name) => ({ kind: 'sim', label: `GeoGebra (Chris Hamper): ${name}`, url: `https://www.geogebra.org/m/${id}` });
 const CIRCUITJS = { kind: 'sim', label: 'Falstad CircuitJS: build and test circuits', url: 'http://lushprojects.com/circuitjs/' };
 const DESMOS = { kind: 'sim', label: 'Desmos: plot data and fit a line', url: 'https://www.desmos.com/calculator' };
