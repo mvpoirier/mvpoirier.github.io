@@ -777,6 +777,18 @@ details.hist-stage[open] > summary::before { transform: rotate(90deg); }
 .tour-dots { display: flex; gap: 6px; margin: 4px 0 10px; } .tour-dots span { width: 8px; height: 8px; border-radius: 50%; background: var(--line); } .tour-dots span.on { background: var(--accent); }
 a.btn { text-decoration: none; }
 ol.history .hm { font-size: 11.5px; }
+/* offline badge (offline copy only) */
+.offline-tag { display: inline-block; margin-left: 6px; padding: 2px 7px; border-radius: 999px; border: 1px solid var(--warn); color: var(--warn); background: var(--warn-soft); font: 700 10.5px/1.3 var(--f-body); letter-spacing: .06em; text-transform: uppercase; vertical-align: middle; cursor: help; }
+.foot-name .offline-tag { vertical-align: 2px; }
+/* welcome: full-width intro */
+.welcome-hero p { max-width: none; }
+/* mode cards on Games and Recall */
+.mode-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; margin: 14px 0; }
+.mode-card { display: grid; gap: 4px; align-content: start; text-align: left; padding: 14px 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--ink); font: inherit; cursor: pointer; transition: border-color .15s, transform .15s; }
+.mode-card:hover, .mode-card:focus-visible { border-color: var(--accent); transform: translateY(-1px); }
+.mode-card .wic { font-size: 24px; } .mode-card b { font-family: var(--f-display); font-size: 16px; } .mode-card span:last-child { color: var(--muted); font-size: 13.5px; line-height: 1.45; }
+.mode-card.soon { cursor: default; opacity: .65; border-style: dashed; } .mode-card.soon:hover { transform: none; border-color: var(--line); }
+.mode-back { margin: 0 0 6px; }
 
 </style>
 <header class="top"><div class="top-inner">
@@ -15600,7 +15612,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     document.addEventListener('mouseover', (e) => { const el = e.target.closest && e.target.closest('[data-tip]'); if (el && el !== cur) show(el); else if (!el && cur) hide(); });
     document.addEventListener('focusin', (e) => { const el = e.target.closest && e.target.closest('[data-tip]'); if (el) show(el); });
     document.addEventListener('focusout', hide);
-    window.addEventListener('scroll', hide, true); window.addEventListener('resize', hide);
+    window.addEventListener('scroll', hide, true); window.addEventListener('resize', hide); window.addEventListener('hashchange', hide);
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hide(); });
   })();
   let toastT;
@@ -16308,16 +16320,26 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     const q = c[rnd(c.length)]; GA.recent.push(q.id);
     const seed = newSeed(); GA.cur = { q, seed, inst: q.gen(makeR(seed)), t0: now(), picked: null };
   }
+  const GAME_CARDS = [
+    ['classic', '⚡', 'Blitz', 'Answer as many Paper 1A questions as you can before the clock runs out. Wrong answers cost time, and the questions get harder as your streak grows.'],
+    ['lms', '💀', 'Last Man Standing', 'Everyone with the same code gets the same questions. Right answers add time, wrong answers take it away. Last one standing wins.'],
+  ];
+  function gameCards() {
+    return head('Games 🕹️', 'Race the clock and challenge your class. Choose a game.') + `<div class="mode-cards">${GAME_CARDS.map(([k, ic, name, d]) => `<button type="button" class="mode-card" data-gamode="${k}"><span class="wic" aria-hidden="true">${ic}</span><b>${name}</b><span>${d}</span></button>`).join('')}
+      <div class="mode-card soon" aria-disabled="true"><span class="wic" aria-hidden="true">🎮</span><b>More games coming</b><span>A new game arrives with each major release.</span></div></div>` + blitzStats() + lmsStats();
+  }
+  const modeBack = (id, label) => `<div class="mode-back"><button type="button" class="linkbtn" id="${id}">← ${label}</button></div>`;
   function renderGauntlet(main) {
     if (!GA) GA = { phase: 'setup', dur: 5, custom: false };
     const n = gaPool().length;
     if (LM) return renderLms(main);
-    if (GA.phase === 'setup' && GA.mode === 'lms') { main.innerHTML = head('Games 🕹️', 'Quick, timed Paper 1A challenges. More game modes are on the way.') + blitzModeSeg() + lmsSetup() + lmsStats(); return; }
+    if (GA.phase === 'setup' && !GA.picked) { main.innerHTML = gameCards(); return; }
+    if (GA.phase === 'setup' && GA.mode === 'lms') { main.innerHTML = modeBack('gaModes', 'All games') + head('Last Man Standing 💀', 'Play against your class with a shared code.') + lmsSetup() + lmsStats(); return; }
     if (GA.phase === 'setup') {
-      const maxMin = n * 2;
+      const maxMin = Math.min(120, n * 2);
       const preset = [5, 10, 15, 20, 30, 40];
       const isMax = GA.durSel === 'max', isCustom = !isMax && (GA.custom || !preset.includes(GA.dur));
-      main.innerHTML = head('Games 🕹️', 'Quick, timed Paper 1A challenges. More game modes are on the way.') + `<p class="muted small">Blitz: answer as many questions as you can before time runs out. Wrong answers cost 15 seconds, and the difficulty rises as your streak grows.</p>` + blitzModeSeg() + (n ? `
+      main.innerHTML = modeBack('gaModes', 'All games') + head('Blitz ⚡', 'Answer as many Paper 1A questions as you can before time runs out. Wrong answers cost 15 seconds, and the difficulty rises as your streak grows.') + (n ? `
         <section class="panel"><div class="form-grid"><label class="field"><span>Time limit</span><select id="gaDur">${preset.map(d => `<option value="${d}" ${!isCustom && !isMax && GA.dur === d ? 'selected' : ''}>${d} minutes</option>`).join('')}<option value="max" ${isMax ? 'selected' : ''}>Maximum (${maxMin} minutes)</option><option value="custom" ${isCustom ? 'selected' : ''}>Custom…</option></select></label>
         <label class="field" id="gaCustomWrap" ${isCustom ? '' : 'hidden'}><span>Minutes (3 to ${maxMin})</span><input type="number" id="gaCustom" min="3" max="${maxMin}" step="1" value="${GA.dur}"></label></div>
         <p class="muted small" id="gaErr" role="alert"></p>
@@ -16564,7 +16586,8 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     main.onclick = (e) => {
       const b = e.target.closest('button'); if (!b) return;
       if (LM) { lmsClick(b, main); return; }
-      if (b.dataset.gamode) { GA.mode = b.dataset.gamode; GA.phase = 'setup'; renderGauntlet(main); return; }
+      if (b.dataset.gamode) { GA.mode = b.dataset.gamode; GA.phase = 'setup'; GA.picked = true; renderGauntlet(main); return; }
+      if (b.id === 'gaModes') { GA.picked = false; GA.phase = 'setup'; renderGauntlet(main); return; }
       if (b.id === 'lmsMake') { const c = lmsMake(); if (!c) { toast('Turn on at least one topic with Paper 1A questions.'); return; } GA.lmsCode = c; renderGauntlet(main); return; }
       if (b.id === 'lmsUse') { const c = lmsDecode($('#lmsIn').value); if (!c) { toast("That code isn't valid. Check it and try again."); return; } GA.lmsCode = c; renderGauntlet(main); return; }
       if (b.id === 'lmsClear') { GA.lmsCode = null; renderGauntlet(main); return; }
@@ -16718,12 +16741,17 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     GM = { mode, items: pool.slice(0, 10), pos: 0, score: 0, state: 'ask', pick: null, given: [], opts: null };
   }
   const matchTime = () => ((GM.end || now()) - GM.t0) / 1000 + GM.wrong * 5;
+  let RC_PICKED = false;
   function renderRecall(main) {
     const mode = S.settings.rmode || 'flash';
     const cards = cardPool();
-    const modeRow = `<div class="chips rmodes" role="group" aria-label="Recall mode">${RMODES.map(([id, label]) => `<button type="button" class="chip" data-rmode="${id}" aria-pressed="${mode === id}">${label}</button>`).join('')}</div>
-      <p class="muted small rmode-help">${RMODES.find(m => m[0] === mode)[2]}</p>`;
-    const top = head('Daily Recall 🧠', 'Definitions, equations and command terms. Flashcards use spaced repetition; the other modes are quick games.') + topicBar(true) + modeRow;
+    if (!RC_PICKED) {
+      main.innerHTML = head('Daily Recall 🧠', 'Learn the words and equations that earn marks. Choose your topics, then a way to practise.') + topicBar(true) + `<div class="mode-cards">${RMODES.map(([id, label, d]) => { const m = label.match(/^(\S+)\s+(.*)$/); return `<button type="button" class="mode-card" data-rmode="${id}"><span class="wic" aria-hidden="true">${m[1]}</span><b>${m[2]}</b><span>${d}</span></button>`; }).join('')}</div>`;
+      return;
+    }
+    const cur = RMODES.find(m => m[0] === mode);
+    const modeRow = modeBack('rcModes', 'All recall modes') + `<p class="muted small rmode-help"><b>${cur[1]}</b> · ${cur[2]}</p>`;
+    const top = head('Daily Recall 🧠', 'Definitions, equations and command terms.') + topicBar(true) + modeRow;
     if (!cards.length) { main.innerHTML = top + emptySel('Turn on at least one topic above.'); return; }
     if (mode === 'flash') { renderFlash(main, top, cards); }
     else renderGame(main, top, mode);
@@ -16853,7 +16881,8 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     main.onkeydown = (e) => { if (e.key === 'Enter' && e.target.classList && e.target.classList.contains('gap')) { e.preventDefault(); const b = $('#gmCheck', main); if (b) b.click(); } };
     main.onclick = (e) => {
       const b = e.target.closest('button'); if (!b) return;
-      if (b.dataset.rmode) { S.settings.rmode = b.dataset.rmode; save(); if (GM && GM.tm) clearInterval(GM.tm); GM = null; renderRecall(main); return; }
+      if (b.dataset.rmode) { S.settings.rmode = b.dataset.rmode; save(); RC_PICKED = true; if (GM && GM.tm) clearInterval(GM.tm); GM = null; renderRecall(main); return; }
+      if (b.id === 'rcModes') { RC_PICKED = false; if (GM && GM.tm) clearInterval(GM.tm); GM = null; renderRecall(main); return; }
       if (b.id === 'flipCards') { S.settings.flipCards = !S.settings.flipCards; save(); RC.phase = 'front'; renderRecall(main); return; }
       if ((S.settings.rmode || 'flash') !== 'flash') { gameClick(b, main); return; }
       if (b.dataset.conf !== undefined) { RC.conf = +b.dataset.conf; RC.phase = 'back'; renderRecall(main); return; }
@@ -17260,8 +17289,8 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     { v: '0.58 alpha', d: '1 November 2026', items: ['All remaining topics added: D.1 Gravitational fields, D.2 Electric and magnetic fields, D.3 Motion in electromagnetic fields, E.1 Structure of the atom, E.2 Quantum physics (HL), E.3 Radioactive decay, E.4 Fission, E.5 Fusion and stars, and B.4 Thermodynamics (HL). Every topic in the guide is now on the site.', 'Each new topic has Paper 1A, 1B and 2 questions, notes with data-booklet equations and FE2028 changes, recall cards, Who’s Right? items and data-booklet pages. Paper 1B includes historic experiments (Millikan, Rutherford, the photoelectric effect, Compton scattering).', 'Thinner topics (A.4, A.5, B.2, C.1–C.5, D.4) and the SSP skills now have more questions and cards, so every strand has at least 8 Paper 1A questions, 3 cards and a Who’s Right? item, and every topic at least 5 Paper 2 and 3 Paper 1B questions.', 'Exam Mode shares marks between topics in proportion to the IB teaching hours, so large question banks no longer crowd out smaller topics.', 'Who’s Right?: the better answer is now Student A or Student B about equally often.'] },
     { v: '0.59 alpha', d: '1 November 2026', items: ['Pause button on every timer except Last Man Standing: Practice (pace coach), Exam Mode, Blitz Classic and Match It!. While paused, the timer stops and the question is hidden until you resume.', 'Exam Mode results show how many times the paper was paused and the total time paused; Stats lists pauses for each recent exam.'] },
     { v: '0.60 alpha', d: '1 November 2026', items: ['Notes: new FE2028 changes at a glance panel at the top, listing every September 2026 change for exams from May 2028, grouped into data booklet changes, guide additions and clarifications, and removals, for all topics. ','Estimated DP grade (1–7) from your score, using typical IB DP Physics grade boundaries for SL or HL. It is a guide only: real boundaries change each session and include the IA.', 'Download results: one file with every question, your answers, the markschemes you ticked, your score, time, pauses, seed and estimated grade. Print it or save it as a PDF.', 'Stats: recent exam papers list the estimated grade and seed, and a new table shows the approximate grade boundaries used.', 'Flashcards: new Reverse option shows the definition first (the term is hidden) so you recall the term. Equation and question cards are shown the usual way.'] },,
-    { v: '1.0 Beta', d: '2 November 2026', m: 'Claude Opus 5.5 (Medium)', items: ['First beta, for student testing. Versions 0.1–0.60 were internal alpha builds.', 'All 25 topics, 102 strands and 1,131 question templates (Paper 1A, 1B and 2), 377 recall cards and 107 Who’s Right? items.', 'Open to print: worksheets and exam results open in a new tab, ready to print or save as PDF (Download is still there). If pop-ups are blocked, the file downloads instead.', 'Notes: Chris Doner videos are now linked directly for each strand (from his FE2025 topic playlists), plus the playlist for the whole topic.', 'Fixed: tooltips no longer cut off at the edge of a panel or the screen, and wide equations in Notes are no longer cut off (they widen or shrink to fit).', 'Printed and downloaded papers and results carry the version, author, licence and site on every page, with page numbers.', 'Send Report: each report box (and Send results to teacher in Exam Mode) opens your teacher’s Google Form already filled in; you press Submit. Sign in with your school account. Copy Report stays as a backup.', 'Report a problem is now everywhere: under every question (Practice, Exam Mode, Blitz misses), every flashcard and answered Recall game, every Notes strand, the FE2028 summary and the data booklet. A Feedback or report a problem box in the footer covers the rest of the site (Stats, About, ideas, bugs) and adds the page you are on.']},
-    { v: '1.1 Beta', d: '3 November 2026', m: 'Claude Opus 5.5 (Medium)', items: ['New Welcome page: a quick guide to every mode, a short tour, and how to use the site for revision. Click the MVPhysics heading at any time to come back to it.', 'Blitz is now part of Games 🕹️, with two modes so far: Blitz and Last Man Standing. More game modes will follow.', '“Only questions I’ve missed” is now at the top of the question panel in Practice and highlighted when you have missed questions to practise (it now applies to Practice only; Exam Mode always uses your full selection).', 'Stats: a Last Man Standing best tile; Blitz average time to 0.1 s.', 'The version is shown in the badge (BETA 1.1), and the Claude model used for each build is listed in this revision history.', 'Fixed: flashcards scrolled sideways on phones.', 'Last Man Standing: a Give up button (with a check first); a run you give up does not count as a best time.', 'Last Man Standing: after every run, a review of each question you answered, right or wrong, with the worked solution. Wrong answers go into "Only questions I\'ve missed".', 'Last Man Standing has its own stats (runs, best survival, recent runs), separate from Blitz Classic, so the Blitz stats now show the right mode.', 'Notes and Recall: the All and None buttons stay together.', 'Removed Saved selections from the question panel.', 'Solutions for radiated intensity now start from the data booklet equation L = σAT⁴ (or eσAT⁴).', 'FE2028 percentage error, difference and change equations shown as separate equations.'] }
+    { v: '1.0 Beta', d: '2 November 2026', m: 'Claude Opus 5.5', items: ['First beta, for student testing. Versions 0.1–0.60 were internal alpha builds.', 'All 25 topics, 102 strands and 1,131 question templates (Paper 1A, 1B and 2), 377 recall cards and 107 Who’s Right? items.', 'Open to print: worksheets and exam results open in a new tab, ready to print or save as PDF (Download is still there). If pop-ups are blocked, the file downloads instead.', 'Notes: Chris Doner videos are now linked directly for each strand (from his FE2025 topic playlists), plus the playlist for the whole topic.', 'Fixed: tooltips no longer cut off at the edge of a panel or the screen, and wide equations in Notes are no longer cut off (they widen or shrink to fit).', 'Printed and downloaded papers and results carry the version, author, licence and site on every page, with page numbers.', 'Send Report: each report box (and Send results to teacher in Exam Mode) opens your teacher’s Google Form already filled in; you press Submit. Sign in with your school account. Copy Report stays as a backup.', 'Report a problem is now everywhere: under every question (Practice, Exam Mode, Blitz misses), every flashcard and answered Recall game, every Notes strand, the FE2028 summary and the data booklet. A Feedback or report a problem box in the footer covers the rest of the site (Stats, About, ideas, bugs) and adds the page you are on.']},
+    { v: '1.1 Beta', d: '3 November 2026', m: 'Claude Opus 5.5', items: ['Games and Recall now open with cards for each mode and a short description; inside a mode, “← All games” or “← All recall modes” takes you back.', 'The offline copy shows an OFFLINE badge next to the version, with a tooltip explaining it.', 'New Welcome page: a quick guide to every mode, a short tour, and how to use the site for revision. Click the MVPhysics heading at any time to come back to it.', 'Blitz is now part of Games 🕹️, with two modes so far: Blitz and Last Man Standing. More game modes will follow.', '“Only questions I’ve missed” is now at the top of the question panel in Practice and highlighted when you have missed questions to practise (it now applies to Practice only; Exam Mode always uses your full selection).', 'Stats: a Last Man Standing best tile; Blitz average time to 0.1 s.', 'The version is shown in the badge (BETA 1.1), and the Claude model used for each build is listed in this revision history.', 'Fixed: flashcards scrolled sideways on phones.', 'Last Man Standing: a Give up button (with a check first); a run you give up does not count as a best time.', 'Last Man Standing: after every run, a review of each question you answered, right or wrong, with the worked solution. Wrong answers go into "Only questions I\'ve missed".', 'Last Man Standing has its own stats (runs, best survival, recent runs), separate from Blitz Classic, so the Blitz stats now show the right mode.', 'Notes and Recall: the All and None buttons stay together.', 'Removed Saved selections from the question panel.', 'Solutions for radiated intensity now start from the data booklet equation L = σAT⁴ (or eσAT⁴).', 'FE2028 percentage error, difference and change equations shown as separate equations.'] }
   ];
   HISTORY.forEach(h => { h.items = h.items.map(TL); });
   const fmtBig = (n) => n >= 1e6 ? (n / 1e6).toFixed(1) + ' million' : n.toLocaleString('en-GB');
@@ -17327,9 +17356,9 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
      First visit lands here; the MVPhysics heading always brings you back. One-page overview + a short tour + how to revise. */
   const WMODES = [
     ['practice', '🎯', 'Practice', 'One question at a time, with full worked solutions and markschemes. Retry any calculation with new values.'],
-    ['games', '🕹️', 'Games', 'Blitz: as many Paper 1A questions as you can before time runs out. Last Man Standing: play against your class with a shared code.'],
+    ['games', '🕹️', 'Games', 'Race the clock and challenge your class: fast-paced physics games with scores, streaks and personal bests.'],
     ['exam', '📝', 'Exam Mode', 'A timed paper at IB pace from your topics. Answers stay hidden until you finish; then mark it, see an estimated grade and print it.'],
-    ['recall', '🧠', 'Recall', 'Flashcards with spaced repetition for definitions, equations and command terms, plus quick recall games.'],
+    ['recall', '🧠', 'Recall', 'Learn the words and equations that earn marks: definitions, equations and command terms, with flashcards that come back just before you forget them.'],
     ['notes', '📓', 'Notes', 'Short notes for every strand: data booklet equations, what you must know, common mistakes, videos and simulations.'],
     ['stats', '📈', 'Stats', 'Your progress by topic and paper, your pace, exam results and best scores. Back up your progress here too.'],
   ];
@@ -17347,7 +17376,6 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
         <p>Revision for IB DP Physics (first assessment 2025), SL and HL. Every question is original and generates new values each time, with worked solutions and IB-style markschemes. Nothing you do leaves your browser.</p>
         <div class="row"><a class="btn primary" href="#practice">Start practising</a><button class="btn" id="tourGo" type="button">Take the 1-minute tour</button></div>
         <div class="welcome-level"><span class="muted small">Your level:</span><div class="seg" role="group" aria-label="Course level"><button type="button" data-wlevel="SL" aria-pressed="${!isHL()}">SL</button><button type="button" data-wlevel="HL" aria-pressed="${isHL()}">HL</button></div></div>
-        ${window.__OFFLINE ? '<p class="small welcome-offline">This is a self-contained <b>offline copy</b>: everything works without the internet. Send Report, videos and resource links work when you are online. Progress here is separate from the website.</p>' : ''}
       </section>
       <div id="tourBox">${WT >= 0 ? tourCard() : ''}</div>
       <section class="panel"><h3>What’s here</h3><div class="wmodes">${WMODES.map(([k, ic, name, d]) => `<a class="wmode" href="#${k}"><span class="wic" aria-hidden="true">${ic}</span><b>${name}</b><span>${d}</span></a>`).join('')}</div></section>
@@ -17391,8 +17419,10 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
   const ROUTE_ALIAS = { games: 'blitz' }, ROUTE_HREF = { blitz: 'games' }; // the Games page keeps its internal name 'blitz'
   function currentView() { let h = (location.hash || '').slice(1); h = ROUTE_ALIAS[h] || h; if (VIEWS[h]) return h; return S.seenWelcome ? (VIEWS[S.settings.lastView] ? S.settings.lastView : 'practice') : 'welcome'; }
   function refreshRunningHeader() { /* running exam/gauntlet keeps its paper; rail just updates */ }
+  let PREV_VIEW = null;
   function render() {
     const v = currentView(); const main = $('#main');
+    if (v !== PREV_VIEW) { if (v === 'recall') { RC_PICKED = false; if (GM && GM.tm) clearInterval(GM.tm); GM = null; } if (v === 'blitz' && GA && GA.phase === 'setup' && !LM) GA.picked = false; PREV_VIEW = v; }
     $$('nav.tabs a, #aboutBtn').forEach(a => a.setAttribute('aria-current', a.getAttribute('href') === '#' + (ROUTE_HREF[v] || v) ? 'page' : 'false'));
     if (v !== 'welcome' && v !== 'about' && S.settings.lastView !== v) { S.settings.lastView = v; save(); }
     main.onclick = main.onchange = main.oninput = main.onkeydown = null;
