@@ -15372,6 +15372,116 @@ WHICH.push(
   { id: 'w-desc2', strand: 's-graph', cmd: 'Describe', q: 'Describe how to find the uncertainty in the gradient of a straight-line graph.', a: ['Use error bars.', 'Draw the steepest and least steep lines that pass through all the error bars, find their gradients, and take half the difference.'], ans: 1, why: '"Describe" needs a detailed account of the method, not just the tool.' },
 );
 
+/* ===== Chris Doner (YouTube) videos per strand, from his FE2025 topic playlists (read 3 Nov 2026). =====
+   Shown under More help → Watch; the topic playlist is added for every strand of that topic. */
+const CD_PLAYLIST = { 'A.1': 'PLPsx331rqafWY6Af_sHWdL47F8mYkPxPH', 'A.2': 'PLPsx331rqafVx83tRYh26vVtSuH-r-Bt8', 'A.3': 'PLPsx331rqafXcn2_vaylpgWw_bn6RDza8', 'A.4': 'PLPsx331rqafW8kY-JKQwQ_AUsCsFSrwPq', 'A.5': 'PLPsx331rqafW6gWB4fCF7oyzJQ_hhnmLJ',
+  'B.1': 'PLPsx331rqafWzQlNmCN48KXJoSHxYuPh4', 'B.2': 'PLPsx331rqafV8ou3yPz889WSEwdRjAkJz', 'B.3': 'PLPsx331rqafW_I_QzbRoD4iUcqkViK9il', 'B.4': 'PLPsx331rqafVwB87bHVRliY5wDBnpLYnk', 'B.5': 'PLPsx331rqafX4nRVf-uHGH9hiy1zV1hBU',
+  'C.1': 'PLPsx331rqafXx5rxPV9Rzy22Y5-oNt-dF', 'C.2': 'PLPsx331rqafVjlpfJfPQSvWBj69U-qRme', 'C.3': 'PLPsx331rqafVy39c5zgqcOJuaqtVYubxA', 'C.4': 'PLPsx331rqafVN0Tv6ZVtf326zQZZ-IAWN', 'C.5': 'PLPsx331rqafWv8Zqa-pzMrMnkbDT5N186',
+  'D.1': 'PLPsx331rqafX696Z6YtE9qGVrOdWh40Jn', 'D.2': 'PLPsx331rqafXF1ocMNLZveOshU1h0es0S', 'D.3': 'PLPsx331rqafV1UZPBinSltwc5fDwSdfMz', 'D.4': 'PLPsx331rqafVsNA__Be3gU9F949QbGuQV',
+  'E.1': 'PLPsx331rqafUhFPdzbS9Xk_znDD3yJ6RH', 'E.2': 'PLPsx331rqafWmbPcE3LbDiEOfTzPeSADT', 'E.3': 'PLPsx331rqafVioh-mQ2f3H6gN7LlsKhSf', 'E.4': 'PLPsx331rqafVIwFphdKkCh_NC7ZJ3f90y', 'E.5': 'PLPsx331rqafXopGlbWJw-9SFh3E7ZGe1M',
+  'Skills': 'PLPsx331rqafUa2NG66d2wtb3jKDHX6W23' };
+const CD = {
+  'a1-describe': [['xxIAvxOZOS4', 'Kinematic concepts'], ['2AKwR47m1HM', 'Acceleration']],
+  'a1-graphs': [['iJfLuLbVx2Q', 'Position–time graphs'], ['dRPvruDfe2s', 'Velocity–time graphs'], ['-7D2JXMdxqI', 'Average and instantaneous velocity']],
+  'a1-suvat': [['ygM1PNp4Vbk', 'Kinematics problem solving'], ['WEHM9SjTxyI', 'Vertical projectiles']],
+  'a1-proj': [['io9pPtX51Nk', 'Projectiles I: qualitative'], ['ojiZ4YPRxxk', 'Projectiles II: quantitative']],
+  'a1-fluid': [['J_VxOf15J1I', 'Air resistance and terminal speed']],
+  'a2-newton': [['NEynuciqiPQ', 'Forces and free-body diagrams'], ['7XcbzMcT9TE', "Newton's second law"], ['LOmkgL8sG6g', "Newton's third law"]],
+  'a2-forces': [['k9a5auA-t2o', 'Sliding friction'], ['bfDtItUNUMA', "Applications of Newton's second law"]],
+  'a2-equil': [['bJZAs9XcLqk', 'Translational equilibrium'], ['654qgjQdeXg', 'Inclined planes']],
+  'a2-adv': [['654qgjQdeXg', 'Inclined planes'], ['YRFOwouUnLI', 'Fluid jets']],
+  'a2-mom': [['fUhMVG-l0lI', 'Momentum and impulse']],
+  'a2-coll1': [['60kF28t5yBI', 'Conservation of momentum']],
+  'a2-coll2': [['vv2nE18IbKU', 'Momentum in two dimensions (HL)']],
+  'a2-circ': [['Pg_WqsuwmGA', 'Uniform circular motion'], ['-9LI2DrAGn8', 'Circular motion problem solving']],
+  'a3-work': [['dBphLVfF88Y', 'Work and energy']],
+  'a3-energy': [['R7D7IgE4Y2M', 'Kinetic, gravitational and elastic energies'], ['M4MX8UjRyZw', 'Applying conservation of energy']],
+  'a3-power': [['QmMTtpMeLNY', 'Power and efficiency']],
+  'a3-eff': [['QmMTtpMeLNY', 'Power and efficiency']],
+  'a4-torque': [['8xndWE6KRHQ', 'Torque'], ['OXUQ9TSToqs', 'Rotational equilibrium']],
+  'a4-kin': [['RFKT-1zxjJs', 'Rotational kinematics']],
+  'a4-inertia': [['G3-CeXb89fQ', 'Rotational inertia'], ['l_97NBrb42Q', 'Rotational dynamics']],
+  'a4-mom': [['dyUWjOMuhGA', 'Angular momentum']],
+  'a4-energy': [['PY4_ZZ8pDEw', 'Rolling']],
+  'a5-galilean': [['_VoEzf-PeWk', 'Introduction to special relativity']],
+  'a5-lorentz': [['NgOfci54qQo', "Einstein's two postulates"], ['ckfUwCwMFNU', 'Lorentz transformations'], ['_rn-ZxO45_o', 'Relativistic velocity addition']],
+  'a5-dilation': [['ShMXNWR5zMw', 'Proper length and time'], ['lAycuaNtjEY', 'Twin paradox']],
+  'a5-spacetime': [['4pWvZOBDKXo', 'Spacetime diagrams'], ['k1jR1ZFYtr4', 'Simultaneity']],
+  'b1-molec': [['Xh8JYX7XSeU', 'Thermal concepts']],
+  'b1-heat': [['jyVNB9KG3Ew', 'Phase change, specific and latent heat'], ['j0WWzE11F0s', 'Heat exchange and calorimetry']],
+  'b2-albedo': [['lUcAA82RpIc', 'Concepts for a climate model']],
+  'b2-balance': [['riv7ewVpUMI', 'Energy balance climate model']],
+  'b2-gases': [['riv7ewVpUMI', 'Energy balance and the greenhouse effect']],
+  'b3-pressure': [['jh0kQ5g-5T0', 'What exactly is a mole?']],
+  'b3-laws': [['M2ZeA2U8Ri0', 'Applying the ideal gas law']],
+  'b3-kinetic': [['UEup8g1iTnM', 'Kinetic model of an ideal gas']],
+  'b4-first': [['00Ra9tYlc9E', 'Thermodynamic concepts']],
+  'b4-processes': [['N0Qxsk3rz9I', 'pV diagrams']],
+  'b4-entropy': [['cwhyIUosNJE', 'Entropy']],
+  'b4-engines': [['RzG9oaC4qtU', 'Carnot engine and efficiency']],
+  'b5-charge': [['TQEP64yC5Qo', 'Voltage and current'], ['vFPJq-BomFo', 'Electric potential difference']],
+  'b5-resist': [['k8MWI4Qc8FA', 'Resistance']],
+  'b5-power': [['m3KSl0TypBU', 'Power in electric circuits']],
+  'b5-circuits': [['Thjg6TtRqR8', 'Equivalent resistance'], ['CUYIwU5_bvc', 'Circuit analysis'], ['kADwx06TZxk', 'Connecting meters']],
+  'b5-internal': [['1wZ8C1gj26k', 'Cells, emf and internal resistance']],
+  'b5-vary': [['iD7VAO28NbU', 'Potential dividers']],
+  'c1-shm': [['lxOO19VSH1g', 'Oscillations and SHM'], ['YGCjYxHF6BI', 'Introduction to SHM']],
+  'c1-period': [['YGCjYxHF6BI', 'Introduction to SHM']],
+  'c1-energy': [['CERrHHW9Pa8', 'Energy in SHM']],
+  'c1-phase': [['xSDaZ4zbtzo', 'SHM equations with phase angle (HL)']],
+  'c2-types': [['OQ_XvyB-fac', 'Wave characteristics'], ['WG4fYuLJ-nM', 'Longitudinal waves on displacement–position graphs']],
+  'c2-eqn': [['OQ_XvyB-fac', 'Wave characteristics']],
+  'c3-refr': [['O5eGiW_WmdM', 'Reflection and refraction'], ['ZwtJhwof5lU', "Snell's law"]],
+  'c3-diff': [['5xRchVqXrc8', 'Diffraction']],
+  'c3-inter': [['0TbBy3D91WM', 'Superposition and interference'], ['J7YFCoJcOmw', 'Two-source interference']],
+  'c3-young': [['J7YFCoJcOmw', 'Two-source interference pattern']],
+  'c3-grating': [['DPrLFiGVAeo', 'Single-slit diffraction'], ['LkuMdxY6law', 'Multiple-slit interference']],
+  'c4-stand': [['_kfschfKgfA', 'Standing waves and harmonics']],
+  'c4-harm': [['_kfschfKgfA', 'Standing waves and harmonics']],
+  'c4-res': [['Ck1hjKKe9cE', 'Resonance'], ['_5J84Dnt2qo', 'Damping']],
+  'c5-dop': [['bnrGHWVzy4k', 'The Doppler effect']],
+  'c5-sound': [['bnrGHWVzy4k', 'The Doppler effect']],
+  'd1-newton': [['xciAdOpENJk', 'Gravity and circular motion']],
+  'd1-orbit': [['xciAdOpENJk', 'Gravity and circular motion']],
+  'd1-escape': [['sbuWFsbyZIQ', 'Projectiles to escape speeds']],
+  'd2-charge': [['f4tZ8EOVMNc', 'Electrostatic charge'], ['E-G2mHunVcI', "Coulomb's law"], ['VSbUZ2IswK0', 'Millikan oil drop experiment']],
+  'd2-efield': [['66YAGPC1ATk', 'Fields and test charges'], ['4Lmuj9Qb9Hs', 'Drawing electric field patterns']],
+  'd2-bfield': [['0zQInq_v3rc', 'Magnetic fields']],
+  'd2-pot': [['nwV2nRbnyDA', 'Equipotentials'], ['vFPJq-BomFo', 'Electric potential difference']],
+  'd3-efield': [['MGiYJC7k4IU', 'Acceleration across parallel plates']],
+  'd3-bfield': [['6bqRSMVaxwQ', 'Magnetic force on moving charges'], ['MGYy1UGSNdg', 'The mass spectrometer']],
+  'd3-wires': [['L16fcMPzAB8', 'Force on a current-carrying wire']],
+  'd4-flux': [['xSeTVQCjno4', "Faraday's law"]],
+  'd4-lenz': [['kUtKnytyTRw', "Lenz's law"]],
+  'd4-gen': [['xSeTVQCjno4', "Faraday's law"]],
+  'e1-nucleus': [['czgiZoH7_Ac', 'The atom'], ['gXZ_mYDDP9I', 'Rutherford scattering and the nuclear radius']],
+  'e1-spectra': [['LnkZV4Z8_9Y', 'Atomic spectra']],
+  'e1-radius': [['gXZ_mYDDP9I', 'Rutherford scattering and the nuclear radius']],
+  'e1-bohr': [['LnkZV4Z8_9Y', 'Atomic spectra']],
+  'e2-photo': [['P4EFZTuu2AI', 'The photoelectric effect'], ['o4oPDKfQbg8', 'The photoelectric effect experiment']],
+  'e2-matter': [['YDBJs6PFkoY', 'Matter waves'], ['anYuLqeVIBI', 'Introduction to quantum weirdness']],
+  'e3-binding': [['nNGgYEZFGaA', 'Nuclear binding energy']],
+  'e3-decay': [['0Ehao8XUsx8', 'Alpha, beta and gamma radiation'], ['pnd-VW_0p54', 'Nuclear reactions'], ['JeMMDjs12Es', 'Postulating the neutrino']],
+  'e3-halflife': [['UoBSxzHuKQQ', 'Half-lives']],
+  'e3-law': [['hkZYGGCA6kQ', 'Decay constant']],
+  'e3-stability': [['eStlViZ5GxA', 'Stability of the nucleus']],
+  'e4-energy': [['tz3uJZZ8OZU', 'Energy released in fission and fusion']],
+  'e4-reactor': [['dh4tS5my6O8', 'Nuclear power']],
+  'e5-fusion': [['tz3uJZZ8OZU', 'Energy released in fission and fusion'], ['yB7huUIxOcE', 'Lifecycle of a star']],
+  'e5-hr': [['yB7huUIxOcE', 'Lifecycle of a star']],
+  'e5-distance': [['4CTQpUJRcSM', 'Brightness and luminosity']],
+  's-graph': [['JGxqZgLAgqs', 'Slopes and areas of graphs']],
+  's-lin': [['Bkp6nHoS_p4', 'Uncertainty in slope and y-intercept']],
+  's-err': [['hYYgrEz0Jy4', 'Internal assessment']],
+  's-prec': [['Hb37UVeW6Sw', 'Writing a conclusion and evaluation']]
+};
+for (const t of TOPICS) for (const st of t.strands) if (NOTES[st.id]) {
+  const vids = (CD[st.id] || []).map(([v, title]) => ({ kind: 'video', label: `Chris Doner: ${title}`, url: `https://www.youtube.com/watch?v=${v}` }));
+  if (CD_PLAYLIST[t.id]) vids.push({ kind: 'video', label: `Chris Doner: ${t.id === 'Skills' ? 'IA and skills' : tname0(t.id)} playlist`, url: `https://www.youtube.com/playlist?list=${CD_PLAYLIST[t.id]}` });
+  NOTES[st.id].cdVideos = vids;
+}
+function tname0(id) { return id.replace('.', ''); }
+
 </script>
 <script>
 const FOOTER_TEXT = 'Questions are original and written in the style of the IB DP Physics course (first assessment 2025).<br>Developed by <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a> using Claude (Opus 5.5-Medium). Licensed under CC BY-NC-SA 4.0.<br>Version 1.0 Beta · Last updated: 3 November 2026';
@@ -16741,7 +16851,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     const bar = list.length ? `<div class="row notes-ctl"><span class="muted small">${list.length} strand${list.length > 1 ? 's' : ''}</span><span class="spacer"></span><button class="btn sm" data-nall="1">Expand all</button><button class="btn sm" data-nall="0">Collapse all</button></div>` : '';
     const ICON = { sim: '🧪', read: '📖', practice: '✏️', video: '▶' };
     const moreHelp = (n) => {
-      const all = [{ kind: 'video', label: 'Chris Doner: search his channel', url: `https://www.youtube.com/channel/UCU_4LajnXERILx6XViGCIXA/search?query=${encodeURIComponent(n.video.replace(/^Chris Doner IB physics\s*/i, ''))}` }, ...(n.links || [])];
+      const all = [...(n.cdVideos && n.cdVideos.length ? n.cdVideos : [{ kind: 'video', label: 'Chris Doner: search his channel', url: `https://www.youtube.com/channel/UCU_4LajnXERILx6XViGCIXA/search?query=${encodeURIComponent(n.video.replace(/^Chris Doner IB physics\s*/i, ''))}` }]), ...(n.links || [])];
       const rows = [['Watch', all.filter(l => l.kind === 'video')], ['Explore', all.filter(l => l.kind === 'sim')], ['Read', all.filter(l => l.kind !== 'video' && l.kind !== 'sim')]].filter(r => r[1].length);
       return `<div class="morehelp"><span class="mh">More help</span>${rows.map(([h, ls]) => `<div class="mh-row"><span class="mh-k">${h}</span><div class="mh-links">${ls.map(linkHTML).join('')}</div></div>`).join('')}</div>`;
     };
@@ -17126,7 +17236,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     { v: '0.58 alpha', d: '1 November 2026', items: ['All remaining topics added: D.1 Gravitational fields, D.2 Electric and magnetic fields, D.3 Motion in electromagnetic fields, E.1 Structure of the atom, E.2 Quantum physics (HL), E.3 Radioactive decay, E.4 Fission, E.5 Fusion and stars, and B.4 Thermodynamics (HL). Every topic in the guide is now on the site.', 'Each new topic has Paper 1A, 1B and 2 questions, notes with data-booklet equations and FE2028 changes, recall cards, Who’s Right? items and data-booklet pages. Paper 1B includes historic experiments (Millikan, Rutherford, the photoelectric effect, Compton scattering).', 'Thinner topics (A.4, A.5, B.2, C.1–C.5, D.4) and the SSP skills now have more questions and cards, so every strand has at least 8 Paper 1A questions, 3 cards and a Who’s Right? item, and every topic at least 5 Paper 2 and 3 Paper 1B questions.', 'Exam Mode shares marks between topics in proportion to the IB teaching hours, so large question banks no longer crowd out smaller topics.', 'Who’s Right?: the better answer is now Student A or Student B about equally often.'] },
     { v: '0.59 alpha', d: '1 November 2026', items: ['Pause button on every timer except Last Man Standing: Practice (pace coach), Exam Mode, Blitz Classic and Match It!. While paused, the timer stops and the question is hidden until you resume.', 'Exam Mode results show how many times the paper was paused and the total time paused; Stats lists pauses for each recent exam.'] },
     { v: '0.60 alpha', d: '1 November 2026', items: ['Notes: new FE2028 changes at a glance panel at the top, listing every September 2026 change for exams from May 2028, grouped into data booklet changes, guide additions and clarifications, and removals, for all topics. ','Estimated DP grade (1–7) from your score, using typical IB DP Physics grade boundaries for SL or HL. It is a guide only: real boundaries change each session and include the IA.', 'Download results: one file with every question, your answers, the markschemes you ticked, your score, time, pauses, seed and estimated grade. Print it or save it as a PDF.', 'Stats: recent exam papers list the estimated grade and seed, and a new table shows the approximate grade boundaries used.', 'Flashcards: new Reverse option shows the definition first (the term is hidden) so you recall the term. Equation and question cards are shown the usual way.'] },,
-    { v: '1.0 Beta', d: '2 November 2026', items: ['First beta, for student testing. Versions 0.1–0.60 were internal alpha builds.', 'All 25 topics, 102 strands and 1,131 question templates (Paper 1A, 1B and 2), 377 recall cards and 107 Who’s Right? items.', 'Open to print: worksheets and exam results open in a new tab, ready to print or save as PDF (Download is still there). If pop-ups are blocked, the file downloads instead.', 'Fixed: tooltips no longer cut off at the edge of a panel or the screen, and wide equations in Notes are no longer cut off (they widen or shrink to fit).', 'Printed and downloaded papers and results carry the version, author, licence and site on every page, with page numbers.', 'Offline version: one file with the fonts and maths library inside, so it works without the internet (see About).', 'Send Report: each report box (and Send results to teacher in Exam Mode) opens your teacher’s Google Form already filled in; you press Submit. Sign in with your school account. Copy Report stays as a backup.', 'Report a problem is now everywhere: under every question (Practice, Exam Mode, Blitz misses), every flashcard and answered Recall game, every Notes strand, the FE2028 summary and the data booklet. A Feedback or report a problem box in the footer covers the rest of the site (Stats, About, ideas, bugs) and adds the page you are on.']}
+    { v: '1.0 Beta', d: '2 November 2026', items: ['First beta, for student testing. Versions 0.1–0.60 were internal alpha builds.', 'All 25 topics, 102 strands and 1,131 question templates (Paper 1A, 1B and 2), 377 recall cards and 107 Who’s Right? items.', 'Open to print: worksheets and exam results open in a new tab, ready to print or save as PDF (Download is still there). If pop-ups are blocked, the file downloads instead.', 'Notes: Chris Doner videos are now linked directly for each strand (from his FE2025 topic playlists), plus the playlist for the whole topic.', 'Fixed: tooltips no longer cut off at the edge of a panel or the screen, and wide equations in Notes are no longer cut off (they widen or shrink to fit).', 'Printed and downloaded papers and results carry the version, author, licence and site on every page, with page numbers.', 'Offline version: one file with the fonts and maths library inside, so it works without the internet (see About).', 'Send Report: each report box (and Send results to teacher in Exam Mode) opens your teacher’s Google Form already filled in; you press Submit. Sign in with your school account. Copy Report stays as a backup.', 'Report a problem is now everywhere: under every question (Practice, Exam Mode, Blitz misses), every flashcard and answered Recall game, every Notes strand, the FE2028 summary and the data booklet. A Feedback or report a problem box in the footer covers the rest of the site (Stats, About, ideas, bugs) and adds the page you are on.']}
   ];
   HISTORY.forEach(h => { h.items = h.items.map(TL); });
   const fmtBig = (n) => n >= 1e6 ? (n / 1e6).toFixed(1) + ' million' : n.toLocaleString('en-GB');
