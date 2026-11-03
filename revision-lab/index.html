@@ -6,7 +6,7 @@
 <!--
   MVPhysics Revision Lab: IB DP Physics revision (SL and HL)
   Version: 1.1 Beta (online edition) · Built: 3 November 2026
-  Author: Mike Poirier (https://github.com/mvpoirier), developed with Claude (Opus 5.5-Medium) by Anthropic
+  Author: Mike Poirier (https://github.com/mvpoirier), developed with Claude by Anthropic
   Licence: CC BY-NC-SA 4.0, https://creativecommons.org/licenses/by-nc-sa/4.0/
   Site: https://mvpoirier.github.io/revision-lab/
   Repository: https://github.com/mvpoirier/mvpoirier.github.io
@@ -748,10 +748,39 @@ details.hist-stage[open] > summary::before { transform: rotate(90deg); }
 #lmsGiveUp { margin-left: 6px; }
 .fe28-eqs { margin: 6px 0; overflow-x: auto; }
 .fe28-eqs mjx-container[display="true"] { margin: 6px 0 !important; text-align: left !important; }
+/* 1.2: "Only questions I've missed" at the top of the question panel */
+.missed-box { margin: 0 0 14px; padding: 10px 12px; border-radius: 10px; border: 1.5px dashed var(--line); background: var(--surface); }
+.missed-box .switch { align-items: flex-start; gap: 10px; }
+.missed-box .switch > span { display: grid; gap: 2px; }
+.missed-box small { color: var(--muted); font-size: 12px; }
+.missed-box .missed-n { display: inline-block; min-width: 22px; padding: 0 7px; margin-left: 4px; border-radius: 999px; background: var(--line); color: var(--ink); font-size: 12px; text-align: center; }
+.missed-box.has { border: 1.5px solid var(--bad); background: var(--bad-soft); }
+.missed-box.has .missed-n { background: var(--bad); color: var(--surface); }
+.missed-box.on { box-shadow: 0 0 0 3px color-mix(in srgb, var(--bad) 25%, transparent); }
+/* 1.2: flashcard header wraps on phones */
+.card .ctype { flex-wrap: wrap; row-gap: 6px; }
+/* 1.2: clickable heading */
+.top .brand h1[role="link"] { cursor: pointer; }
+.top .brand h1[role="link"]:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 6px; }
+/* 1.2: Welcome page */
+.welcome-hero { padding: 26px 24px; border-radius: 16px; background: linear-gradient(135deg, var(--accent-soft), var(--surface)); border: 1px solid var(--line); margin-bottom: 16px; }
+.welcome-hero h2 { font-size: 28px; font-weight: 800; font-stretch: 108%; margin-bottom: 8px; } .welcome-hero h2 .mvp { color: var(--accent); }
+.welcome-hero p { max-width: 62ch; margin: 0 0 14px; }
+.welcome-level { display: flex; align-items: center; gap: 10px; margin-top: 14px; }
+.welcome-offline { margin-top: 12px !important; padding: 8px 12px; border-radius: 8px; background: var(--surface); border: 1px dashed var(--line); }
+.wmodes { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; margin-top: 8px; }
+.wmode { display: grid; gap: 4px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--ink); text-decoration: none; transition: border-color .15s, transform .15s; }
+.wmode:hover, .wmode:focus-visible { border-color: var(--accent); transform: translateY(-1px); }
+.wmode .wic { font-size: 22px; } .wmode b { font-family: var(--f-display); font-size: 16px; } .wmode span:last-child { color: var(--muted); font-size: 13.5px; }
+.wsteps { margin: 6px 0 0; padding-left: 20px; display: grid; gap: 8px; }
+.tour-card { border: 2px solid var(--accent); } .tour-card h3 { margin-top: 8px; }
+.tour-dots { display: flex; gap: 6px; margin: 4px 0 10px; } .tour-dots span { width: 8px; height: 8px; border-radius: 50%; background: var(--line); } .tour-dots span.on { background: var(--accent); }
+a.btn { text-decoration: none; }
+ol.history .hm { font-size: 11.5px; }
 
 </style>
 <header class="top"><div class="top-inner">
-  <div class="brand"><h1><b class="mvp">MVP</b>hysics Revision Lab <span class="trophy" aria-hidden="true">🏆</span><span class="beta-tag" title="Beta for student testing: version 1.1 Beta">Beta</span></h1></div>
+  <div class="brand"><h1><b class="mvp">MVP</b>hysics Revision Lab <span class="trophy" aria-hidden="true">🏆</span><span class="beta-tag" title="Beta for student testing: version 1.1 Beta">Beta 1.1</span></h1></div>
   <nav class="tabs" id="tabs" aria-label="Modes"></nav>
   <div class="hbar">
     <div class="course-seg" id="courseSeg" role="group" aria-label="Course level" data-tip="SL hides HL-only content"><button type="button" data-course="SL" aria-pressed="false">SL</button><button type="button" data-course="HL" aria-pressed="true">HL</button></div>
@@ -769,7 +798,7 @@ details.hist-stage[open] > summary::before { transform: rotate(90deg); }
 <footer class="site-foot"><div class="foot-wrap">
   <div class="foot-inner">
     <div class="foot-brand">
-      <div class="foot-name"><b class="mvp">MVP</b>hysics Revision Lab <span class="trophy" aria-hidden="true">🏆</span><span class="beta-tag" title="Beta for student testing: version 1.1 Beta">Beta</span></div>
+      <div class="foot-name"><b class="mvp">MVP</b>hysics Revision Lab <span class="trophy" aria-hidden="true">🏆</span><span class="beta-tag" title="Beta for student testing: version 1.1 Beta">Beta 1.1</span></div>
     </div>
     <nav class="foot-links" aria-label="Site">
       <a href="#about">About</a>
@@ -778,7 +807,7 @@ details.hist-stage[open] > summary::before { transform: rotate(90deg); }
   </div>
   <details class="report report-general foot-report"><summary><span class="flag" aria-hidden="true">⚑&#xFE0E;</span> Feedback or report a problem</summary><div class="report-body"><textarea class="report-note" rows="3" placeholder="Your feedback: a bug, an idea, something confusing… Say which page or feature." aria-label="Your feedback"></textarea><div class="row"><a class="btn sm primary send-report" href="#" target="_blank" rel="noopener" data-send="general|||footer">Send Report ↗</a><button type="button" class="btn sm" data-report="general|||footer">Copy Report</button><span class="muted small">Send Report opens your teacher’s Google Form (sign in with your school account). The page you are on is added automatically. Copy Report is a backup.</span></div></div></details>
   <div class="foot-meta">
-    <span>Developed by <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a> using Claude (Opus 5.5-Medium)</span>
+    <span>Developed by <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a> using Claude</span>
     <span class="foot-ver">Version 1.1 Beta · Updated 3 November 2026</span>
   </div>
 </div></footer>
@@ -15465,7 +15494,7 @@ function tname0(id) { return id.replace('.', ''); }
 
 </script>
 <script>
-const FOOTER_TEXT = 'Questions are original and written in the style of the IB DP Physics course (first assessment 2025).<br>Developed by <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a> using Claude (Opus 5.5-Medium). Licensed under CC BY-NC-SA 4.0.<br>Version 1.1 Beta · Last updated: 3 November 2026';
+const FOOTER_TEXT = 'Questions are original and written in the style of the IB DP Physics course (first assessment 2025).<br>Developed by <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a> using Claude. Licensed under CC BY-NC-SA 4.0.<br>Version 1.1 Beta · Last updated: 3 November 2026';
 /* ===== DP Physics Revision Lab — app ===== */
 (function () {
   'use strict';
@@ -15616,14 +15645,14 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     if (!o.ignorePapers && !S.settings.papers[q.paper]) return false;
     if (!o.ignoreChili && !S.settings.chili[q.chili]) return false;
     if (!qualifies(q, strandOK, toolsOnly(ALL_STRANDS.map(s => s.id).filter(id => STRAND[id].live && strandOK(id))))) return false;
-    if (!o.ignoreMissed && S.settings.missedOnly && !S.missed.includes(q.id)) return false;
+    if (!o.ignoreMissed && S.settings.missedOnly && currentView() === 'practice' && !S.missed.includes(q.id)) return false; // Practice only (1.2)
     return true;
   }
   const pool = (o) => Q.filter(q => matches(q, o));
   function addMissed(id) { if (!S.missed.includes(id)) S.missed.push(id); }
   function clearMissed(id) { S.missed = S.missed.filter(x => x !== id); }
   function logAttempt(q, score, t, mode) {
-    S.log.push({ id: q.id, paper: q.paper, strands: q.strands, chili: q.chili, marks: q.marks, score, t: Math.round(t), ts: now(), mode, lvl: S.settings.level });
+    S.log.push({ id: q.id, paper: q.paper, strands: q.strands, chili: q.chili, marks: q.marks, score, t: Math.round(t * 10) / 10, ts: now(), mode, lvl: S.settings.level });
     if (S.log.length > 4000) S.log.splice(0, S.log.length - 4000);
     save();
   }
@@ -15652,11 +15681,11 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     rail.innerHTML = `
       <div class="rail-head"><h2>Questions <span class="rail-count num">(${n} selected)</span></h2><button class="rail-toggle" id="railToggle" aria-expanded="${!rail.classList.contains('collapsed')}">${rail.classList.contains('collapsed') ? 'Show' : 'Hide'}</button></div>
       <div class="rail-body">
+        ${currentView() !== 'practice' ? '' : `<div class="missed-box ${S.missed.length ? 'has' : ''} ${st.missedOnly ? 'on' : ''}"><label class="switch"><input type="checkbox" id="missedOnly" ${st.missedOnly ? 'checked' : ''}> <span><b>Only questions I've missed</b> <span class="missed-n num">${S.missed.length}</span><small>${S.missed.length ? (st.missedOnly ? 'On: practising your missed questions' : 'Practise the questions you got wrong') : 'Questions you get wrong will collect here'}</small></span></label></div>`}
         ${hiddenHL ? `<p class="sl-note" role="note"><b>SL mode:</b> ${hiddenHL} HL-only strand${hiddenHL === 1 ? ' is' : 's are'} hidden. Switch to HL at the top of the page to see them.</p>` : ''}
         ${blitz ? '<p class="muted small rail-note">Blitz uses Paper 1A only, and the difficulty rises with your streak, so only the topics below apply.</p>' : `<div class="fieldset"><span class="lbl">Papers</span><div class="chips">${PAPERS.map(p => `<button class="chip" data-paper="${p}" aria-pressed="${!!st.papers[p]}">${PAPER_NAME[p]}</button>`).join('')}</div></div>
         <div class="fieldset"><span class="lbl">Difficulty</span><div class="chips">${[1, 2, 3].map(c => `<button class="chip" data-chili="${c}" aria-pressed="${!!st.chili[c]}" aria-label="${CHILI_TIP[c]}">${chiliIcon(c)}</button>`).join('')}</div></div>`}
         <div class="fieldset"><span class="lbl">Topics &amp; strands</span><div class="row" style="gap:6px"><button class="btn sm" id="selAll">Select All</button><button class="btn sm" id="selNone">Clear All</button><button class="btn sm" id="railFold" aria-pressed="${allFolded}">${allFolded ? 'Expand All' : 'Collapse All'}</button></div><div class="tree">${tree}</div></div>
-        ${blitz ? '' : `<div class="fieldset"><label class="switch"><input type="checkbox" id="missedOnly" ${st.missedOnly ? 'checked' : ''}> Only questions I've missed <span class="muted num small">(${S.missed.length})</span></label></div>`}
       </div>`;
     $$('input[data-mixed]', rail).forEach(i => { i.indeterminate = true; });
   }
@@ -15738,7 +15767,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     if (note && !FORM.note) copyText(note, () => toast('Form opened. Your note is copied: paste it into the form.'));
     else toast('Form opened in a new tab. Press Submit there to send it.');
   }, true);
-  const VIEW_NAME = { practice: 'Practice', exam: 'Exam Mode', blitz: 'Blitz', recall: 'Recall', notes: 'Notes', stats: 'Stats', about: 'About' };
+  const VIEW_NAME = { welcome: 'Welcome', practice: 'Practice', exam: 'Exam Mode', blitz: 'Games', recall: 'Recall', notes: 'Notes', stats: 'Stats', about: 'About' };
   function reportFields(kind, ref, seed, where) {
     const f = { type: kind === 'general' ? 'General feedback' : 'Problem', id: ref, title: '', paper: '', seed: seed || '', where, version: APP_VERSION };
     if (kind === 'question') { const q = Q.find(x => x.id === ref); if (q) { f.title = q.title; f.paper = PAPER_NAME[q.paper]; } }
@@ -16283,12 +16312,12 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     if (!GA) GA = { phase: 'setup', dur: 5, custom: false };
     const n = gaPool().length;
     if (LM) return renderLms(main);
-    if (GA.phase === 'setup' && GA.mode === 'lms') { main.innerHTML = head('Blitz ⚡', 'Answer as many Paper 1A questions as you can before time runs out.') + blitzModeSeg() + lmsSetup() + lmsStats(); return; }
+    if (GA.phase === 'setup' && GA.mode === 'lms') { main.innerHTML = head('Games 🕹️', 'Quick, timed Paper 1A challenges. More game modes are on the way.') + blitzModeSeg() + lmsSetup() + lmsStats(); return; }
     if (GA.phase === 'setup') {
       const maxMin = n * 2;
       const preset = [5, 10, 15, 20, 30, 40];
       const isMax = GA.durSel === 'max', isCustom = !isMax && (GA.custom || !preset.includes(GA.dur));
-      main.innerHTML = head('Blitz ⚡', 'Answer as many Paper 1A questions as you can before time runs out. Wrong answers cost 15 seconds. The difficulty rises as your streak grows.') + blitzModeSeg() + (n ? `
+      main.innerHTML = head('Games 🕹️', 'Quick, timed Paper 1A challenges. More game modes are on the way.') + `<p class="muted small">Blitz: answer as many questions as you can before time runs out. Wrong answers cost 15 seconds, and the difficulty rises as your streak grows.</p>` + blitzModeSeg() + (n ? `
         <section class="panel"><div class="form-grid"><label class="field"><span>Time limit</span><select id="gaDur">${preset.map(d => `<option value="${d}" ${!isCustom && !isMax && GA.dur === d ? 'selected' : ''}>${d} minutes</option>`).join('')}<option value="max" ${isMax ? 'selected' : ''}>Maximum (${maxMin} minutes)</option><option value="custom" ${isCustom ? 'selected' : ''}>Custom…</option></select></label>
         <label class="field" id="gaCustomWrap" ${isCustom ? '' : 'hidden'}><span>Minutes (3 to ${maxMin})</span><input type="number" id="gaCustom" min="3" max="${maxMin}" step="1" value="${GA.dur}"></label></div>
         <p class="muted small" id="gaErr" role="alert"></p>
@@ -16326,7 +16355,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     const right = runs.filter(x => x.score > 0).length;
     const avg = runs.length ? runs.reduce((a, x) => a + x.t, 0) / runs.length : 0;
     return `<section class="panel"><h3>Your Blitz stats</h3>${runs.length ? `
-      <div class="tiles"><div class="tile"><span class="k">Questions answered</span><span class="v num">${runs.length}</span></div><div class="tile"><span class="k">Correct</span><span class="v num">${pct(right, runs.length)}%</span></div><div class="tile"><span class="k">Average time</span><span class="v num">${fmtMin(avg)}</span></div></div>
+      <div class="tiles"><div class="tile"><span class="k">Questions answered</span><span class="v num">${runs.length}</span></div><div class="tile"><span class="k">Correct</span><span class="v num">${pct(right, runs.length)}%</span></div><div class="tile"><span class="k">Average time</span><span class="v num">${avg < 60 ? avg.toFixed(1) + ' s' : fmtMin(avg)}</span></div></div>
       ${durs.length ? `<div class="tbl-wrap"><table class="stats"><thead><tr><th>Time limit</th><th>Best score</th></tr></thead><tbody>${durs.map(d => `<tr><td class="num">${d} min</td><td class="num">${S.gbest[d]}</td></tr>`).join('')}</tbody></table></div>` : ''}` : '<p class="muted">No Blitz runs yet. Your best scores for each time limit will appear here.</p>'}</section>`;
   }
   /* Last Man Standing stats: separate from Blitz Classic (1.1) */
@@ -16347,7 +16376,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   /* ---------- Last man standing 💀 ---------- */
   let LM = null, lmTimer = null, lmOverT = null;
   const LMS_START = 180, LMS_GAIN = 60, LMS_LOSS = 60;
-  const blitzModeSeg = () => `<div class="seg blitz-mode" role="group" aria-label="Blitz mode"><button type="button" data-gamode="classic" aria-pressed="${GA.mode !== 'lms'}">Classic</button><button type="button" data-gamode="lms" aria-pressed="${GA.mode === 'lms'}">Last Man Standing 💀</button></div>`;
+  const blitzModeSeg = () => `<div class="seg blitz-mode" role="group" aria-label="Blitz mode"><button type="button" data-gamode="classic" aria-pressed="${GA.mode !== 'lms'}">Blitz ⚡</button><button type="button" data-gamode="lms" aria-pressed="${GA.mode === 'lms'}">Last Man Standing 💀</button></div>`;
   const TOPIC_ORDER = ['A.1', 'A.2', 'A.3', 'A.4', 'A.5', 'B.1', 'B.2', 'B.3', 'B.4', 'B.5', 'C.1', 'C.2', 'C.3', 'C.4', 'C.5', 'D.1', 'D.2', 'D.3', 'D.4', 'E.1', 'E.2', 'E.3', 'E.4', 'E.5', 'Skills', 'A.2+']; // append-only
   function lmsPool(c) { return Q.filter(q => q.paper === '1A' && !(c.sl && q.hl) && qualifies(q, id => STRAND[id] && STRAND[id].live && c.topics.includes(STRAND[id].topic), c.topics.length === 1 && c.topics[0] === 'Skills')); }
   function lmsEncode(c) {
@@ -16918,6 +16947,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
         <div class="tile"><span class="k">Marks earned</span><span class="v num">${pct(got, marks)}%</span><span class="s num">${got} of ${marks}</span></div>
         <div class="tile"><span class="k">Recall cards</span><span class="v num">${cards.length}</span><span class="s num">${mature} long-term · ${dueNow} due</span></div>
         <div class="tile"><span class="k">Blitz best</span><span class="v num">${Math.max(0, ...Object.values(S.gbest)) || '–'}</span><span class="s">${Object.entries(S.gbest).map(([k, v]) => `${k} min: ${v}`).join(' · ') || 'no runs yet'}</span></div>
+        <div class="tile"><span class="k">Last Man Standing best</span><span class="v num">${S.lmsBest ? fmtClock(S.lmsBest) : '–'}</span><span class="s">${(S.lmsRuns || []).length} run${(S.lmsRuns || []).length === 1 ? '' : 's'}</span></div>
       </div>
       <section class="panel"><h3>Pace: minutes per mark</h3><p class="muted small">From practice and exam attempts. IB pace is 2.0 min/mark for Paper 1 and 1.65 for Paper 2.</p><div class="tbl-wrap"><table class="stats"><thead><tr><th>Paper</th><th>Your pace</th><th>IB pace</th><th style="min-width:90px"></th><th></th></tr></thead><tbody>${paceRows}</tbody></table></div></section>
       <section class="panel"><h3>By strand</h3>${strandRows ? `<p class="muted small">Pace is your time divided by IB time for the same marks: under 1.00× is faster than exam pace.</p><div class="tbl-wrap"><table class="stats"><thead><tr><th>Strand</th><th>Tries</th><th style="min-width:140px">Marks</th><th>Pace</th><th></th></tr></thead><tbody>${strandRows}</tbody></table></div>` : '<p class="muted">Answer a few questions to see your strengths and gaps.</p>'}</section>
@@ -16977,7 +17007,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   const docComment = (what, id) => `<!--
   MVPhysics Revision Lab · ${what}${id ? ' · ' + id : ''}
   Made with version ${APP_VERSION} (built ${DOC_DATE}) on ${new Date().toISOString().slice(0, 10)}
-  Author: Mike Poirier (https://github.com/mvpoirier), developed with Claude (Opus 5.5-Medium) by Anthropic
+  Author: Mike Poirier (https://github.com/mvpoirier), developed with Claude by Anthropic
   Licence: CC BY-NC-SA 4.0, https://creativecommons.org/licenses/by-nc-sa/4.0/
   Site: ${SITE_URL} · Repository: ${REPO_URL}
   Original questions in the style of the IB DP Physics course (first assessment 2025). Not affiliated with or endorsed by the IB.
@@ -16985,7 +17015,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
 `;
   const cssStr = (t) => '"' + t.replace(/\\/g, '\\\\').replace(/"/g, '\\"') + '"';
   const docWatermark = (id) => `<style>@page { @bottom-left { content: ${cssStr(`MVPhysics Revision Lab · ${APP_VERSION} · © Mike Poirier · CC BY-NC-SA 4.0 · mvpoirier.github.io/revision-lab${id ? ' · ' + id : ''}`)}; font: 7pt "IBM Plex Sans", Arial, sans-serif; color: #888; } @bottom-right { content: "Page " counter(page) " of " counter(pages); font: 7pt "IBM Plex Sans", Arial, sans-serif; color: #888; } }</style>`;
-  const docFooter = (id) => `<div class="wm"><b>MVPhysics Revision Lab</b> · Version ${APP_VERSION} (${DOC_DATE})${id ? ` · ${esc(id)}` : ''}<br>© Mike Poirier, developed with Claude (Opus 5.5-Medium) · <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> · <a href="${SITE_URL}">${SITE_URL.replace('https://', '')}</a> · <a href="${REPO_URL}">${REPO_URL.replace('https://', '')}</a><br>Original questions in the style of the IB DP Physics course (first assessment 2025). Not affiliated with or endorsed by the IB.</div>`;
+  const docFooter = (id) => `<div class="wm"><b>MVPhysics Revision Lab</b> · Version ${APP_VERSION} (${DOC_DATE})${id ? ` · ${esc(id)}` : ''}<br>© Mike Poirier, developed with Claude · <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> · <a href="${SITE_URL}">${SITE_URL.replace('https://', '')}</a> · <a href="${REPO_URL}">${REPO_URL.replace('https://', '')}</a><br>Original questions in the style of the IB DP Physics course (first assessment 2025). Not affiliated with or endorsed by the IB.</div>`;
   const WS_CSS = `
     @page { size: A4; margin: 16mm 15mm; }
     .wshead { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
@@ -17230,8 +17260,8 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     { v: '0.58 alpha', d: '1 November 2026', items: ['All remaining topics added: D.1 Gravitational fields, D.2 Electric and magnetic fields, D.3 Motion in electromagnetic fields, E.1 Structure of the atom, E.2 Quantum physics (HL), E.3 Radioactive decay, E.4 Fission, E.5 Fusion and stars, and B.4 Thermodynamics (HL). Every topic in the guide is now on the site.', 'Each new topic has Paper 1A, 1B and 2 questions, notes with data-booklet equations and FE2028 changes, recall cards, Who’s Right? items and data-booklet pages. Paper 1B includes historic experiments (Millikan, Rutherford, the photoelectric effect, Compton scattering).', 'Thinner topics (A.4, A.5, B.2, C.1–C.5, D.4) and the SSP skills now have more questions and cards, so every strand has at least 8 Paper 1A questions, 3 cards and a Who’s Right? item, and every topic at least 5 Paper 2 and 3 Paper 1B questions.', 'Exam Mode shares marks between topics in proportion to the IB teaching hours, so large question banks no longer crowd out smaller topics.', 'Who’s Right?: the better answer is now Student A or Student B about equally often.'] },
     { v: '0.59 alpha', d: '1 November 2026', items: ['Pause button on every timer except Last Man Standing: Practice (pace coach), Exam Mode, Blitz Classic and Match It!. While paused, the timer stops and the question is hidden until you resume.', 'Exam Mode results show how many times the paper was paused and the total time paused; Stats lists pauses for each recent exam.'] },
     { v: '0.60 alpha', d: '1 November 2026', items: ['Notes: new FE2028 changes at a glance panel at the top, listing every September 2026 change for exams from May 2028, grouped into data booklet changes, guide additions and clarifications, and removals, for all topics. ','Estimated DP grade (1–7) from your score, using typical IB DP Physics grade boundaries for SL or HL. It is a guide only: real boundaries change each session and include the IA.', 'Download results: one file with every question, your answers, the markschemes you ticked, your score, time, pauses, seed and estimated grade. Print it or save it as a PDF.', 'Stats: recent exam papers list the estimated grade and seed, and a new table shows the approximate grade boundaries used.', 'Flashcards: new Reverse option shows the definition first (the term is hidden) so you recall the term. Equation and question cards are shown the usual way.'] },,
-    { v: '1.0 Beta', d: '2 November 2026', items: ['First beta, for student testing. Versions 0.1–0.60 were internal alpha builds.', 'All 25 topics, 102 strands and 1,131 question templates (Paper 1A, 1B and 2), 377 recall cards and 107 Who’s Right? items.', 'Open to print: worksheets and exam results open in a new tab, ready to print or save as PDF (Download is still there). If pop-ups are blocked, the file downloads instead.', 'Notes: Chris Doner videos are now linked directly for each strand (from his FE2025 topic playlists), plus the playlist for the whole topic.', 'Fixed: tooltips no longer cut off at the edge of a panel or the screen, and wide equations in Notes are no longer cut off (they widen or shrink to fit).', 'Printed and downloaded papers and results carry the version, author, licence and site on every page, with page numbers.', 'Send Report: each report box (and Send results to teacher in Exam Mode) opens your teacher’s Google Form already filled in; you press Submit. Sign in with your school account. Copy Report stays as a backup.', 'Report a problem is now everywhere: under every question (Practice, Exam Mode, Blitz misses), every flashcard and answered Recall game, every Notes strand, the FE2028 summary and the data booklet. A Feedback or report a problem box in the footer covers the rest of the site (Stats, About, ideas, bugs) and adds the page you are on.']},
-    { v: '1.1 Beta', d: '3 November 2026', items: ['Last Man Standing: a Give up button (with a check first); a run you give up does not count as a best time.', 'Last Man Standing: after every run, a review of each question you answered, right or wrong, with the worked solution. Wrong answers go into "Only questions I\'ve missed".', 'Last Man Standing has its own stats (runs, best survival, recent runs), separate from Blitz Classic, so the Blitz stats now show the right mode.', 'Notes and Recall: the All and None buttons stay together.', 'Removed Saved selections from the question panel.', 'Solutions for radiated intensity now start from the data booklet equation L = σAT⁴ (or eσAT⁴).', 'FE2028 percentage error, difference and change equations shown as separate equations.'] }
+    { v: '1.0 Beta', d: '2 November 2026', m: 'Claude Opus 5.5 (Medium)', items: ['First beta, for student testing. Versions 0.1–0.60 were internal alpha builds.', 'All 25 topics, 102 strands and 1,131 question templates (Paper 1A, 1B and 2), 377 recall cards and 107 Who’s Right? items.', 'Open to print: worksheets and exam results open in a new tab, ready to print or save as PDF (Download is still there). If pop-ups are blocked, the file downloads instead.', 'Notes: Chris Doner videos are now linked directly for each strand (from his FE2025 topic playlists), plus the playlist for the whole topic.', 'Fixed: tooltips no longer cut off at the edge of a panel or the screen, and wide equations in Notes are no longer cut off (they widen or shrink to fit).', 'Printed and downloaded papers and results carry the version, author, licence and site on every page, with page numbers.', 'Send Report: each report box (and Send results to teacher in Exam Mode) opens your teacher’s Google Form already filled in; you press Submit. Sign in with your school account. Copy Report stays as a backup.', 'Report a problem is now everywhere: under every question (Practice, Exam Mode, Blitz misses), every flashcard and answered Recall game, every Notes strand, the FE2028 summary and the data booklet. A Feedback or report a problem box in the footer covers the rest of the site (Stats, About, ideas, bugs) and adds the page you are on.']},
+    { v: '1.1 Beta', d: '3 November 2026', m: 'Claude Opus 5.5 (Medium)', items: ['New Welcome page: a quick guide to every mode, a short tour, and how to use the site for revision. Click the MVPhysics heading at any time to come back to it.', 'Blitz is now part of Games 🕹️, with two modes so far: Blitz and Last Man Standing. More game modes will follow.', '“Only questions I’ve missed” is now at the top of the question panel in Practice and highlighted when you have missed questions to practise (it now applies to Practice only; Exam Mode always uses your full selection).', 'Stats: a Last Man Standing best tile; Blitz average time to 0.1 s.', 'The version is shown in the badge (BETA 1.1), and the Claude model used for each build is listed in this revision history.', 'Fixed: flashcards scrolled sideways on phones.', 'Last Man Standing: a Give up button (with a check first); a run you give up does not count as a best time.', 'Last Man Standing: after every run, a review of each question you answered, right or wrong, with the worked solution. Wrong answers go into "Only questions I\'ve missed".', 'Last Man Standing has its own stats (runs, best survival, recent runs), separate from Blitz Classic, so the Blitz stats now show the right mode.', 'Notes and Recall: the All and None buttons stay together.', 'Removed Saved selections from the question panel.', 'Solutions for radiated intensity now start from the data booklet equation L = σAT⁴ (or eσAT⁴).', 'FE2028 percentage error, difference and change equations shown as separate equations.'] }
   ];
   HISTORY.forEach(h => { h.items = h.items.map(TL); });
   const fmtBig = (n) => n >= 1e6 ? (n / 1e6).toFixed(1) + ' million' : n.toLocaleString('en-GB');
@@ -17278,6 +17308,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
         <li>Recall cards are checked so every Fill the Gap! keyword and Spot It! phrase exists in the card.</li>
         <li>Each mode is tested in a browser on desktop and phone sizes, in light and dark mode, including class codes and printed papers.</li>
       </ul></section>
+      <section class="panel" id="reportInfo"><h3>Found a mistake? Tell us</h3><p>Every question, flashcard, note and the data booklet has a <b>⚑ Report a problem</b> box, and the footer has one for anything else. Type what looks wrong and press <b>Send Report</b>: it opens your teacher’s Google Form already filled in, so you only need to press Submit. Every report helps make the next version better.</p></section>
       <section class="panel"><h3>Privacy</h3><p>Nothing you do leaves your browser. Progress, recall schedules and settings are stored on this device only; use Stats → Backup to move them to another device.</p><p>Send Report and Send results to teacher open your teacher’s Google Form in a new tab. Nothing is sent unless you press Submit there, and the form records your school email when you do.</p></section>
       <section class="panel" id="creditsInfo"><h3>Credits</h3>${window.__OFFLINE ? '<p>Offline copy: the fonts and the maths library are inside this file, so it works without the internet. Its progress is stored separately from the website.</p>' : ''}
         <p class="muted small">Fonts: Archivo, IBM Plex Sans, IBM Plex Mono and Press Start 2P (SIL Open Font License 1.1). Maths: MathJax 3.2.2 (Apache License 2.0).</p></section>
@@ -17287,28 +17318,89 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
   // Revision history in stages: releases (1.0+) and beta open, internal alpha builds folded away
   function historyHTML() {
     const stage = (h) => /alpha/i.test(h.v) ? 'alpha' : /beta|rc/i.test(h.v) ? 'beta' : 'release';
-    const item = (h) => `<li><div class="hv"><span class="ver">v${h.v}</span><span class="muted small">${h.d}</span></div><ul>${h.items.map(i => `<li>${i}</li>`).join('')}</ul></li>`;
-    const groups = [['release', 'Releases', 'Official versions, from 1.0.', true], ['beta', 'Beta', 'Tested by students. Report anything that looks wrong.', true], ['alpha', 'Alpha', 'Internal builds while the site was being written (0.1–0.60).', false]];
+    const item = (h) => `<li><div class="hv"><span class="ver">v${h.v}</span><span class="muted small">${h.d}</span>${h.m ? `<span class="muted small hm">Built with ${h.m}</span>` : ''}</div><ul>${h.items.map(i => `<li>${i}</li>`).join('')}</ul></li>`;
+    const groups = [['release', 'Releases', 'Official versions, from 1.0.', true], ['beta', 'Beta', 'Tested by students. Report anything that looks wrong.', true], ['alpha', 'Alpha', 'Internal builds while the site was being written (0.1–0.60), developed with Claude (the model for each alpha build was not recorded).', false]];
     return groups.map(([k, title, sub, open]) => { const hs = HISTORY.filter(h => stage(h) === k).reverse(); if (!hs.length) return '';
       return `<details class="hist-stage" data-stage="${k}" ${open ? 'open' : ''}><summary><b>${title}</b><span class="muted small">${hs.length} version${hs.length > 1 ? 's' : ''} · ${sub}</span></summary><ol class="history">${hs.map(item).join('')}</ol></details>`; }).join('');
   }
+  /* ======================= WELCOME (1.2) =======================
+     First visit lands here; the MVPhysics heading always brings you back. One-page overview + a short tour + how to revise. */
+  const WMODES = [
+    ['practice', '🎯', 'Practice', 'One question at a time, with full worked solutions and markschemes. Retry any calculation with new values.'],
+    ['games', '🕹️', 'Games', 'Blitz: as many Paper 1A questions as you can before time runs out. Last Man Standing: play against your class with a shared code.'],
+    ['exam', '📝', 'Exam Mode', 'A timed paper at IB pace from your topics. Answers stay hidden until you finish; then mark it, see an estimated grade and print it.'],
+    ['recall', '🧠', 'Recall', 'Flashcards with spaced repetition for definitions, equations and command terms, plus quick recall games.'],
+    ['notes', '📓', 'Notes', 'Short notes for every strand: data booklet equations, what you must know, common mistakes, videos and simulations.'],
+    ['stats', '📈', 'Stats', 'Your progress by topic and paper, your pace, exam results and best scores. Back up your progress here too.'],
+  ];
+  const WTOUR = [
+    ['Choose your level', 'Use <b>SL</b> or <b>HL</b> at the top of the page. SL hides HL-only questions and strands.'],
+    ['Pick your topics', 'Open the <b>Questions</b> panel to choose papers, difficulty 🌶 and the strands you want. Practice, Exam Mode and Games use this selection.'],
+    ['Practise and check', 'Answer, then open the worked solution or tick the markscheme points you earned. In Practice, wrong answers collect in <b>Only questions I’ve missed</b> at the top of the panel.'],
+    ['Use the data booklet', 'The 📘 button opens the data booklet, just like in the exam. Equations new for exams from 2028 are tagged FE2028.'],
+    ['Tell us about mistakes', 'Every question has <b>⚑ Report a problem</b>. Type what looks wrong and press <b>Send Report</b>: it opens your teacher’s form, already filled in.'],
+  ];
+  let WT = -1;
+  function renderWelcome(main) {
+    S.seenWelcome = true; save();
+    main.innerHTML = `<section class="welcome-hero"><h2>Welcome to <b class="mvp">MVP</b>hysics Revision Lab 🏆</h2>
+        <p>Revision for IB DP Physics (first assessment 2025), SL and HL. Every question is original and generates new values each time, with worked solutions and IB-style markschemes. Nothing you do leaves your browser.</p>
+        <div class="row"><a class="btn primary" href="#practice">Start practising</a><button class="btn" id="tourGo" type="button">Take the 1-minute tour</button></div>
+        <div class="welcome-level"><span class="muted small">Your level:</span><div class="seg" role="group" aria-label="Course level"><button type="button" data-wlevel="SL" aria-pressed="${!isHL()}">SL</button><button type="button" data-wlevel="HL" aria-pressed="${isHL()}">HL</button></div></div>
+        ${window.__OFFLINE ? '<p class="small welcome-offline">This is a self-contained <b>offline copy</b>: everything works without the internet. Send Report, videos and resource links work when you are online. Progress here is separate from the website.</p>' : ''}
+      </section>
+      <div id="tourBox">${WT >= 0 ? tourCard() : ''}</div>
+      <section class="panel"><h3>What’s here</h3><div class="wmodes">${WMODES.map(([k, ic, name, d]) => `<a class="wmode" href="#${k}"><span class="wic" aria-hidden="true">${ic}</span><b>${name}</b><span>${d}</span></a>`).join('')}</div></section>
+      <section class="panel"><h3>How to use this for revision</h3><ol class="wsteps">
+        <li><b>Every day, 5–10 minutes of Recall.</b> Spaced repetition brings each card back just before you would forget it. Short daily sessions beat one long one.</li>
+        <li><b>Practise by topic after each lesson.</b> Pick the strands you have just studied. Try the question before opening the solution, and tick the markscheme points honestly.</li>
+        <li><b>Go back to your misses.</b> In Practice, turn on <b>Only questions I’ve missed</b> at the top of the Questions panel and redo them with new values until they stick.</li>
+        <li><b>Before a test, sit a timed paper in Exam Mode.</b> Use IB pace, then check where the time went and your estimated grade. Read the Notes for any strand that cost you marks.</li>
+        <li><b>For fun or a class challenge:</b> Games. Blitz on your own, or Last Man Standing with a shared code.</li></ol></section>
+      <section class="panel"><h3>Good to know</h3><ul class="about-list">
+        <li><b>Data booklet:</b> the 📘 button at the top, any time.</li>
+        <li><b>Difficulty:</b> 🌶 one idea · 🌶🌶 two steps or a common trap · 🌶🌶🌶 several steps or topics.</li>
+        <li><b>Interrupted?</b> Timers have a Pause button (except Last Man Standing).</li>
+        <li><b>Your progress</b> is saved in this browser only. Use <b>Stats → Backup</b> to move it to another device.</li>
+        <li><b>Found a mistake?</b> Use <b>⚑ Report a problem</b> under any question, or the box in the footer.</li>
+      </ul><p class="muted small">Come back to this page any time by clicking <b>MVPhysics Revision Lab</b> at the top left.</p></section>`;
+  }
+  function tourCard() {
+    const [t, d] = WTOUR[WT];
+    return `<section class="panel tour-card" aria-live="polite"><div class="row"><span class="pill info num">${WT + 1} / ${WTOUR.length}</span><span class="spacer"></span><button class="linkbtn" id="tourClose" type="button">Close tour</button></div>
+      <h3>${t}</h3><p>${d}</p><div class="tour-dots" aria-hidden="true">${WTOUR.map((_, i) => `<span class="${i === WT ? 'on' : ''}"></span>`).join('')}</div>
+      <div class="row"><button class="btn" id="tourBack" type="button" ${WT === 0 ? 'disabled' : ''}>Back</button><span class="spacer"></span>${WT < WTOUR.length - 1 ? '<button class="btn primary" id="tourNext" type="button">Next</button>' : '<a class="btn primary" href="#practice" id="tourDone">Start practising</a>'}</div></section>`;
+  }
+  function bindWelcome(main) {
+    main.onclick = (e) => {
+      const b = e.target.closest('button,a'); if (!b) return;
+      const box = $('#tourBox');
+      if (b.id === 'tourGo') { WT = 0; box.innerHTML = tourCard(); box.scrollIntoView({ block: 'nearest' }); return; }
+      if (b.id === 'tourNext') { WT = Math.min(WTOUR.length - 1, WT + 1); box.innerHTML = tourCard(); return; }
+      if (b.id === 'tourBack') { WT = Math.max(0, WT - 1); box.innerHTML = tourCard(); return; }
+      if (b.id === 'tourClose' || b.id === 'tourDone') { WT = -1; if (b.id === 'tourClose') box.innerHTML = ''; return; }
+      if (b.dataset.wlevel) { const c = $$('#courseSeg [data-course]').find(x => x.dataset.course === b.dataset.wlevel); if (c) c.click(); $$('[data-wlevel]', main).forEach(x => x.setAttribute('aria-pressed', String(x.dataset.wlevel === (isHL() ? 'HL' : 'SL')))); }
+    };
+  }
   function bindAbout() {}
   const VIEWS = {
-    practice: [renderPractice, bindPractice, 'Practice 🎯'], exam: [renderExam, bindExam, 'Exam 📝'], blitz: [renderGauntlet, bindGauntlet, 'Blitz ⚡'],
+    practice: [renderPractice, bindPractice, 'Practice 🎯'], exam: [renderExam, bindExam, 'Exam 📝'], blitz: [renderGauntlet, bindGauntlet, 'Games 🕹️'],
     recall: [renderRecall, bindRecall, 'Recall 🧠'], notes: [renderNotes, bindNotes, 'Notes 📓'], stats: [renderStats, bindStats, 'Stats 📈'],
-    about: [renderAbout, bindAbout, 'About', true],
+    about: [renderAbout, bindAbout, 'About', true], welcome: [renderWelcome, bindWelcome, 'Welcome', true],
   };
-  function currentView() { const h = (location.hash || '').slice(1); return VIEWS[h] ? h : 'practice'; }
+  const ROUTE_ALIAS = { games: 'blitz' }, ROUTE_HREF = { blitz: 'games' }; // the Games page keeps its internal name 'blitz'
+  function currentView() { let h = (location.hash || '').slice(1); h = ROUTE_ALIAS[h] || h; if (VIEWS[h]) return h; return S.seenWelcome ? (VIEWS[S.settings.lastView] ? S.settings.lastView : 'practice') : 'welcome'; }
   function refreshRunningHeader() { /* running exam/gauntlet keeps its paper; rail just updates */ }
   function render() {
     const v = currentView(); const main = $('#main');
-    $$('nav.tabs a, #aboutBtn').forEach(a => a.setAttribute('aria-current', a.getAttribute('href') === '#' + v ? 'page' : 'false'));
+    $$('nav.tabs a, #aboutBtn').forEach(a => a.setAttribute('aria-current', a.getAttribute('href') === '#' + (ROUTE_HREF[v] || v) ? 'page' : 'false'));
+    if (v !== 'welcome' && v !== 'about' && S.settings.lastView !== v) { S.settings.lastView = v; save(); }
     main.onclick = main.onchange = main.oninput = main.onkeydown = null;
     clearInterval(paceTimer);
     TOPIC_MODE = ['recall', 'notes'].includes(v);
     lmsTheme();
-    document.querySelector('.shell').classList.toggle('no-rail', v === 'stats' || v === 'about' || TOPIC_MODE);
-    if (!TOPIC_MODE && v !== 'stats' && v !== 'about') renderRail();
+    document.querySelector('.shell').classList.toggle('no-rail', v === 'stats' || v === 'about' || v === 'welcome' || TOPIC_MODE);
+    if (!TOPIC_MODE && v !== 'stats' && v !== 'about' && v !== 'welcome') renderRail();
     VIEWS[v][0](main); VIEWS[v][1](main);
   }
   /* ---------- light / dark theme ---------- */
@@ -17350,7 +17442,8 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     $('#themeBtn').addEventListener('click', () => { S.settings.theme = isDark() ? 'light' : 'dark'; save(); applyTheme(); });
     darkMQ.addEventListener && darkMQ.addEventListener('change', applyTheme);
     applyTheme();
-    $('#tabs').innerHTML = Object.entries(VIEWS).filter(([, v]) => !v[3]).map(([k, v]) => `<a href="#${k}">${v[2]}</a>`).join('');
+    $('#tabs').innerHTML = Object.entries(VIEWS).filter(([, v]) => !v[3]).map(([k, v]) => `<a href="#${ROUTE_HREF[k] || k}">${v[2]}</a>`).join('');
+    const brand = $('.top .brand h1'); if (brand) { brand.setAttribute('role', 'link'); brand.tabIndex = 0; brand.title = 'Welcome and guide'; const go = () => { location.hash = '#welcome'; }; brand.addEventListener('click', go); brand.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } }); }
     if (window.matchMedia('(max-width: 860px)').matches) $('#rail').classList.add('collapsed');
     initBooklet(); renderRail(); bindRail(); render();
     window.addEventListener('hashchange', () => { render(); window.scrollTo({ top: 0 }); });
