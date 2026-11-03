@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--
   MVPhysics Revision Lab: IB DP Physics revision (SL and HL)
-  Version: 1.0 Beta (online edition) · Built: 2 November 2026
+  Version: 1.0 Beta (online edition) · Built: 3 November 2026
   Author: Mike Poirier (https://github.com/mvpoirier), developed with Claude (Opus 5.5-Medium) by Anthropic
   Licence: CC BY-NC-SA 4.0, https://creativecommons.org/licenses/by-nc-sa/4.0/
   Site: https://mvpoirier.github.io/revision-lab/ · Offline edition: https://mvpoirier.github.io/revision-lab/offline.html
@@ -769,7 +769,7 @@ details.hist-stage[open] > summary::before { transform: rotate(90deg); }
   <details class="report report-general foot-report"><summary><span class="flag" aria-hidden="true">⚑&#xFE0E;</span> Feedback or report a problem</summary><div class="report-body"><textarea class="report-note" rows="3" placeholder="Your feedback: a bug, an idea, something confusing… Say which page or feature." aria-label="Your feedback"></textarea><div class="row"><a class="btn sm primary send-report" href="#" target="_blank" rel="noopener" data-send="general|||footer">Send Report ↗</a><button type="button" class="btn sm" data-report="general|||footer">Copy Report</button><span class="muted small">Send Report opens your teacher’s Google Form (sign in with your school account). The page you are on is added automatically. Copy Report is a backup.</span></div></div></details>
   <div class="foot-meta">
     <span>Developed by <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a> using Claude (Opus 5.5-Medium)</span>
-    <span class="foot-ver">Version 1.0 Beta · Updated 2 November 2026</span>
+    <span class="foot-ver">Version 1.0 Beta · Updated 3 November 2026</span>
   </div>
 </div></footer>
 <script>
@@ -15341,7 +15341,7 @@ WHICH.push(
 
 </script>
 <script>
-const FOOTER_TEXT = 'Questions are original and written in the style of the IB DP Physics course (first assessment 2025).<br>Developed by <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a> using Claude (Opus 5.5-Medium). Licensed under CC BY-NC-SA 4.0.<br>Version 1.0 Beta · Last updated: 2 November 2026';
+const FOOTER_TEXT = 'Questions are original and written in the style of the IB DP Physics course (first assessment 2025).<br>Developed by <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a> using Claude (Opus 5.5-Medium). Licensed under CC BY-NC-SA 4.0.<br>Version 1.0 Beta · Last updated: 3 November 2026';
 /* ===== DP Physics Revision Lab — app ===== */
 (function () {
   'use strict';
@@ -16708,7 +16708,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     const bar = list.length ? `<div class="row notes-ctl"><span class="muted small">${list.length} strand${list.length > 1 ? 's' : ''}</span><span class="spacer"></span><button class="btn sm" data-nall="1">Expand all</button><button class="btn sm" data-nall="0">Collapse all</button></div>` : '';
     const ICON = { sim: '🧪', read: '📖', practice: '✏️', video: '▶' };
     const moreHelp = (n) => {
-      const all = [{ kind: 'video', label: 'Chris Doner (YouTube search)', url: `https://www.youtube.com/results?search_query=${encodeURIComponent(n.video)}` }, ...(n.links || [])];
+      const all = [{ kind: 'video', label: 'Chris Doner: search his channel', url: `https://www.youtube.com/channel/UCU_4LajnXERILx6XViGCIXA/search?query=${encodeURIComponent(n.video.replace(/^Chris Doner IB physics\s*/i, ''))}` }, ...(n.links || [])];
       const rows = [['Watch', all.filter(l => l.kind === 'video')], ['Explore', all.filter(l => l.kind === 'sim')], ['Read', all.filter(l => l.kind !== 'video' && l.kind !== 'sim')]].filter(r => r[1].length);
       return `<div class="morehelp"><span class="mh">More help</span>${rows.map(([h, ls]) => `<div class="mh-row"><span class="mh-k">${h}</span><div class="mh-links">${ls.map(linkHTML).join('')}</div></div>`).join('')}</div>`;
     };
@@ -16836,7 +16836,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   /* Printable files (worksheets, exam results): authorship comment at the top, and a watermark line on every printed page
      (CSS page-margin boxes: Chrome and Edge) plus a footer at the end of the document (all browsers). */
   const SITE_URL = 'https://mvpoirier.github.io/revision-lab/', REPO_URL = 'https://github.com/mvpoirier/mvpoirier.github.io';
-  const DOC_DATE = '2 November 2026';
+  const DOC_DATE = '3 November 2026';
   const docComment = (what, id) => `<!--
   MVPhysics Revision Lab · ${what}${id ? ' · ' + id : ''}
   Made with version ${APP_VERSION} (built ${DOC_DATE}) on ${new Date().toISOString().slice(0, 10)}
