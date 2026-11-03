@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--
   MVPhysics Revision Lab: IB DP Physics revision (SL and HL)
-  Version: 1.0 Beta (online edition) · Built: 3 November 2026
+  Version: 1.1 Beta (online edition) · Built: 3 November 2026
   Author: Mike Poirier (https://github.com/mvpoirier), developed with Claude (Opus 5.5-Medium) by Anthropic
   Licence: CC BY-NC-SA 4.0, https://creativecommons.org/licenses/by-nc-sa/4.0/
   Site: https://mvpoirier.github.io/revision-lab/
@@ -738,10 +738,20 @@ details.hist-stage[open] > summary::before { transform: rotate(90deg); }
 /* Equations: never cut off on the left when wider than their box */
 .eqgrid .eq { justify-content: safe center; }
 .eqgrid .eq mjx-container[display="true"] { max-width: 100%; }
+/* 1.1: All/None stay together at the end of the topic bar */
+.tchip-pair { display: inline-flex; gap: 6px; margin-left: auto; flex: none; }
+/* 1.1: Last Man Standing give up + review */
+.go-gave { grid-column: 1 / -1; letter-spacing: .12em; opacity: .85; }
+.lms-review { margin-top: 18px; text-align: left; }
+.lms-review .rv-mark { font-weight: 800; display: inline-block; width: 1.2em; }
+.lms-review .rv-ok .rv-mark { color: var(--good); } .lms-review .rv-no .rv-mark { color: var(--bad); }
+#lmsGiveUp { margin-left: 6px; }
+.fe28-eqs { margin: 6px 0; overflow-x: auto; }
+.fe28-eqs mjx-container[display="true"] { margin: 6px 0 !important; text-align: left !important; }
 
 </style>
 <header class="top"><div class="top-inner">
-  <div class="brand"><h1><b class="mvp">MVP</b>hysics Revision Lab <span class="trophy" aria-hidden="true">🏆</span><span class="beta-tag" title="Beta for student testing: version 1.0 Beta">Beta</span></h1></div>
+  <div class="brand"><h1><b class="mvp">MVP</b>hysics Revision Lab <span class="trophy" aria-hidden="true">🏆</span><span class="beta-tag" title="Beta for student testing: version 1.1 Beta">Beta</span></h1></div>
   <nav class="tabs" id="tabs" aria-label="Modes"></nav>
   <div class="hbar">
     <div class="course-seg" id="courseSeg" role="group" aria-label="Course level" data-tip="SL hides HL-only content"><button type="button" data-course="SL" aria-pressed="false">SL</button><button type="button" data-course="HL" aria-pressed="true">HL</button></div>
@@ -759,7 +769,7 @@ details.hist-stage[open] > summary::before { transform: rotate(90deg); }
 <footer class="site-foot"><div class="foot-wrap">
   <div class="foot-inner">
     <div class="foot-brand">
-      <div class="foot-name"><b class="mvp">MVP</b>hysics Revision Lab <span class="trophy" aria-hidden="true">🏆</span><span class="beta-tag" title="Beta for student testing: version 1.0 Beta">Beta</span></div>
+      <div class="foot-name"><b class="mvp">MVP</b>hysics Revision Lab <span class="trophy" aria-hidden="true">🏆</span><span class="beta-tag" title="Beta for student testing: version 1.1 Beta">Beta</span></div>
     </div>
     <nav class="foot-links" aria-label="Site">
       <a href="#about">About</a>
@@ -769,7 +779,7 @@ details.hist-stage[open] > summary::before { transform: rotate(90deg); }
   <details class="report report-general foot-report"><summary><span class="flag" aria-hidden="true">⚑&#xFE0E;</span> Feedback or report a problem</summary><div class="report-body"><textarea class="report-note" rows="3" placeholder="Your feedback: a bug, an idea, something confusing… Say which page or feature." aria-label="Your feedback"></textarea><div class="row"><a class="btn sm primary send-report" href="#" target="_blank" rel="noopener" data-send="general|||footer">Send Report ↗</a><button type="button" class="btn sm" data-report="general|||footer">Copy Report</button><span class="muted small">Send Report opens your teacher’s Google Form (sign in with your school account). The page you are on is added automatically. Copy Report is a backup.</span></div></div></details>
   <div class="foot-meta">
     <span>Developed by <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a> using Claude (Opus 5.5-Medium)</span>
-    <span class="foot-ver">Version 1.0 Beta · Updated 3 November 2026</span>
+    <span class="foot-ver">Version 1.1 Beta · Updated 3 November 2026</span>
   </div>
 </div></footer>
 <script>
@@ -5673,7 +5683,7 @@ mc('b2-m09', 'Equilibrium temperature with emissivity', ['b2-balance', 'b2-albed
   return {
     stem: L`A simple model treats the Earth as a body with albedo $0.30$ and an effective emissivity of $${e}$. The solar constant is $1.36\times10^{3}\,\mathrm{W\,m^{-2}}$. What equilibrium surface temperature does the model predict?`,
     ...numMCQ(T, [eqT(I), eqT(I * e), eqT(SOLAR * (1 - a), e)], 3, U.K),
-    solution: L`$\dfrac{S}{4}(1 - \alpha) = e\sigma T^4$, so $T = \left(\dfrac{${sf(I, 3)}}{${e} \times 5.67\times10^{-8}}\right)^{1/4} = ${sf(T, 3)}\,\mathrm{K}$. A lower effective emissivity (more radiation trapped) gives a higher temperature.`,
+    solution: L`Absorbed intensity = emitted intensity. From the data booklet, $L = e\sigma A T^4$, so the emitted intensity is $L/A = e\sigma T^4$: $\dfrac{S}{4}(1 - \alpha) = e\sigma T^4$, so $T = \left(\dfrac{${sf(I, 3)}}{${e} \times 5.67\times10^{-8}}\right)^{1/4} = ${sf(T, 3)}\,\mathrm{K}$. A lower effective emissivity (more radiation trapped) gives a higher temperature.`,
   };
 });
 
@@ -5682,7 +5692,7 @@ mc('b2-m10', 'Intensity radiated by the surface', ['b2-balance'], 1, (R) => {
   return {
     stem: L`What is the intensity radiated by a black-body surface at $${T}\,\mathrm{K}$?`,
     ...numMCQ(I, [I / 4, 4 * I, SIGMA * Math.pow(T + 273, 4)], 2, U.Wm2),
-    solution: L`$I = \sigma T^4 = 5.67\times10^{-8} \times ${T}^4 = ${sf(I, 2)}\,\mathrm{W\,m^{-2}}$.`,
+    solution: L`Start from the data booklet: $L = \sigma A T^4$. Intensity is power per unit area, so $I = \dfrac{L}{A} = \sigma T^4 = 5.67\times10^{-8} \times ${T}^4 = ${sf(I, 2)}\,\mathrm{W\,m^{-2}}$.`,
   };
 });
 
@@ -14940,7 +14950,11 @@ const FE2028 = {
   'e5-hr': [L`New understanding: the role of the <b>Chandrasekhar limit</b> (about $1.4M_\odot$, the maximum mass of a white dwarf) and the <b>Oppenheimer–Volkoff limit</b> (about $2$–$3M_\odot$, the maximum mass of a neutron star) in the evolution of stars.`],
   'd4-lenz': [L`The guidance sentence on self-induction is deleted in FE2028. Self-induction questions here are for FE2025 candidates.`],
   's-unc': [L`New booklet equation: $\text{percentage uncertainty} = \dfrac{\text{absolute uncertainty}}{\text{measured value}} \times 100\%$.`],
-  's-prec': [L`New booklet equations: $\text{percentage error} = \dfrac{\text{measured value} - \text{actual value}}{\text{actual value}} \times 100\%$, $\text{percentage difference} = \dfrac{\text{difference}}{\text{mean of the two values}} \times 100\%$ and $\text{percentage change} = \dfrac{\text{final} - \text{initial}}{\text{initial}} \times 100\%$. Use the name that matches the comparison.`],
+  's-prec': [L`Three new booklet equations. Use the one whose name matches the comparison:
+    <div class="fe28-eqs">$$\text{percentage error} = \frac{\text{measured value} - \text{actual value}}{\text{actual value}} \times 100\%$$
+    $$\text{percentage difference} = \frac{\text{difference}}{\text{mean of the two values}} \times 100\%$$
+    $$\text{percentage change} = \frac{\text{final value} - \text{initial value}}{\text{initial value}} \times 100\%$$</div>
+    Percentage error compares with an accepted value; percentage difference compares two measured values; percentage change compares before and after.`],
 };
 for (const [id, list] of Object.entries(FE2028)) if (NOTES[id]) NOTES[id].fe28 = list;
 /* Notes summary: what kind of change each strand's FE2028 entry is (d2-bfield repeats d3-wires, so it is left out of the summary). */
@@ -15451,7 +15465,7 @@ function tname0(id) { return id.replace('.', ''); }
 
 </script>
 <script>
-const FOOTER_TEXT = 'Questions are original and written in the style of the IB DP Physics course (first assessment 2025).<br>Developed by <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a> using Claude (Opus 5.5-Medium). Licensed under CC BY-NC-SA 4.0.<br>Version 1.0 Beta · Last updated: 3 November 2026';
+const FOOTER_TEXT = 'Questions are original and written in the style of the IB DP Physics course (first assessment 2025).<br>Developed by <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a> using Claude (Opus 5.5-Medium). Licensed under CC BY-NC-SA 4.0.<br>Version 1.1 Beta · Last updated: 3 November 2026';
 /* ===== DP Physics Revision Lab — app ===== */
 (function () {
   'use strict';
@@ -15469,7 +15483,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   /* ---------- storage (device only) ---------- */
   const DEF = () => ({
     settings: { theme: '', course: 'HL', toff: [], rmode: 'flash', level: 'SL', papers: { '1A': true, '1B': true, '2': true }, chili: { 1: true, 2: true, 3: true }, sel: LIVE_IDS.slice(), saved: {}, paceCoach: false, missedOnly: false, incCmd: true },
-    log: [], cards: {}, missed: [], gbest: {}, lmsBest: 0, days: [], games: {}, matchBest: 0, exams: [], newDay: { d: '', n: 0 },
+    log: [], cards: {}, missed: [], gbest: {}, lmsBest: 0, lmsRuns: [], days: [], games: {}, matchBest: 0, exams: [], newDay: { d: '', n: 0 },
   });
   function load() {
     const d = DEF();
@@ -15596,7 +15610,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
       const t = TOPICS.find(x => x.id === id), live = !!(t && t.live), on = live && !off.includes(id);
       return `<button type="button" class="tchip${id === 'Skills' ? ' tip' : ''}" data-tchip="${id}" aria-pressed="${on}" ${live ? '' : 'disabled'} ${id === 'Skills' ? `data-tip="${SSP_TIP}"` : `title="${esc(tname(id) + ' ' + name)}"`}>${tname(id)}${/\(HL\)/.test(name) ? '<span class="hl">HL</span>' : ''}</button>`;
     }).join('') + (withCmd ? `<button type="button" class="tchip" data-tcmd="1" aria-pressed="${!!S.settings.incCmd}" title="IB command terms">Command Terms</button>` : '');
-    return `<div class="tchips" role="group" aria-label="Topics">${chips}<span class="tchip-sep"></span><button type="button" class="tchip-all" data-tall="1">All</button><button type="button" class="tchip-all" data-tall="0">None</button></div>`;
+    return `<div class="tchips" role="group" aria-label="Topics">${chips}<span class="tchip-sep"></span><span class="tchip-pair"><button type="button" class="tchip-all" data-tall="1">All</button><button type="button" class="tchip-all" data-tall="0">None</button></span></div>`;
   }
   function matches(q, o = {}) {
     if (!o.ignorePapers && !S.settings.papers[q.paper]) return false;
@@ -15635,7 +15649,6 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
         <ul>${list}</ul></details>`;
     }).join('');
     const hiddenHL = isHL() ? 0 : ALL_STRANDS.filter(x => x.live && x.hl).length;
-    const saved = Object.keys(st.saved);
     rail.innerHTML = `
       <div class="rail-head"><h2>Questions <span class="rail-count num">(${n} selected)</span></h2><button class="rail-toggle" id="railToggle" aria-expanded="${!rail.classList.contains('collapsed')}">${rail.classList.contains('collapsed') ? 'Show' : 'Hide'}</button></div>
       <div class="rail-body">
@@ -15644,10 +15657,6 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
         <div class="fieldset"><span class="lbl">Difficulty</span><div class="chips">${[1, 2, 3].map(c => `<button class="chip" data-chili="${c}" aria-pressed="${!!st.chili[c]}" aria-label="${CHILI_TIP[c]}">${chiliIcon(c)}</button>`).join('')}</div></div>`}
         <div class="fieldset"><span class="lbl">Topics &amp; strands</span><div class="row" style="gap:6px"><button class="btn sm" id="selAll">Select All</button><button class="btn sm" id="selNone">Clear All</button><button class="btn sm" id="railFold" aria-pressed="${allFolded}">${allFolded ? 'Expand All' : 'Collapse All'}</button></div><div class="tree">${tree}</div></div>
         ${blitz ? '' : `<div class="fieldset"><label class="switch"><input type="checkbox" id="missedOnly" ${st.missedOnly ? 'checked' : ''}> Only questions I've missed <span class="muted num small">(${S.missed.length})</span></label></div>`}
-        <div class="fieldset saved"><span class="lbl">Saved selections</span>
-          <div class="saved-row"><input id="saveName" placeholder="Name this selection" maxlength="30"><button class="btn sm" id="saveSel">Save</button></div>
-          ${saved.length ? `<div class="saved-list">${saved.map(k => `<span class="saved-item"><button data-load="${esc(k)}">${esc(k)}</button><button data-del="${esc(k)}" aria-label="Delete ${esc(k)}">×</button></span>`).join('')}</div>` : '<span class="muted small">Save a set of strands to reuse it later.</span>'}
-        </div>
       </div>`;
     $$('input[data-mixed]', rail).forEach(i => { i.indeterminate = true; });
   }
@@ -15661,9 +15670,6 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
       if (b.dataset.level) st.level = b.dataset.level;
       else if (b.dataset.paper) st.papers[b.dataset.paper] = !st.papers[b.dataset.paper];
       else if (b.dataset.chili) st.chili[b.dataset.chili] = !st.chili[b.dataset.chili];
-      else if (b.id === 'saveSel') { const nm = $('#saveName').value.trim(); if (!nm) { toast('Type a name for this selection first.'); return; } st.saved[nm] = { sel: st.sel.slice(), papers: { ...st.papers }, chili: { ...st.chili } }; toast(`Saved "${nm}".`); }
-      else if (b.dataset.load) { const v = st.saved[b.dataset.load]; if (v) { st.sel = v.sel.slice(); st.papers = { ...v.papers }; st.chili = { ...v.chili }; toast(`Loaded "${b.dataset.load}".`); } }
-      else if (b.dataset.del) { delete st.saved[b.dataset.del]; }
       else if (b.id === 'selAll') st.sel = [...new Set([...st.sel, ...LIVE_IDS.filter(levelOK)])];
       else if (b.id === 'selNone') st.sel = st.sel.filter(id => !levelOK(id));
       else return;
@@ -15690,7 +15696,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   }
 
   /* ---------- question rendering ---------- */
-  const APP_VERSION = '1.0 Beta';
+  const APP_VERSION = '1.1 Beta';
   const INFO_ICON = '<svg class="info-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M12 10.6v6.2"/><circle class="dot" cx="12" cy="7.4" r="1.15"/></svg>';
   /* Report a problem: copies the exact question (id + seed) so the teacher can recreate what the student saw */
   /* ---------- Report a problem / feedback, everywhere ----------
@@ -16277,7 +16283,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     if (!GA) GA = { phase: 'setup', dur: 5, custom: false };
     const n = gaPool().length;
     if (LM) return renderLms(main);
-    if (GA.phase === 'setup' && GA.mode === 'lms') { main.innerHTML = head('Blitz ⚡', 'Answer as many Paper 1A questions as you can before time runs out.') + blitzModeSeg() + lmsSetup() + blitzStats(); return; }
+    if (GA.phase === 'setup' && GA.mode === 'lms') { main.innerHTML = head('Blitz ⚡', 'Answer as many Paper 1A questions as you can before time runs out.') + blitzModeSeg() + lmsSetup() + lmsStats(); return; }
     if (GA.phase === 'setup') {
       const maxMin = n * 2;
       const preset = [5, 10, 15, 20, 30, 40];
@@ -16322,6 +16328,21 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     return `<section class="panel"><h3>Your Blitz stats</h3>${runs.length ? `
       <div class="tiles"><div class="tile"><span class="k">Questions answered</span><span class="v num">${runs.length}</span></div><div class="tile"><span class="k">Correct</span><span class="v num">${pct(right, runs.length)}%</span></div><div class="tile"><span class="k">Average time</span><span class="v num">${fmtMin(avg)}</span></div></div>
       ${durs.length ? `<div class="tbl-wrap"><table class="stats"><thead><tr><th>Time limit</th><th>Best score</th></tr></thead><tbody>${durs.map(d => `<tr><td class="num">${d} min</td><td class="num">${S.gbest[d]}</td></tr>`).join('')}</tbody></table></div>` : ''}` : '<p class="muted">No Blitz runs yet. Your best scores for each time limit will appear here.</p>'}</section>`;
+  }
+  /* Last Man Standing stats: separate from Blitz Classic (1.1) */
+  function lmsStats() {
+    const runs = S.lmsRuns || [], ans = S.log.filter(x => x.mode === 'lms'), right = ans.filter(x => x.score > 0).length;
+    const recent = runs.slice(-8).reverse();
+    return `<section class="panel" id="lmsStats"><h3>Your Last Man Standing stats</h3>${runs.length || ans.length ? `
+      <div class="tiles"><div class="tile"><span class="k">Runs</span><span class="v num">${runs.length}</span></div><div class="tile"><span class="k">Best survival</span><span class="v num">${S.lmsBest ? fmtClock(S.lmsBest) : '–'}</span></div><div class="tile"><span class="k">Questions answered</span><span class="v num">${ans.length}</span></div><div class="tile"><span class="k">Correct</span><span class="v num">${pct(right, ans.length)}%</span></div></div>
+      ${recent.length ? `<div class="tbl-wrap"><table class="stats"><thead><tr><th>Date</th><th>Survived</th><th>Correct</th><th></th></tr></thead><tbody>${recent.map(r => `<tr><td>${new Date(r.ts).toLocaleDateString()}</td><td class="num">${fmtClock(r.survived)}</td><td class="num">${r.correct} / ${r.answered}</td><td class="small muted">${r.gaveUp ? 'Gave up' : ''}</td></tr>`).join('')}</tbody></table></div>` : ''}` : '<p class="muted">No Last Man Standing runs yet. Your survival times will appear here.</p>'}</section>`;
+  }
+  // review after a Last Man Standing run: every question, right or wrong, with its worked solution (1.1)
+  function lmsReview(L) {
+    if (!L.hist || !L.hist.length) return '';
+    const wrong = L.hist.filter(h => h.picked !== h.inst.answer).length;
+    return `<section class="panel lms-review" id="lmsReview"><h3>Review your run</h3><p class="muted small">${L.hist.length} question${L.hist.length > 1 ? 's' : ''} · ${L.hist.length - wrong} right · ${wrong} wrong${wrong ? ' (now in "Only questions I\'ve missed")' : ''}</p>
+      ${L.hist.map((h, i) => { const ok = h.picked === h.inst.answer; return `<details class="solution ${ok ? 'rv-ok' : 'rv-no'}"><summary><span class="rv-mark" aria-label="${ok ? 'Right' : 'Wrong'}">${ok ? '✓' : '✗'}</span> ${i + 1}. ${esc(h.q.title)}: ${ok ? `you chose ${LETTERS[h.picked]}` : `you chose ${LETTERS[h.picked]}, answer ${LETTERS[h.inst.answer]}`}</summary><div class="qbody">${h.inst.stem}${optionsHTML(h.inst, h.picked, true)}<h4>Worked solution</h4>${h.inst.solution}</div>${reportBox(h.q, h.seed, 'Last Man Standing')}</details>`; }).join('')}</section>`;
   }
   /* ---------- Last man standing 💀 ---------- */
   let LM = null, lmTimer = null, lmOverT = null;
@@ -16448,14 +16469,15 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     if (L.phase === 'count') { main.innerHTML = soundBtn() + `<section class="lms-stage"><div class="lms-count" id="lmsCount" aria-live="assertive"></div></section>`; lmsTick(); return; }
     if (L.phase === 'run') {
       const it = L.cur;
-      main.innerHTML = `<div class="instrument lms-bar"><div class="row"><span class="clock" id="lmsClock"></span><span class="spacer"></span>${soundBtn()}<span class="pill info num">Correct ${L.correct}</span><span class="pill neutral num">Q${L.idx}</span>${chiliIcon(it.q.chili)}</div></div>
+      main.innerHTML = `<div class="instrument lms-bar"><div class="row"><span class="clock" id="lmsClock"></span><span class="spacer"></span>${soundBtn()}<span class="pill info num">Correct ${L.correct}</span><span class="pill neutral num">Q${L.idx}</span>${chiliIcon(it.q.chili)}<button type="button" class="btn sm ghost" id="lmsGiveUp">Give up</button></div><div id="lmsConfirm"></div></div>
         <article class="sheet" id="sheet"><div class="qmeta">${topicTags(it.q.strands)}${chiliIcon(it.q.chili)}</div><div class="qbody">${it.inst.stem}</div>${optionsHTML(it.inst, it.picked, it.picked !== null)}</article>`;
       typeset($('#sheet')); lmsTick(); return;
     }
     // game over
     main.innerHTML = soundBtn() + `<section class="lms-stage lms-over-stage"><div class="gameover" aria-live="assertive">GAME<br>OVER</div>
-      <div class="go-stats"><div>TIME <b>${fmtClock(L.survived)}</b></div><div>BEST TIME <b>${fmtClock(S.lmsBest)}</b></div><div>CORRECT <b>${L.correct}</b> / ${L.answered}</div>${L.newBest ? '<div class="go-best">NEW BEST!</div>' : ''}</div>
-      <div class="go-actions" id="goActions">${L.canExit ? `<button class="btn primary" id="lmsRestart">Restart</button><button class="btn" id="lmsEnd">End</button>` : '<span class="go-wait">…</span>'}</div></section>`;
+      <div class="go-stats"><div>TIME <b>${fmtClock(L.survived)}</b></div><div>BEST TIME <b>${S.lmsBest ? fmtClock(S.lmsBest) : '–'}</b></div><div>CORRECT <b>${L.correct}</b> / ${L.answered}</div>${L.newBest ? '<div class="go-best">NEW BEST!</div>' : ''}${L.gaveUp ? '<div class="go-gave">GAVE UP</div>' : ''}</div>
+      <div class="go-actions" id="goActions">${L.canExit ? `<button class="btn primary" id="lmsRestart">Restart</button><button class="btn" id="lmsEnd">End</button>` : '<span class="go-wait">…</span>'}</div></section>${lmsReview(L)}`;
+    typeset($('#lmsReview'));
   }
   function lmsNext() { const e = LM.seq[LM.idx % LM.seq.length]; LM.idx++; LM.cur = { q: e.q, seed: e.seed, inst: e.q.gen(makeR(e.seed)), t0: now(), picked: null }; }
   function lmsTick() {
@@ -16478,8 +16500,10 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   }
   function lmsOver() {
     const L = LM; L.phase = 'over'; clearInterval(lmTimer); SFX.music(false); SFX.over();
-    L.survived = Math.round((L.endAt - L.start) / 1000);
-    L.newBest = L.survived > (S.lmsBest || 0); if (L.newBest) S.lmsBest = L.survived; save();
+    L.survived = Math.round(((L.gaveUp ? now() : L.endAt) - L.start) / 1000);
+    L.newBest = !L.gaveUp && L.survived > (S.lmsBest || 0); if (L.newBest) S.lmsBest = L.survived; // a run you give up does not set a best time
+    (S.lmsRuns = S.lmsRuns || []).push({ ts: now(), survived: L.survived, correct: L.correct, answered: L.answered, gaveUp: !!L.gaveUp }); if (S.lmsRuns.length > 200) S.lmsRuns.splice(0, S.lmsRuns.length - 200);
+    save();
     L.canExit = true; clearTimeout(lmOverT);
     lmsTheme(); if (currentView() === 'blitz') renderLms($('#main'));
   }
@@ -16488,16 +16512,19 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     document.documentElement.classList.toggle('lms', on);
     document.documentElement.classList.toggle('lms-over', on && LM.phase === 'over');
   }
-  function lmsStartRun() { SFX.unlock(); Object.assign(LM, { phase: 'count', countStart: now(), idx: 0, correct: 0, answered: 0, cur: null, lastCount: null }); clearInterval(lmTimer); lmTimer = setInterval(lmsTick, 100); lmsTheme(); renderLms($('#main')); }
+  function lmsStartRun() { SFX.unlock(); Object.assign(LM, { phase: 'count', countStart: now(), idx: 0, correct: 0, answered: 0, cur: null, lastCount: null, hist: [], gaveUp: false }); clearInterval(lmTimer); lmTimer = setInterval(lmsTick, 100); lmsTheme(); renderLms($('#main')); }
   function lmsClick(b, main) {
     const L = LM;
     if (b.id === 'lmsSound') { const on = SFX.toggle(); if (on) { SFX.unlock(); if (L.phase === 'run') SFX.music(true); } b.outerHTML = soundBtn(); return; }
     if (b.id === 'lmsLeave' || b.id === 'lmsEnd') { SFX.music(false); clearInterval(lmTimer); clearTimeout(lmOverT); LM = null; GA.phase = 'setup'; lmsTheme(); renderGauntlet(main); return; }
     if (b.id === 'lmsReady' || b.id === 'lmsRestart') { lmsStartRun(); return; }
+    if (b.id === 'lmsGiveUp' && L.phase === 'run') { $('#lmsConfirm').innerHTML = '<div class="confirm"><span>Give up this run? It ends now and will not count as a best time.</span><div class="row"><button class="btn primary" id="lmsGiveYes">Give up</button><button class="btn" id="lmsGiveNo">Keep going</button></div></div>'; return; }
+    if (b.id === 'lmsGiveNo') { $('#lmsConfirm').innerHTML = ''; return; }
+    if (b.id === 'lmsGiveYes' && L.phase === 'run') { L.gaveUp = true; lmsOver(); return; }
     if (L.phase === 'run' && b.dataset.opt !== undefined && L.cur.picked === null) {
       const cur = L.cur; cur.picked = +b.dataset.opt; const ok = cur.picked === cur.inst.answer; L.answered++;
       if (ok) { L.correct++; L.endAt += LMS_GAIN * 1000; toast('+60 s'); SFX.good(); } else { L.endAt -= LMS_LOSS * 1000; addMissed(cur.q.id); toast('−60 s'); SFX.bad(); }
-      logAttempt(cur.q, ok ? 1 : 0, (now() - cur.t0) / 1000, 'lms');
+      logAttempt(cur.q, ok ? 1 : 0, (now() - cur.t0) / 1000, 'lms'); L.hist.push(cur);
       $$('.opt', main).forEach((o, i) => { o.disabled = true; if (i === cur.inst.answer) o.classList.add('correct'); else if (i === cur.picked) o.classList.add('wrong'); });
       const sh = $('#sheet'); sh.classList.add(ok ? 'flash-ok' : 'flash-no'); lmsTick();
       setTimeout(() => { if (LM === L && L.phase === 'run') { lmsNext(); if (currentView() === 'blitz') renderLms(main); } }, ok ? 650 : 1500);
@@ -16926,7 +16953,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
         catch (err) { toast('That code could not be read. Check you copied all of it.'); }
         return;
       }
-      if (b.id === 'rsAsk') { $('#bkArea').innerHTML = `<div class="confirm" style="margin-top:10px"><span>This erases every attempt, recall card and saved selection in this browser. It cannot be undone.</span><div class="row"><button class="btn danger" id="rsYes">Erase everything</button><button class="btn" id="rsNo">Cancel</button></div></div>`; return; }
+      if (b.id === 'rsAsk') { $('#bkArea').innerHTML = `<div class="confirm" style="margin-top:10px"><span>This erases every attempt, recall card and setting in this browser. It cannot be undone.</span><div class="row"><button class="btn danger" id="rsYes">Erase everything</button><button class="btn" id="rsNo">Cancel</button></div></div>`; return; }
       if (b.id === 'rsNo') { $('#bkArea').innerHTML = ''; return; }
       if (b.id === 'rsYes') { S = DEF(); save(); RC = null; P.q = null; renderRail(); renderStats(main); toast('Progress reset.'); }
     };
@@ -17203,7 +17230,8 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     { v: '0.58 alpha', d: '1 November 2026', items: ['All remaining topics added: D.1 Gravitational fields, D.2 Electric and magnetic fields, D.3 Motion in electromagnetic fields, E.1 Structure of the atom, E.2 Quantum physics (HL), E.3 Radioactive decay, E.4 Fission, E.5 Fusion and stars, and B.4 Thermodynamics (HL). Every topic in the guide is now on the site.', 'Each new topic has Paper 1A, 1B and 2 questions, notes with data-booklet equations and FE2028 changes, recall cards, Who’s Right? items and data-booklet pages. Paper 1B includes historic experiments (Millikan, Rutherford, the photoelectric effect, Compton scattering).', 'Thinner topics (A.4, A.5, B.2, C.1–C.5, D.4) and the SSP skills now have more questions and cards, so every strand has at least 8 Paper 1A questions, 3 cards and a Who’s Right? item, and every topic at least 5 Paper 2 and 3 Paper 1B questions.', 'Exam Mode shares marks between topics in proportion to the IB teaching hours, so large question banks no longer crowd out smaller topics.', 'Who’s Right?: the better answer is now Student A or Student B about equally often.'] },
     { v: '0.59 alpha', d: '1 November 2026', items: ['Pause button on every timer except Last Man Standing: Practice (pace coach), Exam Mode, Blitz Classic and Match It!. While paused, the timer stops and the question is hidden until you resume.', 'Exam Mode results show how many times the paper was paused and the total time paused; Stats lists pauses for each recent exam.'] },
     { v: '0.60 alpha', d: '1 November 2026', items: ['Notes: new FE2028 changes at a glance panel at the top, listing every September 2026 change for exams from May 2028, grouped into data booklet changes, guide additions and clarifications, and removals, for all topics. ','Estimated DP grade (1–7) from your score, using typical IB DP Physics grade boundaries for SL or HL. It is a guide only: real boundaries change each session and include the IA.', 'Download results: one file with every question, your answers, the markschemes you ticked, your score, time, pauses, seed and estimated grade. Print it or save it as a PDF.', 'Stats: recent exam papers list the estimated grade and seed, and a new table shows the approximate grade boundaries used.', 'Flashcards: new Reverse option shows the definition first (the term is hidden) so you recall the term. Equation and question cards are shown the usual way.'] },,
-    { v: '1.0 Beta', d: '2 November 2026', items: ['First beta, for student testing. Versions 0.1–0.60 were internal alpha builds.', 'All 25 topics, 102 strands and 1,131 question templates (Paper 1A, 1B and 2), 377 recall cards and 107 Who’s Right? items.', 'Open to print: worksheets and exam results open in a new tab, ready to print or save as PDF (Download is still there). If pop-ups are blocked, the file downloads instead.', 'Notes: Chris Doner videos are now linked directly for each strand (from his FE2025 topic playlists), plus the playlist for the whole topic.', 'Fixed: tooltips no longer cut off at the edge of a panel or the screen, and wide equations in Notes are no longer cut off (they widen or shrink to fit).', 'Printed and downloaded papers and results carry the version, author, licence and site on every page, with page numbers.', 'Send Report: each report box (and Send results to teacher in Exam Mode) opens your teacher’s Google Form already filled in; you press Submit. Sign in with your school account. Copy Report stays as a backup.', 'Report a problem is now everywhere: under every question (Practice, Exam Mode, Blitz misses), every flashcard and answered Recall game, every Notes strand, the FE2028 summary and the data booklet. A Feedback or report a problem box in the footer covers the rest of the site (Stats, About, ideas, bugs) and adds the page you are on.']}
+    { v: '1.0 Beta', d: '2 November 2026', items: ['First beta, for student testing. Versions 0.1–0.60 were internal alpha builds.', 'All 25 topics, 102 strands and 1,131 question templates (Paper 1A, 1B and 2), 377 recall cards and 107 Who’s Right? items.', 'Open to print: worksheets and exam results open in a new tab, ready to print or save as PDF (Download is still there). If pop-ups are blocked, the file downloads instead.', 'Notes: Chris Doner videos are now linked directly for each strand (from his FE2025 topic playlists), plus the playlist for the whole topic.', 'Fixed: tooltips no longer cut off at the edge of a panel or the screen, and wide equations in Notes are no longer cut off (they widen or shrink to fit).', 'Printed and downloaded papers and results carry the version, author, licence and site on every page, with page numbers.', 'Send Report: each report box (and Send results to teacher in Exam Mode) opens your teacher’s Google Form already filled in; you press Submit. Sign in with your school account. Copy Report stays as a backup.', 'Report a problem is now everywhere: under every question (Practice, Exam Mode, Blitz misses), every flashcard and answered Recall game, every Notes strand, the FE2028 summary and the data booklet. A Feedback or report a problem box in the footer covers the rest of the site (Stats, About, ideas, bugs) and adds the page you are on.']},
+    { v: '1.1 Beta', d: '3 November 2026', items: ['Last Man Standing: a Give up button (with a check first); a run you give up does not count as a best time.', 'Last Man Standing: after every run, a review of each question you answered, right or wrong, with the worked solution. Wrong answers go into "Only questions I\'ve missed".', 'Last Man Standing has its own stats (runs, best survival, recent runs), separate from Blitz Classic, so the Blitz stats now show the right mode.', 'Notes and Recall: the All and None buttons stay together.', 'Removed Saved selections from the question panel.', 'Solutions for radiated intensity now start from the data booklet equation L = σAT⁴ (or eσAT⁴).', 'FE2028 percentage error, difference and change equations shown as separate equations.'] }
   ];
   HISTORY.forEach(h => { h.items = h.items.map(TL); });
   const fmtBig = (n) => n >= 1e6 ? (n / 1e6).toFixed(1) + ' million' : n.toLocaleString('en-GB');
