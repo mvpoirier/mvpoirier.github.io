@@ -767,15 +767,12 @@ details.hist-stage[open] > summary::before { transform: rotate(90deg); }
 .welcome-hero { padding: 26px 24px; border-radius: 16px; background: linear-gradient(135deg, var(--accent-soft), var(--surface)); border: 1px solid var(--line); margin-bottom: 16px; }
 .welcome-hero h2 { font-size: 28px; font-weight: 800; font-stretch: 108%; margin-bottom: 8px; } .welcome-hero h2 .mvp { color: var(--accent); }
 .welcome-hero p { max-width: 62ch; margin: 0 0 14px; }
-.welcome-level { display: flex; align-items: center; gap: 10px; margin-top: 14px; }
 .welcome-offline { margin-top: 12px !important; padding: 8px 12px; border-radius: 8px; background: var(--surface); border: 1px dashed var(--line); }
 .wmodes { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; margin-top: 8px; }
 .wmode { display: grid; gap: 4px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--ink); text-decoration: none; transition: border-color .15s, transform .15s; }
 .wmode:hover, .wmode:focus-visible { border-color: var(--accent); transform: translateY(-1px); }
 .wmode .wic { font-size: 22px; } .wmode b { font-family: var(--f-display); font-size: 16px; } .wmode span:last-child { color: var(--muted); font-size: 13.5px; }
 .wsteps { margin: 6px 0 0; padding-left: 20px; display: grid; gap: 8px; }
-.tour-card { border: 2px solid var(--accent); } .tour-card h3 { margin-top: 8px; }
-.tour-dots { display: flex; gap: 6px; margin: 4px 0 10px; } .tour-dots span { width: 8px; height: 8px; border-radius: 50%; background: var(--line); } .tour-dots span.on { background: var(--accent); }
 a.btn { text-decoration: none; }
 ol.history .hm { font-size: 11.5px; }
 /* offline badge (offline copy only) */
@@ -17431,7 +17428,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     { v: '0.60 alpha', d: '1 November 2026', items: ['Notes: new FE2028 changes at a glance panel at the top, listing every September 2026 change for exams from May 2028, grouped into data booklet changes, guide additions and clarifications, and removals, for all topics. ','Estimated DP grade (1–7) from your score, using typical IB DP Physics grade boundaries for SL or HL. It is a guide only: real boundaries change each session and include the IA.', 'Download results: one file with every question, your answers, the markschemes you ticked, your score, time, pauses, seed and estimated grade. Print it or save it as a PDF.', 'Stats: recent exam papers list the estimated grade and seed, and a new table shows the approximate grade boundaries used.', 'Flashcards: new Reverse option shows the definition first (the term is hidden) so you recall the term. Equation and question cards are shown the usual way.'] },,
     { v: '1.0 Beta', d: '2 November 2026', m: 'Claude Opus 5.5', items: ['First beta, for student testing. Versions 0.1–0.60 were internal alpha builds.', 'All 25 topics, 102 strands and 1,131 question templates (Paper 1A, 1B and 2), 377 recall cards and 107 Who’s Right? items.', 'Open to print: worksheets and exam results open in a new tab, ready to print or save as PDF (Download is still there). If pop-ups are blocked, the file downloads instead.', 'Notes: Chris Doner videos are now linked directly for each strand (from his FE2025 topic playlists), plus the playlist for the whole topic.', 'Fixed: tooltips no longer cut off at the edge of a panel or the screen, and wide equations in Notes are no longer cut off (they widen or shrink to fit).', 'Printed and downloaded papers and results carry the version, author, licence and site on every page, with page numbers.', 'Send Report: each report box (and Send results to teacher in Exam Mode) opens your teacher’s Google Form already filled in; you press Submit. Sign in with your school account. Copy Report stays as a backup.', 'Report a problem is now everywhere: under every question (Practice, Exam Mode, Blitz misses), every flashcard and answered Recall game, every Notes strand, the FE2028 summary and the data booklet. A Feedback or report a problem box in the footer covers the rest of the site (Stats, About, ideas, bugs) and adds the page you are on.']},
     { v: '1.1 Beta', d: '3 November 2026', m: 'Claude Opus 5.5', items: ['Games and Recall now open with cards for each mode and a short description; inside a mode, “← All games” or “← All recall modes” takes you back.', 'The offline copy shows an OFFLINE badge next to the version, with a tooltip explaining it.', 'New Welcome page: a quick guide to every mode, a short tour, and how to use the site for revision. Click the MVPhysics heading at any time to come back to it.', 'Blitz is now part of Games 🕹️, with two modes so far: Blitz and Last Man Standing. More game modes will follow.', '“Only questions I’ve missed” is now at the top of the question panel in Practice and highlighted when you have missed questions to practise (it now applies to Practice only; Exam Mode always uses your full selection).', 'Stats: a Last Man Standing best tile; Blitz average time to 0.1 s.', 'The version is shown in the badge (BETA 1.1), and the Claude model used for each build is listed in this revision history.', 'Fixed: flashcards scrolled sideways on phones.', 'Last Man Standing: a Give up button (with a check first); a run you give up does not count as a best time.', 'Last Man Standing: after every run, a review of each question you answered, right or wrong, with the worked solution. Wrong answers go into "Only questions I\'ve missed".', 'Last Man Standing has its own stats (runs, best survival, recent runs), separate from Blitz Classic, so the Blitz stats now show the right mode.', 'Notes and Recall: the All and None buttons stay together.', 'Removed Saved selections from the question panel.', 'Solutions for radiated intensity now start from the data booklet equation L = σAT⁴ (or eσAT⁴).', 'FE2028 percentage error, difference and change equations shown as separate equations.'] },
-    { v: '1.2 Beta', d: '4 November 2026', m: 'Claude Opus 5.5', items: ['The site is now called <b>MVPhysics Lab</b>, with a new address: <b>mvpoirier.github.io/mvphysics/</b>. The old revision-lab address takes you there automatically, and your saved progress carries over. A 🏆 now shows on the browser tab.', 'The site address (with nothing after it) now always opens the Welcome page. Links to a page, such as …/#practice or …/#games, still open that page.', 'Printed papers look like IB exams: answer boxes with a border and dotted lines. With “IB-style test” ticked, the order is cover sheet (topics, marks, time, instructions, class code), Paper 1A answer sheet (always 40 rows), Paper 1A, Paper 1B, Paper 2, then the markschemes, starting with the answer sheet with the correct answers crossed.', 'Games: Blitz now ends with a review of every question you answered, with worked solutions, and both Blitz and Last Man Standing can print their results.', 'The Print buttons open the paper or results in a new tab with the print window already open: choose a printer, or Save as PDF.', 'Printed tests: no site name on the cover; the class code appears only on the markscheme pages; the answer sheet lists the topics; and a one-page question overview (topics, strand, difficulty and marks for every question) comes before the markschemes.', 'Last Man Standing: choose the starting time (3, 5 or 10 minutes, or your own).', 'New Syllabus toggle (FE2025 / FE2028) in the Questions panel and in Recall. FE2025 is on by default; FE2028 adds content that is new for exams from May 2028, tagged FE2028.', 'Game stats are now on each game’s own screen and on the Stats page.', 'More resources on precision, accuracy, percentage error and percentage difference; more solutions now start from the data booklet equation.'] }
+    { v: '1.2 Beta', d: '4 November 2026', m: 'Claude Opus 5.5', items: ['The site is now called <b>MVPhysics Lab</b>, with a new address: <b>mvpoirier.github.io/mvphysics/</b>. The old revision-lab address takes you there automatically, and your saved progress carries over. A 🏆 now shows on the browser tab.', 'The site address (with nothing after it) now always opens the Welcome page. Links to a page, such as …/#practice or …/#games, still open that page.', 'The Welcome page is simpler: the welcome message, what’s here and how to revise. The start buttons, level switch and tour are gone (use SL/HL at the top of the page).', 'Printed papers look like IB exams: answer boxes with a border and dotted lines. With “IB-style test” ticked, the order is cover sheet (topics, marks, time, instructions, class code), Paper 1A answer sheet (always 40 rows), Paper 1A, Paper 1B, Paper 2, then the markschemes, starting with the answer sheet with the correct answers crossed.', 'Games: Blitz now ends with a review of every question you answered, with worked solutions, and both Blitz and Last Man Standing can print their results.', 'The Print buttons open the paper or results in a new tab with the print window already open: choose a printer, or Save as PDF.', 'Printed tests: no site name on the cover; the class code appears only on the markscheme pages; the answer sheet lists the topics; and a one-page question overview (topics, strand, difficulty and marks for every question) comes before the markschemes.', 'Last Man Standing: choose the starting time (3, 5 or 10 minutes, or your own).', 'New Syllabus toggle (FE2025 / FE2028) in the Questions panel and in Recall. FE2025 is on by default; FE2028 adds content that is new for exams from May 2028, tagged FE2028.', 'Game stats are now on each game’s own screen and on the Stats page.', 'More resources on precision, accuracy, percentage error and percentage difference; more solutions now start from the data booklet equation.'] }
   ];
   HISTORY.forEach(h => { h.items = h.items.map(TL); });
   const fmtBig = (n) => n >= 1e6 ? (n / 1e6).toFixed(1) + ' million' : n.toLocaleString('en-GB');
@@ -17494,7 +17491,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
       return `<details class="hist-stage" data-stage="${k}" ${open ? 'open' : ''}><summary><b>${title}</b><span class="muted small">${hs.length} version${hs.length > 1 ? 's' : ''} · ${sub}</span></summary><ol class="history">${hs.map(item).join('')}</ol></details>`; }).join('');
   }
   /* ======================= WELCOME (1.2) =======================
-     First visit lands here; the MVPhysics heading always brings you back. One-page overview + a short tour + how to revise. */
+     First visit lands here; the MVPhysics heading always brings you back. One-page overview + how to revise. */
   const WMODES = [
     ['practice', '🎯', 'Practice', 'One question at a time, with full worked solutions and markschemes. Retry any calculation with new values.'],
     ['games', '🕹️', 'Games', 'Race the clock and challenge your class: fast-paced physics games with scores, streaks and personal bests.'],
@@ -17503,22 +17500,11 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     ['notes', '📓', 'Notes', 'Short notes for every strand: data booklet equations, what you must know, common mistakes, videos and simulations.'],
     ['stats', '📈', 'Stats', 'Your progress by topic and paper, your pace, exam results and best scores. Back up your progress here too.'],
   ];
-  const WTOUR = [
-    ['Choose your level', 'Use <b>SL</b> or <b>HL</b> at the top of the page. SL hides HL-only questions and strands.'],
-    ['Pick your topics', 'Open the <b>Questions</b> panel to choose papers, difficulty 🌶 and the strands you want. Practice, Exam Mode and Games use this selection.'],
-    ['Practise and check', 'Answer, then open the worked solution or tick the markscheme points you earned. In Practice, wrong answers collect in <b>Only questions I’ve missed</b> at the top of the panel.'],
-    ['Use the data booklet', 'The 📘 button opens the data booklet, just like in the exam. Equations new for exams from 2028 are tagged FE2028.'],
-    ['Tell us about mistakes', 'Every question has <b>⚑ Report a problem</b>. Type what looks wrong and press <b>Send Report</b>: it opens your teacher’s form, already filled in.'],
-  ];
-  let WT = -1;
   function renderWelcome(main) {
     S.seenWelcome = true; save();
     main.innerHTML = `<section class="welcome-hero"><h2>Welcome to <b class="mvp">MVP</b>hysics Lab 🏆</h2>
         <p>Revision for IB DP Physics (first assessment 2025), SL and HL. Every question is original and generates new values each time, with worked solutions and IB-style markschemes. Nothing you do leaves your browser.</p>
-        <div class="row"><a class="btn primary" href="#practice">Start practising</a><button class="btn" id="tourGo" type="button">Take the 1-minute tour</button></div>
-        <div class="welcome-level"><span class="muted small">Your level:</span><div class="seg" role="group" aria-label="Course level"><button type="button" data-wlevel="SL" aria-pressed="${!isHL()}">SL</button><button type="button" data-wlevel="HL" aria-pressed="${isHL()}">HL</button></div></div>
       </section>
-      <div id="tourBox">${WT >= 0 ? tourCard() : ''}</div>
       <section class="panel"><h3>What’s here</h3><div class="wmodes">${WMODES.map(([k, ic, name, d]) => `<a class="wmode" href="#${k}"><span class="wic" aria-hidden="true">${ic}</span><b>${name}</b><span>${d}</span></a>`).join('')}</div></section>
       <section class="panel"><h3>How to use this for revision</h3><ol class="wsteps">
         <li><b>Every day, 5–10 minutes of Recall.</b> Spaced repetition brings each card back just before you would forget it. Short daily sessions beat one long one.</li>
@@ -17534,23 +17520,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
         <li><b>Found a mistake?</b> Use <b>⚑ Report a problem</b> under any question, or the box in the footer.</li>
       </ul><p class="muted small">Come back to this page any time by clicking <b>MVPhysics Lab</b> at the top left.</p></section>`;
   }
-  function tourCard() {
-    const [t, d] = WTOUR[WT];
-    return `<section class="panel tour-card" aria-live="polite"><div class="row"><span class="pill info num">${WT + 1} / ${WTOUR.length}</span><span class="spacer"></span><button class="linkbtn" id="tourClose" type="button">Close tour</button></div>
-      <h3>${t}</h3><p>${d}</p><div class="tour-dots" aria-hidden="true">${WTOUR.map((_, i) => `<span class="${i === WT ? 'on' : ''}"></span>`).join('')}</div>
-      <div class="row"><button class="btn" id="tourBack" type="button" ${WT === 0 ? 'disabled' : ''}>Back</button><span class="spacer"></span>${WT < WTOUR.length - 1 ? '<button class="btn primary" id="tourNext" type="button">Next</button>' : '<a class="btn primary" href="#practice" id="tourDone">Start practising</a>'}</div></section>`;
-  }
-  function bindWelcome(main) {
-    main.onclick = (e) => {
-      const b = e.target.closest('button,a'); if (!b) return;
-      const box = $('#tourBox');
-      if (b.id === 'tourGo') { WT = 0; box.innerHTML = tourCard(); box.scrollIntoView({ block: 'nearest' }); return; }
-      if (b.id === 'tourNext') { WT = Math.min(WTOUR.length - 1, WT + 1); box.innerHTML = tourCard(); return; }
-      if (b.id === 'tourBack') { WT = Math.max(0, WT - 1); box.innerHTML = tourCard(); return; }
-      if (b.id === 'tourClose' || b.id === 'tourDone') { WT = -1; if (b.id === 'tourClose') box.innerHTML = ''; return; }
-      if (b.dataset.wlevel) { const c = $$('#courseSeg [data-course]').find(x => x.dataset.course === b.dataset.wlevel); if (c) c.click(); $$('[data-wlevel]', main).forEach(x => x.setAttribute('aria-pressed', String(x.dataset.wlevel === (isHL() ? 'HL' : 'SL')))); }
-    };
-  }
+  function bindWelcome(main) { main.onclick = null; }
   function bindAbout() {}
   const VIEWS = {
     practice: [renderPractice, bindPractice, 'Practice 🎯'], exam: [renderExam, bindExam, 'Exam 📝'], blitz: [renderGauntlet, bindGauntlet, 'Games 🕹️'],
