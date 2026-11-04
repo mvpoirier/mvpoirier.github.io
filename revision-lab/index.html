@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--
-  MVPhysics Revision Lab: IB DP Physics revision (SL and HL)
+  MVPhysics Lab: IB DP Physics revision (SL and HL)
   Version: 1.2 Beta (online edition) · Built: 4 November 2026
   Author: Mike Poirier (https://github.com/mvpoirier), developed with Claude by Anthropic
   Licence: CC BY-NC-SA 4.0, https://creativecommons.org/licenses/by-nc-sa/4.0/
@@ -13,7 +13,7 @@
   Original questions in the style of the IB DP Physics course (first assessment 2025). Not affiliated with or endorsed by the IB.
   No student data leaves the browser: progress is stored on the device (localStorage).
 -->
-<title>MVPhysics Revision Lab</title>
+<title>MVPhysics Lab</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Revision for IB DP Physics: practice, exam mode, gauntlet, recall drills, notes and stats.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -789,10 +789,16 @@ ol.history .hm { font-size: 11.5px; }
 .mode-card .wic { font-size: 24px; } .mode-card b { font-family: var(--f-display); font-size: 16px; } .mode-card span:last-child { color: var(--muted); font-size: 13.5px; line-height: 1.45; }
 .mode-card.soon { cursor: default; opacity: .65; border-style: dashed; } .mode-card.soon:hover { transform: none; border-color: var(--line); }
 .mode-back { margin: 0 0 6px; }
+.lms-start { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 10px 0; } .lms-custom { max-width: 160px; }
+.run-review .row { align-items: center; }
+/* 1.2: syllabus toggle */
+.spec-chips { display: inline-flex; gap: 6px; }
+.spec-note { display: block; margin-top: 4px; }
+.spec-row { display: flex; align-items: center; gap: 10px; margin: 12px 0 0; }
 
 </style>
 <header class="top"><div class="top-inner">
-  <div class="brand"><h1><b class="mvp">MVP</b>hysics Revision Lab <span class="trophy" aria-hidden="true">🏆</span><span class="beta-tag" title="Beta for student testing: version 1.2 Beta">Beta 1.2</span></h1></div>
+  <div class="brand"><h1><b class="mvp">MVP</b>hysics Lab <span class="trophy" aria-hidden="true">🏆</span><span class="beta-tag" title="Beta for student testing: version 1.2 Beta">Beta 1.2</span></h1></div>
   <nav class="tabs" id="tabs" aria-label="Modes"></nav>
   <div class="hbar">
     <div class="course-seg" id="courseSeg" role="group" aria-label="Course level" data-tip="SL hides HL-only content"><button type="button" data-course="SL" aria-pressed="false">SL</button><button type="button" data-course="HL" aria-pressed="true">HL</button></div>
@@ -810,7 +816,7 @@ ol.history .hm { font-size: 11.5px; }
 <footer class="site-foot"><div class="foot-wrap">
   <div class="foot-inner">
     <div class="foot-brand">
-      <div class="foot-name"><b class="mvp">MVP</b>hysics Revision Lab <span class="trophy" aria-hidden="true">🏆</span><span class="beta-tag" title="Beta for student testing: version 1.2 Beta">Beta 1.2</span></div>
+      <div class="foot-name"><b class="mvp">MVP</b>hysics Lab <span class="trophy" aria-hidden="true">🏆</span><span class="beta-tag" title="Beta for student testing: version 1.2 Beta">Beta 1.2</span></div>
     </div>
     <nav class="foot-links" aria-label="Site">
       <a href="#about">About</a>
@@ -832,7 +838,7 @@ window.MathJax = {
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg-full.js" async></script>
 <script>
-/* ===== DP Physics Revision Lab — content bank (A.1 pilot) =====
+/* ===== MVPhysics Lab — content bank (A.1 pilot) =====
    All questions are original. Generators take a seeded RNG so every
    attempt can use new values while staying reproducible. g = 9.8 m s^-2
    (data booklet value). */
@@ -5714,7 +5720,7 @@ mc('b2-m08', 'Equilibrium temperature without an atmosphere', ['b2-balance'], 2,
   return {
     stem: L`The solar intensity at ${p[0]} is $${p[1]}\,\mathrm{W\,m^{-2}}$ and its albedo is $${p[2]}$. Treat it as a black body with no atmosphere. What is its equilibrium surface temperature?`,
     ...numMCQ(T, [eqT(p[1] * (1 - p[2])), eqT(p[1] * p[2] / 4), eqT(I) - 273], 3, U.K),
-    solution: L`Power absorbed per unit area = power radiated per unit area: $\dfrac{S}{4}(1 - \alpha) = \sigma T^4$.
+    solution: L`Power absorbed per unit area = power radiated per unit area. From the data booklet, $L = \sigma A T^4$, so the power radiated per unit area is $\sigma T^4$: $\dfrac{S}{4}(1 - \alpha) = \sigma T^4$.
 $$T = \left(\frac{${p[1]} \times ${sf(1 - p[2], 2)}}{4 \times 5.67\times10^{-8}}\right)^{1/4} = ${sf(T, 3)}\,\mathrm{K}$$`,
   };
 });
@@ -15005,6 +15011,11 @@ const FE2028_SUMMARY = [
   { key: 'removed', title: 'Removed from the guide', ids: ['d4-lenz'] }
 ];
 
+/* Items whose content is unique to FE2028 (exams from May 2028): hidden unless the FE2028 syllabus toggle is on (1.2).
+   Only content new in FE2028 is tagged; questions where only the booklet wording changed are not. */
+const FE28_ONLY = ['e5-m14', 'e5-c6'];
+for (const id of FE28_ONLY) { const q = Q.find(x => x.id === id); if (q) q.fe28 = true; const c = CARDS.find(x => x.id === id); if (c) c.fe28 = true; }
+
 /* ===== Notes: further-help links and "learn or derive" equations (not in the data booklet) ===== */
 
 const PHET = (slug, name) => ({ kind: 'sim', label: `PhET: ${name}`, url: `https://phet.colorado.edu/en/simulations/${slug}` });
@@ -15050,7 +15061,12 @@ const STRAND_EXTRA = {
   's-graph': { links: [PHET('graphing-slope-intercept', 'Graphing Slope-Intercept')], must: [L`\Delta m \approx \frac{m_\text{max} - m_\text{min}}{2}`] },
   's-lin': { links: [PHET('graphing-slope-intercept', 'Graphing Slope-Intercept')], must: [L`y = mx + c`, L`\log y = n\log x + \log k`, L`\ln y = \ln A - kx`] },
   's-err': { links: [PHET('projectile-data-lab', 'Projectile Data Lab')] },
-  's-prec': { links: [PHET('projectile-data-lab', 'Projectile Data Lab')], must: [L`\%\ \text{difference} = \frac{|\text{exp} - \text{accepted}|}{\text{accepted}} \times 100`] },
+  's-prec': { links: [PHET('projectile-data-lab', 'Projectile Data Lab'),
+    { kind: 'read', label: 'Clemson University: % error and % difference', url: 'https://science.clemson.edu/physics/labs/tutorials/error/index.html' },
+    { kind: 'read', label: 'Maths is Fun: Accuracy and precision', url: 'https://www.mathsisfun.com/accuracy-precision.html' },
+    { kind: 'read', label: 'Maths is Fun: Percentage error', url: 'https://www.mathsisfun.com/numbers/percentage-error.html' },
+    { kind: 'read', label: 'Maths is Fun: Percentage difference', url: 'https://www.mathsisfun.com/percentage-difference.html' },
+    { kind: 'read', label: 'Maths is Fun: Percentage change', url: 'https://www.mathsisfun.com/numbers/percentage-change.html' }], must: [L`\%\ \text{difference} = \frac{|\text{exp} - \text{accepted}|}{\text{accepted}} \times 100`] },
   'b1-molec': { links: [PHET('states-of-matter-basics', 'States of Matter: Basics'), PC('thermalP', 'Thermal Physics')], must: [L`\Delta T\ \text{in K} = \Delta\theta\ \text{in}\ ^\circ\mathrm{C}`, L`\text{internal energy} = \textstyle\sum E_k + \sum E_p`] },
   'b1-heat': { links: [PHET('energy-forms-and-changes', 'Energy Forms and Changes'), PC('thermalP', 'Thermal Physics')], must: [L`Q = Pt\ \text{(electrical heater)}`, L`\text{energy lost by hot} = \text{energy gained by cold}`], derive: [L`c = \frac{P}{m \times \text{gradient of } \theta\text{–}t}`] },
   'b1-cond': { links: [PHET('energy-forms-and-changes', 'Energy Forms and Changes'), PC('thermalP', 'Thermal Physics')] },
@@ -15507,7 +15523,7 @@ function tname0(id) { return id.replace('.', ''); }
 </script>
 <script>
 const FOOTER_TEXT = 'Questions are original and written in the style of the IB DP Physics course (first assessment 2025).<br>Developed by <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a> using Claude. Licensed under CC BY-NC-SA 4.0.<br>Version 1.2 Beta · Last updated: 4 November 2026';
-/* ===== DP Physics Revision Lab — app ===== */
+/* ===== MVPhysics Lab — app ===== */
 (function () {
   'use strict';
   const KEY = 'dp-revision-lab.v1';
@@ -15523,7 +15539,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
 
   /* ---------- storage (device only) ---------- */
   const DEF = () => ({
-    settings: { theme: '', course: 'HL', toff: [], rmode: 'flash', level: 'SL', papers: { '1A': true, '1B': true, '2': true }, chili: { 1: true, 2: true, 3: true }, sel: LIVE_IDS.slice(), saved: {}, paceCoach: false, missedOnly: false, incCmd: true },
+    settings: { spec: { '2025': true, '2028': false }, theme: '', course: 'HL', toff: [], rmode: 'flash', level: 'SL', papers: { '1A': true, '1B': true, '2': true }, chili: { 1: true, 2: true, 3: true }, sel: LIVE_IDS.slice(), saved: {}, paceCoach: false, missedOnly: false, incCmd: true },
     log: [], cards: {}, missed: [], gbest: {}, lmsBest: 0, lmsRuns: [], days: [], games: {}, matchBest: 0, exams: [], newDay: { d: '', n: 0 },
   });
   function load() {
@@ -15651,11 +15667,12 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
       const t = TOPICS.find(x => x.id === id), live = !!(t && t.live), on = live && !off.includes(id);
       return `<button type="button" class="tchip${id === 'Skills' ? ' tip' : ''}" data-tchip="${id}" aria-pressed="${on}" ${live ? '' : 'disabled'} ${id === 'Skills' ? `data-tip="${SSP_TIP}"` : `title="${esc(tname(id) + ' ' + name)}"`}>${tname(id)}${/\(HL\)/.test(name) ? '<span class="hl">HL</span>' : ''}</button>`;
     }).join('') + (withCmd ? `<button type="button" class="tchip" data-tcmd="1" aria-pressed="${!!S.settings.incCmd}" title="IB command terms">Command Terms</button>` : '');
-    return `<div class="tchips" role="group" aria-label="Topics">${chips}<span class="tchip-sep"></span><span class="tchip-pair"><button type="button" class="tchip-all" data-tall="1">All</button><button type="button" class="tchip-all" data-tall="0">None</button></span></div>`;
+    return (withCmd ? `<div class="spec-row"><span class="muted small">Syllabus</span>${specSeg()}</div>` : '') + `<div class="tchips" role="group" aria-label="Topics">${chips}<span class="tchip-sep"></span><span class="tchip-pair"><button type="button" class="tchip-all" data-tall="1">All</button><button type="button" class="tchip-all" data-tall="0">None</button></span></div>`;
   }
   function matches(q, o = {}) {
     if (!o.ignorePapers && !S.settings.papers[q.paper]) return false;
     if (!o.ignoreChili && !S.settings.chili[q.chili]) return false;
+    if (!specOK(q)) return false;
     if (!qualifies(q, strandOK, toolsOnly(ALL_STRANDS.map(s => s.id).filter(id => STRAND[id].live && strandOK(id))))) return false;
     if (!o.ignoreMissed && S.settings.missedOnly && currentView() === 'practice' && !S.missed.includes(q.id)) return false; // Practice only (1.2)
     return true;
@@ -15697,6 +15714,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
         ${hiddenHL ? `<p class="sl-note" role="note"><b>SL mode:</b> ${hiddenHL} HL-only strand${hiddenHL === 1 ? ' is' : 's are'} hidden. Switch to HL at the top of the page to see them.</p>` : ''}
         ${blitz ? '<p class="muted small rail-note">Blitz uses Paper 1A only, and the difficulty rises with your streak, so only the topics below apply.</p>' : `<div class="fieldset"><span class="lbl">Papers</span><div class="chips">${PAPERS.map(p => `<button class="chip" data-paper="${p}" aria-pressed="${!!st.papers[p]}">${PAPER_NAME[p]}</button>`).join('')}</div></div>
         <div class="fieldset"><span class="lbl">Difficulty</span><div class="chips">${[1, 2, 3].map(c => `<button class="chip" data-chili="${c}" aria-pressed="${!!st.chili[c]}" aria-label="${CHILI_TIP[c]}">${chiliIcon(c)}</button>`).join('')}</div></div>`}
+        <div class="fieldset"><span class="lbl">Syllabus</span>${specSeg()}<span class="muted small spec-note">FE2028 adds content that is new for exams from May 2028.</span></div>
         <div class="fieldset"><span class="lbl">Topics &amp; strands</span><div class="row" style="gap:6px"><button class="btn sm" id="selAll">Select All</button><button class="btn sm" id="selNone">Clear All</button><button class="btn sm" id="railFold" aria-pressed="${allFolded}">${allFolded ? 'Expand All' : 'Collapse All'}</button></div><div class="tree">${tree}</div></div>
       </div>`;
     $$('input[data-mixed]', rail).forEach(i => { i.indeterminate = true; });
@@ -15711,6 +15729,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
       if (b.dataset.level) st.level = b.dataset.level;
       else if (b.dataset.paper) st.papers[b.dataset.paper] = !st.papers[b.dataset.paper];
       else if (b.dataset.chili) st.chili[b.dataset.chili] = !st.chili[b.dataset.chili];
+      else if (b.dataset.spec) { const sp = { ...specOn() }; sp[b.dataset.spec] = !sp[b.dataset.spec]; if (!sp['2025'] && !sp['2028']) sp[b.dataset.spec === '2025' ? '2028' : '2025'] = true; st.spec = sp; }
       else if (b.id === 'selAll') st.sel = [...new Set([...st.sel, ...LIVE_IDS.filter(levelOK)])];
       else if (b.id === 'selNone') st.sel = st.sel.filter(id => !levelOK(id));
       else return;
@@ -15791,7 +15810,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     return f;
   }
   function reportText(f, note) {
-    return `MVPhysics Revision Lab ${f.type === 'General feedback' ? 'feedback' : 'problem report'}\n` + (f.id ? `Item: ${f.id}${f.title ? ` (${f.title})` : ''}\n` : '') + (f.paper ? `Section: ${f.paper}${f.seed ? ` · Seed: ${f.seed}` : ''}\n` : '') + `Seen in: ${f.where}\nVersion: ${f.version}\n${f.type === 'General feedback' ? 'Feedback' : 'Note'}: ${note || '(none)'}`;
+    return `MVPhysics Lab ${f.type === 'General feedback' ? 'feedback' : 'problem report'}\n` + (f.id ? `Item: ${f.id}${f.title ? ` (${f.title})` : ''}\n` : '') + (f.paper ? `Section: ${f.paper}${f.seed ? ` · Seed: ${f.seed}` : ''}\n` : '') + `Seen in: ${f.where}\nVersion: ${f.version}\n${f.type === 'General feedback' ? 'Feedback' : 'Note'}: ${note || '(none)'}`;
   }
   document.addEventListener('click', (e) => {
     const b = e.target.closest('[data-report]'); if (!b) return;
@@ -15812,7 +15831,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   }
   function metaLine(q, extra = '') {
     const strands = q.strands.map(id => STRAND[id] ? STRAND[id].name : id).join(' · ');
-    return `<div class="qmeta">${topicTags(q.strands)}<span class="paper">${PAPER_NAME[q.paper]}</span>${chiliIcon(q.chili)}<span class="marks">[${q.marks} mark${q.marks > 1 ? 's' : ''}]</span>${q.hl ? '<span class="hl">HL</span>' : ''}<span>${esc(strands)}</span>${extra}</div>`;
+    return `<div class="qmeta">${topicTags(q.strands)}<span class="paper">${PAPER_NAME[q.paper]}</span>${chiliIcon(q.chili)}<span class="marks">[${q.marks} mark${q.marks > 1 ? 's' : ''}]</span>${q.hl ? '<span class="hl">HL</span>' : ''}${q.fe28 ? '<span class="fe28">FE2028</span>' : ''}<span>${esc(strands)}</span>${extra}</div>`;
   }
   const isFixed = (q, inst) => q.fixed || inst.fixed;
   function partPrompt(p) { return /^[A-Z]/.test(p.prompt) ? p.prompt : `<span class="cmd">${p.cmd}</span> ${p.prompt}`; }
@@ -16016,7 +16035,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   const codeOrder = () => CODE_ORDER.concat(ALL_STRANDS.map(x => x.id).filter(id => !CODE_ORDER.includes(id)).sort());
   const B32 = '0123456789ABCDEFGHJKMNPQRSTVWXYZ';
   function codePool(c) {
-    return Q.filter(q => (c.marks[q.paper] || 0) > 0 && (c.chili >> (q.chili - 1)) & 1 && qualifies(q, id => c.strands.includes(id) && STRAND[id] && STRAND[id].live, toolsOnly(c.strands)));
+    return Q.filter(q => !q.fe28 && (c.marks[q.paper] || 0) > 0 && (c.chili >> (q.chili - 1)) & 1 && qualifies(q, id => c.strands.includes(id) && STRAND[id] && STRAND[id].live, toolsOnly(c.strands)));
   }
   function fingerprint(list) { let h = 5381; for (const ch of list.map(q => q.id).sort().join('|')) h = ((h * 33) ^ ch.charCodeAt(0)) >>> 0; return h & 0xfff; }
   /* Short codes (v35+). Bits from the top: marker 1, format (3), seed 20, fingerprint 10, difficulty 3, marks (IB preset or three 7-bit numbers), then a topic or
@@ -16107,6 +16126,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     c.fp = fp10(codePool(c)); c.fpOk = true; c.str = encodeCode(c);
     return c;
   }
+  function topicCodes(strands) { const order = TOPICS.map(t => t.id); return [...new Set(strands.map(id => STRAND[id] && STRAND[id].topic).filter(Boolean))].sort((a, b) => order.indexOf(a) - order.indexOf(b)).map(tname).join(', '); }
   function topicsOf(strands) { const order = TOPICS.map(t => t.id); return [...new Set(strands.map(id => STRAND[id] && STRAND[id].topic).filter(Boolean))].sort((a, b) => order.indexOf(a) - order.indexOf(b)).map(tname).join(', '); }
   function marksLine(m) { const rp = realPaperFor(m); return PAPERS.filter(p => m[p]).map(p => `${PAPER_NAME[p]} <b class="num">${m[p]}</b>`).join(' · ') + ` <span class="exsum-total">= <b class="num">${sumMarks(m)}</b> marks · ${rp ? `<b class="num">${rp.min}</b> min (${rp.label})` : `about <b class="num">${estMin(m)}</b> min`}</span>`; }
 
@@ -16141,7 +16161,8 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
             <div class="codeform"><input type="text" id="exCodeIn" placeholder="MVP-…" autocomplete="off" spellcheck="false" aria-label="Class code"><button class="btn sm" id="exUse">Use</button><button class="linkbtn" id="exMake">Create one</button></div>
             <span class="muted small">Same code, same questions and values for everyone.</span></div></div>`}
           <div class="exgo"><div class="row"><button class="btn primary" id="exStart">Start</button><button class="btn" id="wsOpen">🖨 Open to print</button><button class="btn" id="wsMake">⬇ Download</button></div>
-            <p class="muted small" id="wsStatus">Open to print shows the paper in a new tab (Print, or Save as PDF). Papers include the answer key and their class code.</p></div>
+            <label class="switch small ws-cover"><input type="checkbox" id="wsCover" ${WS.cover !== false ? 'checked' : ''}> IB-style test: cover sheet and Paper 1A answer sheet first (print and place on desks before a test)</label>
+            <p class="muted small" id="wsStatus">Open to print shows the paper in a new tab (Print, or Save as PDF) with IB-style answer boxes and the markscheme at the end. Papers include their class code.</p></div>
         </section>` : emptySel());
       return;
     }
@@ -16326,7 +16347,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   ];
   function gameCards() {
     return head('Games 🕹️', 'Race the clock and challenge your class. Choose a game.') + `<div class="mode-cards">${GAME_CARDS.map(([k, ic, name, d]) => `<button type="button" class="mode-card" data-gamode="${k}"><span class="wic" aria-hidden="true">${ic}</span><b>${name}</b><span>${d}</span></button>`).join('')}
-      <div class="mode-card soon" aria-disabled="true"><span class="wic" aria-hidden="true">🎮</span><b>More games coming</b><span>A new game arrives with each major release.</span></div></div>` + blitzStats() + lmsStats();
+      <div class="mode-card soon" aria-disabled="true"><span class="wic" aria-hidden="true">🎮</span><b>More games coming</b><span>A new game arrives with each major release.</span></div></div><p class="muted small">Your scores for each game are on its own screen and on the Stats page.</p>`;
   }
   const modeBack = (id, label) => `<div class="mode-back"><button type="button" class="linkbtn" id="${id}">← ${label}</button></div>`;
   function renderGauntlet(main) {
@@ -16356,7 +16377,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     }
     const best = S.gbest[GA.dur];
     main.innerHTML = head('Blitz ⚡', `${GA.dur}-minute run`) + `<section class="panel"><div class="row" style="align-items:end"><div><div class="muted small">Score</div><div class="big-score">${GA.score}</div></div><div class="muted">${GA.answered} answered · ${pct(GA.score, GA.answered)}% correct${GA.newBest ? ' · <span class="pill good">New personal best</span>' : best ? ` · best ${best}` : ''}</div></div></section>
-      ${GA.missedList.length ? `<section class="panel"><h3>Review your misses</h3><p class="muted small">These are now in "Only questions I've missed".</p>${GA.missedList.map((m, i) => `<details class="solution"><summary>${i + 1}. ${esc(m.q.title)}: you chose ${LETTERS[m.picked]}, answer ${LETTERS[m.inst.answer]}</summary><div class="qbody">${m.inst.stem}${optionsHTML(m.inst, m.picked, true)}<h4>Worked solution</h4>${m.inst.solution}</div>${reportBox(m.q, m.seed, 'Blitz')}</details>`).join('')}</section>` : ''}
+      ${runReview(GA.hist, 'Blitz', 'gaPrint')}
       <div class="row"><button class="btn primary" id="gaAgain">Restart</button><button class="btn" id="gaSetup">End</button></div>` + blitzStats();
     typeset(main);
   }
@@ -16389,15 +16410,45 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
       ${recent.length ? `<div class="tbl-wrap"><table class="stats"><thead><tr><th>Date</th><th>Survived</th><th>Correct</th><th></th></tr></thead><tbody>${recent.map(r => `<tr><td>${new Date(r.ts).toLocaleDateString()}</td><td class="num">${fmtClock(r.survived)}</td><td class="num">${r.correct} / ${r.answered}</td><td class="small muted">${r.gaveUp ? 'Gave up' : ''}</td></tr>`).join('')}</tbody></table></div>` : ''}` : '<p class="muted">No Last Man Standing runs yet. Your survival times will appear here.</p>'}</section>`;
   }
   // review after a Last Man Standing run: every question, right or wrong, with its worked solution (1.1)
-  function lmsReview(L) {
-    if (!L.hist || !L.hist.length) return '';
-    const wrong = L.hist.filter(h => h.picked !== h.inst.answer).length;
-    return `<section class="panel lms-review" id="lmsReview"><h3>Review your run</h3><p class="muted small">${L.hist.length} question${L.hist.length > 1 ? 's' : ''} · ${L.hist.length - wrong} right · ${wrong} wrong${wrong ? ' (now in "Only questions I\'ve missed")' : ''}</p>
-      ${L.hist.map((h, i) => { const ok = h.picked === h.inst.answer; return `<details class="solution ${ok ? 'rv-ok' : 'rv-no'}"><summary><span class="rv-mark" aria-label="${ok ? 'Right' : 'Wrong'}">${ok ? '✓' : '✗'}</span> ${i + 1}. ${esc(h.q.title)}: ${ok ? `you chose ${LETTERS[h.picked]}` : `you chose ${LETTERS[h.picked]}, answer ${LETTERS[h.inst.answer]}`}</summary><div class="qbody">${h.inst.stem}${optionsHTML(h.inst, h.picked, true)}<h4>Worked solution</h4>${h.inst.solution}</div>${reportBox(h.q, h.seed, 'Last Man Standing')}</details>`; }).join('')}</section>`;
+  // review after a game run: every question, right or wrong, with its worked solution (Blitz and Last Man Standing)
+  function runReview(hist, where, printId) {
+    if (!hist || !hist.length) return '';
+    const wrong = hist.filter(h => h.picked !== h.inst.answer).length;
+    return `<section class="panel lms-review run-review" id="runReview"><div class="row"><h3 style="margin:0">Review your run</h3><span class="spacer"></span><button class="btn sm" id="${printId}" type="button">🖨 Open results to print</button></div><p class="muted small" id="runPrintStatus">${hist.length} question${hist.length > 1 ? 's' : ''} · ${hist.length - wrong} right · ${wrong} wrong${wrong ? ' (now in "Only questions I\'ve missed" in Practice)' : ''}</p>
+      ${hist.map((h, i) => { const ok = h.picked === h.inst.answer; return `<details class="solution ${ok ? 'rv-ok' : 'rv-no'}"><summary><span class="rv-mark" aria-label="${ok ? 'Right' : 'Wrong'}">${ok ? '✓' : '✗'}</span> ${i + 1}. ${esc(h.q.title)}: ${ok ? `you chose ${LETTERS[h.picked]}` : `you chose ${LETTERS[h.picked]}, answer ${LETTERS[h.inst.answer]}`}</summary><div class="qbody">${h.inst.stem}${optionsHTML(h.inst, h.picked, true)}<h4>Worked solution</h4>${h.inst.solution}</div>${reportBox(h.q, h.seed, where)}</details>`; }).join('')}</section>`;
+  }
+  const lmsReview = (L) => runReview(L.hist, 'Last Man Standing', 'lmsPrint');
+  // printable results of a game run (same layout as the Exam Mode results file)
+  async function gameReport(kind) {
+    const w = openWin('Preparing your results…'), status = $('#runPrintStatus');
+    const L = kind === 'lms' ? LM : GA; if (!L || !L.hist || !L.hist.length) { if (w) w.close(); return; }
+    if (window.MathJax && MathJax.startup && MathJax.startup.promise) await MathJax.startup.promise;
+    const items = L.hist.map(h => ({ q: h.q, inst: h.inst, answer: h.picked, time: h.dt || 0, seed: h.seed, ticks: {}, texts: {} }));
+    const box = document.createElement('div'); box.style.cssText = 'position:absolute;left:-9999px;top:0;width:800px';
+    box.innerHTML = items.map((x, i) => repItem(x, i + 1)).join(''); document.body.appendChild(box);
+    try { if (window.MathJax && MathJax.typesetPromise) await MathJax.typesetPromise([box]); } catch (e) { /* keep raw LaTeX */ }
+    const mjCss = (window.MathJax && MathJax.svgStylesheet) ? MathJax.svgStylesheet().textContent : '';
+    const body = box.innerHTML; box.remove();
+    const right = items.filter(x => x.answer === x.inst.answer).length, title = kind === 'lms' ? 'Last Man Standing' : 'Blitz';
+    const id = kind === 'lms' ? `Code ${L.code.str}` : `${GA.dur}-minute run`, date = new Date().toLocaleString(undefined, { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+    const tiles = kind === 'lms' ? `<div><small>Survived</small><b>${fmtClock(L.survived)}</b></div><div><small>Correct</small><b>${right} / ${items.length}</b></div>${L.gaveUp ? '<div><small>Ended</small><b>Gave up</b></div>' : ''}` : `<div><small>Score</small><b>${GA.score}</b></div><div><small>Answered</small><b>${items.length}</b></div><div><small>Correct</small><b>${pct(right, items.length)}%</b></div>`;
+    const doc = `<!doctype html>
+${docComment(title + ' results', id)}<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MVPhysics Lab ${title.toLowerCase()} results</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700;900&display=swap"><style>${mjCss}${WS_CSS}${REP_CSS}</style></head><body>
+<div class="hint"><span>To make a PDF: Print this page, then choose <b>Save as PDF</b>.</span><button onclick="window.print()">Print</button></div>
+<div class="wshead"><h1><b>MVP</b>hysics Lab · ${title} results</h1><div class="wscode">${esc(id)}</div></div>
+<div class="meta"><span>${date}</span><span>${isHL() ? 'HL' : 'SL'}</span><span>Paper 1A</span></div>
+<div class="namebox"><span>Name:</span><span>Class:</span><span>Teacher:</span></div>
+<div class="summary">${tiles}</div>
+<h2>Questions, your answers and worked solutions</h2>${body}
+${docWatermark(id)}${docFooter(id)}</body></html>`;
+    const stamp = new Date().toISOString().slice(0, 10);
+    return showDoc(w, `MVPhysics-${kind === 'lms' ? 'last-man-standing' : 'blitz'}-${stamp}.html`, doc, status, '✅ Opened in a new tab: choose Print, or Save as PDF.');
   }
   /* ---------- Last man standing 💀 ---------- */
   let LM = null, lmTimer = null, lmOverT = null;
-  const LMS_START = 180, LMS_GAIN = 60, LMS_LOSS = 60;
+  const LMS_GAIN = 60, LMS_LOSS = 60;
+  const lmsStart = () => Math.max(60, Math.min(3600, Math.round((+S.settings.lmsStart || 3) * 60))); // seconds
   const blitzModeSeg = () => `<div class="seg blitz-mode" role="group" aria-label="Blitz mode"><button type="button" data-gamode="classic" aria-pressed="${GA.mode !== 'lms'}">Blitz ⚡</button><button type="button" data-gamode="lms" aria-pressed="${GA.mode === 'lms'}">Last Man Standing 💀</button></div>`;
   const TOPIC_ORDER = ['A.1', 'A.2', 'A.3', 'A.4', 'A.5', 'B.1', 'B.2', 'B.3', 'B.4', 'B.5', 'C.1', 'C.2', 'C.3', 'C.4', 'C.5', 'D.1', 'D.2', 'D.3', 'D.4', 'E.1', 'E.2', 'E.3', 'E.4', 'E.5', 'Skills', 'A.2+']; // append-only
   function lmsPool(c) { return Q.filter(q => q.paper === '1A' && !(c.sl && q.hl) && qualifies(q, id => STRAND[id] && STRAND[id].live && c.topics.includes(STRAND[id].topic), c.topics.length === 1 && c.topics[0] === 'Skills')); }
@@ -16441,12 +16492,13 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   function lmsSetup() {
     const c = GA.lmsCode;
     return `<section class="panel lms-intro"><h3>Last Man Standing 💀</h3>
-      <ul class="lms-rules"><li>Everyone starts with <b>3:00</b> on the clock.</li><li>Correct answer: <b>+60 s</b>. Wrong answer: <b>−60 s</b>.</li><li>Everyone with the same code gets the same questions in the same order, and they get harder as you go.</li><li>Last one standing wins.</li></ul>
+      <ul class="lms-rules"><li>Everyone starts with <b>${fmtClock(lmsStart())}</b> on the clock (agree the starting time with your class).</li><li>Correct answer: <b>+60 s</b>. Wrong answer: <b>−60 s</b>.</li><li>Everyone with the same code gets the same questions in the same order, and they get harder as you go.</li><li>Last one standing wins.</li></ul>
       ${c ? `<div class="codebox"><div class="code-str num">${c.str}</div><div class="small">Topics: <b>${topicsOf(lmsPool(c).flatMap(q => q.strands))}</b> · ${lmsPool(c).length} question types</div>
         ${c.fpOk ? '' : '<p class="warn small">This code was made with a different version of the question bank, so your questions may not match everyone else\'s. Ask for a new code.</p>'}
         <div class="row"><button class="btn primary" id="lmsEnter">Enter 💀</button><button class="btn sm" id="lmsCopy">Copy code</button><button class="btn sm ghost" id="lmsClear">Use a different code</button></div></div>`
       : `<p class="muted small">This mode needs a code so everyone faces the same questions. One person creates it from the topics ticked in "Questions" and shares it.</p>
         <div class="codeform"><input type="text" id="lmsIn" placeholder="Enter a code, e.g. LMS-…" autocomplete="off" spellcheck="false" aria-label="Last Man Standing code"><button class="btn sm" id="lmsUse">Use code</button><span class="muted small">or</span><button class="btn sm" id="lmsMake">Create a code from these topics</button></div>`}
+      <div class="lms-start"><span class="muted small">Starting time:</span><div class="chips" role="group" aria-label="Starting time">${[3, 5, 10].map(m => `<button type="button" class="chip" data-lmsstart="${m}" aria-pressed="${!S.settings.lmsCustom && (+S.settings.lmsStart || 3) === m}">${m} min</button>`).join('')}<button type="button" class="chip" data-lmsstart="custom" aria-pressed="${!!S.settings.lmsCustom}">Custom</button></div>${S.settings.lmsCustom ? `<label class="field lms-custom"><span>Minutes (1 to 60)</span><input type="number" id="lmsStartIn" min="1" max="60" step="1" value="${+S.settings.lmsStart || 3}"></label>` : ''}</div>
       ${S.lmsBest ? `<p class="muted small">Your best survival time: <b class="num">${fmtClock(S.lmsBest)}</b></p>` : ''}</section>`;
   }
   /* ---------- Last man standing sound: synthesised with Web Audio, no files ---------- */
@@ -16538,7 +16590,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
       const txt = t < 1 ? '3' : t < 2 ? '2' : t < 3 ? '1' : 'GO!';
       if (L.lastCount !== txt) { L.lastCount = txt; SFX.count(txt); }
       if (el && el.textContent !== txt) { el.textContent = txt; el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop'); }
-      if (t >= 3.7) { L.phase = 'run'; L.start = now(); L.endAt = L.start + LMS_START * 1000; L.lastBeat = 0; SFX.music(true, false); lmsNext(); if (currentView() === 'blitz') renderLms($('#main')); }
+      if (t >= 3.7) { L.phase = 'run'; L.start = now(); L.endAt = L.start + lmsStart() * 1000; L.lastBeat = 0; SFX.music(true, false); lmsNext(); if (currentView() === 'blitz') renderLms($('#main')); }
       return;
     }
     if (L.phase === 'run') {
@@ -16575,17 +16627,18 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     if (L.phase === 'run' && b.dataset.opt !== undefined && L.cur.picked === null) {
       const cur = L.cur; cur.picked = +b.dataset.opt; const ok = cur.picked === cur.inst.answer; L.answered++;
       if (ok) { L.correct++; L.endAt += LMS_GAIN * 1000; toast('+60 s'); SFX.good(); } else { L.endAt -= LMS_LOSS * 1000; addMissed(cur.q.id); toast('−60 s'); SFX.bad(); }
-      logAttempt(cur.q, ok ? 1 : 0, (now() - cur.t0) / 1000, 'lms'); L.hist.push(cur);
+      cur.dt = now() - cur.t0; logAttempt(cur.q, ok ? 1 : 0, cur.dt / 1000, 'lms'); L.hist.push(cur);
       $$('.opt', main).forEach((o, i) => { o.disabled = true; if (i === cur.inst.answer) o.classList.add('correct'); else if (i === cur.picked) o.classList.add('wrong'); });
       const sh = $('#sheet'); sh.classList.add(ok ? 'flash-ok' : 'flash-no'); lmsTick();
       setTimeout(() => { if (LM === L && L.phase === 'run') { lmsNext(); if (currentView() === 'blitz') renderLms(main); } }, ok ? 650 : 1500);
     }
   }
   function bindGauntlet(main) {
-    main.onchange = (e) => { if (e.target.id === 'gaDur') { const w = $('#gaCustomWrap'); if (w) w.hidden = e.target.value !== 'custom'; if (e.target.value === 'custom') $('#gaCustom').focus(); } };
+    main.onchange = (e) => { if (e.target.id === 'lmsStartIn') { const v = Math.max(1, Math.min(60, Math.round(+e.target.value || 3))); S.settings.lmsStart = v; save(); renderGauntlet(main); return; } if (e.target.id === 'gaDur') { const w = $('#gaCustomWrap'); if (w) w.hidden = e.target.value !== 'custom'; if (e.target.value === 'custom') $('#gaCustom').focus(); } };
     main.onclick = (e) => {
       const b = e.target.closest('button'); if (!b) return;
-      if (LM) { lmsClick(b, main); return; }
+      if (LM) { if (b.id === 'lmsPrint') { gameReport('lms'); return; } lmsClick(b, main); return; }
+      if (b.dataset.lmsstart) { if (b.dataset.lmsstart === 'custom') S.settings.lmsCustom = true; else { S.settings.lmsCustom = false; S.settings.lmsStart = +b.dataset.lmsstart; } save(); renderGauntlet(main); return; }
       if (b.dataset.gamode) { GA.mode = b.dataset.gamode; GA.phase = 'setup'; GA.picked = true; renderGauntlet(main); return; }
       if (b.id === 'gaModes') { GA.picked = false; GA.phase = 'setup'; renderGauntlet(main); return; }
       if (b.id === 'lmsMake') { const c = lmsMake(); if (!c) { toast('Turn on at least one topic with Paper 1A questions.'); return; } GA.lmsCode = c; renderGauntlet(main); return; }
@@ -16606,15 +16659,17 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
           }
           GA.custom = sel === 'custom'; GA.durSel = sel; GA.dur = want;
         }
-        Object.assign(GA, { phase: 'run', score: 0, answered: 0, streak: 0, recent: [], missedList: [], endAt: now() + GA.dur * 60000, newBest: false });
+        Object.assign(GA, { phase: 'run', score: 0, answered: 0, streak: 0, recent: [], missedList: [], hist: [], endAt: now() + GA.dur * 60000, newBest: false });
         gaPick(); clearInterval(gaTimer); gaTimer = setInterval(tickGa, 250); renderGauntlet(main); return;
       }
       if (b.id === 'gaSetup') { GA.phase = 'setup'; renderGauntlet(main); return; }
+      if (b.id === 'gaPrint') { gameReport('blitz'); return; }
+      if (b.id === 'lmsPrint') { gameReport('lms'); return; }
       if (b.id === 'gaQuit') { endGa(); return; }
       if (b.dataset.opt !== undefined && GA.phase === 'run' && GA.cur.picked === null) {
         const cur = GA.cur; cur.picked = +b.dataset.opt; const ok = cur.picked === cur.inst.answer;
         GA.answered++;
-        if (ok) { GA.score++; GA.streak++; } else { GA.streak = 0; GA.endAt -= 15000; GA.missedList.push(cur); addMissed(cur.q.id); }
+        cur.dt = now() - cur.t0; GA.hist.push(cur); if (ok) { GA.score++; GA.streak++; } else { GA.streak = 0; GA.endAt -= 15000; GA.missedList.push(cur); addMissed(cur.q.id); }
         logAttempt(cur.q, ok ? 1 : 0, (now() - cur.t0) / 1000, 'gauntlet');
         $$('.opt', main).forEach((o, i) => { o.disabled = true; if (i === cur.inst.answer) o.classList.add('correct'); else if (i === cur.picked) o.classList.add('wrong'); });
         const sh = $('#sheet'); sh.classList.add(ok ? 'flash-ok' : 'flash-no');
@@ -16626,7 +16681,11 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
 
   /* ======================= RECALL ======================= */
   let RC = null;
-  function cardPool() { return CARDS.filter(c => strandOK(c.strand)); }
+  // FE2025/FE2028 toggle (1.2): items tagged fe28 are content unique to FE2028; untagged items apply to both
+  const specOn = () => { const sp = S.settings.spec || { '2025': true, '2028': false }; return sp; };
+  const specOK = (x) => { const sp = specOn(); return x.fe28 ? !!sp['2028'] : !!sp['2025'] || !!sp['2028']; };
+  const specSeg = () => `<div class="chips spec-chips" role="group" aria-label="Syllabus">${['2025', '2028'].map(y => `<button class="chip" data-spec="${y}" aria-pressed="${!!specOn()[y]}" title="${y === '2025' ? 'Exams in 2025, 2026 and 2027' : 'Content new for exams from May 2028'}">FE${y}</button>`).join('')}</div>`;
+  function cardPool() { return CARDS.filter(c => strandOK(c.strand) && specOK(c)); }
   function newLeft() { return Math.max(0, 12 - (S.newDay.d === today() ? S.newDay.n : 0)); }
   function buildRecall(extraNew = 0) {
     const cards = cardPool(), t = now();
@@ -16989,6 +17048,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
       <section class="panel" id="gradeBands"><h3>Estimated DP grade boundaries</h3>
         <p class="muted small">Exam Mode estimates your grade from the percentage you score, using these approximate minimums. They are typical of recent IB DP Physics sessions, not official FE2025 boundaries: real boundaries are set each session and include the IA, so use them as a guide only.</p>
         <div class="tbl-wrap"><table class="stats"><thead><tr><th>Level</th>${[7, 6, 5, 4, 3, 2, 1].map(g => `<th class="num">${g}</th>`).join('')}</tr></thead><tbody>${['SL', 'HL'].map(l => `<tr><td><span class="lvl-${l.toLowerCase()}">${l}</span></td>${GRADE_BANDS[l].map(v => `<td class="num">${v}%</td>`).join('')}<td class="num">0%</td></tr>`).join('')}</tbody></table></div></section>
+      ${blitzStats()}${lmsStats()}
       ${exams.length ? `<section class="panel"><h3>Recent exam-mode papers</h3><div class="tbl-wrap"><table class="stats"><thead><tr><th>Date</th><th>Score</th><th>Est. grade</th><th>Time used</th><th>Pauses</th><th>Seed</th></tr></thead><tbody>${exams.map(x => `<tr><td>${new Date(x.ts).toLocaleDateString()}</td><td class="num">${x.score}/${x.total} (${pct(x.score, x.total)}%)</td><td class="num">${x.grade || '–'}</td><td class="num">${fmtClock(x.used)} of ${fmtClock(x.allowed)}</td><td class="num">${x.pauses ? `${x.pauses} (${fmtClock(x.paused)})` : x.pauses === 0 ? 'none' : '–'}</td><td class="num small">${x.seed ? esc(String(x.seed)) : '–'}</td></tr>`).join('')}</tbody></table></div></section>` : ''}
       <section class="panel"><h3>Move or back up your progress</h3><p class="muted small">Progress lives in this browser only. Copy the backup code and paste it into the box on another device to continue there.</p>
         <div class="row"><button class="btn" id="bkCopy">Copy backup code</button><button class="btn" id="bkShow">Restore from a code</button><span class="spacer"></span><button class="btn ghost danger" id="rsAsk">Reset all progress</button></div>
@@ -17019,7 +17079,8 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   }
 
   /* ======================= WORKSHEETS ======================= */
-  const WS = { target: 20, answers: true };
+  const WS = { target: 20, answers: true, cover: true }; // cover = IB-style test: cover sheet + Paper 1A answer sheet
+  document.addEventListener('change', (e) => { if (e.target && e.target.id === 'wsCover') WS.cover = e.target.checked; });
   function worksheetPanel() {
     return `<details class="panel ws" id="wsPanel"><summary><b>Make a printable worksheet</b> <span class="muted small">· built from your selection, new values every time</span></summary>
       <div class="form-grid" style="margin-top:12px">
@@ -17034,7 +17095,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   const SITE_URL = 'https://mvpoirier.github.io/revision-lab/', REPO_URL = 'https://github.com/mvpoirier/mvpoirier.github.io';
   const DOC_DATE = '4 November 2026';
   const docComment = (what, id) => `<!--
-  MVPhysics Revision Lab · ${what}${id ? ' · ' + id : ''}
+  MVPhysics Lab · ${what}${id ? ' · ' + id : ''}
   Made with version ${APP_VERSION} (built ${DOC_DATE}) on ${new Date().toISOString().slice(0, 10)}
   Author: Mike Poirier (https://github.com/mvpoirier), developed with Claude by Anthropic
   Licence: CC BY-NC-SA 4.0, https://creativecommons.org/licenses/by-nc-sa/4.0/
@@ -17043,8 +17104,8 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
 -->
 `;
   const cssStr = (t) => '"' + t.replace(/\\/g, '\\\\').replace(/"/g, '\\"') + '"';
-  const docWatermark = (id) => `<style>@page { @bottom-left { content: ${cssStr(`MVPhysics Revision Lab · ${APP_VERSION} · © Mike Poirier · CC BY-NC-SA 4.0 · mvpoirier.github.io/revision-lab${id ? ' · ' + id : ''}`)}; font: 7pt "IBM Plex Sans", Arial, sans-serif; color: #888; } @bottom-right { content: "Page " counter(page) " of " counter(pages); font: 7pt "IBM Plex Sans", Arial, sans-serif; color: #888; } }</style>`;
-  const docFooter = (id) => `<div class="wm"><b>MVPhysics Revision Lab</b> · Version ${APP_VERSION} (${DOC_DATE})${id ? ` · ${esc(id)}` : ''}<br>© Mike Poirier, developed with Claude · <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> · <a href="${SITE_URL}">${SITE_URL.replace('https://', '')}</a> · <a href="${REPO_URL}">${REPO_URL.replace('https://', '')}</a><br>Original questions in the style of the IB DP Physics course (first assessment 2025). Not affiliated with or endorsed by the IB.</div>`;
+  const docWatermark = (id) => `<style>@page { @bottom-left { content: ${cssStr(`MVPhysics Lab · ${APP_VERSION} · © Mike Poirier · CC BY-NC-SA 4.0 · mvpoirier.github.io/revision-lab${id ? ' · ' + id : ''}`)}; font: 7pt "IBM Plex Sans", Arial, sans-serif; color: #888; } @bottom-right { content: "Page " counter(page) " of " counter(pages); font: 7pt "IBM Plex Sans", Arial, sans-serif; color: #888; } }</style>`;
+  const docFooter = (id) => `<div class="wm"><b>MVPhysics Lab</b> · Version ${APP_VERSION} (${DOC_DATE})${id ? ` · ${esc(id)}` : ''}<br>© Mike Poirier, developed with Claude · <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> · <a href="${SITE_URL}">${SITE_URL.replace('https://', '')}</a> · <a href="${REPO_URL}">${REPO_URL.replace('https://', '')}</a><br>Original questions in the style of the IB DP Physics course (first assessment 2025). Not affiliated with or endorsed by the IB.</div>`;
   const WS_CSS = `
     @page { size: A4; margin: 16mm 15mm; }
     .wshead { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
@@ -17071,6 +17132,26 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     .sol { break-inside: avoid; margin: 10px 0 14px; padding-left: 10px; border-left: 2px solid #2547c9; }
     .ms div { margin: 2px 0; } .notes { color: #444; font-size: 9.5pt; font-style: italic; }
     .answers { break-before: page; page-break-before: always; }
+    .cover { break-after: page; page-break-after: always; }
+    .cover table { border-collapse: collapse; width: 100%; margin: 0 0 16px; } .cover td, .cover th { border: 1.2px solid #111; padding: 7px 10px; vertical-align: middle; }
+    .cv-brand { width: 30%; font: 500 18pt/1.15 "IBM Plex Sans", Arial, sans-serif; text-align: center; } .cv-brand b { font-weight: 900; }
+    .cv-k { font-weight: 700; white-space: nowrap; width: 1%; } .cv-names td { height: 34px; } .cv-w { width: 45%; } .cv-s { width: 20%; }
+    .cover h3 { font-size: 12pt; margin: 18px 0 6px; } .cv-ins { margin: 0 0 18px; padding-left: 20px; } .cv-ins li { margin: 4px 0; }
+    .cv-papers { width: 50% !important; } .cv-papers th { background: #f1f1f1; text-align: left; } .cv-papers td:last-child, .cv-papers th:last-child { text-align: right; width: 30%; }
+    .psec { margin-top: 10px; } .psec + .psec { break-before: page; page-break-before: always; } .phead, .pins { break-after: avoid; page-break-after: avoid; } .phead { font-size: 12pt; border-bottom: 1.5px solid #111; padding-bottom: 4px; margin: 18px 0 4px; } .phead span { font-weight: 400; }
+    .pins { font-size: 10pt; font-style: italic; margin: 0 0 10px; } .pend { text-align: center; font-weight: 700; font-size: 10pt; margin: 14px 0 22px; letter-spacing: .04em; } .pend.final { margin-top: 26px; } .pend { break-before: avoid; page-break-before: avoid; } .q:last-of-type { break-after: avoid; }
+    .lines .abox { height: auto; border: 1.3px solid #111; padding: 4px 12px 12px; margin: 4px 0 6px; break-inside: avoid; } .lines .abox .dl { border-bottom: 1px dotted #555; height: 8.5mm; } .lines .abox.sketch { padding: 6px; }
+    .mcq-sheet { break-before: page; page-break-before: always; border: 1.5px solid #111; padding: 14px 16px; }
+    .mcq-head { display: flex; justify-content: space-between; align-items: center; font-size: 13pt; } .mcq-key { font: 700 9pt ui-monospace, Menlo, monospace; border: 1.5px solid #b3261e; color: #b3261e; padding: 1px 6px; border-radius: 3px; margin-left: 8px; }
+    .mcq-fields { display: grid; grid-template-columns: 2fr 1.3fr 1fr; gap: 10px; margin: 12px 0; font-size: 10pt; } .mcq-fields span { border-bottom: 1px solid #111; padding: 4px 0 8px; }
+    .bx { display: inline-block; width: 11px; height: 11px; border: 1.2px solid #111; vertical-align: -1px; }
+    .mcq-ins { font-size: 9.5pt; margin: 0 0 12px; }
+    .mcq-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 24px; } .mcq-row { display: flex; align-items: center; gap: 8px; margin: 0 0 9px; }
+    .mcq-row .mn { width: 22px; text-align: right; font-weight: 700; font-size: 10pt; }
+    .mcq-row .mb { position: relative; width: 26px; height: 20px; border: 1.2px solid #111; display: inline-flex; align-items: center; justify-content: center; font-size: 8.5pt; }
+    .mcq-row .mb i { font-style: normal; color: #555; } .mcq-row .mb.on::after { content: "✕"; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 16pt; font-weight: 700; color: #b3261e; line-height: 1; }
+    .answers > .mcq-sheet { break-before: auto; page-break-before: auto; margin-bottom: 18px; }
+    .mcq-row.unused { opacity: .3; } .mcq-sheet { break-after: page; page-break-after: always; } .answers > .mcq-sheet { break-after: auto; page-break-after: auto; }
     .wm { break-inside: avoid; page-break-inside: avoid; margin-top: 28px; padding-top: 8px; border-top: 1px solid #ccc; font-size: 8pt; color: #777; text-align: center; line-height: 1.5; } .wm a { color: #777; }
     table.data { border-collapse: collapse; margin: 6px 0; } table.data th, table.data td { border: 1px solid #888; padding: 3px 10px; text-align: center; }
     table.data th { background: #f1f1f1; }
@@ -17083,12 +17164,51 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     .c-w .c-dash { stroke-dasharray: 4 3; stroke-width: 1; } .c-w .c-fill { fill: #111; stroke: none; } .c-w text { fill: #111; font-size: 11px; } .c-w text.c-m { font-weight: 600; } .c-w text.c-n { font-weight: 700; font-style: italic; }
     mjx-container[display="true"] { display: block; text-align: center; margin: 6px 0; } mjx-container svg { color: #111; }
     @media print { body { padding: 0; } .hint { display: none; } }`;
-  function wsQuestion(it, n, filled) {
+  // IB-style answer box: black border, dotted writing lines (more marks, more lines)
+  const ansBox = (marks, sketch) => sketch
+    ? '<div class="abox sketch"><svg viewBox="0 0 300 160" style="width:300px;height:160px"><line x1="30" y1="140" x2="290" y2="140" stroke="#111" stroke-width="1.2"/><line x1="30" y1="140" x2="30" y2="10" stroke="#111" stroke-width="1.2"/></svg></div>'
+    : `<div class="abox">${'<div class="dl"></div>'.repeat(Math.max(3, Math.min(12, marks * 2)))}</div>`;
+  function wsQuestion(it, n, filled, sheet) {
     const q = it.q, inst = it.inst;
-    let h = `<section class="q"><div class="qh"><span>${n}.</span><span class="tag">${PAPER_NAME[q.paper]}</span><span>${esc(q.title)}</span><span class="mk">[${q.marks}]</span></div>`;
-    if (q.paper === '1A') h += `<div>${inst.stem}</div><div class="opts ${inst.optionsAreGraphs ? 'graphs' : ''}">${inst.options.map((o, i) => `<div class="opt ${filled && i === inst.answer ? 'right' : ''} ${filled && i === it.answer && i !== inst.answer ? 'wrong' : ''}"><b>${LETTERS[i]}.</b><div>${o}</div></div>`).join('')}</div>${filled ? '' : '<div class="ans1a">Answer: ______</div>'}`;
-    else h += `<div>${inst.intro}</div>${inst.parts.map(p => `<div class="part"><span class="pl">(${p.label})</span><div>${partPrompt(p)}</div><span class="pm">[${p.marks}]</span>${filled ? '' : /^(Sketch|Draw)$/.test(p.cmd) ? '<div class="lines"><svg viewBox="0 0 300 160" style="width:300px;height:160px"><line x1="30" y1="140" x2="290" y2="140" stroke="#111" stroke-width="1.2"/><line x1="30" y1="140" x2="30" y2="10" stroke="#111" stroke-width="1.2"/></svg></div>' : `<div class="lines">${'<div></div>'.repeat(Math.max(2, p.marks * 2))}</div>`}</div>`).join('')}`;
+    let h = `<section class="q"><div class="qh"><span>${n}.</span>${sheet ? '' : `<span class="tag">${PAPER_NAME[q.paper]}</span>`}<span>${esc(q.title)}</span><span class="mk">[${q.marks}]</span></div>`;
+    if (q.paper === '1A') h += `<div>${inst.stem}</div><div class="opts ${inst.optionsAreGraphs ? 'graphs' : ''}">${inst.options.map((o, i) => `<div class="opt ${filled && i === inst.answer ? 'right' : ''} ${filled && i === it.answer && i !== inst.answer ? 'wrong' : ''}"><b>${LETTERS[i]}.</b><div>${o}</div></div>`).join('')}</div>${filled || sheet ? '' : '<div class="ans1a">Answer: ______</div>'}`;
+    else h += `<div>${inst.intro}</div>${inst.parts.map(p => `<div class="part"><span class="pl">(${p.label})</span><div>${partPrompt(p)}</div><span class="pm">[${p.marks}]</span>${filled ? '' : `<div class="lines">${ansBox(p.marks, /^(Sketch|Draw)$/.test(p.cmd))}</div>`}</div>`).join('')}`;
     return h + '</section>';
+  }
+  // IB-style Paper 1A answer sheet; with key=true the correct answers are crossed (markscheme)
+  function mcqSheet(items, code, key) {
+    const mc = items.map((x, i) => ({ n: i + 1, x })).filter(o => o.x.q.paper === '1A'); if (!mc.length) return '';
+    const rows = Array.from({ length: 40 }, (_, k) => mc[k] ? { n: k + 1, x: mc[k].x } : { n: k + 1, x: null });
+    const cols = [rows.slice(0, 14), rows.slice(14, 28), rows.slice(28, 40)];
+    return `<section class="mcq-sheet"><div class="mcq-head"><div><b>Paper 1A answer sheet</b>${key ? ' <span class="mcq-key">MARKSCHEME</span>' : ''}</div><div class="wscode">${code.str}</div></div>
+      <div class="mcq-fields"><span>Candidate name:</span><span>Level: <i class="bx"></i> HL &nbsp; <i class="bx"></i> SL</span><span>Date:</span></div>
+      <p class="mcq-ins">Clearly indicate your choice by inserting ✕ in the appropriate box (A, B, C, D). To change an answer, fill the box completely and put ✕ in your new choice.${mc.length < 40 ? ` This paper has <b>${mc.length}</b> multiple-choice question${mc.length === 1 ? '' : 's'}; leave the greyed rows blank.` : ''}</p>
+      <div class="mcq-grid">${cols.map(col => `<div class="mcq-col">${col.map(o => `<div class="mcq-row${o.x ? '' : ' unused'}"><span class="mn">${o.n}</span>${[...LETTERS].slice(0, 4).map((L, j) => `<span class="mb${key && o.x && j === o.x.inst.answer ? ' on' : ''}"><i>${L}</i></span>`).join('')}</div>`).join('')}</div>`).join('')}</div></section>`;
+  }
+  function coverSheet(items, code, total, mins) {
+    const byP = PAPERS.filter(p => items.some(x => x.q.paper === p)).map(p => [p, items.filter(x => x.q.paper === p).reduce((n, x) => n + x.q.marks, 0)]);
+    const lvl = codeHL(code) ? 'HL' : 'SL';
+    return `<section class="cover">
+      <table class="cv-title"><tr><td rowspan="4" class="cv-brand"><b>MVP</b>hysics<br>Lab</td><td class="cv-k">DP Physics</td><td>Practice examination paper</td></tr>
+        <tr><td class="cv-k">Level:</td><td>${lvl}</td></tr><tr><td class="cv-k">Topics:</td><td>${esc(topicCodes(code.strands))}</td></tr><tr><td class="cv-k">Version:</td><td>${new Date().toISOString().slice(0, 10)} (FE2025) · class code ${code.str}</td></tr></table>
+      <table class="cv-names"><tr><td class="cv-k">Candidate name:</td><td class="cv-w"></td><td class="cv-k">Date:</td><td class="cv-s"></td></tr><tr><td class="cv-k">Teacher / section:</td><td class="cv-w"></td><td class="cv-k">Level:</td><td class="cv-s"></td></tr></table>
+      <h3>Instructions to candidates</h3><ul class="cv-ins">
+        <li>Do not open this examination paper until instructed to do so.</li><li>Answer all questions.</li>
+        ${byP.some(([p]) => p === '1A') ? '<li>Paper 1A consists of multiple-choice questions and an answer sheet (the next page): mark your answers on the answer sheet.</li>' : ''}
+        ${byP.some(([p]) => p !== '1A') ? '<li>Paper 1B and Paper 2: write your answers in the answer boxes provided.</li>' : ''}
+        <li>A calculator is required for this paper.</li><li>A clean copy of the physics data booklet is required for this paper.</li>
+        <li>Student achievement will be based on our shared DP Physics grade boundaries.</li>
+        <li>The maximum mark for this examination paper is <b>[${total} marks]</b>.</li><li>The total time allowed for this examination paper is <b>${mins} minutes</b>.</li></ul>
+      <table class="cv-papers"><tr><th>Section</th><th>Marks</th></tr>${byP.map(([p, m]) => `<tr><td>${PAPER_NAME[p]}</td><td>${m}</td></tr>`).join('')}<tr><td><b>Total</b></td><td><b>${total}</b></td></tr></table></section>`;
+  }
+  const PAPER_HEAD = { '1A': ['PAPER 1A: MULTIPLE-CHOICE QUESTIONS', 'Clearly indicate your choice by inserting ✕ in the appropriate box (A, B, C, D) on the answer sheet.'], '1B': ['PAPER 1B: DATA-BASED QUESTIONS', 'Answer all questions. Answers must be written within the answer boxes provided.'], '2': ['PAPER 2: SHORT AND LONG ANSWER QUESTIONS', 'Answer all questions. Answers must be written within the answer boxes provided.'] };
+  // the question pages of a printed paper: one section per paper, IB headers and END OF PAPER lines
+  function paperSections(items, sheet = true) {
+    let n = 0;
+    return PAPERS.filter(p => items.some(x => x.q.paper === p)).map(p => {
+      const its = items.filter(x => x.q.paper === p), m = its.reduce((a, x) => a + x.q.marks, 0);
+      return `<div class="psec"><h2 class="phead">${PAPER_HEAD[p][0]} <span>[${m} mark${m === 1 ? '' : 's'}]</span></h2><p class="pins">${PAPER_HEAD[p][1]}</p>${its.map(it => wsQuestion(it, ++n, false, sheet)).join('')}<p class="pend">END OF ${PAPER_NAME[p].toUpperCase()}</p></div>`;
+    }).join('') + '<p class="pend final">END OF EXAMINATION PAPER</p>';
   }
   function wsAnswer(it, n) {
     const q = it.q, inst = it.inst;
@@ -17110,7 +17230,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     const strands = topicsOf(code.strands) + ': ' + code.strands.filter(id => STRAND[id] && STRAND[id].live).map(id => STRAND[id].name).join(', ');
     const box = document.createElement('div');
     box.style.cssText = 'position:absolute;left:-10000px;top:0;width:760px';
-    box.innerHTML = `<div id="wsQ">${items.map((it, i) => wsQuestion(it, i + 1)).join('')}</div>${WS.answers ? `<div id="wsA">${items.map((it, i) => wsAnswer(it, i + 1)).join('')}</div>` : ''}`;
+    box.innerHTML = `<div id="wsQ">${paperSections(items, WS.cover !== false)}</div>${WS.answers ? `<div id="wsA">${items.map((it, i) => wsAnswer(it, i + 1)).join('')}</div>` : ''}`;
     document.body.appendChild(box);
     try { if (window.MathJax && MathJax.typesetPromise) await MathJax.typesetPromise([box]); } catch (e) { /* keep raw LaTeX */ }
     const mjCss = (window.MathJax && MathJax.svgStylesheet) ? MathJax.svgStylesheet().textContent : '';
@@ -17118,14 +17238,15 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     box.remove();
     const date = new Date().toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' });
     const doc = `<!doctype html>
-${docComment('Practice paper', 'Class code ' + code.str)}<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MVPhysics Revision Lab worksheet</title>
+${docComment('Practice paper', 'Class code ' + code.str)}<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MVPhysics Lab worksheet</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700;900&display=swap"><style>${mjCss}${WS_CSS}</style></head><body>
-<div class="hint"><span>To make a PDF: Print this page, then choose <b>Save as PDF</b>.${WS.answers ? ' The answers start on a new page.' : ''}</span><button onclick="window.print()">Print</button></div>
-<div class="wshead"><h1><b>MVP</b>hysics Revision Lab · Practice Paper</h1><div class="wscode">${code.str}</div></div>
+<div class="hint"><span>To make a PDF: Print this page, then choose <b>Save as PDF</b>. ${WS.cover !== false ? 'Order: cover sheet, Paper 1A answer sheet, Paper 1A, Paper 1B, Paper 2, then the markschemes. ' : 'The markschemes start on a new page. '}</span><button onclick="window.print()">Print</button></div>
+${WS.cover !== false ? coverSheet(items, code, total, mins) : `<div class="wshead"><h1><b>MVP</b>hysics Lab · Practice Paper</h1><div class="wscode">${code.str}</div></div>
 <div class="meta"><span>${PAPERS.filter(p => items.some(x => x.q.paper === p)).map(p => `${PAPER_NAME[p]} (${items.filter(x => x.q.paper === p).reduce((n, x) => n + x.q.marks, 0)})`).join(' · ')} · <b>Total (${total})</b></span><span>${mins} min</span><span>${esc(topicsOf(code.strands))}</span><span>Made ${date}</span></div>
-<div class="namebox"><span>Name:</span><span>Date:</span><span class="sc"><span style="border:0;padding:0">Score:</span><span style="border:0;padding:0">/ ${total}</span></span></div>
-<h2>Questions</h2>${qHTML}
-${WS.answers ? `<div class="answers"><h2>Answers and markschemes <span class="wscode small">${code.str}</span></h2>${aHTML}</div>` : ''}
+<div class="namebox"><span>Name:</span><span>Date:</span><span class="sc"><span style="border:0;padding:0">Score:</span><span style="border:0;padding:0">/ ${total}</span></span></div>`}
+${WS.cover !== false ? mcqSheet(items, code, false) : ''}
+${qHTML}
+${WS.answers ? `<div class="answers"><h2>Markscheme <span class="wscode small">${code.str}</span></h2>${mcqSheet(items, code, true)}${aHTML}</div>` : ''}
 ${docWatermark('Class code ' + code.str)}${docFooter('Class code ' + code.str)}</body></html>`;
     const filename = `MVPhysics-paper-${code.str}.html`;
     if (mode === 'open') return showDoc(w, filename, doc, status, `✅ Opened in a new tab: choose Print, or Save as PDF. Class code <b class="num">${code.str}</b> will recreate the paper.`);
@@ -17172,10 +17293,10 @@ ${docWatermark('Class code ' + code.str)}${docFooter('Class code ' + code.str)}<
     const seedTxt = EX.code ? `Class code ${EX.code.str}` : `Paper seed ${EX.seed}`;
     const rows = EX.items.map((x, i) => { const sc = x.q.paper === '1A' ? (x.answer === x.inst.answer ? 1 : 0) : writtenScore(x.inst, x.ticks); return `<tr><td>${i + 1}</td><td>${PAPER_NAME[x.q.paper]}</td><td>${esc(x.q.title)}</td><td>${sc} / ${x.q.marks}</td><td>${fmtMin(x.time / 1000)}</td><td>${x.seed}</td></tr>`; }).join('');
     const doc = `<!doctype html>
-${docComment('Exam results', seedTxt)}<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MVPhysics Revision Lab exam results</title>
+${docComment('Exam results', seedTxt)}<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MVPhysics Lab exam results</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700;900&display=swap"><style>${mjCss}${WS_CSS}${REP_CSS}</style></head><body>
 <div class="hint"><span>To make a PDF: Print this page, then choose <b>Save as PDF</b>.</span><button onclick="window.print()">Print</button></div>
-<div class="wshead"><h1><b>MVP</b>hysics Revision Lab · Exam Results</h1><div class="wscode">${esc(seedTxt)}</div></div>
+<div class="wshead"><h1><b>MVP</b>hysics Lab · Exam Results</h1><div class="wscode">${esc(seedTxt)}</div></div>
 <div class="meta"><span>${dateStr}</span><span>${EX.hl ? 'HL' : 'SL'}</span><span>${PAPERS.filter(p => EX.items.some(x => x.q.paper === p)).map(p => `${PAPER_NAME[p]} (${EX.items.filter(x => x.q.paper === p).reduce((n, x) => n + x.q.marks, 0)})`).join(' · ')}</span><span>${esc(topicsOf([...new Set(EX.items.flatMap(x => x.q.strands))]))}</span></div>
 <div class="namebox"><span>Name:</span><span>Class:</span><span>Teacher:</span></div>
 <div class="summary"><div><small>Score</small><b>${r.score} / ${EX.total}</b></div><div><small>Percentage</small><b>${r.pct}%</b></div><div><small>Est. DP grade</small><b>${r.grade}</b></div><div><small>Paper 1A</small><b>${r.mcq.length ? `${r.m} / ${r.mcq.length}` : '–'}</b></div><div><small>Written</small><b>${r.wr.length ? `${r.w} / ${r.wr.reduce((a, x) => a + x.q.marks, 0)}` : '–'}</b></div><div><small>Time used</small><b>${fmtClock(used)}</b></div></div>
@@ -17193,7 +17314,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
      If pop-ups are blocked, the file is downloaded instead. */
   function openWin(msg) {
     let w = null; try { w = window.open('', '_blank'); } catch (e) { w = null; }
-    if (w) try { w.document.write(`<!doctype html><title>MVPhysics Revision Lab</title><p style="font:16px system-ui,sans-serif;padding:24px;color:#444">${msg}</p>`); } catch (e) { /* cross-origin: fine */ }
+    if (w) try { w.document.write(`<!doctype html><title>MVPhysics Lab</title><p style="font:16px system-ui,sans-serif;padding:24px;color:#444">${msg}</p>`); } catch (e) { /* cross-origin: fine */ }
     return w;
   }
   async function showDoc(w, filename, doc, status, okMsg) {
@@ -17291,7 +17412,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     { v: '0.60 alpha', d: '1 November 2026', items: ['Notes: new FE2028 changes at a glance panel at the top, listing every September 2026 change for exams from May 2028, grouped into data booklet changes, guide additions and clarifications, and removals, for all topics. ','Estimated DP grade (1–7) from your score, using typical IB DP Physics grade boundaries for SL or HL. It is a guide only: real boundaries change each session and include the IA.', 'Download results: one file with every question, your answers, the markschemes you ticked, your score, time, pauses, seed and estimated grade. Print it or save it as a PDF.', 'Stats: recent exam papers list the estimated grade and seed, and a new table shows the approximate grade boundaries used.', 'Flashcards: new Reverse option shows the definition first (the term is hidden) so you recall the term. Equation and question cards are shown the usual way.'] },,
     { v: '1.0 Beta', d: '2 November 2026', m: 'Claude Opus 5.5', items: ['First beta, for student testing. Versions 0.1–0.60 were internal alpha builds.', 'All 25 topics, 102 strands and 1,131 question templates (Paper 1A, 1B and 2), 377 recall cards and 107 Who’s Right? items.', 'Open to print: worksheets and exam results open in a new tab, ready to print or save as PDF (Download is still there). If pop-ups are blocked, the file downloads instead.', 'Notes: Chris Doner videos are now linked directly for each strand (from his FE2025 topic playlists), plus the playlist for the whole topic.', 'Fixed: tooltips no longer cut off at the edge of a panel or the screen, and wide equations in Notes are no longer cut off (they widen or shrink to fit).', 'Printed and downloaded papers and results carry the version, author, licence and site on every page, with page numbers.', 'Send Report: each report box (and Send results to teacher in Exam Mode) opens your teacher’s Google Form already filled in; you press Submit. Sign in with your school account. Copy Report stays as a backup.', 'Report a problem is now everywhere: under every question (Practice, Exam Mode, Blitz misses), every flashcard and answered Recall game, every Notes strand, the FE2028 summary and the data booklet. A Feedback or report a problem box in the footer covers the rest of the site (Stats, About, ideas, bugs) and adds the page you are on.']},
     { v: '1.1 Beta', d: '3 November 2026', m: 'Claude Opus 5.5', items: ['Games and Recall now open with cards for each mode and a short description; inside a mode, “← All games” or “← All recall modes” takes you back.', 'The offline copy shows an OFFLINE badge next to the version, with a tooltip explaining it.', 'New Welcome page: a quick guide to every mode, a short tour, and how to use the site for revision. Click the MVPhysics heading at any time to come back to it.', 'Blitz is now part of Games 🕹️, with two modes so far: Blitz and Last Man Standing. More game modes will follow.', '“Only questions I’ve missed” is now at the top of the question panel in Practice and highlighted when you have missed questions to practise (it now applies to Practice only; Exam Mode always uses your full selection).', 'Stats: a Last Man Standing best tile; Blitz average time to 0.1 s.', 'The version is shown in the badge (BETA 1.1), and the Claude model used for each build is listed in this revision history.', 'Fixed: flashcards scrolled sideways on phones.', 'Last Man Standing: a Give up button (with a check first); a run you give up does not count as a best time.', 'Last Man Standing: after every run, a review of each question you answered, right or wrong, with the worked solution. Wrong answers go into "Only questions I\'ve missed".', 'Last Man Standing has its own stats (runs, best survival, recent runs), separate from Blitz Classic, so the Blitz stats now show the right mode.', 'Notes and Recall: the All and None buttons stay together.', 'Removed Saved selections from the question panel.', 'Solutions for radiated intensity now start from the data booklet equation L = σAT⁴ (or eσAT⁴).', 'FE2028 percentage error, difference and change equations shown as separate equations.'] },
-    { v: '1.2 Beta', d: '4 November 2026', m: 'Claude Opus 5.5', items: ['The site address (with nothing after it) now always opens the Welcome page. Links to a page, such as …/#practice or …/#games, still open that page.'] }
+    { v: '1.2 Beta', d: '4 November 2026', m: 'Claude Opus 5.5', items: ['The site is now called <b>MVPhysics Lab</b>.', 'The site address (with nothing after it) now always opens the Welcome page. Links to a page, such as …/#practice or …/#games, still open that page.', 'Printed papers look like IB exams: answer boxes with a border and dotted lines. With “IB-style test” ticked, the order is cover sheet (topics, marks, time, instructions, class code), Paper 1A answer sheet (always 40 rows), Paper 1A, Paper 1B, Paper 2, then the markschemes, starting with the answer sheet with the correct answers crossed.', 'Games: Blitz now ends with a review of every question you answered, with worked solutions, and both Blitz and Last Man Standing can open their results to print.', 'Last Man Standing: choose the starting time (3, 5 or 10 minutes, or your own).', 'New Syllabus toggle (FE2025 / FE2028) in the Questions panel and in Recall. FE2025 is on by default; FE2028 adds content that is new for exams from May 2028, tagged FE2028.', 'Game stats are now on each game’s own screen and on the Stats page.', 'More resources on precision, accuracy, percentage error and percentage difference; more solutions now start from the data booklet equation.'] }
   ];
   HISTORY.forEach(h => { h.items = h.items.map(TL); });
   const fmtBig = (n) => n >= 1e6 ? (n / 1e6).toFixed(1) + ' million' : n.toLocaleString('en-GB');
@@ -17373,7 +17494,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
   let WT = -1;
   function renderWelcome(main) {
     S.seenWelcome = true; save();
-    main.innerHTML = `<section class="welcome-hero"><h2>Welcome to <b class="mvp">MVP</b>hysics Revision Lab 🏆</h2>
+    main.innerHTML = `<section class="welcome-hero"><h2>Welcome to <b class="mvp">MVP</b>hysics Lab 🏆</h2>
         <p>Revision for IB DP Physics (first assessment 2025), SL and HL. Every question is original and generates new values each time, with worked solutions and IB-style markschemes. Nothing you do leaves your browser.</p>
         <div class="row"><a class="btn primary" href="#practice">Start practising</a><button class="btn" id="tourGo" type="button">Take the 1-minute tour</button></div>
         <div class="welcome-level"><span class="muted small">Your level:</span><div class="seg" role="group" aria-label="Course level"><button type="button" data-wlevel="SL" aria-pressed="${!isHL()}">SL</button><button type="button" data-wlevel="HL" aria-pressed="${isHL()}">HL</button></div></div>
@@ -17392,7 +17513,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
         <li><b>Interrupted?</b> Timers have a Pause button (except Last Man Standing).</li>
         <li><b>Your progress</b> is saved in this browser only. Use <b>Stats → Backup</b> to move it to another device.</li>
         <li><b>Found a mistake?</b> Use <b>⚑ Report a problem</b> under any question, or the box in the footer.</li>
-      </ul><p class="muted small">Come back to this page any time by clicking <b>MVPhysics Revision Lab</b> at the top left.</p></section>`;
+      </ul><p class="muted small">Come back to this page any time by clicking <b>MVPhysics Lab</b> at the top left.</p></section>`;
   }
   function tourCard() {
     const [t, d] = WTOUR[WT];
@@ -17446,6 +17567,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     b.innerHTML = dark ? SUN : MOON; b.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode'); b.dataset.tip = dark ? 'Light mode' : 'Dark mode';
   }
   document.addEventListener('click', (e) => {
+    const sb = e.target.closest('.spec-row [data-spec]'); if (sb) { const sp = { ...specOn() }; sp[sb.dataset.spec] = !sp[sb.dataset.spec]; if (!sp['2025'] && !sp['2028']) sp[sb.dataset.spec === '2025' ? '2028' : '2025'] = true; S.settings.spec = sp; save(); RC = null; if (GM && GM.tm) clearInterval(GM.tm); GM = null; render(); return; }
     const c = e.target.closest('[data-tchip],[data-tall],[data-tcmd]'); if (!c) return;
     if (c.dataset.tcmd) { S.settings.incCmd = !S.settings.incCmd; save(); RC = null; if (GM && GM.tm) clearInterval(GM.tm); GM = null; render(); return; }
     if (c.dataset.tall && currentView() === 'recall') S.settings.incCmd = c.dataset.tall === '1';
