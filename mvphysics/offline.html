@@ -16194,9 +16194,9 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
           ${EX.code ? '' : `<div class="exrow"><div class="exlab">Class code <span class="exopt">optional</span></div><div class="exctl">
             <div class="codeform"><input type="text" id="exCodeIn" placeholder="MVP-…" autocomplete="off" spellcheck="false" aria-label="Class code"><button class="btn sm" id="exUse">Use</button><button class="linkbtn" id="exMake">Create one</button></div>
             <span class="muted small">Same code, same questions and values for everyone.</span></div></div>`}
-          <div class="exgo"><div class="row"><button class="btn primary" id="exStart">Start</button><button class="btn" id="wsOpen">🖨 Open to print</button><button class="btn" id="wsMake">⬇ Download</button></div>
+          <div class="exgo"><div class="row"><button class="btn primary" id="exStart">Start</button><button class="btn" id="wsOpen">🖨 Print</button><button class="btn" id="wsMake">⬇ Download</button></div>
             <label class="switch small ws-cover"><input type="checkbox" id="wsCover" ${WS.cover !== false ? 'checked' : ''}> IB-style test: cover sheet and Paper 1A answer sheet first (print and place on desks before a test)</label>
-            <p class="muted small" id="wsStatus">Open to print shows the paper in a new tab (Print, or Save as PDF) with IB-style answer boxes and the markscheme at the end. Papers include their class code.</p></div>
+            <p class="muted small" id="wsStatus">Print opens the paper in a new tab and the print window straight away (choose a printer, or Save as PDF) with IB-style answer boxes and the markscheme at the end. Papers include their class code.</p></div>
         </section>` : emptySel());
       return;
     }
@@ -16285,8 +16285,8 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
         else b = `<div class="qbody">${inst.intro}</div><div class="parts">${inst.parts.map(p => `<div class="part"><span class="plabel">(${p.label})</span><div class="pbody qbody">${partPrompt(p)}</div><span class="pmarks">[${p.marks}]</span>${x.texts[p.label] ? `<div class="ms" style="border-left-color:var(--line)"><span class="muted small">Your answer</span><div>${esc(x.texts[p.label])}</div></div>` : ''}${msBlock(p, x.ticks, i + ':' + p.label, EX.saved)}</div>`).join('')}</div>`;
         return `<article class="sheet exam-item"><div class="qmeta"><span class="paper">${PAPER_NAME[q.paper]}</span>${chiliIcon(q.chili)}<span class="marks">Question ${i + 1} [${q.marks}]</span><span>${esc(q.title)}</span><span class="num">${fmtMin(x.time / 1000)}</span></div>${b}${reportBox(q, x.seed, 'Exam Mode' + (EX.code ? ' ' + EX.code.str : ''))}</article>`;
       }).join('')}
-      <div class="row">${EX.saved ? '<span class="pill good">Results saved to your stats</span>' : '<button class="btn primary" id="exSave">Save results to my stats</button>'}<button class="btn" id="exPrint">🖨 Open results to print</button><button class="btn" id="exDownload">⬇ Download results</button>${FORM.url ? `<a class="btn send-report" id="exSend" href="${FORM.url}" target="_blank" rel="noopener">📤 Send results to teacher ↗</a>` : ''}<button class="btn" id="exNew">New paper</button></div>
-      <p class="muted small" id="exDlStatus">Open to print shows the results in a new tab: choose Print, or Save as PDF. The file has every question, your answers, the markschemes you ticked, your score, time, pauses and estimated grade. Send results to teacher opens your teacher’s Google Form with your score filled in.</p>`;
+      <div class="row">${EX.saved ? '<span class="pill good">Results saved to your stats</span>' : '<button class="btn primary" id="exSave">Save results to my stats</button>'}<button class="btn" id="exPrint">🖨 Print results</button><button class="btn" id="exDownload">⬇ Download results</button>${FORM.url ? `<a class="btn send-report" id="exSend" href="${FORM.url}" target="_blank" rel="noopener">📤 Send results to teacher ↗</a>` : ''}<button class="btn" id="exNew">New paper</button></div>
+      <p class="muted small" id="exDlStatus">Print results opens them in a new tab with the print window (choose a printer, or Save as PDF). The file has every question, your answers, the markschemes you ticked, your score, time, pauses and estimated grade. Send results to teacher opens your teacher’s Google Form with your score filled in.</p>`;
     $$('.exam-item', main).forEach(typeset);
   }
   function bindExam(main) {
@@ -16448,7 +16448,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   function runReview(hist, where, printId) {
     if (!hist || !hist.length) return '';
     const wrong = hist.filter(h => h.picked !== h.inst.answer).length;
-    return `<section class="panel lms-review run-review" id="runReview"><div class="row"><h3 style="margin:0">Review your run</h3><span class="spacer"></span><button class="btn sm" id="${printId}" type="button">🖨 Open results to print</button></div><p class="muted small" id="runPrintStatus">${hist.length} question${hist.length > 1 ? 's' : ''} · ${hist.length - wrong} right · ${wrong} wrong${wrong ? ' (now in "Only questions I\'ve missed" in Practice)' : ''}</p>
+    return `<section class="panel lms-review run-review" id="runReview"><div class="row"><h3 style="margin:0">Review your run</h3><span class="spacer"></span><button class="btn sm" id="${printId}" type="button">🖨 Print results</button></div><p class="muted small" id="runPrintStatus">${hist.length} question${hist.length > 1 ? 's' : ''} · ${hist.length - wrong} right · ${wrong} wrong${wrong ? ' (now in "Only questions I\'ve missed" in Practice)' : ''}</p>
       ${hist.map((h, i) => { const ok = h.picked === h.inst.answer; return `<details class="solution ${ok ? 'rv-ok' : 'rv-no'}"><summary><span class="rv-mark" aria-label="${ok ? 'Right' : 'Wrong'}">${ok ? '✓' : '✗'}</span> ${i + 1}. ${esc(h.q.title)}: ${ok ? `you chose ${LETTERS[h.picked]}` : `you chose ${LETTERS[h.picked]}, answer ${LETTERS[h.inst.answer]}`}</summary><div class="qbody">${h.inst.stem}${optionsHTML(h.inst, h.picked, true)}<h4>Worked solution</h4>${h.inst.solution}</div>${reportBox(h.q, h.seed, where)}</details>`; }).join('')}</section>`;
   }
   const lmsReview = (L) => runReview(L.hist, 'Last Man Standing', 'lmsPrint');
@@ -16477,7 +16477,7 @@ ${docComment(title + ' results', id)}<html lang="en"><head><meta charset="utf-8"
 <h2>Questions, your answers and worked solutions</h2>${body}
 ${docWatermark(id)}${docFooter(id)}</body></html>`;
     const stamp = new Date().toISOString().slice(0, 10);
-    return showDoc(w, `MVPhysics-${kind === 'lms' ? 'last-man-standing' : 'blitz'}-${stamp}.html`, doc, status, '✅ Opened in a new tab: choose Print, or Save as PDF.');
+    return showDoc(w, `MVPhysics-${kind === 'lms' ? 'last-man-standing' : 'blitz'}-${stamp}.html`, doc, status, '✅ Opened in a new tab with the print window: choose a printer, or Save as PDF.');
   }
   /* ---------- Last man standing 💀 ---------- */
   let LM = null, lmTimer = null, lmOverT = null;
@@ -17185,6 +17185,10 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
     .mcq-row .mb { position: relative; width: 26px; height: 20px; border: 1.2px solid #111; display: inline-flex; align-items: center; justify-content: center; font-size: 8.5pt; }
     .mcq-row .mb i { font-style: normal; color: #555; } .mcq-row .mb.on::after { content: "✕"; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 16pt; font-weight: 700; color: #b3261e; line-height: 1; }
     .answers > .mcq-sheet { break-before: auto; page-break-before: auto; margin-bottom: 18px; }
+    .mcq-topics { font-size: 10pt; margin: 4px 0 0; }
+    .overview { break-before: page; page-break-before: always; break-after: page; page-break-after: always; } .overview h1 { font-size: 15pt; }
+    table.ov { border-collapse: collapse; width: 100%; font-size: 8.8pt; margin: 8px 0; } table.ov th, table.ov td { border: 1px solid #999; padding: 3px 6px; text-align: left; vertical-align: top; } table.ov th { background: #f1f1f1; } .ovn, .ovc { text-align: center !important; white-space: nowrap; } .ovhl { font-size: 7.5pt; font-weight: 700; border: 1px solid #555; padding: 0 3px; border-radius: 3px; }
+    .ovt { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; } .answers { break-before: auto; page-break-before: auto; }
     .mcq-row.unused { opacity: .3; } .mcq-sheet { break-after: page; page-break-after: always; } .answers > .mcq-sheet { break-after: auto; page-break-after: auto; }
     .wm { break-inside: avoid; page-break-inside: avoid; margin-top: 28px; padding-top: 8px; border-top: 1px solid #ccc; font-size: 8pt; color: #777; text-align: center; line-height: 1.5; } .wm a { color: #777; }
     table.data { border-collapse: collapse; margin: 6px 0; } table.data th, table.data td { border: 1px solid #888; padding: 3px 10px; text-align: center; }
@@ -17214,7 +17218,7 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
     const mc = items.map((x, i) => ({ n: i + 1, x })).filter(o => o.x.q.paper === '1A'); if (!mc.length) return '';
     const rows = Array.from({ length: 40 }, (_, k) => mc[k] ? { n: k + 1, x: mc[k].x } : { n: k + 1, x: null });
     const cols = [rows.slice(0, 14), rows.slice(14, 28), rows.slice(28, 40)];
-    return `<section class="mcq-sheet"><div class="mcq-head"><div><b>Paper 1A answer sheet</b>${key ? ' <span class="mcq-key">MARKSCHEME</span>' : ''}</div><div class="wscode">${code.str}</div></div>
+    return `<section class="mcq-sheet"><div class="mcq-head"><div><b>Paper 1A answer sheet</b>${key ? ' <span class="mcq-key">MARKSCHEME</span>' : ''}</div>${key ? `<div class="wscode">${code.str}</div>` : ''}</div><div class="mcq-topics">Topics: ${esc(topicCodes(items.flatMap(x => x.q.strands)))}</div>
       <div class="mcq-fields"><span>Candidate name:</span><span>Level: <i class="bx"></i> HL &nbsp; <i class="bx"></i> SL</span><span>Date:</span></div>
       <p class="mcq-ins">Clearly indicate your choice by inserting ✕ in the appropriate box (A, B, C, D). To change an answer, fill the box completely and put ✕ in your new choice.${mc.length < 40 ? ` This paper has <b>${mc.length}</b> multiple-choice question${mc.length === 1 ? '' : 's'}; leave the greyed rows blank.` : ''}</p>
       <div class="mcq-grid">${cols.map(col => `<div class="mcq-col">${col.map(o => `<div class="mcq-row${o.x ? '' : ' unused'}"><span class="mn">${o.n}</span>${[...LETTERS].slice(0, 4).map((L, j) => `<span class="mb${key && o.x && j === o.x.inst.answer ? ' on' : ''}"><i>${L}</i></span>`).join('')}</div>`).join('')}</div>`).join('')}</div></section>`;
@@ -17223,8 +17227,8 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
     const byP = PAPERS.filter(p => items.some(x => x.q.paper === p)).map(p => [p, items.filter(x => x.q.paper === p).reduce((n, x) => n + x.q.marks, 0)]);
     const lvl = codeHL(code) ? 'HL' : 'SL';
     return `<section class="cover">
-      <table class="cv-title"><tr><td rowspan="4" class="cv-brand"><b>MVP</b>hysics<br>Lab</td><td class="cv-k">DP Physics</td><td>Practice examination paper</td></tr>
-        <tr><td class="cv-k">Level:</td><td>${lvl}</td></tr><tr><td class="cv-k">Topics:</td><td>${esc(topicCodes(code.strands))}</td></tr><tr><td class="cv-k">Version:</td><td>${new Date().toISOString().slice(0, 10)} (FE2025) · class code ${code.str}</td></tr></table>
+      <table class="cv-title"><tr><td class="cv-k">DP Physics</td><td>Practice examination paper</td></tr>
+        <tr><td class="cv-k">Level:</td><td>${lvl}</td></tr><tr><td class="cv-k">Topics:</td><td>${esc(topicCodes(items.flatMap(x => x.q.strands)))}</td></tr><tr><td class="cv-k">Version:</td><td>${new Date().toISOString().slice(0, 10)} (FE2025)</td></tr></table>
       <table class="cv-names"><tr><td class="cv-k">Candidate name:</td><td class="cv-w"></td><td class="cv-k">Date:</td><td class="cv-s"></td></tr><tr><td class="cv-k">Teacher / section:</td><td class="cv-w"></td><td class="cv-k">Level:</td><td class="cv-s"></td></tr></table>
       <h3>Instructions to candidates</h3><ul class="cv-ins">
         <li>Do not open this examination paper until instructed to do so.</li><li>Answer all questions.</li>
@@ -17234,6 +17238,19 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
         <li>Student achievement will be based on our shared DP Physics grade boundaries.</li>
         <li>The maximum mark for this examination paper is <b>[${total} marks]</b>.</li><li>The total time allowed for this examination paper is <b>${mins} minutes</b>.</li></ul>
       <table class="cv-papers"><tr><th>Section</th><th>Marks</th></tr>${byP.map(([p, m]) => `<tr><td>${PAPER_NAME[p]}</td><td>${m}</td></tr>`).join('')}<tr><td><b>Total</b></td><td><b>${total}</b></td></tr></table></section>`;
+  }
+  // single page between the test and the markschemes: every question with its topics, strand, difficulty and marks (no answers)
+  function overviewPage(items, code, total) {
+    const order = TOPICS.map(t => t.id);
+    const tops = (q) => [...new Set(q.strands.map(id => STRAND[id] && STRAND[id].topic).filter(Boolean))].sort((a, b) => order.indexOf(a) - order.indexOf(b));
+    const byT = {}; items.forEach(x => { const ts = tops(x.q); ts.forEach(t => { byT[t] = (byT[t] || 0) + x.q.marks / ts.length; }); });
+    const byP = PAPERS.filter(p => items.some(x => x.q.paper === p)).map(p => [p, items.filter(x => x.q.paper === p).reduce((n, x) => n + x.q.marks, 0)]);
+    const chil = (n) => '🌶'.repeat(n);
+    return `<section class="overview"><div class="wshead"><h1>Markscheme and question overview</h1><div class="wscode">${code.str}</div></div>
+      <table class="ov"><thead><tr><th>#</th><th>Paper</th><th>Question</th><th>Topics</th><th>Strand</th><th>Difficulty</th><th>Marks</th></tr></thead><tbody>${items.map((x, i) => `<tr><td>${i + 1}</td><td>${PAPER_NAME[x.q.paper].replace('Paper ', '')}</td><td>${esc(x.q.title)}${x.q.hl ? ' <span class="ovhl">HL</span>' : ''}</td><td>${tops(x.q).map(tname).join(', ')}</td><td>${esc(x.q.strands.map(id => STRAND[id] ? STRAND[id].name : id).join(' · '))}</td><td class="ovc">${chil(x.q.chili)}</td><td class="ovn">${x.q.marks}</td></tr>`).join('')}</tbody></table>
+      <div class="ovt"><table class="ov"><thead><tr><th>Paper</th><th>Marks</th></tr></thead><tbody>${byP.map(([p, m]) => `<tr><td>${PAPER_NAME[p]}</td><td class="ovn">${m}</td></tr>`).join('')}<tr><td><b>Total</b></td><td class="ovn"><b>${total}</b></td></tr></tbody></table>
+      <table class="ov"><thead><tr><th>Topic</th><th>Marks</th></tr></thead><tbody>${Object.keys(byT).sort((a, b) => order.indexOf(a) - order.indexOf(b)).map(t => `<tr><td>${tname(t)}</td><td class="ovn">${Math.round(byT[t] * 10) / 10}</td></tr>`).join('')}</tbody></table></div>
+      <p class="pins">Questions that use more than one topic share their marks between those topics.</p></section>`;
   }
   const PAPER_HEAD = { '1A': ['PAPER 1A: MULTIPLE-CHOICE QUESTIONS', 'Clearly indicate your choice by inserting ✕ in the appropriate box (A, B, C, D) on the answer sheet.'], '1B': ['PAPER 1B: DATA-BASED QUESTIONS', 'Answer all questions. Answers must be written within the answer boxes provided.'], '2': ['PAPER 2: SHORT AND LONG ANSWER QUESTIONS', 'Answer all questions. Answers must be written within the answer boxes provided.'] };
   // the question pages of a printed paper: one section per paper, IB headers and END OF PAPER lines
@@ -17280,10 +17297,10 @@ ${WS.cover !== false ? coverSheet(items, code, total, mins) : `<div class="wshea
 <div class="namebox"><span>Name:</span><span>Date:</span><span class="sc"><span style="border:0;padding:0">Score:</span><span style="border:0;padding:0">/ ${total}</span></span></div>`}
 ${WS.cover !== false ? mcqSheet(items, code, false) : ''}
 ${qHTML}
-${WS.answers ? `<div class="answers"><h2>Markscheme <span class="wscode small">${code.str}</span></h2>${mcqSheet(items, code, true)}${aHTML}</div>` : ''}
-${docWatermark('Class code ' + code.str)}${docFooter('Class code ' + code.str)}</body></html>`;
+${WS.answers ? `${overviewPage(items, code, total)}<div class="answers"><h2>Markscheme <span class="wscode small">${code.str}</span></h2>${mcqSheet(items, code, true)}${aHTML}</div>` : ''}
+${docWatermark(WS.cover !== false ? '' : 'Class code ' + code.str)}${docFooter('Class code ' + code.str)}</body></html>`;
     const filename = `MVPhysics-paper-${code.str}.html`;
-    if (mode === 'open') return showDoc(w, filename, doc, status, `✅ Opened in a new tab: choose Print, or Save as PDF. Class code <b class="num">${code.str}</b> will recreate the paper.`);
+    if (mode === 'open') return showDoc(w, filename, doc, status, `✅ Opened in a new tab with the print window: choose a printer, or Save as PDF. Class code <b class="num">${code.str}</b> will recreate the paper.`);
     await saveFile(filename, doc, status, `✅ File saved! Class code <b class="num">${code.str}</b> will recreate the paper.`);
   }
   const REP_CSS = `
@@ -17341,7 +17358,7 @@ ${docComment('Exam results', seedTxt)}<html lang="en"><head><meta charset="utf-8
 ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     const stamp = `${taken.getFullYear()}-${String(taken.getMonth() + 1).padStart(2, '0')}-${String(taken.getDate()).padStart(2, '0')}`;
     const fname = `MVPhysics-results-${stamp}-${EX.code ? EX.code.str : EX.seed}.html`;
-    if (mode === 'open') return showDoc(w, fname, doc, status, '✅ Opened in a new tab: choose Print, or Save as PDF.');
+    if (mode === 'open') return showDoc(w, fname, doc, status, '✅ Opened in a new tab with the print window: choose a printer, or Save as PDF.');
     await saveFile(fname, doc, status, '✅ Results saved. Open the file to read or print it.');
   }
   /* Open to print: the tab is opened straight away (inside the click, so pop-up blockers allow it), then filled when the page is ready.
@@ -17352,6 +17369,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     return w;
   }
   async function showDoc(w, filename, doc, status, okMsg) {
+    doc = doc.replace('</body></html>', '<script>window.addEventListener(\'load\', function () { setTimeout(function () { window.print(); }, 500); });<\/script></body></html>');
     if (w && !w.closed) {
       try { w.location.href = URL.createObjectURL(new Blob([doc], { type: 'text/html' })); status.innerHTML = okMsg; return; }
       catch (e) { try { w.document.open(); w.document.write(doc); w.document.close(); status.innerHTML = okMsg; return; } catch (e2) { try { w.close(); } catch (e3) { /* ignore */ } } }
@@ -17446,7 +17464,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     { v: '0.60 alpha', d: '1 November 2026', items: ['Notes: new FE2028 changes at a glance panel at the top, listing every September 2026 change for exams from May 2028, grouped into data booklet changes, guide additions and clarifications, and removals, for all topics. ','Estimated DP grade (1–7) from your score, using typical IB DP Physics grade boundaries for SL or HL. It is a guide only: real boundaries change each session and include the IA.', 'Download results: one file with every question, your answers, the markschemes you ticked, your score, time, pauses, seed and estimated grade. Print it or save it as a PDF.', 'Stats: recent exam papers list the estimated grade and seed, and a new table shows the approximate grade boundaries used.', 'Flashcards: new Reverse option shows the definition first (the term is hidden) so you recall the term. Equation and question cards are shown the usual way.'] },,
     { v: '1.0 Beta', d: '2 November 2026', m: 'Claude Opus 5.5', items: ['First beta, for student testing. Versions 0.1–0.60 were internal alpha builds.', 'All 25 topics, 102 strands and 1,131 question templates (Paper 1A, 1B and 2), 377 recall cards and 107 Who’s Right? items.', 'Open to print: worksheets and exam results open in a new tab, ready to print or save as PDF (Download is still there). If pop-ups are blocked, the file downloads instead.', 'Notes: Chris Doner videos are now linked directly for each strand (from his FE2025 topic playlists), plus the playlist for the whole topic.', 'Fixed: tooltips no longer cut off at the edge of a panel or the screen, and wide equations in Notes are no longer cut off (they widen or shrink to fit).', 'Printed and downloaded papers and results carry the version, author, licence and site on every page, with page numbers.', 'Send Report: each report box (and Send results to teacher in Exam Mode) opens your teacher’s Google Form already filled in; you press Submit. Sign in with your school account. Copy Report stays as a backup.', 'Report a problem is now everywhere: under every question (Practice, Exam Mode, Blitz misses), every flashcard and answered Recall game, every Notes strand, the FE2028 summary and the data booklet. A Feedback or report a problem box in the footer covers the rest of the site (Stats, About, ideas, bugs) and adds the page you are on.']},
     { v: '1.1 Beta', d: '3 November 2026', m: 'Claude Opus 5.5', items: ['Games and Recall now open with cards for each mode and a short description; inside a mode, “← All games” or “← All recall modes” takes you back.', 'The offline copy shows an OFFLINE badge next to the version, with a tooltip explaining it.', 'New Welcome page: a quick guide to every mode, a short tour, and how to use the site for revision. Click the MVPhysics heading at any time to come back to it.', 'Blitz is now part of Games 🕹️, with two modes so far: Blitz and Last Man Standing. More game modes will follow.', '“Only questions I’ve missed” is now at the top of the question panel in Practice and highlighted when you have missed questions to practise (it now applies to Practice only; Exam Mode always uses your full selection).', 'Stats: a Last Man Standing best tile; Blitz average time to 0.1 s.', 'The version is shown in the badge (BETA 1.1), and the Claude model used for each build is listed in this revision history.', 'Fixed: flashcards scrolled sideways on phones.', 'Last Man Standing: a Give up button (with a check first); a run you give up does not count as a best time.', 'Last Man Standing: after every run, a review of each question you answered, right or wrong, with the worked solution. Wrong answers go into "Only questions I\'ve missed".', 'Last Man Standing has its own stats (runs, best survival, recent runs), separate from Blitz Classic, so the Blitz stats now show the right mode.', 'Notes and Recall: the All and None buttons stay together.', 'Removed Saved selections from the question panel.', 'Solutions for radiated intensity now start from the data booklet equation L = σAT⁴ (or eσAT⁴).', 'FE2028 percentage error, difference and change equations shown as separate equations.'] },
-    { v: '1.2 Beta', d: '4 November 2026', m: 'Claude Opus 5.5', items: ['The site is now called <b>MVPhysics Lab</b>, with a new address: <b>mvpoirier.github.io/mvphysics/</b>. The old revision-lab address takes you there automatically, and your saved progress carries over. A 🏆 now shows on the browser tab.', 'The site address (with nothing after it) now always opens the Welcome page. Links to a page, such as …/#practice or …/#games, still open that page.', 'Printed papers look like IB exams: answer boxes with a border and dotted lines. With “IB-style test” ticked, the order is cover sheet (topics, marks, time, instructions, class code), Paper 1A answer sheet (always 40 rows), Paper 1A, Paper 1B, Paper 2, then the markschemes, starting with the answer sheet with the correct answers crossed.', 'Games: Blitz now ends with a review of every question you answered, with worked solutions, and both Blitz and Last Man Standing can open their results to print.', 'Last Man Standing: choose the starting time (3, 5 or 10 minutes, or your own).', 'New Syllabus toggle (FE2025 / FE2028) in the Questions panel and in Recall. FE2025 is on by default; FE2028 adds content that is new for exams from May 2028, tagged FE2028.', 'Game stats are now on each game’s own screen and on the Stats page.', 'More resources on precision, accuracy, percentage error and percentage difference; more solutions now start from the data booklet equation.'] }
+    { v: '1.2 Beta', d: '4 November 2026', m: 'Claude Opus 5.5', items: ['The site is now called <b>MVPhysics Lab</b>, with a new address: <b>mvpoirier.github.io/mvphysics/</b>. The old revision-lab address takes you there automatically, and your saved progress carries over. A 🏆 now shows on the browser tab.', 'The site address (with nothing after it) now always opens the Welcome page. Links to a page, such as …/#practice or …/#games, still open that page.', 'Printed papers look like IB exams: answer boxes with a border and dotted lines. With “IB-style test” ticked, the order is cover sheet (topics, marks, time, instructions, class code), Paper 1A answer sheet (always 40 rows), Paper 1A, Paper 1B, Paper 2, then the markschemes, starting with the answer sheet with the correct answers crossed.', 'Games: Blitz now ends with a review of every question you answered, with worked solutions, and both Blitz and Last Man Standing can print their results.', 'The Print buttons open the paper or results in a new tab with the print window already open: choose a printer, or Save as PDF.', 'Printed tests: no site name on the cover; the class code appears only on the markscheme pages; the answer sheet lists the topics; and a one-page question overview (topics, strand, difficulty and marks for every question) comes before the markschemes.', 'Last Man Standing: choose the starting time (3, 5 or 10 minutes, or your own).', 'New Syllabus toggle (FE2025 / FE2028) in the Questions panel and in Recall. FE2025 is on by default; FE2028 adds content that is new for exams from May 2028, tagged FE2028.', 'Game stats are now on each game’s own screen and on the Stats page.', 'More resources on precision, accuracy, percentage error and percentage difference; more solutions now start from the data booklet equation.'] }
   ];
   HISTORY.forEach(h => { h.items = h.items.map(TL); });
   const fmtBig = (n) => n >= 1e6 ? (n / 1e6).toFixed(1) + ' million' : n.toLocaleString('en-GB');
