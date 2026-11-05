@@ -8,8 +8,8 @@
   Version: 0.2 · Built: 05 November 2026
   Author: Mike Poirier (https://github.com/mvpoirier), developed with Claude by Anthropic
   Licence: CC BY-NC-SA 4.0, https://creativecommons.org/licenses/by-nc-sa/4.0/
-  Site: https://mvpoirier.github.io/science-lab/   Sister site: https://mvpoirier.github.io/physics-lab/
-  Design and app structure shared with MVPhysics Lab. Original questions written from the unit notes. Not affiliated with or endorsed by the IB.
+  Site: https://mvpoirier.github.io/science-lab/
+  Original questions written from the unit notes. Not affiliated with or endorsed by the IB.
   No student data leaves the browser: progress is stored on the device (localStorage key myp-science-lab.v1).
 -->
 <title>MYPoirier Science Lab</title>
@@ -858,7 +858,7 @@ ol.history .hm { font-size: 11.5px; }
 .report-general > summary:hover, .report-general[open] > summary { color: var(--accent); border-color: var(--accent); }
 .alpha-sum { margin: 8px 0 4px; padding-left: 20px; display: grid; gap: 4px; }
 
-/* ===== MYPoirier Science Lab: additions to the shared MVPhysics stylesheet ===== */
+/* ===== MYPoirier Science Lab: additions to the base stylesheet ===== */
 :root { --s1: #0f766e; --s1-soft: #ddf3f0; --s2: #2547c9; --s2-soft: #e6ecfd; --s3: #7c3aed; --s3-soft: #f1eafe; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --s1: #4fd1c0; --s1-soft: #10302d; --s2: #85a2ff; --s2-soft: #1d2847; --s3: #b69cff; --s3-soft: #2a1f47; } }
 :root[data-theme="dark"] { --s1: #4fd1c0; --s1-soft: #10302d; --s2: #85a2ff; --s2-soft: #1d2847; --s3: #b69cff; --s3-soft: #2a1f47; }
@@ -978,6 +978,27 @@ dialog.terms-dlg { border: 1px solid var(--line); border-radius: 14px; backgroun
 dialog.terms-dlg::backdrop { background: rgba(10, 16, 28, .5); }
 dialog.terms-dlg #termsBody { max-height: 70vh; overflow: auto; }
 
+/* Periodic Table (Y9 chemistry): header button in Year 9, a button on every Y9 chemistry question, and the Notes */
+:root:not([data-year="9"]) #ptBtn { display: none; }
+#ptBtn svg rect { fill: none; stroke: currentColor; stroke-width: 1.6; }
+.qmeta .pt-open { margin-left: auto; }
+.pt-wrap { display: grid; gap: 10px; overflow-x: auto; }
+.pt-grid { display: grid; grid-template-columns: repeat(8, minmax(62px, 1fr)); gap: 4px; min-width: 520px; }
+.pt-head { text-align: center; font: 600 11px var(--f-mono); color: var(--muted); }
+.pt-cell { position: relative; border: 1px solid var(--line); border-radius: 6px; padding: 16px 4px 16px; text-align: center; background: var(--surface); min-height: 72px; display: grid; align-content: center; }
+.pt-empty { border: 0; background: none; }
+.pt-z { position: absolute; top: 3px; left: 5px; font: 600 10.5px var(--f-mono); color: var(--muted); }
+.pt-sym { font: 800 20px/1 var(--f-display); }
+.pt-name { font-size: 9.5px; color: var(--muted); margin-top: 3px; }
+.pt-a { position: absolute; bottom: 3px; left: 0; right: 0; font: 600 11px var(--f-mono); }
+.pt-metal { background: #fdecd9; } .pt-non-metal { background: #dff3e4; } .pt-metalloid { background: #ece6fb; }
+:root[data-theme="dark"] .pt-metal { background: #3a2a17; } :root[data-theme="dark"] .pt-non-metal { background: #13301f; } :root[data-theme="dark"] .pt-metalloid { background: #2a1f47; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pt-metal { background: #3a2a17; } :root:not([data-theme="light"]) .pt-non-metal { background: #13301f; } :root:not([data-theme="light"]) .pt-metalloid { background: #2a1f47; } }
+.pt-key { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.pt-keycell { width: 70px; flex: none; }
+.pt-sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; border: 1px solid var(--line); vertical-align: -1px; margin-left: 8px; }
+.subnote-fig .pt-wrap { margin-top: 4px; }
+
 </style>
 </head>
 <body>
@@ -986,6 +1007,7 @@ dialog.terms-dlg #termsBody { max-height: 70vh; overflow: auto; }
   <nav class="tabs" id="tabs" aria-label="Modes"></nav>
   <div class="hbar">
     <div class="course-seg year-seg" id="yearSeg" role="group" aria-label="Year"></div>
+    <button class="theme-btn pt-btn" id="ptBtn" type="button" aria-haspopup="dialog" aria-label="Periodic Table (elements 1–20)" data-tip="Periodic Table" data-pt="1"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="4" height="4"/><rect x="3" y="10" width="4" height="4"/><rect x="3" y="16" width="4" height="4"/><rect x="17" y="4" width="4" height="4"/><rect x="11" y="10" width="4" height="4"/><rect x="17" y="10" width="4" height="4"/><rect x="11" y="16" width="4" height="4"/><rect x="17" y="16" width="4" height="4"/></svg></button>
     <button class="theme-btn" id="termsBtn" type="button" aria-haspopup="dialog" aria-label="Command terms" data-tip="Command terms"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"/><path d="M8 7.5h8M8 11h6"/></svg></button>
     <a class="theme-btn about-btn" id="aboutBtn" href="#about" aria-label="About this site" data-tip="About this site"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M12 10.6v6.2"/><circle cx="12" cy="7.4" r="1.15" style="fill:currentColor;stroke:none"/></svg></a>
     <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch theme" data-tip="Theme"></button>
@@ -1000,7 +1022,6 @@ dialog.terms-dlg #termsBody { max-height: 70vh; overflow: auto; }
     <div class="foot-brand"><div class="foot-name"><b class="mvp">MYP</b>oirier Science Lab <span class="trophy" aria-hidden="true">⚛️</span><span class="beta-tag">ALPHA 0.2</span></div></div>
     <nav class="foot-links" aria-label="Site">
       <a href="#about">About</a>
-      <a href="https://mvpoirier.github.io/physics-lab/">MVPhysics Lab</a>
       <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener license">CC BY-NC-SA 4.0</a>
     </nav>
   </div>
@@ -1146,6 +1167,24 @@ const H = {
   // self-marked extended answer
   self(stem, model, check, extra = {}) { return { type: 'self', stem, model, check, ...extra }; }
 };
+
+/* Elements 1–20 with atomic masses rounded to whole numbers. This is the simplified Periodic Table students use,
+   and every chemistry question takes its values from here. [symbol, name, Z, atomic mass (whole number), group, period, type, usual ion charge] */
+const ELEMENTS20 = [
+  ['H', 'hydrogen', 1, 1, 1, 1, 'non-metal', 1], ['He', 'helium', 2, 4, 18, 1, 'non-metal', null], ['Li', 'lithium', 3, 7, 1, 2, 'metal', 1], ['Be', 'beryllium', 4, 9, 2, 2, 'metal', 2],
+  ['B', 'boron', 5, 11, 13, 2, 'metalloid', null], ['C', 'carbon', 6, 12, 14, 2, 'non-metal', null], ['N', 'nitrogen', 7, 14, 15, 2, 'non-metal', -3], ['O', 'oxygen', 8, 16, 16, 2, 'non-metal', -2],
+  ['F', 'fluorine', 9, 19, 17, 2, 'non-metal', -1], ['Ne', 'neon', 10, 20, 18, 2, 'non-metal', null], ['Na', 'sodium', 11, 23, 1, 3, 'metal', 1], ['Mg', 'magnesium', 12, 24, 2, 3, 'metal', 2],
+  ['Al', 'aluminium', 13, 27, 13, 3, 'metal', 3], ['Si', 'silicon', 14, 28, 14, 3, 'metalloid', null], ['P', 'phosphorus', 15, 31, 15, 3, 'non-metal', -3], ['S', 'sulfur', 16, 32, 16, 3, 'non-metal', -2],
+  ['Cl', 'chlorine', 17, 35, 17, 3, 'non-metal', -1], ['Ar', 'argon', 18, 40, 18, 3, 'non-metal', null], ['K', 'potassium', 19, 39, 1, 4, 'metal', 1], ['Ca', 'calcium', 20, 40, 2, 4, 'metal', 2]
+].map(e => ({ sym: e[0], name: e[1], Z: e[2], A: e[3], grp: e[4], per: e[5], type: e[6], ion: e[7] }));
+function periodicTableHTML() {
+  const cols = [1, 2, 13, 14, 15, 16, 17, 18];
+  const cell = (e) => e ? `<div class="pt-cell pt-${e.type}" title="${e.name}: atomic number ${e.Z}, atomic mass ${e.A}"><span class="pt-z">${e.Z}</span><span class="pt-sym">${e.sym}</span><span class="pt-name">${e.name}</span><span class="pt-a">${e.A}</span></div>` : '<div class="pt-cell pt-empty"></div>';
+  let h = '<div class="pt-wrap"><div class="pt-grid">' + cols.map(g => `<div class="pt-head">${g}</div>`).join('');
+  for (let p = 1; p <= 4; p++) h += cols.map(g => cell(ELEMENTS20.find(e => e.per === p && e.grp === g))).join('');
+  h += '</div><div class="pt-key"><div class="pt-cell pt-keycell"><span class="pt-z">Z</span><span class="pt-sym">X</span><span class="pt-name">name</span><span class="pt-a">mass</span></div><div class="small">Top: <b>atomic number</b> (protons). Bottom: <b>atomic mass</b>, rounded to a whole number. Rows are periods 1–4; column headings are groups.<br><span class="pt-sw pt-metal"></span> metal <span class="pt-sw pt-non-metal"></span> non-metal <span class="pt-sw pt-metalloid"></span> metalloid</div></div></div>';
+  return h;
+}
 
 /* ---- svg.js ---- */
 /* Small SVG drawing kit used by the content files. Colours come from CSS classes so diagrams follow light/dark mode. */
@@ -1541,14 +1580,7 @@ const SVG = (() => {
 /* Year 9 Unit 2: Chemistry of Industry. Source: Y9 Science Notes (Unit 2) and unit description. Elements 1–20. */
 (() => {
   const { bohr, lewis, graph } = SVG;
-  // [symbol, name, Z, mass number of the common isotope, group, period, type, usual ion charge or null]
-  const EL = [
-    ['H', 'hydrogen', 1, 1, 1, 1, 'non-metal', 1], ['He', 'helium', 2, 4, 18, 1, 'non-metal', null], ['Li', 'lithium', 3, 7, 1, 2, 'metal', 1], ['Be', 'beryllium', 4, 9, 2, 2, 'metal', 2],
-    ['B', 'boron', 5, 11, 13, 2, 'metalloid', null], ['C', 'carbon', 6, 12, 14, 2, 'non-metal', null], ['N', 'nitrogen', 7, 14, 15, 2, 'non-metal', -3], ['O', 'oxygen', 8, 16, 16, 2, 'non-metal', -2],
-    ['F', 'fluorine', 9, 19, 17, 2, 'non-metal', -1], ['Ne', 'neon', 10, 20, 18, 2, 'non-metal', null], ['Na', 'sodium', 11, 23, 1, 3, 'metal', 1], ['Mg', 'magnesium', 12, 24, 2, 3, 'metal', 2],
-    ['Al', 'aluminium', 13, 27, 13, 3, 'metal', 3], ['Si', 'silicon', 14, 28, 14, 3, 'metalloid', null], ['P', 'phosphorus', 15, 31, 15, 3, 'non-metal', -3], ['S', 'sulfur', 16, 32, 16, 3, 'non-metal', -2],
-    ['Cl', 'chlorine', 17, 35, 17, 3, 'non-metal', -1], ['Ar', 'argon', 18, 40, 18, 3, 'non-metal', null], ['K', 'potassium', 19, 39, 1, 4, 'metal', 1], ['Ca', 'calcium', 20, 40, 2, 4, 'metal', 2]
-  ].map(e => ({ sym: e[0], name: e[1], Z: e[2], A: e[3], grp: e[4], per: e[5], type: e[6], ion: e[7] }));
+  const EL = ELEMENTS20; // shared simplified Periodic Table (atomic masses as whole numbers)
   const bySym = (s) => EL.find(e => e.sym === s);
   const config = (n) => { const out = [], cap = [2, 8, 8, 2]; for (let i = 0; i < 4 && n > 0; i++) { const k = Math.min(cap[i], n); out.push(k); n -= k; } return out; };
   const valence = (e) => e.Z <= 2 ? e.Z : config(e.Z).slice(-1)[0];
@@ -1571,7 +1603,7 @@ const SVG = (() => {
     ['Atomic number', 'The number of protons in the nucleus of an atom.', 'atoms'],
     ['Mass number', 'The number of protons plus neutrons in the nucleus of an atom.', 'atoms'],
     ['Isotope', 'Atoms of the same element (same number of protons) with different numbers of neutrons.', 'atoms'],
-    ['Atomic mass', 'The average mass of an element\'s atoms, based on the abundance of its isotopes.', 'atoms'],
+    ['Atomic mass', 'The average mass of an element\'s atoms, based on how common each of its isotopes is. Our Periodic Table rounds it to a whole number.', 'atoms'],
     ['Ion', 'An atom that has gained or lost electrons, so it has a charge.', 'atoms'],
     ['Cation', 'A positive ion, formed when an atom loses electrons (usually a metal).', 'atoms'],
     ['Anion', 'A negative ion, formed when an atom gains electrons (usually a non-metal).', 'atoms'],
@@ -1597,7 +1629,7 @@ const SVG = (() => {
   const notes = {
     elem: { ideas: ['Each element has a name and a symbol. Learn elements 1–20.', 'Elements contain one type of atom; compounds contain different elements chemically bonded together.', 'Molecules are two or more atoms bonded: O₂ is a molecule of an element, H₂O is a molecule of a compound.', 'In a formula, the small number after a symbol counts the atoms of that element, e.g. H₂SO₄ has 2 H, 1 S and 4 O.', 'Elements are used in industry because of their properties, e.g. copper for wires (conducts), helium for balloons (light and unreactive).'], mistakes: ['Writing symbols with two capitals (CL instead of Cl).', 'Calling O₂ a compound because it is a molecule.', 'Mixing up K (potassium) and P (phosphorus), or S (sulfur) and Na (sodium).'] },
     atoms: { ideas: ['Model of the atom: Dalton → Thomson ("chocolate chip cookie") → Rutherford (nucleus) → Bohr (energy levels).', 'Proton +1 and neutron 0 in the nucleus; electron −1 in energy levels.', 'Atomic number = protons. Mass number = protons + neutrons. Neutrons = mass number − atomic number.', 'Neutral atom: protons = electrons. Ions: lose electrons → positive (cation); gain electrons → negative (anion).', 'Electron arrangement fills 2, 8, 8 (then 2 for K and Ca). Sodium (11) = 2,8,1.', 'Isotopes: same protons, different neutrons. Atomic mass is the average of the isotopes, weighted by abundance.'], mistakes: ['Saying ions gain or lose protons (they gain or lose electrons).', 'Using the atomic mass instead of the mass number for one atom.', 'Putting more than 2 electrons in the first shell.'], fig: bohr('Na', 11, 12) },
-    pt: { ideas: ['Elements are arranged in order of atomic number.', 'Period (row) number = number of energy levels. Group (column) number gives the valence electrons (group 1 = 1, group 2 = 2, groups 13–18 = 3–8).', 'Metals are on the left, non-metals on the right.', 'Group 1 alkali metals: more reactive down the group (lithium < sodium < potassium). Group 17 halogens: less reactive down the group. Group 18 noble gases: unreactive, full outer shells.'], mistakes: ['Mixing up groups (columns) and periods (rows).', 'Saying the halogens get more reactive down the group.', 'Forgetting to subtract 10 for groups 13–18 when counting valence electrons.'] },
+    pt: { fig: periodicTableHTML(), ideas: ['Elements are arranged in order of atomic number.', 'Period (row) number = number of energy levels. Group (column) number gives the valence electrons (group 1 = 1, group 2 = 2, groups 13–18 = 3–8).', 'Metals are on the left, non-metals on the right.', 'Group 1 alkali metals: more reactive down the group (lithium < sodium < potassium). Group 17 halogens: less reactive down the group. Group 18 noble gases: unreactive, full outer shells.'], mistakes: ['Mixing up groups (columns) and periods (rows).', 'Saying the halogens get more reactive down the group.', 'Forgetting to subtract 10 for groups 13–18 when counting valence electrons.'] },
     bond: { ideas: ['Atoms bond to get a full outer shell (noble gas configuration).', '<b>Ionic</b> (metal + non-metal): electrons are transferred; the oppositely charged ions attract.', '<b>Covalent</b> (non-metal + non-metal): atoms share pairs of electrons.', '<b>Metallic</b> (metal atoms): positive ions in a lattice with a sea of delocalised electrons, so metals conduct.', 'Lewis formulas show the valence electrons as dots around the symbol.', 'Ionic compounds conduct when melted or dissolved and have high melting points; small covalent molecules usually do not conduct and have low melting points.'], mistakes: ['Saying ionic bonds share electrons.', 'Saying metals conduct because their ions move (it is the delocalised electrons).', 'Drawing Lewis dots for all electrons instead of only the valence electrons.'] },
     eqn: { ideas: ['Ion charges from the group: group 1 = +1, group 2 = +2, group 13 = +3, group 15 = −3, group 16 = −2, group 17 = −1.', 'Formula: balance the charges so the total is zero. Mg²⁺ and Cl⁻ → MgCl₂. Al³⁺ and O²⁻ → Al₂O₃.', 'Name: metal first, then the non-metal ending in -ide (chloride, oxide, sulfide, fluoride, nitride).', 'In an equation, reactants are on the left and products on the right. Balanced = the same number of each atom on both sides (matter is conserved).', 'In an open container a gas can escape, so the mass seems to fall; in a sealed container the total mass stays the same.'], mistakes: ['Changing the small numbers in a formula to balance an equation (change only the big numbers in front).', 'Forgetting the -ide ending: "sodium chlorine" instead of sodium chloride.', 'Saying mass is lost in a reaction when a gas escapes.'] }
   };
@@ -1670,8 +1702,8 @@ const SVG = (() => {
       return { type: 'num', stem: `<p>${e.name[0].toUpperCase() + e.name.slice(1)} is in group ${e.grp}. How many valence electrons does an atom of ${e.name} have?</p>`, ans: valence(e), unit: 'valence electrons', tolAbs: 0, steps: [`Group ${e.grp} → ${valence(e)} valence electron${valence(e) > 1 ? 's' : ''} (groups 13–18: subtract 10).`] };
     } },
     { id: 'ii4-neutrons', sub: 'atoms', s: 'ii', b: 4, topic: 'Atoms', gen: (R) => {
-      const e = R.pick(EL.filter(x => x.Z > 1)), A = e.A + R.pick([0, 0, 1, 2]);
-      return { type: 'parts', stem: `<p>An atom of ${e.name} has atomic number ${e.Z} and mass number ${A}.</p>`, parts: [
+      const e = R.pick(EL.filter(x => x.Z > 1)), A = e.A;
+      return { type: 'parts', stem: `<p>Use the Periodic Table: ${e.name} (${e.sym}) has atomic number ${e.Z} and atomic mass ${A}.</p>`, parts: [
         { type: 'num', stem: 'Calculate the number of neutrons.', ans: A - e.Z, unit: 'neutrons', tolAbs: 0, steps: [`Neutrons = mass number − atomic number = ${A} − ${e.Z} = ${A - e.Z}`] },
         { type: 'text', stem: 'Write its electron arrangement (e.g. 2,8,1).', accept: configAccept(config(e.Z)), show: config(e.Z).join(','), steps: [`${e.Z} electrons: fill 2, then 8, then 8 → ${config(e.Z).join(',')}`] }
       ] };
@@ -1727,11 +1759,16 @@ const SVG = (() => {
         { type: 'text', stem: 'Name the compound.', accept: [c.name, c.name.replace('aluminium', 'aluminum'), c.name.replace('sulfide', 'sulphide')], show: c.name }
       ] };
     } },
-    { id: 'ii8-avg', sub: 'atoms', s: 'ii', b: 8, topic: 'Isotopes', gen: (R) => {
-      const iso = R.pick([['chlorine', 35, 37, 75], ['boron', 10, 11, 20], ['lithium', 6, 7, 8], ['copper', 63, 65, 69], ['magnesium-like element X', 24, 26, 80]]);
-      const p1 = iso[3] + R.pick([-1, 0, 0, 1]), avg = (iso[1] * p1 + iso[2] * (100 - p1)) / 100;
-      return { type: 'num', stem: `<p>Natural ${iso[0]} is a mixture of two isotopes: ${p1}% has a mass number of ${iso[1]} and ${100 - p1}% has a mass number of ${iso[2]}. Calculate the average atomic mass.</p>`, ans: avg, unit: '', tolAbs: 0.02, show: avg.toFixed(2), label: 'Atomic mass', steps: ['Average atomic mass = (mass₁ × %₁ + mass₂ × %₂) ÷ 100', `= (${iso[1]} × ${p1} + ${iso[2]} × ${100 - p1}) ÷ 100 = ${avg.toFixed(2)}`, 'The answer is closer to the more common isotope.'] };
+    { id: 'ii8-isoapply', sub: 'atoms', s: 'ii', b: 8, topic: 'Isotopes', gen: (R) => {
+      const e = R.pick(EL.filter(x => [3, 6, 8, 12, 16, 17, 19, 20].includes(x.Z))), extra = R.pick([1, 2]), N0 = e.A - e.Z, N1 = N0 + extra;
+      return { type: 'parts', stem: `<p>A scientist finds an atom with <b>${e.Z} protons</b>, <b>${N1} neutrons</b> and <b>${e.Z} electrons</b>. Use the Periodic Table.</p>`, parts: [
+        { type: 'text', stem: 'Identify the element (name or symbol).', accept: [e.name, e.sym.toLowerCase(), e.name.replace('aluminium', 'aluminum')], show: `${e.name} (${e.sym})`, steps: [`${e.Z} protons → atomic number ${e.Z} → ${e.name}.`] },
+        { type: 'num', stem: 'State the mass number of this atom.', ans: e.Z + N1, unit: '', tolAbs: 0, steps: [`Mass number = protons + neutrons = ${e.Z} + ${N1} = ${e.Z + N1}`] },
+        { type: 'num', stem: `How many neutrons does the common ${e.name} atom on the Periodic Table have (atomic mass ${e.A})?`, ans: N0, unit: 'neutrons', tolAbs: 0, steps: [`${e.A} − ${e.Z} = ${N0}`] },
+        { type: 'mcq', fixed: true, stem: 'Deduce how the two atoms are related.', choices: ['They are isotopes: same number of protons, different numbers of neutrons', 'They are different elements', 'They are ions of each other', 'They are identical atoms'], ans: 0, why: '<p>Same protons = same element. Different neutrons = different mass numbers. These are isotopes.</p>' }
+      ] };
     } },
+
 
     /* ===== A iii ===== */
     { id: 'iii2-alkali', sub: 'pt', s: 'iii', b: 2, topic: 'Group trends', gen: (R) => {
@@ -1770,12 +1807,14 @@ const SVG = (() => {
       'The claim is only partly correct. All three metals do react with water in a similar way (they all react and fizz, making hydrogen), which fits having one valence electron. However, the data show they do not react at the same rate: lithium took 62 s, sodium 14 s and potassium only 3 s. Reactivity increases down the group. The reason is that the atoms get bigger down the group (more energy levels), so the valence electron is further from the nucleus and is lost more easily. So the student is right about the type of reaction but wrong that they react "in the same way".',
       ['Agrees they all react similarly / same type of reaction', 'Uses the times from the table as evidence', 'States reactivity increases down the group', 'Explains: more energy levels, outer electron further from nucleus, lost more easily', 'Makes a clear judgment on the claim']) },
     { id: 'iii8-isotopes', sub: 'atoms', s: 'iii', b: 8, topic: 'Isotopes', gen: (R) => {
-      const p35 = R.int(70, 80);
-      return { type: 'parts', stem: `<p>A student says: "The Periodic Table gives chlorine an atomic mass of 35.5, but there is no chlorine atom with 35.5 particles in its nucleus, so the table must be wrong."</p>${H.table(['Isotope', 'Protons', 'Neutrons', 'Abundance / %'], [['Chlorine-35', 17, 18, p35], ['Chlorine-37', 17, 20, 100 - p35]])}`, parts: [
-        { type: 'num', stem: 'Calculate the average atomic mass from this sample.', ans: (35 * p35 + 37 * (100 - p35)) / 100, unit: '', tolAbs: 0.02, show: ((35 * p35 + 37 * (100 - p35)) / 100).toFixed(2), steps: [`(35 × ${p35} + 37 × ${100 - p35}) ÷ 100 = ${((35 * p35 + 37 * (100 - p35)) / 100).toFixed(2)}`] },
-        { type: 'self', stem: 'Analyse the information to judge the student\'s claim.', model: 'The student is wrong. 35.5 is not the mass of one atom: it is the average mass of all chlorine atoms, weighted by how common each isotope is. Every chlorine atom has 17 protons, but chlorine-35 has 18 neutrons and chlorine-37 has 20. Because chlorine-35 is more common, the average is closer to 35. The calculated value from this sample is close to 35.5, which supports the Periodic Table.', check: ['Atomic mass is an average of isotopes', 'Weighted by abundance (more common isotope counts more)', 'Uses the data (protons same, neutrons different, abundances)', 'Clear judgment: the table is not wrong'] }
+      const p35 = R.int(72, 78);
+      return { type: 'parts', stem: `<p>A student says: "Our Periodic Table gives chlorine an atomic mass of 35, so <b>every</b> chlorine atom must have 18 neutrons."</p>${H.table(['Isotope', 'Protons', 'Neutrons', 'Abundance / %'], [['Chlorine-35', 17, 18, p35], ['Chlorine-37', 17, 20, 100 - p35]])}`, parts: [
+        { type: 'mcq', fixed: true, stem: 'Which isotope is more common?', choices: ['Chlorine-35', 'Chlorine-37', 'They are equally common'], ans: 0 },
+        { type: 'mcq', fixed: true, stem: 'Interpret the data. Why is chlorine\'s atomic mass close to 35?', choices: ['Atomic mass is an average of all its atoms, and most chlorine atoms are chlorine-35', 'All chlorine atoms have a mass of 35', 'Chlorine-37 is not a real atom', 'Neutrons have no mass'], ans: 0 },
+        { type: 'self', stem: 'Analyse the information to judge the student\'s claim.', model: `The student is wrong. The data show two isotopes of chlorine: chlorine-35 with 18 neutrons (${p35}%) and chlorine-37 with 20 neutrons (${100 - p35}%). Both have 17 protons, so both are chlorine. The atomic mass on the Periodic Table is an average of all chlorine atoms, based on how common each isotope is. Because most atoms are chlorine-35, the average is close to 35 (it is rounded to a whole number on our table). So not every chlorine atom has 18 neutrons: about ${100 - p35}% have 20.`, check: ['Uses the data: two isotopes with 18 and 20 neutrons', 'Same number of protons, so both are chlorine', 'Atomic mass is an average based on abundance', 'Clear judgment: the claim is wrong'] }
       ] };
     } },
+
     /* ===== added in 0.2: fill every subtopic × strand ===== */
     // Discovering the elements: applying and analysing
     { id: 'elem-ii4-count', sub: 'elem', s: 'ii', b: 4, topic: 'Formulas', gen: (R) => {
@@ -2835,8 +2874,7 @@ const GAMES = (() => {
 
 /* ---- engine.js ---- */
 /* ===== MYPoirier Science Lab: app =====
-   Structure ported from MVPhysics Lab (mvpoirier/mvphysics-lab): rail, practice sheet, markscheme ticks, spaced-repetition recall,
-   notes panels, stats tabs and backup code. Rebuilt for MYP: years → units → subtopics, Criterion A strands and level bands. */
+   Rail, practice sheet, markscheme ticks, spaced-repetition recall, notes panels, stats tabs and backup code. Organised for MYP: years → units → subtopics, Criterion A strands and level bands. */
 (function () {
   'use strict';
   const VERSION = '0.2', BUILT = '05 November 2026';
@@ -2901,7 +2939,7 @@ const GAMES = (() => {
   const yearUnits = () => UNIT_LIST.filter(u => u.y === Y());
   const yearLive = () => LIVE_UNITS.filter(u => u.y === Y());
 
-  /* ---------- tooltips and toast (as MVPhysics) ---------- */
+  /* ---------- tooltips and toast ---------- */
   (function tips() {
     let box = null, cur = null;
     const show = (el) => {
@@ -3091,7 +3129,7 @@ const GAMES = (() => {
     const body = inst.type === 'parts'
       ? `<div class="qbody">${inst.stem || ''}</div>${inst.fig ? `<div class="figure">${inst.fig}</div>` : ''}<div class="parts">${inst.parts.map((p, i) => `<div class="part"><span class="plabel">(${'abcdefgh'[i]})</span><div class="pbody qbody">${p.stem}${p.fig ? `<div class="figure">${p.fig}</div>` : ''}${one(p, `p${i}`)}</div><span class="pmarks">${p.type === 'self' ? `[${p.check.length}]` : ''}</span></div>`).join('')}</div>`
       : `<div class="qbody">${inst.stem}</div>${inst.fig ? `<div class="figure">${inst.fig}</div>` : ''}${one(inst, 'm')}`;
-    return `${`<div class="qmeta">${unitTag(u)}${strandTag(q.s)}${levelTag(q.b)}<span>${esc(SUB[q.subKey].name)}</span>${S.missed.includes(q.qid) ? '<span class="pill warn">Missed before</span>' : ''}</div>`}
+    return `${`<div class="qmeta">${unitTag(u)}${strandTag(q.s)}${levelTag(q.b)}<span>${esc(SUB[q.subKey].name)}</span>${q.uid === 'y9-che' ? '<button type="button" class="btn sm pt-open" data-pt="1">Periodic Table</button>' : ''}${S.missed.includes(q.qid) ? '<span class="pill warn">Missed before</span>' : ''}</div>`}
       <div class="desc-line">${descFor(u.y, q.s, q.b)}</div>${q.topic ? `<div class="qtitle">${esc(q.topic)}</div>` : ''}${body}`;
   }
   const hasSelf = (inst) => items(inst).some(([x]) => x.type === 'self');
@@ -3480,7 +3518,7 @@ const GAMES = (() => {
   function bindWelcome(main) { main.onclick = (e) => { const a = e.target.closest('[data-unit-go]'); if (!a) return; if (!a.dataset.unitGo) { e.preventDefault(); return; } const ks = CONTENT[a.dataset.unitGo].subs.map(s => `${a.dataset.unitGo}:${s.id}`); const yk = ALL_SUBS.filter(k => SUB[k].unit.y === Y()); S.settings.sel = [...S.settings.sel.filter(k => !yk.includes(k)), ...ks]; save(); }; }
   const HISTORY = [
     { v: '0.1 alpha', d: '5 November 2026', items: ['First build: four units (Y11 Exchange & Transport, Y11 Forces & Motion, Y9 Disease & Our Immune System, Y9 Chemistry of Industry) with practice by Criterion A strand and level, recall cards, notes and progress.'] },
-    { v: '0.2 alpha', d: '5 November 2026', items: ['Rebuilt on the MVPhysics Lab design: the same header, side panel, question sheet, markscheme ticks, spaced-repetition Recall (Flashcards, Pick’em!, Match It!), Notes panels, Stats tabs and backup code.', 'Every unit is split into subtopics, one per lesson topic, and every subtopic has questions for A i, A ii and A iii.', 'Unit games: Element Match (Year 9 Chemistry) and Graph It! (Year 11 Forces & Motion).', 'Notes for every subtopic with key ideas, common mistakes and key terms.'] },
+    { v: '0.2 alpha', d: '5 November 2026', items: ['New design: header, side panel, question sheet, markscheme ticks, spaced-repetition Recall (Flashcards, Pick’em!, Match It!), Notes panels, Stats tabs and backup code.', 'Every unit is split into subtopics, one per lesson topic, and every subtopic has questions for A i, A ii and A iii.', 'Unit games: Element Match (Year 9 Chemistry) and Graph It! (Year 11 Forces & Motion).', 'Notes for every subtopic with key ideas, common mistakes and key terms.'] },
   ];
   function renderAbout(main) {
     const rows = LIVE_UNITS.map(u => { const qs = Q.filter(q => q.uid === u.id); return `<tr><td><b>Y${u.y} U${u.n}</b> ${esc(u.title)}</td><td class="num">${CONTENT[u.id].subs.length}</td>${STRANDS.map(s => `<td class="num">${qs.filter(q => q.s === s.id).length}</td>`).join('')}<td class="num"><b>${qs.length}</b></td><td class="num">${CARDS.filter(c => c.uid === u.id).length}</td></tr>`; }).join('');
@@ -3501,7 +3539,7 @@ const GAMES = (() => {
       <section class="panel"><h3>Quality Checks</h3><ul class="about-list"><li>Every question type is generated with hundreds of values and checked for missing values, broken answers, duplicate options and impossible labels.</li><li>Every question is played in a browser with the correct answer and must score 100%, on desktop and phone sizes, in light and dark mode.</li></ul></section>
       <section class="panel"><h3>Privacy</h3><p>Nothing you do leaves your browser. Progress, recall schedules and settings are stored on this device only; use Stats → Backup to move them to another device.</p></section>
       <section class="panel"><h3>Revision History</h3><ol class="history">${HISTORY.slice().reverse().map(h => `<li><div class="hv"><span class="ver">v${h.v}</span><span class="muted small">${h.d}</span></div><ul>${h.items.map(i => `<li>${i}</li>`).join('')}</ul></li>`).join('')}</ol>
-        <p class="muted small">Sister site: <a href="https://mvpoirier.github.io/physics-lab/" target="_blank" rel="noopener">MVPhysics Lab</a> (IB DP Physics). Version ${VERSION} · Built ${BUILT}.</p></section>`;
+        <p class="muted small">Version ${VERSION} · Built ${BUILT}.</p></section>`;
   }
   function bindAbout(main) { main.onclick = null; }
 
@@ -3534,8 +3572,13 @@ const GAMES = (() => {
     b.innerHTML = dark ? SUN : MOON; b.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode'); b.dataset.tip = dark ? 'Light mode' : 'Dark mode';
   }
   function applyYear() { document.documentElement.dataset.year = String(Y()); $$('#yearSeg [data-year]').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.year === Y()))); }
+  function openPT() {
+    const d = $('#termsDlg'); $('#termsTitle').textContent = 'Periodic Table (elements 1–20)'; $('#termsBody').innerHTML = periodicTableHTML();
+    if (d.showModal) d.showModal(); else d.setAttribute('open', '');
+  }
+  document.addEventListener('click', (e) => { if (e.target.closest('[data-pt]')) { e.preventDefault(); openPT(); } });
   function openTerms() {
-    const d = $('#termsDlg'); $('#termsBody').innerHTML = `<p class="small">The command terms used on your Criterion A tests and exams.</p><table class="cmdtbl"><tbody>${COMMAND_TERMS.map(([t, x]) => `<tr><th>${t}</th><td>${x}</td></tr>`).join('')}</tbody></table>`;
+    const d = $('#termsDlg'); $('#termsTitle').textContent = 'Command Terms'; $('#termsBody').innerHTML = `<p class="small">The command terms used on your Criterion A tests and exams.</p><table class="cmdtbl"><tbody>${COMMAND_TERMS.map(([t, x]) => `<tr><th>${t}</th><td>${x}</td></tr>`).join('')}</tbody></table>`;
     if (d.showModal) d.showModal(); else d.setAttribute('open', '');
   }
   function init() {
