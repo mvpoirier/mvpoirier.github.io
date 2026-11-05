@@ -17,7 +17,7 @@
 <meta name="description" content="MYP Science Criterion A revision for Years 9-11: practice by subtopic, strand and level, games, recall, notes and stats.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Press+Start+2P&display=swap">
 <style>
 /* Layout concept: an exam-room workbench. A quiet selection rail on the left,
    the question on a sheet of graph paper in the middle, instruments (timer, pace) pinned above it. */
@@ -1063,6 +1063,15 @@ dialog.terms-dlg #termsBody { max-height: 70vh; overflow: auto; }
 
 @media (max-width: 760px) { .ba-grid, .pm-wrap, .fb-grid { grid-template-columns: 1fr; } .pm-grid { grid-template-columns: repeat(8, minmax(32px, 1fr)); } .pm-cell b { font-size: 14px; } }
 @media (prefers-reduced-motion: reduce) { .st-car.go { animation-duration: .01s; } .st-boom { animation-delay: 0s; } }
+
+/* Last Man Standing arena: red stripe, centred stage under the sound button; code boxes */
+:root.lms .top { border-top-color: #d4141b; }
+:root.lms .brand .mvp, :root.lms .foot-name .mvp { color: #ff4d4d; }
+#main { position: relative; }
+.codebox-in { flex: 1 1 220px; min-width: 0; font: 600 16px var(--f-mono); letter-spacing: .08em; text-transform: uppercase; border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; background: var(--surface); color: var(--ink); }
+.codebox-in:focus { border-color: var(--accent); outline: none; }
+.go-gave { color: #ffcaca; }
+:root.lms #yearSeg button[aria-pressed="true"] { background: #d4141b; color: #fff; }
 
 </style>
 </head>
@@ -3567,6 +3576,7 @@ const GAMES = (() => {
   }
   const gameCard = (g) => { const best = S.games[g.id]; return `<button type="button" class="mode-card" data-game="${g.id}"><span class="wic" aria-hidden="true">${g.icon}</span><b>${g.name}</b><span>${g.desc}</span>${best ? `<span class="muted small num">Best: ${g.bestText(best)}</span>` : ''}</button>`; };
   function renderGames(main) {
+    if (!GA || GA.id !== 'lms') lmsTheme();
     if (!GA) {
       const list = gamesForYear(), cls = yearLive().length ? list.filter(g => g.y === 0) : [];
       const unitPanels = yearUnits().map(u => {
@@ -3579,6 +3589,7 @@ const GAMES = (() => {
       return;
     }
     const g = gameById(GA.id);
+    if (g.bare && g.bare(GA)) { main.innerHTML = g.render(GA, { fmtClock, now, esc }); if (g.afterRender) g.afterRender(GA); if (!gaTimer) startTimer(); return; }
     main.innerHTML = head(`${g.icon} ${g.name}`, g.desc) + `<div class="mode-back"><button type="button" class="btn sm backbtn" id="gaBack"><span aria-hidden="true">←</span> All Games</button></div>` + g.render(GA, { fmtClock, now, esc });
     if (g.afterRender) g.afterRender(GA);
     if (!gaTimer) startTimer();
@@ -3607,9 +3618,9 @@ const GAMES = (() => {
     let c = []; for (let d = 0; d <= 6 && !c.length; d += 2) c = list.filter(q => Math.abs(q.b - want) === d && !recent.slice(-6).includes(q.qid));
     if (!c.length) c = list; return c[Math.floor(Math.random() * c.length)];
   }
-  const quickSheet = (cur, label) => {
+  const quickSheet = (cur, label, flash) => {
     const st = { pick: { m: cur.picked }, done: cur.picked != null, revealed: false, res: {} };
-    return `<article class="sheet" id="sheet"><div class="qmeta">${unitTag(unitById(cur.q.uid))}${strandTag(cur.q.s)}${levelTag(cur.q.b)}${label || ''}</div><div class="qbody">${cur.inst.stem}</div>${cur.inst.fig ? `<div class="figure">${cur.inst.fig}</div>` : ''}${answerUI(cur.inst, 'm', st)}</article>`;
+    return `<article class="sheet ${flash || ''}" id="sheet"><div class="qmeta">${unitTag(unitById(cur.q.uid))}${strandTag(cur.q.s)}${levelTag(cur.q.b)}${label || ''}</div><div class="qbody">${cur.inst.stem}</div>${cur.inst.fig ? `<div class="figure">${cur.inst.fig}</div>` : ''}${answerUI(cur.inst, 'm', st)}</article>`;
   };
   const blitzGame = {
     id: 'blitz', y: 0, icon: '⚡', name: 'Blitz',
@@ -3687,53 +3698,175 @@ const GAMES = (() => {
     const seq = []; for (let i = 0; i < 300; i++) { const want = i < 4 ? 2 : i < 10 ? 4 : i < 18 ? 6 : 8; seq.push({ q: draw(want), seed: 1 + Math.floor(R.f() * 2e9) }); }
     return seq;
   }
+  /* ---------- Code boxes: start with the prefix, capitals and dashes added while you type ---------- */
+  // used for every class-code box (Last Man Standing now; test codes later)
+  const codeBoxHTML = (id, prefix, label, value) => `<input type="text" class="codebox-in" id="${id}" data-codeprefix="${prefix}" value="${esc(value || prefix + '-')}" autocomplete="off" autocapitalize="characters" spellcheck="false" inputmode="text" aria-label="${label}">`;
+  function formatCode(raw, prefix) {
+    let t = String(raw || '').toUpperCase();
+    if (t.startsWith(prefix)) t = t.slice(prefix.length);
+    t = t.replace(/O/g, '0').replace(/[IL]/g, '1').replace(/[^0-9A-Z]/g, '').replace(/U/g, '');
+    return `${prefix}-${(t.match(/.{1,4}/g) || []).join('-')}`;
+  }
+  function bindCodeBox(el) {
+    if (!el || el.dataset.bound) return; el.dataset.bound = '1';
+    const prefix = el.dataset.codeprefix;
+    const fix = () => { const before = el.value, caretAtEnd = el.selectionStart >= before.length; const v = formatCode(before, prefix); if (v !== before) { el.value = v; if (caretAtEnd) el.setSelectionRange(v.length, v.length); } };
+    el.addEventListener('input', fix);
+    el.addEventListener('keydown', (e) => { if ((e.key === 'Backspace' || e.key === 'Delete') && el.selectionStart <= prefix.length + 1 && el.selectionEnd <= prefix.length + 1) e.preventDefault(); });
+    el.addEventListener('focus', () => { if (!el.value) el.value = prefix + '-'; setTimeout(() => el.setSelectionRange(el.value.length, el.value.length), 0); });
+    el.addEventListener('paste', () => setTimeout(fix, 0));
+  }
+
+  /* ---------- Last Man Standing sound: synthesised with Web Audio (no files), as in MVPhysics Lab ---------- */
+  const SFX = (() => {
+    let ctx = null, master = null, echo = null, mus = null;
+    const on = () => S.settings.lmsSound !== false;
+    function ac() {
+      if (!ctx) {
+        const C = window.AudioContext || window.webkitAudioContext; if (!C) return null;
+        try { ctx = new C(); } catch (e) { return null; }
+        master = ctx.createGain(); master.gain.value = 0.8; master.connect(ctx.destination);
+        const d = ctx.createDelay(1.0), fb = ctx.createGain(), wet = ctx.createGain();
+        d.delayTime.value = 0.36; fb.gain.value = 0.38; wet.gain.value = 0.5; d.connect(fb); fb.connect(d); d.connect(wet); wet.connect(master); echo = d;
+      }
+      if (ctx.state === 'suspended') ctx.resume();
+      return ctx;
+    }
+    function tone(f, t0, dur, type = 'square', vol = 0.2, slide = 0, dest = null, wet = false) {
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.type = type; o.frequency.setValueAtTime(f, t0); if (slide) o.frequency.exponentialRampToValueAtTime(slide, t0 + dur);
+      g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(vol, t0 + 0.012); g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+      o.connect(g); g.connect(dest || master); if (wet) g.connect(echo); o.start(t0); o.stop(t0 + dur + 0.05);
+    }
+    const N = (n) => 440 * Math.pow(2, (n - 69) / 12);
+    const RIFF = [57, 60, 64, 57, 65, 64, 60, 59, 57, 60, 64, 57, 68, 64, 62, 59]; // A minor: creepy, loops every two bars
+    function schedule() {
+      if (!mus) return;
+      const step = mus.fast ? 0.2 : 0.28;
+      while (mus.next < ctx.currentTime + 0.35) {
+        const t = mus.next, i = mus.i % RIFF.length;
+        tone(N(RIFF[i]), t, step * 1.6, 'triangle', 0.07, 0, mus.bus, true);
+        if (i % 8 === 0) { tone(N(33), t, step * 7.5, 'sawtooth', 0.05, 0, mus.low); tone(70, t, 0.45, 'sine', 0.35, 38, mus.bus); }
+        if (i % 4 === 2) tone(N(45 + (i % 8 === 2 ? 0 : 1)), t, step * 0.9, 'square', 0.025, 0, mus.bus);
+        mus.next += step; mus.i++;
+      }
+    }
+    return {
+      unlock() { if (on()) ac(); },
+      count(n) { if (!on() || !ac()) return; const t = ctx.currentTime; if (n === 'GO!') { tone(N(81), t, 0.6, 'square', 0.22); tone(N(76), t, 0.6, 'square', 0.12); tone(N(69), t, 0.7, 'sawtooth', 0.1); } else tone(N(69), t, 0.28, 'square', 0.2); },
+      good() { if (!on() || !ac()) return; const t = ctx.currentTime; tone(N(76), t, 0.09, 'square', 0.12); tone(N(83), t + 0.08, 0.14, 'square', 0.12); },
+      bad() { if (!on() || !ac()) return; const t = ctx.currentTime; tone(110, t, 0.45, 'sawtooth', 0.18, 70); tone(116, t, 0.45, 'square', 0.08, 72); },
+      beat() { if (!on() || !ac() || !mus) return; const t = ctx.currentTime; tone(60, t, 0.16, 'sine', 0.5, 40); tone(55, t + 0.2, 0.2, 'sine', 0.4, 38); },
+      over() { if (!on() || !ac()) return; const t = ctx.currentTime; [[67, 0], [66, 0.32], [65, 0.64], [64, 0.96]].forEach(([n, d]) => tone(N(n), t + d, n === 64 ? 1.4 : 0.3, 'square', 0.18, n === 64 ? N(52) : 0)); tone(N(40), t + 0.96, 1.6, 'sawtooth', 0.12, N(28)); },
+      music(start, fast) {
+        if (!start || !on()) { if (mus) { clearInterval(mus.tm); try { mus.bus.gain.setTargetAtTime(0.0001, ctx.currentTime, 0.15); mus.low.gain.setTargetAtTime(0.0001, ctx.currentTime, 0.15); } catch (e) { /* ignore */ } mus = null; } return; }
+        if (!ac()) return;
+        if (mus) { mus.fast = !!fast; return; }
+        const bus = ctx.createGain(); bus.gain.value = 1; bus.connect(master);
+        const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 320; const low = ctx.createGain(); low.gain.value = 1; low.connect(lp); lp.connect(master);
+        mus = { bus, low, i: 0, next: ctx.currentTime + 0.05, fast: !!fast }; mus.tm = setInterval(schedule, 90); schedule();
+      },
+      toggle() { S.settings.lmsSound = !on(); save(); if (!on()) this.music(false); return on(); },
+      isOn: on
+    };
+  })();
+  const soundBtn = () => `<button type="button" class="lms-sound" id="lmsSound" aria-pressed="${SFX.isOn()}" title="${SFX.isOn() ? 'Sound on: click to mute' : 'Muted: click for sound'}" aria-label="${SFX.isOn() ? 'Mute sound' : 'Turn sound on'}">${SFX.isOn() ? '🔊' : '🔇'}</button>`;
+  // the dark-red arena look while a Last Man Standing run is on screen
+  function lmsTheme() {
+    const on = currentView() === 'games' && GA && GA.id === 'lms' && GA.phase !== 'setup';
+    document.documentElement.classList.toggle('lms', !!on);
+    document.documentElement.classList.toggle('lms-over', !!on && GA.phase === 'over');
+    if (!on) SFX.music(false);
+  }
+
   const LMS_STARTS = [1, 2, 3, 5];
   const lmsGame = {
     id: 'lms', y: 0, icon: '💀', name: 'Last Man Standing',
     desc: 'Play against your class. Everyone with the same code gets the same questions in the same order. Right answers add 60 seconds, wrong answers take 60 away. Last one standing wins.',
     start: (R, old) => ({ phase: 'setup', startMin: (old && old.startMin) || 3, code: old && old.code, codeIn: '' }),
+    bare: (G) => G.phase !== 'setup',
     clock: (G) => Math.max(0, (G.endAt - now()) / 1000),
-    tick(G) { if (G.phase === 'run' && now() >= G.endAt) { G.phase = 'done'; G.end = now(); return true; } return false; },
+    tick(G) {
+      if (G.phase === 'count') {
+        const t = (now() - G.countStart) / 1000, txt = t < 1 ? '3' : t < 2 ? '2' : t < 3 ? '1' : 'GO!';
+        if (G.lastCount !== txt) { G.lastCount = txt; SFX.count(txt); const el = $('#lmsCount'); if (el) { el.textContent = txt; el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop'); } }
+        if (t >= 3.7) { Object.assign(G, { phase: 'run', t0: now(), endAt: now() + G.startMin * 60000, lastBeat: 0 }); SFX.music(true, false); lmsGame.next(G); return true; }
+        return false;
+      }
+      if (G.phase === 'run') {
+        const left = (G.endAt - now()) / 1000, c = $('#gClock');
+        if (c) c.classList.toggle('low', left < 30);
+        SFX.music(true, left < 60);
+        if (left < 30 && left > 0 && now() - (G.lastBeat || 0) > (left < 10 ? 520 : 850)) { G.lastBeat = now(); SFX.beat(); }
+        if (left <= 0) { lmsGame.over(G); return true; }
+      }
+      return false;
+    },
+    over(G) { G.phase = 'over'; G.end = G.gaveUp ? now() : G.endAt; G.survived = Math.max(0, Math.round((G.end - G.t0) / 1000)); SFX.music(false); SFX.over(); },
     render(G) {
       if (G.phase === 'setup') {
         const c = G.code;
-        return `<section class="panel"><h3>Rules</h3><ul class="lms-rules"><li>Agree a starting time with your class: everyone starts with <b>${G.startMin} minute${G.startMin > 1 ? 's' : ''}</b>.</li><li>Right answer: <b>+60 s</b>. Wrong answer: <b>−60 s</b>.</li><li>Everyone with the same code gets the same questions, getting harder as you go.</li><li>When your clock reaches zero you are out. Last one standing wins.</li></ul>
-          <div class="row"><span class="small muted">Starting time</span>${LMS_STARTS.map(m => `<button type="button" class="chip ${G.startMin === m ? 'on' : ''}" data-lmt="${m}" aria-pressed="${G.startMin === m}">${m} min</button>`).join('')}</div></section>
-          <section class="panel"><h3>Class Code</h3>
-          ${c ? `<div class="codebox"><div class="code-str num">${c.str}</div><div class="small">Year ${c.y} · ${c.subs.length} subtopic${c.subs.length > 1 ? 's' : ''}: ${esc(c.subs.map(k => SUB[k].name).join(', '))}</div>${c.fpOk ? '' : '<div class="small" style="color:var(--warn)">This code was made with a different version of the site, so the questions may differ. Ask everyone to reload the page.</div>'}</div>
-            <div class="row" style="margin-top:10px"><button class="btn primary" id="lmsGo">Start</button><button class="btn" id="lmsClear">Use a Different Code</button></div>`
-          : `<p class="small">Teacher or leader: tick the subtopics in the panel on the left, then make a code and share it. Everyone else: enter the code you were given.</p>
-            <div class="row"><button class="btn primary" id="lmsMake">Make a Code</button></div>
-            <div class="row" style="margin-top:10px"><input class="ans" id="lmsIn" placeholder="LMS-XXXX-XXXX" autocomplete="off" spellcheck="false" aria-label="Class code" value="${esc(G.codeIn || '')}"><button class="btn" id="lmsJoin">Join</button></div>${G.err ? `<p class="small" style="color:var(--bad)">${G.err}</p>` : ''}`}</section>
-          ${S.games.lms ? `<p class="small muted">Your best: ${lmsGame.bestText(S.games.lms)}</p>` : ''}`;
+        return `<section class="panel lms-intro"><h3>Last Man Standing 💀</h3><ul class="lms-rules"><li>Everyone starts with <b>${G.startMin} minute${G.startMin > 1 ? 's' : ''}</b> on the clock (agree the starting time with your class).</li><li>Right answer: <b>+60 s</b>. Wrong answer: <b>−60 s</b>.</li><li>Everyone with the same code gets the same questions in the same order, and they get harder as you go.</li><li>Last one standing wins.</li></ul>
+          ${c ? `<div class="codebox"><div class="code-str num">${c.str}</div><div class="small">Year ${c.y} · ${c.subs.length} subtopic${c.subs.length > 1 ? 's' : ''}: ${esc(c.subs.map(k => SUB[k].name).join(', '))} · ${lmsPool(c).length} question types</div>
+              ${c.fpOk ? '' : '<p class="warn small">This code was made with a different version of the question bank, so your questions may not match everyone else\'s. Ask for a new code.</p>'}
+              <div class="row"><button class="btn primary" id="lmsGo">Enter 💀</button><button class="btn sm" id="lmsCopy">Copy Code</button><button class="btn sm ghost" id="lmsClear">Use a Different Code</button></div></div>`
+            : `<p class="muted small">This mode needs a code so everyone faces the same questions. One person creates it from the subtopics ticked in the panel on the left and shares it.</p>
+              <div class="codeform">${codeBoxHTML('lmsIn', 'LMS', 'Last Man Standing code', G.codeIn)}<button class="btn sm" id="lmsJoin">Use Code</button><span class="muted small">or</span><button class="btn sm" id="lmsMake">Create a Code from These Subtopics</button></div>${G.err ? `<p class="small" style="color:var(--bad)">${G.err}</p>` : ''}`}
+          <div class="lms-start"><span class="muted small">Starting time:</span><div class="chips" role="group" aria-label="Starting time">${LMS_STARTS.map(m => `<button type="button" class="chip" data-lmt="${m}" aria-pressed="${G.startMin === m}">${m} min</button>`).join('')}</div></div>
+          ${S.games.lms ? `<p class="muted small">Your best survival time: <b class="num">${fmtClock(S.games.lms.time)}</b></p>` : ''}</section>`;
       }
-      if (G.phase === 'run') return `<div class="game-top lms-top"><span class="clock" id="gClock">${fmtClock(lmsGame.clock(G))}</span><span class="gscore">Correct ${G.correct}</span><span class="pill">Q${G.idx}</span><span class="spacer"></span><span class="muted small num">${G.code.str}</span></div>${quickSheet(G.cur, '')}`;
-      const alive = Math.round((G.end - G.t0) / 1000);
-      return `<section class="panel game-done"><h3>💀 Out! You lasted ${fmtClock(alive)}${G.newBest ? ' · New best!' : ''}</h3><p>${G.correct} correct out of ${G.idx} questions. Code ${G.code.str}.</p><div class="row"><button class="btn primary" id="gAgain">Back to the Code</button></div></section>`;
+      if (G.phase === 'ready') return soundBtn() + `<section class="lms-stage"><div class="lms-skull" aria-hidden="true">💀</div><h2 class="lms-title">LAST MAN STANDING</h2><div class="code-str num">${G.code.str}</div>
+        <p class="lms-sub">Wait until everyone is in the arena.${SFX.isOn() ? ' Sound is on 🔊' : ''}</p><button class="btn primary lms-go" id="lmsReady">Everyone's Ready</button><button class="btn ghost sm" id="lmsLeave">Leave</button></section>`;
+      if (G.phase === 'count') return soundBtn() + `<section class="lms-stage"><div class="lms-count" id="lmsCount" aria-live="assertive">${G.lastCount || ''}</div></section>`;
+      if (G.phase === 'run') {
+        const left = lmsGame.clock(G);
+        return `<div class="instrument lms-bar"><div class="row"><span class="clock ${left < 30 ? 'low' : ''}" id="gClock">${fmtClock(left)}</span><span class="spacer"></span>${soundBtn()}<span class="pill info num">Correct ${G.correct}</span><span class="pill neutral num">Q${G.idx}</span><button type="button" class="btn sm ghost" id="lmsGiveUp">Give Up</button></div><div id="lmsConfirm">${G.confirm ? '<div class="confirm"><span>Give up this run? It ends now and will not count as a best time.</span><div class="row"><button class="btn primary" id="lmsGiveYes">Give Up</button><button class="btn" id="lmsGiveNo">Keep Going</button></div></div>' : ''}</div></div>
+          ${quickSheet(G.cur, '', G.flash)}`;
+      }
+      const best = S.games.lms && S.games.lms.time;
+      return soundBtn() + `<section class="lms-stage lms-over-stage"><div class="gameover" aria-live="assertive">GAME<br>OVER</div>
+        <div class="go-stats"><div>TIME <b>${fmtClock(G.survived)}</b></div><div>BEST TIME <b>${best ? fmtClock(Math.max(best, G.gaveUp ? 0 : G.survived)) : (G.gaveUp ? '–' : fmtClock(G.survived))}</b></div><div>CORRECT <b>${G.correct}</b> / ${G.answered}</div>${G.newBest ? '<div class="go-best">NEW BEST!</div>' : ''}${G.gaveUp ? '<div class="go-gave">GAVE UP</div>' : ''}</div>
+        <div class="go-actions"><button class="btn primary" id="lmsRestart">Restart</button><button class="btn" id="lmsEnd">End</button></div></section>`;
     },
-    afterRender() { const i = document.getElementById('lmsIn'); if (i) i.onkeydown = (e) => { if (e.key === 'Enter') { const j = document.getElementById('lmsJoin'); if (j) j.click(); } }; },
-    next(G) { const e = G.seq[G.idx % G.seq.length]; G.idx++; G.cur = { q: e.q, seed: e.seed, inst: buildInst(e.q, e.seed), picked: null }; },
+    afterRender(G) {
+      lmsTheme();
+      const i = document.getElementById('lmsIn'); if (i) { bindCodeBox(i); i.addEventListener('keydown', (e) => { if (e.key === 'Enter') { const j = document.getElementById('lmsJoin'); if (j) j.click(); } }); }
+    },
+    next(G) { const e = G.seq[G.idx % G.seq.length]; G.idx++; G.flash = ''; G.cur = { q: e.q, seed: e.seed, inst: buildInst(e.q, e.seed), picked: null }; },
     click(G, b) {
+      if (b.id === 'lmsSound') { const on = SFX.toggle(); if (on) { SFX.unlock(); if (G.phase === 'run') SFX.music(true); } b.outerHTML = soundBtn(); return false; }
       if (G.phase === 'setup') {
         if (b.dataset.lmt) { G.startMin = +b.dataset.lmt; return true; }
-        if (b.id === 'lmsMake') { const c = lmsMake(); if (!c) { G.err = 'Tick at least one subtopic with multiple-choice questions first.'; return true; } G.code = c; G.err = null; return true; }
-        if (b.id === 'lmsJoin') { const v = (document.getElementById('lmsIn') || {}).value || ''; G.codeIn = v; const c = lmsDecode(v); if (!c) { G.err = 'That code was not recognised. Check it and try again.'; return true; } G.code = c; G.err = null; return true; }
-        if (b.id === 'lmsClear') { G.code = null; return true; }
-        if (b.id === 'lmsGo' && G.code) { Object.assign(G, { phase: 'run', t0: now(), endAt: now() + G.startMin * 60000, seq: lmsSeq(G.code), idx: 0, correct: 0 }); lmsGame.next(G); return true; }
+        const typed = () => (document.getElementById('lmsIn') || {}).value || '';
+        if (b.id === 'lmsMake') { G.codeIn = typed(); const c = lmsMake(); if (!c) { G.err = 'Tick at least one subtopic with multiple-choice questions first.'; return true; } G.code = c; G.err = null; return true; }
+        if (b.id === 'lmsJoin') { G.codeIn = typed(); const c = lmsDecode(G.codeIn); if (!c) { G.err = 'That code was not recognised. Check it and try again.'; return true; } G.code = c; G.err = null; return true; }
+        if (b.id === 'lmsCopy' && G.code) { try { navigator.clipboard.writeText(G.code.str); toast('Code copied.'); } catch (e) { toast(G.code.str); } return false; }
+        if (b.id === 'lmsClear') { G.code = null; G.codeIn = ''; return true; }
+        if (b.id === 'lmsGo' && G.code) { SFX.unlock(); G.phase = 'ready'; return { rail: true }; }
         return false;
       }
-      if (G.phase === 'run' && b.dataset.ci !== undefined && G.cur.picked == null) {
-        G.cur.picked = +b.dataset.ci; const ok = G.cur.picked === G.cur.inst.ans;
+      if (b.id === 'lmsLeave' || b.id === 'lmsEnd') { SFX.music(false); Object.assign(G, { phase: 'setup', end: null, saved: false }); return { rail: true }; }
+      if (b.id === 'lmsReady' || b.id === 'lmsRestart') {
+        SFX.unlock(); Object.assign(G, { phase: 'count', countStart: now(), lastCount: null, seq: lmsSeq(G.code), idx: 0, correct: 0, answered: 0, gaveUp: false, confirm: false, newBest: false, end: null, saved: false, t0: null });
+        return true;
+      }
+      if (G.phase !== 'run') return false;
+      if (b.id === 'lmsGiveUp') { G.confirm = true; return true; }
+      if (b.id === 'lmsGiveNo') { G.confirm = false; return true; }
+      if (b.id === 'lmsGiveYes') { G.gaveUp = true; lmsGame.over(G); return true; }
+      if (b.dataset.ci !== undefined && G.cur.picked == null) {
+        G.cur.picked = +b.dataset.ci; G.answered++; const ok = G.cur.picked === G.cur.inst.ans;
         logAttempt(G.cur.q, ok ? 1 : 0, 0, 'lms');
-        if (ok) { G.correct++; G.endAt += 60000; toast('+60 s'); clearMissed(G.cur.q.qid); } else { G.endAt -= 60000; addMissed(G.cur.q.qid); toast('−60 s'); }
-        save();
-        if (now() >= G.endAt) { G.phase = 'done'; G.end = now(); return { wrong: true }; }
-        clearTimeout(gaNext); gaNext = setTimeout(() => { if (GA === G && G.phase === 'run') { lmsGame.next(G); renderGames($('#main')); } }, ok ? 600 : 1500);
+        if (ok) { G.correct++; G.endAt += 60000; toast('+60 s'); SFX.good(); clearMissed(G.cur.q.qid); } else { G.endAt -= 60000; addMissed(G.cur.q.qid); toast('−60 s'); SFX.bad(); }
+        G.flash = ok ? 'flash-ok' : 'flash-no'; save();
+        if (now() >= G.endAt) { lmsGame.over(G); return { wrong: true }; }
+        clearTimeout(gaNext); gaNext = setTimeout(() => { if (GA === G && G.phase === 'run') { lmsGame.next(G); renderGames($('#main')); } }, ok ? 650 : 1500);
         return ok ? true : { wrong: true };
       }
       return false;
     },
-    result(G, prev) { const r = { time: (G.end - G.t0) / 1000, correct: G.correct }; G.newBest = !prev || r.time > prev.time; return r; },
+    // a run you give up does not set a best time
+    result(G, prev) { const r = { time: G.gaveUp ? 0 : G.survived, correct: G.correct }; G.newBest = !G.gaveUp && (!prev || r.time > prev.time); return r; },
     better: (res, prev) => res.time > prev.time,
     bestText: (best) => `lasted ${fmtClock(best.time)} (${best.correct} correct)`
   };
@@ -3995,7 +4128,7 @@ const GAMES = (() => {
   const HISTORY = [
     { v: '0.1 alpha', d: '5 November 2026', items: ['First build: four units (Y11 Exchange & Transport, Y11 Forces & Motion, Y9 Disease & Our Immune System, Y9 Chemistry of Industry) with practice by Criterion A strand and level, recall cards, notes and progress.'] },
     { v: '0.2 alpha', d: '5 November 2026', items: ['New design: header, side panel, question sheet, markscheme ticks, spaced-repetition Recall (Flashcards, Pick’em!, Match It!), Notes panels, Stats tabs and backup code.', 'Every unit is split into subtopics, one per lesson topic, and every subtopic has questions for A i, A ii and A iii.', 'Unit games: Element Match (Year 9 Chemistry) and Graph It! (Year 11 Forces & Motion).', 'Notes for every subtopic with key ideas, common mistakes and key terms.'] },
-    { v: '0.3 alpha', d: '5 November 2026', items: ['Games page grouped by unit, with Class Games for every year.', 'New unit games: Build-an-Atom and Periodic Mystery (Y9 Chemistry); Free-Body Builder, Stop in Time and suvat Sprint (Y11 Forces & Motion).', 'Blitz and Last Man Standing with class codes, using multiple-choice questions from the ticked subtopics.', 'Y9 Chemistry: a simplified Periodic Table (elements 1–20, whole-number atomic masses) on every question, in the header and in Notes.'] },
+    { v: '0.3 alpha', d: '5 November 2026', items: ['Games page grouped by unit, with Class Games for every year.', 'New unit games: Build-an-Atom and Periodic Mystery (Y9 Chemistry); Free-Body Builder, Stop in Time and suvat Sprint (Y11 Forces & Motion).', 'Blitz and Last Man Standing with class codes, using multiple-choice questions from the ticked subtopics.', 'Y9 Chemistry: a simplified Periodic Table (elements 1–20, whole-number atomic masses) on every question, in the header and in Notes.', 'Last Man Standing arena: ready screen, 3-2-1 countdown, synthesised music and sound effects, heartbeat in the last 30 seconds, Give Up and Game Over.', 'Code boxes start with their prefix (LMS-) and add capitals and dashes as you type.'] },
   ];
   function renderAbout(main) {
     const rows = LIVE_UNITS.map(u => { const qs = Q.filter(q => q.uid === u.id); return `<tr><td><b>Y${u.y} U${u.n}</b> ${esc(u.title)}</td><td class="num">${CONTENT[u.id].subs.length}</td>${STRANDS.map(s => `<td class="num">${qs.filter(q => q.s === s.id).length}</td>`).join('')}<td class="num"><b>${qs.length}</b></td><td class="num">${CARDS.filter(c => c.uid === u.id).length}</td></tr>`; }).join('');
@@ -4030,6 +4163,7 @@ const GAMES = (() => {
   function render() {
     const v = currentView(), main = $('#main');
     if (v !== 'games') stopGA();
+    lmsTheme();
     if (v !== 'recall' && GM && GM.mode === 'match') stopGM();
     $$('#tabs a').forEach(a => a.setAttribute('aria-current', a.getAttribute('href') === '#' + v ? 'page' : 'false'));
     const noRail = v === 'stats' || v === 'about' || v === 'welcome' || (v === 'games' && !(GA && (GA.id === 'blitz' || GA.id === 'lms') && GA.phase === 'setup'));
