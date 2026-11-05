@@ -3779,11 +3779,11 @@ const GAMES = (() => {
     if (!on) SFX.music(false);
   }
 
-  const LMS_STARTS = [1, 2, 3, 5];
+  const LMS_STARTS = [3, 5, 8, 10];
   const lmsGame = {
     id: 'lms', y: 0, icon: '💀', name: 'Last Man Standing',
     desc: 'Play against your class. Everyone with the same code gets the same questions in the same order. Right answers add 60 seconds, wrong answers take 60 away. Last one standing wins.',
-    start: (R, old) => ({ phase: 'setup', startMin: (old && old.startMin) || 3, code: old && old.code, codeIn: '' }),
+    start: (R, old) => ({ phase: 'setup', startMin: (old && LMS_STARTS.includes(old.startMin) && old.startMin) || 3, code: old && old.code, codeIn: '' }),
     bare: (G) => G.phase !== 'setup',
     clock: (G) => Math.max(0, (G.endAt - now()) / 1000),
     tick(G) {
