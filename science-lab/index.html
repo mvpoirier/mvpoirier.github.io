@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--
   MYPoirier Science Lab: MYP Science Criterion A revision (Years 9-11, MYP 3-5)
-  Version: 0.2 · Built: 05 November 2026
+  Version: 0.3 · Built: 05 November 2026
   Author: Mike Poirier (https://github.com/mvpoirier), developed with Claude by Anthropic
   Licence: CC BY-NC-SA 4.0, https://creativecommons.org/licenses/by-nc-sa/4.0/
   Site: https://mvpoirier.github.io/science-lab/
@@ -999,11 +999,76 @@ dialog.terms-dlg #termsBody { max-height: 70vh; overflow: auto; }
 .pt-sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; border: 1px solid var(--line); vertical-align: -1px; margin-left: 8px; }
 .subnote-fig .pt-wrap { margin-top: 4px; }
 
+/* ===== Games page: one rounded panel per unit, game cards nested inside ===== */
+.unit-games { border: 1px solid var(--line); border-radius: 18px; background: var(--surface); padding: 16px 18px 6px; margin: 0 0 16px; box-shadow: var(--shadow); }
+.unit-games.empty { background: none; box-shadow: none; border-style: dashed; padding-bottom: 14px; }
+.unit-games.class-games { background: linear-gradient(135deg, var(--accent-soft), var(--surface) 70%); }
+.unit-games .mode-cards { margin: 10px 0 12px; }
+.ug-head { display: flex; align-items: center; gap: 12px; }
+.ug-head h3 { margin: 0; font-size: 1.15rem; }
+.ug-head .pill { margin-left: auto; }
+.ug-em { font-size: 28px; line-height: 1; }
+.ug-n { font: 600 11px var(--f-mono); text-transform: uppercase; letter-spacing: .07em; color: var(--muted); }
+.ug-soon { margin: 8px 0 0; }
+.game-done h3 { margin-bottom: 6px; }
+.chip.on { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); font-weight: 600; }
+.chip.right, .chip.wrong { opacity: 1; }
+.chip.right { border-color: var(--good); background: var(--good-soft); color: var(--good); }
+.chip.wrong { border-color: var(--bad); background: var(--bad-soft); color: var(--bad); }
+
+/* Build-an-Atom */
+.ba-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(240px, 320px); gap: 16px; align-items: start; }
+.ba-grid .figure { min-height: 240px; display: grid; place-items: center; }
+.ba-ctrs { display: grid; gap: 8px; }
+.ba-ctr { display: grid; grid-template-columns: 1fr auto 3ch auto 20px; gap: 8px; align-items: center; padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+.ba-l { font-weight: 600; }
+.ba-v { text-align: center; font: 700 20px var(--f-mono); }
+.ba-mark.ok { color: var(--good); font-weight: 700; } .ba-mark.no { color: var(--bad); font-weight: 700; }
+
+/* Periodic Mystery */
+.pm-wrap { display: grid; grid-template-columns: minmax(220px, 300px) minmax(0, 1fr); gap: 16px; align-items: start; }
+.pm-clues ol { padding-left: 1.2em; margin: 0 0 10px; } .pm-clues li { margin: 4px 0; }
+.pm-grid { display: grid; grid-template-columns: repeat(8, minmax(40px, 1fr)); gap: 4px; }
+.pm-cell { position: relative; border: 1px solid var(--line); border-radius: 6px; min-height: 54px; display: grid; place-items: center; font: inherit; cursor: pointer; padding: 12px 2px; }
+.pm-cell b { font: 800 17px var(--f-display); }
+.pm-cell .pt-a { position: absolute; bottom: 2px; left: 0; right: 0; font-size: 10px; }
+.pm-cell:hover:not(:disabled) { border-color: var(--accent); }
+.pm-cell.wrong { opacity: .35; text-decoration: line-through; }
+.pm-cell.right { outline: 3px solid var(--good); }
+.pm-empty { border: 0; background: none; cursor: default; }
+
+/* Free-Body Builder */
+.fb-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 380px); gap: 16px; align-items: start; }
+.fb-palette, .fb-res { display: flex; flex-wrap: wrap; gap: 6px; }
+.fb-slots { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 10px; }
+.fb-slot { display: grid; gap: 2px; text-align: left; padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); font: inherit; cursor: pointer; }
+.fb-slot:hover:not(:disabled) { border-color: var(--accent); }
+.fb-slot.right { border-color: var(--good); background: var(--good-soft); } .fb-slot.wrong { border-color: var(--bad); background: var(--bad-soft); }
+
+/* Stop in Time */
+.st-track { position: relative; height: 74px; margin: 14px 0; border-radius: 12px; background: repeating-linear-gradient(90deg, transparent 0 28px, rgba(255,255,255,.55) 28px 44px) center / 100% 4px no-repeat, #59626f; overflow: hidden; }
+.st-car, .st-obst, .st-boom { position: absolute; top: 18px; font-size: 32px; line-height: 1; transform: translateX(-50%); }
+.st-car { left: 3%; }
+.st-car.go { animation: stDrive 2.6s cubic-bezier(.15, .55, .35, 1) forwards; }
+@keyframes stDrive { from { left: 3%; } to { left: var(--to); } }
+.st-boom { animation: stBoom .4s 2.3s both; z-index: 2; }
+@keyframes stBoom { from { opacity: 0; transform: translateX(-50%) scale(.3); } to { opacity: 1; transform: translateX(-50%) scale(1.2); } }
+.st-mark { position: absolute; top: 6px; bottom: 6px; width: 2px; background: #fbbf24; }
+.st-gap { position: absolute; right: 8px; bottom: 4px; color: #e5e7eb !important; }
+.st-form { display: flex; flex-wrap: wrap; gap: 14px; align-items: end; }
+.st-form .field { display: grid; gap: 4px; }
+
+/* suvat Sprint */
+.sv-known { margin: 6px 0 8px; padding-left: 1.2em; }
+
+@media (max-width: 760px) { .ba-grid, .pm-wrap, .fb-grid { grid-template-columns: 1fr; } .pm-grid { grid-template-columns: repeat(8, minmax(32px, 1fr)); } .pm-cell b { font-size: 14px; } }
+@media (prefers-reduced-motion: reduce) { .st-car.go { animation-duration: .01s; } .st-boom { animation-delay: 0s; } }
+
 </style>
 </head>
 <body>
 <header class="top"><div class="top-inner">
-  <div class="brand"><h1><b class="mvp">MYP</b>oirier Science Lab <span class="trophy" aria-hidden="true">⚛️</span><span class="beta-tag" title="Alpha build for testing: version 0.2">ALPHA 0.2</span></h1></div>
+  <div class="brand"><h1><b class="mvp">MYP</b>oirier Science Lab <span class="trophy" aria-hidden="true">⚛️</span><span class="beta-tag" title="Alpha build for testing: version 0.3">ALPHA 0.3</span></h1></div>
   <nav class="tabs" id="tabs" aria-label="Modes"></nav>
   <div class="hbar">
     <div class="course-seg year-seg" id="yearSeg" role="group" aria-label="Year"></div>
@@ -1019,7 +1084,7 @@ dialog.terms-dlg #termsBody { max-height: 70vh; overflow: auto; }
 </div>
 <footer class="site-foot"><div class="foot-wrap">
   <div class="foot-inner">
-    <div class="foot-brand"><div class="foot-name"><b class="mvp">MYP</b>oirier Science Lab <span class="trophy" aria-hidden="true">⚛️</span><span class="beta-tag">ALPHA 0.2</span></div></div>
+    <div class="foot-brand"><div class="foot-name"><b class="mvp">MYP</b>oirier Science Lab <span class="trophy" aria-hidden="true">⚛️</span><span class="beta-tag">ALPHA 0.3</span></div></div>
     <nav class="foot-links" aria-label="Site">
       <a href="#about">About</a>
       <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener license">CC BY-NC-SA 4.0</a>
@@ -1027,7 +1092,7 @@ dialog.terms-dlg #termsBody { max-height: 70vh; overflow: auto; }
   </div>
   <div class="foot-meta">
     <span>Developed by <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a> using Claude</span>
-    <span class="foot-ver">Version 0.2 · Updated 05 November 2026</span>
+    <span class="foot-ver">Version 0.3 · Updated 05 November 2026</span>
   </div>
 </div></footer>
 <dialog id="termsDlg" class="terms-dlg" aria-labelledby="termsTitle"><div class="panel" style="margin:0;border:0"><div class="row"><h3 id="termsTitle" style="margin:0">Command Terms</h3><span class="spacer"></span><button class="btn sm" id="termsClose">Close</button></div><div id="termsBody"></div></div></dialog>
@@ -2869,7 +2934,255 @@ const GAMES = (() => {
     better: (res, prev) => res.score > prev.score || (res.score === prev.score && res.time < prev.time),
     bestText: (best) => `${best.score} / ${ROUNDS} in ${fmt(best.time)}`
   };
-  return [elementMatch, graphIt];
+  const cap = (t) => t[0].toUpperCase() + t.slice(1);
+  const ionTxt = (q) => `${Math.abs(q) > 1 ? Math.abs(q) : ''}${q > 0 ? '+' : '−'}`;
+  const elecConfig = (n) => { const out = [], c = [2, 8, 8, 2]; for (let i = 0; i < 4 && n > 0; i++) { const k = Math.min(c[i], n); out.push(k); n -= k; } return out; };
+  const doneBar = (G, text) => `<section class="panel game-done"><h3>${text}${G.newBest ? ' · New best!' : ''}</h3><div class="row"><button class="btn primary" id="gAgain">Play Again</button></div></section>`;
+
+  /* ---------- Build-an-Atom (Year 9 Chemistry of Industry) ---------- */
+  const BA_ROUNDS = 8;
+  function atomTarget(R, i, avoid) {
+    let e, t;
+    do {
+      if (i < 3) { e = R.pick(ELEMENTS20.filter(x => x.Z >= 2)); t = { e, p: e.Z, n: e.A - e.Z, el: e.Z, label: `a neutral atom of <b>${e.name}</b>`, kind: 'Atom' }; }
+      else if (i < 6) { e = R.pick(ELEMENTS20.filter(x => x.ion !== null && x.Z > 2)); t = { e, p: e.Z, n: e.A - e.Z, el: e.Z - e.ion, label: `the ion <b>${e.sym}<sup>${ionTxt(e.ion)}</sup></b>`, kind: 'Ion' }; }
+      else { e = R.pick(ELEMENTS20.filter(x => [3, 6, 7, 8, 12, 16, 17, 19, 20].includes(x.Z))); const A = e.A + R.pick([1, 2]); t = { e, p: e.Z, n: A - e.Z, el: e.Z, label: `a neutral atom of <b>${e.name}-${A}</b> (an isotope)`, kind: 'Isotope' }; }
+    } while (avoid && t.label === avoid);
+    return t;
+  }
+  const buildAtom = {
+    id: 'y9-build-atom', y: 9, uid: 'y9-che', icon: '🧩', name: 'Build-an-Atom',
+    desc: 'Add protons, neutrons and electrons until your Bohr diagram matches the target: atoms first, then ions, then isotopes. Use the Periodic Table. 8 rounds: fewer wrong checks score more.',
+    start: (R) => ({ R, i: 0, score: 0, t0: Date.now(), pen: 0, end: null, tgt: atomTarget(R, 0), c: { p: 0, n: 0, el: 0 }, wrongs: 0, ok: false, fb: null }),
+    render(G) {
+      const t = ((G.end || Date.now()) - G.t0) / 1000;
+      if (G.end) return `<div class="game-top"><span class="gscore">Score ${G.score} / ${BA_ROUNDS * 3}</span><span class="clock" id="gClock">${fmt(t)}</span></div>` + doneBar(G, `You scored ${G.score} / ${BA_ROUNDS * 3} in ${fmt(t)}`);
+      const { p, n, el } = G.c, ch = p - el;
+      const fig = p > 0 || el > 0 ? SVG.bohr('?', Math.max(p, 0), n, ch, {}) : '<p class="muted small" style="text-align:center;padding:30px 0">Add particles to start building.</p>';
+      const ctr = (k, label, v, max) => `<div class="ba-ctr"><span class="ba-l">${label}</span><button class="btn sm" data-ba="${k}-" ${v <= 0 || G.ok ? 'disabled' : ''} aria-label="Remove one ${label}">−</button><span class="ba-v num">${v}</span><button class="btn sm" data-ba="${k}+" ${v >= max || G.ok ? 'disabled' : ''} aria-label="Add one ${label}">+</button>${G.fb ? `<span class="ba-mark ${G.fb[k] ? 'ok' : 'no'}">${G.fb[k] ? '✓' : '✗'}</span>` : ''}</div>`;
+      return `<div class="game-top"><span class="gscore">Round ${G.i + 1} / ${BA_ROUNDS}</span><span class="gscore">Score ${G.score}</span><span class="clock" id="gClock">${fmt(t)}</span><button type="button" class="btn sm" data-pt="1">Periodic Table</button></div>
+        <div class="scenario"><span class="pill info">${G.tgt.kind}</span> Build ${G.tgt.label}.</div>
+        <div class="ba-grid"><div class="figure">${fig}</div><div class="ba-ctrs">${ctr('p', 'Protons', p, 20)}${ctr('n', 'Neutrons', n, 24)}${ctr('el', 'Electrons', el, 20)}
+          <div class="row" style="margin-top:8px">${G.ok ? `<span class="verdict ok">Correct!</span><button class="btn primary" id="baNext">${G.i + 1 < BA_ROUNDS ? 'Next Atom' : 'Finish'}</button>` : `<button class="btn primary" data-ba="check">Check</button>${G.wrongs ? `<span class="muted small">Wrong checks: ${G.wrongs}</span>` : ''}`}</div>
+          ${G.ok ? `<p class="small muted">${G.tgt.e.name[0].toUpperCase() + G.tgt.e.name.slice(1)}: atomic number ${G.tgt.p} → ${G.tgt.p} protons. Neutrons = mass number − protons = ${G.tgt.p + G.tgt.n} − ${G.tgt.p} = ${G.tgt.n}. Electrons = ${G.tgt.el}${G.tgt.kind === 'Ion' ? ` (charge ${ionTxt(G.tgt.p - G.tgt.el)})` : ' (neutral: equal to protons)'}.</p>` : ''}</div></div>`;
+    },
+    click(G, b) {
+      const a = b.dataset.ba;
+      if (a && a !== 'check') { const k = a.slice(0, -1); G.c[k] = Math.max(0, G.c[k] + (a.endsWith('+') ? 1 : -1)); G.fb = null; return true; }
+      if (a === 'check') {
+        const fb = { p: G.c.p === G.tgt.p, n: G.c.n === G.tgt.n, el: G.c.el === G.tgt.el };
+        if (fb.p && fb.n && fb.el) { G.ok = true; G.fb = fb; G.score += Math.max(0, 3 - G.wrongs); return true; }
+        G.wrongs++; G.pen += 5; G.fb = fb; return { wrong: true };
+      }
+      if (b.id === 'baNext') { G.i++; if (G.i >= BA_ROUNDS) { G.end = Date.now(); return true; } Object.assign(G, { tgt: atomTarget(G.R, G.i, G.tgt.label), c: { p: 0, n: 0, el: 0 }, wrongs: 0, ok: false, fb: null }); return true; }
+      return false;
+    },
+    result(G, prev) { const r = { score: G.score, time: (G.end - G.t0) / 1000 }; G.newBest = !prev || r.score > prev.score || (r.score === prev.score && r.time < prev.time); return r; },
+    better: (res, prev) => res.score > prev.score || (res.score === prev.score && res.time < prev.time),
+    bestText: (best) => `${best.score} / ${BA_ROUNDS * 3} in ${fmt(best.time)}`
+  };
+
+  /* ---------- Periodic Mystery (Year 9 Chemistry of Industry) ---------- */
+  const PM_ROUNDS = 6;
+  function mysteryClues(R, e) {
+    const v = e.Z <= 2 ? e.Z : elecConfig(e.Z).slice(-1)[0];
+    const typeClue = `I am a <b>${e.type}</b>.`, perClue = `I am in <b>period ${e.per}</b>.`;
+    const grpClue = R.chance(0.5) ? `I am in <b>group ${e.grp}</b>.` : `I have <b>${v} valence electron${v > 1 ? 's' : ''}</b>.`;
+    const ionClue = e.grp === 18 ? 'I am a <b>noble gas</b>: my outer shell is full, so I do not form ions.' : e.ion === null ? 'I do <b>not usually form ions</b>: I share electrons instead.' : `I usually form an ion with a charge of <b>${ionTxt(e.ion)}</b>.`;
+    const first = R.shuffle([typeClue, perClue]);
+    return [...first, grpClue, ionClue, `My electron arrangement is <b>${elecConfig(e.Z).join(',')}</b>.`, `My atomic mass is <b>${e.A}</b>.`];
+  }
+  function mysteryRound(R, used) { const e = R.pick(ELEMENTS20.filter(x => !used.includes(x.sym))); return { e, clues: mysteryClues(R, e), shown: 1, wrong: [], solved: false, out: false }; }
+  const periodicMystery = {
+    id: 'y9-periodic-mystery', y: 9, uid: 'y9-che', icon: '🕵️', name: 'Periodic Mystery',
+    desc: 'Guess the secret element from clues, one at a time. Guess early for more points; a wrong guess reveals the next clue. 6 elements.',
+    start: (R) => ({ R, i: 0, score: 0, t0: Date.now(), pen: 0, end: null, used: [], rd: null, init: true }),
+    render(G) {
+      if (G.init) { G.rd = mysteryRound(G.R, G.used); G.used.push(G.rd.e.sym); G.init = false; }
+      const t = ((G.end || Date.now()) - G.t0) / 1000, max = PM_ROUNDS * 6;
+      if (G.end) return `<div class="game-top"><span class="gscore">Score ${G.score} / ${max}</span><span class="clock" id="gClock">${fmt(t)}</span></div>` + doneBar(G, `You scored ${G.score} / ${max}`);
+      const r = G.rd, fin = r.solved || r.out, pts = Math.max(1, 7 - r.shown - r.wrong.length);
+      const cell = (e) => { if (!e) return '<span class="pm-cell pm-empty"></span>'; let cls = ''; if (fin && e.sym === r.e.sym) cls = 'right'; else if (r.wrong.includes(e.sym)) cls = 'wrong'; return `<button type="button" class="pm-cell pt-${e.type} ${cls}" data-pm="${e.sym}" ${fin || r.wrong.includes(e.sym) ? 'disabled' : ''}><span class="pt-z">${e.Z}</span><b>${e.sym}</b><span class="pt-a">${e.A}</span></button>`; };
+      let grid = ''; for (let pr = 1; pr <= 4; pr++) grid += [1, 2, 13, 14, 15, 16, 17, 18].map(g => cell(ELEMENTS20.find(x => x.per === pr && x.grp === g))).join('');
+      return `<div class="game-top"><span class="gscore">Element ${G.i + 1} / ${PM_ROUNDS}</span><span class="gscore">Score ${G.score}</span><span class="clock" id="gClock">${fmt(t)}</span></div>
+        <div class="pm-wrap"><section class="panel pm-clues"><h3>Clues</h3><ol>${r.clues.slice(0, r.shown).map(c => `<li>${c}</li>`).join('')}</ol>
+          ${fin ? `<div class="verdict ${r.solved ? 'ok' : 'no'}">${r.solved ? `Yes, it's ${r.e.name} (${r.e.sym})! +${G.last} points` : `It was ${r.e.name} (${r.e.sym}).`}</div><div class="row"><button class="btn primary" id="pmNext">${G.i + 1 < PM_ROUNDS ? 'Next Element' : 'Finish'}</button></div>`
+            : `<div class="row"><span class="muted small">Worth ${pts} point${pts > 1 ? 's' : ''} now</span>${r.shown < r.clues.length ? '<button class="btn sm" id="pmMore">Next Clue</button>' : ''}</div>`}</section>
+          <div class="pm-grid" aria-label="Periodic Table: tap the element">${['1', '2', '13', '14', '15', '16', '17', '18'].map(g => `<span class="pt-head">${g}</span>`).join('')}${grid}</div></div>`;
+    },
+    click(G, b) {
+      const r = G.rd;
+      if (b.dataset.pm && !r.solved && !r.out) {
+        if (b.dataset.pm === r.e.sym) { r.solved = true; G.last = Math.max(1, 7 - r.shown - r.wrong.length); G.score += G.last; return true; }
+        r.wrong.push(b.dataset.pm); if (r.shown < r.clues.length) r.shown++; if (r.wrong.length >= 5) r.out = true; return { wrong: true };
+      }
+      if (b.id === 'pmMore' && r.shown < r.clues.length) { r.shown++; return true; }
+      if (b.id === 'pmNext') { G.i++; if (G.i >= PM_ROUNDS) { G.end = Date.now(); return true; } G.rd = mysteryRound(G.R, G.used); G.used.push(G.rd.e.sym); return true; }
+      return false;
+    },
+    result(G, prev) { const r = { score: G.score, time: (G.end - G.t0) / 1000 }; G.newBest = !prev || r.score > prev.score || (r.score === prev.score && r.time < prev.time); return r; },
+    better: (res, prev) => res.score > prev.score || (res.score === prev.score && res.time < prev.time),
+    bestText: (best) => `${best.score} / ${PM_ROUNDS * 6} in ${fmt(best.time)}`
+  };
+
+  /* ---------- Free-Body Builder (Year 11 Forces & Motion) ---------- */
+  const FB_FORCES = ['Weight', 'Normal force', 'Friction', 'Air resistance', 'Tension', 'Applied force', 'Thrust'];
+  const FB_DIRS = [['up', '↑ Up'], ['down', '↓ Down'], ['left', '← Left'], ['right', '→ Right']];
+  // each slot lists the forces accepted in that direction ([] = no force there); res = direction of the resultant force
+  const FB_SC = [
+    { t: 'A book rests on a table.', up: ['Normal force'], down: ['Weight'], left: [], right: [], res: 'none' },
+    { t: 'A lamp hangs at rest from a cable.', up: ['Tension'], down: ['Weight'], left: [], right: [], res: 'none' },
+    { t: 'A skydiver has just jumped and is speeding up as she falls.', up: ['Air resistance'], down: ['Weight'], left: [], right: [], res: 'down' },
+    { t: 'A skydiver falls at terminal velocity.', up: ['Air resistance'], down: ['Weight'], left: [], right: [], res: 'none' },
+    { t: 'A car speeds up to the right along a flat road.', up: ['Normal force'], down: ['Weight'], left: ['Air resistance', 'Friction'], right: ['Applied force', 'Thrust'], res: 'right' },
+    { t: 'A car drives to the right at a constant speed.', up: ['Normal force'], down: ['Weight'], left: ['Air resistance', 'Friction'], right: ['Applied force', 'Thrust'], res: 'none' },
+    { t: 'A car moving to the right brakes hard (no driving force).', up: ['Normal force'], down: ['Weight'], left: ['Friction', 'Air resistance'], right: [], res: 'left' },
+    { t: 'A ball is in the air after being thrown upwards (ignore air resistance).', up: [], down: ['Weight'], left: [], right: [], res: 'down' },
+    { t: 'A sledge is pulled to the right across snow by a rope at a constant speed.', up: ['Normal force'], down: ['Weight'], left: ['Friction'], right: ['Tension'], res: 'none' },
+    { t: 'A rocket has just launched and is speeding up (ignore air resistance).', up: ['Thrust'], down: ['Weight'], left: [], right: [], res: 'up' },
+    { t: 'A heavy box is pushed to the right but does not move.', up: ['Normal force'], down: ['Weight'], left: ['Friction'], right: ['Applied force'], res: 'none' },
+    { t: 'A cyclist freewheels to the right on a flat road and slows down.', up: ['Normal force'], down: ['Weight'], left: ['Air resistance', 'Friction'], right: [], res: 'left' }
+  ];
+  const FB_ROUNDS = 8;
+  const fbNew = (R, used) => { const sc = R.pick(FB_SC.filter(x => !used.includes(x.t))); return { sc, slots: { up: null, down: null, left: null, right: null }, res: null, sel: null, checked: false, ok: null }; };
+  const freeBody = {
+    id: 'y11-free-body', y: 11, uid: 'y11-phy', icon: '🧱', name: 'Free-Body Builder',
+    desc: 'Read the situation, place each force on the free-body diagram and choose the direction of the resultant force. 8 situations: 2 points each.',
+    start: (R) => { const G = { R, i: 0, score: 0, t0: Date.now(), pen: 0, end: null, used: [] }; G.rd = fbNew(R, G.used); G.used.push(G.rd.sc.t); return G; },
+    render(G) {
+      const t = ((G.end || Date.now()) - G.t0) / 1000;
+      if (G.end) return `<div class="game-top"><span class="gscore">Score ${G.score} / ${FB_ROUNDS * 2}</span><span class="clock" id="gClock">${fmt(t)}</span></div>` + doneBar(G, `You scored ${G.score} / ${FB_ROUNDS * 2} in ${fmt(t)}`);
+      const r = G.rd, forces = FB_DIRS.filter(([d]) => r.slots[d]).map(([d]) => ({ dir: d, label: r.slots[d] }));
+      const slot = ([d, lab]) => { let cls = ''; if (r.checked) cls = (r.slots[d] ? r.sc[d].includes(r.slots[d]) : !r.sc[d].length) ? 'right' : 'wrong'; return `<button type="button" class="fb-slot ${cls}" data-fbs="${d}" ${r.checked ? 'disabled' : ''}><span class="muted small">${lab}</span><b>${r.slots[d] || '—'}</b></button>`; };
+      const resOpts = [['none', 'Zero (balanced)'], ['up', '↑ Up'], ['down', '↓ Down'], ['left', '← Left'], ['right', '→ Right']];
+      const want = FB_DIRS.map(([d, lab]) => `${lab}: ${r.sc[d].length ? r.sc[d].join(' or ') : 'no force'}`).join(' · ');
+      return `<div class="game-top"><span class="gscore">Situation ${G.i + 1} / ${FB_ROUNDS}</span><span class="gscore">Score ${G.score}</span><span class="clock" id="gClock">${fmt(t)}</span></div>
+        <div class="scenario">${r.sc.t}</div>
+        <div class="fb-grid"><div class="figure">${SVG.fbd(forces, 360, 280)}</div><div>
+          <p class="small muted" style="margin:0 0 6px">1. Choose a force, then tap a direction to place it. Tap a direction again to clear it.</p>
+          <div class="fb-palette">${FB_FORCES.map(f => `<button type="button" class="chip ${r.sel === f ? 'on' : ''}" data-fbf="${f}" aria-pressed="${r.sel === f}" ${r.checked ? 'disabled' : ''}>${f}</button>`).join('')}</div>
+          <div class="fb-slots">${FB_DIRS.map(slot).join('')}</div>
+          <p class="small muted" style="margin:10px 0 6px">2. Direction of the resultant force:</p>
+          <div class="fb-res">${resOpts.map(([k, l]) => { let cls = r.res === k ? 'on' : ''; if (r.checked && k === r.sc.res) cls += ' right'; else if (r.checked && r.res === k) cls += ' wrong'; return `<button type="button" class="chip ${cls}" data-fbr="${k}" aria-pressed="${r.res === k}" ${r.checked ? 'disabled' : ''}>${l}</button>`; }).join('')}</div>
+          <div class="row" style="margin-top:10px">${r.checked ? `<span class="verdict ${r.ok === 2 ? 'ok' : 'no'}">${r.ok === 2 ? 'Correct! +2' : r.ok === 1 ? 'Forces right, resultant wrong: +1' : 'Not quite'}</span><button class="btn primary" id="fbNext">${G.i + 1 < FB_ROUNDS ? 'Next Situation' : 'Finish'}</button>` : '<button class="btn primary" id="fbCheck">Check</button>'}</div>
+          ${r.checked ? `<p class="small muted">${want}. Resultant: ${resOpts.find(x => x[0] === r.sc.res)[1]}. ${r.sc.res === 'none' ? 'Balanced forces: at rest or constant velocity (first law).' : 'Unbalanced forces: the object accelerates in the direction of the resultant (second law).'}</p>` : ''}</div></div>`;
+    },
+    click(G, b) {
+      const r = G.rd; if (r.checked && b.id !== 'fbNext') return false;
+      if (b.dataset.fbf) { r.sel = r.sel === b.dataset.fbf ? null : b.dataset.fbf; return true; }
+      if (b.dataset.fbs) { const d = b.dataset.fbs; r.slots[d] = r.sel && r.slots[d] !== r.sel ? r.sel : null; return true; } // place the chosen force, or clear the slot
+      if (b.dataset.fbr) { r.res = b.dataset.fbr; return true; }
+      if (b.id === 'fbCheck') {
+        if (!r.res) return false;
+        const forcesOK = FB_DIRS.every(([d]) => r.slots[d] ? r.sc[d].includes(r.slots[d]) : !r.sc[d].length);
+        r.ok = forcesOK ? (r.res === r.sc.res ? 2 : 1) : 0; r.checked = true; G.score += r.ok; return r.ok === 2 ? true : { wrong: true };
+      }
+      if (b.id === 'fbNext') { G.i++; if (G.i >= FB_ROUNDS) { G.end = Date.now(); return true; } G.rd = fbNew(G.R, G.used); G.used.push(G.rd.sc.t); return true; }
+      return false;
+    },
+    result(G, prev) { const r = { score: G.score, time: (G.end - G.t0) / 1000 }; G.newBest = !prev || r.score > prev.score || (r.score === prev.score && r.time < prev.time); return r; },
+    better: (res, prev) => res.score > prev.score || (res.score === prev.score && res.time < prev.time),
+    bestText: (best) => `${best.score} / ${FB_ROUNDS * 2} in ${fmt(best.time)}`
+  };
+
+  /* ---------- Stop in Time (Year 11 Forces & Motion) ---------- */
+  const ST_ROUNDS = 6;
+  const ST_DRIVER = [['alert', 0.7], ['tired', 1.3], ['using a phone', 2.0]], ST_ROAD = [['dry', 7.5], ['wet', 5.0], ['icy', 2.5]];
+  function stNew(R) {
+    const kmh = R.pick([36, 54, 72, 90, 108]), dr = R.pick(ST_DRIVER), rd = R.pick(ST_ROAD), v = kmh / 3.6;
+    const react = v * dr[1], brake = v * v / (2 * rd[1]), stop = react + brake;
+    const gap = Math.max(8, Math.round(stop * (R.chance(0.5) ? R.step(1.08, 1.35, 0.01) : R.step(0.7, 0.92, 0.01))));
+    return { kmh, v, dr, rd, react, brake, stop, gap, guess: null, verdict: null, done: false, pts: 0 };
+  }
+  const stopInTime = {
+    id: 'y11-stop-in-time', y: 11, uid: 'y11-phy', icon: '🚦', name: 'Stop in Time',
+    desc: 'A child steps into the road. Work out the car\'s total stopping distance, predict whether it stops in time, then watch what happens. 6 drives.',
+    start: (R) => ({ R, i: 0, score: 0, t0: Date.now(), pen: 0, end: null, rd: stNew(R) }),
+    render(G) {
+      const t = ((G.end || Date.now()) - G.t0) / 1000, max = ST_ROUNDS * 3;
+      if (G.end) return `<div class="game-top"><span class="gscore">Score ${G.score} / ${max}</span><span class="clock" id="gClock">${fmt(t)}</span></div>` + doneBar(G, `You scored ${G.score} / ${max} in ${fmt(t)}`);
+      const r = G.rd, scale = Math.max(r.gap, r.stop) * 1.15, pct = (x) => (x / scale * 100).toFixed(1);
+      const crash = r.stop > r.gap;
+      const track = `<div class="st-track"><span class="st-obst" style="left:${pct(r.gap)}%">🧒</span>${r.done ? `<span class="st-mark" style="left:${pct(r.react)}%" title="Brakes on"></span>` : ''}<span class="st-car ${r.done ? 'go' : ''}" style="--to:${pct(Math.min(r.stop, scale))}%">🚗</span>${r.done && crash ? `<span class="st-boom" style="left:${pct(r.gap)}%">💥</span>` : ''}<span class="st-gap muted small">${r.gap} m to the child</span></div>`;
+      return `<div class="game-top"><span class="gscore">Drive ${G.i + 1} / ${ST_ROUNDS}</span><span class="gscore">Score ${G.score}</span><span class="clock" id="gClock">${fmt(t)}</span></div>
+        <div class="scenario">A car is travelling at <b>${r.kmh} km h<sup>−1</sup></b>. The driver is <b>${r.dr[0]}</b> (reaction time <b>${r.dr[1]} s</b>) and the road is <b>${r.rd[0]}</b> (braking deceleration <b>${r.rd[1]} m s<sup>−2</sup></b>). A child steps into the road <b>${r.gap} m</b> ahead.</div>
+        ${track}
+        ${r.done ? `<div class="verdict ${r.pts === 3 ? 'ok' : 'no'}">${crash ? 'The car did not stop in time.' : 'The car stopped in time.'} +${r.pts} point${r.pts === 1 ? '' : 's'}</div>
+          <ol class="steps small"><li>Speed: ${r.kmh} ÷ 3.6 = ${NUM.sf(r.v, 3)} m s<sup>−1</sup></li><li>Reaction distance = speed × reaction time = ${NUM.sf(r.v, 3)} × ${r.dr[1]} = ${NUM.sf(r.react, 3)} m</li><li>Braking distance = v² ÷ (2a) = ${NUM.sf(r.v, 3)}² ÷ (2 × ${r.rd[1]}) = ${NUM.sf(r.brake, 3)} m</li><li>Stopping distance = ${NUM.sf(r.react, 3)} + ${NUM.sf(r.brake, 3)} = <b>${NUM.sf(r.stop, 3)} m</b>${r.guess != null ? ` (you said ${r.guess} m)` : ''}</li></ol>
+          <div class="row"><button class="btn primary" id="stNext">${G.i + 1 < ST_ROUNDS ? 'Next Drive' : 'Finish'}</button></div>`
+          : `<div class="st-form"><label class="field"><span>Total stopping distance (m)</span><input class="ans" id="stIn" inputmode="decimal" autocomplete="off"></label>
+            <div><span class="small muted">Prediction</span><div class="row">${[['stop', '✅ Stops in time'], ['crash', '💥 Does not stop']].map(([k, l]) => `<button type="button" class="chip ${r.verdict === k ? 'on' : ''}" data-stv="${k}" aria-pressed="${r.verdict === k}">${l}</button>`).join('')}</div></div>
+            <button class="btn primary" id="stGo">Go!</button></div><p class="small muted">2 points for a stopping distance within 5% (1 point within 10%), plus 1 point for the right prediction.</p>`}`;
+    },
+    click(G, b) {
+      const r = G.rd;
+      if (b.dataset.stv && !r.done) { const inp = document.getElementById('stIn'); r.typed = inp ? inp.value : r.typed; r.verdict = b.dataset.stv; return true; }
+      if (b.id === 'stGo' && !r.done) {
+        const inp = document.getElementById('stIn'), raw = inp ? inp.value : r.typed, g = parseFloat(String(raw || '').replace(',', '.'));
+        if (!r.verdict) return false;
+        r.guess = isFinite(g) ? g : null; const err = r.guess == null ? 1 : Math.abs(r.guess - r.stop) / r.stop;
+        r.pts = (err <= 0.05 ? 2 : err <= 0.1 ? 1 : 0) + ((r.verdict === 'crash') === (r.stop > r.gap) ? 1 : 0);
+        r.done = true; G.score += r.pts; return r.pts === 3 ? true : { wrong: true };
+      }
+      if (b.id === 'stNext') { G.i++; if (G.i >= ST_ROUNDS) { G.end = Date.now(); return true; } G.rd = stNew(G.R); return true; }
+      return false;
+    },
+    afterRender(G) { const inp = document.getElementById('stIn'); if (inp && G.rd && G.rd.typed != null) inp.value = G.rd.typed; },
+    result(G, prev) { const r = { score: G.score, time: (G.end - G.t0) / 1000 }; G.newBest = !prev || r.score > prev.score || (r.score === prev.score && r.time < prev.time); return r; },
+    better: (res, prev) => res.score > prev.score || (res.score === prev.score && res.time < prev.time),
+    bestText: (best) => `${best.score} / ${ST_ROUNDS * 3} in ${fmt(best.time)}`
+  };
+
+  /* ---------- suvat Sprint (Year 11 Forces & Motion) ---------- */
+  const SV_TIME = 180;
+  const SV_EQ = { t: 'v² = u² + 2as', s: 'v = u + at', v: 's = ut + ½at²', a: 's = ½(u + v)t' }; // keyed by the quantity the equation leaves out
+  const SV_NAME = { s: ['s', 'displacement', 'm'], u: ['u', 'initial velocity', 'm s<sup>−1</sup>'], v: ['v', 'final velocity', 'm s<sup>−1</sup>'], a: ['a', 'acceleration', 'm s<sup>−2</sup>'], t: ['t', 'time', 's'] };
+  function svNew(R) {
+    const slow = R.chance(0.3), t = R.int(2, 8);
+    let u, a; if (slow) { a = -R.step(0.5, 3, 0.5); u = R.int(Math.ceil(-a * t) + 1, Math.ceil(-a * t) + 12); } else { u = R.int(0, 15); a = R.step(0.5, 4, 0.5); }
+    const val = { u, a, t, v: u + a * t, s: u * t + 0.5 * a * t * t };
+    let miss, want; do { miss = R.pick(['t', 's', 'v', 'a']); want = R.pick(['s', 'u', 'v', 'a', 't'].filter(k => k !== miss)); } while (miss === 'v' && want === 't');
+    const given = ['s', 'u', 'v', 'a', 't'].filter(k => k !== miss && k !== want);
+    return { val, miss, want, given, phase: 'eq', eqPick: null, ok: null };
+  }
+  const svFmt = (x) => String(+x.toFixed(2));
+  const suvatSprint = {
+    id: 'y11-suvat-sprint', y: 11, uid: 'y11-phy', icon: '⏱️', name: 'suvat Sprint',
+    desc: '3 minutes. For each problem pick the right equation of motion (+1), then solve it (+2). How many points can you score?',
+    start: (R) => ({ R, n: 0, score: 0, t0: Date.now(), pen: 0, end: null, rd: svNew(R), eqRight: 0, numRight: 0 }),
+    clock: (G) => Math.max(0, SV_TIME - (Date.now() - G.t0) / 1000),
+    tick(G) { if (!G.end && Date.now() - G.t0 >= SV_TIME * 1000) { G.end = Date.now(); return true; } return false; },
+    render(G) {
+      const left = Math.max(0, SV_TIME - ((G.end || Date.now()) - G.t0) / 1000);
+      if (G.end) return `<div class="game-top"><span class="gscore">Score ${G.score}</span><span class="clock" id="gClock">${fmt(left)}</span></div>` + doneBar(G, `Time! You scored ${G.score} point${G.score === 1 ? '' : 's'} (${G.eqRight} equations and ${G.numRight} answers right)`);
+      const r = G.rd, nm = SV_NAME[r.want];
+      const known = r.given.map(k => `<li><b>${k}</b> = ${svFmt(r.val[k])} ${SV_NAME[k][2]} <span class="muted small">(${SV_NAME[k][1]})</span></li>`).join('');
+      const eqs = Object.entries(SV_EQ);
+      return `<div class="game-top"><span class="gscore">Problem ${G.n + 1}</span><span class="gscore">Score ${G.score}</span><span class="clock ${left < 30 ? 'low' : ''}" id="gClock">${fmt(left)}</span></div>
+        <div class="scenario"><div class="small muted">Known (constant acceleration):</div><ul class="sv-known">${known}</ul>Find <b>${nm[0]}</b>, the ${nm[1]}.</div>
+        ${r.phase === 'eq' ? `<p class="small muted">Which equation do you need?</p><div class="options">${eqs.map(([k, e], j) => `<button type="button" class="opt" data-sve="${k}"><span class="letter">${'ABCD'[j]}</span><span class="otext">${e}</span></button>`).join('')}</div>`
+          : `<p class="small">${r.eqPick === r.miss ? '✓ Right equation' : `✗ You need <b>${SV_EQ[r.miss]}</b> (it has no <b>${r.miss}</b>, the quantity you are not given or asked for)`}</p>
+            ${r.phase === 'num' ? `<div class="ansrow"><input class="ans" id="svIn" inputmode="decimal" autocomplete="off" aria-label="Answer"><span>${nm[2]}</span><button class="btn primary" id="svCheck">Check</button></div>`
+              : `<div class="verdict ${r.ok ? 'ok' : 'no'}">${r.ok ? 'Correct! +2' : `Answer: ${svFmt(r.val[r.want])} ${nm[2]}`}</div><div class="row"><button class="btn primary" id="svNext">Next Problem</button></div>`}`}`;
+    },
+    afterRender() { const i = document.getElementById('svIn'); if (i) { i.focus(); i.onkeydown = (e) => { if (e.key === 'Enter') { const c = document.getElementById('svCheck'); if (c) c.click(); } }; } },
+    click(G, b) {
+      if (G.end) return false;
+      const r = G.rd;
+      if (b.dataset.sve && r.phase === 'eq') { r.eqPick = b.dataset.sve; if (r.eqPick === r.miss) { G.score += 1; G.eqRight++; } r.phase = 'num'; return r.eqPick === r.miss ? true : { wrong: true }; }
+      if (b.id === 'svCheck' && r.phase === 'num') {
+        const v = parseFloat(String((document.getElementById('svIn') || {}).value || '').replace(',', '.')), ans = r.val[r.want];
+        r.ok = isFinite(v) && Math.abs(v - ans) <= Math.max(0.01, Math.abs(ans) * 0.01); if (r.ok) { G.score += 2; G.numRight++; } r.phase = 'done'; return r.ok ? true : { wrong: true };
+      }
+      if (b.id === 'svNext') { G.n++; G.rd = svNew(G.R); return true; }
+      return false;
+    },
+    result(G, prev) { const r = { score: G.score }; G.newBest = !prev || r.score > prev.score; return r; },
+    better: (res, prev) => res.score > prev.score,
+    bestText: (best) => `${best.score} points in 3:00`
+  };
+
+  return [elementMatch, buildAtom, periodicMystery, graphIt, freeBody, stopInTime, suvatSprint];
 })();
 
 /* ---- engine.js ---- */
@@ -2877,7 +3190,7 @@ const GAMES = (() => {
    Rail, practice sheet, markscheme ticks, spaced-repetition recall, notes panels, stats tabs and backup code. Organised for MYP: years → units → subtopics, Criterion A strands and level bands. */
 (function () {
   'use strict';
-  const VERSION = '0.2', BUILT = '05 November 2026';
+  const VERSION = '0.3', BUILT = '05 November 2026';
   const KEY = 'myp-science-lab.v1';
   const DAY = 864e5;
   const $ = (s, el = document) => el.querySelector(s);
@@ -3232,37 +3545,200 @@ const GAMES = (() => {
   }
 
   /* ======================= GAMES ======================= */
-  let GA = null, gaTimer = null;
-  const gamesForYear = () => GAMES.filter(g => g.y === Y());
-  function stopGA() { clearInterval(gaTimer); gaTimer = null; }
+  let GA = null, gaTimer = null, gaNext = null;
+  const gamesForYear = () => GAMES.filter(g => g.y === Y() || g.y === 0);
+  function stopGA() { clearInterval(gaTimer); gaTimer = null; clearTimeout(gaNext); gaNext = null; }
+  const gameById = (id) => GAMES.find(x => x.id === id);
+  // record the result once a game ends
+  function settle(g) {
+    if (!GA || !GA.end || GA.saved) return;
+    GA.saved = true; const prev = S.games[g.id]; const res = g.result(GA, prev);
+    const better = !prev || g.better(res, prev); S.games[g.id] = better ? res : prev; S.games[g.id].plays = ((prev && prev.plays) || 0) + 1; markDay(); save();
+    if (better && prev) toast('New personal best!');
+  }
+  function startTimer() {
+    stopGA();
+    gaTimer = setInterval(() => {
+      if (!GA || GA.end || currentView() !== 'games') return;
+      const g = gameById(GA.id);
+      if (g.tick && g.tick(GA)) { settle(g); renderGames($('#main')); return; }
+      const c = $('#gClock'); if (c && GA.t0) c.textContent = fmtClock(g.clock ? g.clock(GA) : (now() - GA.t0) / 1000 + (GA.pen || 0));
+    }, 250);
+  }
+  const gameCard = (g) => { const best = S.games[g.id]; return `<button type="button" class="mode-card" data-game="${g.id}"><span class="wic" aria-hidden="true">${g.icon}</span><b>${g.name}</b><span>${g.desc}</span>${best ? `<span class="muted small num">Best: ${g.bestText(best)}</span>` : ''}</button>`; };
   function renderGames(main) {
-    const list = gamesForYear();
     if (!GA) {
-      main.innerHTML = head('Games 🕹️', 'Quick unit games. Beat your best score or time.') + (list.length ? `<div class="mode-cards">${list.map(g => { const best = S.games[g.id]; return `<button type="button" class="mode-card" data-game="${g.id}"><span class="wic" aria-hidden="true">${g.icon}</span><b>${g.name}</b><span>${g.desc}</span><span class="muted small">${unitById(g.uid) ? `U${unitById(g.uid).n} ${esc(unitById(g.uid).title)}` : ''}${best ? ` · Best: ${g.bestText(best)}` : ''}</span></button>`; }).join('')}</div>`
-        : `<section class="panel empty"><h3>No Games for Year ${Y()} Yet</h3><p class="muted">Games are being made unit by unit. Try another year at the top.</p></section>`);
+      const list = gamesForYear(), cls = yearLive().length ? list.filter(g => g.y === 0) : [];
+      const unitPanels = yearUnits().map(u => {
+        const gs = list.filter(g => g.uid === u.id), live = u.live && CONTENT[u.id];
+        return `<section class="unit-games${gs.length ? '' : ' empty'}"><div class="ug-head"><span class="ug-em" aria-hidden="true">${u.em}</span><div><span class="ug-n">Unit ${u.n} · ${esc(u.subject)}</span><h3>${esc(u.title)}</h3></div>${gs.length ? `<span class="pill">${gs.length} game${gs.length > 1 ? 's' : ''}</span>` : ''}</div>
+          ${gs.length ? `<div class="mode-cards">${gs.map(gameCard).join('')}</div>` : `<p class="muted small ug-soon">${live ? 'Games for this unit are coming soon. In the meantime, try Blitz or Last Man Standing with this unit ticked.' : 'This unit is coming soon.'}</p>`}</section>`;
+      }).join('');
+      main.innerHTML = head('Games 🕹️', 'Race the clock, beat your best and challenge your class. Games are grouped by unit.') +
+        (cls.length ? `<section class="unit-games class-games"><div class="ug-head"><span class="ug-em" aria-hidden="true">🏁</span><div><span class="ug-n">All Year ${Y()} units</span><h3>Class Games</h3></div></div><p class="muted small" style="margin:0 0 4px">Quick-fire multiple-choice questions from the subtopics you tick.</p><div class="mode-cards">${cls.map(gameCard).join('')}</div></section>` : '') + unitPanels;
       return;
     }
-    const g = GAMES.find(x => x.id === GA.id);
-    main.innerHTML = head(`${g.icon} ${g.name}`, g.desc) + `<button class="btn sm mode-back" id="gaBack">← All Games</button>` + g.render(GA, { fmtClock, now, esc });
+    const g = gameById(GA.id);
+    main.innerHTML = head(`${g.icon} ${g.name}`, g.desc) + `<div class="mode-back"><button type="button" class="btn sm backbtn" id="gaBack"><span aria-hidden="true">←</span> All Games</button></div>` + g.render(GA, { fmtClock, now, esc });
+    if (g.afterRender) g.afterRender(GA);
+    if (!gaTimer) startTimer();
   }
   function bindGames(main) {
     main.onclick = (e) => {
-      const b = e.target.closest('button'); if (!b) return;
-      if (b.dataset.game) { const g = GAMES.find(x => x.id === b.dataset.game); GA = { id: g.id, ...g.start(makeR(newSeed())) }; stopGA(); gaTimer = setInterval(() => { const c = $('#gClock'); if (c && GA && !GA.end) c.textContent = fmtClock((now() - GA.t0) / 1000 + (GA.pen || 0)); }, 250); renderGames(main); return; }
-      if (b.id === 'gaBack') { GA = null; stopGA(); renderGames(main); return; }
+      const b = e.target.closest('button'); if (!b || b.dataset.pt) return;
+      if (b.dataset.game) { const g = gameById(b.dataset.game); GA = { id: g.id, ...g.start(makeR(newSeed())) }; startTimer(); render(); return; }
+      if (b.id === 'gaBack') { GA = null; stopGA(); render(); return; }
       if (!GA) return;
-      const g = GAMES.find(x => x.id === GA.id);
-      if (b.id === 'gAgain') { GA = { id: g.id, ...g.start(makeR(newSeed())) }; renderGames(main); return; }
-      const r = g.click(GA, b);
+      const g = gameById(GA.id);
+      if (b.id === 'gAgain') { GA = { id: g.id, ...g.start(makeR(newSeed()), GA) }; startTimer(); render(); return; }
+      const r = g.click(GA, b, main);
       if (r && r.wrong) { b.classList.add('shake'); setTimeout(() => b.classList.remove('shake'), 400); }
-      if (GA.end && !GA.saved) {
-        GA.saved = true; const prev = S.games[g.id]; const res = g.result(GA, prev);
-        const better = !prev || g.better(res, prev); S.games[g.id] = better ? res : prev; S.games[g.id].plays = ((prev && prev.plays) || 0) + 1; markDay(); save();
-        if (better && prev) toast('New personal best!');
-      }
-      if (r) renderGames(main);
+      settle(g);
+      if (r) { if (r.rail) render(); else renderGames(main); }
     };
   }
+
+  /* ---------- Blitz and Last Man Standing: quick-fire auto-marked questions ---------- */
+  // a template qualifies if it always makes a single multiple-choice question
+  Q.forEach(q => { q.mcqOnly = [11, 222, 3333].every(sd => { try { return q.gen(makeR(sd)).type === 'mcq'; } catch (e) { return false; } }); });
+  const BZ_DUR = [2, 3, 5, 10];
+  const yearSubKeys = (y) => ALL_SUBS.filter(k => SUB[k].unit.y === y);
+  function quickPick(list, want, recent) {
+    let c = []; for (let d = 0; d <= 6 && !c.length; d += 2) c = list.filter(q => Math.abs(q.b - want) === d && !recent.slice(-6).includes(q.qid));
+    if (!c.length) c = list; return c[Math.floor(Math.random() * c.length)];
+  }
+  const quickSheet = (cur, label) => {
+    const st = { pick: { m: cur.picked }, done: cur.picked != null, revealed: false, res: {} };
+    return `<article class="sheet" id="sheet"><div class="qmeta">${unitTag(unitById(cur.q.uid))}${strandTag(cur.q.s)}${levelTag(cur.q.b)}${label || ''}</div><div class="qbody">${cur.inst.stem}</div>${cur.inst.fig ? `<div class="figure">${cur.inst.fig}</div>` : ''}${answerUI(cur.inst, 'm', st)}</article>`;
+  };
+  const blitzGame = {
+    id: 'blitz', y: 0, icon: '⚡', name: 'Blitz',
+    desc: 'Answer as many multiple-choice questions as you can before time runs out. A wrong answer costs 15 seconds, and the questions get harder as your streak grows.',
+    start: (R, old) => ({ phase: 'setup', dur: (old && old.dur) || 3 }),
+    clock: (G) => Math.max(0, (G.endAt - now()) / 1000),
+    tick(G) { if (G.phase === 'run' && now() >= G.endAt) { G.phase = 'done'; G.end = now(); return true; } return false; },
+    pool: () => Q.filter(q => q.mcqOnly && matches(q, { ignoreMissed: true, ignoreFilters: true })),
+    next(G) { const list = blitzGame.pool(); const want = G.streak >= 6 ? 8 : G.streak >= 3 ? 6 : G.streak >= 1 ? 4 : 2; const q = quickPick(list, want, G.recent); G.recent.push(q.qid); const seed = newSeed(); G.cur = { q, seed, inst: buildInst(q, seed), picked: null }; },
+    render(G) {
+      const n = blitzGame.pool().length;
+      if (G.phase === 'setup') return `<section class="panel"><h3>Set Up</h3><p class="small">Questions come from the subtopics ticked in the panel on the left (Year ${Y()}), at every strand and level. <b>${n}</b> multiple-choice question type${n === 1 ? '' : 's'} match.</p>
+        <div class="row"><span class="small muted">Time limit</span>${BZ_DUR.map(d => `<button type="button" class="chip ${G.dur === d ? 'on' : ''}" data-bzd="${d}" aria-pressed="${G.dur === d}">${d} min</button>`).join('')}</div>
+        <div class="row" style="margin-top:12px"><button class="btn primary" id="bzStart" ${n ? '' : 'disabled'}>Start</button>${n ? '' : '<span class="muted small">Tick at least one subtopic.</span>'}</div>
+        ${(S.games.blitz && S.games.blitz.best) ? `<p class="small muted">Your bests: ${BZ_DUR.filter(d => S.games.blitz.best[d] != null).map(d => `${d} min: ${S.games.blitz.best[d]}`).join(' · ') || '–'}</p>` : ''}</section>`;
+      if (G.phase === 'run') return `<div class="game-top"><span class="clock" id="gClock">${fmtClock(blitzGame.clock(G))}</span><span class="gscore">Score ${G.score}</span>${G.streak > 1 ? `<span class="pill good">🔥 Streak ${G.streak}</span>` : ''}<span class="spacer"></span><button class="btn sm ghost" id="bzQuit">End Now</button></div>${quickSheet(G.cur)}`;
+      const acc = G.answered ? Math.round(100 * G.score / G.answered) : 0;
+      return `<section class="panel game-done"><h3>Time! Score ${G.score}${G.newBest ? ' · New best!' : ''}</h3><p>${G.answered} answered · ${acc}% correct · longest streak ${G.bestStreak}. ${G.missed ? `${G.missed} question${G.missed > 1 ? 's were' : ' was'} added to "Only Questions I've Missed" in Practice.` : ''}</p>
+        <div class="row"><button class="btn primary" id="gAgain">Play Again</button></div></section>`;
+    },
+    click(G, b) {
+      if (G.phase === 'setup') {
+        if (b.dataset.bzd) { G.dur = +b.dataset.bzd; return true; }
+        if (b.id === 'bzStart' && blitzGame.pool().length) { Object.assign(G, { phase: 'run', t0: now(), endAt: now() + G.dur * 60000, score: 0, streak: 0, bestStreak: 0, answered: 0, missed: 0, recent: [] }); blitzGame.next(G); return { rail: true }; }
+        return false;
+      }
+      if (G.phase === 'run') {
+        if (b.id === 'bzQuit') { G.phase = 'done'; G.end = now(); return true; }
+        if (b.dataset.ci !== undefined && G.cur.picked == null) {
+          G.cur.picked = +b.dataset.ci; G.answered++; const ok = G.cur.picked === G.cur.inst.ans;
+          logAttempt(G.cur.q, ok ? 1 : 0, 0, 'blitz');
+          if (ok) { G.score++; G.streak++; G.bestStreak = Math.max(G.bestStreak, G.streak); clearMissed(G.cur.q.qid); }
+          else { G.streak = 0; G.endAt -= 15000; G.missed++; addMissed(G.cur.q.qid); toast('−15 s'); }
+          save(); clearTimeout(gaNext); gaNext = setTimeout(() => { if (GA === G && G.phase === 'run') { blitzGame.next(G); renderGames($('#main')); } }, ok ? 600 : 1500);
+          return ok ? true : { wrong: true };
+        }
+      }
+      return false;
+    },
+    result(G, prev) { const best = { ...((prev && prev.best) || {}) }; G.newBest = G.score > 0 && (best[G.dur] == null || G.score > best[G.dur]); if (G.newBest) best[G.dur] = G.score; return { best }; },
+    better: () => true,
+    bestText: (best) => BZ_DUR.filter(d => best.best && best.best[d] != null).map(d => `${d} min: ${best.best[d]}`).join(' · ') || '–'
+  };
+
+  /* Class codes: everyone who enters the same code gets the same questions in the same order.
+     Bits from the top: marker 1, format (3), year − 9 (2), seed (20), fingerprint of the question pool (10), number of subtopics (6), subtopic mask.
+     The subtopic order for a year must only ever be appended to. */
+  const B32 = '0123456789ABCDEFGHJKMNPQRSTVWXYZ';
+  const toB32 = (big) => { let t = ''; while (big > 0n) { t = B32[Number(big & 31n)] + t; big >>= 5n; } return t; };
+  const fromB32 = (str) => { let big = 0n; for (const ch of str) { const i = B32.indexOf(ch); if (i < 0) return null; big = big * 32n + BigInt(i); } return big; };
+  const codeGroup = (t) => 'LMS-' + t.match(/.{1,4}/g).join('-');
+  const lmsPool = (c) => Q.filter(q => q.mcqOnly && q.y === c.y && c.subs.includes(q.subKey));
+  const fp10 = (list) => { let h = 5381; for (const ch of list.map(q => q.qid).sort().join('|')) h = ((h * 33) ^ ch.charCodeAt(0)) >>> 0; return h & 0x3ff; };
+  function lmsEncode(c) {
+    let big = 1n; const put = (v, n) => { big = (big << BigInt(n)) | BigInt(v); };
+    const keys = yearSubKeys(c.y); put(1, 3); put(c.y - 9, 2); put(c.seed & 0xfffff, 20); put(c.fp & 0x3ff, 10); put(keys.length, 6); keys.forEach(k => put(c.subs.includes(k) ? 1 : 0, 1));
+    return codeGroup(toB32(big));
+  }
+  function lmsDecode(str) {
+    const t = String(str || '').toUpperCase().replace(/^LMS/, '').replace(/[^0-9A-Z]/g, '').replace(/O/g, '0').replace(/[IL]/g, '1');
+    const big = fromB32(t); if (!big) return null; const bits = big.toString(2).slice(1); let pos = 0;
+    const take = (n) => { const v = parseInt(bits.slice(pos, pos + n) || '0', 2); pos += n; return v; };
+    if (bits.length < 41 || take(3) !== 1) return null;
+    const y = 9 + take(2), seed = take(20), fp = take(10), n = take(6), keys = yearSubKeys(y); if (!YEARS.some(Y => Y.y === y)) return null;
+    const subs = []; for (let i = 0; i < n; i++) if (take(1) && keys[i]) subs.push(keys[i]);
+    const c = { y, seed, fp, subs }; if (!subs.length || !lmsPool(c).length) return null;
+    c.fpOk = fp10(lmsPool(c)) === fp; c.str = codeGroup(t); return c;
+  }
+  function lmsMake() { const subs = yearSubKeys(Y()).filter(k => subOK(k)); const c = { y: Y(), seed: 1 + Math.floor(Math.random() * 0xffffe), subs }; if (!subs.length || !lmsPool(c).length) return null; c.fp = fp10(lmsPool(c)); c.fpOk = true; c.str = lmsEncode(c); return c; }
+  // same code → same order; the level rises from 1–2 to 7–8 as the game goes on
+  function lmsSeq(c) {
+    const R = makeR(c.seed), list = lmsPool(c), bag = {}, ptr = {};
+    [2, 4, 6, 8].forEach(b => { bag[b] = R.shuffle(list.filter(q => q.b === b)); ptr[b] = 0; });
+    const draw = (want) => { const order = [want, want + 2, want - 2, want + 4, want - 4, want + 6, want - 6].filter(b => bag[b] && bag[b].length); const b = order[0]; if (ptr[b] >= bag[b].length) { bag[b] = R.shuffle(bag[b]); ptr[b] = 0; } return bag[b][ptr[b]++]; };
+    const seq = []; for (let i = 0; i < 300; i++) { const want = i < 4 ? 2 : i < 10 ? 4 : i < 18 ? 6 : 8; seq.push({ q: draw(want), seed: 1 + Math.floor(R.f() * 2e9) }); }
+    return seq;
+  }
+  const LMS_STARTS = [1, 2, 3, 5];
+  const lmsGame = {
+    id: 'lms', y: 0, icon: '💀', name: 'Last Man Standing',
+    desc: 'Play against your class. Everyone with the same code gets the same questions in the same order. Right answers add 60 seconds, wrong answers take 60 away. Last one standing wins.',
+    start: (R, old) => ({ phase: 'setup', startMin: (old && old.startMin) || 3, code: old && old.code, codeIn: '' }),
+    clock: (G) => Math.max(0, (G.endAt - now()) / 1000),
+    tick(G) { if (G.phase === 'run' && now() >= G.endAt) { G.phase = 'done'; G.end = now(); return true; } return false; },
+    render(G) {
+      if (G.phase === 'setup') {
+        const c = G.code;
+        return `<section class="panel"><h3>Rules</h3><ul class="lms-rules"><li>Agree a starting time with your class: everyone starts with <b>${G.startMin} minute${G.startMin > 1 ? 's' : ''}</b>.</li><li>Right answer: <b>+60 s</b>. Wrong answer: <b>−60 s</b>.</li><li>Everyone with the same code gets the same questions, getting harder as you go.</li><li>When your clock reaches zero you are out. Last one standing wins.</li></ul>
+          <div class="row"><span class="small muted">Starting time</span>${LMS_STARTS.map(m => `<button type="button" class="chip ${G.startMin === m ? 'on' : ''}" data-lmt="${m}" aria-pressed="${G.startMin === m}">${m} min</button>`).join('')}</div></section>
+          <section class="panel"><h3>Class Code</h3>
+          ${c ? `<div class="codebox"><div class="code-str num">${c.str}</div><div class="small">Year ${c.y} · ${c.subs.length} subtopic${c.subs.length > 1 ? 's' : ''}: ${esc(c.subs.map(k => SUB[k].name).join(', '))}</div>${c.fpOk ? '' : '<div class="small" style="color:var(--warn)">This code was made with a different version of the site, so the questions may differ. Ask everyone to reload the page.</div>'}</div>
+            <div class="row" style="margin-top:10px"><button class="btn primary" id="lmsGo">Start</button><button class="btn" id="lmsClear">Use a Different Code</button></div>`
+          : `<p class="small">Teacher or leader: tick the subtopics in the panel on the left, then make a code and share it. Everyone else: enter the code you were given.</p>
+            <div class="row"><button class="btn primary" id="lmsMake">Make a Code</button></div>
+            <div class="row" style="margin-top:10px"><input class="ans" id="lmsIn" placeholder="LMS-XXXX-XXXX" autocomplete="off" spellcheck="false" aria-label="Class code" value="${esc(G.codeIn || '')}"><button class="btn" id="lmsJoin">Join</button></div>${G.err ? `<p class="small" style="color:var(--bad)">${G.err}</p>` : ''}`}</section>
+          ${S.games.lms ? `<p class="small muted">Your best: ${lmsGame.bestText(S.games.lms)}</p>` : ''}`;
+      }
+      if (G.phase === 'run') return `<div class="game-top lms-top"><span class="clock" id="gClock">${fmtClock(lmsGame.clock(G))}</span><span class="gscore">Correct ${G.correct}</span><span class="pill">Q${G.idx}</span><span class="spacer"></span><span class="muted small num">${G.code.str}</span></div>${quickSheet(G.cur, '')}`;
+      const alive = Math.round((G.end - G.t0) / 1000);
+      return `<section class="panel game-done"><h3>💀 Out! You lasted ${fmtClock(alive)}${G.newBest ? ' · New best!' : ''}</h3><p>${G.correct} correct out of ${G.idx} questions. Code ${G.code.str}.</p><div class="row"><button class="btn primary" id="gAgain">Back to the Code</button></div></section>`;
+    },
+    afterRender() { const i = document.getElementById('lmsIn'); if (i) i.onkeydown = (e) => { if (e.key === 'Enter') { const j = document.getElementById('lmsJoin'); if (j) j.click(); } }; },
+    next(G) { const e = G.seq[G.idx % G.seq.length]; G.idx++; G.cur = { q: e.q, seed: e.seed, inst: buildInst(e.q, e.seed), picked: null }; },
+    click(G, b) {
+      if (G.phase === 'setup') {
+        if (b.dataset.lmt) { G.startMin = +b.dataset.lmt; return true; }
+        if (b.id === 'lmsMake') { const c = lmsMake(); if (!c) { G.err = 'Tick at least one subtopic with multiple-choice questions first.'; return true; } G.code = c; G.err = null; return true; }
+        if (b.id === 'lmsJoin') { const v = (document.getElementById('lmsIn') || {}).value || ''; G.codeIn = v; const c = lmsDecode(v); if (!c) { G.err = 'That code was not recognised. Check it and try again.'; return true; } G.code = c; G.err = null; return true; }
+        if (b.id === 'lmsClear') { G.code = null; return true; }
+        if (b.id === 'lmsGo' && G.code) { Object.assign(G, { phase: 'run', t0: now(), endAt: now() + G.startMin * 60000, seq: lmsSeq(G.code), idx: 0, correct: 0 }); lmsGame.next(G); return true; }
+        return false;
+      }
+      if (G.phase === 'run' && b.dataset.ci !== undefined && G.cur.picked == null) {
+        G.cur.picked = +b.dataset.ci; const ok = G.cur.picked === G.cur.inst.ans;
+        logAttempt(G.cur.q, ok ? 1 : 0, 0, 'lms');
+        if (ok) { G.correct++; G.endAt += 60000; toast('+60 s'); clearMissed(G.cur.q.qid); } else { G.endAt -= 60000; addMissed(G.cur.q.qid); toast('−60 s'); }
+        save();
+        if (now() >= G.endAt) { G.phase = 'done'; G.end = now(); return { wrong: true }; }
+        clearTimeout(gaNext); gaNext = setTimeout(() => { if (GA === G && G.phase === 'run') { lmsGame.next(G); renderGames($('#main')); } }, ok ? 600 : 1500);
+        return ok ? true : { wrong: true };
+      }
+      return false;
+    },
+    result(G, prev) { const r = { time: (G.end - G.t0) / 1000, correct: G.correct }; G.newBest = !prev || r.time > prev.time; return r; },
+    better: (res, prev) => res.time > prev.time,
+    bestText: (best) => `lasted ${fmtClock(best.time)} (${best.correct} correct)`
+  };
+  GAMES.unshift(blitzGame, lmsGame);
+  window.__CODE = { lmsEncode, lmsDecode, lmsMake, lmsSeq, lmsPool };
 
   /* ======================= RECALL ======================= */
   let RC = null, GM = null, RC_PICKED = false;
@@ -3519,6 +3995,7 @@ const GAMES = (() => {
   const HISTORY = [
     { v: '0.1 alpha', d: '5 November 2026', items: ['First build: four units (Y11 Exchange & Transport, Y11 Forces & Motion, Y9 Disease & Our Immune System, Y9 Chemistry of Industry) with practice by Criterion A strand and level, recall cards, notes and progress.'] },
     { v: '0.2 alpha', d: '5 November 2026', items: ['New design: header, side panel, question sheet, markscheme ticks, spaced-repetition Recall (Flashcards, Pick’em!, Match It!), Notes panels, Stats tabs and backup code.', 'Every unit is split into subtopics, one per lesson topic, and every subtopic has questions for A i, A ii and A iii.', 'Unit games: Element Match (Year 9 Chemistry) and Graph It! (Year 11 Forces & Motion).', 'Notes for every subtopic with key ideas, common mistakes and key terms.'] },
+    { v: '0.3 alpha', d: '5 November 2026', items: ['Games page grouped by unit, with Class Games for every year.', 'New unit games: Build-an-Atom and Periodic Mystery (Y9 Chemistry); Free-Body Builder, Stop in Time and suvat Sprint (Y11 Forces & Motion).', 'Blitz and Last Man Standing with class codes, using multiple-choice questions from the ticked subtopics.', 'Y9 Chemistry: a simplified Periodic Table (elements 1–20, whole-number atomic masses) on every question, in the header and in Notes.'] },
   ];
   function renderAbout(main) {
     const rows = LIVE_UNITS.map(u => { const qs = Q.filter(q => q.uid === u.id); return `<tr><td><b>Y${u.y} U${u.n}</b> ${esc(u.title)}</td><td class="num">${CONTENT[u.id].subs.length}</td>${STRANDS.map(s => `<td class="num">${qs.filter(q => q.s === s.id).length}</td>`).join('')}<td class="num"><b>${qs.length}</b></td><td class="num">${CARDS.filter(c => c.uid === u.id).length}</td></tr>`; }).join('');
@@ -3555,7 +4032,7 @@ const GAMES = (() => {
     if (v !== 'games') stopGA();
     if (v !== 'recall' && GM && GM.mode === 'match') stopGM();
     $$('#tabs a').forEach(a => a.setAttribute('aria-current', a.getAttribute('href') === '#' + v ? 'page' : 'false'));
-    const noRail = v === 'stats' || v === 'about' || v === 'welcome' || v === 'games';
+    const noRail = v === 'stats' || v === 'about' || v === 'welcome' || (v === 'games' && !(GA && (GA.id === 'blitz' || GA.id === 'lms') && GA.phase === 'setup'));
     $('.shell').classList.toggle('no-rail', noRail);
     if (!noRail) renderRail();
     main.onclick = null; main.onchange = null; main.oninput = null; main.onkeydown = null;
@@ -3607,7 +4084,7 @@ const GAMES = (() => {
   window.__LAB = {
     Q, CARDS, SUB, S: () => S, render,
     force(qid, seed) { const q = QBY[qid]; S.settings.year = q.y; if (!S.settings.sel.includes(q.subKey)) S.settings.sel.push(q.subKey); S.settings.crit[q.s] = true; S.settings.band[q.b] = true; S.settings.missedOnly = false; applyYear(); if (location.hash !== '#practice') { location.hash = '#practice'; render(); } P.q = q; P.seed = seed; P.inst = buildInst(q, seed); P.st = newState(); P.t0 = now(); renderPractice($('#main')); bindPractice($('#main')); },
-    cur: () => P,
+    cur: () => P, ga: () => GA,
   };
 })();
 
