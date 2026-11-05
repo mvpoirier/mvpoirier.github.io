@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--
   MVPhysics Lab: IB DP Physics revision (SL and HL)
-  Version: 1.3 Beta (online edition) · Built: 5 November 2026
+  Version: 1.4 Beta (online edition) · Built: 6 November 2026
   Author: Mike Poirier (https://github.com/mvpoirier), developed with Claude by Anthropic
   Licence: CC BY-NC-SA 4.0, https://creativecommons.org/licenses/by-nc-sa/4.0/
   Site: https://mvpoirier.github.io/physics-lab/
@@ -860,9 +860,21 @@ ol.history .hm { font-size: 11.5px; }
 .report-general > summary:hover, .report-general[open] > summary { color: var(--accent); border-color: var(--accent); }
 .alpha-sum { margin: 8px 0 4px; padding-left: 20px; display: grid; gap: 4px; }
 
+/* 1.4: level accent across the top of the banner (SL blue, HL purple), like MYPoirier Science Lab's year accent */
+.top { border-top: 5px solid var(--accent); transition: border-color .2s; }
+html[data-course="HL"] .top { border-top-color: var(--hl); }
+:root.lms .top { border-top-color: var(--accent); }
+/* red Clear button for codes */
+.btn.btn-clear { background: #b42318; border-color: #b42318; color: #fff; }
+.btn.btn-clear:hover { filter: brightness(1.08); }
+.codein { font-family: var(--f-mono); letter-spacing: .04em; text-transform: uppercase; }
+.ws-cover + .sinfo { position: static; display: inline-grid; place-items: center; margin-left: 6px; vertical-align: middle; }
+.ws-cover { display: inline-flex; }
+.ws-cover-row { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+
 </style>
 <header class="top"><div class="top-inner">
-  <div class="brand"><h1><b class="mvp">MVP</b>hysics Lab <span class="trophy" aria-hidden="true">🏆</span><span class="beta-tag" title="Beta for student testing: version 1.3 Beta">Beta 1.3</span></h1></div>
+  <div class="brand"><h1><b class="mvp">MVP</b>hysics Lab <span class="trophy" aria-hidden="true">🏆</span><span class="beta-tag" title="Beta for student testing: version 1.4 Beta">Beta 1.4</span></h1></div>
   <nav class="tabs" id="tabs" aria-label="Modes"></nav>
   <div class="hbar">
     <div class="course-seg" id="courseSeg" role="group" aria-label="Course level" data-tip="SL hides HL-only content"><button type="button" data-course="SL" aria-pressed="false">SL</button><button type="button" data-course="HL" aria-pressed="true">HL</button></div>
@@ -880,7 +892,7 @@ ol.history .hm { font-size: 11.5px; }
 <footer class="site-foot"><div class="foot-wrap">
   <div class="foot-inner">
     <div class="foot-brand">
-      <div class="foot-name"><b class="mvp">MVP</b>hysics Lab <span class="trophy" aria-hidden="true">🏆</span><span class="beta-tag" title="Beta for student testing: version 1.3 Beta">Beta 1.3</span></div>
+      <div class="foot-name"><b class="mvp">MVP</b>hysics Lab <span class="trophy" aria-hidden="true">🏆</span><span class="beta-tag" title="Beta for student testing: version 1.4 Beta">Beta 1.4</span></div>
     </div>
     <nav class="foot-links" aria-label="Site">
       <a href="#about">About</a>
@@ -890,7 +902,7 @@ ol.history .hm { font-size: 11.5px; }
   <details class="report report-general foot-report"><summary><span class="flag" aria-hidden="true">💬</span> Send Feedback</summary><div class="report-body"><textarea class="report-note" rows="3" placeholder="Your feedback: a bug, an idea, something confusing… Say which page or feature." aria-label="Your feedback"></textarea><div class="row"><a class="btn sm primary send-report" href="#" target="_blank" rel="noopener" data-send="general|||footer">Send Report ↗</a><button type="button" class="btn sm" data-report="general|||footer">Copy Report</button><span class="muted small">Send Report opens your teacher’s Google Form (sign in with your school account). The page you are on is added automatically. Copy Report is a backup.</span></div></div></details>
   <div class="foot-meta">
     <span>Developed by <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a> using Claude</span>
-    <span class="foot-ver">Version 1.3 Beta · Updated 5 November 2026</span>
+    <span class="foot-ver">Version 1.4 Beta · Updated 6 November 2026</span>
   </div>
 </div></footer>
 <script>
@@ -14403,6 +14415,427 @@ WHICH.push(
   { id: 'w-sk-5', strand: 's-prec', cmd: 'Distinguish', q: 'Distinguish between accuracy and precision.', a: ['Accuracy is how close a result is to the true value; precision is how close repeated results are to each other (small spread).', 'Accuracy uses better equipment; precision uses more decimal places.'], ans: 0, why: 'Student A defines both correctly.' },
 );
 
+/* ===== Beta 1.4: questions aimed at the mistakes named in the IB subject reports (May 2025 and November 2025, FE2025) =====
+   Every question is original. The reports only told us which misconceptions to target: the wrong options below are those
+   misconceptions, and each solution names the trap. New question styles: "which statement is the cause" (all options true,
+   only one explains), unit questions where a dimensionally correct option is not in SI base units, and Paper 1B data
+   questions built on the teacher's FE2016 investigations. */
+
+/* ---------- A.1 Kinematics ---------- */
+mc('sr-m01', 'Average velocity around half a track', ['a1-describe'], 2, (R) => {
+  const r = R.pick([20, 25, 30, 40, 50]), t = R.pick([12, 15, 18, 20, 25]), v = 2 * r / t;
+  return {
+    stem: L`A runner goes half way round a circular track of radius $${r}\,\mathrm{m}$ in $${t}\,\mathrm{s}$. What is the magnitude of the runner's average velocity?`,
+    ...numMCQ(v, [Math.PI * r / t, 2 * Math.PI * r / t, r / t], 2, U.ms),
+    solution: L`Average velocity uses the displacement: half way round, the runner is a diameter $2r = ${2 * r}\,\mathrm{m}$ from the start. $\bar v = \dfrac{2r}{t} = \dfrac{${2 * r}}{${t}} = ${sf(v, 2)}\,\mathrm{m\,s^{-1}}$. Common mistake: $\dfrac{\pi r}{t}$ is the average <b>speed</b> (distance ÷ time), not the average velocity.`,
+  };
+});
+
+mc('sr-m02', 'Speed from an acceleration–time graph', ['a1-graphs'], 2, (R) => {
+  const a0 = R.pick([2.0, 3.0, 4.0, 5.0, 6.0]), T = R.pick([4, 5, 6, 8]), v = 0.5 * a0 * T;
+  const svg = graph({ xMax: T + 2, xStep: T + 2 > 8 ? 2 : 1, yMax: a0 + 1, yStep: 1, xLabel: 't / s', yLabel: 'a / m s⁻²', lines: [{ pts: [[0, a0], [T, 0], [T + 2, 0]] }], aria: 'acceleration falling linearly to zero' });
+  return {
+    stem: L`A car starts from rest. The graph shows how its acceleration $a$ varies with time $t$. What is the speed of the car at $t = ${T}\,\mathrm{s}$?${svg}`,
+    ...numMCQ(v, [a0 * T, 0.25 * a0 * T, a0], 2, U.ms),
+    solution: L`The change in velocity is the <b>area under the a–t graph</b>: a triangle, $\Delta v = \tfrac12 \times ${T} \times ${a0} = ${sf(v, 2)}\,\mathrm{m\,s^{-1}}$. Common mistake: using $v = u + at$ with $a = ${a0}\,\mathrm{m\,s^{-2}}$ treats the starting acceleration as constant for the whole time.`,
+  };
+});
+
+mc('sr-m03', 'Acceleration from distance and time', ['a1-suvat'], 1, (R) => {
+  const s = R.pick([12, 18, 24, 36, 45, 60]), t = R.pick([3.0, 4.0, 5.0, 6.0]), a = 2 * s / (t * t);
+  return {
+    stem: L`A trolley starts from rest and accelerates uniformly. It travels $${s}\,\mathrm{m}$ in the first $${t}\,\mathrm{s}$. What is its acceleration?`,
+    ...numMCQ(a, [s / (t * t), s / (2 * t * t), s / t], 2, U.ms2),
+    solution: L`From rest, $s = \tfrac12 at^2$, so $a = \dfrac{2s}{t^2} = \dfrac{2 \times ${s}}{${t}^2} = ${sf(a, 2)}\,\mathrm{m\,s^{-2}}$. Common mistake: leaving out the factor 2 gives $s/t^2$.`,
+  };
+});
+
+mc('sr-m04', 'Range of a ball thrown horizontally', ['a1-proj'], 2, (R) => {
+  const h = R.pick([1.25, 1.8, 2.45, 3.2, 5.0]), u = R.pick([4.0, 6.0, 8.0, 10, 12]), t = Math.sqrt(2 * h / 9.8), x = u * t;
+  const tw = (-u + Math.sqrt(u * u + 2 * 9.8 * h)) / 9.8; // wrong: h = ut + ½gt² mixes horizontal speed into vertical motion
+  return {
+    stem: L`A ball is thrown horizontally at $${u}\,\mathrm{m\,s^{-1}}$ from a height of $${h}\,\mathrm{m}$ above level ground. Air resistance is negligible. How far from the launch point, horizontally, does the ball land?`,
+    ...numMCQ(x, [u * tw, u * h / 9.8 * 2, u * Math.sqrt(h / 9.8)], 2, U.m),
+    solution: L`Treat the motions separately. Vertically, from zero vertical velocity: $h = \tfrac12 gt^2$, so $t = \sqrt{\dfrac{2 \times ${h}}{9.8}} = ${sf(t, 3)}\,\mathrm{s}$. Horizontally, at constant speed: $x = ut = ${u} \times ${sf(t, 3)} = ${sf(x, 2)}\,\mathrm{m}$. Common mistake: one equation such as $h = ut + \tfrac12 gt^2$ mixes the horizontal speed into the vertical motion.`,
+  };
+});
+
+/* ---------- A.2 Forces and momentum ---------- */
+mc('sr-m05', 'Buoyant force on two spheres', ['a2-adv'], 2, (R) => {
+  const [a, b] = R.pick([['aluminium', 'steel'], ['wooden', 'lead'], ['glass', 'brass'], ['plastic', 'copper']]);
+  const o = txtMCQ(R, 'The buoyant forces are equal.', [`The buoyant force on the ${b} sphere is greater.`, `The buoyant force on the ${a} sphere is greater.`, 'It depends on how deep each sphere is.']);
+  return { stem: `A ${a} sphere and a ${b} sphere have the same volume. Both are held completely under water. How do the buoyant forces on the two spheres compare?`, ...o,
+    solution: L`The buoyant force equals the weight of fluid displaced: $F_b = \rho_\text{fluid} V g$. It depends on the density of the <b>liquid</b> and the volume submerged, not on the density of the object. Same volume, same liquid, so the forces are equal (and, for a fully submerged object, independent of depth). Common mistake: thinking a denser object feels a bigger buoyant force.`, fixed: true };
+});
+
+mc('sr-m06', 'A rising oil droplet', ['a2-adv', 'a2-newton'], 3, (R) => {
+  const ro = R.pick([800, 850, 880, 900, 920]), rw = 1000, a = 9.8 * (rw / ro - 1);
+  return {
+    stem: L`A small droplet of oil of density $${ro}\,\mathrm{kg\,m^{-3}}$ is released from rest under water (density $1000\,\mathrm{kg\,m^{-3}}$). What is the initial acceleration of the droplet? Ignore drag.`,
+    ...numMCQ(a, [9.8 * rw / ro, 9.8 * (1 - ro / rw), 9.8], 2, U.ms2),
+    solution: L`Two forces act: the buoyant force $\rho_w Vg$ up and the weight $\rho_o Vg$ down. Resultant $= (\rho_w - \rho_o)Vg$ upwards, and $m = \rho_o V$:
+$$a = \dfrac{(\rho_w - \rho_o)g}{\rho_o} = 9.8\left(\dfrac{1000}{${ro}} - 1\right) = ${sf(a, 2)}\,\mathrm{m\,s^{-2}}\ \text{upwards}$$
+Common mistakes: forgetting the weight (which gives $g\rho_w/\rho_o$), or using the density of water for the droplet's mass.`,
+  };
+});
+
+mc('sr-m07', 'How tall is the iceberg?', ['a2-adv'], 3, (R) => {
+  const ri = R.pick([900, 917, 920]), rs = R.pick([1025, 1030]), ha = R.pick([5.0, 8.0, 12, 15, 20]), H = ha / (1 - ri / rs);
+  return {
+    stem: L`A block of ice with vertical sides floats in sea water with $${ha}\,\mathrm{m}$ above the surface. The density of the ice is $${ri}\,\mathrm{kg\,m^{-3}}$ and of the sea water $${rs}\,\mathrm{kg\,m^{-3}}$. What is the total height of the block?`,
+    ...numMCQ(H, [ha * rs / ri, H - ha, ha / (ri / rs)], 2, U.m),
+    solution: L`Floating: weight = buoyant force, so $\rho_i H A g = \rho_s h_\text{sub} A g$ and the fraction submerged is $\dfrac{\rho_i}{\rho_s} = ${sf(ri / rs, 3)}$. The fraction above the water is $1 - ${sf(ri / rs, 3)} = ${sf(1 - ri / rs, 3)}$, so $H = \dfrac{${ha}}{${sf(1 - ri / rs, 3)}} = ${sf(H, 2)}\,\mathrm{m}$. Common mistake: using only the height above the water as if it were the whole block.`,
+  };
+});
+
+mc('sr-m08', 'Kinetic energy from an impulse', ['a2-mom', 'a3-energy'], 2, (R) => {
+  const J = R.pick([3.0, 4.5, 6.0, 9.0, 12]), m = R.pick([0.15, 0.25, 0.40, 0.50, 1.5]), E = J * J / (2 * m);
+  return {
+    stem: L`A ball of mass $${m}\,\mathrm{kg}$ at rest receives an impulse of $${J}\,\mathrm{N\,s}$. What kinetic energy does it gain?`,
+    ...numMCQ(E, [J * J / m, J / (2 * m), J * J * m / 2], 2, L`\,\mathrm{J}`),
+    solution: L`Impulse = change in momentum, so $p = ${J}\,\mathrm{kg\,m\,s^{-1}}$. Then $E_k = \dfrac{p^2}{2m} = \dfrac{${J}^2}{2 \times ${m}} = ${sf(E, 2)}\,\mathrm{J}$.`,
+  };
+});
+
+mc('sr-m09', 'Two trolleys couple together', ['a2-coll1'], 2, (R) => {
+  const m1 = R.pick([0.50, 0.80, 1.2, 2.0]), m2 = R.pick([0.30, 0.50, 1.0, 1.5]), u = R.pick([1.5, 2.0, 3.0, 4.0]), v = m1 * u / (m1 + m2);
+  return {
+    stem: L`A trolley of mass $${m1}\,\mathrm{kg}$ moving at $${u}\,\mathrm{m\,s^{-1}}$ collides with a stationary trolley of mass $${m2}\,\mathrm{kg}$. They stick together. What is their speed just after the collision?`,
+    ...numMCQ(v, [u * Math.sqrt(m1 / (m1 + m2)), m1 * u / m2, u / 2], 2, U.ms),
+    solution: L`Momentum is conserved (kinetic energy is not: the collision is inelastic). $${m1} \times ${u} = (${m1} + ${m2})v$, so $v = ${sf(v, 2)}\,\mathrm{m\,s^{-1}}$. Common mistakes: conserving kinetic energy instead, which gives $u\sqrt{m_1/(m_1+m_2)}$, or forgetting to add the masses.`,
+  };
+});
+
+mc('sr-m10', 'Pushed apart by a spring', ['a2-mom', 'a2-coll1'], 2, (R) => {
+  const o = txtMCQ(R, 'The total momentum of the two trolleys', ['The total kinetic energy of the two trolleys', 'The kinetic energy of each trolley', 'The speed of each trolley']);
+  return { stem: 'Two trolleys of different mass are held together at rest with a compressed spring between them. When released, they move apart. Friction is negligible. Which quantity is zero after the release?', ...o,
+    solution: L`Before release the total momentum is zero, and no external force acts, so the total momentum stays zero: the trolleys have equal and opposite momenta. The total kinetic energy is <b>not</b> zero: it comes from the elastic potential energy of the spring. Common mistake: mixing up conservation of momentum with conservation of energy.`, fixed: true };
+});
+
+/* ---------- A.3 Work, energy and power ---------- */
+mc('sr-m11', 'Launched by a spring', ['a3-energy'], 2, (R) => {
+  const k = R.pick([200, 400, 500, 800]), x = R.pick([0.040, 0.050, 0.080, 0.10]), m = R.pick([0.020, 0.050, 0.10]), h = k * x * x / (2 * m * 9.8);
+  return {
+    stem: L`A spring of spring constant $${k}\,\mathrm{N\,m^{-1}}$ is compressed by $${sf(x * 100, 2)}\,\mathrm{cm}$ and launches a ball of mass $${m}\,\mathrm{kg}$ straight up. Ignoring air resistance and the mass of the spring, what height does the ball rise above its release point?`,
+    ...numMCQ(h, [2 * h, k * x / (2 * m * 9.8), h * 1e4], 2, U.m),
+    solution: L`$\tfrac12 kx^2 = mgh$, so $h = \dfrac{kx^2}{2mg} = \dfrac{${k} \times ${x}^2}{2 \times ${m} \times 9.8} = ${sf(h, 2)}\,\mathrm{m}$. Common mistakes: leaving out the $\tfrac12$ in the elastic potential energy, or not converting centimetres to metres.`,
+  };
+});
+
+mc('sr-m12', 'Units in SI base units only', ['s-units', 'a1-fluid'], 2, (R) => {
+  const v = R.pick([
+    [L`the drag constant $k$ in $F = kv^2$`, L`$\mathrm{kg\,m^{-1}}$`, L`$\mathrm{N\,s^2\,m^{-2}}$`, L`$\mathrm{kg\,m\,s^{-2}}$`, L`$\mathrm{kg\,m^{-1}\,s^{-1}}$`, L`$k = \dfrac{F}{v^2}$: $\dfrac{\mathrm{kg\,m\,s^{-2}}}{\mathrm{m^2\,s^{-2}}} = \mathrm{kg\,m^{-1}}$`],
+    [L`viscosity $\eta$ in $F = 6\pi\eta rv$`, L`$\mathrm{kg\,m^{-1}\,s^{-1}}$`, L`$\mathrm{Pa\,s}$`, L`$\mathrm{kg\,m\,s^{-1}}$`, L`$\mathrm{kg\,s^{-1}}$`, L`$\eta = \dfrac{F}{6\pi rv}$: $\dfrac{\mathrm{kg\,m\,s^{-2}}}{\mathrm{m \times m\,s^{-1}}} = \mathrm{kg\,m^{-1}\,s^{-1}}$`],
+    [L`the spring constant $k$ in $F = kx$`, L`$\mathrm{kg\,s^{-2}}$`, L`$\mathrm{N\,m^{-1}}$`, L`$\mathrm{kg\,m\,s^{-2}}$`, L`$\mathrm{kg\,m^{-1}\,s^{-2}}$`, L`$k = \dfrac{F}{x}$: $\dfrac{\mathrm{kg\,m\,s^{-2}}}{\mathrm{m}} = \mathrm{kg\,s^{-2}}$`],
+  ]);
+  const o = txtMCQ(R, v[1], [v[2], v[3], v[4]]);
+  return { stem: L`What is the unit of ${v[0]} expressed in fundamental SI units?`, ...o,
+    solution: L`${v[5]}. ${v[2]} has the right dimensions but is <b>not</b> in fundamental (base) units: newtons and pascals must be broken down into kg, m and s. Examiners only accept the fully reduced form.` };
+});
+
+/* ---------- B.1 Thermal energy transfers ---------- */
+mc('sr-m13', 'Melting ice that starts below 0 °C', ['b1-heat'], 2, (R) => {
+  const m = R.pick([0.20, 0.25, 0.40, 0.50]), th = R.pick([5, 8, 10, 15, 20]), ci = 2100, Lf = 3.3e5, Q = m * ci * th + m * Lf;
+  return {
+    stem: L`Ice of mass $${m}\,\mathrm{kg}$ is at $-${th}\,^\circ\mathrm{C}$. How much energy is needed to turn it into water at $0\,^\circ\mathrm{C}$? (Specific heat capacity of ice $= 2100\,\mathrm{J\,kg^{-1}\,K^{-1}}$; specific latent heat of fusion $= 3.3\times10^{5}\,\mathrm{J\,kg^{-1}}$.)`,
+    ...numMCQ(Q, [m * Lf - m * ci * th, m * Lf, m * ci * (th + 273) + m * Lf], 3, L`\,\mathrm{J}`),
+    solution: L`Warm the ice to $0\,^\circ\mathrm{C}$, then melt it. Both need energy, so the terms <b>add</b>: $Q = mc\Delta T + mL = ${m} \times 2100 \times ${th} + ${m} \times 3.3\times10^{5} = ${sf(Q, 3)}\,\mathrm{J}$. Common mistake: putting $\Delta T = -${th}$ into the equation and subtracting. A temperature <i>change</i> is the same in K and °C, so do not add 273.`,
+  };
+});
+
+mc('sr-m14', 'Conduction through a pane of glass', ['b1-cond'], 2, (R) => {
+  const k = R.pick([0.80, 0.96, 1.0]), A = R.pick([1.2, 1.5, 2.0, 2.5]), dT = R.pick([12, 15, 18, 20, 25]), dx = R.pick([4.0, 5.0, 6.0]), P = k * A * dT / (dx / 1000);
+  return {
+    stem: L`A glass window of area $${A}\,\mathrm{m^2}$ is $${dx}\,\mathrm{mm}$ thick. The temperature difference between its two surfaces is $${dT}\,\mathrm{K}$. The thermal conductivity of the glass is $${k}\,\mathrm{W\,m^{-1}\,K^{-1}}$. What is the rate of thermal energy transfer through the window?`,
+    ...numMCQ(P, [P / 10, P / 1000, k * A * dT * dx], 2, U.W),
+    solution: L`$\dfrac{\Delta Q}{\Delta t} = kA\dfrac{\Delta T}{\Delta x} = ${k} \times ${A} \times \dfrac{${dT}}{${sf(dx / 1000, 2)}} = ${sf(P, 2)}\,\mathrm{W}$. The thickness must be in metres: $${dx}\,\mathrm{mm} = ${sf(dx / 1000, 2)}\,\mathrm{m}$.`,
+  };
+});
+
+mc('sr-m15', 'Two rods conducting heat', ['b1-cond'], 3, (R) => {
+  const [lr, dr] = R.pick([[2, 2], [2, 1], [1, 2], [4, 2], [0.5, 1]]), ratio = dr * dr / lr;
+  const fmt = (x) => x >= 1 ? String(x) : `\\tfrac{1}{${Math.round(1 / x)}}`;
+  const cands = [ratio, dr / lr, lr / (dr * dr), dr * dr * lr, ratio * 2, ratio / 2].filter((x, i, a) => a.findIndex(y => Math.abs(y - x) < 1e-9) === i);
+  const o = txtMCQ(R, `$${fmt(ratio)}$`, cands.slice(1, 4).map(x => `$${fmt(x)}$`));
+  return { stem: L`Rods X and Y are made of the same metal. Rod Y is ${lr === 1 ? 'the same length as' : lr > 1 ? `${lr} times as long as` : 'half as long as'} rod X and has ${dr === 1 ? 'the same diameter' : `${dr} times the diameter`}. The ends of each rod are kept at the same two temperatures. What is $\dfrac{\text{rate of thermal energy transfer through Y}}{\text{rate through X}}$?`, ...o,
+    solution: L`Rate $= kA\dfrac{\Delta T}{\Delta x}$ with $A \propto d^2$: the ratio is $\dfrac{d^2}{L} = \dfrac{${dr}^2}{${lr}} = ${fmt(ratio)}$. Common mistake: scaling the area with the diameter instead of its square.` };
+});
+
+/* ---------- B.2 Greenhouse effect ---------- */
+mc('sr-m16', 'Radiated by the surface or into space?', ['b2-balance', 'b1-rad'], 3, (R) => {
+  const T = R.pick([285, 288, 290]), e = R.pick([0.90, 0.95, 1.0]), f = R.pick([0.10, 0.12, 0.15, 0.20]), s = 5.67e-8, Is = e * s * T ** 4, I = f * Is;
+  return {
+    stem: L`The surface of a planet has temperature $${T}\,\mathrm{K}$ and emissivity $${e}$. The atmosphere lets $${f * 100}\%$ of the radiation emitted by the surface pass straight through to space. What is the intensity of the surface radiation that reaches space directly?`,
+    ...numMCQ(I, [Is, (1 - f) * Is, f * s * T ** 4 * (e === 1 ? 0.9 : 1 / e)], 2, L`\,\mathrm{W\,m^{-2}}`),
+    solution: L`The surface radiates $e\sigma T^4 = ${e} \times 5.67\times10^{-8} \times ${T}^4 = ${sf(Is, 3)}\,\mathrm{W\,m^{-2}}$. Only $${f * 100}\%$ of that passes straight to space: $${f} \times ${sf(Is, 3)} = ${sf(I, 2)}\,\mathrm{W\,m^{-2}}$. Common mistake: confusing the intensity radiated <b>by the surface</b> with the intensity radiated <b>into space</b>.`,
+  };
+});
+
+mc('sr-m17', 'Absorbed, not incident', ['b2-albedo'], 1, (R) => {
+  const I = R.pick([240, 340, 1360]), a = R.pick([0.25, 0.30, 0.35, 0.40]), Ia = (1 - a) * I;
+  return {
+    stem: L`Radiation of intensity $${I}\,\mathrm{W\,m^{-2}}$ falls on a surface with albedo $${a}$. What intensity is absorbed by the surface?`,
+    ...numMCQ(Ia, [a * I, I, I / a], 2, L`\,\mathrm{W\,m^{-2}}`),
+    solution: L`Albedo is the fraction <b>reflected</b>. The fraction absorbed is $1 - ${a} = ${sf(1 - a, 2)}$, so $I_\text{abs} = ${sf(1 - a, 2)} \times ${I} = ${sf(Ia, 2)}\,\mathrm{W\,m^{-2}}$. Common mistake: forgetting to subtract the reflected part.`,
+  };
+});
+
+/* ---------- B.3 Gas laws ---------- */
+mc('sr-m18', 'Which statement is the cause?', ['b3-kinetic'], 3, (R) => {
+  const o = txtMCQ(R, 'Molecules rebound from the moving piston with a greater speed than they hit it.', ['The volume of the gas decreases.', 'The pressure of the gas increases.', 'Molecules collide with the walls more often.']);
+  return { stem: 'A gas in a cylinder is compressed quickly by a piston, and its temperature rises. All four statements below are true. Which one explains why the mean speed of the molecules increases?', ...o,
+    solution: L`The piston does work on the gas: each molecule that hits the moving piston bounces back faster, so the mean kinetic energy, and the temperature, rise. The other statements are true but are not the <b>cause</b>: a gas can be compressed slowly at constant temperature (isothermally) with the same decrease in volume and no change in mean speed. Read the question for what it asks: here, the cause.`, fixed: true };
+});
+
+mc('sr-m19', 'Equal masses of two gases', ['b3-kinetic', 'b3-pressure'], 3, (R) => {
+  const [g1, M1, g2, M2] = R.pick([['helium', 4, 'neon', 20], ['helium', 4, 'argon', 40], ['neon', 20, 'argon', 40]]), ratio = M2 / M1;
+  const o = txtMCQ(R, `$${ratio}$`, [`$\\tfrac{1}{${ratio}}$`, '$1$', `$${ratio * ratio}$`]);
+  return { stem: L`Samples of ${g1} (molar mass $${M1}\,\mathrm{g\,mol^{-1}}$) and ${g2} (molar mass $${M2}\,\mathrm{g\,mol^{-1}}$) have the same mass and the same temperature. Both are ideal monatomic gases. What is $\dfrac{\text{internal energy of the ${g1}}}{\text{internal energy of the ${g2}}}$?`, ...o,
+    solution: L`Each atom has mean kinetic energy $\tfrac32 k_BT$, the same in both gases. Equal masses means the ${g1} sample has $\dfrac{${M2}}{${M1}} = ${ratio}$ times as many atoms, so ${ratio} times the internal energy. Common mistake: inverting the ratio of molar masses.` };
+});
+
+mc('sr-m20', 'Heating a gas: use kelvin', ['b3-laws'], 2, (R) => {
+  const t1 = R.pick([10, 15, 20, 27]), t2 = R.pick([60, 80, 100, 127]), r = (t2 + 273) / (t1 + 273);
+  return {
+    stem: L`A sealed rigid container of gas is heated from $${t1}\,^\circ\mathrm{C}$ to $${t2}\,^\circ\mathrm{C}$. What is $\dfrac{\text{final pressure}}{\text{initial pressure}}$?`,
+    ...numMCQ(r, [t2 / t1, (t2 - t1) / 273 + 0.5, t1 / t2 + 1.5], 3, ''),
+    solution: L`At constant volume $P \propto T$ with $T$ in <b>kelvin</b>: $\dfrac{${t2} + 273}{${t1} + 273} = \dfrac{${t2 + 273}}{${t1 + 273}} = ${sf(r, 3)}$. Common mistake: using Celsius temperatures, $\dfrac{${t2}}{${t1}}$.`,
+  };
+});
+
+/* ---------- B.5 Current and circuits ---------- */
+mc('sr-m21', 'Which network dissipates the most power?', ['b5-power', 'b5-circuits'], 2, (R) => {
+  const o = txtMCQ(R, 'Three resistors in parallel', ['Three resistors in series', 'Two resistors in series', 'A single resistor']);
+  return { stem: 'Each network is made from identical resistors and is connected in turn to the same battery of negligible internal resistance. Which network dissipates the greatest power?', ...o,
+    solution: L`With the same potential difference, $P = \dfrac{V^2}{R}$: the <b>smallest</b> total resistance dissipates the most power. Three in parallel have $R/3$, the smallest. Common mistake: choosing the largest resistance, which actually dissipates the least power.`, fixed: true };
+});
+
+mc('sr-m22', 'Two resistors and a real cell', ['b5-internal'], 2, (R) => {
+  const e = R.pick([1.5, 3.0, 4.5, 6.0, 9.0]), r = R.pick([0.50, 1.0, 1.5, 2.0]), Rr = R.pick([2.0, 4.0, 5.0, 10]), I = e / (2 * Rr + r);
+  return {
+    stem: L`A cell of emf $${e}\,\mathrm{V}$ and internal resistance $${r}\,\Omega$ is connected to two $${Rr}\,\Omega$ resistors in series. What is the current in the cell?`,
+    ...numMCQ(I, [e / (Rr + r), e / (2 * Rr), e / (Rr / 2 + r)], 2, L`\,\mathrm{A}`),
+    solution: L`$\varepsilon = I(R_\text{total} + r)$ with $R_\text{total} = 2 \times ${Rr} = ${2 * Rr}\,\Omega$: $I = \dfrac{${e}}{${2 * Rr} + ${r}} = ${sf(I, 2)}\,\mathrm{A}$. Common mistake: using one resistor in the data booklet equation instead of the total external resistance.`,
+  };
+});
+
+mc('sr-m23', 'Resistivity from a wire\'s diameter', ['b5-resist'], 2, (R) => {
+  const d = R.pick([0.20, 0.25, 0.30, 0.40, 0.50]) * 1e-3, Lw = R.pick([0.50, 0.80, 1.0, 1.5]), rho = R.pick([4.9e-7, 1.1e-6, 1.7e-8]), Rw = rho * Lw / (Math.PI * d * d / 4);
+  const Rs = +sf(Rw, 2).replace(/\\times\s*10\^\{(-?\d+)\}/, 'e$1');
+  const ans = Rs * Math.PI * d * d / (4 * Lw);
+  return {
+    stem: L`A wire of length $${Lw}\,\mathrm{m}$ and diameter $${sf(d * 1000, 2)}\,\mathrm{mm}$ has a resistance of $${sf(Rw, 2)}\,\Omega$. What is the resistivity of the metal?`,
+    ...numMCQ(ans, [Rs * Math.PI * d * d / Lw, Rs * Math.PI * d / (2 * Lw), ans * 1e6], 2, L`\,\Omega\,\mathrm{m}`),
+    solution: L`$\rho = \dfrac{RA}{L}$ with $A = \pi r^2 = \dfrac{\pi d^2}{4}$: $A = \dfrac{\pi \times (${sf(d, 2)})^2}{4} = ${sf(Math.PI * d * d / 4, 3)}\,\mathrm{m^2}$, so $\rho = ${sf(ans, 2)}\,\Omega\,\mathrm{m}$. Common mistakes: using the diameter as the radius, forgetting to square it, or not converting mm to m.`,
+  };
+});
+
+/* ---------- C Waves ---------- */
+mc('sr-m24', 'A mass between two springs', ['c1-period'], 3, (R) => {
+  const sides = R.pick([true, false]);
+  const o = txtMCQ(R, L`$\dfrac{T}{\sqrt2}$`, [L`$\dfrac{T}{2}$`, L`$\sqrt2\,T$`, L`$2T$`]);
+  return { stem: L`A mass on one spring oscillates with period $T$. The same mass is ${sides ? 'now attached between two identical copies of the spring, one on each side, on a smooth horizontal surface' : 'now hung from two identical copies of the spring side by side'}. What is the new period?`, ...o,
+    solution: L`For a small displacement $x$, ${sides ? 'one spring is stretched and the other compressed, so both pull the mass back' : 'both springs stretch by $x$'}: the restoring force is $2kx$, double the original. The acceleration at a given displacement doubles, so $\omega^2$ doubles and $\omega$ increases by $\sqrt2$. The period $T = \dfrac{2\pi}{\omega}$ falls to $\dfrac{T}{\sqrt2}$.` };
+});
+
+mc('sr-m25', 'Angle measured from the surface', ['c3-refr'], 2, (R) => {
+  const s = R.pick([30, 35, 40, 50, 55]), n = R.pick([1.33, 1.50, 1.52]), i = 90 - s, rr = deg(Math.asin(Math.sin(rad(i)) / n)), wr = deg(Math.asin(Math.sin(rad(s)) / n));
+  return {
+    stem: L`A ray of light in air strikes the flat surface of a block of refractive index $${n}$. The ray makes an angle of $${s}^\circ$ with the <b>surface</b>. What is the angle of refraction?`,
+    ...numMCQ(rr, [wr, 90 - rr, i], 2, '^\\circ'),
+    solution: L`Angles are measured from the <b>normal</b>: the angle of incidence is $90^\circ - ${s}^\circ = ${i}^\circ$. Then $\sin\theta_2 = \dfrac{\sin ${i}^\circ}{${n}}$, so $\theta_2 = ${sf(rr, 2)}^\circ$. Common mistake: using $${s}^\circ$ as the angle of incidence.`,
+  };
+});
+
+mc('sr-m26', 'Sources in antiphase', ['c3-inter'], 3, (R) => {
+  const k = R.int(0, 2);
+  const o = txtMCQ(R, 'Destructive: a minimum', ['Constructive: a maximum', 'Neither: the intensity is half the maximum', 'It depends on the wavelength']);
+  return { stem: L`Two loudspeakers emit sound of the same frequency and amplitude, but in <b>antiphase</b>. A microphone is at a point where the path difference from the two speakers is ${k === 0 ? 'zero' : k === 1 ? 'one whole wavelength' : 'two whole wavelengths'}. What kind of interference is detected there?`, ...o,
+    solution: L`The data booklet conditions (path difference $n\lambda$ for constructive) assume the sources are <b>in phase</b>. Here the sources start half a cycle apart, so a whole number of wavelengths of path difference leaves the waves still in antiphase: destructive interference. Adapt the conditions when there is a phase difference between the sources.`, fixed: true };
+});
+
+mc('sr-m27', 'A typical wavelength', ['c2-em'], 1, (R) => {
+  const [band, w, f] = R.pick([['visible light', '5\\times 10^{-7}\\,\\mathrm{m}', '6\\times 10^{14}\\,\\mathrm{m}'], ['microwaves', '1\\times 10^{-2}\\,\\mathrm{m}', '3\\times 10^{10}\\,\\mathrm{m}'], ['X-rays', '1\\times 10^{-10}\\,\\mathrm{m}', '3\\times 10^{18}\\,\\mathrm{m}']]);
+  const others = { 'visible light': ['1\\times 10^{-2}\\,\\mathrm{m}', '1\\times 10^{-10}\\,\\mathrm{m}'], microwaves: ['5\\times 10^{-7}\\,\\mathrm{m}', '1\\times 10^{3}\\,\\mathrm{m}'], 'X-rays': ['5\\times 10^{-7}\\,\\mathrm{m}', '1\\times 10^{-2}\\,\\mathrm{m}'] }[band];
+  const o = txtMCQ(R, `$${w}$`, [`$${f}$`, `$${others[0]}$`, `$${others[1]}$`]);
+  return { stem: `What is a typical wavelength of ${band}?`, ...o,
+    solution: L`${band[0].toUpperCase() + band.slice(1)}: about $${w}$. The option $${f}$ is the size of a typical <b>frequency</b> in hertz written with the wrong unit: a common mix-up between frequency and wavelength.`, fixed: true };
+});
+
+/* ---------- D Fields ---------- */
+mc('sr-m28', 'Field midway between opposite charges', ['d2-efield'], 2, (R) => {
+  const q = R.pick([2.0, 3.0, 4.0, 5.0]) * 1e-9, d = R.pick([0.10, 0.20, 0.30, 0.40]), k = 8.99e9, E = 8 * k * q / (d * d);
+  return {
+    stem: L`Charges of $+${sf(q * 1e9, 2)}\,\mathrm{nC}$ and $-${sf(q * 1e9, 2)}\,\mathrm{nC}$ are $${d}\,\mathrm{m}$ apart. What is the magnitude of the electric field strength midway between them?`,
+    ...numMCQ(E, [E / 2, E / 8, E / 4], 2, L`\,\mathrm{N\,C^{-1}}`),
+    solution: L`Each charge is $\dfrac{d}{2}$ away and gives $E_1 = \dfrac{kq}{(d/2)^2} = \dfrac{4kq}{d^2}$. For <b>opposite</b> charges both fields point the same way (towards the negative charge), so they add: $E = \dfrac{8kq}{d^2} = ${sf(E, 2)}\,\mathrm{N\,C^{-1}}$. Common misconception: the field is zero midway (true only for equal charges of the same sign).`,
+  };
+});
+
+mc('sr-m29', 'Potential difference along a slanted path', ['d2-pot', 'd3-efield'], 3, (R) => {
+  const E = R.pick([200, 500, 800, 1200]), s = R.pick([0.040, 0.050, 0.080, 0.10]), th = R.pick([30, 40, 60]), V = E * s * Math.cos(rad(th));
+  return {
+    stem: L`In a uniform electric field of strength $${E}\,\mathrm{V\,m^{-1}}$, a charge moves $${s}\,\mathrm{m}$ in a straight line at $${th}^\circ$ to the field lines. What is the magnitude of the potential difference between its start and end points?`,
+    ...numMCQ(V, [E * s, E * s * Math.sin(rad(th)), E / s], 2, L`\,\mathrm{V}`),
+    solution: L`Only the displacement <b>along</b> the field changes the potential: $\Delta V = E\,\Delta x = ${E} \times ${s}\cos ${th}^\circ = ${sf(V, 2)}\,\mathrm{V}$. Common mistake: using the whole displacement. (The potential falls in the direction of the field.)`,
+  };
+});
+
+mc('sr-m30', 'Field strength on a planet, given its diameter', ['d1-field'], 2, (R) => {
+  const M = R.pick([0.10, 0.50, 2.0, 5.0, 8.0]), D = R.pick([0.50, 2.0, 3.0]), g = 9.8 * M / (D * D);
+  return {
+    stem: L`A planet has $${M}$ times the mass of Earth and its <b>diameter</b> is $${D}$ times Earth's. The gravitational field strength at Earth's surface is $9.8\,\mathrm{N\,kg^{-1}}$. What is the field strength at the planet's surface?`,
+    ...numMCQ(g, [9.8 * M / D, 9.8 * M * D * D, 9.8 * M / (D * D / 4)], 2, L`\,\mathrm{N\,kg^{-1}}`),
+    solution: L`$g = \dfrac{GM}{r^2}$. The radius is $${D}$ times Earth's, the same ratio as the diameter. $g = 9.8 \times \dfrac{${M}}{${D}^2} = ${sf(g, 2)}\,\mathrm{N\,kg^{-1}}$. Common mistakes: forgetting to square the radius, or halving a ratio that applies equally to radius and diameter.`,
+  };
+});
+
+mc('sr-m31', 'The difference, not the value', ['d1-field'], 3, (R) => {
+  const h = R.pick([400, 1000, 2000, 6400]) * 1e3, Re = 6.37e6, g0 = 9.8, gh = g0 * (Re / (Re + h)) ** 2, dg = g0 - gh;
+  return {
+    stem: L`The gravitational field strength at Earth's surface is $9.8\,\mathrm{N\,kg^{-1}}$ and Earth's radius is $6.37\times10^{6}\,\mathrm{m}$. By how much is the field strength smaller at a height of $${sf(h / 1000, 2)}\,\mathrm{km}$ above the surface?`,
+    ...numMCQ(dg, [gh, g0 * h / Re, g0 * (h / Re) ** 2], 2, L`\,\mathrm{N\,kg^{-1}}`),
+    solution: L`$g \propto \dfrac{1}{r^2}$: $g_h = 9.8 \times \left(\dfrac{6.37\times10^{6}}{${sf(Re + h, 3)}}\right)^2 = ${sf(gh, 3)}\,\mathrm{N\,kg^{-1}}$. The question asks for the <b>difference</b>: $9.8 - ${sf(gh, 3)} = ${sf(dg, 2)}\,\mathrm{N\,kg^{-1}}$. Read the question carefully: many students give $g_h$ itself.`,
+  };
+});
+
+mc('sr-m32', 'Force on a moving electron', ['d3-bfield'], 2, (R) => {
+  const D = { east: [1, 0, 0], west: [-1, 0, 0], north: [0, 1, 0], south: [0, -1, 0], up: [0, 0, 1], down: [0, 0, -1] };
+  const name = (v) => Object.keys(D).find(k => D[k].every((x, i) => x === v[i]));
+  const [vv, bb] = R.pick([['east', 'up'], ['north', 'up'], ['east', 'north'], ['up', 'north'], ['west', 'down'], ['south', 'east']]);
+  const a = D[vv], b = D[bb], cr = [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+  const pos = name(cr), neg = name(cr.map(x => -x));
+  const rest = Object.keys(D).filter(k => ![neg, pos, bb, vv].includes(k));
+  const o = txtMCQ(R, neg[0].toUpperCase() + neg.slice(1), [pos[0].toUpperCase() + pos.slice(1), bb[0].toUpperCase() + bb.slice(1), rest[0][0].toUpperCase() + rest[0].slice(1)]);
+  return { stem: `An electron moves ${vv === 'up' || vv === 'down' ? vv + 'wards' : 'towards the ' + vv} through a uniform magnetic field directed ${bb === 'up' || bb === 'down' ? 'vertically ' + bb + 'wards' : 'towards the ' + bb}. In which direction is the magnetic force on the electron?`, ...o,
+    solution: L`For a positive charge the force is along $\vec v \times \vec B$, which here is ${pos}. The electron is <b>negative</b>, so the force is reversed: ${neg}. The force is always perpendicular to both the velocity and the field. Common mistakes: giving the direction of the field, or forgetting that the charge is negative.` };
+});
+
+/* ---------- E Nuclear and quantum ---------- */
+mc('sr-m33', 'Count rate and background', ['e3-halflife'], 2, (R) => {
+  const B = R.pick([20, 30, 40]), C0 = R.pick([420, 520, 680, 840]), n = R.pick([2, 3]), th = R.pick([30, 40, 50]), C = (C0 - B) / 2 ** n + B;
+  return {
+    stem: L`The count rate measured near a radioactive sample is $${C0}$ counts per minute, including a background of $${B}$ counts per minute. The half-life of the sample is $${th}\,\mathrm{s}$. What count rate is <b>measured</b> after $${n * th}\,\mathrm{s}$?`,
+    ...numMCQ(C, [C0 / 2 ** n, (C0 - B) / 2 ** n, C0 / 2 ** n + B], 3, L`\ \text{counts per minute}`),
+    solution: L`Only the sample's count rate halves: $${C0} - ${B} = ${C0 - B}$. After $${n}$ half-lives it is $\dfrac{${C0 - B}}{${2 ** n}} = ${sf((C0 - B) / 2 ** n, 3)}$. The detector still records the background, so the measured rate is $${sf((C0 - B) / 2 ** n, 3)} + ${B} = ${sf(C, 3)}$ counts per minute. Common mistake: forgetting to add the background back.`,
+  };
+});
+
+mc('sr-m34', 'Neutrons released in fission', ['e4-energy'], 2, (R) => {
+  const [p1, z1, a1, p2, z2, a2] = R.pick([['Ba', 56, 141, 'Kr', 36, 92], ['Ba', 56, 144, 'Kr', 36, 89], ['Xe', 54, 140, 'Sr', 38, 94], ['Xe', 54, 139, 'Sr', 38, 95], ['Cs', 55, 137, 'Rb', 37, 96]]), x = 236 - a1 - a2;
+  const o = txtMCQ(R, String(x), [String(x - 1), String(x + 1), String(x + 2)]);
+  return { stem: L`Complete the fission reaction: $^{235}_{92}\mathrm{U} + {}^{1}_{0}\mathrm{n} \rightarrow {}^{${a1}}_{${z1}}\mathrm{${p1}} + {}^{${a2}}_{${z2}}\mathrm{${p2}} + x\,{}^{1}_{0}\mathrm{n}$. What is $x$?`, ...o,
+    solution: L`Nucleon numbers balance: $235 + 1 = ${a1} + ${a2} + x$, so $x = ${x}$. (Proton numbers: $92 = ${z1} + ${z2}$ ✓.) Common mistake: forgetting the incoming neutron, which gives $${x - 1}$.` };
+});
+
+mc('sr-m35', 'Ratio of photon energies in hydrogen', ['e1-bohr', 'e1-spectra'], 3, (R) => {
+  const [na, nb] = R.pick([[2, 3], [2, 4], [3, 4]]);
+  const fr = (n) => 1 - 1 / (n * n), r = fr(na) / fr(nb);
+  const toFrac = (x) => { for (let d = 1; d <= 200; d++) { const n = Math.round(x * d); if (Math.abs(n / d - x) < 1e-9) return [n, d]; } return [x, 1]; };
+  const [p, q] = toFrac(r), [p2, q2] = toFrac(nb * nb / (na * na)), [p3, q3] = toFrac(1 / r);
+  const F = (a, b) => `$\\dfrac{${a}}{${b}}$`;
+  const o = txtMCQ(R, F(p, q), [F(p2, q2), F(p3, q3), F(na, nb)]);
+  return { stem: L`In hydrogen, $E_n = -\dfrac{13.6}{n^2}\,\mathrm{eV}$. What is $\dfrac{\text{energy of the photon emitted in the transition } n = ${na} \to 1}{\text{energy of the photon emitted in the transition } n = ${nb} \to 1}$?`, ...o,
+    solution: L`Photon energy = energy <b>difference</b>: $13.6\left(1 - \dfrac{1}{${na * na}}\right)$ and $13.6\left(1 - \dfrac{1}{${nb * nb}}\right)$. The ratio is $\dfrac{${na * na - 1}/${na * na}}{${nb * nb - 1}/${nb * nb}} = \dfrac{${p}}{${q}}$. Common mistake: taking the ratio of the energy levels $E_${na}/E_${nb} = \dfrac{${p2}}{${q2}}$ instead of the energy differences.` };
+});
+
+mc('sr-m36', 'Keeping a reactor steady', ['e4-reactor'], 2, (R) => {
+  const n = R.pick([2, 3, 4]);
+  const o = txtMCQ(R, String(n - 1), [String(n), '1', String(n + 1), '0'].filter(x => x !== String(n - 1)).slice(0, 3));
+  return { stem: L`On average each fission in a reactor releases ${n} neutrons. To keep the rate of fission constant, how many of these neutrons, on average, must be absorbed by the control rods, the moderator, the walls or other nuclei without causing fission?`, ...o,
+    solution: L`For a steady rate each fission must cause exactly <b>one</b> more fission. The other $${n} - 1 = ${n - 1}$ neutrons must be absorbed (or escape) without causing fission.`, fixed: true };
+});
+
+mc('sr-m37', 'Why fusion needs high temperatures', ['e5-fusion'], 1, (R) => {
+  const o = txtMCQ(R, 'Nuclei need high kinetic energies to overcome their electrostatic repulsion.', ['Nuclei need high kinetic energies to overcome the strong nuclear force.', 'High temperatures are needed to split nuclei apart.', 'High temperatures are needed to remove the electrons from the nuclei.']);
+  return { stem: 'Why does nuclear fusion in a star require a very high temperature?', ...o,
+    solution: L`Nuclei are positively charged and repel. Only at very high temperatures do they move fast enough to get close enough (about $10^{-15}\,\mathrm{m}$) for the attractive strong nuclear force to bind them. Splitting nuclei is fission, not fusion.`, fixed: true };
+});
+
+mc('sr-m38', 'Evidence of helium in the Sun', ['e1-spectra', 'e5-hr'], 2, (R) => {
+  const o = txtMCQ(R, 'Dark absorption lines in the solar spectrum at the wavelengths of helium', ['Helium collected from the Sun by space probes', 'The Sun is a main sequence star, so it must contain helium', 'The Sun emits a continuous spectrum']);
+  return { stem: 'Which observation provides evidence that helium is present in the outer layers of the Sun?', ...o,
+    solution: L`Gas in the Sun's outer layers absorbs light at the wavelengths characteristic of its elements, giving <b>absorption</b> lines in the spectrum. Helium was first identified this way. Being on the main sequence tells us how the star produces energy, not which elements we observe.`, fixed: true };
+});
+
+/* ---------- Paper 1B: built on the teacher's FE2016 investigations ---------- */
+Q.push({
+  id: 'sr-b01', title: 'Verifying Boyle\'s law', paper: '1B', strands: ['b3-laws', 's-lin', 's-graph', 's-unc'], chili: 2, marks: 9,
+  gen(R) {
+    const nRT = R.pick([2.5, 3.0, 3.5, 4.0]), vs = [10, 12.5, 15, 20, 25, 30];
+    const rows = vs.map(V => ({ V, P: +(nRT / (V * 1e-6) / 1e3 * (1 + R.noise(0.015))).toFixed(0) }));
+    const pts = rows.map(r => [+(1 / r.V).toFixed(4), r.P]), fit = linfit(pts), xMax = 0.12, yMax = Math.ceil(fit.m * xMax / 500) * 500;
+    const svg = graph({ xMax, xStep: 0.02, yMax, yStep: niceStep(yMax, 5), xLabel: '1/V / cm⁻³', yLabel: 'P / kPa', points: pts.map(p => ({ x: p[0], y: p[1] })), aria: 'pressure against one over volume' });
+    const nRTest = fit.m * 1e3 * 1e-6, n = nRTest / (8.31 * 293);
+    return {
+      intro: L`Air is trapped in a sealed syringe connected to a pressure sensor. The plunger is pushed in slowly and the pressure $P$ is recorded at each volume $V$. The room temperature is $20\,^\circ\mathrm{C}$. The volume scale is read to $\pm0.5\,\mathrm{cm^3}$.` + table(['$V$ / cm³', '$P$ / kPa'], rows.map(r => [String(r.V), String(r.P)])) + `${svg}`,
+      parts: [
+        { label: 'a', cmd: 'Explain', marks: 2, prompt: L`why the plunger is pushed in slowly.`, mps: [L`work done on the gas raises its temperature if it is compressed quickly ✓`, L`slowly gives time for thermal energy to leave, so the temperature stays constant «as Boyle's law requires» ✓`] },
+        { label: 'b', cmd: 'Calculate', marks: 2, prompt: L`the percentage uncertainty in the smallest volume and in the largest volume.`, mps: [L`$\dfrac{0.5}{10} \times 100 = 5\%$ ✓`, L`$\dfrac{0.5}{30} \times 100 \approx 2\%$ ✓`] },
+        { label: 'c', cmd: 'Outline', marks: 2, prompt: L`how the graph shows that $P$ is inversely proportional to $V$.`, mps: [L`the points lie on a straight line ✓`, L`that passes through the origin ✓`] },
+        { label: 'd', cmd: 'Determine', marks: 3, prompt: L`the amount of air in the syringe, in mol.`, mps: [L`gradient $\approx ${sf(fit.m, 2)}\,\mathrm{kPa\,cm^3}$ ✓`, L`gradient $= nRT$; convert: $${sf(fit.m, 2)} \times 10^{3} \times 10^{-6} = ${sf(nRTest, 2)}\,\mathrm{J}$ ✓`, L`$n = \dfrac{${sf(nRTest, 2)}}{8.31 \times 293} = ${sf(n, 2)}\,\mathrm{mol}$ ✓`] },
+      ],
+    };
+  },
+});
+
+Q.push({
+  id: 'sr-b02', title: 'A cell\'s emf and internal resistance from a V–I graph', paper: '1B', strands: ['b5-internal', 's-graph', 's-unc', 's-err'], chili: 2, marks: 8,
+  gen(R) {
+    const e = R.pick([1.50, 1.55, 1.60]), r = R.pick([0.60, 0.80, 1.0, 1.2]), Is = [0.10, 0.20, 0.30, 0.40, 0.50, 0.60];
+    const rows = Is.map(I => ({ I, V: +((e - I * r) + R.noise(0.012)).toFixed(2) }));
+    const fit = linfit(rows.map(x => [x.I, x.V])), yMin = Math.floor((e - 0.7 * r) * 10) / 10 - 0.1;
+    const svg = graph({ xMax: 0.7, xStep: 0.1, yMin, yMax: Math.ceil(e * 10) / 10 + 0.1, yStep: 0.1, xLabel: 'I / A', yLabel: 'V / V', points: rows.map(x => ({ x: x.I, y: x.V, ey: 0.02 })), aria: 'terminal pd against current' });
+    return {
+      intro: L`A cell is connected to a variable resistor and an ammeter, with a voltmeter across the cell. The resistance is changed and the terminal potential difference $V$ is recorded for each current $I$. The voltmeter readings are uncertain by $\pm0.02\,\mathrm{V}$.` + table(['$I$ / A', '$V$ / V'], rows.map(x => [x.I.toFixed(2), x.V.toFixed(2)])) + `${svg}`,
+      parts: [
+        { label: 'a', cmd: 'Draw', marks: 1, prompt: L`the line of best fit.`, mps: [L`a single straight line with the points balanced about it, within the error bars ✓`] },
+        { label: 'b', cmd: 'Determine', marks: 2, prompt: L`the emf of the cell.`, mps: [L`$V = \varepsilon - Ir$, so $\varepsilon$ is the intercept on the $V$ axis ✓`, L`$\varepsilon \approx ${sf(fit.c, 3)}\,\mathrm{V}$ ✓`] },
+        { label: 'c', cmd: 'Determine', marks: 2, prompt: L`the internal resistance of the cell.`, mps: [L`gradient $= -r$, using two points far apart <b>on the line</b>, not data points ✓`, L`$r \approx ${sf(-fit.m, 2)}\,\Omega$ ✓`] },
+        { label: 'd', cmd: 'Outline', marks: 2, prompt: L`how to find the uncertainty in $r$ from the graph.`, mps: [L`draw the steepest and shallowest lines that pass through all the error bars ✓`, L`uncertainty $= \dfrac{\text{max gradient} - \text{min gradient}}{2}$ ✓`] },
+        { label: 'e', cmd: 'Suggest', marks: 1, prompt: L`why the current should be switched off between readings.`, mps: [L`the cell / wires warm up, changing the internal resistance / emf ✓`] },
+      ],
+    };
+  },
+});
+
+Q.push({
+  id: 'sr-b03', title: 'Density of salt water', paper: '1B', strands: ['b1-molec', 's-unc', 's-prec'], chili: 2, marks: 7,
+  gen(R) {
+    const V = R.pick([50.0, 60.0, 80.0]), dV = 0.5, rho = R.pick([1020, 1030, 1050, 1080]), m = +(rho * V * 1e-6 * 1000).toFixed(1), dm = 0.1;
+    const rr = m / V * 1000, pc = (dm / m + dV / V) * 100, dr = rr * pc / 100;
+    const d1 = Number(sf(dr, 1)), dec = Math.max(0, -Math.floor(Math.log10(d1)));
+    return {
+      intro: L`A student finds the density of salt water. She pours $${V.toFixed(1)}\,\mathrm{cm^3}$ of it into a measuring cylinder (uncertainty $\pm0.5\,\mathrm{cm^3}$) and finds its mass on a balance as $${m.toFixed(1)}\,\mathrm{g}$ (uncertainty $\pm0.1\,\mathrm{g}$).`,
+      parts: [
+        { label: 'a', cmd: 'Calculate', marks: 1, prompt: L`the density of the salt water in $\mathrm{kg\,m^{-3}}$.`, mps: [L`$\rho = \dfrac{m}{V} = \dfrac{${m.toFixed(1)}\times10^{-3}}{${V.toFixed(1)}\times10^{-6}} = ${sf(rr, 4)}\,\mathrm{kg\,m^{-3}}$ ✓`] },
+        { label: 'b', cmd: 'Determine', marks: 2, prompt: L`the absolute uncertainty in the density.`, mps: [L`fractional uncertainties add: $\dfrac{0.1}{${m.toFixed(1)}} + \dfrac{0.5}{${V.toFixed(1)}} = ${sf(pc / 100, 2)}$ «$${sf(pc, 2)}\%$» ✓`, L`$\Delta\rho = ${sf(dr, 2)}\,\mathrm{kg\,m^{-3}}$ ✓`] },
+        { label: 'c', cmd: 'State', marks: 1, prompt: L`the density with its uncertainty, to an appropriate precision.`, mps: [L`$(${(Math.round(rr / d1) * d1).toFixed(dec)} \pm ${d1})\,\mathrm{kg\,m^{-3}}$: uncertainty to 1 significant figure, value to the same decimal place ✓`] },
+        { label: 'd', cmd: 'Suggest', marks: 2, prompt: L`how the student could make this single measurement more accurate. Repeating it is not an answer.`, mps: [L`read the volume at eye level from the bottom of the meniscus ✓`, L`use a larger volume / a measuring cylinder with finer divisions, so the percentage uncertainty is smaller / tare the balance with the empty cylinder ✓`] },
+        { label: 'e', cmd: 'Explain', marks: 1, prompt: L`why converting units does not change the percentage uncertainty.`, mps: [L`the value and its absolute uncertainty are converted by the same factor ✓`] },
+      ],
+    };
+  },
+});
+
+/* ---------- Paper 2 ---------- */
+Q.push({
+  id: 'sr-p01', title: 'An oil droplet rising through water', paper: '2', strands: ['a2-adv', 'a1-fluid', 'a2-newton'], chili: 3, marks: 9,
+  gen(R) {
+    const ro = R.pick([850, 880, 900]), rw = 1000, r = R.pick([0.40, 0.50, 0.60]) * 1e-3, eta = 1.0e-3, V = 4 / 3 * Math.PI * r ** 3;
+    const Fb = rw * V * 9.8, W = ro * V * 9.8, a = (Fb - W) / (ro * V), vt = (Fb - W) / (6 * Math.PI * eta * r);
+    return {
+      intro: L`A spherical oil droplet of radius $${sf(r * 1000, 2)}\,\mathrm{mm}$ and density $${ro}\,\mathrm{kg\,m^{-3}}$ is released from rest deep in still water of density $1000\,\mathrm{kg\,m^{-3}}$ and viscosity $1.0\times10^{-3}\,\mathrm{Pa\,s}$.`,
+      parts: [
+        { label: 'a', cmd: 'Calculate', marks: 2, prompt: L`the buoyant force on the droplet.`, mps: [L`$V = \tfrac43\pi r^3 = ${sf(V, 3)}\,\mathrm{m^3}$ ✓`, L`$F_b = \rho_w Vg = ${sf(Fb, 3)}\,\mathrm{N}$ «using the density of <b>water</b>» ✓`] },
+        { label: 'b', cmd: 'Determine', marks: 2, prompt: L`the initial acceleration of the droplet.`, mps: [L`resultant force $= F_b - mg = ${sf(Fb - W, 3)}\,\mathrm{N}$ «the weight must be included» ✓`, L`$a = \dfrac{F_b - mg}{\rho_o V} = ${sf(a, 2)}\,\mathrm{m\,s^{-2}}$ upwards ✓`] },
+        { label: 'c', cmd: 'Explain', marks: 2, prompt: L`why the droplet reaches a terminal speed as it <b>rises</b>.`, mps: [L`the drag force acts downwards, opposing the upward motion, and increases with speed ✓`, L`at terminal speed the drag and weight together balance the buoyant force, so the resultant force is zero ✓`] },
+        { label: 'd', cmd: 'Calculate', marks: 3, prompt: L`the terminal speed of the droplet.`, mps: [L`$6\pi\eta rv = F_b - mg$ ✓`, L`$v = \dfrac{${sf(Fb - W, 3)}}{6\pi \times 1.0\times10^{-3} \times ${sf(r, 2)}}$ ✓`, L`$v = ${sf(vt, 2)}\,\mathrm{m\,s^{-1}}$ ✓`] },
+      ],
+    };
+  },
+});
+
 /* ===== Consistency: any question that uses an HL-only strand is an HL question (badge, SL filtering, class codes) ===== */
 (() => {
   const HL = new Set(TOPICS.flatMap(t => t.strands.filter(s => s.hl || t.hl).map(s => s.id)));
@@ -15740,7 +16173,7 @@ function tname0(id) { return id.replace('.', ''); }
 
 </script>
 <script>
-const FOOTER_TEXT = 'Questions are original and written in the style of the IB DP Physics course (first assessment 2025).<br>Developed by <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a> using Claude. Licensed under CC BY-NC-SA 4.0.<br>Version 1.3 Beta · Last updated: 5 November 2026';
+const FOOTER_TEXT = 'Questions are original and written in the style of the IB DP Physics course (first assessment 2025).<br>Developed by <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a> using Claude. Licensed under CC BY-NC-SA 4.0.<br>Version 1.4 Beta · Last updated: 6 November 2026';
 /* ===== MVPhysics Lab — app ===== */
 (function () {
   'use strict';
@@ -15969,7 +16402,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   }
 
   /* ---------- question rendering ---------- */
-  const APP_VERSION = '1.3 Beta';
+  const APP_VERSION = '1.4 Beta';
   const INFO_ICON = '<svg class="info-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M12 10.6v6.2"/><circle class="dot" cx="12" cy="7.4" r="1.15"/></svg>';
   /* Report a problem: copies the exact question (id + seed) so the teacher can recreate what the student saw */
   /* ---------- Report a problem / feedback, everywhere ----------
@@ -15994,12 +16427,12 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   }
   function copyText(text, ok) { (navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject()).then(ok, () => { const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); ok(); } catch (err) { /* ignore */ } ta.remove(); }); }
   // Send Report: set the link's address at click time so it carries the student's note and the current page
-  // Exam Mode: send a one-line summary of the results to the teacher's form
+  // Test Mode: send a one-line summary of the results to the teacher's form
   document.addEventListener('click', (e) => {
     const a = e.target.closest('#exSend'); if (!a || !EX || EX.phase !== 'review') return;
     const r = exScore(), used = (EX.finishedAt - EX.start) / 1000;
     const papers = PAPERS.filter(p => EX.items.some(x => x.q.paper === p)).map(p => { const its = EX.items.filter(x => x.q.paper === p); const got = its.reduce((n, x) => n + (p === '1A' ? (x.answer === x.inst.answer ? 1 : 0) : writtenScore(x.inst, x.ticks)), 0); return `${PAPER_NAME[p]} ${got}/${its.reduce((n, x) => n + x.q.marks, 0)}`; }).join(' · ');
-    const f = { type: 'Exam results', id: EX.code ? EX.code.str : String(EX.seed), title: `Score ${r.score}/${EX.total} (${r.pct}%) · est. grade ${r.grade} · ${EX.hl ? 'HL' : 'SL'}${r.unmarked ? ' · written not marked' : ''}`, paper: papers, seed: EX.code ? '' : EX.seed, where: `Exam Mode · ${fmtClock(used)} used of ${fmtClock(EX.allowed)}${EX.pauses ? ` · paused ${EX.pauses}× (${fmtClock(EX.pausedMs / 1000)})` : ''}`, version: APP_VERSION };
+    const f = { type: 'Exam results', id: EX.code ? EX.code.str : String(EX.seed), title: `Score ${r.score}/${EX.total} (${r.pct}%) · est. grade ${r.grade} · ${EX.hl ? 'HL' : 'SL'}${r.unmarked ? ' · written not marked' : ''}`, paper: papers, seed: EX.code ? '' : EX.seed, where: `Test Mode · ${fmtClock(used)} used of ${fmtClock(EX.allowed)}${EX.pauses ? ` · paused ${EX.pauses}× (${fmtClock(EX.pausedMs / 1000)})` : ''}`, version: APP_VERSION };
     a.href = formURL(f, ''); toast('Form opened in a new tab. Press Submit there to send your results.');
   }, true);
   document.addEventListener('click', (e) => {
@@ -16011,7 +16444,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     if (note && !FORM.note) copyText(note, () => toast('Form opened. Your note is copied: paste it into the form.'));
     else toast('Form opened in a new tab. Press Submit there to send it.');
   }, true);
-  const VIEW_NAME = { welcome: 'Welcome', practice: 'Practice', exam: 'Exam Mode', blitz: 'Games', recall: 'Recall', notes: 'Notes', stats: 'Stats', about: 'About' };
+  const VIEW_NAME = { welcome: 'Welcome', practice: 'Practice', exam: 'Test Mode', blitz: 'Games', recall: 'Recall', notes: 'Notes', stats: 'Stats', about: 'About' };
   function reportFields(kind, ref, seed, where) {
     const f = { type: kind === 'general' ? 'General feedback' : 'Problem', id: ref, title: '', paper: '', seed: seed || '', where, version: APP_VERSION };
     if (kind === 'question') { const q = Q.find(x => x.id === ref); if (q) { f.title = q.title; f.paper = PAPER_NAME[q.paper]; } }
@@ -16051,7 +16484,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   function partPrompt(p) { return /^[A-Z]/.test(p.prompt) ? p.prompt : `<span class="cmd">${p.cmd}</span> ${p.prompt}`; }
   function msBlock(p, ticks, key, readonly) {
     const maxNote = p.mps.length > p.marks ? ` <span class="pscore">[max ${p.marks}]</span>` : '';
-    // Exam Mode keys are "question:part" but its ticks are stored by part label
+    // Test Mode keys are "question:part" but its ticks are stored by part label
     const t = ticks[key.includes(':') ? key.split(':')[1] : key] || [];
     const got = Math.min(p.marks, t.filter(Boolean).length);
     return `<div class="ms" data-part="${key}"><h4>Markscheme${maxNote}</h4>
@@ -16162,8 +16595,8 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   /* ======================= EXAM ======================= */
   let EX = null, exTimer = null;
 
-  /* ---------- Pause: stops the timer in Practice (pace coach), Exam Mode, Blitz Classic and Match It!. Not in Last Man Standing.
-     While paused the question is hidden behind an overlay. Exam Mode records the number of pauses and the total time paused. ---------- */
+  /* ---------- Pause: stops the timer in Practice (pace coach), Test Mode, Blitz Classic and Match It!. Not in Last Man Standing.
+     While paused the question is hidden behind an overlay. Test Mode records the number of pauses and the total time paused. ---------- */
   let PZ = null, pzTimer = null;
   const PAUSE_NAME = { practice: 'the pace coach', exam: 'your exam', blitz: 'Blitz', match: 'Match It!' };
   const pauseBtn = (kind) => `<button class="btn sm pause-btn" type="button" data-pause="${kind}" aria-label="Pause the timer" data-tip="Pause the timer (eg for a break). The question is hidden while paused."><svg viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" style="vertical-align:-1px;margin-right:5px"><rect x="2" y="1.5" width="2.8" height="9" rx="0.8" fill="currentColor"/><rect x="7.2" y="1.5" width="2.8" height="9" rx="0.8" fill="currentColor"/></svg>Pause</button>`;
@@ -16264,7 +16697,20 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     const t = String(str).toUpperCase().replace(new RegExp('^\\s*' + prefix), '').replace(/[^0-9A-Z]/g, '').replace(/O/g, '0').replace(/[IL]/g, '1');
     if (!t) return null; let big = 0n; for (const ch of t) { const v = B32.indexOf(ch); if (v < 0) return null; big = big * 32n + BigInt(v); } return big;
   };
-  const group = (pre, t) => { const n = Math.ceil(t.length / 5), k = Math.ceil(t.length / n); return pre + '-' + t.match(new RegExp(`.{1,${k}}`, 'g')).join('-'); };
+  const group = (pre, t) => pre + '-' + t.match(/.{1,4}/g).join('-'); // 1.4: groups of 4, the same as the code boxes
+  const CODE_KIND = { MVP: 'Test Mode class code (use it in Test Mode)', LMS: 'Last Man Standing code (use it in Games → Last Man Standing)' };
+  const wrongKind = (val, want) => { const m = String(val).trim().toUpperCase().match(/^([A-Z]+)-/); return m && m[1] !== want && CODE_KIND[m[1]] ? `That's a ${CODE_KIND[m[1]]}.` : ''; };
+  // code boxes: keep the mode's prefix, capitalise, and add a dash every 4 characters as you type (1.4)
+  function fmtCodeBox(el) {
+    let raw = el.value.toUpperCase().trim(), pre = el.dataset.prefix, m;
+    // strip any prefixes at the start (a pasted code may repeat the one already in the box); keep the last one seen
+    while ((m = raw.match(/^([A-Z]{2,4})-/)) && CODE_KIND[m[1]]) { pre = m[1]; raw = raw.slice(m[0].length); }
+    if (raw.startsWith(el.dataset.prefix) && raw.length <= el.dataset.prefix.length) raw = '';
+    const body = raw.replace(/[^0-9A-Z]/g, '');
+    el.value = pre + '-' + (body.match(/.{1,4}/g) || []).join('-');
+  }
+  document.addEventListener('input', (e) => { const el = e.target; if (el && el.classList && el.classList.contains('codein')) fmtCodeBox(el); });
+  document.addEventListener('keydown', (e) => { const el = e.target; if (el && el.classList && el.classList.contains('codein') && e.key === 'Enter') { const b = el.parentElement.querySelector('#exUse, #lmsUse'); if (b) { e.preventDefault(); b.click(); } } });
   const maskBits = (items, order) => { let m = 0n; order.forEach((x, i) => { if (items.includes(x)) m |= 1n << BigInt(i); }); return m; };
   const maskRead = (bits, order) => { const out = []; for (let i = 0; i < bits.length; i++) if (bits[bits.length - 1 - i] === '1' && order[i]) out.push(order[i]); return out; };
   const liveStrandsOf = (topics, sl) => ALL_STRANDS.filter(x => STRAND[x.id].live && topics.includes(STRAND[x.id].topic) && !(sl && x.hl)).map(x => x.id);
@@ -16354,7 +16800,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
         const c = EX.code;
         length = `<div class="codebox"><div class="code-str num">${c.str}</div><div class="small">Topics: <b>${topicsOf(c.strands)}</b></div><div class="small">${marksLine(c.marks)}</div>
           ${c.fpOk ? '' : '<p class="warn small">This code was made with a different version of the question bank, so your paper may not match your classmates\' papers. Ask for a new code.</p>'}
-          <div class="row"><button class="btn sm" id="exCopy">Copy</button><button class="linkbtn" id="exClear">Stop using this code</button><span class="muted small">Overrides your selection.</span></div></div>`;
+          <div class="row"><button class="btn sm" id="exCopy">Copy</button><button class="btn sm btn-clear" id="exClear">Clear</button><span class="muted small">Overrides your selection.</span></div></div>`;
       } else {
         const m = currentMarks();
         length = `<div class="seg" role="group" aria-label="Paper length">${seg('exmode', 'paper', 'IB paper', EX.mode === 'paper')}${seg('exmode', 'ib', 'IB proportions', EX.mode === 'ib')}${seg('exmode', 'custom', 'Custom marks', EX.mode === 'custom')}</div>` +
@@ -16366,16 +16812,16 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
           `<p class="exsum small" id="exSum">${marksLine(m)}</p>`;
       }
       const fin = EX.strict ? 'Answers lock when time runs out.' : 'Keep going after time runs out; overtime is recorded.';
-      main.innerHTML = head('Exam Mode 📝', 'A timed paper from your selection. Answers stay hidden until you finish.') + (n || EX.code ? `
+      main.innerHTML = head('Test Mode 📝', 'A timed paper from your selection. Answers stay hidden until you finish.') + (n || EX.code ? `
         <section class="panel exset">
           <div class="exrow"><div class="exlab">${EX.code ? 'Class code' : 'Length'}</div><div class="exctl">${length}</div></div>
           <div class="exrow"><div class="exlab">Finish</div><div class="exctl"><div class="seg" role="group" aria-label="Finish">${seg('exfin', 'strict', 'Strict', EX.strict)}${seg('exfin', 'soft', 'Soft', !EX.strict)}</div><span class="muted small">${fin}</span></div></div>
           <div class="exrow"><div class="exlab">Countdown</div><div class="exctl"><div class="seg" role="group" aria-label="Countdown">${seg('exclock', 'show', 'Show', !EX.hideClock)}${seg('exclock', 'hide', 'Hide', EX.hideClock)}</div></div></div>
           ${EX.code ? '' : `<div class="exrow"><div class="exlab">Class code <span class="exopt">optional</span></div><div class="exctl">
-            <div class="codeform"><input type="text" id="exCodeIn" placeholder="MVP-…" autocomplete="off" spellcheck="false" aria-label="Class code"><button class="btn sm" id="exUse">Use</button><button class="linkbtn" id="exMake">Create one</button></div>
+            <div class="codeform"><input type="text" id="exCodeIn" class="codein" data-prefix="MVP" value="MVP-" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Class code (starts MVP-)"><button class="btn sm" id="exUse">Use</button><span class="muted small">or</span><button class="btn primary sm" id="exMake">Make a Code</button></div>
             <span class="muted small">Same code, same questions and values for everyone.</span></div></div>`}
           <div class="exgo"><div class="row"><button class="btn primary" id="exStart">Start</button><button class="btn" id="wsOpen">🖨 Print</button><button class="btn" id="wsMake">⬇ Download</button></div>
-            <label class="switch small ws-cover"><input type="checkbox" id="wsCover" ${WS.cover !== false ? 'checked' : ''}> IB-style test: cover sheet and Paper 1A answer sheet first (print and place on desks before a test)</label>
+            <div class="ws-cover-row"><label class="switch small ws-cover"><input type="checkbox" id="wsCover" ${WS.cover === true ? 'checked' : ''}> <b>Exam mode</b> <span class="muted">(cover sheet, answer sheet, IB order)</span></label><button type="button" class="sinfo" aria-label="What Exam mode does" data-tip="Exam mode prints the paper like a real IB exam: a cover sheet with instructions, marks and time; a 40-row Paper 1A answer sheet; Paper 1A, 1B and 2 in IB order; then a question overview and the markschemes. Off: just the questions, then the markschemes.">i</button></div>
             <p class="muted small" id="wsStatus">Print opens the paper in a new tab and the print window straight away (choose a printer, or Save as PDF) with IB-style answer boxes and the markscheme at the end. Papers include their class code.</p></div>
         </section>` : emptySel());
       return;
@@ -16391,7 +16837,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     if (q.paper === '1A') body = `<div class="qbody">${inst.stem}</div>${optionsHTML(inst, it.answer, false)}`;
     else body = `<div class="qbody">${inst.intro}</div><div class="parts">${inst.parts.map(p => `<div class="part"><span class="plabel">(${p.label})</span><div class="pbody qbody">${partPrompt(p)}</div><span class="pmarks">[${p.marks}]</span><textarea data-text="${p.label}" placeholder="Optional: type here, or answer on paper" aria-label="Answer to part ${p.label}">${esc(it.texts[p.label] || '')}</textarea></div>`).join('')}</div>
       <label class="switch"><input type="checkbox" id="exDone" ${it.done ? 'checked' : ''}> I've finished this question</label>`;
-    main.innerHTML = head('Exam Mode 📝', `${EX.items.length} questions · ${EX.total} marks · ${fmtClock(EX.allowed)} allowed`) + `
+    main.innerHTML = head('Test Mode 📝', `${EX.items.length} questions · ${EX.total} marks · ${fmtClock(EX.allowed)} allowed`) + `
       <div class="instrument ex-inst"><div id="exInst"></div>${pauseBtn('exam')}</div>
       <div class="palette" role="group" aria-label="Questions">${EX.items.map((x, i) => `<button data-go="${i}" class="${x.answer !== null || x.done ? 'answered' : ''} ${i === EX.cur ? 'current' : ''}" aria-label="Question ${i + 1}">${i + 1}</button>`).join('')}</div>
       <article class="sheet" id="sheet"><div class="qmeta"><span class="paper">${PAPER_NAME[q.paper]}</span><span class="marks">Question ${EX.cur + 1} [${q.marks} mark${q.marks > 1 ? 's' : ''}]</span></div>${body}</article>
@@ -16419,7 +16865,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     if (!EX || EX.phase !== 'run') return;
     exSwitch(EX.cur); EX.finishedAt = now(); EX.phase = 'review'; clearInterval(exTimer);
     const main = $('#main'); if (currentView() === 'exam') { renderExam(main); window.scrollTo({ top: 0 }); }
-    else toast('Time is up. Your paper is ready to mark in Exam mode.');
+    else toast('Time is up. Your paper is ready to mark in Test Mode.');
   }
   /* Estimated DP grade from the percentage scored. Minimum % for grades 7, 6, 5, 4, 3, 2: typical of recent IB DP Physics overall boundaries.
      Real FE2025 boundaries are set each session and include the IA, so this is only a guide. */
@@ -16463,10 +16909,10 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
         let b;
         if (q.paper === '1A') b = `<div class="qbody">${inst.stem}</div>${optionsHTML(inst, x.answer, true)}<div class="verdict ${x.answer === inst.answer ? 'ok' : 'no'}">${x.answer === null ? 'Not answered.' : x.answer === inst.answer ? 'Correct' : 'Incorrect'} <span class="muted small num">${fmtMin(x.time / 1000)}</span></div><details class="solution"><summary class="small">Worked Solution</summary><div class="qbody">${inst.solution}</div></details>`;
         else b = `<div class="qbody">${inst.intro}</div><div class="parts">${inst.parts.map(p => `<div class="part"><span class="plabel">(${p.label})</span><div class="pbody qbody">${partPrompt(p)}</div><span class="pmarks">[${p.marks}]</span>${x.texts[p.label] ? `<div class="ms" style="border-left-color:var(--line)"><span class="muted small">Your answer</span><div>${esc(x.texts[p.label])}</div></div>` : ''}${msBlock(p, x.ticks, i + ':' + p.label, EX.saved)}</div>`).join('')}</div>`;
-        return `<article class="sheet exam-item"><div class="qmeta"><span class="paper">${PAPER_NAME[q.paper]}</span>${chiliIcon(q.chili)}<span class="marks">Question ${i + 1} [${q.marks}]</span><span>${esc(q.title)}</span><span class="num">${fmtMin(x.time / 1000)}</span></div>${b}${reportBox(q, x.seed, 'Exam Mode' + (EX.code ? ' ' + EX.code.str : ''))}</article>`;
+        return `<article class="sheet exam-item"><div class="qmeta"><span class="paper">${PAPER_NAME[q.paper]}</span>${chiliIcon(q.chili)}<span class="marks">Question ${i + 1} [${q.marks}]</span><span>${esc(q.title)}</span><span class="num">${fmtMin(x.time / 1000)}</span></div>${b}${reportBox(q, x.seed, 'Test Mode' + (EX.code ? ' ' + EX.code.str : ''))}</article>`;
       }).join('')}
-      <div class="row">${EX.saved ? '<span class="pill good">Results saved to your stats</span>' : '<button class="btn primary" id="exSave">Save Results to My Stats</button>'}<button class="btn" id="exPrint">🖨 Print Results</button><button class="btn" id="exDownload">⬇ Download Results</button>${FORM.url ? `<a class="btn send-report" id="exSend" href="${FORM.url}" target="_blank" rel="noopener">📤 Send Results to Teacher ↗</a>` : ''}<button class="btn" id="exNew">New Paper</button></div>
-      <p class="muted small" id="exDlStatus">Print results opens them in a new tab with the print window (choose a printer, or Save as PDF). The file has every question, your answers, the markschemes you ticked, your score, time, pauses and estimated grade. Send results to teacher opens your teacher’s Google Form with your score filled in.</p>`;
+      <div class="row">${EX.saved ? '<span class="pill good">Results saved to your stats</span>' : '<button class="btn primary" id="exSave">Save Results to My Stats</button>'}<button class="btn" id="exPrint">🖨 Print Results</button><button class="btn" id="exDownload">⬇ Download Results</button><button class="btn" id="exNew">New Paper</button></div>
+      <p class="muted small" id="exDlStatus">Print results opens them in a new tab with the print window (choose a printer, or Save as PDF). The file has every question, your answers, the markschemes you ticked, your score, time, pauses and estimated grade.</p>`;
     $$('.exam-item', main).forEach(typeset);
   }
   function bindExam(main) {
@@ -16485,7 +16931,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
         if (d.expaper) { EX.paper = d.expaper; renderExam(main); return; }
         if (d.exfin) { EX.strict = d.exfin === 'strict'; renderExam(main); return; }
         if (d.exclock) { EX.hideClock = d.exclock === 'hide'; renderExam(main); return; }
-        if (b.id === 'exUse') { const c = decodeCode($('#exCodeIn').value); if (!c) { toast("That code isn't valid. Check it and try again."); return; } EX.code = c; renderExam(main); return; }
+        if (b.id === 'exUse') { const wk = wrongKind($('#exCodeIn').value, 'MVP'); if (wk) { toast(wk); return; } const c = decodeCode($('#exCodeIn').value); if (!c) { toast("That code isn't valid. Check it and try again."); return; } EX.code = c; renderExam(main); return; }
         if (b.id === 'exMake') { const c = makeClassCode(); if (!c) { toast('Your selection has no questions for these settings.'); return; } EX.code = c; renderExam(main); toast('Code created. Share it so everyone gets the same paper.'); return; }
         if (b.id === 'exClear') { EX.code = null; renderExam(main); return; }
         if (b.id === 'exCopy') { const t = EX.code.str; (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast('Code copied.'), () => toast('Select the code and copy it: ' + t)); return; }
@@ -16635,7 +17081,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
       ${hist.map((h, i) => { const ok = h.picked === h.inst.answer; return `<details class="solution ${ok ? 'rv-ok' : 'rv-no'}"><summary><span class="rv-mark" aria-label="${ok ? 'Right' : 'Wrong'}">${ok ? '✓' : '✗'}</span> ${i + 1}. ${esc(h.q.title)}: ${ok ? `you chose ${LETTERS[h.picked]}` : `you chose ${LETTERS[h.picked]}, answer ${LETTERS[h.inst.answer]}`}</summary><div class="qbody">${h.inst.stem}${optionsHTML(h.inst, h.picked, true)}<h4>Worked Solution</h4>${h.inst.solution}</div>${reportBox(h.q, h.seed, where)}</details>`; }).join('')}</section>`;
   }
   const lmsReview = (L) => runReview(L.hist, 'Last Man Standing', 'lmsPrint');
-  // printable results of a game run (same layout as the Exam Mode results file)
+  // printable results of a game run (same layout as the Test Mode results file)
   async function gameReport(kind) {
     const w = openWin('Preparing your results…'), status = $('#runPrintStatus');
     const L = kind === 'lms' ? LM : GA; if (!L || !L.hist || !L.hist.length) { if (w) w.close(); return; }
@@ -16712,9 +17158,9 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
       <ul class="lms-rules"><li>Everyone starts with <b>${fmtClock(lmsStart())}</b> on the clock (agree the starting time with your class).</li><li>Correct answer: <b>+60 s</b>. Wrong answer: <b>−60 s</b>.</li><li>Everyone with the same code gets the same questions in the same order, and they get harder as you go.</li><li>Last one standing wins.</li></ul>
       ${c ? `<div class="codebox"><div class="code-str num">${c.str}</div><div class="small">Topics: <b>${topicsOf(lmsPool(c).flatMap(q => q.strands))}</b> · ${lmsPool(c).length} question types</div>
         ${c.fpOk ? '' : '<p class="warn small">This code was made with a different version of the question bank, so your questions may not match everyone else\'s. Ask for a new code.</p>'}
-        <div class="row"><button class="btn primary" id="lmsEnter">Enter 💀</button><button class="btn sm" id="lmsCopy">Copy Code</button><button class="btn sm ghost" id="lmsClear">Use a Different Code</button></div></div>`
-      : `<p class="muted small">This mode needs a code so everyone faces the same questions. One person creates it from the topics ticked in "Questions" and shares it.</p>
-        <div class="codeform"><input type="text" id="lmsIn" placeholder="Enter a code, e.g. LMS-…" autocomplete="off" spellcheck="false" aria-label="Last Man Standing code"><button class="btn sm" id="lmsUse">Use Code</button><span class="muted small">or</span><button class="btn sm" id="lmsMake">Create a Code from These Topics</button></div>`}
+        <div class="row"><button class="btn primary" id="lmsEnter">Enter 💀</button><button class="btn sm" id="lmsCopy">Copy Code</button><button class="btn sm btn-clear" id="lmsClear">Clear</button></div></div>`
+      : `<p class="muted small">This mode needs a code so everyone faces the same questions. One person makes it from the topics ticked in the Topics panel and shares it.</p>
+        <div class="codeform"><input type="text" id="lmsIn" class="codein" data-prefix="LMS" value="LMS-" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Last Man Standing code (starts LMS-)"><button class="btn sm" id="lmsUse">Use Code</button><span class="muted small">or</span><button class="btn primary sm" id="lmsMake">Make a Code</button></div>`}
       <div class="lms-start"><span class="muted small">Starting time:</span><div class="chips" role="group" aria-label="Starting time">${[3, 5, 10].map(m => `<button type="button" class="chip" data-lmsstart="${m}" aria-pressed="${!S.settings.lmsCustom && (+S.settings.lmsStart || 3) === m}">${m} min</button>`).join('')}<button type="button" class="chip" data-lmsstart="custom" aria-pressed="${!!S.settings.lmsCustom}">Custom</button></div>${S.settings.lmsCustom ? `<label class="field lms-custom"><span>Minutes (1 to 60)</span><input type="number" id="lmsStartIn" min="1" max="60" step="1" value="${+S.settings.lmsStart || 3}"></label>` : ''}</div>
       ${S.lmsBest ? `<p class="muted small">Your best survival time: <b class="num">${fmtClock(S.lmsBest)}</b></p>` : ''}</section>`;
   }
@@ -17011,7 +17457,7 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
       if (b.dataset.gamode) { GA.mode = b.dataset.gamode; GA.phase = 'setup'; GA.picked = true; renderRail(); renderGauntlet(main); return; }
       if (b.id === 'gaModes') { if (UD) { clearInterval(UD.tm); UD = null; } GA.picked = false; GA.phase = 'setup'; renderRail(); renderGauntlet(main); return; }
       if (b.id === 'lmsMake') { const c = lmsMake(); if (!c) { toast('Turn on at least one topic with Paper 1A questions.'); return; } GA.lmsCode = c; renderGauntlet(main); return; }
-      if (b.id === 'lmsUse') { const c = lmsDecode($('#lmsIn').value); if (!c) { toast("That code isn't valid. Check it and try again."); return; } GA.lmsCode = c; renderGauntlet(main); return; }
+      if (b.id === 'lmsUse') { const wk = wrongKind($('#lmsIn').value, 'LMS'); if (wk) { toast(wk); return; } const c = lmsDecode($('#lmsIn').value); if (!c) { toast("That code isn't valid. Check it and try again."); return; } GA.lmsCode = c; renderGauntlet(main); return; }
       if (b.id === 'lmsClear') { GA.lmsCode = null; renderGauntlet(main); return; }
       if (b.id === 'lmsCopy') { const t = GA.lmsCode.str; (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast('Code copied.'), () => toast('Select the code and copy it: ' + t)); return; }
       if (b.id === 'lmsEnter') { LM = { phase: 'ready', code: GA.lmsCode, seq: lmsSeq(GA.lmsCode) }; lmsTheme(); renderGauntlet(main); return; }
@@ -17420,9 +17866,9 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
       </div>`}
       ${tab !== 'recall' ? '' : `<section class="panel"><h3>Recall Health</h3><p class="small">${cards.length} of ${CARDS.length} cards started · ${mature} in long-term memory (21+ days) · ${dueNow} due now${flagged ? ` · <span class="flag">${flagged} confident error${flagged > 1 ? 's' : ''}</span>` : ''}</p></section>
       ${masteryPanel()}`}
-      ${tab !== 'exam' ? '' : `${exams.length ? `<section class="panel"><h3>Recent Exam Mode Papers</h3><div class="tbl-wrap"><table class="stats"><thead><tr><th>Date</th><th>Score</th><th>Est. grade</th><th>Time used</th><th>Pauses</th><th>Seed</th></tr></thead><tbody>${exams.map(x => `<tr><td>${new Date(x.ts).toLocaleDateString()}</td><td class="num">${x.score}/${x.total} (${pct(x.score, x.total)}%)</td><td class="num">${x.grade || '–'}</td><td class="num">${fmtClock(x.used)} of ${fmtClock(x.allowed)}</td><td class="num">${x.pauses ? `${x.pauses} (${fmtClock(x.paused)})` : x.pauses === 0 ? 'none' : '–'}</td><td class="num small">${x.seed ? esc(String(x.seed)) : '–'}</td></tr>`).join('')}</tbody></table></div></section>` : '<section class="panel"><h3>Recent Exam Mode Papers</h3><p class="muted">Finish a paper in Exam Mode to see it here.</p></section>'}
+      ${tab !== 'exam' ? '' : `${exams.length ? `<section class="panel"><h3>Recent Test Mode Papers</h3><div class="tbl-wrap"><table class="stats"><thead><tr><th>Date</th><th>Score</th><th>Est. grade</th><th>Time used</th><th>Pauses</th><th>Seed</th></tr></thead><tbody>${exams.map(x => `<tr><td>${new Date(x.ts).toLocaleDateString()}</td><td class="num">${x.score}/${x.total} (${pct(x.score, x.total)}%)</td><td class="num">${x.grade || '–'}</td><td class="num">${fmtClock(x.used)} of ${fmtClock(x.allowed)}</td><td class="num">${x.pauses ? `${x.pauses} (${fmtClock(x.paused)})` : x.pauses === 0 ? 'none' : '–'}</td><td class="num small">${x.seed ? esc(String(x.seed)) : '–'}</td></tr>`).join('')}</tbody></table></div></section>` : '<section class="panel"><h3>Recent Test Mode Papers</h3><p class="muted">Finish a paper in Test Mode to see it here.</p></section>'}
       <section class="panel" id="gradeBands"><h3>Estimated DP Grade Boundaries</h3>
-        <p class="muted small">Exam Mode estimates your grade from the percentage you score, using these approximate minimums. They are typical of recent IB DP Physics sessions, not official FE2025 boundaries: real boundaries are set each session and include the IA, so use them as a guide only.</p>
+        <p class="muted small">Test Mode estimates your grade from the percentage you score, using these approximate minimums. They are typical of recent IB DP Physics sessions, not official FE2025 boundaries: real boundaries are set each session and include the IA, so use them as a guide only.</p>
         <div class="tbl-wrap"><table class="stats"><thead><tr><th>Level</th>${[7, 6, 5, 4, 3, 2, 1].map(g => `<th class="num">${g}</th>`).join('')}</tr></thead><tbody>${['SL', 'HL'].map(l => `<tr><td><span class="lvl-${l.toLowerCase()}">${l}</span></td>${GRADE_BANDS[l].map(v => `<td class="num">${v}%</td>`).join('')}<td class="num">0%</td></tr>`).join('')}</tbody></table></div></section>`}
       ${tab !== 'games' ? '' : (blitzStats() + lmsStats() + (typeof udStats === 'function' ? udStats() : '')) || '<section class="panel"><h3>Games</h3><p class="muted">Play a game to see your scores here.</p></section>'}
       <section class="panel backup-box"><h3>Move or Back Up Your Progress</h3><p class="muted small">Progress lives in this browser only. Copy the backup code and paste it into the box on another device to continue there.</p>
@@ -17430,7 +17876,7 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
         <div id="bkArea"></div></section>`;
     typeset(main);
   }
-  const STAT_TABS = [['practice', 'Practice 🎯'], ['exam', 'Exam 📝'], ['games', 'Games 🕹️'], ['recall', 'Recall 🧠']];
+  const STAT_TABS = [['practice', 'Practice 🎯'], ['exam', 'Test 📝'], ['games', 'Games 🕹️'], ['recall', 'Recall 🧠']];
   function backupCode() { return btoa(unescape(encodeURIComponent(JSON.stringify({ v: 1, s: S })))); }
   function bindStats(main) {
     main.onclick = (e) => {
@@ -17456,7 +17902,7 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
   }
 
   /* ======================= WORKSHEETS ======================= */
-  const WS = { target: 20, answers: true, cover: true }; // cover = IB-style test: cover sheet + Paper 1A answer sheet
+  const WS = { target: 20, answers: true, cover: false }; // cover = Exam mode: cover sheet + Paper 1A answer sheet + IB order (1.4: off by default)
   document.addEventListener('change', (e) => { if (e.target && e.target.id === 'wsCover') WS.cover = e.target.checked; });
   function worksheetPanel() {
     return `<details class="panel ws" id="wsPanel"><summary><b>Make a Printable Worksheet</b> <span class="muted small">· built from your selection, new values every time</span></summary>
@@ -17470,7 +17916,7 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
   /* Printable files (worksheets, exam results): authorship comment at the top, and a watermark line on every printed page
      (CSS page-margin boxes: Chrome and Edge) plus a footer at the end of the document (all browsers). */
   const SITE_URL = 'https://mvpoirier.github.io/physics-lab/', REPO_URL = 'https://github.com/mvpoirier/mvpoirier.github.io';
-  const DOC_DATE = '5 November 2026';
+  const DOC_DATE = '6 November 2026';
   const docComment = (what, id) => `<!--
   MVPhysics Lab · ${what}${id ? ' · ' + id : ''}
   Made with version ${APP_VERSION} (built ${DOC_DATE}) on ${new Date().toISOString().slice(0, 10)}
@@ -17624,7 +18070,7 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
     const strands = topicsOf(code.strands) + ': ' + code.strands.filter(id => STRAND[id] && STRAND[id].live).map(id => STRAND[id].name).join(', ');
     const box = document.createElement('div');
     box.style.cssText = 'position:absolute;left:-10000px;top:0;width:760px';
-    box.innerHTML = `<div id="wsQ">${paperSections(items, WS.cover !== false)}</div>${WS.answers ? `<div id="wsA">${items.map((it, i) => wsAnswer(it, i + 1)).join('')}</div>` : ''}`;
+    box.innerHTML = `<div id="wsQ">${paperSections(items, WS.cover === true)}</div>${WS.answers ? `<div id="wsA">${items.map((it, i) => wsAnswer(it, i + 1)).join('')}</div>` : ''}`;
     document.body.appendChild(box);
     try { if (window.MathJax && MathJax.typesetPromise) await MathJax.typesetPromise([box]); } catch (e) { /* keep raw LaTeX */ }
     const mjCss = (window.MathJax && MathJax.svgStylesheet) ? MathJax.svgStylesheet().textContent : '';
@@ -17634,14 +18080,14 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
     const doc = `<!doctype html>
 ${docComment('Practice paper', 'Class code ' + code.str)}<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MVPhysics Lab worksheet</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700;900&display=swap"><style>${mjCss}${WS_CSS}</style></head><body>
-<div class="hint"><span>To make a PDF: Print this page, then choose <b>Save as PDF</b>. ${WS.cover !== false ? 'Order: cover sheet, Paper 1A answer sheet, Paper 1A, Paper 1B, Paper 2, then the markschemes. ' : 'The markschemes start on a new page. '}</span><button onclick="window.print()">Print</button></div>
-${WS.cover !== false ? coverSheet(items, code, total, mins) : `<div class="wshead"><h1><b>MVP</b>hysics Lab · Practice Paper</h1><div class="wscode">${code.str}</div></div>
+<div class="hint"><span>To make a PDF: Print this page, then choose <b>Save as PDF</b>. ${WS.cover === true ? 'Order: cover sheet, Paper 1A answer sheet, Paper 1A, Paper 1B, Paper 2, then the markschemes. ' : 'The markschemes start on a new page. '}</span><button onclick="window.print()">Print</button></div>
+${WS.cover === true ? coverSheet(items, code, total, mins) : `<div class="wshead"><h1><b>MVP</b>hysics Lab · Practice Paper</h1><div class="wscode">${code.str}</div></div>
 <div class="meta"><span>${PAPERS.filter(p => items.some(x => x.q.paper === p)).map(p => `${PAPER_NAME[p]} (${items.filter(x => x.q.paper === p).reduce((n, x) => n + x.q.marks, 0)})`).join(' · ')} · <b>Total (${total})</b></span><span>${mins} min</span><span>${esc(topicsOf(code.strands))}</span><span>Made ${date}</span></div>
 <div class="namebox"><span>Name:</span><span>Date:</span><span class="sc"><span style="border:0;padding:0">Score:</span><span style="border:0;padding:0">/ ${total}</span></span></div>`}
-${WS.cover !== false ? mcqSheet(items, code, false) : ''}
+${WS.cover === true ? mcqSheet(items, code, false) : ''}
 ${qHTML}
 ${WS.answers ? `${overviewPage(items, code, total)}<div class="answers"><h2>Markscheme <span class="wscode small">${code.str}</span></h2>${mcqSheet(items, code, true)}${aHTML}</div>` : ''}
-${docWatermark(WS.cover !== false ? '' : 'Class code ' + code.str)}${docFooter('Class code ' + code.str)}</body></html>`;
+${docWatermark(WS.cover === true ? '' : 'Class code ' + code.str)}${docFooter('Class code ' + code.str)}</body></html>`;
     const filename = `MVPhysics-paper-${code.str}.html`;
     if (mode === 'open') return showDoc(w, filename, doc, status, `✅ Opened in a new tab with the print window: choose a printer, or Save as PDF. Class code <b class="num">${code.str}</b> will recreate the paper.`);
     await saveFile(filename, doc, status, `✅ File saved! Class code <b class="num">${code.str}</b> will recreate the paper.`);
@@ -17770,14 +18216,14 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
   }
 
   /* ---------- About: methodology, bank size, value combinations, revision history ---------- */
-  const COMBOS = {"a1-m01":2,"a1-m02":713,"a1-m03":180,"a1-m04":240,"a1-m05":108,"a1-m06":1,"a1-m07":328,"a1-m08":300,"a1-m09":13,"a1-m10":310,"a1-m11":4,"a1-m12":3,"a1-m13":72,"a1-m14":112,"a1-m15":1,"a1-m16":1,"a1-m17":1430,"a1-m18":572,"a1-m19":1,"a1-m20":1,"a1-m21":1,"a1-m22":12,"a1-m23":80,"a1-b01":16,"a1-b02":84,"a1-b03":80,"a1-b04":84,"a1-p01":448,"a1-p02":1404,"a1-p03":144,"a1-p04":1,"a1-p05":168,"a1-m24":25,"a1-m25":1,"a1-m26":1,"a1-m27":5,"a1-m28":150,"a1-m29":36,"a1-b05":13,"a1-p06":20,"a1-p07":36,"a1-m30":60,"a1-m31":25,"a1-m32":1,"a1-m33":108,"a1-m34":1,"a1-m35":20,"a1-m36":100,"a1-b06":20,"a1-p08":144,"a2-m01":2,"a2-m02":410,"a2-m03":725,"a2-m04":80,"a2-m05":108,"a2-m06":1122,"a2-m07":216,"a2-m09":20,"a2-m10":125,"a2-m11":2,"a2-m12":70,"a2-m13":6,"a2-m14":135,"a2-m15":100,"a2-m16":7560,"a2-m17":25,"a2-m18":100,"a2-m19":3,"a2-m20":720,"a2-m21":8,"a2-m22":96,"a2-m23":1,"a2-m24":36,"a2-m25":36,"a2-m26":6,"a2-m27":656,"a2-b01":21,"a2-b02":36,"a2-p01":320,"a2-p02":2304,"a2-p03":14020,"a2-p04":576,"a2-p05":27,"a2-m28":29160,"a2-m29":48,"a2-m30":80,"a2-m32":3825,"a2-m33":20,"a2-b03":9,"a2-p06":24,"a2-p07":216,"a2-m34":164,"a2-m35":7,"a2-m36":2480,"a2-m37":1,"a2-m38":1,"a2-m39":3,"a2-m40":1,"a2-m41":1,"a2-m42":3,"a2-m43":1,"a2-b04":9,"a3-m01":101808,"a3-m02":36,"a3-m03":2,"a3-m04":3,"a3-m05":4,"a3-m06":32,"a3-m07":30,"a3-m08":150,"a3-m09":2,"a3-m10":900,"a3-m11":35,"a3-m12":1080,"a3-m13":132,"a3-m14":36,"a3-m15":800,"a3-m16":500,"a3-m17":64,"a3-m18":144,"a3-m19":80,"a3-m20":6,"a3-m21":3,"a3-m22":1,"a3-m23":15,"a3-m24":125,"a3-m25":1,"a3-b01":84,"a3-b02":192,"a3-p01":256,"a3-p02":1296,"a3-p03":972,"a3-p04":72,"a3-p05":496,"a3-m26":2,"a3-m27":100,"a3-m28":2,"a3-m29":30,"a3-b03":5,"a4-m01":100,"a4-m02":1,"a4-m03":24,"a4-m04":16,"a4-m05":1,"a4-m06":6,"a4-m07":64,"a4-m08":20,"a4-m09":36,"a4-m10":4,"a4-m11":32,"a4-m12":1,"a4-m13":64,"a4-m14":64,"a4-m15":1,"a4-m16":16,"a4-m17":36,"a4-m18":1,"a4-m19":80,"a4-m20":36,"a4-m21":16,"a4-m22":16,"a4-m23":3,"a4-m24":1,"a4-t01":1,"a4-t02":6,"a4-b01":3,"a4-b02":27,"a4-p01":27,"a4-p02":54,"a4-p03":54,"a5-m01":1,"a5-m02":80,"a5-m03":32,"a5-m04":1,"a5-m18":1,"a5-m05":1,"a5-m06":6,"a5-m07":64,"a5-m08":12,"a5-m09":16,"a5-m10":1,"a5-m11":16,"a5-m12":3,"a5-m13":1,"a5-m14":5,"a5-m15":5,"a5-m16":1,"a5-m17":3,"a5-t01":8,"a5-b01":3,"a5-p01":6,"a5-p02":2,"a5-p03":9,"a2e-m01":1414,"a2e-m02":36,"a2e-m03":16,"a2e-m04":1,"a2e-m05":360,"a2e-m06":27,"a2e-p01":124,"a2f-m01":204,"a2f-m02":4320,"a2f-m03":1,"a2f-m04":16,"a2f-m05":1,"a2f-b01":21,"a1d-m01":16,"a1d-m02":64,"a1d-b01":12,"a1g-b01":36,"a1f-m01":1,"a1f-m02":1,"a1f-p01":36,"a2m-b01":27,"a2c-m01":36,"a2c-m02":81,"a2c-m03":1,"a2c-p01":54,"a3s-m01":48,"a3s-m02":20,"a3s-m03":243,"a3d-m01":24,"a3d-m02":3,"a3d-m03":1,"a3d-b01":12,"a3d-p01":54,"a3w-b01":3,"lg-b01":9,"lg-b02":3,"lg-b03":1,"ax-m01":80,"ax-m02":20,"ax-m03":20,"ax-m04":8,"ax-m05":5,"ax-m06":20,"ax-p01":240,"ax-p02":81,"ax-p03":256,"ax-p04":243,"ax-p05":216,"ax-p06":12,"ax-p07":81,"ax-p08":64,"b1-m01":300,"b1-m02":684,"b1-m03":7,"b1-m04":5,"b1-m05":1,"b1-m06":1,"b1-m07":2,"b1-m08":1,"b1-m09":1,"b1-m10":2772,"b1-m11":144,"b1-m12":240,"b1-m13":6,"b1-m14":64,"b1-m15":192,"b1-m16":16,"b1-m17":16,"b1-m18":81,"b1-m19":100,"b1-m20":18,"b1-m21":1,"b1-m22":1,"b1-m23":320,"b1-m24":1,"b1-m25":20,"b1-m26":9,"b1-m27":6,"b1-m28":7,"b1-m29":25,"b1-m30":12,"b1-m31":9,"b1-m32":25,"b1-m33":25,"b1-b01":216,"b1-b02":1,"b1-b03":3,"b1-p01":36,"b1-p02":729,"b1-p03":120,"b1-p04":576,"b1-p05":192,"b1-p06":3,"b1-p07":18,"b1-p08":27,"b2-m01":20,"b2-m02":16,"b2-m03":1,"b2-m04":3,"b2-m05":4,"b2-m06":1,"b2-m07":1,"b2-m08":4,"b2-m09":4,"b2-m10":4,"b2-m11":1,"b2-m12":12,"b2-m13":9,"b2-m14":3,"b2-m15":1,"b2-m16":3,"b2-m17":1,"b2-t01":5,"b2-b01":12,"b2-p01":3,"b2-p02":27,"b3-m01":20,"b3-m02":30,"b3-m03":5,"b3-m04":80,"b3-m05":80,"b3-m06":48,"b3-m07":243,"b3-m08":80,"b3-m09":48,"b3-m10":16,"b3-m11":81,"b3-m12":45,"b3-m13":1,"b3-m14":1,"b3-m15":12,"b3-m16":4,"b3-m17":20,"b3-m18":1,"b3-m19":1,"b3-m20":1,"b3-m21":1,"b3-m22":6,"b3-m23":2,"b3-b01":12,"b3-b02":12,"b3-b03":9,"b3-p01":180,"b3-p02":144,"b3-p03":162,"b3-p04":8,"b3-p05":54,"b3-p06":36,"b4-m01":16,"b4-m02":36,"b4-m03":16,"b4-m04":1,"b4-m05":8,"b4-m06":1,"b4-m07":1,"b4-m08":1,"b4-m09":3,"b4-m10":3,"b4-m11":6,"b4-m12":1,"b4-m13":9,"b4-m14":9,"b4-m15":18,"b4-m16":1,"b4-m17":3,"b4-m18":4,"b4-m19":1,"b4-m20":1,"b4-m21":1,"b4-m22":9,"b4-m23":12,"b4-m24":1,"b4-m25":16,"b4-m26":12,"b4-m27":9,"b4-m28":1,"b4-m29":1,"b4-m30":6,"b4-m31":1,"b4-m32":8,"b4-b01":3,"b4-b02":3,"b4-b03":3,"b4-p01":4,"b4-p02":4,"b4-p03":4,"b4-p04":2,"b4-p05":36,"b5-m01":40,"b5-m02":4,"b5-m03":25,"b5-m04":1,"b5-m05":1,"b5-m06":2,"b5-m07":25,"b5-m08":48,"b5-m09":2,"b5-m10":9,"b5-m11":9,"b5-m12":2,"b5-m13":1,"b5-m14":1,"b5-m15":25,"b5-m16":6,"b5-m17":25,"b5-m18":15,"b5-m19":8,"b5-m20":25,"b5-m21":48,"b5-m22":64,"b5-m23":27,"b5-m24":1,"b5-m25":1,"b5-m26":12,"b5-m27":100,"b5-m28":16,"b5-m29":64,"b5-m30":1,"b5-m31":27,"b5-m32":12,"b5-m33":60,"b5-m34":2,"b5-m35":1,"b5-m36":27,"b5-b01":12,"b5-b02":9,"b5-b03":3,"b5-p01":81,"b5-p02":24,"b5-p03":243,"b5-p04":216,"b5-p05":162,"b5-p06":4,"b5-p07":72,"b5-p08":36,"b1-m34":36,"b3-m24":12,"b3-m25":5,"b3-m26":36,"b5-m37":12,"b5-m38":16,"b5-m39":36,"b5-m40":12,"b5-b04":27,"c1-m01":1,"c1-m02":1,"c1-m03":1,"c1-m04":48,"c1-m05":12,"c1-m06":1,"c1-m07":36,"c1-m08":7,"c1-m09":5,"c1-m10":4,"c1-m11":3,"c1-m12":2,"c1-m13":20,"c1-m14":16,"c1-m15":2,"c1-m16":1,"c1-m17":1,"c1-m18":1,"c1-m19":12,"c1-m20":20,"c1-m21":40,"c1-h01":20,"c1-h02":64,"c1-h03":64,"c1-h04":5,"c1-h05":96,"c1-h06":2,"c1-t01":2,"c1-t02":36,"c1-b01":1,"c1-b02":9,"c1-p01":48,"c1-p02":6,"c1-p03":27,"c1-p04":9,"c2-m01":2,"c2-m02":1,"c2-m03":75,"c2-m04":4,"c2-m05":60,"c2-m06":20,"c2-m07":8,"c2-m08":30,"c2-m09":1,"c2-m10":1,"c2-m11":1,"c2-m12":4,"c2-m13":1,"c2-m14":18,"c2-m15":10,"c2-m16":16,"c2-m17":3,"c2-t01":36,"c2-b01":3,"c2-p01":27,"c2-p02":18,"c2-p03":27,"c3-m01":35,"c3-m02":16,"c3-m03":5,"c3-m04":10,"c3-m05":1,"c3-m06":1,"c3-m07":25,"c3-m08":5,"c3-m09":1,"c3-m10":1,"c3-m11":1,"c3-m12":9,"c3-m13":20,"c3-m14":96,"c3-m15":1,"c3-m16":12,"c3-m17":12,"c3-m18":80,"c3-m19":81,"c3-m20":5,"c3-m21":1,"c3-h01":96,"c3-h02":1,"c3-h03":32,"c3-h04":12,"c3-h05":1,"c3-h06":1,"c3-h07":1,"c3-h08":12,"c3-t01":24,"c3-t02":1,"c3-b01":3,"c3-b02":6,"c3-p01":27,"c3-p02":54,"c3-p03":24,"c3-p04":3,"c3-p05":54,"c4-m01":1,"c4-m02":40,"c4-m03":2,"c4-m04":1,"c4-m05":80,"c4-m06":16,"c4-m07":15,"c4-m08":15,"c4-m09":18,"c4-m10":10,"c4-m11":10,"c4-m12":45,"c4-m13":1,"c4-m14":36,"c4-m15":1,"c4-m16":1,"c4-m17":3,"c4-m18":2,"c4-m19":5,"c4-m20":16,"c4-m21":1,"c4-m22":1,"c4-t01":9,"c4-b01":9,"c4-p01":9,"c4-p02":3,"c4-p03":9,"c5-m01":1,"c5-m02":2,"c5-m03":24,"c5-m04":3,"c5-m05":16,"c5-m06":1,"c5-m07":1,"c5-h01":50,"c5-h02":32,"c5-h03":16,"c5-h04":12,"c5-h05":1,"c5-t01":8,"c5-b01":9,"c5-p01":6,"c5-p02":12,"c5-p03":9,"d1-m01":48,"d1-m02":12,"d1-m03":1,"d1-m04":1,"d1-m05":12,"d1-m06":1,"d1-m07":8,"d1-m08":27,"d1-m09":20,"d1-m10":12,"d1-m11":20,"d1-m12":1,"d1-m13":1,"d1-m14":27,"d1-m15":1,"d1-m16":1,"d1-m17":20,"d1-m18":20,"d1-m19":16,"d1-m20":2,"d1-m21":1,"d1-m22":8,"d1-m23":1,"d1-m24":15,"d1-m25":15,"d1-m26":48,"d1-m27":45,"d1-m28":12,"d1-m29":1,"d1-m30":9,"d1-m31":24,"d1-m32":1,"d1-m33":6,"d1-m34":12,"d1-m35":12,"d1-m36":27,"d1-m37":1,"d1-m38":4,"d1-m39":1,"d1-m40":9,"d1-t01":1,"d1-t02":12,"d1-b01":6,"d1-b02":3,"d1-b03":3,"d1-p01":18,"d1-p02":1,"d1-p03":24,"d1-p04":6,"d1-p05":3,"d2-m01":48,"d2-m02":18,"d2-m03":1,"d2-m04":2,"d2-m05":3,"d2-m06":48,"d2-m07":6,"d2-m08":16,"d2-m09":6,"d2-m10":16,"d2-m11":16,"d2-m12":1,"d2-m13":1,"d2-m14":9,"d2-m15":3,"d2-m16":1,"d2-m17":2,"d2-m18":1,"d2-m19":6,"d2-m20":1,"d2-m21":16,"d2-m22":1,"d2-m23":2,"d2-m24":2,"d2-m25":1,"d2-m26":12,"d2-m27":18,"d2-m28":27,"d2-m29":1,"d2-m30":9,"d2-m31":1,"d2-m32":1,"d2-m33":9,"d2-m34":8,"d2-t01":1,"d2-b01":1,"d2-b02":9,"d2-b03":3,"d2-p01":36,"d2-p02":18,"d2-p03":9,"d2-p04":12,"d2-p05":9,"d3-m01":5,"d3-m02":16,"d3-m03":1,"d3-m04":27,"d3-m05":1,"d3-m06":2,"d3-m07":1,"d3-m08":2,"d3-m09":36,"d3-m10":18,"d3-m11":4,"d3-m12":1,"d3-m13":3,"d3-m14":9,"d3-m15":6,"d3-m16":1,"d3-m17":1,"d3-m18":64,"d3-m19":4,"d3-m20":27,"d3-m21":2,"d3-m22":81,"d3-m23":36,"d3-m24":3,"d3-m25":1,"d3-t01":1,"d3-b01":3,"d3-b02":6,"d3-b03":3,"d3-p01":9,"d3-p02":9,"d3-p03":9,"d3-p04":18,"d3-p05":9,"d4-m01":36,"d4-m02":1,"d4-m03":108,"d4-m04":36,"d4-m05":64,"d4-m06":81,"d4-m07":1,"d4-m08":2,"d4-m09":1,"d4-m10":81,"d4-m11":1,"d4-m12":1,"d4-m13":1,"d4-m14":1,"d4-m15":54,"d4-m16":5,"d4-t01":1,"d4-b01":9,"d4-p01":81,"d4-p02":54,"e1-m01":1,"e1-m02":1,"e1-m03":8,"e1-m04":3,"e1-m05":1,"e1-m06":12,"e1-m07":1,"e1-m08":1,"e1-m09":16,"e1-m10":3,"e1-m11":1,"e1-m12":4,"e1-m13":1,"e1-m14":1,"e1-m15":4,"e1-m16":1,"e1-m17":10,"e1-m18":10,"e1-m19":3,"e1-m20":12,"e1-m21":1,"e1-m22":9,"e1-m23":1,"e1-m24":1,"e1-m25":4,"e1-m26":5,"e1-m27":3,"e1-m28":4,"e1-m29":1,"e1-m30":1,"e1-m31":1,"e1-m32":1,"e1-t01":4,"e1-b01":3,"e1-b02":1,"e1-b03":1,"e1-p01":2,"e1-p02":2,"e1-p03":6,"e1-p04":3,"e1-p05":3,"e2-m01":24,"e2-m02":6,"e2-m03":12,"e2-m04":1,"e2-m05":1,"e2-m06":1,"e2-m07":1,"e2-m08":4,"e2-m09":4,"e2-m10":5,"e2-m11":1,"e2-m12":1,"e2-m13":9,"e2-m14":1,"e2-m15":1,"e2-m16":9,"e2-m17":5,"e2-m18":1,"e2-m19":1,"e2-m20":1,"e2-m21":9,"e2-m22":1,"e2-m23":3,"e2-m24":3,"e2-b01":3,"e2-b02":3,"e2-b03":2,"e2-p01":9,"e2-p02":6,"e2-p03":9,"e2-p04":3,"e2-p05":3,"e3-m01":4,"e3-m02":4,"e3-m03":4,"e3-m04":1,"e3-m05":27,"e3-m06":3,"e3-m07":1,"e3-m08":1,"e3-m09":4,"e3-m10":1,"e3-m11":3,"e3-m12":1,"e3-m13":1,"e3-m14":9,"e3-m15":1,"e3-m16":1,"e3-m17":12,"e3-m18":36,"e3-m19":18,"e3-m20":12,"e3-m21":1,"e3-m22":9,"e3-m23":1,"e3-m24":36,"e3-m25":8,"e3-m26":36,"e3-m27":9,"e3-m28":12,"e3-m29":1,"e3-m30":1,"e3-m31":9,"e3-m32":18,"e3-m33":1,"e3-m34":1,"e3-m35":1,"e3-m36":1,"e3-m37":1,"e3-m38":1,"e3-m39":4,"e3-m40":1,"e3-b01":27,"e3-b02":6,"e3-b03":6,"e3-p01":1,"e3-p02":6,"e3-p03":2,"e3-p04":18,"e3-p05":3,"e4-m01":4,"e4-m02":4,"e4-m03":9,"e4-m04":1,"e4-m05":9,"e4-m06":1,"e4-m07":3,"e4-m08":1,"e4-m09":1,"e4-m10":1,"e4-m11":1,"e4-m12":1,"e4-m13":1,"e4-m14":3,"e4-m15":1,"e4-m16":1,"e4-m17":1,"e4-b01":3,"e4-b02":9,"e4-b03":9,"e4-p01":4,"e4-p02":1,"e4-p03":9,"e4-p04":3,"e4-p05":4,"e5-m01":1,"e5-m02":1,"e5-m03":2,"e5-m04":4,"e5-m05":1,"e5-m06":1,"e5-m07":1,"e5-m08":1,"e5-m09":4,"e5-m10":1,"e5-m11":1,"e5-m12":1,"e5-m13":1,"e5-m14":1,"e5-m15":1,"e5-m16":1,"e5-m17":4,"e5-m18":4,"e5-m19":12,"e5-m20":16,"e5-m21":16,"e5-m22":6,"e5-m23":5,"e5-m24":1,"e5-m25":1,"e5-b01":1,"e5-b02":3,"e5-b03":27,"e5-p01":1,"e5-p02":1,"e5-p03":27,"e5-p04":18,"e5-p05":1,"tu-m01a":1,"tu-m01b":1,"tu-m01c":1,"tu-m01d":1,"tu-m01e":2,"tu-m01f":1,"tu-m01g":1,"tu-m02a":1,"tu-m02b":1,"tu-m02c":1,"tu-m02d":1,"tu-m02e":1,"tu-m02f":2,"tu-m02g":1,"tu-m02h":1,"tu-m03a":2,"tu-m03b":2,"tu-m03c":1,"tu-m03d":1,"tu-m03e":1,"tu-m03f":1,"tu-m04a":1,"tu-m04b":1,"tu-m04c":1,"tu-m04d":1,"tu-m04e":1,"tu-m04f":1,"tu-m05a":1,"tu-m05b":1,"tu-m05c":1,"tu-m05d":1,"tu-m05e":1,"tu-m06a":10,"tu-m06b":4,"tu-m06c":5,"tu-m07":30,"tu-m08a":6,"tu-m08b":10,"tu-m08c":4,"tu-m09":10,"tu-m10":16,"tu-m11":20,"tu-m12":48,"tu-m13":27,"tu-m14":16,"tu-m15":12,"tu-m16":9,"tu-m17":5,"tu-m18":24,"tu-m19":36,"tu-m20":12,"tu-m21":16,"tu-m22":12,"tu-m23":36,"tu-p01":27,"tu-p02":81,"tu-p03":81,"tb-m01":64,"tb-m02":6,"tb-m03":25,"tb-m04":1,"tb-m05":48,"tb-m06":16,"tb-m07":54,"tb-m08":9,"tb-m09":2,"tb-m10":4,"tb-m11":12,"tb-m12":4,"tb-m13":4,"tb-m14":5,"tb-m15":4,"tb-m16":1,"tb-m17":3,"tb-h01":72,"tb-h02":81,"tb-h03":4,"tb-t01":8,"tb-p01":24,"tb-p02":54,"tb-p03":18,"tb-p04":18,"tb-p05":9,"tb-p06":54,"tb-p07":243,"tb-p08":81,"tb-p09":9,"tb-b01":18,"tb-b02":3,"tb-b03":2,"tb-m18":48,"tb-m19":24,"tb-m20":12,"tb-m21":1,"tb-m22":27,"tb-m23":4,"tb-m24":12,"ak-m01":27,"ak-m02":1,"ak-m03":27,"ak-m04":1,"ak-m05":18,"ak-m06":9,"ak-m07":9,"ak-m08":1,"ak-m09":9,"ak-m10":81,"ak-m11":9,"ak-m12":27,"ak-m13":1,"ak-m14":12,"ak-m15":9,"ak-m16":9,"ak-m17":1,"ak-m18":3,"ak-m19":9,"ak-m20":5,"ak-m21":6,"ak-m22":9,"ak-m23":3,"ak-m24":9,"ak-m25":4,"ak-m26":1,"ak-b01":2,"ak-b02":3,"ak-b03":2,"ak-p01":12,"ak-p02":9,"bk-m01":1,"bk-m02":3,"bk-m03":1,"bk-m04":48,"bk-m05":27,"bk-m06":2,"bk-m07":1,"bk-b01":3,"bk-b02":1,"bk-p01":9,"bk-p02":3,"bk-p03":4,"ck-m01":6,"ck-m02":3,"ck-m03":1,"ck-m04":1,"ck-m05":1,"ck-m06":4,"ck-m07":1,"ck-m08":1,"ck-m09":1,"ck-m10":5,"ck-m11":12,"ck-m12":12,"ck-m13":1,"ck-m14":12,"ck-m15":9,"ck-m16":1,"ck-b01":3,"ck-b02":3,"ck-b03":3,"ck-b04":9,"ck-b05":3,"ck-b06":9,"ck-p01":6,"ck-p02":18,"ck-p03":9,"dk-m01":27,"dk-m02":81,"dk-m03":18,"dk-m04":6,"dk-m05":2,"dk-b01":3,"dk-b02":2,"dk-p01":32,"dk-p02":24,"sk-m01":36,"sk-m02":5,"sk-m03":5,"sk-m04":1,"sk-m05":9,"sk-m06":1,"sk-m07":1,"sk-m08":3,"sk-m09":1,"sk-m10":4,"sk-m11":1,"sk-m12":3,"sk-m13":3,"sk-m14":1,"sk-m15":4,"sk-m16":12,"sk-m17":1,"sk-m18":1,"sk-m19":1,"sk-m20":6,"sk-m21":1,"sk-m22":1,"sk-m23":1,"sk-m24":12,"sk-m25":9,"sk-m26":1,"sk-m27":3,"sk-m28":1,"a2x-m01":114,"a2x-m02":20412,"a2x-m03":492,"a2x-m04":36,"a2x-m05":3,"a2x-m06":45,"a2x-m07":40,"a2x-m08":64,"a2x-m09":30,"a2x-m10":48,"a2x-m11":54,"a2x-m12":24,"a2x-m13":5,"a2x-m14":16,"a2x-m15":15,"a2x-m16":12,"a2x-m19":1,"a2x-m20":96,"a2x-m21":54,"a2x-m23":1,"a2x-m24":24,"a2x-b01":6,"a2x-b02":11,"a2x-p01":108,"a2x-p02":234,"a2x-p03":54,"a2x-p04":1377};
+  const COMBOS = {"a1-m01":2,"a1-m02":713,"a1-m03":180,"a1-m04":240,"a1-m05":108,"a1-m06":1,"a1-m07":328,"a1-m08":300,"a1-m09":13,"a1-m10":310,"a1-m11":4,"a1-m12":3,"a1-m13":72,"a1-m14":112,"a1-m15":1,"a1-m16":1,"a1-m17":1430,"a1-m18":572,"a1-m19":1,"a1-m20":1,"a1-m21":1,"a1-m22":12,"a1-m23":80,"a1-b01":16,"a1-b02":84,"a1-b03":80,"a1-b04":84,"a1-p01":448,"a1-p02":1404,"a1-p03":144,"a1-p04":1,"a1-p05":168,"a1-m24":25,"a1-m25":1,"a1-m26":1,"a1-m27":5,"a1-m28":150,"a1-m29":36,"a1-b05":13,"a1-p06":20,"a1-p07":36,"a1-m30":60,"a1-m31":25,"a1-m32":1,"a1-m33":108,"a1-m34":1,"a1-m35":20,"a1-m36":100,"a1-b06":20,"a1-p08":144,"a2-m01":2,"a2-m02":410,"a2-m03":725,"a2-m04":80,"a2-m05":108,"a2-m06":1122,"a2-m07":216,"a2-m09":20,"a2-m10":125,"a2-m11":2,"a2-m12":70,"a2-m13":6,"a2-m14":135,"a2-m15":100,"a2-m16":7560,"a2-m17":25,"a2-m18":100,"a2-m19":3,"a2-m20":720,"a2-m21":8,"a2-m22":96,"a2-m23":1,"a2-m24":36,"a2-m25":36,"a2-m26":6,"a2-m27":656,"a2-b01":21,"a2-b02":36,"a2-p01":320,"a2-p02":2304,"a2-p03":14020,"a2-p04":576,"a2-p05":27,"a2-m28":29160,"a2-m29":48,"a2-m30":80,"a2-m32":3825,"a2-m33":20,"a2-b03":9,"a2-p06":24,"a2-p07":216,"a2-m34":164,"a2-m35":7,"a2-m36":2480,"a2-m37":1,"a2-m38":1,"a2-m39":3,"a2-m40":1,"a2-m41":1,"a2-m42":3,"a2-m43":1,"a2-b04":9,"a3-m01":101808,"a3-m02":36,"a3-m03":2,"a3-m04":3,"a3-m05":4,"a3-m06":32,"a3-m07":30,"a3-m08":150,"a3-m09":2,"a3-m10":900,"a3-m11":35,"a3-m12":1080,"a3-m13":132,"a3-m14":36,"a3-m15":800,"a3-m16":500,"a3-m17":64,"a3-m18":144,"a3-m19":80,"a3-m20":6,"a3-m21":3,"a3-m22":1,"a3-m23":15,"a3-m24":125,"a3-m25":1,"a3-b01":84,"a3-b02":192,"a3-p01":256,"a3-p02":1296,"a3-p03":972,"a3-p04":72,"a3-p05":496,"a3-m26":2,"a3-m27":100,"a3-m28":2,"a3-m29":30,"a3-b03":5,"a4-m01":100,"a4-m02":1,"a4-m03":24,"a4-m04":16,"a4-m05":1,"a4-m06":6,"a4-m07":64,"a4-m08":20,"a4-m09":36,"a4-m10":4,"a4-m11":32,"a4-m12":1,"a4-m13":64,"a4-m14":64,"a4-m15":1,"a4-m16":16,"a4-m17":36,"a4-m18":1,"a4-m19":80,"a4-m20":36,"a4-m21":16,"a4-m22":16,"a4-m23":3,"a4-m24":1,"a4-t01":1,"a4-t02":6,"a4-b01":3,"a4-b02":27,"a4-p01":27,"a4-p02":54,"a4-p03":54,"a5-m01":1,"a5-m02":80,"a5-m03":32,"a5-m04":1,"a5-m18":1,"a5-m05":1,"a5-m06":6,"a5-m07":64,"a5-m08":12,"a5-m09":16,"a5-m10":1,"a5-m11":16,"a5-m12":3,"a5-m13":1,"a5-m14":5,"a5-m15":5,"a5-m16":1,"a5-m17":3,"a5-t01":8,"a5-b01":3,"a5-p01":6,"a5-p02":2,"a5-p03":9,"a2e-m01":1414,"a2e-m02":36,"a2e-m03":16,"a2e-m04":1,"a2e-m05":360,"a2e-m06":27,"a2e-p01":124,"a2f-m01":204,"a2f-m02":4320,"a2f-m03":1,"a2f-m04":16,"a2f-m05":1,"a2f-b01":21,"a1d-m01":16,"a1d-m02":64,"a1d-b01":12,"a1g-b01":36,"a1f-m01":1,"a1f-m02":1,"a1f-p01":36,"a2m-b01":27,"a2c-m01":36,"a2c-m02":81,"a2c-m03":1,"a2c-p01":54,"a3s-m01":48,"a3s-m02":20,"a3s-m03":243,"a3d-m01":24,"a3d-m02":3,"a3d-m03":1,"a3d-b01":12,"a3d-p01":54,"a3w-b01":3,"lg-b01":9,"lg-b02":3,"lg-b03":1,"ax-m01":80,"ax-m02":20,"ax-m03":20,"ax-m04":8,"ax-m05":5,"ax-m06":20,"ax-p01":240,"ax-p02":81,"ax-p03":256,"ax-p04":243,"ax-p05":216,"ax-p06":12,"ax-p07":81,"ax-p08":64,"b1-m01":300,"b1-m02":684,"b1-m03":7,"b1-m04":5,"b1-m05":1,"b1-m06":1,"b1-m07":2,"b1-m08":1,"b1-m09":1,"b1-m10":2772,"b1-m11":144,"b1-m12":240,"b1-m13":6,"b1-m14":64,"b1-m15":192,"b1-m16":16,"b1-m17":16,"b1-m18":81,"b1-m19":100,"b1-m20":18,"b1-m21":1,"b1-m22":1,"b1-m23":320,"b1-m24":1,"b1-m25":20,"b1-m26":9,"b1-m27":6,"b1-m28":7,"b1-m29":25,"b1-m30":12,"b1-m31":9,"b1-m32":25,"b1-m33":25,"b1-b01":216,"b1-b02":1,"b1-b03":3,"b1-p01":36,"b1-p02":729,"b1-p03":120,"b1-p04":576,"b1-p05":192,"b1-p06":3,"b1-p07":18,"b1-p08":27,"b2-m01":20,"b2-m02":16,"b2-m03":1,"b2-m04":3,"b2-m05":4,"b2-m06":1,"b2-m07":1,"b2-m08":4,"b2-m09":4,"b2-m10":4,"b2-m11":1,"b2-m12":12,"b2-m13":9,"b2-m14":3,"b2-m15":1,"b2-m16":3,"b2-m17":1,"b2-t01":5,"b2-b01":12,"b2-p01":3,"b2-p02":27,"b3-m01":20,"b3-m02":30,"b3-m03":5,"b3-m04":80,"b3-m05":80,"b3-m06":48,"b3-m07":243,"b3-m08":80,"b3-m09":48,"b3-m10":16,"b3-m11":81,"b3-m12":45,"b3-m13":1,"b3-m14":1,"b3-m15":12,"b3-m16":4,"b3-m17":20,"b3-m18":1,"b3-m19":1,"b3-m20":1,"b3-m21":1,"b3-m22":6,"b3-m23":2,"b3-b01":12,"b3-b02":12,"b3-b03":9,"b3-p01":180,"b3-p02":144,"b3-p03":162,"b3-p04":8,"b3-p05":54,"b3-p06":36,"b4-m01":16,"b4-m02":36,"b4-m03":16,"b4-m04":1,"b4-m05":8,"b4-m06":1,"b4-m07":1,"b4-m08":1,"b4-m09":3,"b4-m10":3,"b4-m11":6,"b4-m12":1,"b4-m13":9,"b4-m14":9,"b4-m15":18,"b4-m16":1,"b4-m17":3,"b4-m18":4,"b4-m19":1,"b4-m20":1,"b4-m21":1,"b4-m22":9,"b4-m23":12,"b4-m24":1,"b4-m25":16,"b4-m26":12,"b4-m27":9,"b4-m28":1,"b4-m29":1,"b4-m30":6,"b4-m31":1,"b4-m32":8,"b4-b01":3,"b4-b02":3,"b4-b03":3,"b4-p01":4,"b4-p02":4,"b4-p03":4,"b4-p04":2,"b4-p05":36,"b5-m01":40,"b5-m02":4,"b5-m03":25,"b5-m04":1,"b5-m05":1,"b5-m06":2,"b5-m07":25,"b5-m08":48,"b5-m09":2,"b5-m10":9,"b5-m11":9,"b5-m12":2,"b5-m13":1,"b5-m14":1,"b5-m15":25,"b5-m16":6,"b5-m17":25,"b5-m18":15,"b5-m19":8,"b5-m20":25,"b5-m21":48,"b5-m22":64,"b5-m23":27,"b5-m24":1,"b5-m25":1,"b5-m26":12,"b5-m27":100,"b5-m28":16,"b5-m29":64,"b5-m30":1,"b5-m31":27,"b5-m32":12,"b5-m33":60,"b5-m34":2,"b5-m35":1,"b5-m36":27,"b5-b01":12,"b5-b02":9,"b5-b03":3,"b5-p01":81,"b5-p02":24,"b5-p03":243,"b5-p04":216,"b5-p05":162,"b5-p06":4,"b5-p07":72,"b5-p08":36,"b1-m34":36,"b3-m24":12,"b3-m25":5,"b3-m26":36,"b5-m37":12,"b5-m38":16,"b5-m39":36,"b5-m40":12,"b5-b04":27,"c1-m01":1,"c1-m02":1,"c1-m03":1,"c1-m04":48,"c1-m05":12,"c1-m06":1,"c1-m07":36,"c1-m08":7,"c1-m09":5,"c1-m10":4,"c1-m11":3,"c1-m12":2,"c1-m13":20,"c1-m14":16,"c1-m15":2,"c1-m16":1,"c1-m17":1,"c1-m18":1,"c1-m19":12,"c1-m20":20,"c1-m21":40,"c1-h01":20,"c1-h02":64,"c1-h03":64,"c1-h04":5,"c1-h05":96,"c1-h06":2,"c1-t01":2,"c1-t02":36,"c1-b01":1,"c1-b02":9,"c1-p01":48,"c1-p02":6,"c1-p03":27,"c1-p04":9,"c2-m01":2,"c2-m02":1,"c2-m03":75,"c2-m04":4,"c2-m05":60,"c2-m06":20,"c2-m07":8,"c2-m08":30,"c2-m09":1,"c2-m10":1,"c2-m11":1,"c2-m12":4,"c2-m13":1,"c2-m14":18,"c2-m15":10,"c2-m16":16,"c2-m17":3,"c2-t01":36,"c2-b01":3,"c2-p01":27,"c2-p02":18,"c2-p03":27,"c3-m01":35,"c3-m02":16,"c3-m03":5,"c3-m04":10,"c3-m05":1,"c3-m06":1,"c3-m07":25,"c3-m08":5,"c3-m09":1,"c3-m10":1,"c3-m11":1,"c3-m12":9,"c3-m13":20,"c3-m14":96,"c3-m15":1,"c3-m16":12,"c3-m17":12,"c3-m18":80,"c3-m19":81,"c3-m20":5,"c3-m21":1,"c3-h01":96,"c3-h02":1,"c3-h03":32,"c3-h04":12,"c3-h05":1,"c3-h06":1,"c3-h07":1,"c3-h08":12,"c3-t01":24,"c3-t02":1,"c3-b01":3,"c3-b02":6,"c3-p01":27,"c3-p02":54,"c3-p03":24,"c3-p04":3,"c3-p05":54,"c4-m01":1,"c4-m02":40,"c4-m03":2,"c4-m04":1,"c4-m05":80,"c4-m06":16,"c4-m07":15,"c4-m08":15,"c4-m09":18,"c4-m10":10,"c4-m11":10,"c4-m12":45,"c4-m13":1,"c4-m14":36,"c4-m15":1,"c4-m16":1,"c4-m17":3,"c4-m18":2,"c4-m19":5,"c4-m20":16,"c4-m21":1,"c4-m22":1,"c4-t01":9,"c4-b01":9,"c4-p01":9,"c4-p02":3,"c4-p03":9,"c5-m01":1,"c5-m02":2,"c5-m03":24,"c5-m04":3,"c5-m05":16,"c5-m06":1,"c5-m07":1,"c5-h01":50,"c5-h02":32,"c5-h03":16,"c5-h04":12,"c5-h05":1,"c5-t01":8,"c5-b01":9,"c5-p01":6,"c5-p02":12,"c5-p03":9,"d1-m01":48,"d1-m02":12,"d1-m03":1,"d1-m04":1,"d1-m05":12,"d1-m06":1,"d1-m07":8,"d1-m08":27,"d1-m09":20,"d1-m10":12,"d1-m11":20,"d1-m12":1,"d1-m13":1,"d1-m14":27,"d1-m15":1,"d1-m16":1,"d1-m17":20,"d1-m18":20,"d1-m19":16,"d1-m20":2,"d1-m21":1,"d1-m22":8,"d1-m23":1,"d1-m24":15,"d1-m25":15,"d1-m26":48,"d1-m27":45,"d1-m28":12,"d1-m29":1,"d1-m30":9,"d1-m31":24,"d1-m32":1,"d1-m33":6,"d1-m34":12,"d1-m35":12,"d1-m36":27,"d1-m37":1,"d1-m38":4,"d1-m39":1,"d1-m40":9,"d1-t01":1,"d1-t02":12,"d1-b01":6,"d1-b02":3,"d1-b03":3,"d1-p01":18,"d1-p02":1,"d1-p03":24,"d1-p04":6,"d1-p05":3,"d2-m01":48,"d2-m02":18,"d2-m03":1,"d2-m04":2,"d2-m05":3,"d2-m06":48,"d2-m07":6,"d2-m08":16,"d2-m09":6,"d2-m10":16,"d2-m11":16,"d2-m12":1,"d2-m13":1,"d2-m14":9,"d2-m15":3,"d2-m16":1,"d2-m17":2,"d2-m18":1,"d2-m19":6,"d2-m20":1,"d2-m21":16,"d2-m22":1,"d2-m23":2,"d2-m24":2,"d2-m25":1,"d2-m26":12,"d2-m27":18,"d2-m28":27,"d2-m29":1,"d2-m30":9,"d2-m31":1,"d2-m32":1,"d2-m33":9,"d2-m34":8,"d2-t01":1,"d2-b01":1,"d2-b02":9,"d2-b03":3,"d2-p01":36,"d2-p02":18,"d2-p03":9,"d2-p04":12,"d2-p05":9,"d3-m01":5,"d3-m02":16,"d3-m03":1,"d3-m04":27,"d3-m05":1,"d3-m06":2,"d3-m07":1,"d3-m08":2,"d3-m09":36,"d3-m10":18,"d3-m11":4,"d3-m12":1,"d3-m13":3,"d3-m14":9,"d3-m15":6,"d3-m16":1,"d3-m17":1,"d3-m18":64,"d3-m19":4,"d3-m20":27,"d3-m21":2,"d3-m22":81,"d3-m23":36,"d3-m24":3,"d3-m25":1,"d3-t01":1,"d3-b01":3,"d3-b02":6,"d3-b03":3,"d3-p01":9,"d3-p02":9,"d3-p03":9,"d3-p04":18,"d3-p05":9,"d4-m01":36,"d4-m02":1,"d4-m03":108,"d4-m04":36,"d4-m05":64,"d4-m06":81,"d4-m07":1,"d4-m08":2,"d4-m09":1,"d4-m10":81,"d4-m11":1,"d4-m12":1,"d4-m13":1,"d4-m14":1,"d4-m15":54,"d4-m16":5,"d4-t01":1,"d4-b01":9,"d4-p01":81,"d4-p02":54,"e1-m01":1,"e1-m02":1,"e1-m03":8,"e1-m04":3,"e1-m05":1,"e1-m06":12,"e1-m07":1,"e1-m08":1,"e1-m09":16,"e1-m10":3,"e1-m11":1,"e1-m12":4,"e1-m13":1,"e1-m14":1,"e1-m15":4,"e1-m16":1,"e1-m17":10,"e1-m18":10,"e1-m19":3,"e1-m20":12,"e1-m21":1,"e1-m22":9,"e1-m23":1,"e1-m24":1,"e1-m25":4,"e1-m26":5,"e1-m27":3,"e1-m28":4,"e1-m29":1,"e1-m30":1,"e1-m31":1,"e1-m32":1,"e1-t01":4,"e1-b01":3,"e1-b02":1,"e1-b03":1,"e1-p01":2,"e1-p02":2,"e1-p03":6,"e1-p04":3,"e1-p05":3,"e2-m01":24,"e2-m02":6,"e2-m03":12,"e2-m04":1,"e2-m05":1,"e2-m06":1,"e2-m07":1,"e2-m08":4,"e2-m09":4,"e2-m10":5,"e2-m11":1,"e2-m12":1,"e2-m13":9,"e2-m14":1,"e2-m15":1,"e2-m16":9,"e2-m17":5,"e2-m18":1,"e2-m19":1,"e2-m20":1,"e2-m21":9,"e2-m22":1,"e2-m23":3,"e2-m24":3,"e2-b01":3,"e2-b02":3,"e2-b03":2,"e2-p01":9,"e2-p02":6,"e2-p03":9,"e2-p04":3,"e2-p05":3,"e3-m01":4,"e3-m02":4,"e3-m03":4,"e3-m04":1,"e3-m05":27,"e3-m06":3,"e3-m07":1,"e3-m08":1,"e3-m09":4,"e3-m10":1,"e3-m11":3,"e3-m12":1,"e3-m13":1,"e3-m14":9,"e3-m15":1,"e3-m16":1,"e3-m17":12,"e3-m18":36,"e3-m19":18,"e3-m20":12,"e3-m21":1,"e3-m22":9,"e3-m23":1,"e3-m24":36,"e3-m25":8,"e3-m26":36,"e3-m27":9,"e3-m28":12,"e3-m29":1,"e3-m30":1,"e3-m31":9,"e3-m32":18,"e3-m33":1,"e3-m34":1,"e3-m35":1,"e3-m36":1,"e3-m37":1,"e3-m38":1,"e3-m39":4,"e3-m40":1,"e3-b01":27,"e3-b02":6,"e3-b03":6,"e3-p01":1,"e3-p02":6,"e3-p03":2,"e3-p04":18,"e3-p05":3,"e4-m01":4,"e4-m02":4,"e4-m03":9,"e4-m04":1,"e4-m05":9,"e4-m06":1,"e4-m07":3,"e4-m08":1,"e4-m09":1,"e4-m10":1,"e4-m11":1,"e4-m12":1,"e4-m13":1,"e4-m14":3,"e4-m15":1,"e4-m16":1,"e4-m17":1,"e4-b01":3,"e4-b02":9,"e4-b03":9,"e4-p01":4,"e4-p02":1,"e4-p03":9,"e4-p04":3,"e4-p05":4,"e5-m01":1,"e5-m02":1,"e5-m03":2,"e5-m04":4,"e5-m05":1,"e5-m06":1,"e5-m07":1,"e5-m08":1,"e5-m09":4,"e5-m10":1,"e5-m11":1,"e5-m12":1,"e5-m13":1,"e5-m14":1,"e5-m15":1,"e5-m16":1,"e5-m17":4,"e5-m18":4,"e5-m19":12,"e5-m20":16,"e5-m21":16,"e5-m22":6,"e5-m23":5,"e5-m24":1,"e5-m25":1,"e5-b01":1,"e5-b02":3,"e5-b03":27,"e5-p01":1,"e5-p02":1,"e5-p03":27,"e5-p04":18,"e5-p05":1,"tu-m01a":1,"tu-m01b":1,"tu-m01c":1,"tu-m01d":1,"tu-m01e":2,"tu-m01f":1,"tu-m01g":1,"tu-m02a":1,"tu-m02b":1,"tu-m02c":1,"tu-m02d":1,"tu-m02e":1,"tu-m02f":2,"tu-m02g":1,"tu-m02h":1,"tu-m03a":2,"tu-m03b":2,"tu-m03c":1,"tu-m03d":1,"tu-m03e":1,"tu-m03f":1,"tu-m04a":1,"tu-m04b":1,"tu-m04c":1,"tu-m04d":1,"tu-m04e":1,"tu-m04f":1,"tu-m05a":1,"tu-m05b":1,"tu-m05c":1,"tu-m05d":1,"tu-m05e":1,"tu-m06a":10,"tu-m06b":4,"tu-m06c":5,"tu-m07":30,"tu-m08a":6,"tu-m08b":10,"tu-m08c":4,"tu-m09":10,"tu-m10":16,"tu-m11":20,"tu-m12":48,"tu-m13":27,"tu-m14":16,"tu-m15":12,"tu-m16":9,"tu-m17":5,"tu-m18":24,"tu-m19":36,"tu-m20":12,"tu-m21":16,"tu-m22":12,"tu-m23":36,"tu-p01":27,"tu-p02":81,"tu-p03":81,"tb-m01":64,"tb-m02":6,"tb-m03":25,"tb-m04":1,"tb-m05":48,"tb-m06":16,"tb-m07":54,"tb-m08":9,"tb-m09":2,"tb-m10":4,"tb-m11":12,"tb-m12":4,"tb-m13":4,"tb-m14":5,"tb-m15":4,"tb-m16":1,"tb-m17":3,"tb-h01":72,"tb-h02":81,"tb-h03":4,"tb-t01":8,"tb-p01":24,"tb-p02":54,"tb-p03":18,"tb-p04":18,"tb-p05":9,"tb-p06":54,"tb-p07":243,"tb-p08":81,"tb-p09":9,"tb-b01":18,"tb-b02":3,"tb-b03":2,"tb-m18":48,"tb-m19":24,"tb-m20":12,"tb-m21":1,"tb-m22":27,"tb-m23":4,"tb-m24":12,"ak-m01":27,"ak-m02":1,"ak-m03":27,"ak-m04":1,"ak-m05":18,"ak-m06":9,"ak-m07":9,"ak-m08":1,"ak-m09":9,"ak-m10":81,"ak-m11":9,"ak-m12":27,"ak-m13":1,"ak-m14":12,"ak-m15":9,"ak-m16":9,"ak-m17":1,"ak-m18":3,"ak-m19":9,"ak-m20":5,"ak-m21":6,"ak-m22":9,"ak-m23":3,"ak-m24":9,"ak-m25":4,"ak-m26":1,"ak-b01":2,"ak-b02":3,"ak-b03":2,"ak-p01":12,"ak-p02":9,"bk-m01":1,"bk-m02":3,"bk-m03":1,"bk-m04":48,"bk-m05":27,"bk-m06":2,"bk-m07":1,"bk-b01":3,"bk-b02":1,"bk-p01":9,"bk-p02":3,"bk-p03":4,"ck-m01":6,"ck-m02":3,"ck-m03":1,"ck-m04":1,"ck-m05":1,"ck-m06":4,"ck-m07":1,"ck-m08":1,"ck-m09":1,"ck-m10":5,"ck-m11":12,"ck-m12":12,"ck-m13":1,"ck-m14":12,"ck-m15":9,"ck-m16":1,"ck-b01":3,"ck-b02":3,"ck-b03":3,"ck-b04":9,"ck-b05":3,"ck-b06":9,"ck-p01":6,"ck-p02":18,"ck-p03":9,"dk-m01":27,"dk-m02":81,"dk-m03":18,"dk-m04":6,"dk-m05":2,"dk-b01":3,"dk-b02":2,"dk-p01":32,"dk-p02":24,"sk-m01":36,"sk-m02":5,"sk-m03":5,"sk-m04":1,"sk-m05":9,"sk-m06":1,"sk-m07":1,"sk-m08":3,"sk-m09":1,"sk-m10":4,"sk-m11":1,"sk-m12":3,"sk-m13":3,"sk-m14":1,"sk-m15":4,"sk-m16":12,"sk-m17":1,"sk-m18":1,"sk-m19":1,"sk-m20":6,"sk-m21":1,"sk-m22":1,"sk-m23":1,"sk-m24":12,"sk-m25":9,"sk-m26":1,"sk-m27":3,"sk-m28":1,"sr-m01":25,"sr-m02":20,"sr-m03":24,"sr-m04":25,"sr-m05":4,"sr-m06":5,"sr-m07":30,"sr-m08":25,"sr-m09":64,"sr-m10":1,"sr-m11":48,"sr-m12":3,"sr-m13":20,"sr-m14":180,"sr-m15":5,"sr-m16":36,"sr-m17":12,"sr-m18":1,"sr-m19":3,"sr-m20":16,"sr-m21":1,"sr-m22":80,"sr-m23":60,"sr-m24":2,"sr-m25":15,"sr-m26":3,"sr-m27":3,"sr-m28":16,"sr-m29":48,"sr-m30":15,"sr-m31":4,"sr-m32":6,"sr-m33":72,"sr-m34":5,"sr-m35":3,"sr-m36":3,"sr-m37":1,"sr-m38":1,"sr-b01":4,"sr-b02":12,"sr-b03":12,"sr-p01":9,"a2x-m01":114,"a2x-m02":20412,"a2x-m03":492,"a2x-m04":36,"a2x-m05":3,"a2x-m06":45,"a2x-m07":40,"a2x-m08":64,"a2x-m09":30,"a2x-m10":48,"a2x-m11":54,"a2x-m12":24,"a2x-m13":5,"a2x-m14":16,"a2x-m15":15,"a2x-m16":12,"a2x-m19":1,"a2x-m20":96,"a2x-m21":54,"a2x-m23":1,"a2x-m24":24,"a2x-b01":6,"a2x-b02":11,"a2x-p01":108,"a2x-p02":234,"a2x-p03":54,"a2x-p04":1377};
   const HISTORY = [
     { v: '0.1–0.31 alpha', d: '30 October 2026', items: [
-      'Pilot: A.1 Kinematics and the Paper 1B skills (uncertainties, graphs, linearising, errors). Practice and Exam Mode, chili difficulty, LaTeX throughout, IB-style markschemes, seeded templates that regenerate with new values.',
+      'Pilot: A.1 Kinematics and the Paper 1B skills (uncertainties, graphs, linearising, errors). Practice and Test Mode, chili difficulty, LaTeX throughout, IB-style markschemes, seeded templates that regenerate with new values.',
       'A.2 Forces and momentum and A.3 Work, energy and power added, then a second pass through published exam-style questions (used only as models), with questions that cross A.1–A.3.',
       'Daily Recall with spaced repetition, then the recall games (now Pick’em!, Fill the Gap!, Spot It!, Who’s Right? and Match It!). Notes and Stats.',
       'Blitz with time limits, and Last Man Standing 💀 with shared codes, countdown, sound and music.',
-      'Exam Mode class codes, custom marks per paper and Download & Print with the answer key.',
+      'Test Mode class codes, custom marks per paper and Download & Print with the answer key.',
       'Advanced contact forces strand in A.2. Multiple-choice options at least 7% apart and correct answers spread evenly across A–D.',
     ] },
     { v: '0.32 alpha', d: '31 October 2026', items: ['Notes: "More help" links for every strand. Equation audit against the February 2023 guide and data booklet: equations sorted into In the data booklet, Must know and Useful to derive.'] },
@@ -17809,6 +18255,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     { v: '1.1 Beta', d: '3 November 2026', m: 'Claude Opus 5.5', items: ['Games and Recall now open with cards for each mode and a short description; inside a mode, “← All games” or “← All recall modes” takes you back.', 'The offline copy shows an OFFLINE badge next to the version, with a tooltip explaining it.', 'New Welcome page: a quick guide to every mode, a short tour, and how to use the site for revision. Click the MVPhysics heading at any time to come back to it.', 'Blitz is now part of Games 🕹️, with two modes so far: Blitz and Last Man Standing. More game modes will follow.', '“Only questions I’ve missed” is now at the top of the question panel in Practice and highlighted when you have missed questions to practise (it now applies to Practice only; Exam Mode always uses your full selection).', 'Stats: a Last Man Standing best tile; Blitz average time to 0.1 s.', 'The version is shown in the badge (BETA 1.1), and the Claude model used for each build is listed in this revision history.', 'Fixed: flashcards scrolled sideways on phones.', 'Last Man Standing: a Give up button (with a check first); a run you give up does not count as a best time.', 'Last Man Standing: after every run, a review of each question you answered, right or wrong, with the worked solution. Wrong answers go into "Only questions I\'ve missed".', 'Last Man Standing has its own stats (runs, best survival, recent runs), separate from Blitz Classic, so the Blitz stats now show the right mode.', 'Notes and Recall: the All and None buttons stay together.', 'Removed Saved selections from the question panel.', 'Solutions for radiated intensity now start from the data booklet equation L = σAT⁴ (or eσAT⁴).', 'FE2028 percentage error, difference and change equations shown as separate equations.'] },
     { v: '1.2 Beta', d: '4 November 2026', m: 'Claude Opus 5.5', items: ['The site is now called <b>MVPhysics Lab</b>, with a new address: <b>mvpoirier.github.io/mvphysics/</b>. The old revision-lab address takes you there automatically, and your saved progress carries over. A 🏆 now shows on the browser tab.', 'The site address (with nothing after it) now always opens the Welcome page. Links to a page, such as …/#practice or …/#games, still open that page.', 'The Welcome page is simpler: the welcome message, what’s here and how to revise. The start buttons, level switch and tour are gone (use SL/HL at the top of the page).', 'Printed papers look like IB exams: answer boxes with a border and dotted lines. With “IB-style test” ticked, the order is cover sheet (topics, marks, time, instructions, class code), Paper 1A answer sheet (always 40 rows), Paper 1A, Paper 1B, Paper 2, then the markschemes, starting with the answer sheet with the correct answers crossed.', 'Games: Blitz now ends with a review of every question you answered, with worked solutions, and both Blitz and Last Man Standing can print their results.', 'The Print buttons open the paper or results in a new tab with the print window already open: choose a printer, or Save as PDF.', 'Printed tests: no site name on the cover; the class code appears only on the markscheme pages; the answer sheet lists the topics; and a one-page question overview (topics, strand, difficulty and marks for every question) comes before the markschemes.', 'Last Man Standing: choose the starting time (3, 5 or 10 minutes, or your own).', 'New Syllabus toggle (FE2025 / FE2028) in the Questions panel and in Recall. FE2025 is on by default; FE2028 adds content that is new for exams from May 2028, tagged FE2028.', 'Game stats are now on each game’s own screen and on the Stats page.', 'More resources on precision, accuracy, percentage error and percentage difference; more solutions now start from the data booklet equation.'] },
     { v: '1.3 Beta', d: '5 November 2026', m: 'Claude Opus 5.5', items: ['New game: <b>Unit Detective 🔍</b>. Five case files on units: The Mystery Quantity (identify), Down to the Bones (SI base units), The Scales of Justice (is the equation homogeneous?), The Impostor Equation (the one formula that could be right) and The Deduction (predict a formula from units alone). Play an untimed Investigation of 10 clues, or The Chase against the clock. Harder “case file” clues include constants such as σ, G, μ<sub>0</sub> and ε<sub>0</sub>.', 'The side panel is now called <b>Topics</b> and appears in Recall and Notes too. One selection is shared by every mode; the topic chips at the top of Recall and Notes are gone.', 'Command terms: a switch at the top of the Topics panel in Recall and Notes. Notes now has a Command terms section, grouped by assessment objective, with worked examples of which answer earns the marks.', 'Stats has section buttons: Practice, Exam, Games and Recall. Unit Detective scores are under Games.', 'The space above the footer is the same on every page.', '“← All Games” and “← All Recall Modes” are now buttons. The backup box in Stats has its own colour.', 'Clearer feedback links: <b>🚩 Report a Problem</b> under each question, card and note; <b>💬 Send Feedback</b> in the footer on every page.', 'Headings and buttons use Title Case.', 'Unit Detective uses the same look as the rest of the site.', 'New address: <b>mvpoirier.github.io/physics-lab/</b>. Old links (…/mvphysics/ and …/revision-lab/) still work and your progress carries over.', 'Stats opens straight on its sections (the summary cards at the top are gone). Reset All Progress is a red button.', 'About: the revision history starts collapsed, with one group per major Beta version and a short summary of the Alpha builds.'] },
+    { v: '1.4 Beta', d: '6 November 2026', m: 'Claude Opus 5.5', items: ['<b>Exam Mode is now Test Mode</b> (old #exam links still work). Printing has an <b>Exam mode</b> switch, off by default, with an ⓘ tooltip: cover sheet, Paper 1A answer sheet, IB paper order and markscheme overview.', 'Send Results to Teacher is gone; Print Results and Download stay.', 'Codes: one blue <b>Make a Code</b> button everywhere and a red <b>Clear</b> button. Code boxes start with their mode’s prefix (MVP- for Test Mode, LMS- for Last Man Standing), add the dashes and capitals as you type, and tell you if a code belongs to a different mode. Codes are shown in groups of four.', 'A coloured bar across the top shows your level: blue for SL, purple for HL.', '<b>42 new questions</b> aimed at the mistakes IB examiners reported in the 2025 sessions: average velocity versus speed, areas under a–t graphs, buoyancy, inelastic collisions, units in SI base units, ice below 0 °C, conduction, albedo, kelvin, internal resistance, resistivity, refraction angles, fields between opposite charges, magnetic force on electrons, background count rate, fission equations and more. Each solution names the trap.', 'New question styles: “which statement is the cause?” (all options true, only one explains), units that must be in SI base units, and Paper 1B data questions from real class investigations (Boyle’s law, a cell’s emf and internal resistance, density with uncertainties), plus a Paper 2 question on a rising oil droplet.'] },
   ];
   HISTORY.forEach(h => { h.items = h.items.map(TL); });
   const fmtBig = (n) => n >= 1e6 ? (n / 1e6).toFixed(1) + ' million' : n.toLocaleString('en-GB');
@@ -17837,7 +18284,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
       </div>
       <section class="panel"><h3>How the Questions Are Made</h3><ul class="about-list">
         <li><b>Original questions.</b> Published exam-style questions, textbooks and the teacher's own unit tests, mock and final exams were used only as models for style, difficulty and common traps. No question is copied.</li>
-        <li><b>Templates, not fixed questions.</b> Each question is a small program. It chooses realistic values (masses, speeds, resistances…) from set ranges, then works out the answer, the worked solution and the markscheme from those values. "New values" and every Exam Mode paper use a fresh seed, so the numbers change but the physics and the marking stay correct.</li>
+        <li><b>Templates, not fixed questions.</b> Each question is a small program. It chooses realistic values (masses, speeds, resistances…) from set ranges, then works out the answer, the worked solution and the markscheme from those values. "New values" and every Test Mode paper use a fresh seed, so the numbers change but the physics and the marking stay correct.</li>
         <li><b>Distractors from real mistakes.</b> Wrong options in Paper 1A come from common errors (using °C instead of K, diameter instead of radius, forgetting to square, the wrong trig ratio…). Options are listed in order, are at least 7% apart, and the correct letter is spread evenly across A–D.</li>
         <li><b>Matched to the syllabus.</b> Every strand was checked against the IB DP Physics guide and data booklet (February 2023, first assessment 2025). Notes sort equations into those In the data booklet, those you Must know, and those that are Useful to derive. Paper 1B questions may use unfamiliar experiments, as on the real paper, but only course data-analysis skills.</li>
         <li><b>IB conventions.</b> Command terms and mark allocations follow IB markschemes (✓ marking points, ECF notes, «optional words»). Diagrams use the data booklet's circuit symbols. Values use the data booklet constants, eg g = 9.8 m s⁻².</li>
@@ -17866,7 +18313,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
   const ALPHA_SUMMARY = [
     'Every topic in the FE2025 guide: themes A–E and the Skills in the Study of Physics, 102 strands, with SL and HL kept apart.',
     'Over 1,100 original question templates for Paper 1A, 1B and 2 that generate new values each time, with worked solutions and IB-style markschemes; over 370 recall cards.',
-    'Practice, Exam Mode (IB paper presets, class codes, estimated grades), Blitz and Last Man Standing, Daily Recall with spaced repetition and quick games, Notes with data booklet equations, common mistakes and links, and Stats.',
+    'Practice, Test Mode (IB paper presets, class codes, estimated grades), Blitz and Last Man Standing, Daily Recall with spaced repetition and quick games, Notes with data booklet equations, common mistakes and links, and Stats.',
     'The data booklet in a side panel, an SL/HL switch, and FE2028 changes tagged in Notes and the booklet.',
     'Printable worksheets and exam results, and Report a Problem on every question.',
     'Light and dark themes, phone layouts, accessibility checks, an offline edition, and automatic checks on every build.',
@@ -17891,7 +18338,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
   const WMODES = [
     ['practice', '🎯', 'Practice', 'One question at a time, with full worked solutions and markschemes. Retry any calculation with new values.'],
     ['games', '🕹️', 'Games', 'Race the clock and challenge your class: fast-paced physics games with scores, streaks and personal bests.'],
-    ['exam', '📝', 'Exam Mode', 'A timed paper at IB pace from your topics. Answers stay hidden until you finish; then mark it, see an estimated grade and print it.'],
+    ['test', '📝', 'Test Mode', 'A timed paper at IB pace from your topics. Answers stay hidden until you finish; then mark it, see an estimated grade and print it.'],
     ['recall', '🧠', 'Recall', 'Learn the words and equations that earn marks: definitions, equations and command terms, with flashcards that come back just before you forget them.'],
     ['notes', '📓', 'Notes', 'Short notes for every strand: data booklet equations, what you must know, common mistakes, videos and simulations.'],
     ['stats', '📈', 'Stats', 'Your progress by topic and paper, your pace, exam results and best scores. Back up your progress here too.'],
@@ -17906,7 +18353,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
         <li><b>Every day, 5–10 minutes of Recall.</b> Spaced repetition brings each card back just before you would forget it. Short daily sessions beat one long one.</li>
         <li><b>Practise by topic after each lesson.</b> Pick the strands you have just studied. Try the question before opening the solution, and tick the markscheme points honestly.</li>
         <li><b>Go back to your misses.</b> In Practice, turn on <b>Only Questions I’ve Missed</b> at the top of the Topics panel and redo them with new values until they stick.</li>
-        <li><b>Before a test, sit a timed paper in Exam Mode.</b> Use IB pace, then check where the time went and your estimated grade. Read the Notes for any strand that cost you marks.</li>
+        <li><b>Before a test, sit a timed paper in Test Mode.</b> Use IB pace, then check where the time went and your estimated grade. Read the Notes for any strand that cost you marks.</li>
         <li><b>For fun or a class challenge:</b> Games. Blitz on your own, or Last Man Standing with a shared code.</li></ol></section>
       <section class="panel"><h3>Good to Know</h3><ul class="about-list">
         <li><b>Data booklet:</b> the 📘 button at the top, any time.</li>
@@ -17919,11 +18366,11 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
   function bindWelcome(main) { main.onclick = null; }
   function bindAbout() {}
   const VIEWS = {
-    practice: [renderPractice, bindPractice, 'Practice 🎯'], exam: [renderExam, bindExam, 'Exam 📝'], blitz: [renderGauntlet, bindGauntlet, 'Games 🕹️'],
+    practice: [renderPractice, bindPractice, 'Practice 🎯'], exam: [renderExam, bindExam, 'Test 📝'], blitz: [renderGauntlet, bindGauntlet, 'Games 🕹️'],
     recall: [renderRecall, bindRecall, 'Recall 🧠'], notes: [renderNotes, bindNotes, 'Notes 📓'], stats: [renderStats, bindStats, 'Stats 📈'],
     about: [renderAbout, bindAbout, 'About', true], welcome: [renderWelcome, bindWelcome, 'Welcome', true],
   };
-  const ROUTE_ALIAS = { games: 'blitz' }, ROUTE_HREF = { blitz: 'games' }; // the Games page keeps its internal name 'blitz'
+  const ROUTE_ALIAS = { games: 'blitz', test: 'exam' }, ROUTE_HREF = { blitz: 'games', exam: 'test' }; // the Games page keeps its internal name 'blitz'
   function currentView() { let h = (location.hash || '').slice(1); h = ROUTE_ALIAS[h] || h; if (VIEWS[h]) return h; return 'welcome'; } // the plain site address always opens the Welcome page (1.2)
   function refreshRunningHeader() { /* running exam/gauntlet keeps its paper; rail just updates */ }
   let PREV_VIEW = null;
