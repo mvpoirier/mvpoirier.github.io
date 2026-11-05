@@ -805,29 +805,16 @@ ol.history .hm { font-size: 11.5px; }
 .stat-tab[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent, #fff); }
 
 /* ---------- Unit Detective 🔍 (1.3): Victorian study, gaslight in dark mode ---------- */
-:root.ud:not(#_) {
-  --paper: #ece2cc; --surface: #f7f0df; --sheet: #fbf6ea; --ink: #2a2016; --muted: #6a5640; --line: #cdb995;
-  --accent: #1e5a42; --accent-soft: #dbe7d6; --on-accent: #fff; --grid: rgba(110, 80, 40, 0.05); --grid-major: rgba(110, 80, 40, 0.10);
-}
-@media (prefers-color-scheme: dark) { :root.ud:not([data-theme="light"]):not(#_) {
-  --paper: #15110b; --surface: #211a11; --sheet: #1b150d; --ink: #f1e6cd; --muted: #c2ad86; --line: #4a3b25;
-  --accent: #d9ad4f; --accent-soft: #3a2e17; --on-accent: #1b150d; --grid: rgba(217, 173, 79, 0.05); --grid-major: rgba(217, 173, 79, 0.10); color-scheme: dark; } }
-:root.ud[data-theme="dark"]:not(#_) {
-  --paper: #15110b; --surface: #211a11; --sheet: #1b150d; --ink: #f1e6cd; --muted: #c2ad86; --line: #4a3b25;
-  --accent: #d9ad4f; --accent-soft: #3a2e17; --on-accent: #1b150d; --grid: rgba(217, 173, 79, 0.05); --grid-major: rgba(217, 173, 79, 0.10); color-scheme: dark; }
-:root.ud body { background: radial-gradient(ellipse at 50% -20%, var(--accent-soft) 0%, var(--paper) 55%) fixed; }
 .ud-head { display: flex; align-items: center; gap: 14px; margin: 6px 0 16px; }
-.ud-head h2 { font-family: Georgia, 'Times New Roman', serif; font-size: 30px; letter-spacing: .01em; margin: 0; }
-.ud-head p { margin: 2px 0 0; color: var(--muted); font-style: italic; font-family: Georgia, serif; }
+.ud-head h2 { margin: 0; }
+.ud-head p { margin: 2px 0 0; color: var(--muted); }
 .ud-badge { font-size: 30px; width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; border: 2px solid var(--accent); background: var(--surface); flex: none; }
-.ud-desk { border: 1.5px solid var(--line); box-shadow: 0 1px 0 var(--line), 0 6px 18px rgba(60, 40, 15, 0.10); }
-.ud-desk h3 { font-family: Georgia, serif; }
 .ud-cases { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; margin: 8px 0 16px; }
 .ud-case { position: relative; display: grid; gap: 2px; padding: 12px 12px 12px 40px; border: 1.5px dashed var(--line); border-radius: 6px 14px 6px 6px; background: var(--sheet); cursor: pointer; }
 .ud-case input { position: absolute; left: 12px; top: 14px; width: 18px; height: 18px; accent-color: var(--accent); }
 .ud-case:has(input:checked) { border-style: solid; border-color: var(--accent); }
 .ud-no { font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); font-weight: 700; }
-.ud-case b { font-family: Georgia, serif; font-size: 16px; }
+.ud-case b { font-size: 15px; }
 .ud-d { font-size: 13px; color: var(--muted); }
 .udskill { display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--accent); }
 .ud-modes { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; margin: 8px 0 12px; }
@@ -837,9 +824,9 @@ ol.history .hm { font-size: 11.5px; }
 .ud-dur { gap: 8px; margin: 0 0 10px; }
 .ud-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; margin: 0 0 10px; padding: 8px 14px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); }
 .ud-clock { font-size: 22px; font-weight: 700; font-family: var(--f-mono); } .ud-clock.low { color: var(--bad); }
-.ud-case-tag { font-family: Georgia, serif; font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+.ud-case-tag { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
 .ud-case-tag .udskill { margin-left: 6px; }
-.ud-hard { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; padding: 1px 6px; border-radius: 4px; border: 1px solid var(--accent); color: var(--accent); font-family: var(--f-body, inherit); }
+.ud-hard { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; padding: 1px 6px; border-radius: 4px; border: 1px solid var(--accent); color: var(--accent); }
 .ud-prompt { font-size: 17px; line-height: 1.55; margin: 4px 0 14px; }
 .udu { font-size: 1.15em; white-space: nowrap; }
 .udeq { margin: 10px 0 2px; font-size: 1.1em; }
@@ -853,10 +840,22 @@ ol.history .hm { font-size: 11.5px; }
 .ud-opt:disabled { cursor: default; }
 .ud-verdict { margin: 14px 0 10px; padding: 10px 14px; border-radius: 10px; border-left: 4px solid; line-height: 1.55; }
 .ud-verdict.good { border-color: var(--good); background: var(--good-soft); } .ud-verdict.bad { border-color: var(--bad); background: var(--bad-soft); }
-.ud-verdict b { font-family: Georgia, serif; margin-right: 6px; }
+.ud-verdict b { margin-right: 6px; }
 .ud-rev { border-top: 1px solid var(--line); padding: 12px 0; }
 .udwhy { margin: 6px 0 4px; padding-left: 20px; } .udwhy li { margin: 2px 0; }
 .ud-verdict > span { display: inline; }
+
+/* 1.3: back buttons, backup box, report and feedback */
+.mode-back { margin: 0 0 10px; }
+.backbtn { font-weight: 600; }
+.backup-box { background: var(--accent-soft); border-color: color-mix(in srgb, var(--accent) 35%, var(--line)); }
+.report > summary { display: inline-flex; align-items: center; gap: 6px; list-style: none; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--muted); padding: 4px 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+.report > summary::-webkit-details-marker { display: none; }
+.report > summary:hover { color: var(--bad); border-color: var(--bad); }
+.report[open] > summary { color: var(--bad); border-color: var(--bad); margin-bottom: 8px; }
+.report summary .flag { font-size: 13px; }
+.foot-report .report > summary, .report-general > summary { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); font-size: 14px; padding: 6px 14px; }
+.report-general > summary:hover, .report-general[open] > summary { color: var(--accent); border-color: var(--accent); }
 
 </style>
 <header class="top"><div class="top-inner">
@@ -885,7 +884,7 @@ ol.history .hm { font-size: 11.5px; }
       <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener license">CC BY-NC-SA 4.0</a>
     </nav>
   </div>
-  <details class="report report-general foot-report"><summary><span class="flag" aria-hidden="true">⚑&#xFE0E;</span> Feedback or report a problem</summary><div class="report-body"><textarea class="report-note" rows="3" placeholder="Your feedback: a bug, an idea, something confusing… Say which page or feature." aria-label="Your feedback"></textarea><div class="row"><a class="btn sm primary send-report" href="#" target="_blank" rel="noopener" data-send="general|||footer">Send Report ↗</a><button type="button" class="btn sm" data-report="general|||footer">Copy Report</button><span class="muted small">Send Report opens your teacher’s Google Form (sign in with your school account). The page you are on is added automatically. Copy Report is a backup.</span></div></div></details>
+  <details class="report report-general foot-report"><summary><span class="flag" aria-hidden="true">💬</span> Send Feedback</summary><div class="report-body"><textarea class="report-note" rows="3" placeholder="Your feedback: a bug, an idea, something confusing… Say which page or feature." aria-label="Your feedback"></textarea><div class="row"><a class="btn sm primary send-report" href="#" target="_blank" rel="noopener" data-send="general|||footer">Send Report ↗</a><button type="button" class="btn sm" data-report="general|||footer">Copy Report</button><span class="muted small">Send Report opens your teacher’s Google Form (sign in with your school account). The page you are on is added automatically. Copy Report is a backup.</span></div></div></details>
   <div class="foot-meta">
     <span>Developed by <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a> using Claude</span>
     <span class="foot-ver">Version 1.3 Beta · Updated 5 November 2026</span>
@@ -15919,9 +15918,9 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     rail.innerHTML = `
       <div class="rail-head"><h2>Topics <span class="rail-count num">(${n} ${unit}${n === 1 ? '' : 's'})</span></h2><button class="rail-toggle" id="railToggle" aria-expanded="${!rail.classList.contains('collapsed')}">${rail.classList.contains('collapsed') ? 'Show' : 'Hide'}</button></div>
       <div class="rail-body">
-        ${v !== 'practice' ? '' : `<div class="missed-box ${S.missed.length ? 'has' : ''} ${st.missedOnly ? 'on' : ''}"><label class="switch"><input type="checkbox" id="missedOnly" ${st.missedOnly ? 'checked' : ''}> <span><b>Only questions I've missed</b> <span class="missed-n num">${S.missed.length}</span><small>${S.missed.length ? (st.missedOnly ? 'On: practising your missed questions' : 'Practise the questions you got wrong') : 'Questions you get wrong will collect here'}</small></span></label></div>`}
+        ${v !== 'practice' ? '' : `<div class="missed-box ${S.missed.length ? 'has' : ''} ${st.missedOnly ? 'on' : ''}"><label class="switch"><input type="checkbox" id="missedOnly" ${st.missedOnly ? 'checked' : ''}> <span><b>Only Questions I've Missed</b> <span class="missed-n num">${S.missed.length}</span><small>${S.missed.length ? (st.missedOnly ? 'On: practising your missed questions' : 'Practise the questions you got wrong') : 'Questions you get wrong will collect here'}</small></span></label></div>`}
         ${hiddenHL ? `<p class="sl-note" role="note"><b>SL mode:</b> ${hiddenHL} HL-only strand${hiddenHL === 1 ? ' is' : 's are'} hidden. Switch to HL at the top of the page to see them.</p>` : ''}
-        ${recall || notes ? `<div class="fieldset cmd-box"><label class="switch"><input type="checkbox" id="railCmd" ${st.incCmd ? 'checked' : ''}> <span><b>Command terms</b><small>${recall ? 'Include the IB command-term cards' : 'Show the command terms at the top of Notes'}</small></span></label></div>` : ''}
+        ${recall || notes ? `<div class="fieldset cmd-box"><label class="switch"><input type="checkbox" id="railCmd" ${st.incCmd ? 'checked' : ''}> <span><b>Command Terms</b><small>${recall ? 'Include the IB command-term cards' : 'Show the command terms at the top of Notes'}</small></span></label></div>` : ''}
         ${!qmode ? '' : `<div class="fieldset"><span class="lbl">Papers</span><div class="chips">${PAPERS.map(p => `<button class="chip" data-paper="${p}" aria-pressed="${!!st.papers[p]}">${PAPER_NAME[p]}</button>`).join('')}</div></div>
         <div class="fieldset"><span class="lbl">Difficulty</span><div class="chips">${[1, 2, 3].map(c => `<button class="chip" data-chili="${c}" aria-pressed="${!!st.chili[c]}" aria-label="${CHILI_TIP[c]}">${chiliIcon(c)}</button>`).join('')}</div></div>`}
         ${notes ? '' : `<div class="fieldset"><span class="lbl">Syllabus</span>${specSeg()}`}${notes ? '' : '<span class="muted small spec-note">FE2028 adds content that is new for exams from May 2028.</span></div>'}
@@ -15976,7 +15975,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   const REPORT_HINT = { ud: 'What looks wrong? eg the units, the answer, the explanation', question: 'What looks wrong? eg the answer, a value, a diagram, a typo', card: 'What looks wrong? eg the definition, the term, a typo', which: 'What looks wrong? eg the right answer, the explanation', note: 'What looks wrong or is missing? eg an equation, a link, a typo', booklet: 'What looks wrong? eg an equation, a constant, a typo', general: 'Your feedback: a bug, an idea, something confusing…' };
   const reportBox = (q, seed, where) => reportBoxFor('question', q.id, seed, where);
   function reportBoxFor(kind, ref, seed, where, label) {
-    return `<details class="report report-${kind}"><summary><span class="flag" aria-hidden="true">⚑&#xFE0E;</span> ${label || (kind === 'general' ? 'Feedback or report a problem' : 'Report a problem')}</summary><div class="report-body"><textarea class="report-note" rows="2" placeholder="${REPORT_HINT[kind]}" aria-label="${REPORT_HINT[kind]}"></textarea><div class="row">${sendBtn(`${kind}|${esc(String(ref))}|${seed || ''}|${esc(where)}`)}<button type="button" class="btn sm" data-report="${kind}|${esc(String(ref))}|${seed || ''}|${esc(where)}">Copy Report</button><span class="muted small">${SEND_NOTE}</span></div></div></details>`;
+    return `<details class="report report-${kind}"><summary><span class="flag" aria-hidden="true">${kind === 'general' ? '💬' : '🚩'}</span> ${label || (kind === 'general' ? 'Send Feedback' : 'Report a Problem')}</summary><div class="report-body"><textarea class="report-note" rows="2" placeholder="${REPORT_HINT[kind]}" aria-label="${REPORT_HINT[kind]}"></textarea><div class="row">${sendBtn(`${kind}|${esc(String(ref))}|${seed || ''}|${esc(where)}`)}<button type="button" class="btn sm" data-report="${kind}|${esc(String(ref))}|${seed || ''}|${esc(where)}">Copy Report</button><span class="muted small">${SEND_NOTE}</span></div></div></details>`;
   }
   /* Google Form (Mike's): Send Report opens it pre-filled; the student presses Submit. Nothing is sent by the site itself. */
   const FORM = { url: 'https://docs.google.com/forms/d/e/1FAIpQLSd6tH4w78fknFF4OhnkrmaG5_kla0wubaOrKyUkcIefcC5D9Q/viewform',
@@ -16092,15 +16091,15 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     let body;
     if (q.paper === '1A') {
       body = `<div class="qbody">${inst.stem}</div>${optionsHTML(inst, P.picked, P.revealed)}`;
-      if (P.revealed) body += `<div class="verdict ${P.picked === inst.answer ? 'ok' : 'no'}">${P.picked === inst.answer ? 'Correct' : `Not quite. The answer is ${LETTERS[inst.answer]}.`}<span class="muted small num" style="margin-left:auto">⏱ Time taken: ${fmtMin(P.tUsed / 1000)}</span></div><div class="solution qbody"><h4>Worked solution</h4>${inst.solution}</div>`;
+      if (P.revealed) body += `<div class="verdict ${P.picked === inst.answer ? 'ok' : 'no'}">${P.picked === inst.answer ? 'Correct' : `Not quite. The answer is ${LETTERS[inst.answer]}.`}<span class="muted small num" style="margin-left:auto">⏱ Time taken: ${fmtMin(P.tUsed / 1000)}</span></div><div class="solution qbody"><h4>Worked Solution</h4>${inst.solution}</div>`;
     } else {
       body = `<div class="qbody">${inst.intro}</div><div class="parts">${inst.parts.map(p => `
         <div class="part"><span class="plabel">(${p.label})</span><div class="pbody qbody">${partPrompt(p)}</div><span class="pmarks">[${p.marks}]</span>
         ${P.revealed ? (P.texts[p.label] ? `<div class="ms" style="border-left-color:var(--line)"><span class="muted small">Your answer</span><div>${esc(P.texts[p.label])}</div></div>` : '') + msBlock(p, P.ticks, p.label, P.logged) : `<textarea data-text="${p.label}" placeholder="Optional: type your answer, or write it on paper" aria-label="Your answer to part ${p.label}">${esc(P.texts[p.label] || '')}</textarea>`}</div>`).join('')}</div>`;
       if (P.revealed) {
         const sc = writtenScore(inst, P.ticks);
-        body += `<div class="row"><span class="verdict" id="wTotal">Total awarded: <span class="num">${sc} / ${q.marks}</span></span><span class="spacer"></span>${P.logged ? '<span class="pill good">Score saved</span>' : '<button class="btn primary" id="saveScore">Save my score</button>'}</div>`;
-      } else body += `<div class="row"><button class="btn primary" id="reveal">Show markscheme</button><span class="muted small">Tick each marking point you earned. A part never scores more than its marks.</span></div>`;
+        body += `<div class="row"><span class="verdict" id="wTotal">Total awarded: <span class="num">${sc} / ${q.marks}</span></span><span class="spacer"></span>${P.logged ? '<span class="pill good">Score saved</span>' : '<button class="btn primary" id="saveScore">Save My Score</button>'}</div>`;
+      } else body += `<div class="row"><button class="btn primary" id="reveal">Show Markscheme</button><span class="muted small">Tick each marking point you earned. A part never scores more than its marks.</span></div>`;
     }
     main.innerHTML = head('Practice 🎯', 'Questions one at a time, with full worked solutions. Every calculation question can be retried with new values.') + coach + `
       <article class="sheet" id="sheet">
@@ -16109,8 +16108,8 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
         ${body}
       </article>
       <div class="row">
-        ${isFixed(q, inst) ? '' : '<button class="btn" id="newVals" title="Same question, new numbers">New values</button>'}
-        <button class="btn primary" id="nextQ">Next question</button>
+        ${isFixed(q, inst) ? '' : '<button class="btn" id="newVals" title="Same question, new numbers">New Values</button>'}
+        <button class="btn primary" id="nextQ">Next Question</button>
         <span class="spacer"></span>
         <label class="switch small"><input type="checkbox" id="paceCoach" ${S.settings.paceCoach ? 'checked' : ''}> Pace coach</label>
       </div>${reportBox(q, P.seed, 'Practice')}`;
@@ -16393,7 +16392,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
       <div class="instrument ex-inst"><div id="exInst"></div>${pauseBtn('exam')}</div>
       <div class="palette" role="group" aria-label="Questions">${EX.items.map((x, i) => `<button data-go="${i}" class="${x.answer !== null || x.done ? 'answered' : ''} ${i === EX.cur ? 'current' : ''}" aria-label="Question ${i + 1}">${i + 1}</button>`).join('')}</div>
       <article class="sheet" id="sheet"><div class="qmeta"><span class="paper">${PAPER_NAME[q.paper]}</span><span class="marks">Question ${EX.cur + 1} [${q.marks} mark${q.marks > 1 ? 's' : ''}]</span></div>${body}</article>
-      <div class="row"><button class="btn" id="exPrev" ${EX.cur === 0 ? 'disabled' : ''}>Previous</button><button class="btn" id="exNext" ${EX.cur === EX.items.length - 1 ? 'disabled' : ''}>Next</button><span class="spacer"></span><button class="btn primary" id="exFinish">Finish paper</button></div>
+      <div class="row"><button class="btn" id="exPrev" ${EX.cur === 0 ? 'disabled' : ''}>Previous</button><button class="btn" id="exNext" ${EX.cur === EX.items.length - 1 ? 'disabled' : ''}>Next</button><span class="spacer"></span><button class="btn primary" id="exFinish">Finish Paper</button></div>
       <div id="exConfirm"></div>`;
     typeset($('#sheet'));
     tickExam();
@@ -16454,16 +16453,16 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
       <div class="tiles" id="exTiles">${exTiles()}</div>
       <p class="pause-note ${EX.pauses ? 'has' : ''}"><span aria-hidden="true">⏸</span> ${pauseSummary(EX)}</p>
       <p class="muted small grade-note">The estimated DP grade uses approximate IB DP Physics grade boundaries (${EX.hl ? 'HL' : 'SL'}) for the percentage you scored; see Stats for the table. Real boundaries change each session and include your IA, so treat it as a guide only.</p>
-      <section class="panel"><h3>Minutes per mark</h3><div class="tbl-wrap"><table class="stats"><thead><tr><th>Section</th><th>Marks</th><th>Time</th><th>Min/mark</th><th>IB pace</th><th></th></tr></thead><tbody>${byPaper}</tbody></table></div>
-      ${flags.length ? `<h3 style="margin-top:14px">Where the time went</h3><ul class="small">${flags.join('')}</ul>` : '<p class="muted small">No question took much longer than exam pace.</p>'}</section>
+      <section class="panel"><h3>Minutes per Mark</h3><div class="tbl-wrap"><table class="stats"><thead><tr><th>Section</th><th>Marks</th><th>Time</th><th>Min/mark</th><th>IB pace</th><th></th></tr></thead><tbody>${byPaper}</tbody></table></div>
+      ${flags.length ? `<h3 style="margin-top:14px">Where the Time Went</h3><ul class="small">${flags.join('')}</ul>` : '<p class="muted small">No question took much longer than exam pace.</p>'}</section>
       ${EX.items.map((x, i) => {
         const q = x.q, inst = x.inst;
         let b;
-        if (q.paper === '1A') b = `<div class="qbody">${inst.stem}</div>${optionsHTML(inst, x.answer, true)}<div class="verdict ${x.answer === inst.answer ? 'ok' : 'no'}">${x.answer === null ? 'Not answered.' : x.answer === inst.answer ? 'Correct' : 'Incorrect'} <span class="muted small num">${fmtMin(x.time / 1000)}</span></div><details class="solution"><summary class="small">Worked solution</summary><div class="qbody">${inst.solution}</div></details>`;
+        if (q.paper === '1A') b = `<div class="qbody">${inst.stem}</div>${optionsHTML(inst, x.answer, true)}<div class="verdict ${x.answer === inst.answer ? 'ok' : 'no'}">${x.answer === null ? 'Not answered.' : x.answer === inst.answer ? 'Correct' : 'Incorrect'} <span class="muted small num">${fmtMin(x.time / 1000)}</span></div><details class="solution"><summary class="small">Worked Solution</summary><div class="qbody">${inst.solution}</div></details>`;
         else b = `<div class="qbody">${inst.intro}</div><div class="parts">${inst.parts.map(p => `<div class="part"><span class="plabel">(${p.label})</span><div class="pbody qbody">${partPrompt(p)}</div><span class="pmarks">[${p.marks}]</span>${x.texts[p.label] ? `<div class="ms" style="border-left-color:var(--line)"><span class="muted small">Your answer</span><div>${esc(x.texts[p.label])}</div></div>` : ''}${msBlock(p, x.ticks, i + ':' + p.label, EX.saved)}</div>`).join('')}</div>`;
         return `<article class="sheet exam-item"><div class="qmeta"><span class="paper">${PAPER_NAME[q.paper]}</span>${chiliIcon(q.chili)}<span class="marks">Question ${i + 1} [${q.marks}]</span><span>${esc(q.title)}</span><span class="num">${fmtMin(x.time / 1000)}</span></div>${b}${reportBox(q, x.seed, 'Exam Mode' + (EX.code ? ' ' + EX.code.str : ''))}</article>`;
       }).join('')}
-      <div class="row">${EX.saved ? '<span class="pill good">Results saved to your stats</span>' : '<button class="btn primary" id="exSave">Save results to my stats</button>'}<button class="btn" id="exPrint">🖨 Print results</button><button class="btn" id="exDownload">⬇ Download results</button>${FORM.url ? `<a class="btn send-report" id="exSend" href="${FORM.url}" target="_blank" rel="noopener">📤 Send results to teacher ↗</a>` : ''}<button class="btn" id="exNew">New paper</button></div>
+      <div class="row">${EX.saved ? '<span class="pill good">Results saved to your stats</span>' : '<button class="btn primary" id="exSave">Save Results to My Stats</button>'}<button class="btn" id="exPrint">🖨 Print Results</button><button class="btn" id="exDownload">⬇ Download Results</button>${FORM.url ? `<a class="btn send-report" id="exSend" href="${FORM.url}" target="_blank" rel="noopener">📤 Send Results to Teacher ↗</a>` : ''}<button class="btn" id="exNew">New Paper</button></div>
       <p class="muted small" id="exDlStatus">Print results opens them in a new tab with the print window (choose a printer, or Save as PDF). The file has every question, your answers, the markschemes you ticked, your score, time, pauses and estimated grade. Send results to teacher opens your teacher’s Google Form with your score filled in.</p>`;
     $$('.exam-item', main).forEach(typeset);
   }
@@ -16509,7 +16508,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
         if (b.id === 'exNext') { exSwitch(EX.cur + 1); renderExamRun(main); return; }
         if (b.id === 'exFinish') {
           const open = EX.items.filter(x => x.answer === null && !x.done).length;
-          if (open) { $('#exConfirm').innerHTML = `<div class="confirm"><span>${open} question${open > 1 ? 's are' : ' is'} not answered or marked finished. Finish anyway?</span><div class="row"><button class="btn primary" id="exFinishYes">Finish and mark</button><button class="btn" id="exFinishNo">Keep working</button></div></div>`; return; }
+          if (open) { $('#exConfirm').innerHTML = `<div class="confirm"><span>${open} question${open > 1 ? 's are' : ' is'} not answered or marked finished. Finish anyway?</span><div class="row"><button class="btn primary" id="exFinishYes">Finish and Mark</button><button class="btn" id="exFinishNo">Keep Working</button></div></div>`; return; }
           finishExam(); return;
         }
         if (b.id === 'exFinishYes') { finishExam(); return; }
@@ -16560,9 +16559,9 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   ];
   function gameCards() {
     return head('Games 🕹️', 'Race the clock and challenge your class. Choose a game.') + `<div class="mode-cards">${GAME_CARDS.map(([k, ic, name, d]) => `<button type="button" class="mode-card" data-gamode="${k}"><span class="wic" aria-hidden="true">${ic}</span><b>${name}</b><span>${d}</span></button>`).join('')}
-      <div class="mode-card soon" aria-disabled="true"><span class="wic" aria-hidden="true">🎮</span><b>More games coming</b><span>A new game arrives with each major release.</span></div></div><p class="muted small">Your scores for each game are on its own screen and on the Stats page.</p>`;
+      <div class="mode-card soon" aria-disabled="true"><span class="wic" aria-hidden="true">🎮</span><b>More Games Coming</b><span>A new game arrives with each major release.</span></div></div><p class="muted small">Your scores for each game are on its own screen and on the Stats page.</p>`;
   }
-  const modeBack = (id, label) => `<div class="mode-back"><button type="button" class="linkbtn" id="${id}">← ${label}</button></div>`;
+  const modeBack = (id, label) => `<div class="mode-back"><button type="button" class="btn sm backbtn" id="${id}"><span aria-hidden="true">←</span> ${label}</button></div>`;
   function renderGauntlet(main) {
     if (!GA) GA = { phase: 'setup', dur: 5, custom: false };
     const n = gaPool().length;
@@ -16570,12 +16569,12 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     lmsTheme();
     if (GA.phase === 'setup' && !GA.picked) { main.innerHTML = gameCards(); return; }
     if (GA.picked && GA.mode === 'detective') return renderDetective(main);
-    if (GA.phase === 'setup' && GA.mode === 'lms') { main.innerHTML = modeBack('gaModes', 'All games') + head('Last Man Standing 💀', 'Play against your class with a shared code.') + lmsSetup() + lmsStats(); return; }
+    if (GA.phase === 'setup' && GA.mode === 'lms') { main.innerHTML = modeBack('gaModes', 'All Games') + head('Last Man Standing 💀', 'Play against your class with a shared code.') + lmsSetup() + lmsStats(); return; }
     if (GA.phase === 'setup') {
       const maxMin = Math.min(120, n * 2);
       const preset = [5, 10, 15, 20, 30, 40];
       const isMax = GA.durSel === 'max', isCustom = !isMax && (GA.custom || !preset.includes(GA.dur));
-      main.innerHTML = modeBack('gaModes', 'All games') + head('Blitz ⚡', 'Answer as many Paper 1A questions as you can before time runs out. Wrong answers cost 15 seconds, and the difficulty rises as your streak grows.') + (n ? `
+      main.innerHTML = modeBack('gaModes', 'All Games') + head('Blitz ⚡', 'Answer as many Paper 1A questions as you can before time runs out. Wrong answers cost 15 seconds, and the difficulty rises as your streak grows.') + (n ? `
         <section class="panel"><div class="form-grid"><label class="field"><span>Time limit</span><select id="gaDur">${preset.map(d => `<option value="${d}" ${!isCustom && !isMax && GA.dur === d ? 'selected' : ''}>${d} minutes</option>`).join('')}<option value="max" ${isMax ? 'selected' : ''}>Maximum (${maxMin} minutes)</option><option value="custom" ${isCustom ? 'selected' : ''}>Custom…</option></select></label>
         <label class="field" id="gaCustomWrap" ${isCustom ? '' : 'hidden'}><span>Minutes (3 to ${maxMin})</span><input type="number" id="gaCustom" min="3" max="${maxMin}" step="1" value="${GA.dur}"></label></div>
         <p class="muted small" id="gaErr" role="alert"></p>
@@ -16587,7 +16586,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
       const { q, inst } = GA.cur;
       main.innerHTML = head('Blitz ⚡', '') + `<div class="instrument"><div class="row"><span class="clock" id="gaClock"></span>${pauseBtn('blitz')}<span class="spacer"></span><span class="pill info num">Score ${GA.score}</span><span class="pill neutral num">Streak ${GA.streak}</span></div></div>
         <article class="sheet" id="sheet">${metaLine(q)}<div class="qbody">${inst.stem}</div>${optionsHTML(inst, GA.cur.picked, GA.cur.picked !== null)}</article>
-        <div class="row"><span class="spacer"></span><button class="btn ghost" id="gaQuit">End now</button></div>`;
+        <div class="row"><span class="spacer"></span><button class="btn ghost" id="gaQuit">End Now</button></div>`;
       typeset($('#sheet')); tickGa(); return;
     }
     const best = S.gbest[GA.dur];
@@ -16612,7 +16611,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     const durs = Object.keys(S.gbest).map(Number).filter(d => S.gbest[d] > 0).sort((a, b) => a - b);
     const right = runs.filter(x => x.score > 0).length;
     const avg = runs.length ? runs.reduce((a, x) => a + x.t, 0) / runs.length : 0;
-    return `<section class="panel"><h3>Your Blitz stats</h3>${runs.length ? `
+    return `<section class="panel"><h3>Your Blitz Stats</h3>${runs.length ? `
       <div class="tiles"><div class="tile"><span class="k">Questions answered</span><span class="v num">${runs.length}</span></div><div class="tile"><span class="k">Correct</span><span class="v num">${pct(right, runs.length)}%</span></div><div class="tile"><span class="k">Average time</span><span class="v num">${avg < 60 ? avg.toFixed(1) + ' s' : fmtMin(avg)}</span></div></div>
       ${durs.length ? `<div class="tbl-wrap"><table class="stats"><thead><tr><th>Time limit</th><th>Best score</th></tr></thead><tbody>${durs.map(d => `<tr><td class="num">${d} min</td><td class="num">${S.gbest[d]}</td></tr>`).join('')}</tbody></table></div>` : ''}` : '<p class="muted">No Blitz runs yet. Your best scores for each time limit will appear here.</p>'}</section>`;
   }
@@ -16620,7 +16619,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   function lmsStats() {
     const runs = S.lmsRuns || [], ans = S.log.filter(x => x.mode === 'lms'), right = ans.filter(x => x.score > 0).length;
     const recent = runs.slice(-8).reverse();
-    return `<section class="panel" id="lmsStats"><h3>Your Last Man Standing stats</h3>${runs.length || ans.length ? `
+    return `<section class="panel" id="lmsStats"><h3>Your Last Man Standing Stats</h3>${runs.length || ans.length ? `
       <div class="tiles"><div class="tile"><span class="k">Runs</span><span class="v num">${runs.length}</span></div><div class="tile"><span class="k">Best survival</span><span class="v num">${S.lmsBest ? fmtClock(S.lmsBest) : '–'}</span></div><div class="tile"><span class="k">Questions answered</span><span class="v num">${ans.length}</span></div><div class="tile"><span class="k">Correct</span><span class="v num">${pct(right, ans.length)}%</span></div></div>
       ${recent.length ? `<div class="tbl-wrap"><table class="stats"><thead><tr><th>Date</th><th>Survived</th><th>Correct</th><th></th></tr></thead><tbody>${recent.map(r => `<tr><td>${new Date(r.ts).toLocaleDateString()}</td><td class="num">${fmtClock(r.survived)}</td><td class="num">${r.correct} / ${r.answered}</td><td class="small muted">${r.gaveUp ? 'Gave up' : ''}</td></tr>`).join('')}</tbody></table></div>` : ''}` : '<p class="muted">No Last Man Standing runs yet. Your survival times will appear here.</p>'}</section>`;
   }
@@ -16629,8 +16628,8 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   function runReview(hist, where, printId) {
     if (!hist || !hist.length) return '';
     const wrong = hist.filter(h => h.picked !== h.inst.answer).length;
-    return `<section class="panel lms-review run-review" id="runReview"><div class="row"><h3 style="margin:0">Review your run</h3><span class="spacer"></span><button class="btn sm" id="${printId}" type="button">🖨 Print results</button></div><p class="muted small" id="runPrintStatus">${hist.length} question${hist.length > 1 ? 's' : ''} · ${hist.length - wrong} right · ${wrong} wrong${wrong ? ' (now in "Only questions I\'ve missed" in Practice)' : ''}</p>
-      ${hist.map((h, i) => { const ok = h.picked === h.inst.answer; return `<details class="solution ${ok ? 'rv-ok' : 'rv-no'}"><summary><span class="rv-mark" aria-label="${ok ? 'Right' : 'Wrong'}">${ok ? '✓' : '✗'}</span> ${i + 1}. ${esc(h.q.title)}: ${ok ? `you chose ${LETTERS[h.picked]}` : `you chose ${LETTERS[h.picked]}, answer ${LETTERS[h.inst.answer]}`}</summary><div class="qbody">${h.inst.stem}${optionsHTML(h.inst, h.picked, true)}<h4>Worked solution</h4>${h.inst.solution}</div>${reportBox(h.q, h.seed, where)}</details>`; }).join('')}</section>`;
+    return `<section class="panel lms-review run-review" id="runReview"><div class="row"><h3 style="margin:0">Review Your Run</h3><span class="spacer"></span><button class="btn sm" id="${printId}" type="button">🖨 Print Results</button></div><p class="muted small" id="runPrintStatus">${hist.length} question${hist.length > 1 ? 's' : ''} · ${hist.length - wrong} right · ${wrong} wrong${wrong ? ' (now in "Only questions I\'ve missed" in Practice)' : ''}</p>
+      ${hist.map((h, i) => { const ok = h.picked === h.inst.answer; return `<details class="solution ${ok ? 'rv-ok' : 'rv-no'}"><summary><span class="rv-mark" aria-label="${ok ? 'Right' : 'Wrong'}">${ok ? '✓' : '✗'}</span> ${i + 1}. ${esc(h.q.title)}: ${ok ? `you chose ${LETTERS[h.picked]}` : `you chose ${LETTERS[h.picked]}, answer ${LETTERS[h.inst.answer]}`}</summary><div class="qbody">${h.inst.stem}${optionsHTML(h.inst, h.picked, true)}<h4>Worked Solution</h4>${h.inst.solution}</div>${reportBox(h.q, h.seed, where)}</details>`; }).join('')}</section>`;
   }
   const lmsReview = (L) => runReview(L.hist, 'Last Man Standing', 'lmsPrint');
   // printable results of a game run (same layout as the Exam Mode results file)
@@ -16710,9 +16709,9 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
       <ul class="lms-rules"><li>Everyone starts with <b>${fmtClock(lmsStart())}</b> on the clock (agree the starting time with your class).</li><li>Correct answer: <b>+60 s</b>. Wrong answer: <b>−60 s</b>.</li><li>Everyone with the same code gets the same questions in the same order, and they get harder as you go.</li><li>Last one standing wins.</li></ul>
       ${c ? `<div class="codebox"><div class="code-str num">${c.str}</div><div class="small">Topics: <b>${topicsOf(lmsPool(c).flatMap(q => q.strands))}</b> · ${lmsPool(c).length} question types</div>
         ${c.fpOk ? '' : '<p class="warn small">This code was made with a different version of the question bank, so your questions may not match everyone else\'s. Ask for a new code.</p>'}
-        <div class="row"><button class="btn primary" id="lmsEnter">Enter 💀</button><button class="btn sm" id="lmsCopy">Copy code</button><button class="btn sm ghost" id="lmsClear">Use a different code</button></div></div>`
+        <div class="row"><button class="btn primary" id="lmsEnter">Enter 💀</button><button class="btn sm" id="lmsCopy">Copy Code</button><button class="btn sm ghost" id="lmsClear">Use a Different Code</button></div></div>`
       : `<p class="muted small">This mode needs a code so everyone faces the same questions. One person creates it from the topics ticked in "Questions" and shares it.</p>
-        <div class="codeform"><input type="text" id="lmsIn" placeholder="Enter a code, e.g. LMS-…" autocomplete="off" spellcheck="false" aria-label="Last Man Standing code"><button class="btn sm" id="lmsUse">Use code</button><span class="muted small">or</span><button class="btn sm" id="lmsMake">Create a code from these topics</button></div>`}
+        <div class="codeform"><input type="text" id="lmsIn" placeholder="Enter a code, e.g. LMS-…" autocomplete="off" spellcheck="false" aria-label="Last Man Standing code"><button class="btn sm" id="lmsUse">Use Code</button><span class="muted small">or</span><button class="btn sm" id="lmsMake">Create a Code from These Topics</button></div>`}
       <div class="lms-start"><span class="muted small">Starting time:</span><div class="chips" role="group" aria-label="Starting time">${[3, 5, 10].map(m => `<button type="button" class="chip" data-lmsstart="${m}" aria-pressed="${!S.settings.lmsCustom && (+S.settings.lmsStart || 3) === m}">${m} min</button>`).join('')}<button type="button" class="chip" data-lmsstart="custom" aria-pressed="${!!S.settings.lmsCustom}">Custom</button></div>${S.settings.lmsCustom ? `<label class="field lms-custom"><span>Minutes (1 to 60)</span><input type="number" id="lmsStartIn" min="1" max="60" step="1" value="${+S.settings.lmsStart || 3}"></label>` : ''}</div>
       ${S.lmsBest ? `<p class="muted small">Your best survival time: <b class="num">${fmtClock(S.lmsBest)}</b></p>` : ''}</section>`;
   }
@@ -16781,13 +16780,13 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
     const L = LM;
     if (L.phase === 'ready') {
       main.innerHTML = soundBtn() + `<section class="lms-stage"><div class="lms-skull" aria-hidden="true">💀</div><h2 class="lms-title">LAST MAN STANDING</h2><div class="code-str num">${L.code.str}</div>
-        <p class="lms-sub">Wait until everyone is in the arena.${SFX.isOn() ? ' Sound is on 🔊' : ''}</p><button class="btn primary lms-go" id="lmsReady">Everyone's ready</button><button class="btn ghost sm" id="lmsLeave">Leave</button></section>`;
+        <p class="lms-sub">Wait until everyone is in the arena.${SFX.isOn() ? ' Sound is on 🔊' : ''}</p><button class="btn primary lms-go" id="lmsReady">Everyone's Ready</button><button class="btn ghost sm" id="lmsLeave">Leave</button></section>`;
       return;
     }
     if (L.phase === 'count') { main.innerHTML = soundBtn() + `<section class="lms-stage"><div class="lms-count" id="lmsCount" aria-live="assertive"></div></section>`; lmsTick(); return; }
     if (L.phase === 'run') {
       const it = L.cur;
-      main.innerHTML = `<div class="instrument lms-bar"><div class="row"><span class="clock" id="lmsClock"></span><span class="spacer"></span>${soundBtn()}<span class="pill info num">Correct ${L.correct}</span><span class="pill neutral num">Q${L.idx}</span>${chiliIcon(it.q.chili)}<button type="button" class="btn sm ghost" id="lmsGiveUp">Give up</button></div><div id="lmsConfirm"></div></div>
+      main.innerHTML = `<div class="instrument lms-bar"><div class="row"><span class="clock" id="lmsClock"></span><span class="spacer"></span>${soundBtn()}<span class="pill info num">Correct ${L.correct}</span><span class="pill neutral num">Q${L.idx}</span>${chiliIcon(it.q.chili)}<button type="button" class="btn sm ghost" id="lmsGiveUp">Give Up</button></div><div id="lmsConfirm"></div></div>
         <article class="sheet" id="sheet"><div class="qmeta">${topicTags(it.q.strands)}${chiliIcon(it.q.chili)}</div><div class="qbody">${it.inst.stem}</div>${optionsHTML(it.inst, it.picked, it.picked !== null)}</article>`;
       typeset($('#sheet')); lmsTick(); return;
     }
@@ -16829,7 +16828,7 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
     const on = !!LM && currentView() === 'blitz';
     document.documentElement.classList.toggle('lms', on);
     document.documentElement.classList.toggle('lms-over', on && LM.phase === 'over');
-    document.documentElement.classList.toggle('ud', !LM && currentView() === 'blitz' && !!GA && !!GA.picked && GA.mode === 'detective');
+    
   }
   function lmsStartRun() { SFX.unlock(); Object.assign(LM, { phase: 'count', countStart: now(), idx: 0, correct: 0, answered: 0, cur: null, lastCount: null, hist: [], gaveUp: false }); clearInterval(lmTimer); lmTimer = setInterval(lmsTick, 100); lmsTheme(); renderLms($('#main')); }
   function lmsClick(b, main) {
@@ -16837,7 +16836,7 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
     if (b.id === 'lmsSound') { const on = SFX.toggle(); if (on) { SFX.unlock(); if (L.phase === 'run') SFX.music(true); } b.outerHTML = soundBtn(); return; }
     if (b.id === 'lmsLeave' || b.id === 'lmsEnd') { SFX.music(false); clearInterval(lmTimer); clearTimeout(lmOverT); LM = null; GA.phase = 'setup'; lmsTheme(); renderGauntlet(main); return; }
     if (b.id === 'lmsReady' || b.id === 'lmsRestart') { lmsStartRun(); return; }
-    if (b.id === 'lmsGiveUp' && L.phase === 'run') { $('#lmsConfirm').innerHTML = '<div class="confirm"><span>Give up this run? It ends now and will not count as a best time.</span><div class="row"><button class="btn primary" id="lmsGiveYes">Give up</button><button class="btn" id="lmsGiveNo">Keep going</button></div></div>'; return; }
+    if (b.id === 'lmsGiveUp' && L.phase === 'run') { $('#lmsConfirm').innerHTML = '<div class="confirm"><span>Give up this run? It ends now and will not count as a best time.</span><div class="row"><button class="btn primary" id="lmsGiveYes">Give Up</button><button class="btn" id="lmsGiveNo">Keep Going</button></div></div>'; return; }
     if (b.id === 'lmsGiveNo') { $('#lmsConfirm').innerHTML = ''; return; }
     if (b.id === 'lmsGiveYes' && L.phase === 'run') { L.gaveUp = true; lmsOver(); return; }
     if (L.phase === 'run' && b.dataset.opt !== undefined && L.cur.picked === null) {
@@ -16920,7 +16919,7 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
     const u = S.ud || {}; const runs = u.runs || [], cs = u.cases || {};
     const rows = UD_CASES.map(([id, n, name, skill]) => { const [r, t] = cs[id] || [0, 0]; return t ? `<tr><td>Case ${n} · ${name} <span class="muted small">${skill}</span></td><td class="num">${r}/${t}</td><td style="min-width:110px"><div class="bar good"><i style="width:${pct(r, t)}%"></i></div></td><td class="num">${pct(r, t)}%</td></tr>` : ''; }).join('');
     const best = Object.entries(u.best || {}).filter(([, v]) => v > 0);
-    return `<section class="panel" id="udStats"><h3>Your Unit Detective stats 🔍</h3>${runs.length ? `
+    return `<section class="panel" id="udStats"><h3>Your Unit Detective Stats 🔍</h3>${runs.length ? `
       <div class="tiles"><div class="tile"><span class="k">Cases played</span><span class="v num">${runs.length}</span></div><div class="tile"><span class="k">Clues solved</span><span class="v num">${runs.reduce((a, r) => a + r.right, 0)}</span><span class="s num">of ${runs.reduce((a, r) => a + r.n, 0)}</span></div><div class="tile"><span class="k">Best chase</span><span class="v num">${best.length ? Math.max(...best.map(b => b[1])) : '–'}</span><span class="s">${best.map(([d, v]) => `${d} min: ${v}`).join(' · ') || 'no chases yet'}</span></div></div>
       ${rows ? `<div class="tbl-wrap"><table class="stats"><thead><tr><th>Case</th><th>Solved</th><th></th><th></th></tr></thead><tbody>${rows}</tbody></table></div>` : ''}` : '<p class="muted">No cases yet. Open your first case file above.</p>'}</section>`;
   }
@@ -16929,26 +16928,26 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
     const st = udSettings();
     const headD = `<div class="ud-head"><div class="ud-badge" aria-hidden="true">🔍</div><div><h2>Unit Detective</h2><p>Every equation leaves clues in its units. Follow them.</p></div></div>`;
     if (!UD || UD.phase === 'setup') {
-      main.innerHTML = modeBack('gaModes', 'All games') + headD + `<section class="panel ud-desk">
-        <h3>Choose your case files</h3>
+      main.innerHTML = modeBack('gaModes', 'All Games') + headD + `<section class="panel ud-desk">
+        <h3>Choose Your Case Files</h3>
         <div class="ud-cases">${UD_CASES.map(([id, n, name, skill, d]) => `<label class="ud-case"><input type="checkbox" data-udcase="${id}" ${st.udCases.includes(id) ? 'checked' : ''}><span class="ud-no">Case ${n}</span><b>${name}</b><span class="udskill">${skill}</span><span class="ud-d">${d}</span></label>`).join('')}</div>
-        <h3>How will you investigate?</h3>
+        <h3>How Will You Investigate?</h3>
         <div class="ud-modes">
           <button type="button" class="ud-mode" data-udmode="inv" aria-pressed="${st.udMode === 'inv'}"><b>🕯️ Investigation</b><span>10 clues, no clock. After each answer you see how the units give it away.</span></button>
           <button type="button" class="ud-mode" data-udmode="chase" aria-pressed="${st.udMode === 'chase'}"><b>🏃 The Chase</b><span>Solve as many clues as you can before time runs out. A wrong answer costs 10 seconds; harder clues come as your streak grows.</span></button>
         </div>
         ${st.udMode === 'chase' ? `<div class="row ud-dur"><span class="muted small">Time:</span>${[2, 3, 5].map(m => `<button type="button" class="chip" data-uddur="${m}" aria-pressed="${st.udDur === m}">${m} min</button>`).join('')}</div>` : ''}
         <p class="muted small">Quantities and equations come from the topics ticked in the Topics panel (all topics if too few are ticked).</p>
-        <div class="row"><button class="btn primary" id="udGo">Open the case</button></div></section>` + udStats();
+        <div class="row"><button class="btn primary" id="udGo">Open the Case</button></div></section>` + udStats();
       return;
     }
     if (UD.phase === 'over') {
       const acc = pct(UD.right, UD.n), wrong = UD.hist.filter(h => !h.ok);
-      main.innerHTML = headD + `<section class="panel ud-desk ud-over"><h3>${UD.mode === 'chase' ? 'Time’s up, Inspector' : 'Case closed'}</h3>
+      main.innerHTML = headD + `<section class="panel ud-desk ud-over"><h3>${UD.mode === 'chase' ? 'Time’s Up, Inspector' : 'Case Closed'}</h3>
         <div class="tiles"><div class="tile"><span class="k">Clues solved</span><span class="v num">${UD.right}</span><span class="s num">of ${UD.n}</span></div><div class="tile"><span class="k">Accuracy</span><span class="v num">${acc}%</span></div><div class="tile"><span class="k">Best streak</span><span class="v num">${UD.bestStreak}</span></div>${UD.mode === 'chase' ? `<div class="tile"><span class="k">Best ${UD.dur}-minute chase</span><span class="v num">${(S.ud.best || {})[UD.dur] || 0}</span><span class="s">${UD.newBest ? 'New record!' : ''}</span></div>` : ''}</div>
         <p>${acc >= 80 ? 'A masterful investigation. The units hold no secrets from you.' : acc >= 50 ? 'Good detective work. Review the false leads below and try again.' : 'The trail went cold this time. Read the clues below, then reopen the case.'}</p>
-        <div class="row"><button class="btn primary" id="udAgain">Play again</button><button class="btn" id="udSetup">Change cases</button></div></section>
-        ${wrong.length ? `<section class="panel"><h3>False leads to review (${wrong.length})</h3>${wrong.map(h => `<div class="ud-rev"><div class="ud-case-tag">${udCaseName(h.q.cs)}</div><div>${h.q.prompt}</div><p class="small"><b>Answer:</b> ${h.q.opts[h.q.ans]}<br><span class="muted">You chose: ${h.q.opts[h.picked] || 'nothing (time ran out)'}</span></p><p class="small">${h.q.why}</p></div>`).join('')}</section>` : ''}`;
+        <div class="row"><button class="btn primary" id="udAgain">Play Again</button><button class="btn" id="udSetup">Change Cases</button></div></section>
+        ${wrong.length ? `<section class="panel"><h3>False Leads to Review (${wrong.length})</h3>${wrong.map(h => `<div class="ud-rev"><div class="ud-case-tag">${udCaseName(h.q.cs)}</div><div>${h.q.prompt}</div><p class="small"><b>Answer:</b> ${h.q.opts[h.q.ans]}<br><span class="muted">You chose: ${h.q.opts[h.picked] || 'nothing (time ran out)'}</span></p><p class="small">${h.q.why}</p></div>`).join('')}</section>` : ''}`;
       typeset(main); return;
     }
     const q = UD.q, answered = UD.picked !== null;
@@ -16958,7 +16957,7 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
       <div class="ud-prompt">${q.prompt}</div>
       <div class="ud-opts${q.opts.length === 2 ? ' two' : ''}">${q.opts.map((o, i) => `<button type="button" class="ud-opt${answered ? (i === q.ans ? ' right' : i === UD.picked ? ' wrong' : '') : ''}" data-udopt="${i}" ${answered ? 'disabled' : ''}>${o}</button>`).join('')}</div>
       ${answered ? `<div class="ud-verdict ${UD.picked === q.ans ? 'good' : 'bad'}" role="status"><b>${UD.verdict}</b> <span>${q.why}</span></div>
-      <div class="row"><button class="btn primary" id="udNext">${UD.mode === 'inv' && UD.n >= 10 ? 'See the verdict' : 'Next clue'}</button></div>${reportBoxFor('ud', q.id, '', 'Unit Detective')}` : ''}</section>`;
+      <div class="row"><button class="btn primary" id="udNext">${UD.mode === 'inv' && UD.n >= 10 ? 'See the Verdict' : 'Next Clue'}</button></div>${reportBoxFor('ud', q.id, '', 'Unit Detective')}` : ''}</section>`;
     typeset(main);
   }
   function udStart() {
@@ -17176,7 +17175,7 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
       return;
     }
     const cur = RMODES.find(m => m[0] === mode);
-    const modeRow = modeBack('rcModes', 'All recall modes') + `<p class="muted small rmode-help"><b>${cur[1]}</b> · ${cur[2]}</p>`;
+    const modeRow = modeBack('rcModes', 'All Recall Modes') + `<p class="muted small rmode-help"><b>${cur[1]}</b> · ${cur[2]}</p>`;
     const top = head('Daily Recall 🧠', 'Definitions, equations and command terms.') + modeRow;
     if (!cards.length) { main.innerHTML = top + emptySel('Tick at least one strand in the Topics panel, or turn on Command terms.'); return; }
     if (mode === 'flash') { renderFlash(main, top, cards); }
@@ -17190,18 +17189,18 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
       return `<tr><td><b class="num">${tname(t.id)}</b> ${esc(t.name)}</td><td style="min-width:120px"><div class="bar good" title="${lt} of ${cs.length} cards in long-term memory"><i style="width:${pct(lt, cs.length)}%"></i></div></td><td class="num small muted">${lt}/${cs.length} mastered · ${seen} seen</td></tr>`;
     }).join('');
     const cmd = CARDS.filter(c => c.strand === 'cmd'), cl = cmd.filter(c => S.cards[c.id] && S.cards[c.id].ivl >= 21).length;
-    return `<section class="panel"><h3>Topic mastery</h3><p class="muted small">From Recall flashcards. A card counts as mastered once it is scheduled 21 or more days ahead.</p><div class="tbl-wrap"><table class="stats"><tbody>${rows}<tr><td><b>Command terms</b></td><td><div class="bar good"><i style="width:${pct(cl, cmd.length)}%"></i></div></td><td class="num small muted">${cl}/${cmd.length} mastered</td></tr></tbody></table></div></section>`;
+    return `<section class="panel"><h3>Topic Mastery</h3><p class="muted small">From Recall flashcards. A card counts as mastered once it is scheduled 21 or more days ahead.</p><div class="tbl-wrap"><table class="stats"><tbody>${rows}<tr><td><b>Command Terms</b></td><td><div class="bar good"><i style="width:${pct(cl, cmd.length)}%"></i></div></td><td class="num small muted">${cl}/${cmd.length} mastered</td></tr></tbody></table></div></section>`;
   }
   function renderGame(main, top, mode) {
     if (!GM || GM.mode !== mode) startGame(mode);
     const n = gameItems(mode).length;
     const need = mode === 'match' ? 4 : 1;
-    if ((mode === 'match' ? GM.pairs.length : GM.items.length) < need) { main.innerHTML = top + `<section class="panel empty"><h3>Not enough cards for this mode</h3><p class="muted">Tick more strands in the Topics panel${mode === 'pick' || mode === 'match' || mode === 'gaps' || mode === 'spot' ? ', or include command terms' : ''}.</p></section>`; return; }
+    if ((mode === 'match' ? GM.pairs.length : GM.items.length) < need) { main.innerHTML = top + `<section class="panel empty"><h3>Not Enough Cards for This Mode</h3><p class="muted">Tick more strands in the Topics panel${mode === 'pick' || mode === 'match' || mode === 'gaps' || mode === 'spot' ? ', or include command terms' : ''}.</p></section>`; return; }
     if (mode === 'match') { main.innerHTML = top + matchHTML(); return; }
     if (GM.pos >= GM.items.length) {
       const g = S.games[mode];
       main.innerHTML = top + `<section class="panel"><div class="row" style="align-items:end"><div><div class="muted small">Score</div><div class="big-score">${GM.score}<span class="muted" style="font-size:.5em"> / ${GM.items.length}</span></div></div><div class="muted">${g ? `All time in this mode: ${g.ok} of ${g.n} (${pct(g.ok, g.n)}%)` : ''}</div></div>
-        <div class="row" style="margin-top:12px"><button class="btn primary" id="gmAgain">Play again</button></div></section>`;
+        <div class="row" style="margin-top:12px"><button class="btn primary" id="gmAgain">Play Again</button></div></section>`;
       return;
     }
     const it = GM.items[GM.pos], done = GM.state === 'done';
@@ -17219,7 +17218,7 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
       body = `<div class="ctype"><span>${esc(it.term || TYPE_NAME[it.type])}</span>${it.strand && it.strand !== 'cmd' && STRAND[it.strand] ? topicTags([it.strand]) : ''}${prog}</div>
         <div class="front">${it.front}</div>
         <div class="back gaps">${gapsHTML(it, done, GM.given)}</div>
-        ${done ? (GM.ok ? (GM.close ? '<p class="small good-note">Accepted as close enough.</p>' : '') + next : `<div class="row"><button class="btn primary" id="gmNext">${GM.pos + 1 < GM.items.length ? 'Next' : 'See score'}</button><button class="btn" id="gmClose">Close enough ✓</button><span class="muted small">Only if your wording means the same thing.</span></div>`) : '<div class="row"><button class="btn primary" id="gmCheck">Check</button><span class="muted small">Small spelling slips are accepted automatically.</span></div>'}`;
+        ${done ? (GM.ok ? (GM.close ? '<p class="small good-note">Accepted as close enough.</p>' : '') + next : `<div class="row"><button class="btn primary" id="gmNext">${GM.pos + 1 < GM.items.length ? 'Next' : 'See score'}</button><button class="btn" id="gmClose">Close Enough ✓</button><span class="muted small">Only if your wording means the same thing.</span></div>`) : '<div class="row"><button class="btn primary" id="gmCheck">Check</button><span class="muted small">Small spelling slips are accepted automatically.</span></div>'}`;
     } else if (mode === 'spot') {
       const toks = spotTokens(it.wrong);
       body = `<div class="ctype"><span>${esc(it.term || TYPE_NAME[it.type])}</span>${it.strand && it.strand !== 'cmd' && STRAND[it.strand] ? topicTags([it.strand]) : ''}${prog}</div>
@@ -17240,7 +17239,7 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
     const best = S.matchBest;
     if (GM.end) {
       return `<section class="panel"><div class="row" style="align-items:end"><div><div class="muted small">Time</div><div class="big-score num">${fmtClock(matchTime())}</div></div><div class="muted">${GM.wrong ? `${GM.wrong} wrong pair${GM.wrong > 1 ? 's' : ''} (+${GM.wrong * 5} s)` : 'No wrong pairs'}${GM.newBest ? ' · <span class="pill good">New personal best</span>' : best ? ` · best ${fmtClock(best)}` : ''}</div></div>
-        <div class="row" style="margin-top:12px"><button class="btn primary" id="gmAgain">Play again</button></div></section>`;
+        <div class="row" style="margin-top:12px"><button class="btn primary" id="gmAgain">Play Again</button></div></section>`;
     }
     const cell = (id, side) => { const c = byId[id], d = GM.done.includes(id), sel = GM.sel && GM.sel.side === side && GM.sel.id === id;
       return `<button type="button" class="mcell ${d ? 'done' : ''} ${sel ? 'sel' : ''}" data-mside="${side}" data-mid="${id}" ${d ? 'disabled' : ''}>${side === 'L' ? esc(c.term) : shortDef(c)}</button>`; };
@@ -17291,13 +17290,13 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
     }
     const c = RC.queue[RC.pos], st = S.cards[c.id];
     const isNew = !st, rev = S.settings.flipCards && revTerm(c);
-    top += `<div class="row small"><button type="button" class="btn sm flip-btn" id="flipCards" aria-pressed="${!!S.settings.flipCards}" title="Show the definition first, then recall the term">⇄ Reverse: definition first</button>${S.settings.flipCards && !rev ? '<span class="muted">This card is a question, so it is shown the usual way.</span>' : ''}</div>`;
+    top += `<div class="row small"><button type="button" class="btn sm flip-btn" id="flipCards" aria-pressed="${!!S.settings.flipCards}" title="Show the definition first, then recall the term">⇄ Reverse: Definition First</button>${S.settings.flipCards && !rev ? '<span class="muted">This card is a question, so it is shown the usual way.</span>' : ''}</div>`;
     const front = rev ? `<p class="muted small rev-ask">${c.type === 'cmd' ? 'Which command term is this?' : 'Which term matches this definition?'}</p>${maskTerm(c)}` : c.front;
     const back = rev ? `<b>${rev}</b>${c.type === 'cmd' ? '' : `<div class="muted small">${c.front}</div>`}` : c.back;
     main.innerHTML = top + `<article class="card" id="card">
         <div class="ctype"><span>${TYPE_NAME[c.type]}</span><span>·</span><span>${c.strand === 'cmd' ? 'All papers' : esc(STRAND[c.strand].name)}</span>${c.strand !== 'cmd' ? topicTags([c.strand]) : ''}${isNew ? '<span class="pill info">New</span>' : ''}${st && st.flag ? '<span class="flag">Confident error last time</span>' : ''}<span class="spacer"></span><span class="num">${RC.pos + 1} / ${RC.queue.length}</span></div>
         <div class="front">${front}</div>
-        ${RC.phase === 'front' ? `<div><p class="muted small" style="margin:0 0 8px">Say or write your answer first. How sure are you?</p><div class="conf"><button class="btn" data-conf="0">Guessing</button><button class="btn" data-conf="1">Fairly sure</button><button class="btn" data-conf="2">Certain</button></div></div>` :
+        ${RC.phase === 'front' ? `<div><p class="muted small" style="margin:0 0 8px">Say or write your answer first. How sure are you?</p><div class="conf"><button class="btn" data-conf="0">Guessing</button><button class="btn" data-conf="1">Fairly Sure</button><button class="btn" data-conf="2">Certain</button></div></div>` :
         `<div class="back">${back}</div>
          <div><p class="muted small" style="margin:0 0 8px">How well did you recall it?${RC.conf === 0 ? ' Guessed answers are scheduled as Hard at best.' : ''}</p>
          <div class="rate"><button class="again" data-rate="0">Again<small>${previewIvl(st, 0)}</small></button><button data-rate="1">Hard<small>${previewIvl(st, 1)}</small></button><button data-rate="2">Good<small>${previewIvl(st, RC.conf === 0 ? 1 : 2)}</small></button><button class="easy" data-rate="3">Easy<small>${previewIvl(st, RC.conf === 0 ? 1 : 3)}</small></button></div></div>`}
@@ -17326,7 +17325,7 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
   function renderNotes(main) {
     const ids = LIVE_IDS.filter(id => strandOK(id) && NOTES[id]);
     const list = ids.length ? ids : [];
-    const bar = list.length ? `<div class="row notes-ctl"><span class="muted small">${list.length} strand${list.length > 1 ? 's' : ''}</span><span class="spacer"></span><button class="btn sm" data-nall="1">Expand all</button><button class="btn sm" data-nall="0">Collapse all</button></div>` : '';
+    const bar = list.length ? `<div class="row notes-ctl"><span class="muted small">${list.length} strand${list.length > 1 ? 's' : ''}</span><span class="spacer"></span><button class="btn sm" data-nall="1">Expand All</button><button class="btn sm" data-nall="0">Collapse All</button></div>` : '';
     const ICON = { sim: '🧪', read: '📖', practice: '✏️', video: '▶' };
     const moreHelp = (n) => {
       const all = [...(n.cdVideos && n.cdVideos.length ? n.cdVideos : [{ kind: 'video', label: 'Chris Doner: search his channel', url: `https://www.youtube.com/channel/UCU_4LajnXERILx6XViGCIXA/search?query=${encodeURIComponent(n.video.replace(/^Chris Doner IB physics\s*/i, ''))}` }]), ...(n.links || [])];
@@ -17341,8 +17340,8 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
         ${n.must && n.must.length ? `<div class="learnbox"><div class="bk"><span>🧠 Must know: not in the booklet</span></div><div class="eqgrid">${n.must.map(x => `<div class="eq">$$${x}$$</div>`).join('')}</div></div>` : ''}
         ${n.fe28 && n.fe28.length ? `<div class="fe28box"><div class="bk"><span>🆕 Changes for exams from May 2028</span><span class="fe28">FE2028</span></div><ul>${n.fe28.map(x => `<li>${x}</li>`).join('')}</ul></div>` : ''}
         ${n.derive && n.derive.length ? `<details class="derivebox"><summary><span>🔧 Useful to derive: not required to memorise</span><span class="muted small">${n.derive.length} result${n.derive.length > 1 ? 's' : ''}</span></summary><div class="eqgrid">${n.derive.map(x => `<div class="eq">$$${x}$$</div>`).join('')}</div></details>` : ''}
-        ${(n.sections || [{ ideas: n.ideas, mistakes: n.mistakes }]).map(sec => `${sec.name ? `<h4 class="note-sec">${esc(sec.name)}</h4>` : ''}<div class="cols"><div><h4 class="muted small" style="text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">Key ideas</h4><ul>${sec.ideas.map(x => `<li>${x}</li>`).join('')}</ul></div>
-        <div><h4 class="muted small" style="text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">Common mistakes</h4><ul class="mist">${sec.mistakes.map(x => `<li>${x}</li>`).join('')}</ul></div></div>`).join('')}
+        ${(n.sections || [{ ideas: n.ideas, mistakes: n.mistakes }]).map(sec => `${sec.name ? `<h4 class="note-sec">${esc(sec.name)}</h4>` : ''}<div class="cols"><div><h4 class="muted small" style="text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">Key Ideas</h4><ul>${sec.ideas.map(x => `<li>${x}</li>`).join('')}</ul></div>
+        <div><h4 class="muted small" style="text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">Common Mistakes</h4><ul class="mist">${sec.mistakes.map(x => `<li>${x}</li>`).join('')}</ul></div></div>`).join('')}
         ${moreHelp(n)}${reportBoxFor('note', id, '', 'Notes')}</details>`;
     }).join('') : (S.settings.incCmd ? '' : emptySel('Tick at least one strand in the Topics panel.')));
     typeset(main);
@@ -17353,10 +17352,10 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
     const terms = CARDS.filter(c => c.type === 'cmd' && /command term <b>/.test(c.front)).map(c => ({ t: c.front.match(/<b>(.*?)<\/b>/)[1], d: c.back.replace(/\s*<span class="ao">.*$/, ''), ao: (c.back.match(/class="ao">(AO\d)/) || [])[1] || '' }));
     const ex = CARDS.filter(c => c.type === 'cmd' && !/command term <b>/.test(c.front));
     const AO = { AO1: 'Knowledge and understanding', AO2: 'Application and analysis', AO3: 'Synthesis and evaluation' };
-    return `<details class="panel note cmdnote" data-note="cmd-terms" ${NOTE_OPEN.has('cmd-terms') ? 'open' : ''}><summary><h3><span class="tid">CT</span>Command terms</h3></summary>
+    return `<details class="panel note cmdnote" data-note="cmd-terms" ${NOTE_OPEN.has('cmd-terms') ? 'open' : ''}><summary><h3><span class="tid">CT</span>Command Terms</h3></summary>
       <p class="small">Every exam question starts with a command term. It tells you what kind of answer earns the marks: a single value for <b>State</b>, every step for <b>Show</b>, reasons for <b>Explain</b>.</p>
       ${['AO1', 'AO2', 'AO3'].map(a => { const ts = terms.filter(x => x.ao === a); return ts.length ? `<h4 class="note-sec">${a}: ${AO[a]}</h4><table class="cmdtbl"><tbody>${ts.map(x => `<tr><th>${x.t}</th><td>${x.d}</td></tr>`).join('')}</tbody></table>` : ''; }).join('')}
-      ${ex.length ? `<h4 class="note-sec">Which answer earns the marks?</h4>${ex.map(c => `<div class="cmdex"><div>${c.front}</div><div class="cmdans">${c.back}</div></div>`).join('')}` : ''}
+      ${ex.length ? `<h4 class="note-sec">Which Answer Earns the Marks?</h4>${ex.map(c => `<div class="cmdex"><div>${c.front}</div><div class="cmdans">${c.back}</div></div>`).join('')}` : ''}
       ${reportBoxFor('note', 'cmd-terms', '', 'Notes')}</details>`;
   }
   // FE2028 at a glance: every change, grouped by kind, for all topics (not only the selected ones)
@@ -17364,7 +17363,7 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
     if (typeof FE2028_SUMMARY === 'undefined') return '';
     const order = TOPICS.map(t => t.id), n = FE2028_SUMMARY.reduce((a, g) => a + g.ids.length, 0);
     const item = (id) => { const s = STRAND[id]; if (!s || !FE2028[id]) return ''; return `<li><div class="fe28-strand"><span class="tid">${tname(s.topic)}</span><b>${esc(s.name)}</b>${s.hl || topicHL(TOPICS.find(t => t.id === s.topic)) ? '<span class="hl">HL</span>' : ''}</div><ul>${FE2028[id].map(x => `<li>${x}</li>`).join('')}</ul></li>`; };
-    return `<details class="panel fe28sum" data-note="fe28-summary" ${NOTE_OPEN.has('fe28-summary') ? 'open' : ''}><summary><h3>🆕 FE2028 changes at a glance <span class="fe28">FE2028</span></h3><span class="muted small">${n} strands · all topics</span></summary>
+    return `<details class="panel fe28sum" data-note="fe28-summary" ${NOTE_OPEN.has('fe28-summary') ? 'open' : ''}><summary><h3>🆕 FE2028 Changes at a Glance <span class="fe28">FE2028</span></h3><span class="muted small">${n} strands · all topics</span></summary>
       <p class="small">In September 2026 the IB updated the physics guide and data booklet for <b>exams from May 2028</b>. If you sit your exams in 2026 or 2027, use the FE2025 documents: nothing here changes what you need to know, although most items are clarifications worth knowing anyway. Each change also appears in its strand's notes and in the data booklet, tagged <span class="fe28">FE2028</span>.</p>
       ${FE2028_SUMMARY.map(g => `<h4 class="note-sec">${g.title}</h4><ul class="fe28-list">${g.ids.slice().sort((x, y) => order.indexOf(STRAND[x].topic) - order.indexOf(STRAND[y].topic)).map(item).join('')}</ul>`).join('')}
       <p class="muted small">Summary of the September 2026 update to the IB DP Physics guide and data booklet. Check the official documents for full wording.</p>${reportBoxFor('note', 'fe28-summary', '', 'Notes')}</details>`;
@@ -17417,21 +17416,21 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
         <div class="tile"><span class="k">Last Man Standing best</span><span class="v num">${S.lmsBest ? fmtClock(S.lmsBest) : '–'}</span><span class="s">${(S.lmsRuns || []).length} run${(S.lmsRuns || []).length === 1 ? '' : 's'}</span></div>
       </div>
       <div class="stat-tabs" role="tablist" aria-label="Stats sections">${STAT_TABS.map(([k, l]) => `<button type="button" role="tab" class="stat-tab" data-stab="${k}" aria-selected="${tab === k}">${l}</button>`).join('')}</div>
-      ${tab !== 'practice' ? '' : `<section class="panel"><h3>Pace: minutes per mark</h3><p class="muted small">From practice and exam attempts. IB pace is 2.0 min/mark for Paper 1 and 1.65 for Paper 2.</p><div class="tbl-wrap"><table class="stats"><thead><tr><th>Paper</th><th>Your pace</th><th>IB pace</th><th style="min-width:90px"></th><th></th></tr></thead><tbody>${paceRows}</tbody></table></div></section>
-      <section class="panel"><h3>By strand</h3>${strandRows ? `<p class="muted small">Pace is your time divided by IB time for the same marks: under 1.00× is faster than exam pace.</p><div class="tbl-wrap"><table class="stats"><thead><tr><th>Strand</th><th>Tries</th><th style="min-width:140px">Marks</th><th>Pace</th><th></th></tr></thead><tbody>${strandRows}</tbody></table></div>` : '<p class="muted">Answer a few questions to see your strengths and gaps.</p>'}</section>
+      ${tab !== 'practice' ? '' : `<section class="panel"><h3>Pace: Minutes per Mark</h3><p class="muted small">From practice and exam attempts. IB pace is 2.0 min/mark for Paper 1 and 1.65 for Paper 2.</p><div class="tbl-wrap"><table class="stats"><thead><tr><th>Paper</th><th>Your pace</th><th>IB pace</th><th style="min-width:90px"></th><th></th></tr></thead><tbody>${paceRows}</tbody></table></div></section>
+      <section class="panel"><h3>By Strand</h3>${strandRows ? `<p class="muted small">Pace is your time divided by IB time for the same marks: under 1.00× is faster than exam pace.</p><div class="tbl-wrap"><table class="stats"><thead><tr><th>Strand</th><th>Tries</th><th style="min-width:140px">Marks</th><th>Pace</th><th></th></tr></thead><tbody>${strandRows}</tbody></table></div>` : '<p class="muted">Answer a few questions to see your strengths and gaps.</p>'}</section>
       <div class="form-grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
-        <section class="panel"><h3>By difficulty</h3>${chiliRows ? `<table class="stats"><tbody>${chiliRows}</tbody></table>` : '<p class="muted">No attempts yet.</p>'}</section>
-        <section class="panel"><h3>Rushed errors</h3>${med ? `<p><span class="big-score" style="font-size:34px">${rushed}</span> <span class="muted">of ${wrong.length} wrong Paper 1A answers came in under half your usual time (${Math.round(med)} s).</span></p><p class="muted small">Fast wrong answers are usually misreads or skipped steps rather than gaps in understanding.</p>` : '<p class="muted">Answer some Paper 1A questions correctly to set your usual time.</p>'}</section>
+        <section class="panel"><h3>By Difficulty</h3>${chiliRows ? `<table class="stats"><tbody>${chiliRows}</tbody></table>` : '<p class="muted">No attempts yet.</p>'}</section>
+        <section class="panel"><h3>Rushed Errors</h3>${med ? `<p><span class="big-score" style="font-size:34px">${rushed}</span> <span class="muted">of ${wrong.length} wrong Paper 1A answers came in under half your usual time (${Math.round(med)} s).</span></p><p class="muted small">Fast wrong answers are usually misreads or skipped steps rather than gaps in understanding.</p>` : '<p class="muted">Answer some Paper 1A questions correctly to set your usual time.</p>'}</section>
       </div>`}
-      ${tab !== 'recall' ? '' : `<section class="panel"><h3>Recall health</h3><p class="small">${cards.length} of ${CARDS.length} cards started · ${mature} in long-term memory (21+ days) · ${dueNow} due now${flagged ? ` · <span class="flag">${flagged} confident error${flagged > 1 ? 's' : ''}</span>` : ''}</p></section>
+      ${tab !== 'recall' ? '' : `<section class="panel"><h3>Recall Health</h3><p class="small">${cards.length} of ${CARDS.length} cards started · ${mature} in long-term memory (21+ days) · ${dueNow} due now${flagged ? ` · <span class="flag">${flagged} confident error${flagged > 1 ? 's' : ''}</span>` : ''}</p></section>
       ${masteryPanel()}`}
-      ${tab !== 'exam' ? '' : `${exams.length ? `<section class="panel"><h3>Recent exam-mode papers</h3><div class="tbl-wrap"><table class="stats"><thead><tr><th>Date</th><th>Score</th><th>Est. grade</th><th>Time used</th><th>Pauses</th><th>Seed</th></tr></thead><tbody>${exams.map(x => `<tr><td>${new Date(x.ts).toLocaleDateString()}</td><td class="num">${x.score}/${x.total} (${pct(x.score, x.total)}%)</td><td class="num">${x.grade || '–'}</td><td class="num">${fmtClock(x.used)} of ${fmtClock(x.allowed)}</td><td class="num">${x.pauses ? `${x.pauses} (${fmtClock(x.paused)})` : x.pauses === 0 ? 'none' : '–'}</td><td class="num small">${x.seed ? esc(String(x.seed)) : '–'}</td></tr>`).join('')}</tbody></table></div></section>` : '<section class="panel"><h3>Recent exam-mode papers</h3><p class="muted">Finish a paper in Exam Mode to see it here.</p></section>'}
-      <section class="panel" id="gradeBands"><h3>Estimated DP grade boundaries</h3>
+      ${tab !== 'exam' ? '' : `${exams.length ? `<section class="panel"><h3>Recent Exam Mode Papers</h3><div class="tbl-wrap"><table class="stats"><thead><tr><th>Date</th><th>Score</th><th>Est. grade</th><th>Time used</th><th>Pauses</th><th>Seed</th></tr></thead><tbody>${exams.map(x => `<tr><td>${new Date(x.ts).toLocaleDateString()}</td><td class="num">${x.score}/${x.total} (${pct(x.score, x.total)}%)</td><td class="num">${x.grade || '–'}</td><td class="num">${fmtClock(x.used)} of ${fmtClock(x.allowed)}</td><td class="num">${x.pauses ? `${x.pauses} (${fmtClock(x.paused)})` : x.pauses === 0 ? 'none' : '–'}</td><td class="num small">${x.seed ? esc(String(x.seed)) : '–'}</td></tr>`).join('')}</tbody></table></div></section>` : '<section class="panel"><h3>Recent Exam Mode Papers</h3><p class="muted">Finish a paper in Exam Mode to see it here.</p></section>'}
+      <section class="panel" id="gradeBands"><h3>Estimated DP Grade Boundaries</h3>
         <p class="muted small">Exam Mode estimates your grade from the percentage you score, using these approximate minimums. They are typical of recent IB DP Physics sessions, not official FE2025 boundaries: real boundaries are set each session and include the IA, so use them as a guide only.</p>
         <div class="tbl-wrap"><table class="stats"><thead><tr><th>Level</th>${[7, 6, 5, 4, 3, 2, 1].map(g => `<th class="num">${g}</th>`).join('')}</tr></thead><tbody>${['SL', 'HL'].map(l => `<tr><td><span class="lvl-${l.toLowerCase()}">${l}</span></td>${GRADE_BANDS[l].map(v => `<td class="num">${v}%</td>`).join('')}<td class="num">0%</td></tr>`).join('')}</tbody></table></div></section>`}
       ${tab !== 'games' ? '' : (blitzStats() + lmsStats() + (typeof udStats === 'function' ? udStats() : '')) || '<section class="panel"><h3>Games</h3><p class="muted">Play a game to see your scores here.</p></section>'}
-      <section class="panel"><h3>Move or back up your progress</h3><p class="muted small">Progress lives in this browser only. Copy the backup code and paste it into the box on another device to continue there.</p>
-        <div class="row"><button class="btn" id="bkCopy">Copy backup code</button><button class="btn" id="bkShow">Restore from a code</button><span class="spacer"></span><button class="btn ghost danger" id="rsAsk">Reset all progress</button></div>
+      <section class="panel backup-box"><h3>Move or Back Up Your Progress</h3><p class="muted small">Progress lives in this browser only. Copy the backup code and paste it into the box on another device to continue there.</p>
+        <div class="row"><button class="btn" id="bkCopy">Copy Backup Code</button><button class="btn" id="bkShow">Restore from a Code</button><span class="spacer"></span><button class="btn ghost danger" id="rsAsk">Reset All Progress</button></div>
         <div id="bkArea"></div></section>`;
     typeset(main);
   }
@@ -17454,7 +17453,7 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
         catch (err) { toast('That code could not be read. Check you copied all of it.'); }
         return;
       }
-      if (b.id === 'rsAsk') { $('#bkArea').innerHTML = `<div class="confirm" style="margin-top:10px"><span>This erases every attempt, recall card and setting in this browser. It cannot be undone.</span><div class="row"><button class="btn danger" id="rsYes">Erase everything</button><button class="btn" id="rsNo">Cancel</button></div></div>`; return; }
+      if (b.id === 'rsAsk') { $('#bkArea').innerHTML = `<div class="confirm" style="margin-top:10px"><span>This erases every attempt, recall card and setting in this browser. It cannot be undone.</span><div class="row"><button class="btn danger" id="rsYes">Erase Everything</button><button class="btn" id="rsNo">Cancel</button></div></div>`; return; }
       if (b.id === 'rsNo') { $('#bkArea').innerHTML = ''; return; }
       if (b.id === 'rsYes') { S = DEF(); save(); RC = null; P.q = null; renderRail(); renderStats(main); toast('Progress reset.'); }
     };
@@ -17464,13 +17463,13 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
   const WS = { target: 20, answers: true, cover: true }; // cover = IB-style test: cover sheet + Paper 1A answer sheet
   document.addEventListener('change', (e) => { if (e.target && e.target.id === 'wsCover') WS.cover = e.target.checked; });
   function worksheetPanel() {
-    return `<details class="panel ws" id="wsPanel"><summary><b>Make a printable worksheet</b> <span class="muted small">· built from your selection, new values every time</span></summary>
+    return `<details class="panel ws" id="wsPanel"><summary><b>Make a Printable Worksheet</b> <span class="muted small">· built from your selection, new values every time</span></summary>
       <div class="form-grid" style="margin-top:12px">
         <label class="field"><span>Length</span><select id="wsTarget">${[10, 15, 20, 30, 45].map(m => `<option value="${m}" ${WS.target === m ? 'selected' : ''}>${m} marks</option>`).join('')}</select></label>
         <div class="field"><span>Include</span><label class="switch"><input type="radio" name="wsInc" value="q" ${WS.answers ? '' : 'checked'}> Questions only</label><label class="switch"><input type="radio" name="wsInc" value="qa" ${WS.answers ? 'checked' : ''}> Questions and answers</label></div>
       </div>
       <p class="muted small">You get one file. Open it in any browser and choose Print, then Save as PDF. Answers start on a new page.</p>
-      <div class="row"><button class="btn primary" id="wsMake">Download worksheet</button><span class="muted small" id="wsStatus"></span></div></details>`;
+      <div class="row"><button class="btn primary" id="wsMake">Download Worksheet</button><span class="muted small" id="wsStatus"></span></div></details>`;
   }
   /* Printable files (worksheets, exam results): authorship comment at the top, and a watermark line on every printed page
      (CSS page-margin boxes: Chrome and Edge) plus a footer at the end of the document (all browsers). */
@@ -17594,7 +17593,7 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
     const byT = {}; items.forEach(x => { const ts = tops(x.q); ts.forEach(t => { byT[t] = (byT[t] || 0) + x.q.marks / ts.length; }); });
     const byP = PAPERS.filter(p => items.some(x => x.q.paper === p)).map(p => [p, items.filter(x => x.q.paper === p).reduce((n, x) => n + x.q.marks, 0)]);
     const chil = (n) => '🌶'.repeat(n);
-    return `<section class="overview"><div class="wshead"><h1>Markscheme and question overview</h1><div class="wscode">${code.str}</div></div>
+    return `<section class="overview"><div class="wshead"><h1>Markscheme and Question Overview</h1><div class="wscode">${code.str}</div></div>
       <table class="ov"><thead><tr><th>#</th><th>Paper</th><th>Question</th><th>Topics</th><th>Strand</th><th>Difficulty</th><th>Marks</th></tr></thead><tbody>${items.map((x, i) => `<tr><td>${i + 1}</td><td>${PAPER_NAME[x.q.paper].replace('Paper ', '')}</td><td>${esc(x.q.title)}${x.q.hl ? ' <span class="ovhl">HL</span>' : ''}</td><td>${tops(x.q).map(tname).join(', ')}</td><td>${esc(x.q.strands.map(id => STRAND[id] ? STRAND[id].name : id).join(' · '))}</td><td class="ovc">${chil(x.q.chili)}</td><td class="ovn">${x.q.marks}</td></tr>`).join('')}</tbody></table>
       <div class="ovt"><table class="ov"><thead><tr><th>Paper</th><th>Marks</th></tr></thead><tbody>${byP.map(([p, m]) => `<tr><td>${PAPER_NAME[p]}</td><td class="ovn">${m}</td></tr>`).join('')}<tr><td><b>Total</b></td><td class="ovn"><b>${total}</b></td></tr></tbody></table>
       <table class="ov"><thead><tr><th>Topic</th><th>Marks</th></tr></thead><tbody>${Object.keys(byT).sort((a, b) => order.indexOf(a) - order.indexOf(b)).map(t => `<tr><td>${tname(t)}</td><td class="ovn">${Math.round(byT[t] * 10) / 10}</td></tr>`).join('')}</tbody></table></div>
@@ -17667,7 +17666,7 @@ ${docWatermark(WS.cover !== false ? '' : 'Class code ' + code.str)}${docFooter('
     let h = `<div class="item">${wsQuestion(x, n, true)}`;
     if (q.paper === '1A') {
       const ok = x.answer === inst.answer;
-      h += `<div class="yours ${ok ? 'ok' : 'no'}">Your answer: <b>${x.answer === null ? 'not answered' : LETTERS[x.answer]}</b> · Correct answer: <b>${LETTERS[inst.answer]}</b> · ${ok ? '✓ 1 / 1' : '✗ 0 / 1'} · ${fmtMin(x.time / 1000)} · seed ${x.seed}</div><div class="sol"><b>Worked solution</b><div>${inst.solution}</div></div>`;
+      h += `<div class="yours ${ok ? 'ok' : 'no'}">Your answer: <b>${x.answer === null ? 'not answered' : LETTERS[x.answer]}</b> · Correct answer: <b>${LETTERS[inst.answer]}</b> · ${ok ? '✓ 1 / 1' : '✗ 0 / 1'} · ${fmtMin(x.time / 1000)} · seed ${x.seed}</div><div class="sol"><b>Worked Solution</b><div>${inst.solution}</div></div>`;
     } else {
       h += `<div class="yours">Awarded <b>${writtenScore(inst, x.ticks)} / ${q.marks}</b> · ${fmtMin(x.time / 1000)} · seed ${x.seed}</div><div class="sol"><b>Markscheme (✓ = mark you awarded)</b>${inst.parts.map(p => {
         const t = x.ticks[p.label] || [], got = Math.min(p.marks, t.filter(Boolean).length);
@@ -17813,7 +17812,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     { v: '1.0 Beta', d: '2 November 2026', m: 'Claude Opus 5.5', items: ['First beta, for student testing. Versions 0.1–0.60 were internal alpha builds.', 'All 25 topics, 102 strands and 1,131 question templates (Paper 1A, 1B and 2), 377 recall cards and 107 Who’s Right? items.', 'Open to print: worksheets and exam results open in a new tab, ready to print or save as PDF (Download is still there). If pop-ups are blocked, the file downloads instead.', 'Notes: Chris Doner videos are now linked directly for each strand (from his FE2025 topic playlists), plus the playlist for the whole topic.', 'Fixed: tooltips no longer cut off at the edge of a panel or the screen, and wide equations in Notes are no longer cut off (they widen or shrink to fit).', 'Printed and downloaded papers and results carry the version, author, licence and site on every page, with page numbers.', 'Send Report: each report box (and Send results to teacher in Exam Mode) opens your teacher’s Google Form already filled in; you press Submit. Sign in with your school account. Copy Report stays as a backup.', 'Report a problem is now everywhere: under every question (Practice, Exam Mode, Blitz misses), every flashcard and answered Recall game, every Notes strand, the FE2028 summary and the data booklet. A Feedback or report a problem box in the footer covers the rest of the site (Stats, About, ideas, bugs) and adds the page you are on.']},
     { v: '1.1 Beta', d: '3 November 2026', m: 'Claude Opus 5.5', items: ['Games and Recall now open with cards for each mode and a short description; inside a mode, “← All games” or “← All recall modes” takes you back.', 'The offline copy shows an OFFLINE badge next to the version, with a tooltip explaining it.', 'New Welcome page: a quick guide to every mode, a short tour, and how to use the site for revision. Click the MVPhysics heading at any time to come back to it.', 'Blitz is now part of Games 🕹️, with two modes so far: Blitz and Last Man Standing. More game modes will follow.', '“Only questions I’ve missed” is now at the top of the question panel in Practice and highlighted when you have missed questions to practise (it now applies to Practice only; Exam Mode always uses your full selection).', 'Stats: a Last Man Standing best tile; Blitz average time to 0.1 s.', 'The version is shown in the badge (BETA 1.1), and the Claude model used for each build is listed in this revision history.', 'Fixed: flashcards scrolled sideways on phones.', 'Last Man Standing: a Give up button (with a check first); a run you give up does not count as a best time.', 'Last Man Standing: after every run, a review of each question you answered, right or wrong, with the worked solution. Wrong answers go into "Only questions I\'ve missed".', 'Last Man Standing has its own stats (runs, best survival, recent runs), separate from Blitz Classic, so the Blitz stats now show the right mode.', 'Notes and Recall: the All and None buttons stay together.', 'Removed Saved selections from the question panel.', 'Solutions for radiated intensity now start from the data booklet equation L = σAT⁴ (or eσAT⁴).', 'FE2028 percentage error, difference and change equations shown as separate equations.'] },
     { v: '1.2 Beta', d: '4 November 2026', m: 'Claude Opus 5.5', items: ['The site is now called <b>MVPhysics Lab</b>, with a new address: <b>mvpoirier.github.io/mvphysics/</b>. The old revision-lab address takes you there automatically, and your saved progress carries over. A 🏆 now shows on the browser tab.', 'The site address (with nothing after it) now always opens the Welcome page. Links to a page, such as …/#practice or …/#games, still open that page.', 'The Welcome page is simpler: the welcome message, what’s here and how to revise. The start buttons, level switch and tour are gone (use SL/HL at the top of the page).', 'Printed papers look like IB exams: answer boxes with a border and dotted lines. With “IB-style test” ticked, the order is cover sheet (topics, marks, time, instructions, class code), Paper 1A answer sheet (always 40 rows), Paper 1A, Paper 1B, Paper 2, then the markschemes, starting with the answer sheet with the correct answers crossed.', 'Games: Blitz now ends with a review of every question you answered, with worked solutions, and both Blitz and Last Man Standing can print their results.', 'The Print buttons open the paper or results in a new tab with the print window already open: choose a printer, or Save as PDF.', 'Printed tests: no site name on the cover; the class code appears only on the markscheme pages; the answer sheet lists the topics; and a one-page question overview (topics, strand, difficulty and marks for every question) comes before the markschemes.', 'Last Man Standing: choose the starting time (3, 5 or 10 minutes, or your own).', 'New Syllabus toggle (FE2025 / FE2028) in the Questions panel and in Recall. FE2025 is on by default; FE2028 adds content that is new for exams from May 2028, tagged FE2028.', 'Game stats are now on each game’s own screen and on the Stats page.', 'More resources on precision, accuracy, percentage error and percentage difference; more solutions now start from the data booklet equation.'] },
-    { v: '1.3 Beta', d: '5 November 2026', m: 'Claude Opus 5.5', items: ['New game: <b>Unit Detective 🔍</b>. Five case files on units: The Mystery Quantity (identify), Down to the Bones (SI base units), The Scales of Justice (is the equation homogeneous?), The Impostor Equation (the one formula that could be right) and The Deduction (predict a formula from units alone). Play an untimed Investigation of 10 clues, or The Chase against the clock. Harder “case file” clues include constants such as σ, G, μ<sub>0</sub> and ε<sub>0</sub>.', 'The side panel is now called <b>Topics</b> and appears in Recall and Notes too. One selection is shared by every mode; the topic chips at the top of Recall and Notes are gone.', 'Command terms: a switch at the top of the Topics panel in Recall and Notes. Notes now has a Command terms section, grouped by assessment objective, with worked examples of which answer earns the marks.', 'Stats has section buttons: Practice, Exam, Games and Recall. Unit Detective scores are under Games.', 'The space above the footer is the same on every page.'] },
+    { v: '1.3 Beta', d: '5 November 2026', m: 'Claude Opus 5.5', items: ['New game: <b>Unit Detective 🔍</b>. Five case files on units: The Mystery Quantity (identify), Down to the Bones (SI base units), The Scales of Justice (is the equation homogeneous?), The Impostor Equation (the one formula that could be right) and The Deduction (predict a formula from units alone). Play an untimed Investigation of 10 clues, or The Chase against the clock. Harder “case file” clues include constants such as σ, G, μ<sub>0</sub> and ε<sub>0</sub>.', 'The side panel is now called <b>Topics</b> and appears in Recall and Notes too. One selection is shared by every mode; the topic chips at the top of Recall and Notes are gone.', 'Command terms: a switch at the top of the Topics panel in Recall and Notes. Notes now has a Command terms section, grouped by assessment objective, with worked examples of which answer earns the marks.', 'Stats has section buttons: Practice, Exam, Games and Recall. Unit Detective scores are under Games.', 'The space above the footer is the same on every page.', '“← All Games” and “← All Recall Modes” are now buttons. The backup box in Stats has its own colour.', 'Clearer feedback links: <b>🚩 Report a Problem</b> under each question, card and note; <b>💬 Send Feedback</b> in the footer on every page.', 'Headings and buttons use Title Case.', 'Unit Detective uses the same look as the rest of the site.'] },
   ];
   HISTORY.forEach(h => { h.items = h.items.map(TL); });
   const fmtBig = (n) => n >= 1e6 ? (n / 1e6).toFixed(1) + ' million' : n.toLocaleString('en-GB');
@@ -17840,7 +17839,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
         <div class="tile"><span class="k">Recall cards</span><span class="v num">${CARDS.length}</span><span class="s">plus ${WHICH.length} "Who’s Right?" items</span></div>
         <div class="tile"><span class="k">Strands</span><span class="v num">${strands}</span><span class="s">in ${liveT.length - 1} topics plus Skills in the Study of Physics (SSP)</span></div>
       </div>
-      <section class="panel"><h3>How the questions are made</h3><ul class="about-list">
+      <section class="panel"><h3>How the Questions Are Made</h3><ul class="about-list">
         <li><b>Original questions.</b> Published exam-style questions, textbooks and the teacher's own unit tests, mock and final exams were used only as models for style, difficulty and common traps. No question is copied.</li>
         <li><b>Templates, not fixed questions.</b> Each question is a small program. It chooses realistic values (masses, speeds, resistances…) from set ranges, then works out the answer, the worked solution and the markscheme from those values. "New values" and every Exam Mode paper use a fresh seed, so the numbers change but the physics and the marking stay correct.</li>
         <li><b>Distractors from real mistakes.</b> Wrong options in Paper 1A come from common errors (using °C instead of K, diameter instead of radius, forgetting to square, the wrong trig ratio…). Options are listed in order, are at least 7% apart, and the correct letter is spread evenly across A–D.</li>
@@ -17848,23 +17847,23 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
         <li><b>IB conventions.</b> Command terms and mark allocations follow IB markschemes (✓ marking points, ECF notes, «optional words»). Diagrams use the data booklet's circuit symbols. Values use the data booklet constants, eg g = 9.8 m s⁻².</li>
         <li><b>Difficulty.</b> 🌶 one idea or equation; 🌶🌶 two steps or a common trap; 🌶🌶🌶 several steps, several topics, or an unfamiliar context.</li>
       </ul></section>
-      <section class="panel"><h3>The question bank</h3><div class="tbl-wrap"><table class="stats"><thead><tr><th>Topic</th><th>1A</th><th>1B</th><th>P2</th><th>Templates</th><th>Cards</th><th>Value combinations</th></tr></thead><tbody>${rows}
+      <section class="panel"><h3>The Question Bank</h3><div class="tbl-wrap"><table class="stats"><thead><tr><th>Topic</th><th>1A</th><th>1B</th><th>P2</th><th>Templates</th><th>Cards</th><th>Value combinations</th></tr></thead><tbody>${rows}
         <tr><td><b>Total</b></td><td class="num"><b>${tot('1A')}</b></td><td class="num"><b>${tot('1B')}</b></td><td class="num"><b>${tot('2')}</b></td><td class="num"><b>${tot()}</b></td><td class="num"><b>${CARDS.length}</b></td><td class="num"><b>${fmtBig(totCombos)}</b></td></tr></tbody></table></div>
         <p class="muted small">Templates are counted under their main topic; cross-topic questions also appear when you select their other strands. The SSP skills (units, significant figures, uncertainties, graphs) are tested in ${Q.filter(q => q.strands.some(id => id.startsWith('s-'))).length} templates across all topics; the SSP row counts only the templates with no topic context.</p></section>
-      <section class="panel"><h3>How many different questions?</h3>
+      <section class="panel"><h3>How Many Different Questions?</h3>
         <p>For each template, the site multiplies together the number of choices for each value it picks. For example, 4 possible masses × 6 heights × 5 angles gives 120 versions of one question. Added over all ${tot()} templates, that is about <b>${fmtBig(totCombos)}</b> different sets of values.</p>
         <p>This is a careful count, not a maximum: it leaves out the order of the options, the random scatter in Paper 1B data tables (which makes every 1B data set different), and the many ways templates combine into a paper. ${fixedN} templates are concept questions with fixed wording; only their option order changes.</p>
         <p>Combining templates multiplies the numbers again. A 10-question Paper 1A drawn from all ${n} Paper 1A templates can be made in roughly <b>10<sup>${Math.floor(lg)}</sup></b> different ways, so two students are very unlikely to see the same paper unless they share a class code.</p></section>
-      <section class="panel"><h3>Quality checks</h3><ul class="about-list">
+      <section class="panel"><h3>Quality Checks</h3><ul class="about-list">
         <li>Every template is generated with hundreds of seeds and checked for missing values, broken maths, impossible answers, four distinct options, an answer that matches the worked solution, and markschemes with enough marking points for the marks.</li>
         <li>Recall cards are checked so every Fill the Gap! keyword and Spot It! phrase exists in the card.</li>
         <li>Each mode is tested in a browser on desktop and phone sizes, in light and dark mode, including class codes and printed papers.</li>
       </ul></section>
-      <section class="panel" id="reportInfo"><h3>Found a mistake? Tell us</h3><p>Every question, flashcard, note and the data booklet has a <b>⚑ Report a problem</b> box, and the footer has one for anything else. Type what looks wrong and press <b>Send Report</b>: it opens your teacher’s Google Form already filled in, so you only need to press Submit. Every report helps make the next version better.</p></section>
+      <section class="panel" id="reportInfo"><h3>Found a Mistake? Tell Us</h3><p>Every question, flashcard, note and the data booklet has a <b>🚩 Report a Problem</b> box, and <b>💬 Send Feedback</b> in the footer is for anything else. Type what looks wrong and press <b>Send Report</b>: it opens your teacher’s Google Form already filled in, so you only need to press Submit. Every report helps make the next version better.</p></section>
       <section class="panel"><h3>Privacy</h3><p>Nothing you do leaves your browser. Progress, recall schedules and settings are stored on this device only; use Stats → Backup to move them to another device.</p><p>Send Report and Send results to teacher open your teacher’s Google Form in a new tab. Nothing is sent unless you press Submit there, and the form records your school email when you do.</p></section>
       <section class="panel" id="creditsInfo"><h3>Credits</h3>${window.__OFFLINE ? '<p>Offline copy: the fonts and the maths library are inside this file, so it works without the internet. Its progress is stored separately from the website.</p>' : ''}
         <p class="muted small">Fonts: Archivo, IBM Plex Sans, IBM Plex Mono and Press Start 2P (SIL Open Font License 1.1). Maths: MathJax 3.2.2 (Apache License 2.0).</p></section>
-      <section class="panel"><h3>Revision history</h3>${historyHTML()}</section>`;
+      <section class="panel"><h3>Revision History</h3>${historyHTML()}</section>`;
     typeset(main);
   }
   // Revision history in stages: releases (1.0+) and beta open, internal alpha builds folded away
@@ -17890,19 +17889,19 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     main.innerHTML = `<section class="welcome-hero"><h2>Welcome to <b class="mvp">MVP</b>hysics Lab 🏆</h2>
         <p>Revision for IB DP Physics (first assessment 2025), SL and HL. Every question is original and generates new values each time, with worked solutions and IB-style markschemes. Nothing you do leaves your browser.</p>
       </section>
-      <section class="panel"><h3>What’s here</h3><div class="wmodes">${WMODES.map(([k, ic, name, d]) => `<a class="wmode" href="#${k}"><span class="wic" aria-hidden="true">${ic}</span><b>${name}</b><span>${d}</span></a>`).join('')}</div></section>
-      <section class="panel"><h3>How to use this for revision</h3><ol class="wsteps">
+      <section class="panel"><h3>What’s Here</h3><div class="wmodes">${WMODES.map(([k, ic, name, d]) => `<a class="wmode" href="#${k}"><span class="wic" aria-hidden="true">${ic}</span><b>${name}</b><span>${d}</span></a>`).join('')}</div></section>
+      <section class="panel"><h3>How to Use This for Revision</h3><ol class="wsteps">
         <li><b>Every day, 5–10 minutes of Recall.</b> Spaced repetition brings each card back just before you would forget it. Short daily sessions beat one long one.</li>
         <li><b>Practise by topic after each lesson.</b> Pick the strands you have just studied. Try the question before opening the solution, and tick the markscheme points honestly.</li>
-        <li><b>Go back to your misses.</b> In Practice, turn on <b>Only questions I’ve missed</b> at the top of the Topics panel and redo them with new values until they stick.</li>
+        <li><b>Go back to your misses.</b> In Practice, turn on <b>Only Questions I’ve Missed</b> at the top of the Topics panel and redo them with new values until they stick.</li>
         <li><b>Before a test, sit a timed paper in Exam Mode.</b> Use IB pace, then check where the time went and your estimated grade. Read the Notes for any strand that cost you marks.</li>
         <li><b>For fun or a class challenge:</b> Games. Blitz on your own, or Last Man Standing with a shared code.</li></ol></section>
-      <section class="panel"><h3>Good to know</h3><ul class="about-list">
+      <section class="panel"><h3>Good to Know</h3><ul class="about-list">
         <li><b>Data booklet:</b> the 📘 button at the top, any time.</li>
         <li><b>Difficulty:</b> 🌶 one idea · 🌶🌶 two steps or a common trap · 🌶🌶🌶 several steps or topics.</li>
         <li><b>Interrupted?</b> Timers have a Pause button (except Last Man Standing).</li>
         <li><b>Your progress</b> is saved in this browser only. Use <b>Stats → Backup</b> to move it to another device.</li>
-        <li><b>Found a mistake?</b> Use <b>⚑ Report a problem</b> under any question, or the box in the footer.</li>
+        <li><b>Found a mistake?</b> Use <b>🚩 Report a Problem</b> under any question, or <b>💬 Send Feedback</b> in the footer.</li>
       </ul><p class="muted small">Come back to this page any time by clicking <b>MVPhysics Lab</b> at the top left.</p></section>`;
   }
   function bindWelcome(main) { main.onclick = null; }
