@@ -3811,7 +3811,7 @@ const GAMES = (() => {
               ${c.fpOk ? '' : '<p class="warn small">This code was made with a different version of the question bank, so your questions may not match everyone else\'s. Ask for a new code.</p>'}
               <div class="row"><button class="btn primary" id="lmsGo">Enter 💀</button><button class="btn sm" id="lmsCopy">Copy Code</button><button class="btn sm ghost" id="lmsClear">Use a Different Code</button></div></div>`
             : `<p class="muted small">This mode needs a code so everyone faces the same questions. One person creates it from the subtopics ticked in the panel on the left and shares it.</p>
-              <div class="codeform">${codeBoxHTML('lmsIn', 'LMS', 'Last Man Standing code', G.codeIn)}<button class="btn sm" id="lmsJoin">Use Code</button><span class="muted small">or</span><button class="btn sm" id="lmsMake">Create a Code from These Subtopics</button></div>${G.err ? `<p class="small" style="color:var(--bad)">${G.err}</p>` : ''}`}
+              <div class="codeform">${codeBoxHTML('lmsIn', 'LMS', 'Last Man Standing code', G.codeIn)}<button class="btn sm" id="lmsJoin">Use Code</button><span class="muted small">or</span><button class="btn sm primary" id="lmsMake">Make a Code</button></div>${G.err ? `<p class="small" style="color:var(--bad)">${G.err}</p>` : ''}`}
           <div class="lms-start"><span class="muted small">Starting time:</span><div class="chips" role="group" aria-label="Starting time">${LMS_STARTS.map(m => `<button type="button" class="chip" data-lmt="${m}" aria-pressed="${G.startMin === m}">${m} min</button>`).join('')}</div></div>
           ${S.games.lms ? `<p class="muted small">Your best survival time: <b class="num">${fmtClock(S.games.lms.time)}</b></p>` : ''}</section>`;
       }
