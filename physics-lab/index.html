@@ -889,6 +889,7 @@ html[data-course="HL"] .welcome-hero { background: linear-gradient(135deg, var(-
 .pin-head { font-size: 15px; margin-bottom: 4px; }
 .pinbox input { width: 9em; font-family: var(--f-mono); letter-spacing: .2em; }
 .pin-open { margin-top: 10px; color: var(--muted); }
+.teacher-access { margin-top: 14px; } .teacher-access summary { cursor: pointer; color: var(--muted); font-size: 13px; font-weight: 600; } .ex-total { margin-top: 8px; max-width: 360px; } .ex-total input { width: 7em; }
 
 </style>
 <header class="top"><div class="top-inner">
@@ -16786,8 +16787,8 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   function encodeCode(c) {
     let big = 1n; const put = (v, b) => { big = (big << BigInt(b)) | BigInt(v); };
     const sl = !c.strands.some(id => STRAND[id] && STRAND[id].hl);
-    const lk = Math.max(0, LINKED.findIndex(x => x[0] === c.linked));
-    put(lk ? (sl ? 6 : 5) : (sl ? 4 : 3), 3); put(c.seed & 0xfffff, 20); put(c.fp & 0x3ff, 10); put(c.chili, 3); if (lk) put(lk, 2);
+    const lk = Math.max(0, LINKED.findIndex(x => x[0] === c.linked)), kd = Math.max(0, CODE_TYPES.findIndex(x => x[0] === c.kind));
+    put(7, 3); put(c.seed & 0xfffff, 20); put(c.fp & 0x3ff, 10); put(c.chili, 3); put(lk, 2); put(sl ? 1 : 0, 1); put(kd, 2); put(c.ms ? 1 : 0, 1); put(c.strict === false ? 0 : 1, 1); put(c.hideClock ? 1 : 0, 1);
     const papersOn = PAPERS.reduce((a, p, i) => a | ((c.marks[p] || 0) > 0 ? 1 << i : 0), 0);
     const pi = PRESETS.findIndex(t => sameMarks(presetMarks(c, t, papersOn), c.marks));
     if (pi >= 0) { put(0, 1); put(pi, 3); put(papersOn, 3); } else { put(1, 1); PAPERS.forEach(p => put(c.marks[p], 7)); }
@@ -16809,8 +16810,9 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     if (body.length >= 63 && ['001', '010'].includes(body.slice(0, 3))) { c = decodeOld(body); if (c) c.str = group('MVP', toB32(big)); }
     else {
       let pos = 0; const take = (n) => { const v = parseInt(body.slice(pos, pos + n), 2) || 0; pos += n; return v; };
-      const ver = take(3); if (ver < 3 || ver > 6) return null;
-      c = { seed: take(20), fp: take(10), chili: take(3), sl: ver === 4 || ver === 6 }; c.linked = ver >= 5 ? (LINKED[take(2)] || LINKED[0])[0] : 'off';
+      const ver = take(3); if (ver < 3 || ver > 7) return null;
+      c = { seed: take(20), fp: take(10), chili: take(3), sl: ver === 4 || ver === 6 }; c.linked = ver >= 5 ? (LINKED[take(2)] || LINKED[0])[0] : 'off'; c.kind = 'online'; c.ms = false; c.strict = true; c.hideClock = false;
+      if (ver === 7) { c.sl = take(1) === 1; c.kind = (CODE_TYPES[take(2)] || CODE_TYPES[0])[0]; c.ms = take(1) === 1; c.strict = take(1) === 1; c.hideClock = take(1) === 1; }
       let preset = null; if (take(1) === 0) preset = [take(3), take(3)]; else c.marks = { '1A': take(7), '1B': take(7), '2': take(7) };
       const byStrand = take(1) === 1, rest = body.slice(pos);
       c.strands = byStrand ? maskRead(rest, codeStrands()) : liveStrandsOf(maskRead(rest, CODE_TOPICS), c.sl);
@@ -16833,7 +16835,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     if (EX.mode === 'paper' && !EX.paper.startsWith(isHL() ? 'hl' : 'sl')) EX.paper = isHL() ? 'hl1' : 'sl1'; return EX.mode === 'custom' ? { ...EX.marks } : EX.mode === 'paper' ? { ...(REAL_PAPERS.find(p => p.id === EX.paper) || REAL_PAPERS[0]).marks } : ibMarks(EX.target); }
   function makeClassCode() {
     const marks = currentMarks();
-    const c = { seed: 1 + rnd(0xffffe), chili: [1, 2, 3].reduce((a, k) => a | (S.settings.chili[k] ? 1 << (k - 1) : 0), 0), marks, strands: effSel(), linked: S.settings.linked || 'off' }; c.sl = !c.strands.some(id => STRAND[id] && STRAND[id].hl);
+    const c = { seed: 1 + rnd(0xffffe), chili: [1, 2, 3].reduce((a, k) => a | (S.settings.chili[k] ? 1 << (k - 1) : 0), 0), marks, strands: effSel(), linked: S.settings.linked || 'off', kind: EX.kind || 'online', ms: !!EX.ms, strict: EX.strict, hideClock: EX.hideClock }; c.sl = !c.strands.some(id => STRAND[id] && STRAND[id].hl);
     PAPERS.forEach(p => { if (!S.settings.papers[p] && EX.mode !== 'paper') c.marks[p] = 0; c.marks[p] = Math.min(127, c.marks[p]); });
     if (!sumMarks(c.marks) || !codePool(c).length) return null;
     c.fp = fp10(codePool(c)); c.fpOk = true; c.str = encodeCode(c);
@@ -16844,35 +16846,56 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   function marksLine(m) { const rp = realPaperFor(m); return PAPERS.filter(p => m[p]).map(p => `${PAPER_NAME[p]} <b class="num">${m[p]}</b>`).join(' · ') + ` <span class="exsum-total">= <b class="num">${sumMarks(m)}</b> marks · ${rp ? `<b class="num">${rp.min}</b> min (${rp.label})` : `about <b class="num">${estMin(m)}</b> min`}</span>`; }
 
 
-  /* ======================= PIN TRIAL (only in trial builds: window.__PIN = { mode: 'tools' | 'all', hash }) =======================
-     The public site has no __PIN, so none of this runs there. 'tools': students take tests on screen; printing, downloading,
-     Exam mode and Make a Code need the PIN. 'all': the whole of Test Mode needs the PIN. Unlocking is remembered on this device
-     until Lock is pressed. The PIN is stored only as a salted hash: a speed bump, not real security. */
-  const PIN = window.__PIN || null;
-  const pinHash = (t) => { let h = 0x811c9dc5; for (const ch of 'mvphysics-lab:' + String(t).trim()) { h ^= ch.charCodeAt(0); h = Math.imul(h, 0x01000193) >>> 0; } return h.toString(16); };
-  const pinKey = 'mvp-teacher-unlock';
-  const pinOpen = () => { if (!PIN) return true; try { return localStorage.getItem(pinKey) === PIN.hash; } catch (e) { return false; } };
-  const pinForm = (title, text) => `<div class="pinbox"><div class="pin-head">🔒 <b>${title}</b></div><p class="small">${text}</p>
-    <div class="row"><input type="password" id="pinIn" inputmode="numeric" autocomplete="off" aria-label="Teacher PIN" placeholder="PIN"><button class="btn primary sm" id="pinGo">Unlock</button><span class="muted small" id="pinMsg" role="alert"></span></div></div>`;
-  const pinLockLine = () => PIN && pinOpen() ? `<p class="pin-open small">🔓 ${PIN.mode === 'all' ? 'Test Mode' : 'Teacher tools'} unlocked on this device. <button type="button" class="btn sm" id="pinLock">Lock</button></p>` : '';
-  function pinApply(main) {
-    if (!PIN) return;
-    if (pinOpen()) { const g = main.querySelector('.exgo'); if (g) g.insertAdjacentHTML('beforeend', pinLockLine()); return; }
-    if (PIN.mode === 'all') { main.innerHTML = head('Test Mode 📝', 'Timed papers for use in class.') + `<section class="panel">${pinForm('Test Mode is locked', 'Your teacher opens Test Mode with a PIN. Practice, Games, Recall and Notes are open to everyone.')}</section>`; return; }
-    ['#wsOpen', '#wsMake', '.ws-cover-row', '#wsStatus', '#exMake'].forEach(sel => { const el = main.querySelector(sel); if (el) { if (sel === '#exMake' && el.previousElementSibling && el.previousElementSibling.tagName === 'SPAN') el.previousElementSibling.remove(); el.remove(); } });
-    const g = main.querySelector('.exgo'); if (g) g.insertAdjacentHTML('beforeend', pinForm('Teacher tools', 'Printing and downloading papers, Exam mode and making class codes need the teacher PIN. You can still take a test on screen and use a class code from your teacher.'));
+  /* ======================= TEACHER ACCESS (1.4) =======================
+     Test Mode set-up and printable worksheets need the teacher passphrase. The page holds only a PBKDF2-SHA256 hash of it
+     (200,000 rounds, so guessing a long passphrase is impractical). Unlocking saves an obfuscated copy of the passphrase on this
+     device and re-checks it on every load, so a hand-set "unlocked" flag does nothing. This keeps students and casual users out;
+     it cannot stop someone who edits the page's code in their own browser. */
+  const T_HASH = 'e8d3a853183295a5e8e5c8a3f9ac92856ea4a877afc7a302e321159f45813807', T_SALT = 'mvphysics-lab:teacher:v1', T_KEY = 'mvp-teacher';
+  let TEACHER = false;
+  async function tCheck(pass) {
+    try {
+      const enc = new TextEncoder(), k = await crypto.subtle.importKey('raw', enc.encode(pass), 'PBKDF2', false, ['deriveBits']);
+      const bits = await crypto.subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-256', salt: enc.encode(T_SALT), iterations: 200000 }, k, 256);
+      return [...new Uint8Array(bits)].map(x => x.toString(16).padStart(2, '0')).join('') === T_HASH;
+    } catch (e) { return false; }
   }
-  document.addEventListener('click', (e) => {
-    if (!PIN) return;
-    const b = e.target.closest('#pinGo, #pinLock'); if (!b) return;
-    if (b.id === 'pinLock') { try { localStorage.removeItem(pinKey); } catch (x) {} toast('Locked.'); render(); return; }
-    const v = (document.getElementById('pinIn') || {}).value || '';
-    if (pinHash(v) === PIN.hash) { try { localStorage.setItem(pinKey, PIN.hash); } catch (x) {} toast('Unlocked on this device.'); render(); }
-    else { const m = document.getElementById('pinMsg'); if (m) m.textContent = 'That PIN is not right.'; }
+  const tMask = (t) => { const k = 'MVPhysicsLab'; let o = ''; for (let i = 0; i < t.length; i++) o += String.fromCharCode(t.charCodeAt(i) ^ k.charCodeAt(i % k.length)); return o; };
+  (async () => { let v = null; try { v = localStorage.getItem(T_KEY); } catch (e) {} if (!v) return; let p = ''; try { p = tMask(atob(v)); } catch (e) { return; } if (await tCheck(p)) { TEACHER = true; try { render(); } catch (e) {} } })();
+  const teacherLine = () => TEACHER ? `<p class="pin-open small">🔓 Teacher access is on for this device. <button type="button" class="btn sm" id="tLock">Lock</button></p>`
+    : `<details class="teacher-access"><summary>🔑 Teacher access</summary><div class="pinbox"><p class="small">Teachers: enter the passphrase to set up tests, print papers and make class codes. It is remembered on this device until you press Lock.</p>
+      <div class="row"><input type="password" id="tPass" autocomplete="current-password" aria-label="Teacher passphrase" placeholder="Passphrase"><button class="btn primary sm" id="tGo">Unlock</button><span class="muted small" id="tMsg" role="alert"></span></div></div></details>`;
+  document.addEventListener('click', async (e) => {
+    const b = e.target.closest('#tGo, #tLock'); if (!b) return;
+    if (b.id === 'tLock') { TEACHER = false; try { localStorage.removeItem(T_KEY); } catch (x) {} toast('Teacher access locked on this device.'); render(); return; }
+    const inp = document.getElementById('tPass'), msg = document.getElementById('tMsg'), v = inp ? inp.value : '';
+    if (!(window.crypto && crypto.subtle)) { if (msg) msg.textContent = 'This browser cannot check the passphrase here. Use the website.'; return; }
+    b.disabled = true; if (msg) msg.textContent = 'Checking…';
+    if (await tCheck(v)) { TEACHER = true; try { localStorage.setItem(T_KEY, btoa(tMask(v))); } catch (x) {} toast('Teacher access on.'); render(); }
+    else { b.disabled = false; if (msg) msg.textContent = 'That passphrase is not right.'; }
   });
-  document.addEventListener('keydown', (e) => { if (PIN && e.target && e.target.id === 'pinIn' && e.key === 'Enter') { e.preventDefault(); document.getElementById('pinGo').click(); } });
+  document.addEventListener('keydown', (e) => { if (e.target && e.target.id === 'tPass' && e.key === 'Enter') { e.preventDefault(); const g = document.getElementById('tGo'); if (g) g.click(); } });
+  const CODE_TYPES = [['online', 'Online test', 'Students take it on screen, timed'], ['sheet', 'Printable worksheet', 'Questions, then the markscheme if you allow it'], ['ib', 'Printable IB-style test', 'Cover sheet, Paper 1A answer sheet, IB order']];
+  const kindName = (k) => (CODE_TYPES.find(x => x[0] === k) || CODE_TYPES[0])[1];
+  // what a student sees in Test Mode without teacher access: a class code box, then only what the code allows (1.4)
+  function studentExamView() {
+    const intro = head('Test Mode 📝', 'Tests set by your teacher. Enter the class code your teacher gives you.');
+    if (!EX.code) return intro + `<section class="panel exset"><div class="exrow"><div class="exlab">Class code</div><div class="exctl">
+        <div class="codeform"><input type="text" id="exCodeIn" class="codein" data-prefix="MVP" value="MVP-" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Class code (starts MVP-)"><button class="btn primary sm" id="exUse">Use</button></div>
+        <span class="muted small">The code decides the test: an online test, a printable worksheet or a printable IB-style test.</span></div></div>
+        <p class="muted small">For practice on your own, use Practice, Games and Recall.</p></section>${teacherLine()}`;
+    const c = EX.code, kind = c.kind || 'online';
+    const box = `<div class="codebox"><div class="code-str num">${c.str}</div><div class="small"><b>${kindName(kind)}</b> · Topics: <b>${topicsOf(c.strands)}</b></div><div class="small">${marksLine(c.marks)}</div>
+      ${c.fpOk ? '' : '<p class="warn small">This code was made with a different version of the question bank, so your paper may not match your classmates\' papers. Ask for a new code.</p>'}
+      <div class="row"><button class="btn sm btn-clear" id="exClear">Clear</button></div></div>`;
+    const act = kind === 'online'
+      ? `<p class="small">Finish: <b>${c.strict ? 'Strict' : 'Soft'}</b> (${c.strict ? 'answers lock when time runs out' : 'you can keep going; overtime is recorded'}) · Countdown: <b>${c.hideClock ? 'hidden' : 'shown'}</b></p><div class="row"><button class="btn primary" id="exStart">Start</button></div>`
+      : `<p class="small">${kind === 'ib' ? 'An IB-style paper with a cover sheet and a Paper 1A answer sheet.' : 'A worksheet of questions.'} ${c.ms ? 'The markscheme is at the end.' : 'Your teacher has the markscheme.'}</p>
+        <div class="row"><button class="btn primary" id="wsOpen">🖨 Print</button><button class="btn" id="wsMake">⬇ Download</button></div><p class="muted small" id="wsStatus"></p>`;
+    return head('Test Mode 📝', 'A test set by your teacher.') + `<section class="panel exset"><div class="exrow"><div class="exlab">Class code</div><div class="exctl">${box}</div></div><div class="exgo">${act}</div></section>${teacherLine()}`;
+  }
   function renderExam(main) {
-    if (!EX) EX = { phase: 'setup', mode: 'ib', paper: 'sl1', target: 20, marks: { '1A': 5, '1B': 4, '2': 11 }, strict: true, hideClock: false, code: null };
+    if (!EX) EX = { phase: 'setup', mode: 'ib', paper: 'sl1', target: 30, kind: 'online', ms: false, marks: { '1A': 5, '1B': 4, '2': 11 }, strict: true, hideClock: false, code: null };
     if (EX.phase === 'setup') {
       const n = (EX.mode === 'paper' ? pool({ ignorePapers: true }) : pool()).length, av = availMarks(pool());
       const seg = (attr, val, label, on) => `<button type="button" data-${attr}="${val}" aria-pressed="${on}">${label}</button>`;
@@ -16884,28 +16907,31 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
           <div class="row"><button class="btn sm" id="exCopy">Copy</button><button class="btn sm btn-clear" id="exClear">Clear</button><span class="muted small">Overrides your selection.</span></div></div>`;
       } else {
         const m = currentMarks();
-        length = `<div class="seg" role="group" aria-label="Paper length">${seg('exmode', 'paper', 'IB paper', EX.mode === 'paper')}${seg('exmode', 'ib', 'IB proportions', EX.mode === 'ib')}${seg('exmode', 'custom', 'Custom marks', EX.mode === 'custom')}</div>` +
+        length = `<div class="seg" role="group" aria-label="Paper length">${seg('exmode', 'paper', 'IB paper', EX.mode === 'paper')}${seg('exmode', 'ib', 'IB Proportions', EX.mode === 'ib')}${seg('exmode', 'custom', 'Custom', EX.mode === 'custom')}</div>` +
           (EX.mode === 'paper'
             ? `<div class="paperchips" role="group" aria-label="IB paper">${REAL_PAPERS.filter(p => p.id.startsWith(isHL() ? 'hl' : 'sl')).map(p => `<button type="button" class="paperchip" data-expaper="${p.id}" aria-pressed="${EX.paper === p.id}"><b>${p.label}</b><span>${p.sub}</span></button>`).join('')}</div><p class="muted small">The real paper's marks and time, using questions from your selected topics (the Papers filter is ignored).</p>`
             : EX.mode === 'ib'
-            ? `<div class="chips" role="group" aria-label="Total marks">${[10, 15, 20, 30, 45, 60].map(t => `<button type="button" class="chip" data-extarget="${t}" aria-pressed="${EX.target === t}">${t} marks</button>`).join('')}</div>`
+            ? `<div class="chips" role="group" aria-label="Total marks">${[15, 30, 45].map(t => `<button type="button" class="chip" data-extarget="${t}" aria-pressed="${!EX.tcustom && EX.target === t}">${t} marks</button>`).join('')}<button type="button" class="chip" data-extarget="custom" aria-pressed="${!!EX.tcustom}">Custom</button></div>${EX.tcustom ? `<label class="field ex-total"><span>Total marks (5 to 120), shared between the papers in IB proportions</span><input type="number" id="exTotal" min="5" max="120" step="1" value="${EX.target}"></label>` : ''}`
             : `<div class="exmarks">${PAPERS.map(p => { const off = !S.settings.papers[p] || !av[p]; return `<label class="field"><span>${PAPER_NAME[p]}</span><input type="number" min="0" max="${av[p]}" step="1" data-exmk="${p}" value="${off ? 0 : EX.marks[p]}" ${off ? 'disabled' : ''}><small class="muted">${!S.settings.papers[p] ? 'Paper is off' : `${av[p]} available`}</small></label>`; }).join('')}</div>`) +
           `<p class="exsum small" id="exSum">${marksLine(m)}</p>`;
       }
       const fin = EX.strict ? 'Answers lock when time runs out.' : 'Keep going after time runs out; overtime is recorded.';
+      if (!TEACHER) { main.innerHTML = studentExamView(); return; }
       main.innerHTML = head('Test Mode 📝', 'A timed paper from your selection. Answers stay hidden until you finish.') + (n || EX.code ? `
         <section class="panel exset">
           <div class="exrow"><div class="exlab">${EX.code ? 'Class code' : 'Length'}</div><div class="exctl">${length}</div></div>
           <div class="exrow"><div class="exlab">Finish</div><div class="exctl"><div class="seg" role="group" aria-label="Finish">${seg('exfin', 'strict', 'Strict', EX.strict)}${seg('exfin', 'soft', 'Soft', !EX.strict)}</div><span class="muted small">${fin}</span></div></div>
           <div class="exrow"><div class="exlab">Countdown</div><div class="exctl"><div class="seg" role="group" aria-label="Countdown">${seg('exclock', 'show', 'Show', !EX.hideClock)}${seg('exclock', 'hide', 'Hide', EX.hideClock)}</div></div></div>
+          ${EX.code ? `<div class="exrow"><div class="exlab">Code type</div><div class="exctl"><b>${kindName(EX.code.kind)}</b>${EX.code.kind !== 'online' ? ` · <span class="muted">markscheme ${EX.code.ms ? 'included' : 'not included'} for students</span>` : ''}</div></div>` : `<div class="exrow"><div class="exlab">Code type</div><div class="exctl"><div class="seg" role="group" aria-label="Code type">${CODE_TYPES.map(([k, l]) => seg('exkind', k, l, EX.kind === k)).join('')}</div>
+            <span class="muted small">${(CODE_TYPES.find(x => x[0] === EX.kind) || CODE_TYPES[0])[2]}. Students who enter the code get only this.</span>
+            ${EX.kind !== 'online' ? `<div class="seg" role="group" aria-label="Markscheme for students" style="margin-top:8px">${seg('exms', 'no', 'Questions only', !EX.ms)}${seg('exms', 'yes', 'With markscheme', EX.ms)}</div>` : '<span class="muted small">The code also sets Finish and Countdown as chosen above.</span>'}</div></div>`}
           ${EX.code ? '' : `<div class="exrow"><div class="exlab">Class code <span class="exopt">optional</span></div><div class="exctl">
             <div class="codeform"><input type="text" id="exCodeIn" class="codein" data-prefix="MVP" value="MVP-" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Class code (starts MVP-)"><button class="btn sm" id="exUse">Use</button><span class="muted small">or</span><button class="btn primary sm" id="exMake">Make a Code</button></div>
             <span class="muted small">Same code, same questions and values for everyone.</span></div></div>`}
           <div class="exgo"><div class="row"><button class="btn primary" id="exStart">Start</button><button class="btn" id="wsOpen">🖨 Print</button><button class="btn" id="wsMake">⬇ Download</button></div>
             <div class="ws-cover-row"><label class="switch small ws-cover"><input type="checkbox" id="wsCover" ${WS.cover === true ? 'checked' : ''}> <b>Exam mode</b> <span class="muted">(cover sheet, answer sheet, IB order)</span></label><button type="button" class="sinfo" aria-label="What Exam mode does" data-tip="Exam mode prints the paper like a real IB exam: a cover sheet with instructions, marks and time; a 40-row Paper 1A answer sheet; Paper 1A, 1B and 2 in IB order; then a question overview and the markschemes. Off: just the questions, then the markschemes.">i</button></div>
             <p class="muted small" id="wsStatus">Print opens the paper in a new tab and the print window straight away (choose a printer, or Save as PDF) with IB-style answer boxes and the markscheme at the end. Papers include their class code.</p></div>
-        </section>` : emptySel());
-      pinApply(main);
+        </section>${teacherLine()}` : emptySel() + teacherLine());
       return;
     }
     if (EX.phase === 'run') return renderExamRun(main);
@@ -17000,6 +17026,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   function bindExam(main) {
     main.oninput = (e) => {
       if (EX && EX.phase === 'run' && e.target.dataset.text) { EX.items[EX.cur].texts[e.target.dataset.text] = e.target.value; return; }
+      if (e.target.id === 'exTotal' && EX && EX.phase === 'setup') { const v = Math.round(+e.target.value || 0); if (v >= 5 && v <= 120) { EX.target = v; EX.marks = ibMarks(v); const sm = $('#exSum'); if (sm) sm.innerHTML = marksLine(currentMarks()); } return; }
       const p = e.target.dataset && e.target.dataset.exmk; if (!p || !EX || EX.phase !== 'setup') return;
       const max = +e.target.max; let v = Math.round(+e.target.value || 0); v = Math.max(0, Math.min(max, v)); EX.marks[p] = v;
       const sm = $('#exSum'); if (sm) sm.innerHTML = marksLine(currentMarks());
@@ -17009,11 +17036,13 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
       if (EX && EX.phase === 'setup') {
         const d = b.dataset;
         if (d.exmode) { EX.mode = d.exmode; if (EX.mode === 'custom' && !sumMarks(EX.marks)) EX.marks = ibMarks(EX.target); renderExam(main); return; }
-        if (d.extarget) { EX.target = +d.extarget; EX.marks = ibMarks(EX.target); renderExam(main); return; }
+        if (d.extarget) { if (d.extarget === 'custom') EX.tcustom = true; else { EX.tcustom = false; EX.target = +d.extarget; } EX.marks = ibMarks(EX.target); renderExam(main); return; }
+        if (d.exkind) { EX.kind = d.exkind; renderExam(main); return; }
+        if (d.exms) { EX.ms = d.exms === 'yes'; renderExam(main); return; }
         if (d.expaper) { EX.paper = d.expaper; renderExam(main); return; }
         if (d.exfin) { EX.strict = d.exfin === 'strict'; renderExam(main); return; }
         if (d.exclock) { EX.hideClock = d.exclock === 'hide'; renderExam(main); return; }
-        if (b.id === 'exUse') { const wk = wrongKind($('#exCodeIn').value, 'MVP'); if (wk) { toast(wk); return; } const c = decodeCode($('#exCodeIn').value); if (!c) { toast("That code isn't valid. Check it and try again."); return; } EX.code = c; renderExam(main); return; }
+        if (b.id === 'exUse') { const wk = wrongKind($('#exCodeIn').value, 'MVP'); if (wk) { toast(wk); return; } const c = decodeCode($('#exCodeIn').value); if (!c) { toast("That code isn't valid. Check it and try again."); return; } EX.code = c; EX.strict = c.strict; EX.hideClock = c.hideClock; renderExam(main); return; }
         if (b.id === 'exMake') { const c = makeClassCode(); if (!c) { toast('Your selection has no questions for these settings.'); return; } EX.code = c; renderExam(main); toast('Code created. Share it so everyone gets the same paper.'); return; }
         if (b.id === 'exClear') { EX.code = null; renderExam(main); return; }
         if (b.id === 'exCopy') { const t = EX.code.str; (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast('Code copied.'), () => toast('Select the code and copy it: ' + t)); return; }
@@ -18011,7 +18040,7 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
   const WS = { target: 20, answers: true, cover: false }; // cover = Exam mode: cover sheet + Paper 1A answer sheet + IB order (1.4: off by default)
   document.addEventListener('change', (e) => { if (e.target && e.target.id === 'wsCover') WS.cover = e.target.checked; });
   function worksheetPanel() {
-    if (PIN && PIN.mode === 'tools' && !pinOpen()) return '';
+    if (!TEACHER) return '';
     return `<details class="panel ws" id="wsPanel"><summary><b>Make a Printable Worksheet</b> <span class="muted small">· built from your selection, new values every time</span></summary>
       <div class="form-grid" style="margin-top:12px">
         <label class="field"><span>Length</span><select id="wsTarget">${[10, 15, 20, 30, 45].map(m => `<option value="${m}" ${WS.target === m ? 'selected' : ''}>${m} marks</option>`).join('')}</select></label>
@@ -18167,6 +18196,7 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
     const status = $('#wsStatus');
     WS.answers = true;
     const code = EX && EX.code ? EX.code : makeClassCode();
+    if (code && !TEACHER && EX && EX.code) { if (EX.code.kind === 'online') { toast('This code is for an online test.'); return; } WS.cover = EX.code.kind === 'ib'; WS.answers = !!EX.code.ms; }
     if (!code) { toast('No questions match your selection.'); return; }
     const items = buildExam(code.marks, { pool: codePool(code), R: makeR(code.seed), hl: codeHL(code) });
     if (!items.length) { toast('No questions match your selection.'); return; }
@@ -18362,7 +18392,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     { v: '1.1 Beta', d: '3 November 2026', m: 'Claude Opus 5.5', items: ['Games and Recall now open with cards for each mode and a short description; inside a mode, “← All games” or “← All recall modes” takes you back.', 'The offline copy shows an OFFLINE badge next to the version, with a tooltip explaining it.', 'New Welcome page: a quick guide to every mode, a short tour, and how to use the site for revision. Click the MVPhysics heading at any time to come back to it.', 'Blitz is now part of Games 🕹️, with two modes so far: Blitz and Last Man Standing. More game modes will follow.', '“Only questions I’ve missed” is now at the top of the question panel in Practice and highlighted when you have missed questions to practise (it now applies to Practice only; Exam Mode always uses your full selection).', 'Stats: a Last Man Standing best tile; Blitz average time to 0.1 s.', 'The version is shown in the badge (BETA 1.1), and the Claude model used for each build is listed in this revision history.', 'Fixed: flashcards scrolled sideways on phones.', 'Last Man Standing: a Give up button (with a check first); a run you give up does not count as a best time.', 'Last Man Standing: after every run, a review of each question you answered, right or wrong, with the worked solution. Wrong answers go into "Only questions I\'ve missed".', 'Last Man Standing has its own stats (runs, best survival, recent runs), separate from Blitz Classic, so the Blitz stats now show the right mode.', 'Notes and Recall: the All and None buttons stay together.', 'Removed Saved selections from the question panel.', 'Solutions for radiated intensity now start from the data booklet equation L = σAT⁴ (or eσAT⁴).', 'FE2028 percentage error, difference and change equations shown as separate equations.'] },
     { v: '1.2 Beta', d: '4 November 2026', m: 'Claude Opus 5.5', items: ['The site is now called <b>MVPhysics Lab</b>, with a new address: <b>mvpoirier.github.io/mvphysics/</b>. The old revision-lab address takes you there automatically, and your saved progress carries over. A 🏆 now shows on the browser tab.', 'The site address (with nothing after it) now always opens the Welcome page. Links to a page, such as …/#practice or …/#games, still open that page.', 'The Welcome page is simpler: the welcome message, what’s here and how to revise. The start buttons, level switch and tour are gone (use SL/HL at the top of the page).', 'Printed papers look like IB exams: answer boxes with a border and dotted lines. With “IB-style test” ticked, the order is cover sheet (topics, marks, time, instructions, class code), Paper 1A answer sheet (always 40 rows), Paper 1A, Paper 1B, Paper 2, then the markschemes, starting with the answer sheet with the correct answers crossed.', 'Games: Blitz now ends with a review of every question you answered, with worked solutions, and both Blitz and Last Man Standing can print their results.', 'The Print buttons open the paper or results in a new tab with the print window already open: choose a printer, or Save as PDF.', 'Printed tests: no site name on the cover; the class code appears only on the markscheme pages; the answer sheet lists the topics; and a one-page question overview (topics, strand, difficulty and marks for every question) comes before the markschemes.', 'Last Man Standing: choose the starting time (3, 5 or 10 minutes, or your own).', 'New Syllabus toggle (FE2025 / FE2028) in the Questions panel and in Recall. FE2025 is on by default; FE2028 adds content that is new for exams from May 2028, tagged FE2028.', 'Game stats are now on each game’s own screen and on the Stats page.', 'More resources on precision, accuracy, percentage error and percentage difference; more solutions now start from the data booklet equation.'] },
     { v: '1.3 Beta', d: '5 November 2026', m: 'Claude Opus 5.5', items: ['New game: <b>Unit Detective 🔍</b>. Five case files on units: The Mystery Quantity (identify), Down to the Bones (SI base units), The Scales of Justice (is the equation homogeneous?), The Impostor Equation (the one formula that could be right) and The Deduction (predict a formula from units alone). Play an untimed Investigation of 10 clues, or The Chase against the clock. Harder “case file” clues include constants such as σ, G, μ<sub>0</sub> and ε<sub>0</sub>.', 'The side panel is now called <b>Topics</b> and appears in Recall and Notes too. One selection is shared by every mode; the topic chips at the top of Recall and Notes are gone.', 'Command terms: a switch at the top of the Topics panel in Recall and Notes. Notes now has a Command terms section, grouped by assessment objective, with worked examples of which answer earns the marks.', 'Stats has section buttons: Practice, Exam, Games and Recall. Unit Detective scores are under Games.', 'The space above the footer is the same on every page.', '“← All Games” and “← All Recall Modes” are now buttons. The backup box in Stats has its own colour.', 'Clearer feedback links: <b>🚩 Report a Problem</b> under each question, card and note; <b>💬 Send Feedback</b> in the footer on every page.', 'Headings and buttons use Title Case.', 'Unit Detective uses the same look as the rest of the site.', 'New address: <b>mvpoirier.github.io/physics-lab/</b>. Old links (…/mvphysics/ and …/revision-lab/) still work and your progress carries over.', 'Stats opens straight on its sections (the summary cards at the top are gone). Reset All Progress is a red button.', 'About: the revision history starts collapsed, with one group per major Beta version and a short summary of the Alpha builds.'] },
-    { v: '1.4 Beta', d: '6 November 2026', m: 'Claude Opus 5.5', items: ['<b>Exam Mode is now Test Mode</b> (old #exam links still work). Printing has an <b>Exam mode</b> switch, off by default, with an ⓘ tooltip: cover sheet, Paper 1A answer sheet, IB paper order and markscheme overview.', 'Send Results to Teacher is gone; Print Results and Download stay.', 'Codes: one blue <b>Make a Code</b> button everywhere and a red <b>Clear</b> button. Code boxes start with their mode’s prefix (MVP- for Test Mode, LMS- for Last Man Standing), add the dashes and capitals as you type, and tell you if a code belongs to a different mode. Codes are shown in groups of four.', 'A coloured bar across the top shows your level: blue for SL, purple for HL.', '<b>Linked topics</b> in the Topics panel: Off (as before), Include (also questions that link a ticked strand with other topics) or Only (just the questions that combine topics). Class codes remember the setting.', 'Shareable codes for <b>Blitz</b> (BLZ-) and <b>Unit Detective</b> (UD-): everyone with the code gets the same questions, values and time.', 'In HL mode, MVP and the Welcome box turn purple to match the level bar. The Exam mode ⓘ shows one tooltip, not two.', 'The footer matches MYPoirier Science Lab: About, Terms of Use (goes straight to the terms) and a 💬 Send Feedback button. New <b>Terms of Use</b> (About page): © Mike Poirier, all rights reserved; free for students and teachers; not for commercial or tutoring use without permission. This replaces the CC BY-NC-SA licence from this version on.', '<b>42 new questions</b> aimed at the mistakes IB examiners reported in the 2025 sessions: average velocity versus speed, areas under a–t graphs, buoyancy, inelastic collisions, units in SI base units, ice below 0 °C, conduction, albedo, kelvin, internal resistance, resistivity, refraction angles, fields between opposite charges, magnetic force on electrons, background count rate, fission equations and more. Each solution names the trap.', 'New question styles: “which statement is the cause?” (all options true, only one explains), units that must be in SI base units, and Paper 1B data questions from real class investigations (Boyle’s law, a cell’s emf and internal resistance, density with uncertainties), plus a Paper 2 question on a rising oil droplet.'] },
+    { v: '1.4 Beta', d: '6 November 2026', m: 'Claude Opus 5.5', items: ['<b>Exam Mode is now Test Mode</b> (old #exam links still work). Printing has an <b>Exam mode</b> switch, off by default, with an ⓘ tooltip: cover sheet, Paper 1A answer sheet, IB paper order and markscheme overview.', 'Send Results to Teacher is gone; Print Results and Download stay.', 'Codes: one blue <b>Make a Code</b> button everywhere and a red <b>Clear</b> button. Code boxes start with their mode’s prefix (MVP- for Test Mode, LMS- for Last Man Standing), add the dashes and capitals as you type, and tell you if a code belongs to a different mode. Codes are shown in groups of four.', 'A coloured bar across the top shows your level: blue for SL, purple for HL.', '<b>Test Mode is set by your teacher.</b> Students enter a class code, and the code decides the test: an online test (with its finish and countdown settings), a printable worksheet or a printable IB-style test, with or without the markscheme. Setting up tests, printing and making codes need teacher access (also for Practice worksheets). IB Proportions offers 15, 30 or 45 marks or a Custom total; Custom marks is now Custom.', '<b>Linked topics</b> in the Topics panel: Off (as before), Include (also questions that link a ticked strand with other topics) or Only (just the questions that combine topics). Class codes remember the setting.', 'Shareable codes for <b>Blitz</b> (BLZ-) and <b>Unit Detective</b> (UD-): everyone with the code gets the same questions, values and time.', 'In HL mode, MVP and the Welcome box turn purple to match the level bar. The Exam mode ⓘ shows one tooltip, not two.', 'The footer matches MYPoirier Science Lab: About, Terms of Use (goes straight to the terms) and a 💬 Send Feedback button. New <b>Terms of Use</b> (About page): © Mike Poirier, all rights reserved; free for students and teachers; not for commercial or tutoring use without permission. This replaces the CC BY-NC-SA licence from this version on.', '<b>42 new questions</b> aimed at the mistakes IB examiners reported in the 2025 sessions: average velocity versus speed, areas under a–t graphs, buoyancy, inelastic collisions, units in SI base units, ice below 0 °C, conduction, albedo, kelvin, internal resistance, resistivity, refraction angles, fields between opposite charges, magnetic force on electrons, background count rate, fission equations and more. Each solution names the trap.', 'New question styles: “which statement is the cause?” (all options true, only one explains), units that must be in SI base units, and Paper 1B data questions from real class investigations (Boyle’s law, a cell’s emf and internal resistance, density with uncertainties), plus a Paper 2 question on a rising oil droplet.'] },
   ];
   HISTORY.forEach(h => { h.items = h.items.map(TL); });
   const fmtBig = (n) => n >= 1e6 ? (n / 1e6).toFixed(1) + ' million' : n.toLocaleString('en-GB');
