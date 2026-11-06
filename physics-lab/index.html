@@ -462,7 +462,7 @@ details.note:not([open]) { display: block; }
 .tree li:has(.sinfo) > label { padding-right: 26px; }
 .sinfo { position: absolute; right: 2px; top: 3px; width: 18px; height: 18px; border-radius: 50%; border: 1px solid var(--accent); background: var(--surface); color: var(--accent); font: italic 700 11px/1 Georgia, serif; cursor: help; padding: 0; }
 .sinfo:hover, .sinfo:focus { background: var(--accent); color: var(--surface); outline: none; }
-.sinfo:hover::after, .sinfo:focus::after { content: attr(data-tip); position: absolute; right: 0; top: 24px; z-index: 30; width: 220px; background: var(--ink); color: var(--paper); font: 500 12.5px/1.45 var(--f-body); font-style: normal; text-align: left; padding: 8px 10px; border-radius: 8px; box-shadow: var(--shadow); white-space: normal; }
+/* 1.4: .sinfo tips use the shared floating tooltip only (the CSS one showed a second copy) */
 .note-sec { margin: 6px 0 -2px; font-size: 14.5px; color: var(--accent); border-top: 1px dashed var(--line); padding-top: 10px; }
 .exprint { padding-top: 4px; flex-wrap: wrap; gap: 8px 14px; }
 .linkbtn { background: none; border: 0; padding: 4px 2px; color: var(--accent); font: inherit; font-size: 13.5px; font-weight: 600; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
@@ -878,6 +878,17 @@ html[data-course="HL"] .top { border-top-color: var(--hl); }
 .foot-report:not([open]) { display: none; }
 .foot-report[open] .report-body { margin-top: 0; }
 #termsInfo.flash { box-shadow: 0 0 0 3px var(--accent); transition: box-shadow .3s; }
+
+/* 1.4: HL mode turns the brand and the Welcome box purple, matching the level bar */
+html[data-course="HL"] .brand .mvp, html[data-course="HL"] .foot-name .mvp, html[data-course="HL"] .welcome-hero h2 .mvp { color: var(--hl); }
+html[data-course="HL"] .welcome-hero { background: linear-gradient(135deg, var(--hl-soft), var(--surface)); border-color: color-mix(in srgb, var(--hl) 30%, var(--line)); }
+.sinfo.inline { position: static; display: inline-grid; place-items: center; width: 16px; height: 16px; font-size: 11px; margin-left: 4px; vertical-align: 1px; text-transform: none; letter-spacing: 0; }
+
+/* PIN trial (only used in trial builds) */
+.pinbox { margin-top: 12px; padding: 14px 16px; border: 1.5px dashed var(--line); border-radius: 12px; background: var(--surface); }
+.pin-head { font-size: 15px; margin-bottom: 4px; }
+.pinbox input { width: 9em; font-family: var(--f-mono); letter-spacing: .2em; }
+.pin-open { margin-top: 10px; color: var(--muted); }
 
 </style>
 <header class="top"><div class="top-inner">
@@ -16198,7 +16209,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
 
   /* ---------- storage (device only) ---------- */
   const DEF = () => ({
-    settings: { spec: { '2025': true, '2028': false }, theme: '', course: 'HL', toff: [], rmode: 'flash', level: 'SL', papers: { '1A': true, '1B': true, '2': true }, chili: { 1: true, 2: true, 3: true }, sel: LIVE_IDS.slice(), saved: {}, paceCoach: false, missedOnly: false, incCmd: true },
+    settings: { linked: 'off', spec: { '2025': true, '2028': false }, theme: '', course: 'HL', toff: [], rmode: 'flash', level: 'SL', papers: { '1A': true, '1B': true, '2': true }, chili: { 1: true, 2: true, 3: true }, sel: LIVE_IDS.slice(), saved: {}, paceCoach: false, missedOnly: false, incCmd: true },
     log: [], cards: {}, missed: [], gbest: {}, lmsBest: 0, lmsRuns: [], ud: { runs: [], best: {}, cases: {} }, days: [], games: {}, matchBest: 0, exams: [], newDay: { d: '', n: 0 },
   });
   function load() {
@@ -16302,6 +16313,17 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   // ok(id): is this strand selected? onlyTools: the selection contains Tools strands but no topic strands, so every question practising those skills qualifies
   const qualifies = (q, ok, onlyTools) => need(q).every(ok) || (onlyTools && q.strands.some(id => id.startsWith('s-')) && q.strands.filter(id => id.startsWith('s-')).every(ok));
   const toolsOnly = (ids) => ids.length > 0 && ids.every(id => id.startsWith('s-'));
+  // linked-topic questions (1.4): off = every strand a question uses must be ticked; include = also questions linking a ticked strand
+  // with other topics; only = just the questions that combine two or more topics. avail(id): may an unticked strand appear (live, level)?
+  const qTopics = (q) => new Set(q.strands.filter(id => !id.startsWith('s-')).map(id => STRAND[id] && STRAND[id].topic).filter(Boolean));
+  const isLinked = (q) => qTopics(q).size >= 2;
+  const qualifiesL = (q, ok, onlyTools, linked, avail) => {
+    const base = qualifies(q, ok, onlyTools);
+    if (!linked || linked === 'off') return base;
+    const inc = base || (isLinked(q) && need(q).some(ok) && need(q).every(avail));
+    return linked === 'only' ? inc && isLinked(q) : inc;
+  };
+  const LINKED = [['off', 'Off', 'Only questions whose strands are all ticked'], ['include', 'Include', 'Also questions that link a ticked strand with other topics'], ['only', 'Only', 'Only questions that combine two or more topics']];
   /* SL / HL course level: in SL mode every HL-only strand (and so every HL question) is hidden everywhere */
   const isHL = () => S.settings.course !== 'SL';
   const levelOK = (id) => isHL() || !(STRAND[id] && STRAND[id].hl);
@@ -16322,7 +16344,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     if (!o.ignorePapers && !S.settings.papers[q.paper]) return false;
     if (!o.ignoreChili && !S.settings.chili[q.chili]) return false;
     if (!specOK(q)) return false;
-    if (!qualifies(q, strandOK, toolsOnly(ALL_STRANDS.map(s => s.id).filter(id => STRAND[id].live && strandOK(id))))) return false;
+    if (!qualifiesL(q, strandOK, toolsOnly(ALL_STRANDS.map(s => s.id).filter(id => STRAND[id].live && strandOK(id))), S.settings.linked, id => STRAND[id] && STRAND[id].live && levelOK(id))) return false;
     if (!o.ignoreMissed && S.settings.missedOnly && currentView() === 'practice' && !S.missed.includes(q.id)) return false; // Practice only (1.2)
     return true;
   }
@@ -16367,6 +16389,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
         ${recall || notes ? `<div class="fieldset cmd-box"><label class="switch"><input type="checkbox" id="railCmd" ${st.incCmd ? 'checked' : ''}> <span><b>Command Terms</b><small>${recall ? 'Include the IB command-term cards' : 'Show the command terms at the top of Notes'}</small></span></label></div>` : ''}
         ${!qmode ? '' : `<div class="fieldset"><span class="lbl">Papers</span><div class="chips">${PAPERS.map(p => `<button class="chip" data-paper="${p}" aria-pressed="${!!st.papers[p]}">${PAPER_NAME[p]}</button>`).join('')}</div></div>
         <div class="fieldset"><span class="lbl">Difficulty</span><div class="chips">${[1, 2, 3].map(c => `<button class="chip" data-chili="${c}" aria-pressed="${!!st.chili[c]}" aria-label="${CHILI_TIP[c]}">${chiliIcon(c)}</button>`).join('')}</div></div>`}
+        ${(qmode || (blitz && !det && !(GA && GA.mode === 'lms'))) ? `<div class="fieldset"><span class="lbl">Linked topics <button type="button" class="sinfo inline" aria-label="About linked topics" data-tip="Some questions combine two topics, eg energy (A.3) with circuits (B.5). Off: only questions whose strands are all ticked. Include: also questions that link a ticked strand with other topics. Only: just the questions that combine two or more topics.">i</button></span><div class="chips seg-chips" role="group" aria-label="Linked topics">${LINKED.map(([k, l, d]) => `<button class="chip" data-linked="${k}" aria-pressed="${(st.linked || 'off') === k}" title="${d}">${l}</button>`).join('')}</div></div>` : ''}
         ${notes ? '' : `<div class="fieldset"><span class="lbl">Syllabus</span>${specSeg()}`}${notes ? '' : '<span class="muted small spec-note">FE2028 adds content that is new for exams from May 2028.</span></div>'}
         <div class="fieldset"><span class="lbl">Topics &amp; strands</span><div class="row" style="gap:6px"><button class="btn sm" id="selAll">Select All</button><button class="btn sm" id="selNone">Clear All</button><button class="btn sm" id="railFold" aria-pressed="${allFolded}">${allFolded ? 'Expand All' : 'Collapse All'}</button></div><div class="tree">${tree}</div></div>
       </div>`;
@@ -16382,6 +16405,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
       if (b.dataset.level) st.level = b.dataset.level;
       else if (b.dataset.paper) st.papers[b.dataset.paper] = !st.papers[b.dataset.paper];
       else if (b.dataset.chili) st.chili[b.dataset.chili] = !st.chili[b.dataset.chili];
+      else if (b.dataset.linked) st.linked = b.dataset.linked;
       else if (b.dataset.spec) { const sp = { ...specOn() }; sp[b.dataset.spec] = !sp[b.dataset.spec]; if (!sp['2025'] && !sp['2028']) sp[b.dataset.spec === '2025' ? '2028' : '2025'] = true; st.spec = sp; }
       else if (b.id === 'selAll') st.sel = [...new Set([...st.sel, ...LIVE_IDS.filter(levelOK)])];
       else if (b.id === 'selNone') st.sel = st.sel.filter(id => !levelOK(id));
@@ -16690,7 +16714,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   const codeOrder = () => CODE_ORDER.concat(ALL_STRANDS.map(x => x.id).filter(id => !CODE_ORDER.includes(id)).sort());
   const B32 = '0123456789ABCDEFGHJKMNPQRSTVWXYZ';
   function codePool(c) {
-    return Q.filter(q => !q.fe28 && (c.marks[q.paper] || 0) > 0 && (c.chili >> (q.chili - 1)) & 1 && qualifies(q, id => c.strands.includes(id) && STRAND[id] && STRAND[id].live, toolsOnly(c.strands)));
+    return Q.filter(q => !q.fe28 && (c.marks[q.paper] || 0) > 0 && (c.chili >> (q.chili - 1)) & 1 && qualifiesL(q, id => c.strands.includes(id) && STRAND[id] && STRAND[id].live, toolsOnly(c.strands), c.linked, id => STRAND[id] && STRAND[id].live && !(c.sl && STRAND[id].hl)));
   }
   function fingerprint(list) { let h = 5381; for (const ch of list.map(q => q.id).sort().join('|')) h = ((h * 33) ^ ch.charCodeAt(0)) >>> 0; return h & 0xfff; }
   /* Short codes (v35+). Bits from the top: marker 1, format (3), seed 20, fingerprint 10, difficulty 3, marks (IB preset or three 7-bit numbers), then a topic or
@@ -16706,7 +16730,20 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     if (!t) return null; let big = 0n; for (const ch of t) { const v = B32.indexOf(ch); if (v < 0) return null; big = big * 32n + BigInt(v); } return big;
   };
   const group = (pre, t) => pre + '-' + t.match(/.{1,4}/g).join('-'); // 1.4: groups of 4, the same as the code boxes
-  const CODE_KIND = { MVP: 'Test Mode class code (use it in Test Mode)', LMS: 'Last Man Standing code (use it in Games → Last Man Standing)' };
+  const CODE_KIND = { MVP: 'Test Mode class code (use it in Test Mode)', LMS: 'Last Man Standing code (use it in Games → Last Man Standing)', BLZ: 'Blitz code (use it in Games → Blitz)', UD: 'Unit Detective code (use it in Games → Unit Detective)' };
+  // small bit writer/reader for the game codes (1.4)
+  const bitW = () => { let big = 1n; return { put(v, b) { big = (big << BigInt(b)) | BigInt(v); }, mask(m) { const t = m.toString(2); big = (big << BigInt(t.length)) | m; }, str(pre) { return group(pre, toB32(big)); } }; };
+  const bitR = (str, pre) => { const big = fromB32(str, pre); if (big === null || big === 0n) return null; const body = big.toString(2).slice(1); let pos = 0; return { take(n) { const v = parseInt(body.slice(pos, pos + n), 2) || 0; pos += n; return v; }, rest() { return body.slice(pos); }, len: body.length }; };
+  // Blitz code: version, seed, minutes, SL/HL, linked setting, strands. Everyone with it gets the same question set, the same values and the same time.
+  function blzEncode(c) { const w = bitW(); w.put(1, 3); w.put(c.seed & 0xfffff, 20); w.put(c.dur & 127, 7); w.put(c.sl ? 1 : 0, 1); w.put(Math.max(0, LINKED.findIndex(x => x[0] === c.linked)), 2); w.mask(maskBits(c.strands, codeStrands())); return w.str('BLZ'); }
+  function blzDecode(str) { const r = bitR(str, 'BLZ'); if (!r || r.len < 34 || r.take(3) !== 1) return null; const c = { seed: r.take(20), dur: r.take(7), sl: r.take(1) === 1, linked: (LINKED[r.take(2)] || LINKED[0])[0] }; c.strands = maskRead(r.rest(), codeStrands()); if (!c.strands.length || c.dur < 1) return null; c.str = blzEncode(c); return c; }
+  // Unit Detective code: version, seed, cases, mode, minutes, SL/HL, topics.
+  const UD_DURS = [2, 3, 5];
+  function udEncode(c) { const w = bitW(); w.put(1, 3); w.put(c.seed & 0xfffff, 20); w.put(UD_CASES.reduce((a, x, i) => a | (c.cases.includes(x[0]) ? 1 << i : 0), 0), 5); w.put(c.mode === 'chase' ? 1 : 0, 1); w.put(Math.max(0, UD_DURS.indexOf(c.dur)), 2); w.put(c.sl ? 1 : 0, 1); w.mask(maskBits(c.topics, CODE_TOPICS)); return w.str('UD'); }
+  function udDecode(str) { const r = bitR(str, 'UD'); if (!r || r.len < 33 || r.take(3) !== 1) return null; const c = { seed: r.take(20) }; const cm = r.take(5); c.cases = UD_CASES.filter((x, i) => (cm >> i) & 1).map(x => x[0]); c.mode = r.take(1) ? 'chase' : 'inv'; c.dur = UD_DURS[r.take(2)] || 3; c.sl = r.take(1) === 1; c.topics = maskRead(r.rest(), CODE_TOPICS); if (!c.cases.length) return null; c.str = udEncode(c); return c; }
+  const codeRow = (kind, pre, cur, hint) => cur
+    ? `<div class="code-row"><span class="lbl">Shared code</span><span class="code-chip"><span class="code-str">${cur.str}</span></span><button class="btn sm" id="${kind}Copy">Copy</button><button class="btn sm btn-clear" id="${kind}Clear">Clear</button><span class="muted small">${hint}</span></div>`
+    : `<div class="code-row"><span class="lbl">Shared code <span class="muted small">optional</span></span><input type="text" id="${kind}In" class="codein" data-prefix="${pre}" value="${pre}-" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Code (starts ${pre}-)"><button class="btn sm" id="${kind}Use">Use</button><span class="muted small">or</span><button class="btn primary sm" id="${kind}Make">Make a Code</button></div>`;
   const wrongKind = (val, want) => { const m = String(val).trim().toUpperCase().match(/^([A-Z]+)-/); return m && m[1] !== want && CODE_KIND[m[1]] ? `That's a ${CODE_KIND[m[1]]}.` : ''; };
   // code boxes: keep the mode's prefix, capitalise, and add a dash every 4 characters as you type (1.4)
   function fmtCodeBox(el) {
@@ -16725,7 +16762,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     const fb = e.target.closest('#footFbBtn');
     if (fb) { const d = document.getElementById('footFb'); d.open = !d.open; fb.setAttribute('aria-expanded', String(d.open)); if (d.open) { d.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); const ta = d.querySelector('textarea'); if (ta) ta.focus({ preventScroll: true }); } }
   });
-  document.addEventListener('keydown', (e) => { const el = e.target; if (el && el.classList && el.classList.contains('codein') && e.key === 'Enter') { const b = el.parentElement.querySelector('#exUse, #lmsUse'); if (b) { e.preventDefault(); b.click(); } } });
+  document.addEventListener('keydown', (e) => { const el = e.target; if (el && el.classList && el.classList.contains('codein') && e.key === 'Enter') { const b = el.parentElement.querySelector('#exUse, #lmsUse, #blzUse, #udUse'); if (b) { e.preventDefault(); b.click(); } } });
   const maskBits = (items, order) => { let m = 0n; order.forEach((x, i) => { if (items.includes(x)) m |= 1n << BigInt(i); }); return m; };
   const maskRead = (bits, order) => { const out = []; for (let i = 0; i < bits.length; i++) if (bits[bits.length - 1 - i] === '1' && order[i]) out.push(order[i]); return out; };
   const liveStrandsOf = (topics, sl) => ALL_STRANDS.filter(x => STRAND[x.id].live && topics.includes(STRAND[x.id].topic) && !(sl && x.hl)).map(x => x.id);
@@ -16736,7 +16773,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   }
   // the marks an IB preset gives for this code's strands, difficulty and papers (no dependence on the student's settings)
   function presetMarks(c, target, papersOn) {
-    const list = Q.filter(q => (c.chili >> (q.chili - 1)) & 1 && qualifies(q, id => c.strands.includes(id) && STRAND[id] && STRAND[id].live, toolsOnly(c.strands)));
+    const list = Q.filter(q => (c.chili >> (q.chili - 1)) & 1 && qualifiesL(q, id => c.strands.includes(id) && STRAND[id] && STRAND[id].live, toolsOnly(c.strands), c.linked, id => STRAND[id] && STRAND[id].live && !(c.sl && STRAND[id].hl)));
     const av = availMarks(list), share = SHARE.SL, active = PAPERS.filter((p, i) => (papersOn >> i) & 1 && av[p] > 0);
     const out = { '1A': 0, '1B': 0, '2': 0 }; if (!active.length) return out;
     const totW = active.reduce((a, p) => a + share[p], 0);
@@ -16749,7 +16786,8 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   function encodeCode(c) {
     let big = 1n; const put = (v, b) => { big = (big << BigInt(b)) | BigInt(v); };
     const sl = !c.strands.some(id => STRAND[id] && STRAND[id].hl);
-    put(sl ? 4 : 3, 3); put(c.seed & 0xfffff, 20); put(c.fp & 0x3ff, 10); put(c.chili, 3);
+    const lk = Math.max(0, LINKED.findIndex(x => x[0] === c.linked));
+    put(lk ? (sl ? 6 : 5) : (sl ? 4 : 3), 3); put(c.seed & 0xfffff, 20); put(c.fp & 0x3ff, 10); put(c.chili, 3); if (lk) put(lk, 2);
     const papersOn = PAPERS.reduce((a, p, i) => a | ((c.marks[p] || 0) > 0 ? 1 << i : 0), 0);
     const pi = PRESETS.findIndex(t => sameMarks(presetMarks(c, t, papersOn), c.marks));
     if (pi >= 0) { put(0, 1); put(pi, 3); put(papersOn, 3); } else { put(1, 1); PAPERS.forEach(p => put(c.marks[p], 7)); }
@@ -16771,11 +16809,11 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     if (body.length >= 63 && ['001', '010'].includes(body.slice(0, 3))) { c = decodeOld(body); if (c) c.str = group('MVP', toB32(big)); }
     else {
       let pos = 0; const take = (n) => { const v = parseInt(body.slice(pos, pos + n), 2) || 0; pos += n; return v; };
-      const ver = take(3); if (ver !== 3 && ver !== 4) return null;
-      c = { seed: take(20), fp: take(10), chili: take(3), sl: ver === 4 };
+      const ver = take(3); if (ver < 3 || ver > 6) return null;
+      c = { seed: take(20), fp: take(10), chili: take(3), sl: ver === 4 || ver === 6 }; c.linked = ver >= 5 ? (LINKED[take(2)] || LINKED[0])[0] : 'off';
       let preset = null; if (take(1) === 0) preset = [take(3), take(3)]; else c.marks = { '1A': take(7), '1B': take(7), '2': take(7) };
       const byStrand = take(1) === 1, rest = body.slice(pos);
-      c.strands = byStrand ? maskRead(rest, codeStrands()) : liveStrandsOf(maskRead(rest, CODE_TOPICS), ver === 4);
+      c.strands = byStrand ? maskRead(rest, codeStrands()) : liveStrandsOf(maskRead(rest, CODE_TOPICS), c.sl);
       if (preset) { if (PRESETS[preset[0]] === undefined) return null; c.marks = presetMarks(c, PRESETS[preset[0]], preset[1]); }
       c.fpOk = fp10(codePool(c)) === c.fp;
     }
@@ -16795,7 +16833,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     if (EX.mode === 'paper' && !EX.paper.startsWith(isHL() ? 'hl' : 'sl')) EX.paper = isHL() ? 'hl1' : 'sl1'; return EX.mode === 'custom' ? { ...EX.marks } : EX.mode === 'paper' ? { ...(REAL_PAPERS.find(p => p.id === EX.paper) || REAL_PAPERS[0]).marks } : ibMarks(EX.target); }
   function makeClassCode() {
     const marks = currentMarks();
-    const c = { seed: 1 + rnd(0xffffe), chili: [1, 2, 3].reduce((a, k) => a | (S.settings.chili[k] ? 1 << (k - 1) : 0), 0), marks, strands: effSel() };
+    const c = { seed: 1 + rnd(0xffffe), chili: [1, 2, 3].reduce((a, k) => a | (S.settings.chili[k] ? 1 << (k - 1) : 0), 0), marks, strands: effSel(), linked: S.settings.linked || 'off' }; c.sl = !c.strands.some(id => STRAND[id] && STRAND[id].hl);
     PAPERS.forEach(p => { if (!S.settings.papers[p] && EX.mode !== 'paper') c.marks[p] = 0; c.marks[p] = Math.min(127, c.marks[p]); });
     if (!sumMarks(c.marks) || !codePool(c).length) return null;
     c.fp = fp10(codePool(c)); c.fpOk = true; c.str = encodeCode(c);
@@ -16805,6 +16843,34 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   function topicsOf(strands) { const order = TOPICS.map(t => t.id); return [...new Set(strands.map(id => STRAND[id] && STRAND[id].topic).filter(Boolean))].sort((a, b) => order.indexOf(a) - order.indexOf(b)).map(tname).join(', '); }
   function marksLine(m) { const rp = realPaperFor(m); return PAPERS.filter(p => m[p]).map(p => `${PAPER_NAME[p]} <b class="num">${m[p]}</b>`).join(' · ') + ` <span class="exsum-total">= <b class="num">${sumMarks(m)}</b> marks · ${rp ? `<b class="num">${rp.min}</b> min (${rp.label})` : `about <b class="num">${estMin(m)}</b> min`}</span>`; }
 
+
+  /* ======================= PIN TRIAL (only in trial builds: window.__PIN = { mode: 'tools' | 'all', hash }) =======================
+     The public site has no __PIN, so none of this runs there. 'tools': students take tests on screen; printing, downloading,
+     Exam mode and Make a Code need the PIN. 'all': the whole of Test Mode needs the PIN. Unlocking is remembered on this device
+     until Lock is pressed. The PIN is stored only as a salted hash: a speed bump, not real security. */
+  const PIN = window.__PIN || null;
+  const pinHash = (t) => { let h = 0x811c9dc5; for (const ch of 'mvphysics-lab:' + String(t).trim()) { h ^= ch.charCodeAt(0); h = Math.imul(h, 0x01000193) >>> 0; } return h.toString(16); };
+  const pinKey = 'mvp-teacher-unlock';
+  const pinOpen = () => { if (!PIN) return true; try { return localStorage.getItem(pinKey) === PIN.hash; } catch (e) { return false; } };
+  const pinForm = (title, text) => `<div class="pinbox"><div class="pin-head">🔒 <b>${title}</b></div><p class="small">${text}</p>
+    <div class="row"><input type="password" id="pinIn" inputmode="numeric" autocomplete="off" aria-label="Teacher PIN" placeholder="PIN"><button class="btn primary sm" id="pinGo">Unlock</button><span class="muted small" id="pinMsg" role="alert"></span></div></div>`;
+  const pinLockLine = () => PIN && pinOpen() ? `<p class="pin-open small">🔓 ${PIN.mode === 'all' ? 'Test Mode' : 'Teacher tools'} unlocked on this device. <button type="button" class="btn sm" id="pinLock">Lock</button></p>` : '';
+  function pinApply(main) {
+    if (!PIN) return;
+    if (pinOpen()) { const g = main.querySelector('.exgo'); if (g) g.insertAdjacentHTML('beforeend', pinLockLine()); return; }
+    if (PIN.mode === 'all') { main.innerHTML = head('Test Mode 📝', 'Timed papers for use in class.') + `<section class="panel">${pinForm('Test Mode is locked', 'Your teacher opens Test Mode with a PIN. Practice, Games, Recall and Notes are open to everyone.')}</section>`; return; }
+    ['#wsOpen', '#wsMake', '.ws-cover-row', '#wsStatus', '#exMake'].forEach(sel => { const el = main.querySelector(sel); if (el) { if (sel === '#exMake' && el.previousElementSibling && el.previousElementSibling.tagName === 'SPAN') el.previousElementSibling.remove(); el.remove(); } });
+    const g = main.querySelector('.exgo'); if (g) g.insertAdjacentHTML('beforeend', pinForm('Teacher tools', 'Printing and downloading papers, Exam mode and making class codes need the teacher PIN. You can still take a test on screen and use a class code from your teacher.'));
+  }
+  document.addEventListener('click', (e) => {
+    if (!PIN) return;
+    const b = e.target.closest('#pinGo, #pinLock'); if (!b) return;
+    if (b.id === 'pinLock') { try { localStorage.removeItem(pinKey); } catch (x) {} toast('Locked.'); render(); return; }
+    const v = (document.getElementById('pinIn') || {}).value || '';
+    if (pinHash(v) === PIN.hash) { try { localStorage.setItem(pinKey, PIN.hash); } catch (x) {} toast('Unlocked on this device.'); render(); }
+    else { const m = document.getElementById('pinMsg'); if (m) m.textContent = 'That PIN is not right.'; }
+  });
+  document.addEventListener('keydown', (e) => { if (PIN && e.target && e.target.id === 'pinIn' && e.key === 'Enter') { e.preventDefault(); document.getElementById('pinGo').click(); } });
   function renderExam(main) {
     if (!EX) EX = { phase: 'setup', mode: 'ib', paper: 'sl1', target: 20, marks: { '1A': 5, '1B': 4, '2': 11 }, strict: true, hideClock: false, code: null };
     if (EX.phase === 'setup') {
@@ -16839,6 +16905,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
             <div class="ws-cover-row"><label class="switch small ws-cover"><input type="checkbox" id="wsCover" ${WS.cover === true ? 'checked' : ''}> <b>Exam mode</b> <span class="muted">(cover sheet, answer sheet, IB order)</span></label><button type="button" class="sinfo" aria-label="What Exam mode does" data-tip="Exam mode prints the paper like a real IB exam: a cover sheet with instructions, marks and time; a 40-row Paper 1A answer sheet; Paper 1A, 1B and 2 in IB order; then a question overview and the markschemes. Off: just the questions, then the markschemes.">i</button></div>
             <p class="muted small" id="wsStatus">Print opens the paper in a new tab and the print window straight away (choose a printer, or Save as PDF) with IB-style answer boxes and the markscheme at the end. Papers include their class code.</p></div>
         </section>` : emptySel());
+      pinApply(main);
       return;
     }
     if (EX.phase === 'run') return renderExamRun(main);
@@ -17008,13 +17075,17 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
 
   /* ======================= GAUNTLET ======================= */
   let GA = null, gaTimer = null;
-  function gaPool() { return pool({ ignorePapers: true, ignoreChili: true, ignoreMissed: true }).filter(q => q.paper === '1A'); }
+  function gaPool() {
+    if (GA && GA.code) { const c = GA.code; return Q.filter(q => q.paper === '1A' && !q.fe28 && !(c.sl && q.hl) && qualifiesL(q, id => c.strands.includes(id) && STRAND[id] && STRAND[id].live, toolsOnly(c.strands), c.linked, id => STRAND[id] && STRAND[id].live && !(c.sl && STRAND[id].hl))); }
+    return pool({ ignorePapers: true, ignoreChili: true, ignoreMissed: true }).filter(q => q.paper === '1A');
+  }
   function gaPick() {
     const list = gaPool(); const want = GA.streak >= 6 ? 3 : GA.streak >= 3 ? 2 : 1;
     let c = []; for (let d = 0; d <= 2 && !c.length; d++) c = list.filter(q => Math.abs(q.chili - want) === d && !GA.recent.slice(-6).includes(q.id));
     if (!c.length) c = list;
-    const q = c[rnd(c.length)]; GA.recent.push(q.id);
-    const seed = newSeed(); GA.cur = { q, seed, inst: q.gen(makeR(seed)), t0: now(), picked: null };
+    const rr = (n) => GA.rng ? Math.floor(GA.rng() * n) : rnd(n); // a shared code makes the picks and values repeatable
+    const q = c[rr(c.length)]; GA.recent.push(q.id);
+    const seed = GA.rng ? 1 + Math.floor(GA.rng() * 2e9) : newSeed(); GA.cur = { q, seed, inst: q.gen(makeR(seed)), t0: now(), picked: null };
   }
   const GAME_CARDS = [
     ['classic', '⚡', 'Blitz', 'Answer as many Paper 1A questions as you can before the clock runs out. Wrong answers cost time, and the questions get harder as your streak grows.'],
@@ -17039,11 +17110,12 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
       const preset = [5, 10, 15, 20, 30, 40];
       const isMax = GA.durSel === 'max', isCustom = !isMax && (GA.custom || !preset.includes(GA.dur));
       main.innerHTML = modeBack('gaModes', 'All Games') + head('Blitz ⚡', 'Answer as many Paper 1A questions as you can before time runs out. Wrong answers cost 15 seconds, and the difficulty rises as your streak grows.') + (n ? `
-        <section class="panel"><div class="form-grid"><label class="field"><span>Time limit</span><select id="gaDur">${preset.map(d => `<option value="${d}" ${!isCustom && !isMax && GA.dur === d ? 'selected' : ''}>${d} minutes</option>`).join('')}<option value="max" ${isMax ? 'selected' : ''}>Maximum (${maxMin} minutes)</option><option value="custom" ${isCustom ? 'selected' : ''}>Custom…</option></select></label>
-        <label class="field" id="gaCustomWrap" ${isCustom ? '' : 'hidden'}><span>Minutes (3 to ${maxMin})</span><input type="number" id="gaCustom" min="3" max="${maxMin}" step="1" value="${GA.dur}"></label></div>
+        <section class="panel">${GA.code ? `<p><b>Time limit: ${GA.code.dur} minutes</b> <span class="muted small">(set by the code, along with the topics)</span></p>` : `<div class="form-grid"><label class="field"><span>Time limit</span><select id="gaDur">${preset.map(d => `<option value="${d}" ${!isCustom && !isMax && GA.dur === d ? 'selected' : ''}>${d} minutes</option>`).join('')}<option value="max" ${isMax ? 'selected' : ''}>Maximum (${maxMin} minutes)</option><option value="custom" ${isCustom ? 'selected' : ''}>Custom…</option></select></label>
+        <label class="field" id="gaCustomWrap" ${isCustom ? '' : 'hidden'}><span>Minutes (3 to ${maxMin})</span><input type="number" id="gaCustom" min="3" max="${maxMin}" step="1" value="${GA.dur}"></label></div>`}
         <p class="muted small" id="gaErr" role="alert"></p>
         <p class="muted small">${n} question types in your selection, with new values every time, so you can choose 3 to ${maxMin} minutes. Every miss is added to "Only questions I've missed", so you can practise it properly later.</p>
-        <div class="row"><button class="btn primary" id="gaStart">Start</button></div></section>` : emptySel('Blitz uses Paper 1A questions. Tick at least one strand in "Questions".')) + blitzStats();
+        ${codeRow('blz', 'BLZ', GA.code, 'Everyone with this code gets the same questions, values and time.')}
+        <div class="row"><button class="btn primary" id="gaStart">Start</button></div></section>` : (GA.code ? `<section class="panel">${codeRow('blz', 'BLZ', GA.code, '')}<p class="warn small">This code's topics have no Paper 1A questions in this version.</p></section>` : '') + emptySel('Blitz uses Paper 1A questions. Tick at least one strand in "Questions".')) + blitzStats();
       return;
     }
     if (GA.phase === 'run') {
@@ -17315,24 +17387,26 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
   /* ======================= UNIT DETECTIVE 🔍 (1.3) =======================
      Five cases about units; answers are computed from dimension vectors in zz-units.js. Investigation: 10 clues, untimed, feedback each time.
      The Chase: timed, wrong answers cost 10 seconds. Uses the Topics panel to choose which quantities and equations appear. */
-  let UD = null;
+  let UD = null, UDC = null, UDR = null; // UDC: shared Unit Detective code; UDR: its seeded random generator during a game
+  const udRand = () => (UDR ? UDR() : Math.random());
+  const ushuffle = (arr) => { const x = arr.slice(); for (let i = x.length - 1; i > 0; i--) { const j = Math.floor(udRand() * (i + 1)); [x[i], x[j]] = [x[j], x[i]]; } return x; };
   const UD_SUP = { '-': '−' };
   const udVec = (form) => { const v = [0, 0, 0, 0, 0, 0]; String(form).trim().split(/\s+/).filter(Boolean).forEach(tok => { const [sym, e] = tok.split('^'); const d = UD_SYM[sym]; if (!d) throw new Error('UD symbol ' + sym); const x = e === undefined ? 1 : +e; d.forEach((k, i) => { v[i] += k * x; }); }); return v.map(x => Math.round(x * 1000) / 1000); };
   const udSame = (a, b) => a.every((x, i) => Math.abs(x - b[i]) < 1e-9);
   const udFmt = (v) => { const parts = v.map((x, i) => x === 0 ? '' : x === 1 ? UD_BASE[i] : `${UD_BASE[i]}<sup>${String(x).replace('-', '−')}</sup>`).filter(Boolean); return parts.length ? parts.join(' ') : 'no units'; };
-  const udTopicOK = (tid) => { const t = TOPICS.find(x => x.id === tid); if (!t) return true; if (!isHL() && topicHL(t)) return false; return true; };
-  const udTopicOn = (tid) => { const t = TOPICS.find(x => x.id === tid); return !t || t.strands.some(s => S.settings.sel.includes(s.id) && levelOK(s.id)); };
+  const udTopicOK = (tid) => { const t = TOPICS.find(x => x.id === tid); if (!t) return true; if ((UDC ? UDC.sl : !isHL()) && topicHL(t)) return false; return true; };
+  const udTopicOn = (tid) => { const t = TOPICS.find(x => x.id === tid); if (!t) return true; if (UDC) return UDC.topics.includes(tid); return t.strands.some(s => S.settings.sel.includes(s.id) && levelOK(s.id)); };
   const UD_WHY = { N: '$F = ma$: kg × m s<sup>−2</sup>.', J: '$W = Fs$: N × m = kg m s<sup>−2</sup> × m.', W: '$P = E/t$: J ÷ s.', Pa: '$P = F/A$: N ÷ m<sup>2</sup>.', C: '$Q = It$: A × s.',
     V: '$V = W/q$: J ÷ C = kg m<sup>2</sup> s<sup>−2</sup> ÷ (A s).', ohm: '$R = V/I$: V ÷ A.', T: '$F = qvB$, so $B = F/qv$: N ÷ (C × m s<sup>−1</sup>).', Wb: '$\\Phi = BA$: T × m<sup>2</sup>.', VA: 'V A = W (as $P = IV$).', Ns: 'Impulse = change in momentum: N s = kg m s<sup>−1</sup>.', Nm: 'N m has the same base units as the joule, but torque is not energy.' };
   // build every item for a case (unfiltered); each item: { id, cs, topic, hard, prompt, opts[], ans, why }
   function udItems(cs) {
     const out = [];
-    const pickDist = (target, pool, n) => { const seen = [target]; const res = []; shuffle(pool).forEach(v => { if (res.length < n && !seen.some(s => udSame(s, v))) { seen.push(v); res.push(v); } }); return res; };
+    const pickDist = (target, pool, n) => { const seen = [target]; const res = []; ushuffle(pool).forEach(v => { if (res.length < n && !seen.some(s => udSame(s, v))) { seen.push(v); res.push(v); } }); return res; };
     const perturb = (v) => { const vs = []; [[2, 1], [2, -1], [1, 1], [1, -1], [0, 1], [0, -1], [3, 1], [3, -1]].forEach(([i, d]) => { if (i === 3 && !v[3]) return; const w = v.slice(); w[i] += d; vs.push(w); }); return vs; };
-    const mk = (o) => { const order = shuffle(o.opts.map((x, i) => i)); return { ...o, opts: order.map(i => o.opts[i]), ans: order.indexOf(o.ans) }; };
+    const mk = (o) => { const order = ushuffle(o.opts.map((x, i) => i)); return { ...o, opts: order.map(i => o.opts[i]), ans: order.indexOf(o.ans) }; };
     if (cs === 'who') {
       UD_QTY.forEach(([id, name, sym, unit, v, topic, hard]) => {
-        const others = shuffle(UD_QTY.filter(q => !udSame(q[4], v)));
+        const others = ushuffle(UD_QTY.filter(q => !udSame(q[4], v)));
         const names = []; others.forEach(q => { if (names.length < 3 && !names.some(n => udSame(n[4], q[4]))) names.push(q); });
         out.push(mk({ id: 'who-n-' + id, cs, topic, hard: !!hard, prompt: `Which quantity has the SI base units <b class="udu">${udFmt(v)}</b>?`, opts: [name, ...names.map(q => q[1])], ans: 0,
           why: `${name} ($${sym}$)${unit ? ` is measured in ${unit}` : ''}, which is ${udFmt(v)} in base units.` }));
@@ -17371,7 +17445,7 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
     let pool = udPool(cs).filter(it => !UD.used.has(it.id));
     if (UD.mode === 'chase') { const hard = UD.streak >= 5; const pref = pool.filter(it => it.hard === hard); if (pref.length) pool = pref; }
     if (!pool.length) { udPool(cs).forEach(it => UD.used.delete(it.id)); pool = udPool(cs); }
-    const it = pool[rnd(pool.length)]; UD.used.add(it.id);
+    const it = pool[Math.floor(udRand() * pool.length)]; UD.used.add(it.id);
     // regenerate so the option order is fresh
     UD.q = it; UD.picked = null;
   }
@@ -17402,6 +17476,8 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
         </div>
         ${st.udMode === 'chase' ? `<div class="row ud-dur"><span class="muted small">Time:</span>${[2, 3, 5].map(m => `<button type="button" class="chip" data-uddur="${m}" aria-pressed="${st.udDur === m}">${m} min</button>`).join('')}</div>` : ''}
         <p class="muted small">Quantities and equations come from the topics ticked in the Topics panel (all topics if too few are ticked).</p>
+        ${codeRow('ud', 'UD', UDC, 'Everyone with this code gets the same clues in the same order.')}
+        ${UDC ? `<p class="small"><b>Set by the code:</b> ${UDC.cases.map(id => `Case ${UD_CASES.find(x => x[0] === id)[1]}`).join(', ')} · ${UDC.mode === 'chase' ? `The Chase, ${UDC.dur} min` : 'Investigation'}.</p>` : ''}
         <div class="row"><button class="btn primary" id="udGo">Open the Case</button></div></section>` + udStats();
       return;
     }
@@ -17426,7 +17502,9 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
   }
   function udStart() {
     const st = udSettings();
-    UD = { phase: 'play', mode: st.udMode, dur: st.udDur, cases: shuffle(st.udCases), n: 0, right: 0, streak: 0, bestStreak: 0, used: new Set(), hist: [], q: null, picked: null };
+    UDR = UDC ? mulberry(UDC.seed) : null;
+    const cfg = UDC ? { mode: UDC.mode, dur: UDC.dur, cases: UDC.cases } : { mode: st.udMode, dur: st.udDur, cases: st.udCases };
+    UD = { phase: 'play', mode: cfg.mode, dur: cfg.dur, cases: ushuffle(cfg.cases), n: 0, right: 0, streak: 0, bestStreak: 0, used: new Set(), hist: [], q: null, picked: null };
     udNext();
     if (UD.mode === 'chase') { UD.end = now() + UD.dur * 60000; UD.tm = setInterval(udTick, 250); }
   }
@@ -17447,7 +17525,11 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
     const st = udSettings();
     if (b.dataset.udmode) { st.udMode = b.dataset.udmode; save(); renderDetective(main); return true; }
     if (b.dataset.uddur) { st.udDur = +b.dataset.uddur; save(); renderDetective(main); return true; }
-    if (b.id === 'udGo' || b.id === 'udAgain') { if (!st.udCases.length) { toast('Choose at least one case file.'); return true; } udStart(); renderDetective(main); return true; }
+    if (b.id === 'udUse') { const v = $('#udIn').value, wk = wrongKind(v, 'UD'); if (wk) { toast(wk); return true; } const c = udDecode(v); if (!c) { toast("That code isn't valid. Check it and try again."); return true; } UDC = c; renderDetective(main); return true; }
+    if (b.id === 'udClear') { UDC = null; renderDetective(main); return true; }
+    if (b.id === 'udCopy') { const t = UDC.str; (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast('Code copied.'), () => toast('Select the code and copy it: ' + t)); return true; }
+    if (b.id === 'udMake') { if (!st.udCases.length) { toast('Choose at least one case file.'); return true; } const topics = TOPICS.filter(t => t.strands.some(x => S.settings.sel.includes(x.id) && levelOK(x.id))).map(t => t.id).filter(t => CODE_TOPICS.includes(t)); const c = { seed: 1 + rnd(0xffffe), cases: st.udCases, mode: st.udMode, dur: st.udDur, sl: !isHL(), topics }; UDC = udDecode(udEncode(c)); renderDetective(main); return true; }
+    if (b.id === 'udGo' || b.id === 'udAgain') { if (!UDC && !st.udCases.length) { toast('Choose at least one case file.'); return true; } udStart(); renderDetective(main); return true; }
     if (b.id === 'udSetup') { UD = null; renderDetective(main); return true; }
     if (b.id === 'udQuit') { if (UD && UD.phase === 'play') { if (UD.picked === null && UD.mode === 'inv' && UD.n === 0) { clearInterval(UD.tm); UD = null; renderDetective(main); return true; } udFinish(); } return true; }
     if (b.dataset.udopt !== undefined && UD && UD.phase === 'play' && UD.picked === null) {
@@ -17476,8 +17558,17 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
       if (b.id === 'lmsClear') { GA.lmsCode = null; renderGauntlet(main); return; }
       if (b.id === 'lmsCopy') { const t = GA.lmsCode.str; (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast('Code copied.'), () => toast('Select the code and copy it: ' + t)); return; }
       if (b.id === 'lmsEnter') { LM = { phase: 'ready', code: GA.lmsCode, seq: lmsSeq(GA.lmsCode) }; lmsTheme(); renderGauntlet(main); return; }
+      if (b.id === 'blzUse') { const v = $('#blzIn').value, wk = wrongKind(v, 'BLZ'); if (wk) { toast(wk); return; } const c = blzDecode(v); if (!c) { toast("That code isn't valid. Check it and try again."); return; } GA.code = c; renderRail(); renderGauntlet(main); return; }
+      if (b.id === 'blzClear') { GA.code = null; GA.rng = null; renderRail(); renderGauntlet(main); return; }
+      if (b.id === 'blzCopy') { const t = GA.code.str; (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast('Code copied.'), () => toast('Select the code and copy it: ' + t)); return; }
+      if (b.id === 'blzMake') {
+        const sel = $('#gaDur').value, maxMin = gaPool().length * 2, want = sel === 'custom' ? +$('#gaCustom').value : sel === 'max' ? maxMin : +sel;
+        if (!(want >= 3 && want <= Math.min(120, maxMin) && Number.isInteger(want))) { toast('Choose a time limit first (3 to ' + Math.min(120, maxMin) + ' minutes).'); return; }
+        const c = { seed: 1 + rnd(0xffffe), dur: want, sl: !isHL(), linked: S.settings.linked || 'off', strands: effSel() }; c.str = blzEncode(c); GA.code = blzDecode(c.str); renderGauntlet(main); return;
+      }
       if (b.id === 'gaStart' || b.id === 'gaAgain') {
-        if (b.id === 'gaStart') {
+        if (GA.code) { GA.dur = GA.code.dur; GA.rng = mulberry(GA.code.seed); } else GA.rng = null;
+        if (b.id === 'gaStart' && !GA.code) {
           const sel = $('#gaDur').value, maxMin = gaPool().length * 2;
           const want = sel === 'custom' ? +$('#gaCustom').value : sel === 'max' ? maxMin : +sel;
           const err = $('#gaErr');
@@ -17920,6 +18011,7 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
   const WS = { target: 20, answers: true, cover: false }; // cover = Exam mode: cover sheet + Paper 1A answer sheet + IB order (1.4: off by default)
   document.addEventListener('change', (e) => { if (e.target && e.target.id === 'wsCover') WS.cover = e.target.checked; });
   function worksheetPanel() {
+    if (PIN && PIN.mode === 'tools' && !pinOpen()) return '';
     return `<details class="panel ws" id="wsPanel"><summary><b>Make a Printable Worksheet</b> <span class="muted small">· built from your selection, new values every time</span></summary>
       <div class="form-grid" style="margin-top:12px">
         <label class="field"><span>Length</span><select id="wsTarget">${[10, 15, 20, 30, 45].map(m => `<option value="${m}" ${WS.target === m ? 'selected' : ''}>${m} marks</option>`).join('')}</select></label>
@@ -18270,7 +18362,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     { v: '1.1 Beta', d: '3 November 2026', m: 'Claude Opus 5.5', items: ['Games and Recall now open with cards for each mode and a short description; inside a mode, “← All games” or “← All recall modes” takes you back.', 'The offline copy shows an OFFLINE badge next to the version, with a tooltip explaining it.', 'New Welcome page: a quick guide to every mode, a short tour, and how to use the site for revision. Click the MVPhysics heading at any time to come back to it.', 'Blitz is now part of Games 🕹️, with two modes so far: Blitz and Last Man Standing. More game modes will follow.', '“Only questions I’ve missed” is now at the top of the question panel in Practice and highlighted when you have missed questions to practise (it now applies to Practice only; Exam Mode always uses your full selection).', 'Stats: a Last Man Standing best tile; Blitz average time to 0.1 s.', 'The version is shown in the badge (BETA 1.1), and the Claude model used for each build is listed in this revision history.', 'Fixed: flashcards scrolled sideways on phones.', 'Last Man Standing: a Give up button (with a check first); a run you give up does not count as a best time.', 'Last Man Standing: after every run, a review of each question you answered, right or wrong, with the worked solution. Wrong answers go into "Only questions I\'ve missed".', 'Last Man Standing has its own stats (runs, best survival, recent runs), separate from Blitz Classic, so the Blitz stats now show the right mode.', 'Notes and Recall: the All and None buttons stay together.', 'Removed Saved selections from the question panel.', 'Solutions for radiated intensity now start from the data booklet equation L = σAT⁴ (or eσAT⁴).', 'FE2028 percentage error, difference and change equations shown as separate equations.'] },
     { v: '1.2 Beta', d: '4 November 2026', m: 'Claude Opus 5.5', items: ['The site is now called <b>MVPhysics Lab</b>, with a new address: <b>mvpoirier.github.io/mvphysics/</b>. The old revision-lab address takes you there automatically, and your saved progress carries over. A 🏆 now shows on the browser tab.', 'The site address (with nothing after it) now always opens the Welcome page. Links to a page, such as …/#practice or …/#games, still open that page.', 'The Welcome page is simpler: the welcome message, what’s here and how to revise. The start buttons, level switch and tour are gone (use SL/HL at the top of the page).', 'Printed papers look like IB exams: answer boxes with a border and dotted lines. With “IB-style test” ticked, the order is cover sheet (topics, marks, time, instructions, class code), Paper 1A answer sheet (always 40 rows), Paper 1A, Paper 1B, Paper 2, then the markschemes, starting with the answer sheet with the correct answers crossed.', 'Games: Blitz now ends with a review of every question you answered, with worked solutions, and both Blitz and Last Man Standing can print their results.', 'The Print buttons open the paper or results in a new tab with the print window already open: choose a printer, or Save as PDF.', 'Printed tests: no site name on the cover; the class code appears only on the markscheme pages; the answer sheet lists the topics; and a one-page question overview (topics, strand, difficulty and marks for every question) comes before the markschemes.', 'Last Man Standing: choose the starting time (3, 5 or 10 minutes, or your own).', 'New Syllabus toggle (FE2025 / FE2028) in the Questions panel and in Recall. FE2025 is on by default; FE2028 adds content that is new for exams from May 2028, tagged FE2028.', 'Game stats are now on each game’s own screen and on the Stats page.', 'More resources on precision, accuracy, percentage error and percentage difference; more solutions now start from the data booklet equation.'] },
     { v: '1.3 Beta', d: '5 November 2026', m: 'Claude Opus 5.5', items: ['New game: <b>Unit Detective 🔍</b>. Five case files on units: The Mystery Quantity (identify), Down to the Bones (SI base units), The Scales of Justice (is the equation homogeneous?), The Impostor Equation (the one formula that could be right) and The Deduction (predict a formula from units alone). Play an untimed Investigation of 10 clues, or The Chase against the clock. Harder “case file” clues include constants such as σ, G, μ<sub>0</sub> and ε<sub>0</sub>.', 'The side panel is now called <b>Topics</b> and appears in Recall and Notes too. One selection is shared by every mode; the topic chips at the top of Recall and Notes are gone.', 'Command terms: a switch at the top of the Topics panel in Recall and Notes. Notes now has a Command terms section, grouped by assessment objective, with worked examples of which answer earns the marks.', 'Stats has section buttons: Practice, Exam, Games and Recall. Unit Detective scores are under Games.', 'The space above the footer is the same on every page.', '“← All Games” and “← All Recall Modes” are now buttons. The backup box in Stats has its own colour.', 'Clearer feedback links: <b>🚩 Report a Problem</b> under each question, card and note; <b>💬 Send Feedback</b> in the footer on every page.', 'Headings and buttons use Title Case.', 'Unit Detective uses the same look as the rest of the site.', 'New address: <b>mvpoirier.github.io/physics-lab/</b>. Old links (…/mvphysics/ and …/revision-lab/) still work and your progress carries over.', 'Stats opens straight on its sections (the summary cards at the top are gone). Reset All Progress is a red button.', 'About: the revision history starts collapsed, with one group per major Beta version and a short summary of the Alpha builds.'] },
-    { v: '1.4 Beta', d: '6 November 2026', m: 'Claude Opus 5.5', items: ['<b>Exam Mode is now Test Mode</b> (old #exam links still work). Printing has an <b>Exam mode</b> switch, off by default, with an ⓘ tooltip: cover sheet, Paper 1A answer sheet, IB paper order and markscheme overview.', 'Send Results to Teacher is gone; Print Results and Download stay.', 'Codes: one blue <b>Make a Code</b> button everywhere and a red <b>Clear</b> button. Code boxes start with their mode’s prefix (MVP- for Test Mode, LMS- for Last Man Standing), add the dashes and capitals as you type, and tell you if a code belongs to a different mode. Codes are shown in groups of four.', 'A coloured bar across the top shows your level: blue for SL, purple for HL.', 'The footer matches MYPoirier Science Lab: About, Terms of Use (goes straight to the terms) and a 💬 Send Feedback button. New <b>Terms of Use</b> (About page): © Mike Poirier, all rights reserved; free for students and teachers; not for commercial or tutoring use without permission. This replaces the CC BY-NC-SA licence from this version on.', '<b>42 new questions</b> aimed at the mistakes IB examiners reported in the 2025 sessions: average velocity versus speed, areas under a–t graphs, buoyancy, inelastic collisions, units in SI base units, ice below 0 °C, conduction, albedo, kelvin, internal resistance, resistivity, refraction angles, fields between opposite charges, magnetic force on electrons, background count rate, fission equations and more. Each solution names the trap.', 'New question styles: “which statement is the cause?” (all options true, only one explains), units that must be in SI base units, and Paper 1B data questions from real class investigations (Boyle’s law, a cell’s emf and internal resistance, density with uncertainties), plus a Paper 2 question on a rising oil droplet.'] },
+    { v: '1.4 Beta', d: '6 November 2026', m: 'Claude Opus 5.5', items: ['<b>Exam Mode is now Test Mode</b> (old #exam links still work). Printing has an <b>Exam mode</b> switch, off by default, with an ⓘ tooltip: cover sheet, Paper 1A answer sheet, IB paper order and markscheme overview.', 'Send Results to Teacher is gone; Print Results and Download stay.', 'Codes: one blue <b>Make a Code</b> button everywhere and a red <b>Clear</b> button. Code boxes start with their mode’s prefix (MVP- for Test Mode, LMS- for Last Man Standing), add the dashes and capitals as you type, and tell you if a code belongs to a different mode. Codes are shown in groups of four.', 'A coloured bar across the top shows your level: blue for SL, purple for HL.', '<b>Linked topics</b> in the Topics panel: Off (as before), Include (also questions that link a ticked strand with other topics) or Only (just the questions that combine topics). Class codes remember the setting.', 'Shareable codes for <b>Blitz</b> (BLZ-) and <b>Unit Detective</b> (UD-): everyone with the code gets the same questions, values and time.', 'In HL mode, MVP and the Welcome box turn purple to match the level bar. The Exam mode ⓘ shows one tooltip, not two.', 'The footer matches MYPoirier Science Lab: About, Terms of Use (goes straight to the terms) and a 💬 Send Feedback button. New <b>Terms of Use</b> (About page): © Mike Poirier, all rights reserved; free for students and teachers; not for commercial or tutoring use without permission. This replaces the CC BY-NC-SA licence from this version on.', '<b>42 new questions</b> aimed at the mistakes IB examiners reported in the 2025 sessions: average velocity versus speed, areas under a–t graphs, buoyancy, inelastic collisions, units in SI base units, ice below 0 °C, conduction, albedo, kelvin, internal resistance, resistivity, refraction angles, fields between opposite charges, magnetic force on electrons, background count rate, fission equations and more. Each solution names the trap.', 'New question styles: “which statement is the cause?” (all options true, only one explains), units that must be in SI base units, and Paper 1B data questions from real class investigations (Boyle’s law, a cell’s emf and internal resistance, density with uncertainties), plus a Paper 2 question on a rising oil droplet.'] },
   ];
   HISTORY.forEach(h => { h.items = h.items.map(TL); });
   const fmtBig = (n) => n >= 1e6 ? (n / 1e6).toFixed(1) + ' million' : n.toLocaleString('en-GB');
