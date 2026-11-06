@@ -5042,7 +5042,7 @@ const GAMES = (() => {
   const TS_MIN = { 2: 1.5, 4: 2.5, 6: 4, 8: 6 }; // minutes allowed per question at each level band
   const tsPool = (c) => Q.filter(q => q.y === c.y && c.subs.includes(q.subKey) && c.strands.includes(q.s));
   const tstGroup = (t) => 'TST-' + t.match(/.{1,4}/g).join('-');
-  const TS_KINDS = [['online', 'Online', 'Students take it on screen, timed, with best-fit levels at the end'], ['sheet', 'Worksheet', 'A worksheet of questions, then the markscheme if you allow it'], ['formal', 'Test/Exam', 'Cover sheet with instructions, a section for each strand, the data booklet at the end']];
+  const TS_KINDS = [['online', 'Online', 'Taken on screen, timed'], ['sheet', 'Worksheet', 'Questions to print, then the markscheme if you allow it'], ['formal', 'Test/Exam', 'Cover sheet, a section per strand, data booklet']];
   const kindName = (k) => (TS_KINDS.find(x => x[0] === k) || TS_KINDS[0])[1];
   function tstEncode(c) {
     let big = 1n; const put = (v, n) => { big = (big << BigInt(n)) | BigInt(v); };
@@ -5323,7 +5323,7 @@ ${docWatermark(variant === 'ms' ? id : '')}${docFooter(msId)}</body></html>`;
     if (TS.phase === 'run') return renderTestRun(main);
     if (TS.phase === 'review') return renderTestReview(main);
     if (!TEACH) return renderTestStudent(main);
-    if (!yearLive().length) { main.innerHTML = head('Test 📝', '') + `<section class="panel empty"><h3>Coming Soon</h3><p class="muted">Units for Year ${Y()} are being written. Choose another year at the top.</p></section>${teacherBar()}`; return; }
+    if (!yearLive().length) { main.innerHTML = head('Test Mode 📝', '') + `<section class="panel empty"><h3>Coming Soon</h3><p class="muted">Units for Year ${Y()} are being written. Choose another year at the top.</p></section>${teacherBar()}`; return; }
     const seg = (attr, val, label, on) => `<button type="button" data-${attr}="${val}" aria-pressed="${on}">${label}</button>`;
     const c = TS.code;
     if (c && c.y !== Y()) TS.code = null;
@@ -5332,22 +5332,22 @@ ${docWatermark(variant === 'ms' ? id : '')}${docFooter(msId)}</body></html>`;
     const settings = TS.code ? `<div class="exrow"><div class="exlab">Class code</div><div class="exctl"><div class="codebox"><div class="code-str num">${TS.code.str}</div>
         <div class="small">Units: <b>${tsSubNames(TS.code)}</b></div><div class="small">Strands: <b>${TS.code.strands.map(s => strandOf(s).label).join(', ')}</b> · ${TS.code.per} question${TS.code.per > 1 ? 's' : ''} per level · ${TS.code.strict ? 'answers lock at the end of the time' : 'overtime allowed'}</div><div class="small"><b>${kindName(TS.code.kind)}</b>${TS.code.kind !== 'online' ? ` · markscheme ${TS.code.ms ? 'included' : 'not included'} for students` : ''}</div>
         ${TS.code.fpOk ? '' : '<p class="warn small">This code was made with a different version of the question bank, so your test may not match your classmates\' tests. Ask for a new code.</p>'}
-        <div class="row"><button class="btn sm" id="tsCopy">Copy</button><button class="linkbtn" id="tsClear">Stop using this code</button><span class="muted small">Overrides your selection.</span></div></div></div></div>`
+        <div class="row"><button class="btn sm" id="tsCopy">Copy</button><button class="linkbtn" id="tsClear">Clear</button><span class="muted small">Overrides your selection.</span></div></div></div></div>`
       : `<div class="exrow"><div class="exlab">Strands</div><div class="exctl"><div class="seg" role="group" aria-label="Strands">${STRANDS.map(s => seg('tsstrand', s.id, `${s.label} ${s.name}`, !!TS.strands[s.id])).join('')}</div></div></div>
         <div class="exrow"><div class="exlab">Length</div><div class="exctl"><div class="seg" role="group" aria-label="Questions per level">${seg('tsper', 1, 'Standard: 1 per level', TS.per === 1)}${seg('tsper', 2, 'Long: 2 per level', TS.per === 2)}</div>
           <span class="muted small">${est.length ? `<b class="num">${est.length}</b> questions · <b class="num">${tsMinutes(est)}</b> minutes` : 'Choose at least one strand and one subtopic.'}</span></div></div>
-        <div class="exrow"><div class="exlab">Finish</div><div class="exctl"><div class="seg" role="group" aria-label="Finish">${seg('tsfin', 'strict', 'Strict', TS.strict)}${seg('tsfin', 'soft', 'Soft', !TS.strict)}</div><span class="muted small">${TS.strict ? 'Answers lock when time runs out, like a real test.' : 'Keep going after time runs out; overtime is recorded.'}</span></div></div>
+        <div class="exrow"><div class="exlab">Finish</div><div class="exctl"><div class="seg" role="group" aria-label="Finish">${seg('tsfin', 'strict', 'Strict', TS.strict)}${seg('tsfin', 'soft', 'Soft', !TS.strict)}</div><span class="muted small">${TS.strict ? 'Answers lock when time runs out.' : 'Keep going after time runs out; overtime is recorded.'}</span></div></div>
         <div class="exrow"><div class="exlab">Code type</div><div class="exctl"><div class="seg" role="group" aria-label="Code type">${TS_KINDS.map(([k, l]) => seg('tskind', k, l, (TS.kind || 'online') === k)).join('')}</div>
-          <span class="muted small">${(TS_KINDS.find(x => x[0] === (TS.kind || 'online')) || TS_KINDS[0])[2]}. Students who enter the code get only this.</span>
-          ${(TS.kind || 'online') !== 'online' ? `<div class="seg" role="group" aria-label="Markscheme for students" style="margin-top:8px">${seg('tsms', 'no', 'Questions only', !TS.ms)}${seg('tsms', 'yes', 'With markscheme', !!TS.ms)}</div>` : '<span class="muted small">The code also sets Finish as chosen above.</span>'}</div></div>
+          <span class="muted small">${(TS_KINDS.find(x => x[0] === (TS.kind || 'online')) || TS_KINDS[0])[2]}. Students get only this.</span>
+          ${(TS.kind || 'online') !== 'online' ? `<div class="seg" role="group" aria-label="Markscheme for students" style="margin-top:8px">${seg('tsms', 'no', 'Questions only', !TS.ms)}${seg('tsms', 'yes', 'With markscheme', !!TS.ms)}</div>` : '<span class="muted small">The code also sets Finish.</span>'}</div></div>
         <div class="exrow"><div class="exlab">Class code <span class="exopt">optional</span></div><div class="exctl">
           <div class="codeform">${codeBoxHTML('tsCodeIn', 'TST', 'Class code', TS.typed)}<button class="btn sm" id="tsUse">Use</button><button class="btn sm primary" id="tsMake">Make a Code</button></div>
-          <span class="muted small">Same code, same questions and values for everyone. Make a Code uses the subtopics ticked in the panel and the settings above. (The panel's strand and level filters are not used: a test always covers every level.)</span></div></div>`;
-    main.innerHTML = head('Test 📝', 'A timed Criterion A test like your unit tests: a section for each strand, from level 1–2 up to 7–8. Answers stay hidden until you finish.') + `
+          <span class="muted small">Same code, same questions for everyone. Uses the ticked subtopics and the settings above.</span></div></div>`;
+    main.innerHTML = head('Test Mode 📝', 'Set up a test, then share its class code.') + `
       <section class="panel exset">${settings}
         <div class="exgo"><div class="row">${(TS.code ? TS.code.kind : TS.kind || 'online') === 'online' ? '<button class="btn primary" id="tsStart">Start Test</button><button class="btn" id="prOpen">🖨 Print/PDF</button>' : '<button class="btn primary" id="prOpen">🖨 Print/PDF</button>'}</div>
-          <div class="row ex-out"><span class="muted small">Print:</span><div class="seg" role="group" aria-label="What to print">${[['student', 'Student Copy'], ['ms', 'Markscheme'], ['both', 'Both']].map(([k, l]) => seg('tsout', k, l, (TS.out || 'both') === k)).join('')}</div><span class="muted small">${(TS.out || 'both') === 'student' ? 'Exactly what students get from a printable code (an online code prints questions only).' : (TS.out || 'both') === 'ms' ? 'Question overview and markscheme only.' : 'Questions, then the markscheme.'}</span></div>
-          <p class="muted small" id="prStatus">Print opens the ${(TS.code ? TS.code.kind : TS.kind) === 'formal' ? 'test (cover sheet, a section per strand, the data booklet at the end)' : 'worksheet'} in a new tab with the print window: choose a printer, or Save as PDF. The class code is printed only on the markscheme, never on the students' question pages. If no code is in use, printing makes one from your settings.</p></div>
+          <div class="row ex-out"><span class="muted small">Print:</span><div class="seg" role="group" aria-label="What to print">${[['student', 'Student Copy'], ['ms', 'Markscheme'], ['both', 'Both']].map(([k, l]) => seg('tsout', k, l, (TS.out || 'both') === k)).join('')}</div><span class="muted small">${(TS.out || 'both') === 'student' ? 'What students get.' : (TS.out || 'both') === 'ms' ? 'Overview and markscheme.' : 'Questions, then markscheme.'}</span></div>
+          <p class="muted small" id="prStatus">Opens in a new tab: print, or Save as PDF. The class code appears only on the markscheme.</p></div>
       </section>
       ${(S.tests || []).filter(t => t.y === Y()).length ? `<section class="panel"><h3>Your Recent Tests</h3>${tsHistory()}</section>` : ''}${teacherBar()}`;
     bindCodeBox($('#tsCodeIn', main));
@@ -5357,17 +5357,18 @@ ${docWatermark(variant === 'ms' ? id : '')}${docFooter(msId)}</body></html>`;
   function renderTestStudent(main) {
     const c = TS.code;
     const box = c ? `<div class="exrow"><div class="exlab">Class code</div><div class="exctl"><div class="codebox"><div class="code-str num">${c.str}</div>
-        <div class="small">Year ${c.y} · Units: <b>${tsSubNames(c)}</b></div><div class="small">Strands: <b>${c.strands.map(s => strandOf(s).label).join(', ')}</b> · ${c.per} question${c.per > 1 ? 's' : ''} per level · <b class="num">${tsMinutes(tsBuild(c))}</b> minutes</div>
-        ${c.kind === 'online' ? `<div class="small">Finish: <b>${c.strict ? 'Strict' : 'Soft'}</b> · ${c.strict ? 'answers lock when time runs out' : 'you can keep going after time runs out; overtime is recorded'}</div>` : ''}
-        ${c.fpOk ? '' : '<p class="warn small">This code was made with a different version of the question bank, so your test may not match your classmates\' tests. Ask your teacher for a new code.</p>'}
-        <div class="row"><button class="linkbtn" id="tsClear">Use a different code</button></div></div></div></div>
+        <div class="small"><b>${kindName(c.kind)}</b> · Year ${c.y} · <b>${tsSubNames(c)}</b></div><div class="small">${c.strands.map(s => strandOf(s).label).join(', ')} · ${tsBuild(c).length} questions · ${tsMinutes(tsBuild(c))} min</div>
+        ${c.kind === 'online' ? `<div class="small">Finish: <b>${c.strict ? 'Strict' : 'Soft'}</b> (${c.strict ? 'answers lock when time runs out' : 'you can keep going; overtime is recorded'})</div>` : ''}
+        ${c.fpOk ? '' : '<p class="warn small">This code is from an older version of the site. Ask your teacher for a new one.</p>'}
+        <div class="row"><button class="btn sm btn-clear" id="tsClear">Clear</button></div></div></div></div>
         ${c.kind === 'online' ? `<div class="exgo"><div class="row"><button class="btn primary" id="tsStart">Start Test</button></div>
-        <p class="muted small">When you finish, the site marks the short answers. You mark the written answers with the markscheme, honestly. Then you get a best-fit level for each strand and can print your results.</p></div>`
-        : `<div class="exgo"><p class="small"><b>${kindName(c.kind)}</b>. ${c.kind === 'formal' ? 'A test with a cover sheet, a section for each strand and the data booklet at the end.' : 'A worksheet of questions.'} ${c.ms ? 'The markscheme is at the end.' : 'Your teacher has the markscheme.'}</p>
+        <p class="muted small">Short answers are marked for you; you mark written answers with the markscheme.</p></div>`
+        : `<div class="exgo"><p class="small">${c.kind === 'formal' ? 'A test with a cover sheet and the data booklet.' : 'A worksheet of questions.'} ${c.ms ? 'The markscheme is at the end.' : 'Your teacher has the markscheme.'}</p>
           <div class="row"><button class="btn primary" id="prOpen">🖨 Print/PDF</button></div><p class="muted small" id="prStatus"></p></div>`}`
       : `<div class="exrow"><div class="exlab">Class code</div><div class="exctl"><div class="codeform">${codeBoxHTML('tsCodeIn', 'TST', 'Class code', TS.typed)}<button class="btn sm primary" id="tsUse">Use</button></div>
-        <span class="muted small">Your teacher gives you a TST- code. It decides what you get: an online test, a worksheet or a test/exam to print. Everyone with the same code gets the same questions and values.</span></div></div>`;
-    main.innerHTML = head('Test 📝', 'A timed Criterion A test like your unit tests: a section for each strand, from level 1–2 up to 7–8. Answers stay hidden until you finish.') + `
+        <span class="muted small">The code decides the test: online, a worksheet or a test/exam.</span></div></div>
+        <p class="muted small">For practice on your own, use Practice, Games and Recall.</p>`;
+    main.innerHTML = head('Test Mode 📝', c ? 'A test set by your teacher.' : 'Tests set by your teacher. Enter the class code your teacher gives you.') + `
       <section class="panel exset">${box}</section>
       ${(S.tests || []).filter(t => t.y === Y()).length ? `<section class="panel"><h3>Your Recent Tests</h3>${tsHistory()}</section>` : ''}
       <div class="teacher-access"><button type="button" class="linkbtn small" id="tOpen" aria-expanded="${!!TS.tForm}">🔑 Teacher access</button>
@@ -5385,7 +5386,7 @@ ${docWatermark(variant === 'ms' ? id : '')}${docFooter(msId)}</body></html>`;
   function tsSwitch(i) { const it = TS.items[TS.cur]; it.time += now() - TS.enter; TS.cur = i; TS.enter = now(); }
   function renderTestRun(main) {
     const it = TS.items[TS.cur], strandStart = TS.items.findIndex(x => x.q.s === it.q.s) === TS.cur;
-    main.innerHTML = head('Test 📝', `${TS.items.length} questions · ${fmtClock(TS.allowed)} allowed${TS.cfg.str ? ` · ${TS.cfg.str}` : ''}`) + `
+    main.innerHTML = head('Test Mode 📝', `${TS.items.length} questions · ${fmtClock(TS.allowed)} allowed${TS.cfg.str ? ` · ${TS.cfg.str}` : ''}`) + `
       <div class="instrument ex-inst ts-inst"><div id="tsInst"></div>${pauseBtn('test')}</div>
       <div class="palette ts-palette" role="group" aria-label="Questions">${TS.cfg.strands.map(s => `<span class="ts-sec stag s-${s}">${strandOf(s).label}</span>${TS.items.map((x, i) => x.q.s !== s ? '' : `<button data-go="${i}" class="${tsAnswered(x) ? 'answered' : ''} ${i === TS.cur ? 'current' : ''}" aria-label="Question ${i + 1}">${i + 1}</button>`).join('')}`).join('')}</div>
       ${strandStart ? `<p class="ts-sechead">Section ${strandOf(it.q.s).label}: ${strandOf(it.q.s).name}</p>` : ''}
@@ -5434,7 +5435,7 @@ ${docWatermark(variant === 'ms' ? id : '')}${docFooter(msId)}</body></html>`;
       <div class="tiles" id="tsTiles">${tsTiles()}</div>
       <p class="pause-note ${TS.pauses ? 'has' : ''}"><span aria-hidden="true">⏸</span> ${pauseSummary(TS)}</p>
       <section class="panel ts-desc"><h3>What Your Levels Mean</h3><div id="tsDescs">${tsDescs()}</div>
-        <p class="muted small">How the level is worked out: for each strand the site climbs from level 1–2 upwards while you score at least half the marks at that level; 75% or more gives the higher number of the pair (2, 4, 6 or 8). It is a guide: your teacher's judgement on the real test may differ.</p>
+        <p class="muted small">Best fit: you move up a level band while you score at least 50% in it; 75% or more gives the higher number. A guide only: your teacher decides your level.</p>
         ${un ? '<p class="warn small no-print" id="tsUnWarn">Some written answers are not marked yet. Tick the markscheme points you made, below. Your levels update as you tick.</p>' : ''}</section>
       ${TS.items.map((it, i) => `<article class="sheet ts-item" data-ti="${i}"><div class="ts-qno">Question ${i + 1} · <span class="num">${fmtMin(it.time / 1000)}</span> · <span class="num" data-tisc="${i}">${Math.round(totalScore(it.inst, it.st) * 100)}%</span></div>${questionHTML(it.q, it.inst, it.st)}${tsReport(it)}</article>`).join('')}
       <div class="row no-print">${TS.saved ? '<span class="pill good">Results saved to your stats</span>' : '<button class="btn primary" id="tsSave">Save Results</button>'}<button class="btn" id="tsPrint">🖨 Print Results</button><span class="spacer"></span><button class="btn" id="tsNew">New Test</button></div>
