@@ -979,8 +979,7 @@ dialog.terms-dlg::backdrop { background: rgba(10, 16, 28, .5); }
 dialog.terms-dlg #termsBody { max-height: 70vh; overflow: auto; }
 
 /* Periodic Table (Y9 chemistry): header button in Year 9, a button on every Y9 chemistry question, and the Notes */
-:root:not([data-year="9"]) #ptBtn { display: none; }
-#ptBtn svg rect { fill: none; stroke: currentColor; stroke-width: 1.6; }
+#bookletBtn svg path { fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linejoin: round; }
 .qmeta .pt-open { margin-left: auto; }
 .pt-wrap { display: grid; gap: 10px; overflow-x: auto; }
 .pt-grid { display: grid; grid-template-columns: repeat(8, minmax(62px, 1fr)); gap: 4px; min-width: 520px; }
@@ -1110,6 +1109,29 @@ dialog.terms-dlg #termsBody { max-height: 70vh; overflow: auto; }
 .mol svg .tx { fill: var(--ink); font: 15px var(--f-body); }
 .mol svg .tx.b { font-weight: 700; }
 
+/* year-tinted welcome card */
+:root[data-year] .welcome-hero { background: linear-gradient(135deg, color-mix(in srgb, var(--year) 13%, var(--surface)), var(--surface)); border-color: color-mix(in srgb, var(--year) 30%, var(--line)); }
+:root[data-year] .welcome-hero h2 .mvp { color: var(--year); }
+
+/* data booklet */
+.booklet .bk-sec + .bk-sec { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); }
+.booklet h4 { margin: 0 0 8px; font-family: var(--f-display); font-size: 16px; }
+.bk-eq { border-collapse: collapse; width: 100%; font-size: 14px; }
+.bk-eq th, .bk-eq td { border: 1px solid var(--line); padding: 7px 10px; vertical-align: middle; text-align: left; }
+.bk-eq th { font-weight: 600; background: var(--surface-2, transparent); width: 22%; }
+.bk-eq td.eq { white-space: nowrap; font-family: "Times New Roman", Georgia, serif; font-size: 16px; }
+@media (max-width: 600px) { .bk-eq td:nth-child(2) { display: none; } .bk-eq th { width: auto; } }
+
+/* collapsible revision history */
+details.hist-stage { border-top: 1px solid var(--line); padding: 10px 0; }
+details.hist-stage:first-of-type { border-top: 0; padding-top: 2px; }
+details.hist-stage > summary { cursor: pointer; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; list-style: none; }
+details.hist-stage > summary::-webkit-details-marker { display: none; }
+details.hist-stage > summary b { font-family: var(--f-display); font-size: 16px; }
+details.hist-stage > summary::before { content: "▸"; color: var(--accent); transition: transform .15s; display: inline-block; }
+details.hist-stage[open] > summary::before { transform: rotate(90deg); }
+details.hist-stage > ol.history { margin-top: 12px; }
+
 </style>
 </head>
 <body>
@@ -1118,7 +1140,7 @@ dialog.terms-dlg #termsBody { max-height: 70vh; overflow: auto; }
   <nav class="tabs" id="tabs" aria-label="Modes"></nav>
   <div class="hbar">
     <div class="course-seg year-seg" id="yearSeg" role="group" aria-label="Year"></div>
-    <button class="theme-btn pt-btn" id="ptBtn" type="button" aria-haspopup="dialog" aria-label="Periodic Table (elements 1–20)" data-tip="Periodic Table" data-pt="1"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="4" height="4"/><rect x="3" y="10" width="4" height="4"/><rect x="3" y="16" width="4" height="4"/><rect x="17" y="4" width="4" height="4"/><rect x="11" y="10" width="4" height="4"/><rect x="17" y="10" width="4" height="4"/><rect x="11" y="16" width="4" height="4"/><rect x="17" y="16" width="4" height="4"/></svg></button>
+    <button class="theme-btn booklet-btn" id="bookletBtn" type="button" aria-haspopup="dialog" aria-label="Data Booklet" data-tip="Data Booklet" data-booklet="1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.5c2.6-1.3 5.7-1.3 9 .6 3.3-1.9 6.4-1.9 9-.6v13c-2.6-1.3-5.7-1.3-9 .6-3.3-1.9-6.4-1.9-9-.6z"/><path d="M12 6.1v13"/></svg></button>
     <button class="theme-btn" id="termsBtn" type="button" aria-haspopup="dialog" aria-label="Command terms" data-tip="Command terms"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"/><path d="M8 7.5h8M8 11h6"/></svg></button>
     <a class="theme-btn about-btn" id="aboutBtn" href="#about" aria-label="About this site" data-tip="About this site"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M12 10.6v6.2"/><circle cx="12" cy="7.4" r="1.15" style="fill:currentColor;stroke:none"/></svg></a>
     <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch theme" data-tip="Theme"></button>
@@ -1298,6 +1320,32 @@ function periodicTableHTML() {
   h += '</div><div class="pt-key"><div class="pt-cell pt-keycell"><span class="pt-z">Z</span><span class="pt-sym">X</span><span class="pt-name">name</span><span class="pt-a">mass</span></div><div class="small">Top: <b>atomic number</b> (protons). Bottom: <b>atomic mass</b>, rounded to a whole number. Rows are periods 1–4; column headings are groups.<br><span class="pt-sw pt-metal"></span> metal <span class="pt-sw pt-non-metal"></span> non-metal <span class="pt-sw pt-metalloid"></span> metalloid</div></div></div>';
   return h;
 }
+
+/* ---------- Data booklet: what students may use on tests, by year ----------
+   Y11 physics: the MYP integrated sciences formula sheet printed on the Forces & Motion tests and the exam. */
+const eqRow = (name, words, sym) => `<tr><th scope="row">${name}</th><td>${words}</td><td class="eq">${sym}</td></tr>`;
+const BOOKLET = {
+  9: () => `<section class="bk-sec"><h4>Periodic Table (elements 1–20)</h4><p class="small muted">Atomic masses are rounded to whole numbers. Use these values in every calculation.</p>${periodicTableHTML()}</section>`,
+  10: () => `<section class="bk-sec"><p class="muted">The Year 10 data booklet will be added with the Year 10 units.</p></section>`,
+  11: () => `<section class="bk-sec"><h4>Physics equations</h4><div class="tbl-wrap"><table class="bk-eq"><tbody>
+      ${eqRow('Force', 'force = mass × acceleration', '<i>F</i> = <i>ma</i>')}
+      ${eqRow('Motion', 'final velocity = initial velocity + (acceleration × time)', '<i>v</i> = <i>u</i> + <i>at</i>')}
+      ${eqRow('', 'distance = (initial velocity × time) + ½ × acceleration × (time)<sup>2</sup>', '<i>s</i> = <i>ut</i> + ½<i>at</i><sup>2</sup>')}
+      ${eqRow('', '(final velocity)<sup>2</sup> = (initial velocity)<sup>2</sup> + 2 × acceleration × distance', '<i>v</i><sup>2</sup> = <i>u</i><sup>2</sup> + 2<i>as</i>')}
+      ${eqRow('', 'distance = (final velocity + initial velocity) × time ÷ 2', '<i>s</i> = (<i>v</i> + <i>u</i>)<i>t</i> ÷ 2')}
+      ${eqRow('Momentum', 'momentum = mass × velocity', '<i>p</i> = <i>mv</i>')}
+      ${eqRow('Kinetic energy', 'kinetic energy = ½ × mass × (velocity)<sup>2</sup>', '<i>E</i><sub>k</sub> = ½<i>mv</i><sup>2</sup>')}
+      ${eqRow('Gravitational field strength', 'gravitational field strength = force ÷ mass', '<i>g</i> = <i>F</i> ÷ <i>m</i>')}
+      ${eqRow('Gravitational potential energy', 'change in gravitational potential energy = mass × <i>g</i> × change in height', 'Δ<i>E</i><sub>p</sub> = <i>mg</i>Δ<i>h</i>')}
+    </tbody></table></div><p class="small"><b>Constant:</b> gravitational acceleration <i>g</i> = 9.8 m s<sup>−2</sup> (questions on this site use 9.81 m s<sup>−2</sup>).</p></section>
+    <section class="bk-sec"><h4>Chemistry</h4><div class="tbl-wrap"><table class="bk-eq"><tbody>
+      ${eqRow('Relative atomic masses', 'carbon, hydrogen, oxygen', 'C 12.01 · H 1.01 · O 16.00')}
+      ${eqRow('Moles', 'amount (mol) = mass (g) ÷ molar mass (g mol<sup>−1</sup>)', '<i>n</i> = <i>m</i> ÷ <i>M</i>')}
+      ${eqRow('Avogadro constant', 'particles in one mole', '6.02 × 10<sup>23</sup> mol<sup>−1</sup>')}
+    </tbody></table></div><p class="small muted">Bond enthalpies and enthalpies of combustion are given in each question that needs them.</p></section>`
+};
+// units whose questions show a "Data Booklet" button
+const BOOKLET_UNITS = ['y9-che', 'y11-phy', 'y11-che'];
 
 /* ---- svg.js ---- */
 /* Small SVG drawing kit used by the content files. Colours come from CSS classes so diagrams follow light/dark mode. */
@@ -3667,7 +3715,7 @@ const GAMES = (() => {
       const { p, n, el } = G.c, ch = p - el;
       const fig = p > 0 || el > 0 ? SVG.bohr('?', Math.max(p, 0), n, ch, {}) : '<p class="muted small" style="text-align:center;padding:30px 0">Add particles to start building.</p>';
       const ctr = (k, label, v, max) => `<div class="ba-ctr"><span class="ba-l">${label}</span><button class="btn sm" data-ba="${k}-" ${v <= 0 || G.ok ? 'disabled' : ''} aria-label="Remove one ${label}">−</button><span class="ba-v num">${v}</span><button class="btn sm" data-ba="${k}+" ${v >= max || G.ok ? 'disabled' : ''} aria-label="Add one ${label}">+</button>${G.fb ? `<span class="ba-mark ${G.fb[k] ? 'ok' : 'no'}">${G.fb[k] ? '✓' : '✗'}</span>` : ''}</div>`;
-      return `<div class="game-top"><span class="gscore">Round ${G.i + 1} / ${BA_ROUNDS}</span><span class="gscore">Score ${G.score}</span><span class="clock" id="gClock">${fmt(t)}</span><button type="button" class="btn sm" data-pt="1">Periodic Table</button></div>
+      return `<div class="game-top"><span class="gscore">Round ${G.i + 1} / ${BA_ROUNDS}</span><span class="gscore">Score ${G.score}</span><span class="clock" id="gClock">${fmt(t)}</span><button type="button" class="btn sm" data-booklet="1">📖 Data Booklet</button></div>
         <div class="scenario"><span class="pill info">${G.tgt.kind}</span> Build ${G.tgt.label}.</div>
         <div class="ba-grid"><div class="figure">${fig}</div><div class="ba-ctrs">${ctr('p', 'Protons', p, 20)}${ctr('n', 'Neutrons', n, 24)}${ctr('el', 'Electrons', el, 20)}
           <div class="row" style="margin-top:8px">${G.ok ? `<span class="verdict ok">Correct!</span><button class="btn primary" id="baNext">${G.i + 1 < BA_ROUNDS ? 'Next Atom' : 'Finish'}</button>` : `<button class="btn primary" data-ba="check">Check</button>${G.wrongs ? `<span class="muted small">Wrong checks: ${G.wrongs}</span>` : ''}`}</div>
@@ -4150,7 +4198,7 @@ const GAMES = (() => {
     const body = inst.type === 'parts'
       ? `<div class="qbody">${inst.stem || ''}</div>${inst.fig ? `<div class="figure">${inst.fig}</div>` : ''}<div class="parts">${inst.parts.map((p, i) => `<div class="part"><span class="plabel">(${'abcdefgh'[i]})</span><div class="pbody qbody">${p.stem}${p.fig ? `<div class="figure">${p.fig}</div>` : ''}${one(p, `p${i}`)}</div><span class="pmarks">${p.type === 'self' ? `[${p.check.length}]` : ''}</span></div>`).join('')}</div>`
       : `<div class="qbody">${inst.stem}</div>${inst.fig ? `<div class="figure">${inst.fig}</div>` : ''}${one(inst, 'm')}`;
-    return `${`<div class="qmeta">${unitTag(u)}${strandTag(q.s)}${levelTag(q.b)}<span>${esc(SUB[q.subKey].name)}</span>${q.uid === 'y9-che' ? '<button type="button" class="btn sm pt-open" data-pt="1">Periodic Table</button>' : ''}${S.missed.includes(q.qid) ? '<span class="pill warn">Missed before</span>' : ''}</div>`}
+    return `${`<div class="qmeta">${unitTag(u)}${strandTag(q.s)}${levelTag(q.b)}<span>${esc(SUB[q.subKey].name)}</span>${BOOKLET_UNITS.includes(q.uid) ? '<button type="button" class="btn sm pt-open" data-booklet="1">📖 Data Booklet</button>' : ''}${S.missed.includes(q.qid) ? '<span class="pill warn">Missed before</span>' : ''}</div>`}
       <div class="desc-line">${descFor(u.y, q.s, q.b)}</div>${q.topic ? `<div class="qtitle">${esc(q.topic)}</div>` : ''}${body}`;
   }
   const hasSelf = (inst) => items(inst).some(([x]) => x.type === 'self');
@@ -5037,11 +5085,22 @@ const GAMES = (() => {
       </ul><p class="muted small">Come back to this page any time by clicking <b>MYPoirier Science Lab</b> at the top left.</p></section>`;
   }
   function bindWelcome(main) { main.onclick = (e) => { const a = e.target.closest('[data-unit-go]'); if (!a) return; if (!a.dataset.unitGo) { e.preventDefault(); return; } const ks = CONTENT[a.dataset.unitGo].subs.map(s => `${a.dataset.unitGo}:${s.id}`); const yk = ALL_SUBS.filter(k => SUB[k].unit.y === Y()); S.settings.sel = [...S.settings.sel.filter(k => !yk.includes(k)), ...ks]; save(); }; }
+  // Revision history, grouped into collapsible stages (like MVPhysics Lab)
+  function historyHTML() {
+    const item = (h) => `<li><div class="hv"><span class="ver">v${h.v}</span><span class="muted small">${h.d}</span></div><ul>${h.items.map(i => `<li>${i}</li>`).join('')}</ul></li>`;
+    const stages = [['alpha', 'Alpha', 'Internal builds, developed with Claude'], ['beta', 'Beta', 'Tested by students'], ['release', 'Version', '']];
+    return stages.map(([k, label, note]) => {
+      const vs = HISTORY.filter(h => (/alpha/i.test(h.v) ? 'alpha' : /beta/i.test(h.v) ? 'beta' : 'release') === k).slice().reverse(); if (!vs.length) return '';
+      const nums = vs.map(h => h.v.split(' ')[0]), range = nums.length > 1 ? `${nums[nums.length - 1]}–${nums[0]}` : nums[0];
+      const dates = vs[vs.length - 1].d === vs[0].d ? vs[0].d : `${vs[vs.length - 1].d.replace(/ \d{4}$/, '')} to ${vs[0].d}`;
+      return `<details class="hist-stage" data-stage="${k}"><summary><b>${label} ${range}</b><span class="muted small">${dates}${note ? ' · ' + note : ''}</span></summary><ol class="history">${vs.map(item).join('')}</ol></details>`;
+    }).reverse().join('');
+  }
   const HISTORY = [
     { v: '0.1 alpha', d: '5 November 2026', items: ['First build: four units (Y11 Exchange & Transport, Y11 Forces & Motion, Y9 Disease & Our Immune System, Y9 Chemistry of Industry) with practice by Criterion A strand and level, recall cards, notes and progress.'] },
     { v: '0.2 alpha', d: '5 November 2026', items: ['New design: header, side panel, question sheet, markscheme ticks, spaced-repetition Recall (Flashcards, Pick’em!, Match It!), Notes panels, Stats tabs and backup code.', 'Every unit is split into subtopics, one per lesson topic, and every subtopic has questions for A i, A ii and A iii.', 'Unit games: Element Match (Year 9 Chemistry) and Graph It! (Year 11 Forces & Motion).', 'Notes for every subtopic with key ideas, common mistakes and key terms.'] },
     { v: '0.3 alpha', d: '5 November 2026', items: ['Games page grouped by unit, with Class Games for every year.', 'New unit games: Build-an-Atom and Periodic Mystery (Y9 Chemistry); Free-Body Builder, Stop in Time and suvat Sprint (Y11 Forces & Motion).', 'Blitz and Last Man Standing with class codes, using multiple-choice questions from the ticked subtopics.', 'Y9 Chemistry: a simplified Periodic Table (elements 1–20, whole-number atomic masses) on every question, in the header and in Notes.', 'Last Man Standing arena: ready screen, 3-2-1 countdown, synthesised music and sound effects, heartbeat in the last 30 seconds, Give Up and Game Over.', 'Code boxes start with their prefix (LMS-) and add capitals and dashes as you type.'] },
-    { v: '0.4 alpha', d: '6 November 2026', items: ['New <b>Test</b> mode: a timed Criterion A test like the unit tests, with a section for each strand from level 1–2 to 7–8. Answers stay hidden until the end; the site marks short answers, you tick the markschemes for written answers, and each strand gets a best-fit level. Print your results, or use a TST- class code so everyone gets the same test.', 'New unit: <b>Year 11 Combustible Fuels</b> (8 subtopics, 55 question types): fuels and SDG 7, hydrocarbons, naming and isomers with drawn structural formulas, alcohols, crude oil and boiling point, combustion and balancing, enthalpy profiles and bond enthalpy, moles, energy per gram and emissions.', 'More question types matched to the unit tests: Y9 Disease (vectors, Jenner, Fleming, Ebola, bacterial growth, vaccine boosters), Y9 Chemistry (nuclear notation, particle tables, spotting Bohr-diagram errors, covalent names, evidence of chemical change, ionisation energy trends), Y11 Exchange & Transport (Boyle\'s law, the double circulation, valves, blood pressure, exercise spirometry, maximum heart rate) and Y11 Forces & Motion (crane tension, runway length, skydiver, multi-stage v–t graphs, theory vs real data).', 'Stop in Time: everyday objects in the road instead of people.', 'Fixes: sorting questions always use every category; written-answer markschemes line up properly.'] },
+    { v: '0.4 alpha', d: '6 November 2026', items: ['New <b>Test</b> mode: a timed Criterion A test like the unit tests, with a section for each strand from level 1–2 to 7–8. Answers stay hidden until the end; the site marks short answers, you tick the markschemes for written answers, and each strand gets a best-fit level. Print your results, or use a TST- class code so everyone gets the same test.', 'New unit: <b>Year 11 Combustible Fuels</b> (8 subtopics, 55 question types): fuels and SDG 7, hydrocarbons, naming and isomers with drawn structural formulas, alcohols, crude oil and boiling point, combustion and balancing, enthalpy profiles and bond enthalpy, moles, energy per gram and emissions.', 'More question types matched to the unit tests: Y9 Disease (vectors, Jenner, Fleming, Ebola, bacterial growth, vaccine boosters), Y9 Chemistry (nuclear notation, particle tables, spotting Bohr-diagram errors, covalent names, evidence of chemical change, ionisation energy trends), Y11 Exchange & Transport (Boyle\'s law, the double circulation, valves, blood pressure, exercise spirometry, maximum heart rate) and Y11 Forces & Motion (crane tension, runway length, skydiver, multi-stage v–t graphs, theory vs real data).', 'Stop in Time: everyday objects in the road instead of people.', 'A <b>Data Booklet</b> button for every year in the header (and on questions that need it): the Periodic Table for Year 9, and the physics formula sheet and chemistry values for Year 11.', 'The welcome card takes the colour of your year, and the revision history is grouped into collapsible stages.', 'Fixes: sorting questions always use every category; written-answer markschemes line up properly.'] },
   ];
   function renderAbout(main) {
     const rows = LIVE_UNITS.map(u => { const qs = Q.filter(q => q.uid === u.id); return `<tr><td><b>Y${u.y} U${u.n}</b> ${esc(u.title)}</td><td class="num">${CONTENT[u.id].subs.length}</td>${STRANDS.map(s => `<td class="num">${qs.filter(q => q.s === s.id).length}</td>`).join('')}<td class="num"><b>${qs.length}</b></td><td class="num">${CARDS.filter(c => c.uid === u.id).length}</td></tr>`; }).join('');
@@ -5061,7 +5120,7 @@ const GAMES = (() => {
       <section class="panel"><h3>The Question Bank</h3><div class="tbl-wrap"><table class="stats"><thead><tr><th>Unit</th><th>Subtopics</th>${STRANDS.map(s => `<th>${s.label}</th>`).join('')}<th>Total</th><th>Cards</th></tr></thead><tbody>${rows}</tbody></table></div></section>
       <section class="panel"><h3>Quality Checks</h3><ul class="about-list"><li>Every question type is generated with hundreds of values and checked for missing values, broken answers, duplicate options and impossible labels.</li><li>Every question is played in a browser with the correct answer and must score 100%, on desktop and phone sizes, in light and dark mode.</li></ul></section>
       <section class="panel"><h3>Privacy</h3><p>Nothing you do leaves your browser. Progress, recall schedules and settings are stored on this device only; use Stats → Backup to move them to another device.</p></section>
-      <section class="panel"><h3>Revision History</h3><ol class="history">${HISTORY.slice().reverse().map(h => `<li><div class="hv"><span class="ver">v${h.v}</span><span class="muted small">${h.d}</span></div><ul>${h.items.map(i => `<li>${i}</li>`).join('')}</ul></li>`).join('')}</ol>
+      <section class="panel"><h3>Revision History</h3>${historyHTML()}
         <p class="muted small">Version ${VERSION} · Built ${BUILT}.</p></section>`;
   }
   function bindAbout(main) { main.onclick = null; }
@@ -5097,11 +5156,11 @@ const GAMES = (() => {
     b.innerHTML = dark ? SUN : MOON; b.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode'); b.dataset.tip = dark ? 'Light mode' : 'Dark mode';
   }
   function applyYear() { document.documentElement.dataset.year = String(Y()); $$('#yearSeg [data-year]').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.year === Y()))); }
-  function openPT() {
-    const d = $('#termsDlg'); $('#termsTitle').textContent = 'Periodic Table (elements 1–20)'; $('#termsBody').innerHTML = periodicTableHTML();
+  function openBooklet() {
+    const d = $('#termsDlg'); $('#termsTitle').textContent = `Data Booklet · Year ${Y()}`; $('#termsBody').innerHTML = `<div class="booklet">${BOOKLET[Y()]()}</div>`;
     if (d.showModal) d.showModal(); else d.setAttribute('open', '');
   }
-  document.addEventListener('click', (e) => { if (e.target.closest('[data-pt]')) { e.preventDefault(); openPT(); } });
+  document.addEventListener('click', (e) => { if (e.target.closest('[data-booklet]')) { e.preventDefault(); openBooklet(); } });
   function openTerms() {
     const d = $('#termsDlg'); $('#termsTitle').textContent = 'Command Terms'; $('#termsBody').innerHTML = `<p class="small">The command terms used on your Criterion A tests and exams.</p><table class="cmdtbl"><tbody>${COMMAND_TERMS.map(([t, x]) => `<tr><th>${t}</th><td>${x}</td></tr>`).join('')}</tbody></table>`;
     if (d.showModal) d.showModal(); else d.setAttribute('open', '');
