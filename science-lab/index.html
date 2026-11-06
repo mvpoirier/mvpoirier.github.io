@@ -1141,6 +1141,71 @@ details.hist-stage > ol.history { margin-top: 12px; }
 }
 #termsInfo, #creditsInfo { scroll-margin-top: 84px; }
 
+/* Report a Problem / Send Feedback */
+details.report { margin-top: 14px; border-top: 1px dashed var(--line); padding-top: 10px; }
+details.report > summary { cursor: pointer; font-size: 13px; font-weight: 600; color: var(--muted); list-style: none; display: inline-flex; gap: 6px; align-items: center; }
+details.report > summary::-webkit-details-marker { display: none; }
+details.report > summary:hover { color: var(--ink); }
+details.report[open] > summary { color: var(--ink); margin-bottom: 6px; }
+details.report p { margin: 4px 0 8px; }
+details.report .rep-note { width: 100%; box-sizing: border-box; font: inherit; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--ink); resize: vertical; }
+details.report .row { margin-top: 8px; }
+.card + details.report, .booklet + details.report { margin-top: 16px; }
+
+/* full Periodic Table (Years 10–11) */
+.pt-full { display: grid; grid-template-columns: repeat(18, minmax(40px, 1fr)); grid-auto-rows: auto; gap: 3px; min-width: 780px; }
+.pt-full .pt-head { align-self: end; }
+.pt-full .pt-cell { min-height: 50px; padding: 13px 1px 13px; width: 100%; }
+.pt-full .pt-sym { font-size: 15px; }
+.pt-full .pt-z { font-size: 9px; top: 2px; left: 3px; }
+.pt-full .pt-a { font-size: 8.5px; bottom: 2px; }
+.pt-fmark { display: grid; place-items: center; font: 600 9px var(--f-mono); color: var(--muted); border: 1px dashed var(--line); border-radius: 6px; min-height: 50px; }
+.pt-gap { grid-column: 1 / -1; height: 8px; }
+.pt-unknown { background: #eceff3; } :root[data-theme="dark"] .pt-unknown { background: #252b36; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pt-unknown { background: #252b36; } }
+button.pt-cell { font: inherit; color: inherit; cursor: pointer; }
+button.pt-cell:hover, button.pt-cell:focus-visible, button.pt-cell.pt-sel { outline: 2px solid var(--year, var(--accent)); outline-offset: 1px; z-index: 1; }
+.pt-tip { position: fixed; z-index: 1000; display: none; min-width: 200px; max-width: 260px; padding: 10px 12px; border-radius: 10px; background: var(--surface); color: var(--ink); border: 1px solid var(--line); box-shadow: 0 10px 28px rgba(0,0,0,.18); pointer-events: none; font-size: 13px; }
+.pt-tip.on { display: block; }
+.pt-tip-h { display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+.pt-tip-sym { font: 800 20px/1 var(--f-display); color: var(--year, var(--accent)); }
+.pt-tip dl { display: grid; grid-template-columns: auto 1fr; gap: 3px 10px; margin: 0; }
+.pt-tip dt { color: var(--muted); } .pt-tip dd { margin: 0; font-weight: 600; }
+dialog.terms-dlg.wide { width: min(1010px, 96vw); }
+
+/* hint ladder */
+.hints { display: grid; gap: 8px; margin: 12px 0 4px; }
+.hint { display: grid; gap: 3px; padding: 9px 12px; border-radius: 10px; border: 1px solid color-mix(in srgb, #f5b301 45%, var(--line)); background: color-mix(in srgb, #f5b301 10%, var(--surface)); font-size: 14px; }
+.hint-n { font-size: 12px; font-weight: 700; color: var(--muted); }
+.hint-btn { margin-left: auto; }
+.opt.elim { opacity: .45; text-decoration: line-through; }
+
+/* Isomer Hunt */
+.ih-target { font-size: 1.15em; }
+.ih-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; margin: 10px 0; }
+.ih-tile { display: grid; place-items: center; gap: 4px; min-height: 150px; padding: 8px; border: 2px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--ink); cursor: pointer; font: inherit; }
+.ih-tile svg { width: auto; max-width: 100%; height: auto; }
+.ih-tile svg .ln { stroke: var(--ink); stroke-width: 1.8; fill: none; }
+.ih-tile svg .tx { fill: var(--ink); font: 14px var(--f-body); } .ih-tile svg .tx.b { font-weight: 700; }
+.ih-tile:hover { border-color: var(--accent); }
+.ih-tile.sel { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, var(--surface)); }
+.ih-tile.right { border-color: var(--good); background: var(--good-soft); }
+.ih-tile.wrong { border-color: var(--bad); background: var(--bad-soft); }
+.ih-tile.missed { border-color: var(--good); border-style: dashed; }
+.ih-tile.dim { opacity: .6; }
+.ih-cap { font-size: 12px; text-align: center; color: var(--muted); }
+/* Balance It! */
+.bi-eq { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 12px; margin: 14px 0; font-size: 1.25rem; }
+.bi-term { display: inline-flex; align-items: center; gap: 4px; }
+.bi-step { display: inline-flex; flex-direction: column; align-items: center; gap: 2px; }
+.bi-step .btn { padding: 0 8px; min-height: 24px; line-height: 1; }
+.bi-n { font-size: 1.4rem; min-width: 1.6em; text-align: center; color: var(--accent); }
+.bi-op { color: var(--muted); }
+.bi-tally { margin: 6px auto 10px; border-collapse: collapse; font-size: 14px; }
+.bi-tally th, .bi-tally td { padding: 4px 14px; border: 1px solid var(--line); text-align: center; }
+.bi-tally tr.ok td { background: var(--good-soft); } .bi-tally tr.no td { background: var(--bad-soft); }
+.bi-msg { text-align: center; }
+
 </style>
 </head>
 <body>
@@ -1165,6 +1230,7 @@ details.hist-stage > ol.history { margin-top: 12px; }
     <nav class="foot-links" aria-label="Site">
       <a href="#about">About</a>
       <a href="#about" data-terms="1">Terms of Use</a>
+      <a href="#feedback" data-feedback="1">💬 Send Feedback</a>
     </nav>
   </div>
   <div class="foot-meta">
@@ -1323,10 +1389,10 @@ const ELEMENTS20 = [
 ].map(e => ({ sym: e[0], name: e[1], Z: e[2], A: e[3], grp: e[4], per: e[5], type: e[6], ion: e[7] }));
 function periodicTableHTML() {
   const cols = [1, 2, 13, 14, 15, 16, 17, 18];
-  const cell = (e) => e ? `<div class="pt-cell pt-${e.type}" title="${e.name}: atomic number ${e.Z}, atomic mass ${e.A}"><span class="pt-z">${e.Z}</span><span class="pt-sym">${e.sym}</span><span class="pt-name">${e.name}</span><span class="pt-a">${e.A}</span></div>` : '<div class="pt-cell pt-empty"></div>';
+  const cell = (e) => e ? `<button type="button" class="pt-cell pt-${e.type}" data-el="${e.Z}" data-pt="9" aria-label="${e.name[0].toUpperCase() + e.name.slice(1)} (${e.sym}): atomic number ${e.Z}, atomic mass ${e.A}, group ${e.grp}, period ${e.per}, ${e.type}"><span class="pt-z">${e.Z}</span><span class="pt-sym">${e.sym}</span><span class="pt-name">${e.name}</span><span class="pt-a">${e.A}</span></button>` : '<div class="pt-cell pt-empty"></div>';
   let h = '<div class="pt-wrap"><div class="pt-grid">' + cols.map(g => `<div class="pt-head">${g}</div>`).join('');
   for (let p = 1; p <= 4; p++) h += cols.map(g => cell(ELEMENTS20.find(e => e.per === p && e.grp === g))).join('');
-  h += '</div><div class="pt-key"><div class="pt-cell pt-keycell"><span class="pt-z">Z</span><span class="pt-sym">X</span><span class="pt-name">name</span><span class="pt-a">mass</span></div><div class="small">Top: <b>atomic number</b> (protons). Bottom: <b>atomic mass</b>, rounded to a whole number. Rows are periods 1–4; column headings are groups.<br><span class="pt-sw pt-metal"></span> metal <span class="pt-sw pt-non-metal"></span> non-metal <span class="pt-sw pt-metalloid"></span> metalloid</div></div></div>';
+  h += '</div><div class="pt-key"><div class="pt-cell pt-keycell"><span class="pt-z">Z</span><span class="pt-sym">X</span><span class="pt-name">name</span><span class="pt-a">mass</span></div><div class="small">Top: <b>atomic number</b> (protons). Bottom: <b>atomic mass</b>, rounded to a whole number. Rows are periods 1–4; column headings are groups.<br><span class="pt-sw pt-metal"></span> metal <span class="pt-sw pt-non-metal"></span> non-metal <span class="pt-sw pt-metalloid"></span> metalloid<br><span class="muted">Point at, tap or tab to an element for its details.</span></div></div></div>';
   return h;
 }
 
@@ -1335,8 +1401,8 @@ function periodicTableHTML() {
 const eqRow = (name, words, sym) => `<tr><th scope="row">${name}</th><td>${words}</td><td class="eq">${sym}</td></tr>`;
 const BOOKLET = {
   9: () => `<section class="bk-sec"><h4>Periodic Table (elements 1–20)</h4><p class="small muted">Atomic masses are rounded to whole numbers. Use these values in every calculation.</p>${periodicTableHTML()}</section>`,
-  10: () => `<section class="bk-sec"><p class="muted">The Year 10 data booklet will be added with the Year 10 units.</p></section>`,
-  11: () => `<section class="bk-sec"><h4>Physics equations</h4><div class="tbl-wrap"><table class="bk-eq"><tbody>
+  10: () => `<section class="bk-sec"><h4>Periodic Table</h4>${periodicTableFullHTML()}</section><section class="bk-sec"><p class="muted small">More of the Year 10 data booklet will be added with the Year 10 units.</p></section>`,
+  11: () => `<section class="bk-sec"><h4>Periodic Table</h4>${periodicTableFullHTML()}</section><section class="bk-sec"><h4>Physics equations</h4><div class="tbl-wrap"><table class="bk-eq"><tbody>
       ${eqRow('Force', 'force = mass × acceleration', '<i>F</i> = <i>ma</i>')}
       ${eqRow('Motion', 'final velocity = initial velocity + (acceleration × time)', '<i>v</i> = <i>u</i> + <i>at</i>')}
       ${eqRow('', 'distance = (initial velocity × time) + ½ × acceleration × (time)<sup>2</sup>', '<i>s</i> = <i>ut</i> + ½<i>at</i><sup>2</sup>')}
@@ -1348,13 +1414,58 @@ const BOOKLET = {
       ${eqRow('Gravitational potential energy', 'change in gravitational potential energy = mass × <i>g</i> × change in height', 'Δ<i>E</i><sub>p</sub> = <i>mg</i>Δ<i>h</i>')}
     </tbody></table></div><p class="small"><b>Constant:</b> gravitational acceleration <i>g</i> = 9.8 m s<sup>−2</sup> (questions on this site use 9.81 m s<sup>−2</sup>).</p></section>
     <section class="bk-sec"><h4>Chemistry</h4><div class="tbl-wrap"><table class="bk-eq"><tbody>
-      ${eqRow('Relative atomic masses', 'carbon, hydrogen, oxygen', 'C 12.01 · H 1.01 · O 16.00')}
       ${eqRow('Moles', 'amount (mol) = mass (g) ÷ molar mass (g mol<sup>−1</sup>)', '<i>n</i> = <i>m</i> ÷ <i>M</i>')}
       ${eqRow('Avogadro constant', 'particles in one mole', '6.02 × 10<sup>23</sup> mol<sup>−1</sup>')}
-    </tbody></table></div><p class="small muted">Bond enthalpies and enthalpies of combustion are given in each question that needs them.</p></section>`
+    </tbody></table></div><p class="small muted">Use the relative atomic masses from the Periodic Table above. Bond enthalpies and enthalpies of combustion are given in each question that needs them.</p></section>`
 };
 // units whose questions show a "Data Booklet" button
 const BOOKLET_UNITS = ['y9-che', 'y11-phy', 'y11-che'];
+
+/* ---------- Full Periodic Table (Years 10 and 11) ----------
+   Relative atomic masses to 2 decimal places (as in the IB data booklet); mass numbers in brackets for elements with no stable isotope. */
+const ELEMENTS = (() => {
+  const raw = 'H hydrogen 1.01|He helium 4.00|Li lithium 6.94|Be beryllium 9.01|B boron 10.81|C carbon 12.01|N nitrogen 14.01|O oxygen 16.00|F fluorine 19.00|Ne neon 20.18|' +
+    'Na sodium 22.99|Mg magnesium 24.31|Al aluminium 26.98|Si silicon 28.09|P phosphorus 30.97|S sulfur 32.07|Cl chlorine 35.45|Ar argon 39.95|K potassium 39.10|Ca calcium 40.08|' +
+    'Sc scandium 44.96|Ti titanium 47.87|V vanadium 50.94|Cr chromium 52.00|Mn manganese 54.94|Fe iron 55.85|Co cobalt 58.93|Ni nickel 58.69|Cu copper 63.55|Zn zinc 65.38|' +
+    'Ga gallium 69.72|Ge germanium 72.63|As arsenic 74.92|Se selenium 78.97|Br bromine 79.90|Kr krypton 83.80|Rb rubidium 85.47|Sr strontium 87.62|Y yttrium 88.91|Zr zirconium 91.22|' +
+    'Nb niobium 92.91|Mo molybdenum 95.95|Tc technetium (98)|Ru ruthenium 101.07|Rh rhodium 102.91|Pd palladium 106.42|Ag silver 107.87|Cd cadmium 112.41|In indium 114.82|Sn tin 118.71|' +
+    'Sb antimony 121.76|Te tellurium 127.60|I iodine 126.90|Xe xenon 131.29|Cs caesium 132.91|Ba barium 137.33|La lanthanum 138.91|Ce cerium 140.12|Pr praseodymium 140.91|Nd neodymium 144.24|' +
+    'Pm promethium (145)|Sm samarium 150.36|Eu europium 151.96|Gd gadolinium 157.25|Tb terbium 158.93|Dy dysprosium 162.50|Ho holmium 164.93|Er erbium 167.26|Tm thulium 168.93|Yb ytterbium 173.05|' +
+    'Lu lutetium 174.97|Hf hafnium 178.49|Ta tantalum 180.95|W tungsten 183.84|Re rhenium 186.21|Os osmium 190.23|Ir iridium 192.22|Pt platinum 195.08|Au gold 196.97|Hg mercury 200.59|' +
+    'Tl thallium 204.38|Pb lead 207.20|Bi bismuth 208.98|Po polonium (209)|At astatine (210)|Rn radon (222)|Fr francium (223)|Ra radium (226)|Ac actinium (227)|Th thorium 232.04|' +
+    'Pa protactinium 231.04|U uranium 238.03|Np neptunium (237)|Pu plutonium (244)|Am americium (243)|Cm curium (247)|Bk berkelium (247)|Cf californium (251)|Es einsteinium (252)|Fm fermium (257)|' +
+    'Md mendelevium (258)|No nobelium (259)|Lr lawrencium (266)|Rf rutherfordium (267)|Db dubnium (268)|Sg seaborgium (269)|Bh bohrium (270)|Hs hassium (269)|Mt meitnerium (278)|Ds darmstadtium (281)|' +
+    'Rg roentgenium (282)|Cn copernicium (285)|Nh nihonium (286)|Fl flerovium (289)|Mc moscovium (290)|Lv livermorium (293)|Ts tennessine (294)|Og oganesson (294)';
+  const NON = ['H', 'He', 'C', 'N', 'O', 'F', 'Ne', 'P', 'S', 'Cl', 'Ar', 'Se', 'Br', 'Kr', 'I', 'Xe', 'Rn'], SEMI = ['B', 'Si', 'Ge', 'As', 'Sb', 'Te'];
+  const STARTS = [1, 3, 11, 19, 37, 55, 87, 119];
+  return raw.split('|').map((x, i) => {
+    const [sym, name, m] = x.split(' '), Z = i + 1, per = STARTS.findIndex(s => Z < s), pos = Z - STARTS[per - 1] + 1;
+    let grp, f = null;
+    if (per === 1) grp = Z === 1 ? 1 : 18;
+    else if (per <= 3) grp = pos <= 2 ? pos : pos + 10;
+    else if (per <= 5) grp = pos;
+    else if (pos <= 2) grp = pos;
+    else if (pos <= 17) { grp = null; f = pos - 2; } // lanthanides (La–Lu) and actinides (Ac–Lr)
+    else grp = pos - 14;
+    const type = Z >= 109 ? 'unknown' : NON.includes(sym) ? 'non-metal' : SEMI.includes(sym) ? 'metalloid' : 'metal';
+    return { sym, name, Z, per, grp, f, type, A: parseFloat(m.replace(/[()]/g, '')), Atext: m, est: m.startsWith('(') };
+  });
+})();
+const elFull = (sym) => ELEMENTS.find(e => e.sym === sym);
+const TYPE_LABEL = { metal: 'metal', 'non-metal': 'non-metal', metalloid: 'metalloid', unknown: 'synthetic: properties unknown' };
+// what a printed table shows; electron arrangement and ion charges are deliberately left out
+function elInfoLabel(e, mass) { return `${e.name[0].toUpperCase() + e.name.slice(1)} (${e.sym}): atomic number ${e.Z}, relative atomic mass ${mass}, ${e.grp ? 'group ' + e.grp : e.per === 6 ? 'lanthanide' : 'actinide'}, period ${e.per}, ${TYPE_LABEL[e.type]}`; }
+function periodicTableFullHTML() {
+  const cell = (e) => `<button type="button" class="pt-cell pt-${e.type}" data-el="${e.Z}" data-pt="full" aria-label="${elInfoLabel(e, e.Atext)}"><span class="pt-z">${e.Z}</span><span class="pt-sym">${e.sym}</span><span class="pt-a">${e.Atext}</span></button>`;
+  let h = '<div class="pt-wrap pt-full-wrap"><div class="pt-full">' + Array.from({ length: 18 }, (_, i) => `<div class="pt-head" style="grid-column:${i + 1};grid-row:1">${i + 1}</div>`).join('');
+  ELEMENTS.forEach(e => {
+    if (e.grp) h += `<div style="grid-column:${e.grp};grid-row:${e.per + 1}">${cell(e)}</div>`;
+    else h += `<div style="grid-column:${e.f + 2};grid-row:${e.per + 4}">${cell(e)}</div>`;
+  });
+  h += `<div class="pt-fmark" style="grid-column:3;grid-row:7">57–71</div><div class="pt-fmark" style="grid-column:3;grid-row:8">89–103</div><div class="pt-gap" style="grid-row:9"></div>`;
+  h += '</div><div class="pt-key"><div class="pt-cell pt-keycell"><span class="pt-z">Z</span><span class="pt-sym">X</span><span class="pt-a">A<sub>r</sub></span></div><div class="small">Top: <b>atomic number</b>. Bottom: <b>relative atomic mass</b> (mass number in brackets for elements with no stable isotope). Rows are periods 1–7; column headings are groups 1–18.<br><span class="pt-sw pt-metal"></span> metal <span class="pt-sw pt-non-metal"></span> non-metal <span class="pt-sw pt-metalloid"></span> metalloid <span class="pt-sw pt-unknown"></span> unknown<br><span class="muted">Point at, tap or tab to an element for its details.</span></div></div></div>';
+  return h;
+}
 
 /* ---- svg.js ---- */
 /* Small SVG drawing kit used by the content files. Colours come from CSS classes so diagrams follow light/dark mode. */
@@ -3187,7 +3298,7 @@ const SVG = (() => {
    Molar masses C 12.01, H 1.01, O 16.00 g mol⁻¹ and the average bond enthalpies used in the unit tests. */
 (() => {
   const { svg, line, text, graph } = SVG;
-  const MM = { C: 12.01, H: 1.01, O: 16.00 };
+  const MM = { C: elFull('C').A, H: elFull('H').A, O: elFull('O').A }; // from the Data Booklet's Periodic Table
   const BOND = { 'C–C': 346, 'C=C': 614, 'C–H': 414, 'C–O': 358, 'C=O': 804, 'O–H': 463, 'O=O': 498 };
   const bondTable = (keys = Object.keys(BOND)) => H.table(['Bond', 'Average bond enthalpy / kJ mol<sup>−1</sup>'], keys.map(k => [k, BOND[k]]));
   const r2 = (x) => Math.round(x * 100) / 100;
@@ -3578,9 +3689,103 @@ const SVG = (() => {
 
   CONTENT['y11-che'] = {
     flow: ['Fuels, energy resources and SDG 7', 'Crude oil, fractional distillation and boiling point', 'Organic compounds and hydrocarbons', 'Alkanes: formulas and naming', 'Isomers and IUPAC naming', 'Alkenes', 'Alcohols (alkanols)', 'Combustion reactions and balancing', 'Complete and incomplete combustion', 'Enthalpy profiles and energy changes', 'Moles, mass and energy (kJ mol⁻¹ to kJ g⁻¹)', 'Bond enthalpy', 'Comparing fuels: energy and emissions'],
-    subs, notes, cards, qs
+    subs, notes, cards, qs,
+    data: { ALL, byName, draw, fTXT, fHTML, combust, info } // used by the unit games
   };
 })();
+
+/* ---- hints.js ---- */
+/* Hint ladder (Practice only). Hint 1: a nudge (command term + key idea); hint 2: the method; hint 3: the first step.
+   METHOD gives a method reminder for every subtopic; TEMPLATE_HINTS gives a written method for particular questions
+   (the level 5–8 calculations), keyed by unit/template id. Neither ever contains an answer. */
+const METHOD = {
+  'y9-bio/path': 'Name the type of pathogen (bacterium, virus, fungus or protist) and use what it is made of or how it reproduces.',
+  'y9-bio/bv': 'Compare the two: size, structure (cell or not), how they reproduce, and whether antibiotics work on them.',
+  'y9-bio/trans': 'Think about the route: direct contact, air, water, food, or a vector carrying the pathogen between hosts.',
+  'y9-bio/defence': 'Work through the lines of defence in order: barriers (skin, mucus), then phagocytes, then lymphocytes making antibodies.',
+  'y9-bio/treat': 'Separate treatment (antibiotics for bacteria only) from prevention (vaccines, hygiene). Vaccines train lymphocytes to make memory cells.',
+  'y9-che/elem': 'Use the Periodic Table and what each scientist actually discovered or proposed.',
+  'y9-che/atoms': 'Protons = atomic number; neutrons = mass number − atomic number; electrons = protons − charge.',
+  'y9-che/pt': 'Group number = valence electrons (groups 1–2) or group − 10 (groups 13–18); period number = number of shells.',
+  'y9-che/bond': 'Metal + non-metal → ionic (electrons transferred). Non-metal + non-metal → covalent (electrons shared).',
+  'y9-che/eqn': 'Count the atoms of each element on both sides; change only the big numbers in front (coefficients).',
+  'y11-sehs/org': 'Order the levels: cell → tissue → organ → organ system → organism.',
+  'y11-sehs/vent': 'Inhaling: diaphragm and external intercostals contract, volume up, pressure down, air in. Exhaling at rest is the reverse and passive.',
+  'y11-sehs/lungvol': 'Tidal volume = depth of one breath; minute ventilation = tidal volume × breathing rate; vital capacity = biggest breath in and out.',
+  'y11-sehs/cardio': 'Follow the blood: body → right side → lungs → left side → body. Valves keep the flow one way.',
+  'y11-sehs/hr': 'Cardiac output = stroke volume × heart rate. Read graph values carefully, with units.',
+  'y11-sehs/pass': 'Particles (or water in osmosis) move from high to low concentration. Compare the concentrations on each side of the membrane.',
+  'y11-phy/motion': 'Speed = distance ÷ time; velocity = displacement ÷ time. Displacement and velocity have a direction.',
+  'y11-phy/graphs': 'Distance–time: gradient = speed. Velocity–time: gradient = acceleration, area under the line = displacement.',
+  'y11-phy/suvat': 'List s, u, v, a and t. Pick the equation that contains the unknown and the three values you know.',
+  'y11-phy/forces': 'Find the resultant force first; then F = ma. Balanced forces mean constant velocity (or rest).',
+  'y11-phy/fbd': 'Draw every force as an arrow from the object; add forces in the same direction and subtract opposite ones.',
+  'y11-phy/mom': 'Momentum p = mv (has a direction); kinetic energy Ek = ½mv² (no direction).',
+  'y11-phy/impulse': 'Impulse = FΔt = change in momentum. A longer stopping time means a smaller force.',
+  'y11-phy/coll': 'Total momentum before = total momentum after. Take one direction as positive.',
+  'y11-che/fuels': 'Renewable = replaced as fast as it is used. Compare fuels using the data given: energy, emissions, source.',
+  'y11-che/organic': 'Count the carbons for the stem (meth, eth, prop, but…); alkanes CₙH₂ₙ₊₂, alkenes CₙH₂ₙ.',
+  'y11-che/isomers': 'Compare molecular formulas first: isomers have the same formula but a different structure.',
+  'y11-che/alcohols': 'Alcohols contain –OH. Alkanols are CₙH₂ₙ₊₁OH; the name ends in -ol with the position of the –OH.',
+  'y11-che/distil': 'Longer chains → stronger forces between molecules → higher boiling point. Branching lowers the boiling point.',
+  'y11-che/comb': 'Complete combustion gives CO₂ and H₂O. Balance C, then H, then O last; double everything if O₂ needs a half.',
+  'y11-che/energy': 'ΔH = bonds broken − bonds made. Breaking absorbs energy; making releases it.',
+  'y11-che/moles': 'n = m ÷ M; use the mole ratio from the balanced equation; then m = n × M.'
+};
+const TEMPLATE_HINTS = {
+  'y9-bio/ii6-time': 'Each division doubles the number of bacteria. Count how many divisions fit in the time, then double that many times.',
+  'y9-bio/iii8-second': 'Compare the antibody curves: the second response is faster and bigger because memory cells are already there.',
+  'y9-bio/trans-iii6-spread': 'Read each value from the data with its unit, then compare the groups before deciding which claim the data support.',
+  'y9-bio/bv-iii6-temp': 'Find the temperature with the most colonies, then describe what happens either side of it.',
+  'y9-che/ii6-bohr': 'Fill the shells in order: 2 in the first, then up to 8, then 8. The number in the outer shell decides the group.',
+  'y9-che/ii6-lewis': 'Count each atom\'s valence electrons from its group, then share pairs until every atom has a full outer shell.',
+  'y9-che/ii8-isoapply': 'Isotopes have the same number of protons; only the neutrons (and so the mass number) change.',
+  'y9-che/iii6-mass': 'Mass is conserved: total mass of reactants = total mass of products. Any gas that escapes is still part of the products.',
+  'y9-che/pt-ii6-predict': 'Use the group for the valence electrons and the period for the number of shells.',
+  'y9-che/atoms-ii6-table': 'Use the three rules: protons = atomic number; neutrons = mass number − protons; electrons = protons − charge.',
+  'y11-sehs/ii6-spiro': 'On the spirometer trace, tidal volume is the height of one normal breath (peak to trough).',
+  'y11-sehs/ii6-minvent': 'Minute ventilation = tidal volume × breathing rate (breaths per minute). Check the units of volume.',
+  'y11-sehs/ii6-hrchange': 'Percentage change = (new − old) ÷ old × 100.',
+  'y11-sehs/ii8-isotonic': 'Water moves towards the more concentrated solution. Isotonic means no net movement, so no change in mass.',
+  'y11-sehs/iii6-vc': 'Read each value from the data, then look for the pattern before comparing the groups.',
+  'y11-sehs/pass-iii6-dye': 'Rate = distance moved ÷ time. Compare rates at each temperature.',
+  'y11-sehs/cardio-iii6-bp': 'Read the aorta value from the first point on the graph, then follow how pressure changes along the circuit.',
+  'y11-sehs/lungvol-iii6-exercise': 'Tidal volume = height of one breath on the exercise part; breathing rate = 60 ÷ time for one breath.',
+  'y11-sehs/hr-iii8-maxhr': 'Max HR = 220 − age. Then compare the dots with that formula.',
+  'y11-phy/ii6-suvat': 'Write s, u, v, a, t with values; the one you are not given and not asked for tells you which equation to use.',
+  'y11-phy/ii6-freefall': 'In free fall a = 9.81 m s⁻² downwards. Starting from rest means u = 0.',
+  'y11-phy/ii6-impulse': 'Impulse = change in momentum = m(v − u). Then F = impulse ÷ time.',
+  'y11-phy/ii6-area': 'Displacement = area under the velocity–time graph. Split it into triangles and rectangles.',
+  'y11-phy/ii8-stopping': 'Stopping distance = thinking distance (speed × reaction time) + braking distance (from v² = u² + 2as with v = 0).',
+  'y11-phy/ii8-collision': 'Momentum before = momentum after. Use a sign for direction, then solve for the unknown velocity.',
+  'y11-phy/ii8-helmet': 'Find the change in momentum, then F = Δp ÷ Δt for each stopping time and compare.',
+  'y11-phy/iii6-twocars': 'Gradient of a velocity–time graph = acceleration; area under it = displacement. Compare the two lines.',
+  'y11-phy/iii8-ramp': 'Look for the pattern in the data first, then use the equation that links the variables.',
+  'y11-phy/motion-iii6-camera': 'Average speed = distance ÷ time. Compare the result with the speed limit.',
+  'y11-phy/fbd-iii8-sky': 'Resultant force = weight − air resistance. Zero resultant force means terminal (constant) velocity.',
+  'y11-phy/fbd-ii6-net': 'Add the forces pointing the same way; subtract the opposite ones. The direction of the bigger side wins.',
+  'y11-phy/mom-ii6-compare': 'Calculate p = mv and Ek = ½mv² for each object, then compare.',
+  'y11-phy/coll-iii6-data': 'Find total momentum before and after for each trial, then compare them.',
+  'y11-phy/suvat-iii6-drop': 'Dropped from rest: u = 0, a = 9.81 m s⁻². Use s = ut + ½at².',
+  'y11-phy/coll-ii6-explode': 'Total momentum before is zero (at rest), so the two parts have equal and opposite momentum after.',
+  'y11-phy/fbd-ii6-box': 'Weight = mg. With no vertical acceleration, normal force = weight. Resultant = applied − friction; a = F ÷ m.',
+  'y11-phy/forces-ii8-bucket': 'Upward resultant force: T − mg = ma, so T = m(g + a). For the motion, use suvat from rest.',
+  'y11-phy/suvat-ii6-runway': 'From rest (u = 0) to take-off speed v with acceleration a: v² = u² + 2as, so s = v² ÷ 2a.',
+  'y11-phy/fbd-iii6-skydiver': 'Resultant = weight − air resistance. Bigger weight → speeding up; equal → constant velocity; bigger air resistance → slowing down.',
+  'y11-phy/graphs-iii6-multi': 'First stage: gradient = acceleration, then F = ma. Flat line: constant velocity, zero resultant. Total area = displacement.',
+  'y11-che/org-iii6-series': 'Work out how many H atoms are added for each extra C, then write H in terms of n.',
+  'y11-che/alc-iii6-bp': 'Find the increase from one alkanol to the next and extend the pattern.',
+  'y11-che/dist-iii6-graph': 'An alkane is a gas at room temperature if its boiling point is below room temperature.',
+  'y11-che/comb-ii6-balance': 'Balance C first (CO₂), then H (H₂O), then count O in the products. Remember the O already in an alcohol.',
+  'y11-che/comb-ii8-oxygen': 'n(fuel) = m ÷ M → use the O₂ : fuel ratio from the balanced equation → m(O₂) = n × 32.00.',
+  'y11-che/en-ii6-count': 'Draw out every bond in the structure and count each type; multiply each count by its bond enthalpy and add.',
+  'y11-che/en-ii8-estimate': 'Bonds broken: all bonds in the fuel and the O=O bonds. Bonds made: 2 C=O per CO₂ and 2 O–H per H₂O. ΔH = broken − made.',
+  'y11-che/en-iii6-error': 'Percentage error = |estimate − literature value| ÷ |literature value| × 100.',
+  'y11-che/en-iii8-isomers': 'Count each type of bond in each molecule; same types and numbers of bonds → same total.',
+  'y11-che/mol-ii6-emissions': 'n(fuel) = m ÷ M → mole ratio from the equation → n(CO₂) → m = n × 44.01 g mol⁻¹.',
+  'y11-che/mol-ii8-yield': 'n(H₂O) = m ÷ 18.02 → ratio H₂O : CO₂ from the equation → mass of CO₂ = theoretical yield. % yield = actual ÷ theoretical × 100.',
+  'y11-che/mol-iii8-choose': 'Mass of ethanol for the same energy = energy per gram of the petrol ÷ energy per gram of ethanol.'
+};
 
 /* ---- games.js ---- */
 /* Unit games. Each game: { id, y, uid, name, icon, desc, start(R), render(G, h), click(G, button) → truthy to redraw ({ wrong } to shake),
@@ -3947,7 +4152,95 @@ const GAMES = (() => {
     bestText: (best) => `${best.score} points in 3:00`
   };
 
-  return [elementMatch, buildAtom, periodicMystery, graphIt, freeBody, stopInTime, suvatSprint];
+  /* ---------- Isomer Hunt (Year 11 Combustible Fuels) ---------- */
+  const IH_ROUNDS = 5;
+  function ihRound(R, used) {
+    const { ALL, fTXT, info } = CONTENT['y11-che'].data;
+    const groups = {}; ALL.forEach(m => { (groups[fTXT(m)] = groups[fTXT(m)] || []).push(m); });
+    const forms = Object.keys(groups).filter(f => groups[f].length >= 2 && !used.includes(f));
+    const f = R.pick(forms.length ? forms : Object.keys(groups).filter(k => groups[k].length >= 2)), iso = groups[f], C = info(iso[0]).cnt.C;
+    const nIso = Math.min(iso.length, R.int(2, 4)), picks = R.sample(iso, nIso);
+    const near = ALL.filter(m => fTXT(m) !== f && Math.abs(info(m).cnt.C - C) <= 1 && info(m).cnt.C > 1);
+    const tiles = R.shuffle([...picks, ...R.sample(near, 8 - nIso)]);
+    return { f, tiles: tiles.map(m => m.name), sel: [], checked: false, got: 0 };
+  }
+  const isomerHunt = {
+    id: 'y11-isomer-hunt', y: 11, uid: 'y11-che', icon: '🔍', name: 'Isomer Hunt',
+    desc: `${IH_ROUNDS} rounds. Find every isomer of the molecular formula among eight structures. +1 for each isomer, −1 for each wrong pick.`,
+    start: (R) => { const G = { R, round: 0, score: 0, max: 0, t0: Date.now(), end: null, used: [] }; G.rd = ihRound(R, G.used); G.used.push(G.rd.f); return G; },
+    render(G) {
+      const { byName, draw, fHTML, fTXT } = CONTENT['y11-che'].data, t = ((G.end || Date.now()) - G.t0) / 1000, r = G.rd;
+      const top = `<div class="game-top"><span class="gscore">Round ${Math.min(G.round + 1, IH_ROUNDS)} / ${IH_ROUNDS}</span><span class="gscore">Score ${G.score}</span><span class="clock" id="gClock">${fmt(t)}</span></div>`;
+      if (G.end) return top + doneBar(G, `You scored ${G.score} / ${G.max} in ${fmt(t)}`);
+      const target = fHTML(byName(r.tiles.find(n => fTXT(byName(n)) === r.f)));
+      return top + `<div class="scenario">Find every isomer of <b class="ih-target">${target}</b>. Tap the structures, then press Check.</div>
+        <div class="ih-grid">${r.tiles.map((n, i) => { const m = byName(n), isIso = fTXT(m) === r.f, on = r.sel.includes(i); let cls = on ? 'sel' : ''; if (r.checked) cls = isIso ? (on ? 'right' : 'missed') : (on ? 'wrong' : 'dim');
+          return `<button type="button" class="ih-tile ${cls}" data-ih="${i}" ${r.checked ? 'disabled' : ''} aria-pressed="${on}" aria-label="${r.checked ? n : 'Structure ' + (i + 1)}">${draw(m, 'Structure ' + (i + 1))}${r.checked ? `<span class="ih-cap">${n}<br><b>${fHTML(m)}</b></span>` : ''}</button>`; }).join('')}</div>
+        <div class="row">${r.checked ? `<span class="verdict ${r.got === r.need && !r.bad ? 'ok' : 'no'}">${r.got} of ${r.need} isomers found${r.bad ? `, ${r.bad} wrong pick${r.bad > 1 ? 's' : ''}` : ''} (${r.gain >= 0 ? '+' : ''}${r.gain})</span><span class="spacer"></span><button class="btn primary" id="ihNext">${G.round + 1 >= IH_ROUNDS ? 'Finish' : 'Next Round'}</button>` : `<button class="btn primary" id="ihCheck">Check</button><span class="muted small">${r.sel.length} selected</span>`}</div>`;
+    },
+    click(G, b) {
+      if (G.end) return false;
+      const { byName, fTXT } = CONTENT['y11-che'].data, r = G.rd;
+      if (b.dataset.ih !== undefined && !r.checked) { const i = +b.dataset.ih; r.sel = r.sel.includes(i) ? r.sel.filter(x => x !== i) : [...r.sel, i]; return true; }
+      if (b.id === 'ihCheck' && !r.checked) {
+        const isIso = (i) => fTXT(byName(r.tiles[i])) === r.f;
+        r.need = r.tiles.filter((n, i) => isIso(i)).length; r.got = r.sel.filter(isIso).length; r.bad = r.sel.length - r.got; r.gain = r.got - r.bad;
+        G.score += r.gain; G.max += r.need; r.checked = true; return r.got === r.need && !r.bad ? true : { wrong: true };
+      }
+      if (b.id === 'ihNext' && r.checked) { G.round++; if (G.round >= IH_ROUNDS) { G.end = Date.now(); return true; } G.rd = ihRound(G.R, G.used); G.used.push(G.rd.f); return true; }
+      return false;
+    },
+    result(G, prev) { const r = { score: G.score, max: G.max, time: Math.round((G.end - G.t0) / 1000) }; G.newBest = !prev || isomerHunt.better(r, prev); return r; },
+    better: (res, prev) => res.score / res.max > prev.score / prev.max || (res.score / res.max === prev.score / prev.max && res.time < prev.time),
+    bestText: (best) => `${best.score} / ${best.max} in ${fmt(best.time)}`
+  };
+
+  /* ---------- Balance It! (Year 11 Combustible Fuels) ---------- */
+  const BI_TIME = 150;
+  function biNew(R, last) {
+    const { ALL, combust } = CONTENT['y11-che'].data;
+    const pool = ALL.filter(m => ['alkane', 'alkene', 'alcohol'].includes(m.cls) && !m.me.length && m.name !== last);
+    const m = R.pick(pool); return { name: m.name, c: [1, 1, 1, 1], want: combust(m), msg: '' };
+  }
+  const balanceIt = {
+    id: 'y11-balance-it', y: 11, uid: 'y11-che', icon: '⚖️', name: 'Balance It!',
+    desc: '2½ minutes. Balance combustion equations with the smallest whole numbers. The atom counter shows each side as you go.',
+    start: (R) => ({ R, score: 0, n: 0, t0: Date.now(), end: null, rd: biNew(R), wrongs: 0 }),
+    clock: (G) => Math.max(0, BI_TIME - (Date.now() - G.t0) / 1000),
+    tick(G) { if (!G.end && Date.now() - G.t0 >= BI_TIME * 1000) { G.end = Date.now(); return true; } return false; },
+    render(G) {
+      const { byName, fHTML, info } = CONTENT['y11-che'].data, left = Math.max(0, BI_TIME - ((G.end || Date.now()) - G.t0) / 1000);
+      const top = `<div class="game-top"><span class="gscore">Equation ${G.n + 1}</span><span class="gscore">Balanced ${G.score}</span><span class="clock ${left < 30 ? 'low' : ''}" id="gClock">${fmt(left)}</span></div>`;
+      if (G.end) return top + doneBar(G, `Time! You balanced ${G.score} equation${G.score === 1 ? '' : 's'}`);
+      const r = G.rd, m = byName(r.name), at = info(m).cnt, [a, b, c, d] = r.c;
+      const L = { C: a * at.C, H: a * at.H, O: a * at.O + 2 * b }, Rt = { C: c, H: 2 * d, O: 2 * c + d };
+      const step = (i, label) => `<span class="bi-term"><span class="bi-step"><button type="button" class="btn sm" data-bi="${i}" data-d="1" aria-label="More ${label}">▲</button><b class="bi-n num">${r.c[i]}</b><button type="button" class="btn sm" data-bi="${i}" data-d="-1" aria-label="Fewer ${label}" ${r.c[i] <= 1 ? 'disabled' : ''}>▼</button></span><span class="bi-f">${label}</span></span>`;
+      return top + `<div class="scenario">Balance the complete combustion of <b>${r.name}</b>.</div>
+        <div class="bi-eq">${step(0, fHTML(m))}<span class="bi-op">+</span>${step(1, 'O<sub>2</sub>')}<span class="bi-op">→</span>${step(2, 'CO<sub>2</sub>')}<span class="bi-op">+</span>${step(3, 'H<sub>2</sub>O')}</div>
+        <table class="bi-tally"><thead><tr><th>Atoms</th><th>Left</th><th>Right</th></tr></thead><tbody>${['C', 'H', 'O'].map(e => `<tr class="${L[e] === Rt[e] ? 'ok' : 'no'}"><th>${e}</th><td class="num">${L[e]}</td><td class="num">${Rt[e]}</td></tr>`).join('')}</tbody></table>
+        ${r.msg ? `<p class="small bi-msg">${r.msg}</p>` : ''}
+        <div class="row"><button class="btn primary" id="biCheck">Check</button><button class="btn" id="biSkip">Skip</button></div>`;
+    },
+    click(G, b) {
+      if (G.end) return false;
+      const { byName, info } = CONTENT['y11-che'].data, r = G.rd;
+      if (b.dataset.bi !== undefined) { const i = +b.dataset.bi; r.c[i] = Math.max(1, Math.min(40, r.c[i] + +b.dataset.d)); r.msg = ''; return true; }
+      if (b.id === 'biSkip') { G.n++; G.rd = biNew(G.R, r.name); return true; }
+      if (b.id === 'biCheck') {
+        const at = info(byName(r.name)).cnt, [a, bb, c, d] = r.c, w = r.want;
+        const balanced = a * at.C === c && a * at.H === 2 * d && a * at.O + 2 * bb === 2 * c + d;
+        if (balanced && a === w.f && bb === w.o2 && c === w.co2 && d === w.h2o) { G.score++; G.n++; G.rd = biNew(G.R, r.name); return true; }
+        r.msg = balanced ? 'Balanced, but not with the smallest whole numbers. Can every number be halved?' : 'Not balanced yet: check the rows in red. Balance C, then H, then O last.';
+        G.wrongs++; return { wrong: true };
+      }
+      return false;
+    },
+    result(G, prev) { const r = { score: G.score }; G.newBest = !prev || r.score > prev.score; return r; },
+    better: (res, prev) => res.score > prev.score,
+    bestText: (best) => `${best.score} balanced in 2:30`
+  };
+
+  return [elementMatch, buildAtom, periodicMystery, graphIt, freeBody, stopInTime, suvatSprint, isomerHunt, balanceIt];
 })();
 
 /* ---- engine.js ---- */
@@ -4061,8 +4354,8 @@ const GAMES = (() => {
   const cardPool = () => CARDS.filter(c => c.uid === 'cmd' ? S.settings.incCmd : (unitById(c.uid).y === Y() && subOK(c.sub)));
   function addMissed(id) { if (!S.missed.includes(id)) S.missed.push(id); }
   function clearMissed(id) { S.missed = S.missed.filter(x => x !== id); }
-  function logAttempt(q, score, t, mode) {
-    S.log.push({ id: q.qid, uid: q.uid, sub: q.subKey, s: q.s, b: q.b, score: Math.round(score * 1000) / 1000, t: Math.round(t * 10) / 10, ts: now(), mode });
+  function logAttempt(q, score, t, mode, hints) {
+    S.log.push({ id: q.qid, uid: q.uid, sub: q.subKey, s: q.s, b: q.b, score: Math.round(score * 1000) / 1000, t: Math.round(t * 10) / 10, ts: now(), mode, ...(hints ? { h: hints } : {}) });
     if (S.log.length > 4000) S.log.splice(0, S.log.length - 4000);
     markDay(); save();
   }
@@ -4141,7 +4434,7 @@ const GAMES = (() => {
   function answerUI(x, k, st) {
     const done = st.done || (st.revealed && x.type !== 'self');
     switch (x.type) {
-      case 'mcq': return `<div class="options" data-k="${k}">${x.order.map((ci, j) => { let cls = ''; if (done) { if (ci === x.ans) cls = 'correct'; else if (ci === st.pick[k]) cls = 'wrong'; } else if (ci === st.pick[k]) cls = 'picked'; return `<button class="opt ${cls}" data-k="${k}" data-ci="${ci}" ${done ? 'disabled' : ''}><span class="letter">${LETTERS[j]}</span><span>${x.choices[ci]}</span></button>`; }).join('')}</div>`;
+      case 'mcq': return `<div class="options" data-k="${k}">${x.order.map((ci, j) => { let cls = ''; if (done) { if (ci === x.ans) cls = 'correct'; else if (ci === st.pick[k]) cls = 'wrong'; } else if (ci === st.pick[k]) cls = 'picked'; const el = !done && st.elim && (st.elim[k] || []).includes(ci); return `<button class="opt ${cls} ${el ? 'elim' : ''}" data-k="${k}" data-ci="${ci}" ${done || el ? 'disabled' : ''}><span class="letter">${LETTERS[j]}</span><span>${x.choices[ci]}</span></button>`; }).join('')}</div>`;
       case 'num': case 'text': return `<div class="ansrow"><input class="ans ${done ? (st.res[k] === 1 ? 'right' : 'wrong') : ''}" data-in="${k}" ${x.type === 'num' ? 'inputmode="decimal"' : 'spellcheck="false"'} autocomplete="off" aria-label="${x.label || 'Answer'}" value="${esc(st.val[k] || '')}" ${done ? 'disabled' : ''}>${x.unit ? `<span>${x.unit}</span>` : ''}</div>`;
       case 'select': return `<div class="ansrow"><select class="ans ${done ? (st.res[k] === 1 ? 'right' : 'wrong') : ''}" data-in="${k}" aria-label="Answer" ${done ? 'disabled' : ''}><option value="">Choose…</option>${x.options.map((o, i) => `<option value="${i}" ${String(st.val[k]) === String(i) ? 'selected' : ''}>${o}</option>`).join('')}</select></div>`;
       case 'order': { const seq = st.seq[k] || []; return `<p class="muted small" style="margin:6px 0 0">Tap the items in the correct order. Tap a placed item to send it back.</p><div class="orderpool">${x.pool.filter(i => !seq.includes(i)).map(i => `<button class="ochip" data-k="${k}" data-oi="${i}" ${done ? 'disabled' : ''}>${x.items[i]}</button>`).join('')}</div><div class="orderout" aria-label="Your order">${seq.map((i, pos) => `<button class="ochip ${done ? (i === pos ? 'right' : 'wrong') : ''}" data-k="${k}" data-oo="${i}" ${done ? 'disabled' : ''}>${x.items[i]}</button>`).join('')}</div>`; }
@@ -4237,6 +4530,100 @@ const GAMES = (() => {
     return '';
   }
 
+  /* ======================= REPORT A PROBLEM / SEND FEEDBACK =======================
+     Send Report opens the teacher's Google Form already filled in; the student presses Submit there.
+     Nothing is sent by the site itself. */
+  const FORM = { url: 'https://docs.google.com/forms/d/e/1FAIpQLSfRvuSLGfjZufMp8PjKKdjqPTtm50XJYVKnC_5CwWy57vHKVA/viewform',
+    type: 'entry.2063788013', id: 'entry.891388905', title: 'entry.404100289', yu: 'entry.652088992', seed: 'entry.1249440615', where: 'entry.8003874', version: 'entry.264325338', note: 'entry.1357911885' };
+  const SEND_NOTE = 'Send Report opens your teacher’s Google Form (sign in with your school account), already filled in. Press Submit there. Copy Report is a backup.';
+  const unitLabel = (u) => `Y${u.y} U${u.n} ${u.title}`;
+  function formURL(f, note) {
+    const p = new URLSearchParams({ usp: 'pp_url' });
+    const put = (k, v) => { if (FORM[k] && v !== undefined && v !== null && String(v) !== '') p.set(FORM[k], String(v).slice(0, 1500)); };
+    put('type', f.type); put('id', f.id); put('title', f.title); put('yu', f.yu); put('seed', f.seed); put('where', f.where); put('version', `Alpha ${VERSION}`); put('note', note);
+    return FORM.url + '?' + p.toString();
+  }
+  const reportText = (f, note) => `${f.type} · ${f.id || ''} · ${f.title || ''} · ${f.yu || ''}${f.seed ? ' · seed ' + f.seed : ''} · ${f.where || ''} · Alpha ${VERSION}\n${note || ''}`;
+  function reportBox(f, open) {
+    const fb = f.type === 'Feedback';
+    return `<details class="report no-print" ${open ? 'open' : ''}><summary>${fb ? '💬 Send Feedback' : '🚩 Report a Problem'}</summary>
+      <p class="small">${fb ? 'Ideas, problems or anything else about the site: tell us.' : 'Spotted a mistake, a confusing question or a wrong answer? Describe it briefly.'}</p>
+      <textarea class="rep-note" rows="3" maxlength="1200" aria-label="${fb ? 'Your feedback' : 'What looks wrong?'}" placeholder="${fb ? 'Your feedback…' : 'What looks wrong?'}"></textarea>
+      <div class="row"><a class="btn sm primary send-report" href="${FORM.url}" target="_blank" rel="noopener" data-send="${esc(encodeURIComponent(JSON.stringify(f)))}">Send Report ↗</a><button type="button" class="btn sm" data-copyrep="1">Copy Report</button></div>
+      <p class="muted small">${SEND_NOTE}</p></details>`;
+  }
+  const repData = (el) => { try { return JSON.parse(decodeURIComponent(el.closest('details.report').querySelector('[data-send]').dataset.send)); } catch (err) { return null; } };
+  const repNote = (el) => { const t = el.closest('details.report').querySelector('.rep-note'); return t ? t.value.trim() : ''; };
+  // set the link's address at click time so it carries the student's note
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a.send-report[data-send]');
+    if (a) { const f = repData(a); if (f) { a.href = formURL(f, repNote(a)); toast('Form opened in a new tab. Press Submit there to send it.'); } return; }
+    const c = e.target.closest('[data-copyrep]');
+    if (c) { const f = repData(c); if (!f) return; const t = reportText(f, repNote(c)); (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast('Report copied.'), () => toast('Select the text and copy it: ' + t)); return; }
+    if (e.target.closest('[data-feedback]')) {
+      e.preventDefault();
+      const d = $('#termsDlg'); d.classList.remove('wide'); $('#termsTitle').textContent = 'Send Feedback';
+      $('#termsBody').innerHTML = reportBox({ type: 'Feedback', id: 'feedback', title: 'General feedback', yu: `Year ${Y()}`, where: (location.hash || '#welcome').slice(1) }, true);
+      if (d.showModal) d.showModal(); else d.setAttribute('open', '');
+      const ta = $('#termsBody .rep-note'); if (ta) ta.focus();
+    }
+  }, true);
+
+  /* ======================= HINT LADDER (Practice) =======================
+     Hint 1 nudges (command term and a key idea), hint 2 gives the method, hint 3 works the first step.
+     Hints aim at the first part not yet answered. Test mode never shows hints. */
+  const plainText = (h) => String(h || '').replace(/<[^>]+>/g, ' ').replace(/&[a-z]+;/g, ' ').replace(/\s+/g, ' ').trim();
+  function hintTarget(inst, st) {
+    const xs = items(inst);
+    const open = xs.find(([x, k]) => { if (x.type === 'self') return !(st.val[k] || '').trim(); if (x.type === 'mcq') return st.pick[k] === undefined; if (x.type === 'order') return (st.seq[k] || []).length < x.items.length; if (x.type === 'sort') return !(st.bins[k] || []).length || (st.bins[k] || []).some(v => v < 0); if (x.type === 'label') return (st.lab[k] || []).filter(Boolean).length < x.labels.length; return !String(st.val[k] || '').trim(); });
+    return open || xs[0];
+  }
+  // the command term that starts a sentence of the question (e.g. "Calculate…", "Explain…")
+  function cmdTermOf(text) {
+    const t = plainText(text);
+    let best = null;
+    COMMAND_TERMS.forEach(([term, def]) => { const w = term.split(/\s*&\s*|\s+and\s+/)[0].replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); const m = t.match(new RegExp('(^|[.?!:)]\\s+)' + w + '\\b')); if (m && (!best || m.index < best.i)) best = { term, def, i: m.index }; });
+    return best;
+  }
+  // the note idea for this subtopic that shares the most words with the question (only if it clearly matches)
+  const STOP = new Set(['which', 'there', 'their', 'these', 'those', 'about', 'using', 'answer', 'below', 'shows', 'given', 'state', 'explain', 'describe', 'calculate', 'student', 'deduce', 'table', 'graph', 'figure', 'value', 'values', 'other', 'should', 'would', 'could', 'where', 'while', 'after', 'before']);
+  function keyIdea(q, text) {
+    const n = (CONTENT[q.uid].notes || {})[SUB[q.subKey].id]; if (!n || !n.ideas || !n.ideas.length) return '';
+    const ws = (t) => (plainText(t).toLowerCase().match(/[a-z]{5,}/g) || []).filter(w => !STOP.has(w)).map(w => w.replace(/(ies|es|s)$/, ''));
+    const words = new Set([...ws(text), ...ws(q.topic || ''), ...ws(q.topic || '')]);
+    let best = '', bs = 1;
+    n.ideas.forEach(idea => { const sc = new Set(ws(idea).filter(w => words.has(w))).size; if (sc > bs) { bs = sc; best = idea; } });
+    return best;
+  }
+  function makeHint(n, q, inst, st) {
+    const [x, k] = hintTarget(inst, st), part = inst.type === 'parts' ? `Part (${'abcdefgh'[+k.slice(1)]}): ` : '';
+    if (n === 1) {
+      const stemTxt = (x.stem || '') + ' ' + (inst.type === 'parts' ? '' : inst.stem || ''), c = cmdTermOf(x.stem || inst.stem || '') || cmdTermOf(inst.stem || '');
+      const idea = keyIdea(q, stemTxt + ' ' + (inst.stem || ''));
+      if (!c && !idea) return `${part}Read the question again. Underline what it gives you and what it asks you to find${x.unit ? ` (the answer is in <b>${x.unit}</b>)` : ''}.`;
+      return `${part}${c ? `The command term is <b>${c.term}</b>: ${c.def}` : ''}${c && idea ? '<br>' : ''}${idea ? `<span class="muted small">Key idea:</span> ${idea}` : ''}`;
+    }
+    if (n === 2) {
+      const own = TEMPLATE_HINTS[q.qid], m = METHOD[`${q.uid}/${SUB[q.subKey].id}`];
+      const tip = { sort: 'Place the items you are sure about first, then think hardest about the rest.', order: 'Find the first and the last item, then fill in the middle.', mcq: 'Cover the options and answer in your head first, then find the closest match.', self: `A full answer makes about ${x.check ? x.check.length : 3} separate points. Plan them as a list first.`, label: 'Start with the labels you are sure of.', select: 'Rule out the options that cannot be right first.' }[x.type] || '';
+      return `${part}${own || m || ''}${tip ? ` <span class="muted">${tip}</span>` : ''}`;
+    }
+    // hint 3: the first step, or narrow the choices
+    switch (x.type) {
+      case 'num': return x.steps && x.steps.length ? `${part}First step: ${x.steps[0]}` : `${part}Give your answer${x.unit ? ` in <b>${x.unit}</b>` : ''}, and show the equation you used.`;
+      case 'self': return `${part}Start with this point: <i>${x.check[0]}</i>`;
+      case 'mcq': { const wrong = x.order.filter(ci => ci !== x.ans && ci !== st.pick[k]).slice(0, 2); st.elim = st.elim || {}; st.elim[k] = wrong; return `${part}Two wrong options have been crossed out.`; }
+      case 'select': { const wrong = x.options.map((_, i) => i).filter(i => i !== x.ans); return `${part}It is <b>not</b> “${plainText(x.options[wrong[0]])}”.`; }
+      case 'sort': { const bins = st.bins[k] = st.bins[k] && st.bins[k].length ? st.bins[k] : x.items.map(() => -1); const i = x.items.findIndex((it, j) => bins[j] !== it[1]); if (i < 0) return `${part}Your sorting is all correct so far. Check it and press Check.`; bins[i] = x.items[i][1]; return `${part}“${plainText(x.items[i][0])}” has been placed for you in <b>${x.bins[x.items[i][1]]}</b>.`; }
+      case 'order': { st.seq[k] = [0]; return `${part}The first item has been placed for you: <b>${plainText(x.items[0])}</b>.`; }
+      case 'label': { (st.lab[k] = st.lab[k] || [])[0] = x.labels[0]; return `${part}Label 1 has been filled in for you.`; }
+      case 'text': { const a = plainText(x.show || x.accept[0]); return x.mode === 'formula' ? `${part}It starts with <b>${esc(a.replace(/\s+/g, '').slice(0, 2))}</b>…` : `${part}It starts with “<b>${esc(a[0].toUpperCase())}</b>” and has ${a.replace(/[^a-z]/gi, '').length} letters.`; }
+      default: return `${part}Look again at the key idea and the method above.`;
+    }
+  }
+  const hintsHTML = (st) => (st.hints && st.hints.length) ? `<div class="hints" aria-live="polite">${st.hints.map((h, i) => `<div class="hint"><span class="hint-n">💡 Hint ${i + 1}</span><div>${h}</div></div>`).join('')}</div>` : '';
+  const hintBtn = (st) => { const n = (st.hints || []).length; return n >= 3 ? '' : `<button class="btn hint-btn" id="hintBtn" type="button">💡 ${n ? 'Next Hint' : 'Hint'} <span class="muted small">(${n + 1} of 3)</span></button>`; };
+
   /* ======================= PRACTICE ======================= */
   const P = { q: null, inst: null, seed: 0, st: null, t0: 0, tUsed: 0, logged: false, recent: [] };
   function practiceNext(sameTemplate) {
@@ -4262,16 +4649,17 @@ const GAMES = (() => {
     let controls;
     if (!st.done) {
       const selfOnly = allSelf(inst), anySelf = hasSelf(inst);
-      if (selfOnly && !st.revealed) controls = `<div class="row"><button class="btn primary" id="reveal">Show Markscheme</button><span class="muted small">Write your answer first, then tick each point you made honestly.</span></div>`;
+      if (selfOnly && !st.revealed) controls = `<div class="row"><button class="btn primary" id="reveal">Show Markscheme</button>${hintBtn(st)}<span class="muted small">Write your answer first, then tick each point you made honestly.</span></div>`;
       else if (selfOnly) controls = `<div class="row"><span class="verdict" id="wTotal">Total awarded: <span class="num">${Math.round(totalScore(inst, st) * 100)}%</span></span><span class="spacer"></span><button class="btn primary" id="saveScore">Save My Score</button></div>`;
-      else controls = `<div class="row"><button class="btn primary" id="checkBtn">${anySelf ? 'Check and Show Markscheme' : 'Check'}</button></div>`;
+      else controls = `<div class="row"><button class="btn primary" id="checkBtn">${anySelf ? 'Check and Show Markscheme' : 'Check'}</button>${hintBtn(st)}</div>`;
     } else {
       const sc = totalScore(inst, st);
-      controls = `<div class="verdict ${sc >= 0.999 ? 'ok' : 'no'}">${sc >= 0.999 ? 'Correct' : sc > 0 ? `${Math.round(sc * 100)}%: check the answers and solutions above.` : 'Not quite: check the answers and solutions above.'}<span class="muted small num" style="margin-left:auto">⏱ Time taken: ${fmtMin(P.tUsed / 1000)}</span></div>`;
+      controls = `<div class="verdict ${sc >= 0.999 ? 'ok' : 'no'}">${sc >= 0.999 ? 'Correct' : sc > 0 ? `${Math.round(sc * 100)}%: check the answers and solutions above.` : 'Not quite: check the answers and solutions above.'}<span class="muted small num" style="margin-left:auto">${(st.hints || []).length ? `💡 ${st.hints.length} hint${st.hints.length > 1 ? 's' : ''} · ` : ''}⏱ Time taken: ${fmtMin(P.tUsed / 1000)}</span></div>`;
     }
+    if (!st.done && inst.type === 'mcq') controls = `<div class="row">${hintBtn(st)}</div>`;
     if (!st.done && st.revealed && !allSelf(inst)) controls = `<div class="row"><span class="verdict" id="wTotal">Total: <span class="num">${Math.round(totalScore(inst, st) * 100)}%</span></span><span class="spacer"></span><button class="btn primary" id="saveScore">Save My Score</button><span class="muted small">Tick the markscheme points for the written parts, then save.</span></div>`;
     main.innerHTML = head('Practice 🎯', 'Questions one at a time, with worked solutions and markschemes. Most questions can be retried with new values.') + `
-      <article class="sheet" id="sheet">${questionHTML(q, inst, st)}${controls}</article>
+      <article class="sheet" id="sheet">${questionHTML(q, inst, st)}${hintsHTML(st)}${controls}${reportBox({ type: 'Problem', id: q.qid, title: q.topic || SUB[q.subKey].name, yu: unitLabel(unitById(q.uid)), seed: P.seed, where: `Practice · ${strandOf(q.s).label} ${BAND_LABEL[q.b]}` })}</article>
       <div class="row">
         ${inst.fixedQ ? '' : '<button class="btn" id="newVals" title="Same question, new values">New Values</button>'}
         <button class="btn primary" id="nextQ">Next Question</button>
@@ -4279,8 +4667,10 @@ const GAMES = (() => {
   }
   function finishPractice(main) {
     const sc = totalScore(P.inst, P.st); P.st.done = true; P.tUsed = now() - P.t0;
-    logAttempt(P.q, sc, P.tUsed / 1000, 'practice'); P.logged = true;
-    if (sc < 0.6) addMissed(P.q.qid); else clearMissed(P.q.qid);
+    const h = (P.st.hints || []).length;
+    logAttempt(P.q, sc, P.tUsed / 1000, 'practice', h); P.logged = true;
+    // answers without hints count more: a question needing 2+ hints stays on the missed list for another go
+    if (sc < 0.6 || (h >= 2 && sc < 1.001)) addMissed(P.q.qid); else clearMissed(P.q.qid);
     save(); renderPractice(main); renderRail();
   }
   function bindPractice(main) {
@@ -4289,6 +4679,7 @@ const GAMES = (() => {
       const { inst, st } = P;
       if (!st || st.done) { /* fall through to navigation */ }
       else {
+        if (b.id === 'hintBtn') { st.hints = st.hints || []; if (st.hints.length < 3) st.hints.push(makeHint(st.hints.length + 1, P.q, inst, st)); renderPractice(main); const hs = $$('.hint', main); if (hs.length) hs[hs.length - 1].scrollIntoView({ block: 'nearest', behavior: 'smooth' }); return; }
         const r = answerClick(b, inst, st);
         if (r === 'pick' && inst.type === 'mcq') { checkAll(inst, st); finishPractice(main); return; } // a single multiple-choice question is marked straight away
         if (r) { renderPractice(main); return; }
@@ -4931,7 +5322,7 @@ const GAMES = (() => {
         `<div class="back">${back}</div>
          <div><p class="muted small" style="margin:0 0 8px">How well did you recall it?${RC.conf === 0 ? ' Guessed answers are scheduled as Hard at best.' : ''}</p>
          <div class="rate"><button class="again" data-rate="0">Again<small>${previewIvl(st, 0)}</small></button><button data-rate="1">Hard<small>${previewIvl(st, 1)}</small></button><button data-rate="2">Good<small>${previewIvl(st, RC.conf === 0 ? 1 : 2)}</small></button><button class="easy" data-rate="3">Easy<small>${previewIvl(st, RC.conf === 0 ? 1 : 3)}</small></button></div></div>`}
-      </article>`;
+      </article>${reportBox({ type: 'Problem', id: c.id, title: c.term, yu: c.type === 'cmd' ? 'Command terms' : unitLabel(unitById(c.uid)), where: 'Recall · Flashcards' })}`;
   }
   function renderRecallGame(main, top, mode) {
     if (!GM || GM.mode !== mode) startGame(mode);
@@ -5006,7 +5397,8 @@ const GAMES = (() => {
           <div class="cols"><div><h4 class="muted small" style="text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">Key Ideas</h4><ul>${n.ideas.map(x => `<li>${x}</li>`).join('')}</ul></div>
           <div><h4 class="muted small" style="text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">Common Mistakes</h4><ul class="mist">${(n.mistakes || []).map(x => `<li>${x}</li>`).join('')}</ul></div></div>
           ${n.fig ? `<div class="figure subnote-fig">${n.fig}</div>` : ''}
-          ${terms.length ? `<h4 class="note-sec">Key Terms</h4><table class="cmdtbl"><tbody>${terms.map(c => `<tr><th>${c[0]}</th><td>${c[1]}</td></tr>`).join('')}</tbody></table>` : ''}</details>`;
+          ${terms.length ? `<h4 class="note-sec">Key Terms</h4><table class="cmdtbl"><tbody>${terms.map(c => `<tr><th>${c[0]}</th><td>${c[1]}</td></tr>`).join('')}</tbody></table>` : ''}
+          ${reportBox({ type: 'Problem', id: k, title: s.name, yu: unitLabel(u), where: 'Notes' })}</details>`;
       }).join('');
     }).join('');
     main.innerHTML = head('Unit Notes 📓', 'Short notes for each subtopic ticked in the panel, in lesson order: key ideas, common mistakes and key terms.') + cmd + bar + (keys.length ? body : emptySel('Tick at least one subtopic in the panel.'));
@@ -5034,6 +5426,7 @@ const GAMES = (() => {
     const games = GAMES.map(g => S.games[g.id] ? `<tr><td>${g.icon} ${g.name}</td><td>${g.bestText(S.games[g.id])}</td><td class="num">${S.games[g.id].plays || 1}</td></tr>` : '').join('') + (S.games.match ? `<tr><td>⏱️ Match It! (Recall)</td><td>${fmtClock(S.games.match.time)}</td><td></td></tr>` : '');
     main.innerHTML = head('Your Stats 📈', `Year ${Y()}. Everything here is stored only in this browser. Nothing is sent to your teacher or anyone else.`) + `
       <div class="stat-tabs" role="tablist" aria-label="Stats sections">${STAT_TABS.map(([k, l]) => `<button type="button" role="tab" class="stat-tab" data-stab="${k}" aria-selected="${tab === k}">${l}</button>`).join('')}</div>
+      ${tab !== 'practice' || !L.some(x => x.mode === 'practice') ? '' : (() => { const pr = L.filter(x => x.mode === 'practice'), nh = pr.filter(x => !x.h), wh = pr.filter(x => x.h); return `<section class="panel"><h3>Hints</h3><div class="tiles"><div class="tile"><span class="k">Answered without hints</span><span class="v num">${pct(nh.length, pr.length)}%</span><span class="s">${nh.length} of ${pr.length} questions</span></div><div class="tile"><span class="k">Score without hints</span><span class="v num">${nh.length ? pct(nh.reduce((a, x) => a + x.score, 0), nh.length) + '%' : '–'}</span><span class="s">average</span></div><div class="tile"><span class="k">Score with hints</span><span class="v num">${wh.length ? pct(wh.reduce((a, x) => a + x.score, 0), wh.length) + '%' : '–'}</span><span class="s">${wh.length ? `${(wh.reduce((a, x) => a + x.h, 0) / wh.length).toFixed(1)} hints on average` : 'no hints used yet'}</span></div></div><p class="muted small">Questions where you needed two or more hints stay in “Only Questions I’ve Missed” so you can try them again without help.</p></section>`; })()}
       ${tab !== 'practice' ? '' : `<section class="panel"><h3>By Strand and Level</h3><p class="muted small">Average score in Practice. Tests mark each strand separately, so aim to be secure in all three.</p><div class="tbl-wrap"><table class="stats"><tbody>${grid}</tbody></table></div></section>
       <section class="panel"><h3>By Subtopic</h3>${subRows ? `<div class="tbl-wrap"><table class="stats"><thead><tr><th>Subtopic</th><th>Tries</th><th>Average</th><th>By strand</th><th></th></tr></thead><tbody>${subRows}</tbody></table></div>` : '<p class="muted">Answer a few questions in Practice to see your results here.</p>'}</section>`}
       ${tab !== 'games' ? '' : `<section class="panel"><h3>Personal Bests</h3>${games ? `<table class="stats"><thead><tr><th>Game</th><th>Best</th><th>Plays</th></tr></thead><tbody>${games}</tbody></table>` : '<p class="muted">Play a game to see your scores here.</p>'}</section>`}
@@ -5110,7 +5503,7 @@ const GAMES = (() => {
     { v: '0.1 alpha', d: '5 November 2026', items: ['First build: four units (Y11 Exchange & Transport, Y11 Forces & Motion, Y9 Disease & Our Immune System, Y9 Chemistry of Industry) with practice by Criterion A strand and level, recall cards, notes and progress.'] },
     { v: '0.2 alpha', d: '5 November 2026', items: ['New design: header, side panel, question sheet, markscheme ticks, spaced-repetition Recall (Flashcards, Pick’em!, Match It!), Notes panels, Stats tabs and backup code.', 'Every unit is split into subtopics, one per lesson topic, and every subtopic has questions for A i, A ii and A iii.', 'Unit games: Element Match (Year 9 Chemistry) and Graph It! (Year 11 Forces & Motion).', 'Notes for every subtopic with key ideas, common mistakes and key terms.'] },
     { v: '0.3 alpha', d: '5 November 2026', items: ['Games page grouped by unit, with Class Games for every year.', 'New unit games: Build-an-Atom and Periodic Mystery (Y9 Chemistry); Free-Body Builder, Stop in Time and suvat Sprint (Y11 Forces & Motion).', 'Blitz and Last Man Standing with class codes, using multiple-choice questions from the ticked subtopics.', 'Y9 Chemistry: a simplified Periodic Table (elements 1–20, whole-number atomic masses) on every question, in the header and in Notes.', 'Last Man Standing arena: ready screen, 3-2-1 countdown, synthesised music and sound effects, heartbeat in the last 30 seconds, Give Up and Game Over.', 'Code boxes start with their prefix (LMS-) and add capitals and dashes as you type.'] },
-    { v: '0.4 alpha', d: '6 November 2026', items: ['New <b>Test</b> mode: a timed Criterion A test like the unit tests, with a section for each strand from level 1–2 to 7–8. Answers stay hidden until the end; the site marks short answers, you tick the markschemes for written answers, and each strand gets a best-fit level. Print your results, or use a TST- class code so everyone gets the same test.', 'New unit: <b>Year 11 Combustible Fuels</b> (8 subtopics, 55 question types): fuels and SDG 7, hydrocarbons, naming and isomers with drawn structural formulas, alcohols, crude oil and boiling point, combustion and balancing, enthalpy profiles and bond enthalpy, moles, energy per gram and emissions.', 'More question types matched to the unit tests: Y9 Disease (vectors, Jenner, Fleming, Ebola, bacterial growth, vaccine boosters), Y9 Chemistry (nuclear notation, particle tables, spotting Bohr-diagram errors, covalent names, evidence of chemical change, ionisation energy trends), Y11 Exchange & Transport (Boyle\'s law, the double circulation, valves, blood pressure, exercise spirometry, maximum heart rate) and Y11 Forces & Motion (crane tension, runway length, skydiver, multi-stage v–t graphs, theory vs real data).', 'Stop in Time: everyday objects in the road instead of people.', 'A <b>Data Booklet</b> button for every year in the header (and on questions that need it): the Periodic Table for Year 9, and the physics formula sheet and chemistry values for Year 11.', 'The welcome card takes the colour of your year, and the revision history is grouped into collapsible stages.', 'New Terms of Use (About page): © Mike Poirier, all rights reserved; free for students and teachers; not for commercial or tutoring use without permission. This replaces the CC BY-NC-SA licence from this version on.', 'Fixes: sorting questions always use every category; written-answer markschemes line up properly.'] },
+    { v: '0.4 alpha', d: '6 November 2026', items: ['New <b>Test</b> mode: a timed Criterion A test like the unit tests, with a section for each strand from level 1–2 to 7–8. Answers stay hidden until the end; the site marks short answers, you tick the markschemes for written answers, and each strand gets a best-fit level. Print your results, or use a TST- class code so everyone gets the same test.', 'New unit: <b>Year 11 Combustible Fuels</b> (8 subtopics, 55 question types): fuels and SDG 7, hydrocarbons, naming and isomers with drawn structural formulas, alcohols, crude oil and boiling point, combustion and balancing, enthalpy profiles and bond enthalpy, moles, energy per gram and emissions.', 'More question types matched to the unit tests: Y9 Disease (vectors, Jenner, Fleming, Ebola, bacterial growth, vaccine boosters), Y9 Chemistry (nuclear notation, particle tables, spotting Bohr-diagram errors, covalent names, evidence of chemical change, ionisation energy trends), Y11 Exchange & Transport (Boyle\'s law, the double circulation, valves, blood pressure, exercise spirometry, maximum heart rate) and Y11 Forces & Motion (crane tension, runway length, skydiver, multi-stage v–t graphs, theory vs real data).', 'Stop in Time: everyday objects in the road instead of people.', 'A <b>Data Booklet</b> button for every year in the header (and on questions that need it): the Periodic Table for Year 9 (elements 1–20), the full Periodic Table for Years 10 and 11, and the physics formula sheet for Year 11. Point at, tap or tab to any element for its details.', '<b>Hints</b> in Practice: up to three per question (a nudge, the method, then the first step). Stats shows how often you answer without hints.', 'New Year 11 Fuels games: <b>Isomer Hunt</b> and <b>Balance It!</b>', '<b>🚩 Report a Problem</b> on every question, flashcard, note and the Data Booklet, and <b>💬 Send Feedback</b> in the footer: they open your teacher’s Google Form already filled in.', 'The welcome card takes the colour of your year, and the revision history is grouped into collapsible stages.', 'Fixes: sorting questions always use every category; written-answer markschemes line up properly.'] },
   ];
   function renderAbout(main) {
     const rows = LIVE_UNITS.map(u => { const qs = Q.filter(q => q.uid === u.id); return `<tr><td><b>Y${u.y} U${u.n}</b> ${esc(u.title)}</td><td class="num">${CONTENT[u.id].subs.length}</td>${STRANDS.map(s => `<td class="num">${qs.filter(q => q.s === s.id).length}</td>`).join('')}<td class="num"><b>${qs.length}</b></td><td class="num">${CARDS.filter(c => c.uid === u.id).length}</td></tr>`; }).join('');
@@ -5132,7 +5525,8 @@ const GAMES = (() => {
       <section class="panel" id="termsInfo"><h3>Terms of Use</h3><p>© 2026 <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a>. All rights reserved. MYPoirier Science Lab, including its questions, question generators, notes, games and design, is the work of Mike Poirier, developed with Claude.</p>
         <ul class="about-list"><li><b>Free to use</b> for students and teachers, for their own study and classroom teaching.</li><li><b>Not allowed without written permission:</b> copying or hosting the site or its content elsewhere, adapting it, or using it in any commercial service, including paid tutoring, courses or question banks.</li><li>Printouts may be copied for use with your own students.</li></ul>
         <p class="small muted">This website is not affiliated with or endorsed by the IB.</p></section>
-      <section class="panel"><h3>Privacy</h3><p>Nothing you do leaves your browser. Progress, recall schedules and settings are stored on this device only; use Stats → Backup to move them to another device.</p></section>
+      <section class="panel" id="reportInfo"><h3>Found a Mistake? Tell Us</h3><p>Every question, flashcard, note and the Data Booklet has a <b>🚩 Report a Problem</b> box, and <b>💬 Send Feedback</b> in the footer is for anything else. Type what looks wrong and press <b>Send Report</b>: it opens your teacher’s Google Form already filled in, so you only need to press Submit.</p></section>
+      <section class="panel"><h3>Privacy</h3><p>Nothing you do leaves your browser. Progress, recall schedules and settings are stored on this device only; use Stats → Backup to move them to another device.</p><p>Send Report and Send Feedback open your teacher’s Google Form in a new tab. Nothing is sent unless you press Submit there, and the form records your school email when you do.</p></section>
       <section class="panel" id="creditsInfo"><h3>Credits</h3>${window.__OFFLINE ? '<p>Offline copy: the fonts are inside this file, so it works without the internet. Its progress is stored separately from the website.</p>' : ''}<p class="muted small">Fonts: Archivo, IBM Plex Sans, IBM Plex Mono and Press Start 2P (SIL Open Font License 1.1).</p></section>
       <section class="panel"><h3>Revision History</h3>${historyHTML()}
         <p class="muted small">Version ${VERSION} · Built ${BUILT}.</p></section>`;
@@ -5170,14 +5564,35 @@ const GAMES = (() => {
     b.innerHTML = dark ? SUN : MOON; b.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode'); b.dataset.tip = dark ? 'Light mode' : 'Dark mode';
   }
   function applyYear() { document.documentElement.dataset.year = String(Y()); $$('#yearSeg [data-year]').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.year === Y()))); }
+  /* element details on hover, focus or tap: only what a printed table shows (no electron arrangement or ion charge) */
+  function elTip(cell) {
+    const Z = +cell.dataset.el, y9 = cell.dataset.pt === '9', e = y9 ? ELEMENTS20.find(x => x.Z === Z) : ELEMENTS.find(x => x.Z === Z); if (!e) return;
+    const host = cell.closest('dialog') || document.body;
+    let tip = $('.pt-tip', host); if (!tip) { tip = document.createElement('div'); tip.className = 'pt-tip'; tip.setAttribute('role', 'status'); host.appendChild(tip); }
+    const grp = e.grp ? String(e.grp) : e.per === 6 ? 'Lanthanides (f-block)' : 'Actinides (f-block)';
+    const type = y9 ? e.type : TYPE_LABEL[e.type];
+    tip.innerHTML = `<div class="pt-tip-h"><b class="pt-tip-sym">${e.sym}</b><span>${e.name[0].toUpperCase() + e.name.slice(1)}</span></div>
+      <dl><dt>Atomic number</dt><dd>${e.Z}</dd><dt>${y9 ? 'Atomic mass' : 'Relative atomic mass'}</dt><dd>${y9 ? e.A : e.Atext}${!y9 && e.est ? ' <span class="muted small">(mass number of the longest-lived isotope)</span>' : ''}</dd><dt>Group</dt><dd>${grp}</dd><dt>Period</dt><dd>${e.per}</dd><dt>Type</dt><dd>${type[0].toUpperCase() + type.slice(1)}</dd></dl>`;
+    const r = cell.getBoundingClientRect(); tip.style.visibility = 'hidden'; tip.classList.add('on');
+    const w = tip.offsetWidth, h = tip.offsetHeight, vw = document.documentElement.clientWidth;
+    let x = Math.min(Math.max(8, r.left + r.width / 2 - w / 2), vw - w - 8), yy = r.top - h - 8; if (yy < 8) yy = r.bottom + 8;
+    tip.style.left = x + 'px'; tip.style.top = yy + 'px'; tip.style.visibility = '';
+    $$('.pt-cell.pt-sel').forEach(c => c.classList.remove('pt-sel')); cell.classList.add('pt-sel');
+  }
+  function elTipHide() { $$('.pt-tip.on').forEach(t => t.classList.remove('on')); $$('.pt-cell.pt-sel').forEach(c => c.classList.remove('pt-sel')); }
+  document.addEventListener('mouseover', (e) => { const c = e.target.closest('.pt-cell[data-el]'); if (c) elTip(c); else if (!e.target.closest('.pt-tip')) { const f = document.activeElement; if (!(f && f.matches && f.matches('.pt-cell[data-el]'))) elTipHide(); } });
+  document.addEventListener('focusin', (e) => { const c = e.target.closest && e.target.closest('.pt-cell[data-el]'); if (c) elTip(c); else elTipHide(); });
+  document.addEventListener('click', (e) => { const c = e.target.closest('.pt-cell[data-el]'); if (c) elTip(c); });
+  document.addEventListener('scroll', elTipHide, true);
+  document.addEventListener('close', elTipHide, true);
   function openBooklet() {
-    const d = $('#termsDlg'); $('#termsTitle').textContent = `Data Booklet · Year ${Y()}`; $('#termsBody').innerHTML = `<div class="booklet">${BOOKLET[Y()]()}</div>`;
+    const d = $('#termsDlg'); d.classList.toggle('wide', Y() !== 9); $('#termsTitle').textContent = `Data Booklet · Year ${Y()}`; $('#termsBody').innerHTML = `<div class="booklet">${BOOKLET[Y()]()}</div>${reportBox({ type: 'Problem', id: `booklet-y${Y()}`, title: 'Data Booklet', yu: `Year ${Y()}`, where: 'Data Booklet' })}`;
     if (d.showModal) d.showModal(); else d.setAttribute('open', '');
   }
   document.addEventListener('click', (e) => { if (e.target.closest('[data-terms]')) setTimeout(() => { const t = $('#termsInfo'); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 80); });
   document.addEventListener('click', (e) => { if (e.target.closest('[data-booklet]')) { e.preventDefault(); openBooklet(); } });
   function openTerms() {
-    const d = $('#termsDlg'); $('#termsTitle').textContent = 'Command Terms'; $('#termsBody').innerHTML = `<p class="small">The command terms used on your Criterion A tests and exams.</p><table class="cmdtbl"><tbody>${COMMAND_TERMS.map(([t, x]) => `<tr><th>${t}</th><td>${x}</td></tr>`).join('')}</tbody></table>`;
+    const d = $('#termsDlg'); d.classList.remove('wide'); $('#termsTitle').textContent = 'Command Terms'; $('#termsBody').innerHTML = `<p class="small">The command terms used on your Criterion A tests and exams.</p><table class="cmdtbl"><tbody>${COMMAND_TERMS.map(([t, x]) => `<tr><th>${t}</th><td>${x}</td></tr>`).join('')}</tbody></table>`;
     if (d.showModal) d.showModal(); else d.setAttribute('open', '');
   }
   function init() {
