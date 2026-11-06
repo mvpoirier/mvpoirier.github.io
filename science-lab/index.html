@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--
   MYPoirier Science Lab: MYP Science Criterion A revision (Years 9-11, MYP 3-5)
-  Version: 0.3 · Built: 05 November 2026
+  Version: 0.4 · Built: 06 November 2026
   Author: Mike Poirier (https://github.com/mvpoirier), developed with Claude by Anthropic
   Licence: CC BY-NC-SA 4.0, https://creativecommons.org/licenses/by-nc-sa/4.0/
   Site: https://mvpoirier.github.io/science-lab/
@@ -1073,11 +1073,48 @@ dialog.terms-dlg #termsBody { max-height: 70vh; overflow: auto; }
 .go-gave { color: #ffcaca; }
 :root.lms #yearSeg button[aria-pressed="true"] { background: #d4141b; color: #fff; }
 
+/* nuclear notation: mass number over atomic number, left of the symbol */
+.nuclide { display: inline-flex; align-items: center; gap: 2px; font-weight: 700; }
+.nuclide .nz { display: inline-flex; flex-direction: column; align-items: flex-end; font-size: .55em; line-height: 1.05; }
+.opt .nuclide, .options .nuclide { font-size: 1.25rem; }
+
+/* ---------- Test mode (0.4) ---------- */
+.ts-palette { align-items: center; }
+.ts-palette .ts-sec { margin: 0 2px 0 8px; font-size: 11px; }
+.ts-palette .ts-sec:first-child { margin-left: 0; }
+.ts-sechead { margin: 4px 0 -4px; font-family: var(--f-display); font-weight: 700; font-size: 15px; color: var(--muted); }
+.ts-qno { font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 6px; letter-spacing: .02em; }
+.ts-desc p { margin: 6px 0; }
+.ts-item { break-inside: avoid-page; }
+.warn { color: var(--warn, #9a5b00); }
+@media print {
+  .top, .rail, .site-foot, .tabs, .no-print, .booklet-fab, #toast, .toast, .pt-open, .lms-sound { display: none !important; }
+  .shell { display: block !important; padding: 0 !important; }
+  body { background: #fff !important; }
+  .sheet, .panel, .tile { box-shadow: none !important; border-color: #bbb !important; background: #fff !important; }
+  .ts-item { page-break-inside: avoid; margin-bottom: 10px; }
+  .tiles { display: flex !important; flex-wrap: wrap; gap: 8px; }
+  .ms .mp input { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+/* a markscheme straight inside the sheet (single written question) spans the one column */
+.sheet > .ms { grid-column: 1 / -1; }
+
+/* Y11 Chemistry: structural formulas */
+.mol-row { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: flex-end; margin: 6px 0; }
+.mol { margin: 0; display: grid; justify-items: center; gap: 4px; max-width: 100%; }
+.mol svg { max-width: 100%; height: auto; }
+.mol figcaption { font-size: 13px; color: var(--muted); }
+.tx.b { font-weight: 700; }
+.eqn { font-size: 1.05rem; letter-spacing: .01em; }
+.mol svg .ln { stroke: var(--ink); stroke-width: 1.8; fill: none; }
+.mol svg .tx { fill: var(--ink); font: 15px var(--f-body); }
+.mol svg .tx.b { font-weight: 700; }
+
 </style>
 </head>
 <body>
 <header class="top"><div class="top-inner">
-  <div class="brand"><h1><b class="mvp">MYP</b>oirier Science Lab <span class="trophy" aria-hidden="true">⚛️</span><span class="beta-tag" title="Alpha build for testing: version 0.3">ALPHA 0.3</span></h1></div>
+  <div class="brand"><h1><b class="mvp">MYP</b>oirier Science Lab <span class="trophy" aria-hidden="true">⚛️</span><span class="beta-tag" title="Alpha build for testing: version 0.4">ALPHA 0.4</span></h1></div>
   <nav class="tabs" id="tabs" aria-label="Modes"></nav>
   <div class="hbar">
     <div class="course-seg year-seg" id="yearSeg" role="group" aria-label="Year"></div>
@@ -1093,7 +1130,7 @@ dialog.terms-dlg #termsBody { max-height: 70vh; overflow: auto; }
 </div>
 <footer class="site-foot"><div class="foot-wrap">
   <div class="foot-inner">
-    <div class="foot-brand"><div class="foot-name"><b class="mvp">MYP</b>oirier Science Lab <span class="trophy" aria-hidden="true">⚛️</span><span class="beta-tag">ALPHA 0.3</span></div></div>
+    <div class="foot-brand"><div class="foot-name"><b class="mvp">MYP</b>oirier Science Lab <span class="trophy" aria-hidden="true">⚛️</span><span class="beta-tag">ALPHA 0.4</span></div></div>
     <nav class="foot-links" aria-label="Site">
       <a href="#about">About</a>
       <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener license">CC BY-NC-SA 4.0</a>
@@ -1101,7 +1138,7 @@ dialog.terms-dlg #termsBody { max-height: 70vh; overflow: auto; }
   </div>
   <div class="foot-meta">
     <span>Developed by <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a> using Claude</span>
-    <span class="foot-ver">Version 0.3 · Updated 05 November 2026</span>
+    <span class="foot-ver">Version 0.4 · Updated 06 November 2026</span>
   </div>
 </div></footer>
 <dialog id="termsDlg" class="terms-dlg" aria-labelledby="termsTitle"><div class="panel" style="margin:0;border:0"><div class="row"><h3 id="termsTitle" style="margin:0">Command Terms</h3><span class="spacer"></span><button class="btn sm" id="termsClose">Close</button></div><div id="termsBody"></div></div></dialog>
@@ -1162,7 +1199,7 @@ const UNIT_LIST = [
     soi: 'The coordinated functions of organs interact as systems that contribute to the health and well-being of an organism.' },
   { id: 'y11-phy', y: 11, n: 2, subject: 'Physics', em: '🚗', title: 'Forces & Motion', live: true,
     soi: 'Change in movement due to interaction between forces has consequences that may be moderated by scientific and technical innovation.' },
-  { id: 'y11-che', y: 11, n: 3, subject: 'Chemistry', em: '🔥', title: 'Combustible Fuels', live: false,
+  { id: 'y11-che', y: 11, n: 3, subject: 'Chemistry', em: '🔥', title: 'Combustible Fuels', live: true,
     soi: 'Chemical change resulting from the transformation of fuels leads to predictable consequences.' },
   { id: 'y11-bio', y: 11, n: 4, subject: 'Biology', em: '🧪', title: 'Digestion & Metabolism', live: false,
     soi: 'Evidence of change derived from molecular interactions within the body provides guidance for decisions in human health.' }
@@ -1239,6 +1276,8 @@ const H = {
     return [...new Set(rows.map(r => r[0]))].map(sub => ({ id: `${prefix}-${sub}`, s, b, sub, topic, gen: (R) => { const f = R.pick(rows.filter(r => r[0] === sub)); return { type: 'mcq', stem: `<p>${f[1]}</p>`, choices: f.slice(2, 6), ans: 0, why: f[6] ? `<p>${f[6]}</p>` : '' }; } }));
   },
   // self-marked extended answer
+  // sample n sort items so that every bin gets at least one item
+  sampleBins(R, all, n) { const bins = [...new Set(all.map(it => it[1]))]; const first = bins.map(b => R.pick(all.filter(it => it[1] === b))); const rest = R.sample(all.filter(it => !first.includes(it)), Math.max(0, n - first.length)); return R.shuffle([...first, ...rest]); },
   self(stem, model, check, extra = {}) { return { type: 'self', stem, model, check, ...extra }; }
 };
 
@@ -1441,11 +1480,11 @@ const SVG = (() => {
     } },
     { id: 'i4-bv', sub: 'bv', s: 'i', b: 4, topic: 'Bacteria vs viruses', gen: (R) => {
       const all = [['Living, single-celled', 0], ['Has a cell wall', 0], ['Larger (about 1000 nm)', 0], ['Divides into two (binary fission)', 0], ['Antibiotics are effective', 0], ['Multiplies only inside living cells', 1], ['Protein coat around genetic material', 1], ['Smaller (20–400 nm)', 1], ['Antibiotics are not effective', 1], ['Bursts out of host cells to infect neighbours', 1], ['Can cause disease', 2], ['No nucleus', 2]];
-      return { type: 'sort', stem: '<p>State whether each feature belongs to bacteria, viruses or both.</p>', bins: ['Bacteria', 'Virus', 'Both'], items: R.sample(all, 7), why: '<p>Both can cause disease and neither has a nucleus. Only bacteria are living cells that antibiotics can kill.</p>' };
+      return { type: 'sort', stem: '<p>State whether each feature belongs to bacteria, viruses or both.</p>', bins: ['Bacteria', 'Virus', 'Both'], items: H.sampleBins(R, all, 7), why: '<p>Both can cause disease and neither has a nucleus. Only bacteria are living cells that antibiotics can kill.</p>' };
     } },
     { id: 'i4-lines', sub: 'defence', s: 'i', b: 4, topic: 'Lines of defence', gen: (R) => {
       const all = [['Skin', 0], ['Stomach acid', 0], ['Mucus traps pathogens', 0], ['Tears', 0], ['Phagocytosis by macrophages', 1], ['Inflammation (heat, redness, swelling)', 1], ['Mast cells release histamine', 1], ['Plasma cells make antibodies', 2], ['Memory cells are made', 2], ['Antibodies bind to specific antigens', 2]];
-      return { type: 'sort', stem: '<p>State which line of defence each belongs to.</p>', bins: ['1st', '2nd', '3rd'], items: R.sample(all, 7), why: '<p>1st = barriers; 2nd = non-specific responses inside the body; 3rd = specific antibody response with memory.</p>' };
+      return { type: 'sort', stem: '<p>State which line of defence each belongs to.</p>', bins: ['1st', '2nd', '3rd'], items: H.sampleBins(R, all, 7), why: '<p>1st = barriers; 2nd = non-specific responses inside the body; 3rd = specific antibody response with memory.</p>' };
     } },
     { id: 'i4-types', sub: 'path', s: 'i', b: 4, topic: 'Pathogens', gen: (R) => {
       const d = R.pick([['Strep throat', 'Bacteria'], ['Tuberculosis', 'Bacteria'], ['Food poisoning (Salmonella)', 'Bacteria'], ['Influenza (flu)', 'Virus'], ['COVID-19', 'Virus'], ['Common cold', 'Virus'], ['Measles', 'Virus'], ["Athlete's foot", 'Fungi'], ['Ringworm', 'Fungi'], ['Malaria', 'Protist']]);
@@ -1644,6 +1683,73 @@ const SVG = (() => {
     } }
   ];
 
+  /* ===== added in 0.4: test-bank check (food hygiene, temperature and growth, memory cells, history of vaccines and antibiotics) ===== */
+  // petri dish with a mould and a clear zone where bacteria do not grow (not to scale)
+  function petri(R, mould) {
+    const cx = 150, cy = 120, r = 100; let g = circle(cx, cy, r, 'bx') + circle(cx, cy, r - 6, 'soft');
+    const mx = cx + (mould ? R.int(-25, 25) : 0), my = cy + (mould ? R.int(-20, 20) : 0), zone = mould ? R.int(34, 50) : 0;
+    for (let i = 0; i < 260; i++) { const a = R.f() * Math.PI * 2, d = Math.sqrt(R.f()) * (r - 12), x = cx + d * Math.cos(a), y = cy + d * Math.sin(a); if (mould && Math.hypot(x - mx, y - my) < zone) continue; g += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="2.6" class="el"/>`; }
+    if (mould) g += `<circle cx="${mx}" cy="${my}" r="${zone}" style="fill:none;stroke:var(--muted);stroke-dasharray:4 4"/><circle cx="${mx}" cy="${my}" r="14" style="fill:#5a9a3a;stroke:#2f6b1e;stroke-width:2"/>` + text(mx, my - 20, 'mould', 'tx sm');
+    return svg(300, 240, g, 'Petri dish');
+  }
+  qs.push(
+    { id: 'path-i4-define', sub: 'path', s: 'i', b: 4, topic: 'Key terms', gen: (R) => {
+      const T = R.sample([['Pathogen', 'An infectious agent (such as a bacterium or virus) that causes disease in its host.'], ['Transmission', 'The spread of a pathogen from one host to another.'], ['Infection', 'When a pathogen enters the body and multiplies.'], ['Immunity', 'The ability of the body to resist a particular pathogen, usually because memory cells and antibodies can respond quickly.'], ['Symptom', 'A sign of disease that the person notices, such as a fever, cough or pain.'], ['Vector', 'An organism, such as a mosquito, that carries a pathogen from one host to another.']], 2);
+      return H.self(`<p>State the meaning of the two terms below.</p><ol><li><b>${T[0][0]}</b></li><li><b>${T[1][0]}</b></li></ol>`, T.map((t, i) => `${i + 1}. ${t[0]}: ${t[1]}`).join('\n'), [`${T[0][0]}: the key idea is stated correctly`, `${T[1][0]}: the key idea is stated correctly`], { why: '<p>State at 3–4 (Year 9): a short, accurate definition. Use the key words from the model answer.</p>' });
+    } },
+    { id: 'path-ii4-role', sub: 'trans', s: 'ii', b: 4, topic: 'Transmission', gen: (R) => {
+      const sc = R.pick([
+        ['Rats on ships carried fleas, and the fleas carried the bacteria that cause plague.', 'the flea', 'Vector'],
+        ['A slug eats plants infected with a virus and then carries the virus to healthy plants.', 'the slug', 'Vector'],
+        ['A tapeworm lives in a person\'s gut and takes nutrients from their food.', 'the tapeworm', 'Parasite'],
+        ['A student touches a door handle covered in cold viruses and then rubs her eyes.', 'the cold virus', 'Infectious agent (pathogen)'],
+        ['A tick bites a deer, then bites a hiker and passes on bacteria that cause Lyme disease.', 'the tick', 'Vector'],
+        ['White blood cells recognise a protein on the surface of a bacterium.', 'the protein on the bacterium', 'Antigen']]);
+      return { type: 'mcq', fixed: true, stem: `<p>${sc[0]}</p><p>Which term best describes <b>${sc[1]}</b> in this situation?</p>`, choices: ['Vector', 'Parasite', 'Infectious agent (pathogen)', 'Antigen'], ans: ['Vector', 'Parasite', 'Infectious agent (pathogen)', 'Antigen'].indexOf(sc[2]), why: '<p>A vector carries a pathogen between hosts. A parasite lives on or in a host and harms it. The infectious agent is the pathogen itself. An antigen is a molecule on a pathogen that the immune system recognises.</p>' };
+    } },
+    { id: 'bv-i6-alive', sub: 'bv', s: 'i', b: 6, topic: 'Bacteria vs viruses', gen: () => H.self('<p>Outline why the question "Are viruses alive?" causes debate among scientists.</p>',
+      'Viruses have some features of living things: they contain genetic material (DNA or RNA) and they can reproduce and evolve. But they are not cells, they have no cytoplasm or nucleus, they do not respire, feed or grow, and they cannot reproduce on their own: they can only multiply inside a living host cell. Bacteria are living cells that can do all of these things. Because viruses only show some features of life, scientists disagree about whether to call them alive.',
+      ['A feature that makes viruses seem alive (genetic material / reproduce / evolve)', 'A feature that makes them seem not alive (not cells / no respiration, feeding or growth)', 'They can only multiply inside a living host cell', 'Clear conclusion: they show only some features of life, so it is debated']) },
+    { id: 'treat-ii6-food', sub: 'treat', s: 'ii', b: 6, topic: 'Prevention', gen: (R) => {
+      const who = R.pick(['Roman', 'Mali', 'Ben', 'Aisha']), food = R.pick(['chicken sandwiches', 'a rice and egg salad', 'a chicken curry']);
+      return { type: 'parts', stem: `<p>${who} is making ${food} for a class picnic. Food poisoning bacteria may be on the raw ingredients and on ${who}'s hands.</p>`, parts: [
+        { type: 'sort', stem: 'Sort each strategy: does it help <b>before/while preparing</b> the food, or <b>after preparing</b> it?', bins: ['Before or while preparing', 'After preparing'], items: R.sample([['Wash hands with soap and water', 0], ['Use separate boards for raw meat and salad', 0], ['Clean surfaces and cookware with hot soapy water', 0], ['Cook meat all the way through', 0], ['Keep the food in a fridge or cool box', 1], ['Eat the food within a few hours', 1], ['Cover the food to keep flies off', 1], ['Reheat leftovers until piping hot', 1]], 6), why: '<p>Before and while preparing: stop bacteria getting onto the food. After preparing: stop bacteria that are already there from reproducing (cold slows bacteria down) and stop more arriving (flies are vectors).</p>' },
+        { type: 'self', stem: `Explain why keeping the ${food} in a cool box reduces the chance of food poisoning.`, model: 'Bacteria reproduce by dividing in two, and they divide fastest at warm temperatures (around body temperature). In a cool box the temperature is low, so the bacteria divide much more slowly. Fewer bacteria are on the food when it is eaten, so there are too few to cause illness.', check: ['Bacteria reproduce by dividing', 'Low temperature slows their reproduction / growth', 'So fewer bacteria are present when the food is eaten'] }
+      ] };
+    } },
+    { id: 'treat-ii6-jenner', sub: 'treat', s: 'ii', b: 6, topic: 'Vaccines', gen: () => H.self('<p>In 1796 Edward Jenner scratched pus from a cowpox blister into the arm of a boy called James. James had a mild illness and recovered. Six weeks later Jenner scratched the deadly smallpox virus into James\'s arm. James did not get smallpox.</p><p>Suggest why James did not get smallpox. Use your knowledge of the immune system.</p>',
+      'The cowpox virus is very similar to the smallpox virus, so it has similar antigens on its surface. When James was infected with cowpox, his white blood cells (plasma cells / B cells) made antibodies against these antigens, and memory cells were made. When smallpox entered his body, the memory cells recognised the similar antigens straight away and quickly produced large numbers of antibodies, so the smallpox virus was destroyed before it could make him ill. This was the first vaccination.',
+      ['Cowpox and smallpox have similar antigens', 'The first infection led to antibodies being made', 'Memory cells were made after the cowpox infection', 'Memory cells responded quickly to smallpox, with many antibodies', 'Smallpox destroyed before it caused illness (this is how vaccines work)'],
+      { why: '<p>5–6 (unfamiliar situation): apply what you know about antigens and memory cells to a historical case.</p>' }) },
+    { id: 'treat-ii8-ebola', sub: 'treat', s: 'ii', b: 8, topic: 'Vaccines', gen: () => H.self('<p>Ebola is a deadly virus. Scientists made a vaccine by putting the gene for one Ebola protein into a harmless virus called VSV. The harmless virus then carries the Ebola protein (an Ebola antigen) on its surface.</p><p>Explain how this vaccine could protect a person from Ebola and help limit the spread of the disease in a community.</p>',
+      'The vaccine contains a harmless virus with the Ebola antigen on its surface, so it cannot cause Ebola. The immune system recognises the Ebola antigen as foreign. Plasma cells (B cells) make antibodies that fit this antigen, and memory cells are made. If the vaccinated person is later infected with real Ebola, the memory cells recognise the same antigen and quickly make many antibodies, so the virus is destroyed before the person becomes ill. Because vaccinated people do not become ill, they do not pass Ebola on. If enough people are vaccinated, the chain of transmission is broken (herd immunity), which protects people who are not immune.',
+      ['The harmless virus carries the Ebola antigen but cannot cause Ebola', 'Antibodies are made against the Ebola antigen', 'Memory cells are made', 'On real infection, memory cells give a fast, large antibody response', 'Vaccinated people do not spread it; herd immunity limits the spread'],
+      { why: '<p>7–8: apply your knowledge to an unfamiliar vaccine design and follow it through to the whole community.</p>' }) },
+    { id: 'bv-iii6-temp', sub: 'bv', s: 'iii', b: 6, topic: 'Bacterial growth', gen: (R) => {
+      const temps = [5, 15, 25, 37, 45, 60], opt = 37, peak = R.int(140, 220);
+      const n = temps.map(t => t >= 60 ? R.int(0, 2) : Math.max(0, Math.round(peak * Math.exp(-1 * ((t - opt) / (t < opt ? 17 : 9)) ** 2) + R.int(-6, 6))));
+      const best = temps[n.indexOf(Math.max(...n))];
+      return { type: 'parts', stem: `<p>A student spread the same bacteria onto six agar plates and kept each plate at a different temperature for 2 days. She counted the colonies.</p>${H.table(['Temperature / °C', ...temps], [['Number of colonies', ...n]])}`, parts: [
+        { type: 'num', stem: 'State the temperature at which the bacteria grew best.', ans: best, unit: '°C', tolAbs: 0.5 },
+        { type: 'mcq', stem: 'Which statement best describes the pattern?', choices: ['The number of colonies rises as temperature increases up to about body temperature, then falls sharply; almost none grow at 60 °C', 'The number of colonies keeps rising as temperature increases', 'Temperature has no effect on the number of colonies', 'Most colonies grow in the cold'], ans: 0 },
+        { type: 'self', stem: 'Use the data to suggest one way to keep food safe, and explain your reasoning.', model: `Store food in a fridge (below about 5 °C): at ${temps[0]} °C only ${n[0]} colonies grew, compared with ${Math.max(...n)} at ${best} °C, because bacteria reproduce slowly in the cold. Or cook food thoroughly: at 60 °C almost no colonies grew (${n[5]}), because high temperatures kill bacteria.`, check: ['Suggests a sensible food-safety method (fridge or thorough cooking)', 'Uses numbers from the table as evidence', 'Gives a scientific reason (cold slows reproduction / heat kills bacteria)'] }
+      ] };
+    } },
+    { id: 'treat-iii6-fleming', sub: 'treat', s: 'iii', b: 6, topic: 'Antibiotics', gen: (R) => ({ type: 'parts', stem: '<p>In 1928 Alexander Fleming noticed that a mould had grown on a dish of <i>Staphylococcus</i> bacteria. The diagram shows the dish (each dot is a bacterial colony).</p>', fig: petri(R, true), parts: [
+      { type: 'mcq', stem: 'What does the clear area around the mould show?', choices: ['The mould makes a substance that kills bacteria or stops them growing', 'The bacteria are feeding on the mould', 'The mould is a virus', 'Bacteria cannot grow near the edge of a dish'], ans: 0, why: '<p>The substance spread out from the mould. This was penicillin, the first antibiotic.</p>' },
+      { type: 'mcq', stem: 'Fleming wanted to test whether the mould really caused the clear area. Which variable should he change?', choices: ['Whether the mould (or its juice) is added to the dish', 'The type of bacteria and the temperature at the same time', 'The size of the dish only', 'Nothing: one dish is enough evidence'], ans: 0, why: '<p>Change one variable (the mould or its juice) and keep the others, such as bacteria, temperature and agar, the same. Use a control dish without mould.</p>' },
+      { type: 'self', stem: 'Judge whether this one dish is enough evidence that the mould kills bacteria.', model: 'It is good first evidence: there is a clear zone around the mould and bacteria grow everywhere else. But it is only one dish and it was an accident, so the conditions were not controlled. Something else could have caused the clear zone. To be sure, repeat it with several dishes, with control dishes without mould, keeping the type of bacteria, temperature and agar the same.', check: ['Uses the evidence: clear zone only around the mould', 'Limitation: one dish / accidental / uncontrolled', 'Suggests repeats and a control without mould', 'Makes a clear judgment'] }
+    ] }) },
+    { id: 'defence-iii8-memory', sub: 'defence', s: 'iii', b: 8, topic: 'Vaccines', gen: (R) => {
+      const dose2 = R.pick([30, 40, 60]), pts = [], peak1 = R.int(18, 26), peak2 = R.int(70, 95);
+      for (let d = 0; d <= dose2 + 40; d += 5) { let v = 1; if (d >= 7) v = 1 + peak1 * Math.exp(-1 * ((d - 14) / 10) ** 2) + Math.min(6, (d - 7) * 0.4); if (d >= dose2 + 4) v = Math.max(v, 8 + peak2 * Math.exp(-1 * ((d - dose2 - 10) / 14) ** 2) + 12); pts.push([d, Math.round(v)]); }
+      return H.self(`<p>A person had a vaccine on day 0 and a booster dose on day ${dose2}. The graph shows the number of memory cells and antibodies in their blood (arbitrary units).</p>`,
+        `After the first dose there is a small, slow response: memory cells and antibodies rise from about 1 to about ${pts.slice(0, Math.floor(dose2 / 5)).reduce((m, p) => Math.max(m, p[1]), 0)} units, peaking around day 14. After the booster on day ${dose2} the response is much faster and much larger, reaching about ${Math.max(...pts.map(p => p[1]))} units within about 10 days, and it stays high. This is because the first dose made memory cells that recognise the antigen, so the booster triggers a secondary response. If the person is later infected by the real pathogen, the large number of memory cells can quickly make many antibodies and destroy it before they become ill. So the booster gives stronger, longer-lasting protection.`,
+        ['Describes the first (primary) response with data from the graph', 'Describes the booster (secondary) response: faster and larger, with data', 'Memory cells from the first dose explain the bigger second response', 'Links to fighting a real infection quickly (antibodies destroy the pathogen)', 'Uses data consistently to support every claim'],
+        { fig: graph({ xmin: 0, xmax: dose2 + 40, xstep: 10, ymin: 0, ymax: 120, ystep: 20, xlabel: 'Time / days', ylabel: 'Memory cells and antibodies (a.u.)', series: [{ pts }], marks: [[0, 4, 'V'], [dose2, 4, 'B']] }), why: '<p>V = vaccine, B = booster. Analyse at 7–8 (Year 9): compare the two responses with numbers, then explain them.</p>' });
+    } }
+  );
+
   CONTENT['y9-bio'] = {
     flow: ['Pathogens', 'Bacteria vs viruses', 'Transmission and vectors', 'Lines of defence (1st, 2nd, 3rd)', 'Treatment and prevention: antibiotics, vaccines and immunity'],
     subs, notes, cards, qs
@@ -1731,12 +1837,12 @@ const SVG = (() => {
       ['eqn', 'What is the name of NaCl?', 'Sodium chloride', 'Sodium chlorine', 'Nitrogen chloride', 'Sodium carbide', '']
     ]),
     { id: 'i4-metal', sub: 'pt', s: 'i', b: 4, topic: 'The Periodic Table', gen: (R) => {
-      const pool = R.sample(EL.filter(e => e.type !== 'metalloid'), 6);
+      const pool = H.sampleBins(R, EL.filter(e => e.type !== 'metalloid').map(e => [e, e.type === 'metal' ? 0 : 1]), 6).map(x => x[0]);
       return { type: 'sort', stem: '<p>State whether each element is a metal or a non-metal.</p>', bins: ['Metal', 'Non-metal'], items: pool.map(e => [`${e.name} (${e.sym})`, e.type === 'metal' ? 0 : 1]), why: '<p>Metals are on the left of the Periodic Table; non-metals are on the right (hydrogen is a non-metal).</p>' };
     } },
     { id: 'i4-ecm', sub: 'elem', s: 'i', b: 4, topic: 'Elements and compounds', gen: (R) => {
       const all = [['O₂', 0], ['N₂', 0], ['He', 0], ['Fe', 0], ['Cl₂', 0], ['H₂O', 1], ['CO₂', 1], ['NaCl', 1], ['CH₄', 1], ['MgO', 1], ['NH₃', 1]];
-      return { type: 'sort', stem: '<p>State whether each substance is an element or a compound.</p>', bins: ['Element', 'Compound'], items: R.sample(all, 6), why: '<p>An element contains only one type of atom (even if they are bonded as molecules, like O₂). A compound contains different elements bonded together.</p>' };
+      return { type: 'sort', stem: '<p>State whether each substance is an element or a compound.</p>', bins: ['Element', 'Compound'], items: H.sampleBins(R, all, 6), why: '<p>An element contains only one type of atom (even if they are bonded as molecules, like O₂). A compound contains different elements bonded together.</p>' };
     } },
     { id: 'i6-history', sub: 'atoms', s: 'i', b: 6, topic: 'Atoms', gen: () => ({ type: 'order', stem: '<p>Outline how the model of the atom developed. Put the models in order, oldest first.</p>', items: ['Dalton: atoms are solid spheres that cannot be divided', 'Thomson: electrons in a ball of positive charge ("chocolate chip cookie")', 'Rutherford: a tiny dense positive nucleus with electrons around it', 'Bohr: electrons in fixed energy levels around the nucleus'], why: '<p>Each model changed when an experiment disagreed with the old theory.</p>' }) },
     { id: 'i6-bonds', sub: 'bond', s: 'i', b: 6, topic: 'Bonding', gen: (R) => {
@@ -1873,8 +1979,8 @@ const SVG = (() => {
       ] };
     } },
     { id: 'iii6-bondtype', sub: 'bond', s: 'iii', b: 6, topic: 'Bonding evidence', gen: (R) => {
-      const pairs = R.sample([['Na', 'Cl'], ['Mg', 'O'], ['C', 'O'], ['H', 'Cl'], ['K', 'F'], ['N', 'H'], ['Ca', 'S'], ['S', 'O']], 4);
       const t = (a, b) => (bySym(a).type === 'metal') !== (bySym(b).type === 'metal') ? 0 : 1;
+      const pairs = H.sampleBins(R, [['Na', 'Cl'], ['Mg', 'O'], ['C', 'O'], ['H', 'Cl'], ['K', 'F'], ['N', 'H'], ['Ca', 'S'], ['S', 'O']].map(([a, b]) => [[a, b], t(a, b)]), 4).map(x => x[0]);
       return { type: 'sort', stem: '<p>Use the Periodic Table to judge whether each pair of elements would form ionic or covalent bonds.</p>', bins: ['Ionic', 'Covalent'], items: pairs.map(([a, b]) => [`${bySym(a).name} + ${bySym(b).name}`, t(a, b)]), why: '<p>Metal + non-metal → ionic (electrons transferred). Non-metal + non-metal → covalent (electrons shared).</p>' };
     } },
     { id: 'iii8-claim', sub: 'pt', s: 'iii', b: 8, topic: 'Evaluating claims', gen: () => H.self(`<p>A student claims: <b>"All group 1 metals react in the same way with water, because they all have one valence electron."</b></p>${H.table(['Metal', 'Time for a 0.1 g piece to react completely / s'], [['Lithium', 62], ['Sodium', 14], ['Potassium', 3]])}<p>Analyse the data to judge the claim.</p>`,
@@ -1953,6 +2059,83 @@ const SVG = (() => {
       ] };
     } }
   ];
+
+  /* ===== added in 0.4: test-bank check (nuclear notation, particle tables, Bohr errors, covalent names, equations, trends) ===== */
+  const cap1 = (t) => t[0].toUpperCase() + t.slice(1);
+  const nuclide = (A, Z, sym, q = 0) => `<span class="nuclide"><span class="nz"><span>${A}</span><span>${Z}</span></span>${sym}${q ? `<sup>${ionStr(q)}</sup>` : ''}</span>`;
+  // a Bohr diagram drawn from an explicit list of electrons per shell (so it can contain mistakes)
+  function bohrShells(shells, Z, N) {
+    const { svg, circle, text } = SVG, n = shells.length, R0 = 30, step = 26, S = 2 * (R0 + step * n) + 30, c = S / 2;
+    let g = circle(c, c, R0 - 6, 'nuc') + text(c, c - 2, `${Z}p`, 'tx sm') + text(c, c + 12, `${N}n`, 'tx sm');
+    shells.forEach((k, i) => { const r = R0 + step * (i + 0.5); g += circle(c, c, r, 'shell'); for (let j = 0; j < k; j++) { const a = -Math.PI / 2 + j * 2 * Math.PI / k; g += circle(c + r * Math.cos(a), c + r * Math.sin(a), 4.2, 'el'); } });
+    return svg(S, S, g, 'Bohr diagram');
+  }
+  const COVALENT = [['CO<sub>2</sub>', 'CO2', 'carbon dioxide'], ['CO', 'CO', 'carbon monoxide'], ['SO<sub>2</sub>', 'SO2', 'sulfur dioxide'], ['SO<sub>3</sub>', 'SO3', 'sulfur trioxide'], ['NO<sub>2</sub>', 'NO2', 'nitrogen dioxide'], ['NO', 'NO', 'nitrogen monoxide'], ['N<sub>2</sub>O', 'N2O', 'dinitrogen monoxide'], ['CCl<sub>4</sub>', 'CCl4', 'carbon tetrachloride'], ['PCl<sub>3</sub>', 'PCl3', 'phosphorus trichloride'], ['SiO<sub>2</sub>', 'SiO2', 'silicon dioxide'], ['CS<sub>2</sub>', 'CS2', 'carbon disulfide'], ['N<sub>2</sub>O<sub>4</sub>', 'N2O4', 'dinitrogen tetroxide'], ['P<sub>2</sub>O<sub>5</sub>', 'P2O5', 'diphosphorus pentoxide'], ['SF<sub>6</sub>', 'SF6', 'sulfur hexafluoride']];
+  qs.push(
+    { id: 'atoms-ii4-notation', sub: 'atoms', s: 'ii', b: 4, topic: 'Nuclear notation', gen: (R) => {
+      const e = R.pick(EL.filter(x => x.Z > 2)), ion = e.ion !== null && R.chance(0.4), q = ion ? e.ion : 0, A = e.A + (ion ? 0 : R.pick([0, 0, 1, 2]));
+      return { type: 'parts', stem: `<p>Use the nuclear notation to find the particles in this ${ion ? 'ion' : 'atom'}:</p><p style="font-size:1.6rem">${nuclide(A, e.Z, e.sym, q)}</p><p class="small muted">Top number = mass number. Bottom number = atomic number.</p>`, parts: [
+        { type: 'num', stem: 'Protons', ans: e.Z, unit: '', tolAbs: 0, steps: [`Protons = atomic number (bottom number) = ${e.Z}`] },
+        { type: 'num', stem: 'Neutrons', ans: A - e.Z, unit: '', tolAbs: 0, steps: [`Neutrons = mass number − atomic number = ${A} − ${e.Z} = ${A - e.Z}`] },
+        { type: 'num', stem: 'Electrons', ans: e.Z - q, unit: '', tolAbs: 0, steps: [q ? `A charge of ${ionStr(q)} means ${q > 0 ? `${q} electron${q > 1 ? 's' : ''} lost` : `${-q} electron${q < -1 ? 's' : ''} gained`}: ${e.Z} ${q > 0 ? '−' : '+'} ${Math.abs(q)} = ${e.Z - q}` : `Neutral atom: electrons = protons = ${e.Z}`] }
+      ] };
+    } },
+    { id: 'atoms-ii6-writenotation', sub: 'atoms', s: 'ii', b: 6, topic: 'Nuclear notation', gen: (R) => {
+      const e = R.pick(EL.filter(x => x.ion !== null && x.Z > 2)), ion = R.chance(0.5), q = ion ? e.ion : 0, A = e.A, N = A - e.Z, el = e.Z - q;
+      const right = nuclide(A, e.Z, e.sym, q), wrong = [nuclide(e.Z, A, e.sym, q), nuclide(A, N, e.sym, q), nuclide(A, e.Z, e.sym, q ? 0 : e.ion), nuclide(A - 1, e.Z, e.sym, q)].filter(w => w !== right);
+      return { type: 'mcq', stem: `<p>A particle has <b>${e.Z} protons</b>, <b>${N} neutrons</b> and <b>${el} electrons</b>. Which nuclear notation is correct?</p>`, choices: [right, ...R.sample(wrong, 3)], ans: 0, why: `<p>Protons ${e.Z} → ${e.name} (${e.sym}), atomic number ${e.Z} at the bottom. Mass number = ${e.Z} + ${N} = ${A} at the top. ${q ? `${el} electrons is ${Math.abs(q)} ${q > 0 ? 'fewer' : 'more'} than the protons, so the charge is ${ionStr(q)}.` : 'Electrons = protons, so it is neutral.'}</p>` };
+    } },
+    { id: 'atoms-ii6-table', sub: 'atoms', s: 'ii', b: 6, topic: 'Atomic calculations', gen: (R) => {
+      const [a, b, c] = R.sample(EL.filter(x => x.Z > 2 && x.ion !== null), 3), qb = b.ion;
+      return { type: 'parts', stem: `<p>Use the Periodic Table and your atomic calculations to complete the table.</p>${H.table(['Particle', 'Protons', 'Neutrons', 'Electrons', 'Mass number'], [[`${a.name} atom`, a.Z, '(a)', a.Z, a.A], [`${b.sym}<sup>${ionStr(qb)}</sup> ion`, b.Z, b.A - b.Z, '(b)', b.A], ['(c)', c.Z, c.A - c.Z, c.Z, '(d)']])}`, parts: [
+        { type: 'num', stem: `(a) Neutrons in the ${a.name} atom`, ans: a.A - a.Z, unit: '', tolAbs: 0, steps: [`${a.A} − ${a.Z} = ${a.A - a.Z}`] },
+        { type: 'num', stem: `(b) Electrons in the ${b.sym}<sup>${ionStr(qb)}</sup> ion`, ans: b.Z - qb, unit: '', tolAbs: 0, steps: [`${b.Z} ${qb > 0 ? '−' : '+'} ${Math.abs(qb)} = ${b.Z - qb}`] },
+        { type: 'text', stem: '(c) Name of the element (name or symbol)', accept: [c.name, c.sym.toLowerCase(), c.name.replace('aluminium', 'aluminum')], show: `${c.name} (${c.sym})`, steps: [`${c.Z} protons → atomic number ${c.Z} → ${c.name}`] },
+        { type: 'num', stem: '(d) Mass number', ans: c.A, unit: '', tolAbs: 0, steps: [`${c.Z} + ${c.A - c.Z} = ${c.A}`] }
+      ] };
+    } },
+    { id: 'atoms-iii6-bohrerrors', sub: 'atoms', s: 'iii', b: 6, topic: 'Bohr diagrams', gen: (R) => {
+      const e = R.pick(EL.filter(x => x.Z >= 9 && x.Z <= 18)), good = config(e.Z), errs = R.sample(['first', 'outer', 'neut', 'count'], R.int(1, 3));
+      let shells = good.slice(), N = e.A - e.Z;
+      if (errs.includes('first')) { shells[0] = 3; shells[1] -= 1; }
+      if (errs.includes('outer') && shells.length >= 3) { shells[1] += shells[2]; shells.splice(2, 1); } else if (errs.includes('outer')) { errs.splice(errs.indexOf('outer'), 1); }
+      if (errs.includes('neut')) N = e.Z === e.A - e.Z ? N + 1 : e.Z;
+      if (errs.includes('count')) shells[shells.length - 1] += 1;
+      if (!errs.length) { N = e.Z === e.A - e.Z ? N + 1 : e.Z; errs.push('neut'); }
+      const total = shells.reduce((x, y) => x + y, 0);
+      const items = [[`The first shell has 2 electrons`, shells[0] === 2 ? 0 : 1], [`Every shell after the first holds no more than 8 electrons`, shells.slice(1).every(k => k <= 8) ? 0 : 1], [`The number of neutrons matches the atomic mass of ${e.name} (${e.A})`, N === e.A - e.Z ? 0 : 1], [`The total number of electrons equals the number of protons (neutral atom)`, total === e.Z ? 0 : 1], [`The number of protons is right for ${e.name}`, 0]];
+      return { type: 'sort', stem: `<p>A student drew this Bohr diagram of a neutral <b>${e.name}</b> atom. Use the Periodic Table to check it. Is each statement about the diagram correct, or does it show an error?</p>`, fig: bohrShells(shells, e.Z, N), bins: ['Correct', 'Error'], items, why: `<p>A neutral ${e.name} atom has ${e.Z} protons, ${e.A - e.Z} neutrons (${e.A} − ${e.Z}) and ${e.Z} electrons arranged ${good.join(', ')}.</p>` };
+    } },
+    { id: 'eqn-ii4-coef', sub: 'eqn', s: 'ii', b: 4, topic: 'Equations', gen: (R) => {
+      const f = R.pick([['2O<sub>2</sub>', 'oxygen', 4, 2, 2], ['3H<sub>2</sub>O', 'hydrogen', 6, 3, 2], ['2CO<sub>2</sub>', 'oxygen', 4, 2, 2], ['3Cl<sub>2</sub>', 'chlorine', 6, 3, 2], ['4NH<sub>3</sub>', 'hydrogen', 12, 4, 3], ['2H<sub>2</sub>SO<sub>4</sub>', 'oxygen', 8, 2, 4]]);
+      return { type: 'parts', stem: `<p>In an equation, a chemist writes <b style="font-size:1.2rem">${f[0]}</b>.</p>`, parts: [
+        { type: 'num', stem: `How many ${f[1]} atoms does this show in total?`, ans: f[2], unit: 'atoms', tolAbs: 0, steps: [`${f[3]} (big number, in front) × ${f[4]} (small number, after the symbol) = ${f[2]}`] },
+        { type: 'mcq', fixed: true, stem: 'Which statement explains the two numbers?', choices: ['The big number in front counts whole molecules; the small number after a symbol counts atoms of that element in one molecule', 'Both numbers mean the same thing', 'The small number counts molecules; the big number counts atoms', 'The big number is the charge'], ans: 0 }
+      ] };
+    } },
+    { id: 'eqn-ii6-covalent', sub: 'eqn', s: 'ii', b: 6, topic: 'Naming', gen: (R) => {
+      const c = R.pick(COVALENT), toName = R.chance(0.5);
+      const rule = 'Covalent (non-metal + non-metal) compounds use prefixes to count atoms: mono-, di-, tri-, tetra-, penta-, hexa-. The second element ends in -ide, and the first element never takes mono-.';
+      return toName ? { type: 'text', stem: `<p>Name the covalent compound <b>${c[0]}</b>.</p>`, accept: [c[2], c[2].replace('sulfur', 'sulphur'), c[2].replace('tetroxide', 'tetraoxide').replace('pentoxide', 'pentaoxide').replace('monoxide', 'monooxide')], show: c[2], label: 'Name', why: `<p>${rule}</p>` }
+        : { type: 'text', mode: 'formula', stem: `<p>Write the formula of <b>${c[2]}</b>.</p><p class="small">Type numbers normally, e.g. CO2.</p>`, accept: [c[1]], show: c[0], label: 'Formula', why: `<p>${rule}</p>` };
+    } },
+    { id: 'eqn-ii2-product', sub: 'eqn', s: 'ii', b: 2, topic: 'Equations', gen: (R) => {
+      const m = R.pick(METALS), x = R.pick(NONMETALS), c = ionic(m, x), xs = x.sym === 'O' ? 'oxygen' : x.name;
+      return { type: 'mcq', stem: `<p>Suggest the missing product:</p><p><b>${m.name} + ${xs} → ?</b></p>`, choices: [c.name, `${m.name} ${x.name}`, `${xs} ${IDE[x.sym]}`, `${m.name} ${IDE[R.pick(NONMETALS.filter(n => n !== x)).sym]}`], ans: 0, why: '<p>When a metal reacts with a non-metal the product is named metal first, then the non-metal ending in -ide.</p>' };
+    } },
+    { id: 'eqn-i4-evidence', sub: 'eqn', s: 'i', b: 4, topic: 'Chemical change', gen: (R) => ({ type: 'sort', stem: '<p>State whether each observation is evidence of a <b>chemical change</b> or only a <b>physical change</b>.</p>', bins: ['Chemical change', 'Physical change'], items: R.sample([['Bubbles of a new gas are given off', 0], ['The colour changes when two solutions mix', 0], ['A new solid (precipitate) forms in a solution', 0], ['The mixture gets hot or gives off light', 0], ['Ice melts into water', 1], ['Sugar dissolves in tea', 1], ['Water boils and turns to steam', 1], ['A metal bar is cut in half', 1]], 6), why: '<p>A chemical change makes a new substance: gas, colour change, precipitate, energy change. A physical change only changes state, shape or mixing; no new substance forms.</p>' }) },
+    { id: 'pt-iii6-ionisation', sub: 'pt', s: 'iii', b: 6, topic: 'Group trends', gen: (R) => {
+      const grp = R.pick([{ name: 'group 1 (alkali metals)', rows: [['Lithium', 520], ['Sodium', 496], ['Potassium', 419]], next: 'rubidium', opts: ['About 600 kJ', 'About 500 kJ', 'About 400 kJ', 'About 0 kJ'], ans: 2 }, { name: 'group 18 (noble gases)', rows: [['Helium', 2372], ['Neon', 2081], ['Argon', 1521]], next: 'krypton', opts: ['About 2500 kJ', 'About 2100 kJ', 'About 1350 kJ', 'About 200 kJ'], ans: 2 }]);
+      return { type: 'parts', stem: `<p>The <b>ionisation energy</b> is the energy needed to remove the outer electron from an atom. The table shows values for ${grp.name}.</p>${H.table(['Element', 'Ionisation energy / kJ (per mole of atoms)'], grp.rows)}`, parts: [
+        { type: 'mcq', fixed: true, stem: 'Describe the trend down the group.', choices: ['Ionisation energy decreases down the group', 'Ionisation energy increases down the group', 'There is no pattern'], ans: 0 },
+        { type: 'select', stem: `Predict the ionisation energy of ${grp.next}, the next element down.`, options: grp.opts, ans: grp.ans },
+        { type: 'self', stem: 'Suggest a reason for the trend, using the structure of the atom.', model: 'Going down the group, each atom has one more energy level (shell). The outer electron is further from the nucleus and is shielded by more inner electrons, so it is attracted less strongly and is easier to remove. Less energy is needed.', check: ['More energy levels down the group', 'Outer electron further from the nucleus (and more shielded)', 'Weaker attraction, so less energy needed to remove it'] }
+      ] };
+    } },
+    { id: 'pt-i8-predict', sub: 'pt', s: 'i', b: 8, topic: 'The Periodic Table', gen: () => H.self('<p>Describe how the organisation of the Periodic Table lets us make predictions about the structure and properties of elements. Use examples.</p>',
+      'Elements are arranged in order of atomic number, so the position gives the number of protons (and electrons in a neutral atom). The period (row) number is the number of energy levels: for example, sodium is in period 3, so it has 3 shells. The group (column) gives the number of valence electrons, so elements in the same group have similar chemical properties: group 1 metals all have 1 valence electron, form 1+ ions and react with water. Trends down a group let us predict properties: alkali metals get more reactive down the group, so potassium reacts more vigorously than sodium. Metals are on the left and non-metals on the right, so we can predict the type of bonding: a metal and a non-metal form an ionic bond.',
+      ['Order of atomic number → number of protons/electrons', 'Period number = number of energy levels (with example)', 'Group = number of valence electrons → similar properties (with example)', 'Trends down a group let us predict reactivity or other properties', 'Metals left, non-metals right → predict bonding or ion charge']) }
+  );
 
   CONTENT['y9-che'] = {
     flow: ['Discovering the elements', 'Atoms: history, particles, Bohr model, isotopes and ions', 'The Periodic Table', 'Bonding: ionic, covalent and metallic; Lewis structures', 'Formulas, naming and equations'],
@@ -2129,7 +2312,7 @@ const SVG = (() => {
     { id: 'i4-airpath', sub: 'vent', s: 'i', b: 4, topic: 'Ventilatory system', gen: () => ({ type: 'order', stem: '<p>Outline the pathway of air from the nasal cavity to the alveoli. Put the structures in order.</p>', items: AIR, why: '<p>Nasal cavity → pharynx → larynx → trachea → bronchi → bronchioles → alveolar sacs.</p>' }) },
     { id: 'i4-vessels', sub: 'cardio', s: 'i', b: 4, topic: 'Blood vessels', gen: (R) => {
       const all = [['Thick, elastic, muscular wall', 0], ['Carries blood away from the heart', 0], ['Blood at high pressure', 0], ['Wall one cell thick', 1], ['Has pores for exchange with tissues', 1], ['Where gases and nutrients are exchanged', 1], ['Contains valves', 2], ['Wide lumen and thin wall', 2], ['Carries blood back to the heart at low pressure', 2]];
-      return { type: 'sort', stem: '<p>Sort each feature: artery, capillary or vein?</p>', bins: ['Artery', 'Capillary', 'Vein'], items: R.sample(all, 6), why: '<p>Structure matches function: arteries withstand high pressure, capillaries allow exchange, veins return low-pressure blood with valves to prevent backflow.</p>' };
+      return { type: 'sort', stem: '<p>Sort each feature: artery, capillary or vein?</p>', bins: ['Artery', 'Capillary', 'Vein'], items: H.sampleBins(R, all, 6), why: '<p>Structure matches function: arteries withstand high pressure, capillaries allow exchange, veins return low-pressure blood with valves to prevent backflow.</p>' };
     } },
     { id: 'i4-inex', sub: 'vent', s: 'i', b: 4, topic: 'Ventilation', gen: (R) => {
       const all = [['Diaphragm contracts and flattens', 0], ['External intercostal muscles contract', 0], ['Ribs move up and out', 0], ['Chest volume increases', 0], ['Pressure in the lungs falls below atmospheric pressure', 0], ['Diaphragm relaxes and domes upwards', 1], ['Ribs move down and in', 1], ['Chest volume decreases', 1], ['Pressure in the lungs rises above atmospheric pressure', 1]];
@@ -2296,7 +2479,7 @@ const SVG = (() => {
     { id: 'org-i2-order', sub: 'org', s: 'i', b: 2, topic: 'Levels of organisation', gen: () => ({ type: 'order', stem: '<p>Put the levels of organisation in order, from smallest to largest.</p>', items: ['Cell', 'Tissue', 'Organ', 'Organ system', 'Organism'], why: '<p>Similar cells form tissues; different tissues form organs; organs work together as organ systems; organ systems make up the organism.</p>' }) },
     { id: 'org-i4-sort', sub: 'org', s: 'i', b: 4, topic: 'Levels of organisation', gen: (R) => {
       const all = [['Red blood cell', 0], ['Nerve cell (neuron)', 0], ['Muscle tissue', 1], ['Lining (epithelial) tissue', 1], ['Heart', 2], ['Lung', 2], ['Stomach', 2], ['Cardiovascular system', 3], ['Respiratory system', 3], ['Digestive system', 3]];
-      return { type: 'sort', stem: '<p>State the level of organisation of each example.</p>', bins: ['Cell', 'Tissue', 'Organ', 'Organ system'], items: R.sample(all, 6), why: '<p>An organ is made of several tissues; an organ system is several organs working together.</p>' };
+      return { type: 'sort', stem: '<p>State the level of organisation of each example.</p>', bins: ['Cell', 'Tissue', 'Organ', 'Organ system'], items: H.sampleBins(R, all, 6), why: '<p>An organ is made of several tissues; an organ system is several organs working together.</p>' };
     } },
     { id: 'org-i8-together', sub: 'org', s: 'i', b: 8, topic: 'Systems working together', gen: () => H.self('<p>Explain how the respiratory and cardiovascular systems work together to supply working muscles with oxygen during exercise.</p>',
       'The respiratory system ventilates the lungs: during exercise both ventilation rate and tidal volume increase, so more air reaches the alveoli. Oxygen diffuses from the alveoli into the blood in the capillaries because its concentration is higher in the alveoli. Red blood cells carry the oxygen. The cardiovascular system then transports it: heart rate increases, so blood is pumped faster through the arteries to the capillaries in the muscles, where oxygen diffuses into the muscle cells for respiration. Carbon dioxide travels the opposite way and is breathed out. Because the two systems increase their activity together, oxygen delivery matches the higher demand.',
@@ -2408,6 +2591,57 @@ const SVG = (() => {
     } }
   ];
 
+  /* ===== added in 0.4: test-bank check ===== */
+  qs.push(
+    { id: 'vent-i8-boyle', sub: 'vent', s: 'i', b: 8, topic: 'Ventilation', gen: (R) => {
+      const inh = R.chance(0.5);
+      return H.self(`<p>Explain how air moves ${inh ? '<b>into</b>' : '<b>out of</b>'} the lungs when breathing at rest. Refer to the muscles, the volume of the thorax, pressure and the particles of air.</p>`,
+        inh ? 'The diaphragm contracts and flattens, and the external intercostal muscles contract, pulling the ribs up and out. This increases the volume of the thorax. With the same number of air particles in a larger volume, the particles collide with the walls less often, so the pressure inside the lungs falls below atmospheric pressure (Boyle\'s law: pressure is inversely proportional to volume). Air moves from high pressure outside to low pressure inside, so air flows in.'
+            : 'The diaphragm relaxes and domes upwards, and the external intercostal muscles relax so the ribs move down and in (exhaling at rest is passive). The volume of the thorax decreases. The same number of air particles are in a smaller volume, so they collide with the walls more often and the pressure inside the lungs rises above atmospheric pressure (Boyle\'s law). Air moves from high pressure inside to lower pressure outside, so air flows out.',
+        [`Diaphragm ${inh ? 'contracts and flattens' : 'relaxes and domes up'}`, `External intercostals ${inh ? 'contract: ribs up and out' : 'relax: ribs down and in'}`, `Thorax volume ${inh ? 'increases' : 'decreases'}`, `Particles collide with walls ${inh ? 'less' : 'more'} often → pressure ${inh ? 'falls' : 'rises'} (Boyle's law)`, 'Air moves from high to low pressure']);
+    } },
+    { id: 'cardio-i8-loop', sub: 'cardio', s: 'i', b: 8, topic: 'Double circulation', gen: () => H.self('<p>Describe the journey of blood through the <b>pulmonary</b> and <b>systemic</b> circuits, starting in the right atrium. Include the chambers, valves and blood vessels, and say where the blood is oxygenated or deoxygenated.</p>',
+      'Deoxygenated blood from the body enters the right atrium through the vena cava. It passes through the right atrioventricular (tricuspid) valve into the right ventricle, which contracts and pumps it through the semilunar valve into the pulmonary artery to the lungs (pulmonary circuit). In the lung capillaries it picks up oxygen and gives off carbon dioxide. Oxygenated blood returns in the pulmonary vein to the left atrium, through the left atrioventricular (bicuspid) valve to the left ventricle. The thick-walled left ventricle pumps it at high pressure through the semilunar valve into the aorta and around the body (systemic circuit). In the body capillaries it gives oxygen to the cells and becomes deoxygenated, returning to the right atrium in the vena cava.',
+      ['Right side: vena cava → right atrium → right ventricle → pulmonary artery (deoxygenated)', 'Gas exchange at the lungs: picks up O₂, loses CO₂', 'Left side: pulmonary vein → left atrium → left ventricle → aorta (oxygenated)', 'Valves named (atrioventricular, semilunar) and their role in one-way flow', 'Systemic circuit: oxygen delivered to cells, blood returns deoxygenated']) },
+    { id: 'cardio-i4-blood', sub: 'cardio', s: 'i', b: 4, topic: 'Blood', gen: (R) => ({ type: 'sort', stem: '<p>Match each description to the part of the blood.</p>', bins: ['Red blood cells', 'White blood cells', 'Platelets', 'Plasma'], items: R.shuffle([['Contain haemoglobin to carry oxygen', 0], ['Have no nucleus and a biconcave shape', 0], ['Fight infection by engulfing pathogens or making antibodies', 1], ['Have a nucleus and are the largest blood cells', 1], ['Cell fragments that help blood to clot', 2], ['Form a plug at a cut', 2], ['Yellow liquid that carries dissolved glucose, CO₂ and hormones', 3], ['About 55% of the blood by volume', 3]]), why: '<p>Red cells carry oxygen, white cells defend the body, platelets clot, plasma transports dissolved substances.</p>' }) },
+    { id: 'cardio-ii4-systole', sub: 'cardio', s: 'ii', b: 4, topic: 'Cardiac cycle', gen: (R) => {
+      const q = R.pick([['the ventricles contract and push blood into the arteries', 'Ventricular systole'], ['the heart muscle relaxes and the chambers fill with blood', 'Diastole'], ['the atria contract to push blood into the ventricles', 'Atrial systole']]);
+      return { type: 'mcq', stem: `<p>Identify the stage of the cardiac cycle when <b>${q[0]}</b>.</p>`, choices: [q[1], ...['Ventricular systole', 'Diastole', 'Atrial systole', 'Vasoconstriction'].filter(c => c !== q[1])], ans: 0, why: '<p>Systole = contraction; diastole = relaxation and filling.</p>' };
+    } },
+    { id: 'cardio-ii6-valves', sub: 'cardio', s: 'ii', b: 6, topic: 'Heart structure', gen: () => H.self('<p>Explain the role of the <b>valves</b> in the heart. In your answer, name the two types of valve and explain what would happen if a valve did not close properly.</p>',
+      'Valves make sure blood flows in one direction only. Atrioventricular valves (between the atria and ventricles) close when the ventricles contract, so blood cannot flow back into the atria. Semilunar valves (at the start of the aorta and pulmonary artery) close when the ventricles relax, so blood cannot flow back from the arteries into the ventricles. If a valve leaked, some blood would flow backwards, so less blood would be pumped out with each beat (lower stroke volume) and the heart would have to work harder to deliver enough oxygen.',
+      ['Valves keep blood flowing one way / prevent backflow', 'Atrioventricular valves: between atria and ventricles', 'Semilunar valves: in the aorta and pulmonary artery', 'Leaky valve → backflow → less blood pumped per beat, heart works harder']) },
+    { id: 'pass-i6-compare', sub: 'pass', s: 'i', b: 6, topic: 'Passive transport', gen: (R) => ({ type: 'sort', stem: '<p>Is each statement true of <b>diffusion only</b>, <b>osmosis only</b>, or <b>both</b>?</p>', bins: ['Diffusion only', 'Osmosis only', 'Both'], items: R.sample([['Movement of water molecules only', 1], ['Needs a partially permeable membrane', 1], ['Oxygen moves from the alveoli into the blood', 0], ['Can happen with any particles in a gas or liquid', 0], ['Particles move down a concentration gradient', 2], ['Passive: no energy from respiration needed', 2], ['Faster at higher temperatures', 2], ['Water moves from a dilute solution to a concentrated solution', 1]], 7), why: '<p>Osmosis is a special case of diffusion: water moving across a partially permeable membrane. Both are passive and go down a gradient.</p>' }) },
+    { id: 'cardio-iii6-bp', sub: 'cardio', s: 'iii', b: 6, topic: 'Blood pressure', gen: (R) => {
+      const sys = R.pick([115, 120, 125, 130]), dia = R.pick([75, 80, 85]);
+      const pts = [[0, sys], [1, sys - 8], [2, (sys + dia) / 2 + 4], [3, dia + 6], [4, 35], [5, 25], [6, 12], [7, 6]];
+      const fig = graph({ xmin: 0, xmax: 7, xstep: 1, ymin: 0, ymax: 140, ystep: 20, xlabel: 'Distance from the heart (arbitrary)', ylabel: 'Blood pressure / mmHg', series: [{ pts, dots: true }], marks: [[0, sys, 'aorta'], [4, 35, 'capillaries'], [7, 6, 'vena cava']], label: 'Blood pressure graph' });
+      return { type: 'parts', stem: '<p>The graph shows the average blood pressure as blood travels from the left ventricle through the systemic circuit.</p>', fig, parts: [
+        { type: 'num', stem: 'Deduce the blood pressure in the aorta.', ans: sys, unit: 'mmHg', tolAbs: 3 },
+        { type: 'mcq', fixed: true, stem: 'Describe the trend.', choices: ['Blood pressure decreases with distance from the heart', 'Blood pressure increases with distance from the heart', 'Blood pressure stays the same'], ans: 0 },
+        { type: 'mcq', stem: 'Which structural feature is best explained by this data?', choices: ['Arteries have thick, elastic walls; veins have thin walls and valves', 'Veins have thicker walls than arteries', 'Capillaries have the thickest walls', 'All blood vessels have the same wall thickness'], ans: 0, why: '<p>Arteries carry blood at high pressure, so they need thick elastic walls. Veins carry low-pressure blood, so they need valves to stop backflow.</p>' }
+      ] };
+    } },
+    { id: 'lungvol-iii6-exercise', sub: 'lungvol', s: 'iii', b: 6, topic: 'Lung volumes', gen: (R) => {
+      const tvR = R.pick([0.5, 0.6]), tvE = R.pick([2.0, 2.5, 3.0]), base = 2.4, pts = [];
+      for (let t = 0; t <= 24; t += 0.5) { const tv = t < 12 ? tvR : tvE, per = t < 12 ? 4 : 2; pts.push([t, base + tv / 2 + tv / 2 * Math.sin(2 * Math.PI * t / per)]); }
+      const fig = graph({ xmin: 0, xmax: 24, xstep: 2, ymin: 0, ymax: 6, ystep: 0.5, xlabel: 'Time / s', ylabel: 'Lung volume / L', series: [{ pts }], label: 'Spirometer trace, rest then exercise' });
+      return { type: 'parts', stem: '<p>A spirometer trace was recorded at rest (0–12 s) and during strenuous exercise (12–24 s).</p>', fig, parts: [
+        { type: 'num', stem: 'Deduce the tidal volume during exercise.', ans: tvE, unit: 'L', tolAbs: 0.15 },
+        { type: 'num', stem: 'Calculate the breathing rate during exercise.', ans: 30, unit: 'breaths/min', tolAbs: 1, steps: ['Each breath takes 2 s → 60 ÷ 2 = 30 breaths per minute'] },
+        { type: 'mcq', stem: 'Which explains how the larger tidal volume is achieved during exercise?', choices: ['Extra muscles (e.g. internal intercostals and abdominals) make inhaling and exhaling more forceful', 'The lungs grow larger during exercise', 'The diaphragm stops working', 'The residual volume becomes zero'], ans: 0 }
+      ] };
+    } },
+    { id: 'hr-iii8-maxhr', sub: 'hr', s: 'iii', b: 8, topic: 'Heart rate', gen: (R) => {
+      const ages = [15, 25, 35, 45, 55, 65], pts = ages.map(a => [a, 220 - a + R.int(-6, 6)]);
+      const fig = graph({ xmin: 10, xmax: 70, xstep: 10, ymin: 140, ymax: 220, ystep: 10, xlabel: 'Age / years', ylabel: 'Maximum heart rate / bpm', series: [{ pts, dots: true, noline: true }], label: 'Scatter graph' });
+      return { type: 'parts', stem: '<p>A student hypothesised: <i>"Maximum heart rate decreases as age increases, following the formula max HR = 220 − age."</i> The graph shows data from six volunteers.</p>', fig, parts: [
+        { type: 'num', stem: 'Use the formula to calculate the predicted maximum heart rate of a 40-year-old.', ans: 180, unit: 'bpm', tolAbs: 0 },
+        { type: 'self', stem: 'Evaluate the hypothesis using the data. Comment on the reliability of the evidence.', model: 'The data supports the hypothesis: as age increases, the maximum heart rate decreases, and the points are close to 220 − age (for example, the 15-year-old is near 205 bpm and the 65-year-old near 155 bpm). However, there is only one person at each age, so the results are not reliable: individual differences in fitness could affect each point. More people at each age, with repeats, would make the conclusion more reliable.', check: ['States the data supports (or partly supports) the hypothesis', 'Uses values from the graph as evidence', 'Compares the points with the formula', 'Comments on sample size / one person per age / other variables like fitness', 'Suggests an improvement'] }
+      ] };
+    } }
+  );
+
   CONTENT['y11-sehs'] = {
     flow: ['Organisation of an organism', 'Respiratory system and structure', 'Ventilation rates and lung volume', 'The cardiovascular system', 'Heart rate and blood pressure', 'Passive transport: osmosis and diffusion'],
     subs, notes, cards, qs
@@ -2517,7 +2751,7 @@ const SVG = (() => {
     ...H.bank('i6-fact', 'i', 6, 'Describe', factsI6),
     { id: 'i2-sv', sub: 'motion', s: 'i', b: 2, topic: 'Scalars and vectors', gen: (R) => {
       const all = [['Distance', 0], ['Speed', 0], ['Mass', 0], ['Time', 0], ['Energy', 0], ['Displacement', 1], ['Velocity', 1], ['Acceleration', 1], ['Force', 1], ['Momentum', 1], ['Weight', 1]];
-      return { type: 'sort', stem: '<p>Sort each quantity: scalar or vector?</p>', bins: ['Scalar', 'Vector'], items: R.sample(all, 6), why: '<p>A vector has a direction as well as a size. Weight is a force, so it is a vector.</p>' };
+      return { type: 'sort', stem: '<p>Sort each quantity: scalar or vector?</p>', bins: ['Scalar', 'Vector'], items: H.sampleBins(R, all, 6), why: '<p>A vector has a direction as well as a size. Weight is a force, so it is a vector.</p>' };
     } },
     { id: 'i4-fbd', sub: 'fbd', s: 'i', b: 4, topic: 'Free-body diagrams', gen: (R) => {
       const sc = R.pick(scen);
@@ -2758,7 +2992,7 @@ const SVG = (() => {
     // Impulse and safety: knowing
     { id: 'impulse-i4-feature', sub: 'impulse', s: 'i', b: 4, topic: 'Impulse and safety', gen: (R) => {
       const all = [['Airbag', 0], ['Crumple zone', 0], ['Seatbelt that stretches slightly', 0], ['Soft landing mat', 0], ['Helmet foam', 0], ['Bending your knees when you land', 0], ['Concrete wall with no padding', 1], ['Rigid (stiff) car frame at the front', 1], ['Locking your knees when you land', 1]];
-      return { type: 'sort', stem: '<p>Does each one increase or decrease the stopping time in a collision?</p>', bins: ['Increases the time (smaller force)', 'Decreases the time (bigger force)'], items: R.sample(all, 6), why: '<p>F = Δp ÷ Δt: for the same change in momentum, more time means less force.</p>' };
+      return { type: 'sort', stem: '<p>Does each one increase or decrease the stopping time in a collision?</p>', bins: ['Increases the time (smaller force)', 'Decreases the time (bigger force)'], items: H.sampleBins(R, all, 6), why: '<p>F = Δp ÷ Δt: for the same change in momentum, more time means less force.</p>' };
     } },
     // Collisions: knowing, analysing
     { id: 'coll-i4-sort', sub: 'coll', s: 'i', b: 4, topic: 'Collisions', gen: (R) => {
@@ -2819,10 +3053,474 @@ const SVG = (() => {
     } }
   ];
   // the select question stores its right answer by text so the options can be sorted
+  /* ===== added in 0.4: test-bank check (incl. colleague's Criterion A practice) ===== */
+  qs.push(
+    { id: 'fbd-ii6-box', sub: 'fbd', s: 'ii', b: 6, topic: 'Newton\'s second law', gen: (R) => {
+      const m = R.pick([12, 15, 20, 25, 30]), Fa = R.pick([80, 100, 120, 150]), fr = R.pick([20, 30, 40]), W = m * g, a = (Fa - fr) / m;
+      return { type: 'parts', stem: `<p>A ${m} kg box is pushed across a level floor with an applied force of ${Fa} N. The friction force is ${fr} N.</p>`, fig: fbd([{ dir: 'up', label: 'Normal' }, { dir: 'down', label: 'Weight' }, { dir: 'right', label: `${Fa} N`, len: 50 + Fa / 4 }, { dir: 'left', label: `${fr} N`, len: 40 + fr / 2 }]), parts: [
+        { type: 'num', stem: 'Calculate the weight of the box.', ans: W, unit: 'N', tol: 0.01, steps: [`W = mg = ${m} × 9.81 = ${NUM.sf(W, 3)} N`] },
+        { type: 'num', stem: 'State the size of the normal force.', ans: W, unit: 'N', tol: 0.01, steps: ['No vertical acceleration, so normal force = weight'] },
+        { type: 'num', stem: 'Calculate the acceleration of the box.', ans: a, unit: u2, tol: 0.02, steps: [`Resultant = ${Fa} − ${fr} = ${Fa - fr} N`, `a = F ÷ m = ${Fa - fr} ÷ ${m} = ${NUM.sf(a, 3)} ${u2}`] }
+      ] };
+    } },
+    { id: 'fbd-ii4-van', sub: 'fbd', s: 'ii', b: 4, topic: 'Newton\'s second law', gen: (R) => {
+      const m = R.pick([1500, 2000, 2400, 3000]), a = R.pick([1.5, 2, 2.5, 3]), drive = R.pick([500, 800, 1000]), brake = drive + m * a;
+      return { type: 'num', stem: `<p>A van of mass ${m} kg is slowing down. The forward driving force is ${drive} N and the backward braking and friction force is ${brake} N.</p><p>Calculate the deceleration of the van.</p>`, fig: fbd([{ dir: 'right', label: `${drive} N`, len: 50 }, { dir: 'left', label: `${brake} N`, len: 110 }, { dir: 'up', label: 'Normal' }, { dir: 'down', label: 'Weight' }]), ans: a, unit: u2, tol: 0.01, steps: [`Resultant = ${brake} − ${drive} = ${brake - drive} N backwards`, `a = F ÷ m = ${brake - drive} ÷ ${m} = ${a} ${u2}`] };
+    } },
+    { id: 'forces-ii8-bucket', sub: 'forces', s: 'ii', b: 8, topic: 'Newton\'s second law', gen: (R) => {
+      const m = R.pick([5, 8, 10, 12]), a = R.pick([0.5, 1, 1.5, 2]), t = R.pick([2, 3, 4]), T = m * (g + a);
+      return { type: 'parts', stem: `<p>A crane lifts a ${m} kg bucket of concrete from rest, accelerating it upwards at ${a} ${u2} for ${t} s.</p>`, parts: [
+        { type: 'num', stem: 'Calculate the tension in the cable.', ans: T, unit: 'N', tol: 0.01, steps: [`Resultant upwards: T − mg = ma`, `T = m(g + a) = ${m} × (9.81 + ${a}) = ${NUM.sf(T, 3)} N`] },
+        { type: 'num', stem: `Calculate the velocity after ${t} s.`, ans: a * t, unit: u1, tol: 0.01, steps: [`v = u + at = 0 + ${a} × ${t} = ${a * t} ${u1}`] },
+        { type: 'num', stem: `Calculate the height gained in ${t} s.`, ans: 0.5 * a * t * t, unit: 'm', tol: 0.01, steps: [`s = ut + ½at² = ½ × ${a} × ${t}² = ${NUM.sf(0.5 * a * t * t, 3)} m`] }
+      ] };
+    } },
+    { id: 'suvat-ii6-runway', sub: 'suvat', s: 'ii', b: 6, topic: 'suvat', gen: (R) => {
+      const v = R.pick([60, 70, 75, 80]), a = R.pick([2, 2.5, 3, 4]), s = v * v / (2 * a);
+      return { type: 'num', stem: `<p>An aeroplane starts from rest and accelerates uniformly at ${a} ${u2} along a runway. It needs a speed of ${v} ${u1} to take off.</p><p>Calculate the minimum length of runway needed.</p>`, ans: s, unit: 'm', tol: 0.01, steps: [`u = 0, v = ${v}, a = ${a}, s = ?`, `v² = u² + 2as → s = v² ÷ 2a = ${v}² ÷ (2 × ${a}) = ${NUM.sf(s, 3)} m`] };
+    } },
+    { id: 'impulse-i8-double', sub: 'impulse', s: 'i', b: 8, topic: 'Momentum and impulse', gen: () => H.self('<p>A car\'s speed doubles. Explain the effect on its <b>momentum</b> and on the <b>impulse</b> needed to stop it. Then explain how a crumple zone reduces the force on the passengers when the car stops in a crash.</p>',
+      'Momentum p = mv, so doubling the velocity doubles the momentum (the mass stays the same). Impulse = change in momentum, so the impulse needed to stop the car also doubles. Impulse = FΔt. A crumple zone crushes in a crash, which increases the time taken for the car to stop. For the same change in momentum, a longer time means a smaller force (F = Δp ÷ Δt), so the force on the passengers is smaller and injuries are less likely.',
+      ['p = mv, so doubling v doubles p', 'Impulse = change in momentum, so it also doubles', 'Impulse = FΔt (or F = Δp ÷ Δt)', 'Crumple zone increases the stopping time', 'Same Δp over a longer time → smaller force on passengers']) },
+    { id: 'fbd-iii6-skydiver', sub: 'fbd', s: 'iii', b: 6, topic: 'Terminal velocity', gen: (R) => {
+      const st = R.pick([['just after jumping', 'down', 700, 150, 'accelerating downwards'], ['falling at terminal velocity', 'none', 700, 700, 'moving at constant velocity'], ['just after opening the parachute', 'up', 700, 1600, 'slowing down (decelerating)']]);
+      return { type: 'parts', stem: `<p>The free-body diagram shows the forces on a skydiver ${st[0]}.</p>`, fig: fbd([{ dir: 'up', label: `Air resistance ${st[3]} N`, len: 30 + st[3] / 15 }, { dir: 'down', label: `Weight ${st[2]} N`, len: 30 + st[2] / 15 }], 340, 320, 'dot'), parts: [
+        { type: 'num', stem: 'Calculate the size of the resultant force.', ans: Math.abs(st[2] - st[3]), unit: 'N', tolAbs: 0 },
+        { type: 'mcq', fixed: true, stem: 'Deduce the motion of the skydiver.', choices: ['Accelerating downwards', 'Moving at constant velocity', 'Slowing down (decelerating)'], ans: ['down', 'none', 'up'].indexOf(st[1]) }
+      ] };
+    } },
+    { id: 'graphs-iii6-multi', sub: 'graphs', s: 'iii', b: 6, topic: 'Velocity–time graphs', gen: (R) => {
+      const v1 = R.pick([10, 12, 15, 20]), t1 = R.pick([4, 5]), t2 = t1 + R.pick([4, 6]), t3 = t2 + R.pick([2, 4, 5]), m = R.pick([800, 1000, 1200]);
+      const pts = [[0, 0], [t1, v1], [t2, v1], [t3, 0]], a1 = v1 / t1, area = 0.5 * t1 * v1 + (t2 - t1) * v1 + 0.5 * (t3 - t2) * v1;
+      const fig = graph({ xmin: 0, xmax: t3 + 1, xstep: 1, ymin: 0, ymax: v1 + 5, ystep: 5, xlabel: 'Time / s', ylabel: 'Velocity / m s⁻¹', series: [{ pts, dots: true }], label: 'Velocity–time graph' });
+      return { type: 'parts', stem: `<p>The velocity–time graph shows a ${m} kg car on a short journey.</p>`, fig, parts: [
+        { type: 'num', stem: `Calculate the acceleration from 0 to ${t1} s.`, ans: a1, unit: u2, tol: 0.01, steps: [`gradient = ${v1} ÷ ${t1} = ${NUM.sf(a1, 3)} ${u2}`] },
+        { type: 'num', stem: `Calculate the resultant force on the car from 0 to ${t1} s.`, ans: m * a1, unit: 'N', tol: 0.01, steps: [`F = ma = ${m} × ${NUM.sf(a1, 3)} = ${NUM.sf(m * a1, 3)} N`] },
+        { type: 'mcq', fixed: true, stem: `State the resultant force from ${t1} s to ${t2} s.`, choices: ['Zero (constant velocity)', 'Forwards', 'Backwards'], ans: 0 },
+        { type: 'num', stem: 'Calculate the total displacement.', ans: area, unit: 'm', tol: 0.01, steps: ['Area under the graph = triangle + rectangle + triangle', `= ½×${t1}×${v1} + ${t2 - t1}×${v1} + ½×${t3 - t2}×${v1} = ${NUM.sf(area, 3)} m`] }
+      ] };
+    } },
+    { id: 'graphs-iii8-f1', sub: 'graphs', s: 'iii', b: 8, topic: 'Evaluating data', gen: (R) => {
+      const a = R.pick([10, 12]), real = [0, 1, 2, 3, 4, 5].map(t => [t, Math.round(a * t * (1 - 0.06 * t))]);
+      const theory = [[0, 0], [5, a * 5]];
+      const fig = graph({ xmin: 0, xmax: 5, xstep: 1, ymin: 0, ymax: a * 5 + 10, ystep: 10, xlabel: 'Time / s', ylabel: 'Velocity / m s⁻¹', series: [{ pts: theory, dash: true, label: 'theory', labelAt: [2.9, a * 2.9 + 3] }, { pts: real, dots: true, label: 'real', labelAt: [4.4, a * 4.4 * (1 - 0.06 * 4.4) - 6] }], label: 'Theoretical and real velocity–time data' });
+      return { type: 'parts', stem: `<p>A team predicts their racing car will accelerate uniformly at ${a} ${u2} from rest (dashed line). The dots show the real data from a test run.</p>`, fig, parts: [
+        { type: 'mcq', fixed: true, stem: 'Compare the real data with the prediction.', choices: ['The real velocity is lower than predicted, and the gap grows with time', 'The real velocity is higher than predicted', 'The real data matches the prediction exactly'], ans: 0 },
+        { type: 'self', stem: 'Evaluate the prediction. Suggest a scientific reason for the difference.', model: 'The prediction is reasonable at the start (the first points are close to the line) but becomes less accurate with time, as the real velocity increasingly falls below the predicted line. The prediction assumed a constant resultant force. In reality, air resistance (and friction) increase as the car speeds up, so the resultant force and therefore the acceleration (F = ma) decrease. The gradient of the real curve gets smaller. A better model would include air resistance increasing with speed.', check: ['Uses data: close at the start, below the line later', 'Prediction assumed constant acceleration / resultant force', 'Air resistance increases with speed', 'So resultant force and acceleration decrease (F = ma)', 'Judgement on how valid the prediction is'] }
+      ] };
+    } },
+    { id: 'forces-i6-first', sub: 'forces', s: 'i', b: 6, topic: 'Newton\'s first law', gen: (R) => {
+      const ex = R.pick(['a car driving at a constant 25 m s⁻¹ along a straight motorway', 'a cyclist moving at constant velocity on a flat road', 'a skydiver falling at terminal velocity']);
+      return H.self(`<p>State Newton's first law. Use it to explain why ${ex} still needs a forward force (or upward force) acting on it.</p>`,
+        `Newton's first law: an object stays at rest, or keeps moving at a constant velocity, unless a resultant (unbalanced) force acts on it. Here the velocity is constant, so the resultant force must be zero: the forces are balanced. There are still resistive forces (friction and air resistance) acting against the motion, so a force of the same size in the opposite direction is needed to balance them. Without it there would be a resultant force against the motion and it would slow down.`,
+        ['First law stated: constant velocity or rest unless a resultant force acts', 'Constant velocity → resultant force is zero / forces balanced', 'Friction / air resistance still act against the motion', 'The forward force balances them; without it, it would decelerate']);
+    } }
+  );
+
   qs.forEach(t => { const gen = t.gen; t.gen = (R) => { const q = gen(R); if (q.type === 'select' && q._right) { q.ans = q.options.indexOf(q._right); delete q._right; } return q; }; });
 
   CONTENT['y11-phy'] = {
     flow: ['Quantifying motion: scalars and vectors', 'Speed, velocity and acceleration', 'Graphing motion', 'Equations of motion (suvat) and free fall', 'Forces and the fundamental forces', "Newton's three laws", 'Free-body diagrams, net force and equilibrium', 'Kinetic energy and momentum', 'Impulse: sports and safety', 'Collisions: elastic and inelastic'],
+    subs, notes, cards, qs
+  };
+})();
+
+/* ---- content/y11-che.js ---- */
+/* Year 11 Unit 3: Combustible Fuels (Chemistry). Source: Y11 Science Notes (Unit 3) and unit description.
+   Molar masses C 12.01, H 1.01, O 16.00 g mol⁻¹ and the average bond enthalpies used in the unit tests. */
+(() => {
+  const { svg, line, text, graph } = SVG;
+  const MM = { C: 12.01, H: 1.01, O: 16.00 };
+  const BOND = { 'C–C': 346, 'C=C': 614, 'C–H': 414, 'C–O': 358, 'C=O': 804, 'O–H': 463, 'O=O': 498 };
+  const bondTable = (keys = Object.keys(BOND)) => H.table(['Bond', 'Average bond enthalpy / kJ mol<sup>−1</sup>'], keys.map(k => [k, BOND[k]]));
+  const r2 = (x) => Math.round(x * 100) / 100;
+  const sub = (n) => n > 1 ? `<sub>${n}</sub>` : '';
+  const plain = (n) => n > 1 ? String(n) : '';
+
+  /* ---------- molecules: a main chain of atoms ('C' or 'O'), an optional C=C, methyl branches and an –OH group ---------- */
+  const M = (chain, name, o = {}) => ({ chain, name, dbl: o.dbl || 0, me: o.me || [], oh: o.oh || 0, cls: o.cls || (o.oh ? 'alcohol' : o.dbl ? 'alkene' : chain.includes('O') ? 'ether' : 'alkane'), alt: o.alt || [] });
+  const STEM = ['', 'meth', 'eth', 'prop', 'but', 'pent', 'hex', 'hept', 'oct'];
+  const ALKANES = [1, 2, 3, 4, 5, 6, 7, 8].map(n => M('C'.repeat(n), STEM[n] + 'ane', { alt: n > 3 ? ['n-' + STEM[n] + 'ane'] : [] }));
+  const BRANCHED = [M('CCC', '2-methylpropane', { me: [2], alt: ['methylpropane'] }), M('CCCC', '2-methylbutane', { me: [2], alt: ['methylbutane'] }), M('CCC', '2,2-dimethylpropane', { me: [2, 2], alt: ['dimethylpropane'] }),
+    M('CCCCC', '2-methylpentane', { me: [2] }), M('CCCCC', '3-methylpentane', { me: [3] }), M('CCCC', '2,2-dimethylbutane', { me: [2, 2] }), M('CCCC', '2,3-dimethylbutane', { me: [2, 3] }),
+    M('CCCCCC', '2-methylhexane', { me: [2] }), M('CCCCCC', '3-methylhexane', { me: [3] })];
+  const ALKENES = [M('CC', 'ethene', { dbl: 1 }), M('CCC', 'propene', { dbl: 1, alt: ['prop-1-ene'] }), M('CCCC', 'but-1-ene', { dbl: 1 }), M('CCCC', 'but-2-ene', { dbl: 2 }),
+    M('CCCCC', 'pent-1-ene', { dbl: 1 }), M('CCCCC', 'pent-2-ene', { dbl: 2 }), M('CCCCCC', 'hex-1-ene', { dbl: 1 }), M('CCCCCC', 'hex-2-ene', { dbl: 2 }), M('CCCCCC', 'hex-3-ene', { dbl: 3 }),
+    M('CCC', '2-methylpropene', { dbl: 1, me: [2], alt: ['methylpropene', '2-methylprop-1-ene'] }), M('CCCC', '2-methylbut-1-ene', { dbl: 1, me: [2] }), M('CCCC', '3-methylbut-1-ene', { dbl: 1, me: [3] }), M('CCCC', '2-methylbut-2-ene', { dbl: 2, me: [2] })];
+  const ALCOHOLS = [M('C', 'methanol', { oh: 1 }), M('CC', 'ethanol', { oh: 1 }), M('CCC', 'propan-1-ol', { oh: 1 }), M('CCC', 'propan-2-ol', { oh: 2 }), M('CCCC', 'butan-1-ol', { oh: 1 }), M('CCCC', 'butan-2-ol', { oh: 2 }),
+    M('CCCCC', 'pentan-1-ol', { oh: 1 }), M('CCCCC', 'pentan-2-ol', { oh: 2 }), M('CCCCC', 'pentan-3-ol', { oh: 3 }), M('CCC', '2-methylpropan-1-ol', { me: [2], oh: 1 }), M('CCC', '2-methylpropan-2-ol', { me: [2], oh: 2 })];
+  const ETHERS = [M('COC', 'methoxymethane', { alt: ['dimethyl ether'] }), M('COCC', 'methoxyethane', { alt: ['ethyl methyl ether'] })];
+  const ALL = [...ALKANES, ...BRANCHED, ...ALKENES, ...ALCOHOLS, ...ETHERS];
+  const byName = (n) => ALL.find(m => m.name === n);
+  // other accepted spellings: but-1-ene → 1-butene, propan-1-ol → 1-propanol, 2-methylbut-1-ene → 2-methyl-1-butene
+  const accepts = (m) => { const a = [m.name, ...m.alt], k = m.name.match(/^(.*?)([a-z]+)-(\d)-(ene|ol)$/); if (k) a.push(`${k[1]}${k[1] ? '-' : ''}${k[3]}-${k[2]}${k[4]}`.replace('--', '-')); return a; };
+
+  // atoms, bonds and drawing in one pass
+  function build(m) {
+    const D = 58, Hd = 40, n = m.chain.length, atoms = [], bonds = [];
+    const add = (el, x, y) => { atoms.push({ el, x, y }); return atoms.length - 1; };
+    const bond = (a, b, order = 1) => bonds.push({ a, b, order });
+    const main = [...m.chain].map((el, i) => add(el, i * D, 0));
+    for (let i = 0; i < n - 1; i++) bond(main[i], main[i + 1], m.dbl === i + 1 ? 2 : 1);
+    main.forEach((ai, i) => {
+      if (m.chain[i] !== 'C') return;
+      const x = i * D, slots = { up: 'H', down: 'H' }, pos = i + 1, mes = m.me.filter(p => p === pos).length;
+      if (mes >= 1) slots.up = 'Me'; if (mes >= 2) slots.down = 'Me';
+      if (m.oh === pos) slots.down = 'OH';
+      if (m.dbl && (m.dbl === pos || m.dbl === pos - 1)) { if (slots.down === 'H') slots.down = null; else if (slots.up === 'H') slots.up = null; }
+      const left = i === 0, right = i === n - 1;
+      if (left) bond(ai, add('H', x - Hd, 0)); if (right) bond(ai, add('H', x + Hd, 0));
+      [['up', -1], ['down', 1]].forEach(([s, dy]) => {
+        const v = slots[s]; if (!v) return;
+        if (v === 'H') bond(ai, add('H', x, dy * Hd));
+        if (v === 'OH') { const o = add('O', x, dy * D); bond(ai, o); bond(o, add('H', x + Hd, dy * D)); }
+        if (v === 'Me') { const c = add('C', x, dy * D); bond(ai, c); bond(c, add('H', x - Hd, dy * D)); bond(c, add('H', x + Hd, dy * D)); bond(c, add('H', x, dy * (D + Hd))); }
+      });
+    });
+    const cnt = { C: 0, H: 0, O: 0 }; atoms.forEach(a => cnt[a.el]++);
+    const bc = {}; bonds.forEach(b => { const e = [atoms[b.a].el, atoms[b.b].el].sort((p, q) => 'COH'.indexOf(p) - 'COH'.indexOf(q)); const k = e[0] + (b.order === 2 ? '=' : '–') + e[1]; bc[k] = (bc[k] || 0) + 1; });
+    return { atoms, bonds, cnt, bc };
+  }
+  const info = (m) => { if (!m._b) m._b = build(m); return m._b; };
+  const fHTML = (m) => { const c = info(m).cnt; return `C${sub(c.C)}H${sub(c.H)}${c.O ? 'O' + sub(c.O) : ''}`; };
+  const fTXT = (m) => { const c = info(m).cnt; return `C${plain(c.C)}H${plain(c.H)}${c.O ? 'O' + plain(c.O) : ''}`; };
+  const molar = (m) => { const c = info(m).cnt; return c.C * MM.C + c.H * MM.H + c.O * MM.O; };
+  const molarSteps = (m) => { const c = info(m).cnt; return `${c.C} × 12.01 + ${c.H} × 1.01${c.O ? ` + ${c.O} × 16.00` : ''} = ${r2(molar(m)).toFixed(2)} g mol<sup>−1</sup>`; };
+  const isomersOf = (m) => ALL.filter(x => x !== m && fTXT(x) === fTXT(m));
+  function draw(m, label) {
+    const { atoms, bonds } = info(m), pad = 18;
+    const xs = atoms.map(a => a.x), ys = atoms.map(a => a.y), x0 = Math.min(...xs) - pad, y0 = Math.min(...ys) - pad, W = Math.max(...xs) - x0 + pad, Hh = Math.max(...ys) - y0 + pad;
+    let g = '';
+    bonds.forEach(b => {
+      const A = atoms[b.a], B = atoms[b.b], dx = B.x - A.x, dy = B.y - A.y, L = Math.hypot(dx, dy), ux = dx / L, uy = dy / L, sh = 9;
+      const seg = (o) => line(A.x - x0 + ux * sh - uy * o, A.y - y0 + uy * sh + ux * o, B.x - x0 - ux * sh - uy * o, B.y - y0 - uy * sh + ux * o, 'ln');
+      g += b.order === 2 ? seg(-3) + seg(3) : seg(0);
+    });
+    atoms.forEach(a => { g += text(a.x - x0, a.y - y0 + 5, a.el, a.el === 'H' ? 'tx' : 'tx b'); });
+    return svg(W, Hh, g, label || 'Structural formula');
+  }
+  const figs = (list) => `<div class="mol-row">${list.map(([m, cap]) => `<figure class="mol">${draw(m)}<figcaption>${cap}</figcaption></figure>`).join('')}</div>`;
+
+  /* ---------- combustion ---------- */
+  function combust(m) {
+    const { C, H: h, O } = info(m).cnt; let k = 1;
+    while (((2 * C + h / 2 - O) * k) % 2 !== 0) k *= 2;
+    return { f: k, o2: (2 * C + h / 2 - O) * k / 2, co2: C * k, h2o: h / 2 * k };
+  }
+  const eqn = (m, e, sym = true) => `${e.f > 1 ? e.f : ''}${fHTML(m)}${sym ? '(g)' : ''} + ${e.o2 > 1 ? e.o2 : ''}O<sub>2</sub>${sym ? '(g)' : ''} → ${e.co2 > 1 ? e.co2 : ''}CO<sub>2</sub>${sym ? '(g)' : ''} + ${e.h2o > 1 ? e.h2o : ''}H<sub>2</sub>O${sym ? '(l)' : ''}`;
+  const bondSum = (m) => Object.entries(info(m).bc).reduce((a, [k, v]) => a + v * BOND[k], 0);
+  const bondList = (m) => Object.entries(info(m).bc).map(([k, v]) => `${v} × ${k} (${BOND[k]})`).join(' + ');
+  // literature enthalpies of combustion, kJ mol⁻¹
+  const DHC = { methane: -891, ethane: -1561, propane: -2219, butane: -2878, pentane: -3509, hexane: -4163, heptane: -4817, octane: -5470, ethene: -1411, propene: -2058, 'but-1-ene': -2717,
+    methanol: -726, ethanol: -1367, 'propan-1-ol': -2021, 'butan-1-ol': -2676, 'pentan-1-ol': -3329 };
+  const withDH = ALL.filter(m => DHC[m.name]);
+  const BP = { methane: -162, ethane: -89, propane: -42, butane: -1, pentane: 36, hexane: 69, heptane: 98, octane: 126, nonane: 151, decane: 174 };
+
+  const cards = [
+    ['Fuel', 'A substance that releases useful energy when it reacts, usually by burning (combustion).', 'fuels'],
+    ['Fossil fuel', 'A fuel formed over millions of years from the remains of ancient organisms: coal, petroleum (crude oil) and natural gas.', 'fuels'],
+    ['Non-renewable', 'A resource that is used up much faster than it is replaced, e.g. coal, oil and natural gas.', 'fuels'],
+    ['Renewable', 'A resource that is replaced at least as fast as it is used, e.g. biofuels, wind, solar and hydroelectric energy.', 'fuels'],
+    ['Biofuel', 'A fuel made from recently living material, such as ethanol from sugar cane or biodiesel from vegetable oil.', 'fuels'],
+    ['Sustainable', 'Meeting present needs without harming the ability of future generations to meet theirs. Renewable does not always mean sustainable.', 'fuels'],
+    ['Organic compound', 'A compound containing carbon, except carbon oxides, carbonates, hydrogen carbonates and carbon itself.', 'organic'],
+    ['Hydrocarbon', 'A compound made of carbon and hydrogen atoms only.', 'organic'],
+    ['Alkane', 'A saturated hydrocarbon with only single C–C bonds; general formula CₙH₂ₙ₊₂.', 'organic'],
+    ['Alkene', 'An unsaturated hydrocarbon with at least one C=C double bond; general formula CₙH₂ₙ.', 'organic'],
+    ['Saturated', 'Containing only single carbon–carbon bonds, so holding the most hydrogen possible.', 'organic'],
+    ['Unsaturated', 'Containing at least one carbon–carbon double (or triple) bond.', 'organic'],
+    ['Molecular formula', 'The number of atoms of each element in one molecule, e.g. C₄H₁₀.', 'organic'],
+    ['Structural formula', 'A drawing showing how every atom in a molecule is bonded.', 'organic'],
+    ['Homologous series', 'A family of compounds with the same general formula, where each member differs by CH₂.', 'organic'],
+    ['Isomers', 'Compounds with the same molecular formula but a different structural formula.', 'isomers'],
+    ['IUPAC name', 'The systematic name of a compound: longest chain, branches with their positions, and the functional group.', 'isomers'],
+    ['Branch', 'A side chain (such as a methyl group, –CH₃) attached to the longest carbon chain.', 'isomers'],
+    ['Alcohol', 'An organic compound containing the hydroxyl (–OH) functional group. Alkanols have the formula CₙH₂ₙ₊₁OH.', 'alcohols'],
+    ['Hydroxyl group', 'The –OH functional group found in alcohols.', 'alcohols'],
+    ['Functional group', 'The group of atoms that gives a family of compounds its typical reactions, e.g. C=C in alkenes or –OH in alcohols.', 'alcohols'],
+    ['Boiling point', 'The temperature at which a liquid turns into a gas throughout.', 'distil'],
+    ['Fractional distillation', 'Separating crude oil into fractions with similar boiling points by evaporating it and condensing it at different heights in a column.', 'distil'],
+    ['Fraction', 'A mixture of hydrocarbons with similar chain lengths and boiling points, e.g. petrol, kerosene, diesel.', 'distil'],
+    ['Combustion', 'A reaction in which a substance reacts with oxygen and releases energy.', 'comb'],
+    ['Complete combustion', 'Burning with enough oxygen: the only products from a hydrocarbon are carbon dioxide and water.', 'comb'],
+    ['Incomplete combustion', 'Burning with too little oxygen: carbon monoxide (CO) and/or carbon (soot) form as well as water.', 'comb'],
+    ['Exothermic', 'A reaction that releases energy to the surroundings; ΔH is negative.', 'energy'],
+    ['Endothermic', 'A reaction that absorbs energy from the surroundings; ΔH is positive.', 'energy'],
+    ['Enthalpy change (ΔH)', 'The heat energy released or absorbed in a reaction at constant pressure, in kJ mol⁻¹.', 'energy'],
+    ['Activation energy', 'The minimum energy needed for a reaction to start.', 'energy'],
+    ['Bond enthalpy', 'The average energy needed to break one mole of a particular bond (the same energy is released when it forms).', 'energy'],
+    ['Mole', 'The amount of substance containing 6.02 × 10²³ particles (Avogadro\'s number).', 'moles'],
+    ['Molar mass', 'The mass of one mole of a substance, in g mol⁻¹: the sum of the atomic masses in the formula.', 'moles'],
+    ['Enthalpy of combustion (ΔHc)', 'The energy released when one mole of a substance burns completely in oxygen.', 'moles'],
+    ['Theoretical yield', 'The mass of product calculated from the balanced equation, assuming the reaction goes completely.', 'moles'],
+    ['Percentage yield', 'Actual yield ÷ theoretical yield × 100.', 'moles']
+  ];
+
+  const subs = [
+    { id: 'fuels', name: 'Fuels & energy resources' }, { id: 'organic', name: 'Organic compounds & hydrocarbons' }, { id: 'isomers', name: 'Naming & isomers' }, { id: 'alcohols', name: 'Alcohols' },
+    { id: 'distil', name: 'Crude oil & boiling point' }, { id: 'comb', name: 'Combustion reactions' }, { id: 'energy', name: 'Energy changes & bond enthalpy' }, { id: 'moles', name: 'Moles, energy & emissions' }
+  ];
+
+  const notes = {
+    fuels: { ideas: ['Fossil fuels (coal, petroleum, natural gas) are non-renewable: they formed over millions of years and are used up far faster.', 'Renewable refers to the rate the fuel is restored. Biofuels (e.g. ethanol, biodiesel) are renewable, but renewable does not always mean sustainable (land use, food crops, deforestation).', 'UN Sustainable Development Goal 7: ensure access to affordable, reliable, sustainable and modern energy for all.', 'Food energy is measured in Calories (kilocalories): 1 kcal = 4.184 kJ.'], mistakes: ['Saying renewable and sustainable mean the same thing.', 'Calling a biofuel "carbon neutral" without considering the energy used to grow, process and transport it.'] },
+    organic: { ideas: ['Organic compounds contain carbon, except CO, CO₂, carbonates, hydrogen carbonates and carbon itself.', 'Hydrocarbons contain only carbon and hydrogen.', 'Alkanes: single bonds only (saturated), CₙH₂ₙ₊₂: methane, ethane, propane, butane, pentane, hexane, heptane, octane.', 'Alkenes: at least one C=C (unsaturated), CₙH₂ₙ: ethene, propene, butene…', 'Molecular formula counts the atoms (C₃H₈); a structural formula shows every atom and every bond.'], mistakes: ['Counting H atoms wrongly: every carbon makes exactly 4 bonds (a double bond counts as 2).', 'Calling CO₂ or CaCO₃ organic.', 'Leaving out H atoms in a structural formula.'] },
+    isomers: { ideas: ['Isomers have the same molecular formula but different structural formulas (different arrangement of atoms).', 'Naming: find the longest chain (stem: meth, eth, prop, but, pent, hex, hept, oct); number from the end nearest the branch or functional group; name branches with their position (2-methyl…); use di-, tri- for repeated branches (2,2-dimethyl…).', 'Alkenes: give the position of the C=C (but-1-ene, but-2-ene). Alcohols: give the position of the –OH (propan-2-ol).', 'Isotopes are atoms of the same element with different numbers of neutrons. Do not confuse them with isomers!'], mistakes: ['Not finding the longest chain when it bends.', 'Numbering from the wrong end (it is 2-methylbutane, not 3-methylbutane).', 'Claiming two molecules are isomers without comparing molecular formulas first.'] },
+    alcohols: { ideas: ['Alcohols contain the hydroxyl (–OH) functional group. Alkanols: CₙH₂ₙ₊₁OH (e.g. CH₃OH methanol, C₂H₅OH ethanol).', 'Names end in -ol, with the position of the –OH: propan-1-ol, propan-2-ol.', 'E10 petrol contains 10% ethanol by volume; ethanol can be made from plants (a biofuel).', 'Alcohols have higher boiling points than alkanes of similar size because of the –OH group.'], mistakes: ['Writing ethanol as C₂H₆OH (it is C₂H₅OH, or C₂H₆O as a molecular formula).', 'Forgetting the oxygen atom when calculating molar mass.'] },
+    distil: { ideas: ['Crude oil is a mixture of hydrocarbons. Fractional distillation separates it into fractions by boiling point.', 'The column is hot at the bottom and cooler at the top. Short-chain hydrocarbons (low boiling point) rise to the top; long chains condense near the bottom.', 'Fractions from top to bottom: refinery gases, petrol (gasoline), naphtha, kerosene, diesel, fuel oil, bitumen.', 'Longer chains → stronger forces between molecules → higher boiling point. More branching → lower boiling point (less surface contact).'], mistakes: ['Saying covalent bonds break when a hydrocarbon boils: only the forces between molecules are overcome.', 'Putting long-chain fractions at the top of the column.'] },
+    comb: { ideas: ['Complete combustion (enough oxygen): fuel + oxygen → carbon dioxide + water.', 'Incomplete combustion (not enough oxygen): carbon monoxide (CO, toxic) and/or carbon (soot) form, and less energy is released.', 'Balancing: balance C first, then H, then O last. Use whole numbers: if O₂ needs a fraction, double everything (2C₈H₁₈ + 25O₂ → 16CO₂ + 18H₂O).', 'Alcohols already contain one O atom: subtract it when counting the O₂ needed.'], mistakes: ['Changing subscripts instead of coefficients when balancing.', 'Leaving a fraction or decimal as a coefficient.', 'Forgetting the O already in an alcohol.'] },
+    energy: { ideas: ['Bond breaking absorbs energy (endothermic); bond making releases energy (exothermic).', 'Combustion is exothermic: more energy is released making bonds in CO₂ and H₂O than is absorbed breaking bonds in the fuel and O₂, so ΔH is negative.', 'Enthalpy profile: products below reactants = exothermic. The hump is the activation energy.', 'ΔH ≈ Σ(bonds broken) − Σ(bonds made), using average bond enthalpies from a table (you do not need to memorise them).'], mistakes: ['Subtracting the wrong way round (made − broken).', 'Forgetting to multiply by the coefficients in the balanced equation.', 'Expecting bond-enthalpy estimates to match measured values exactly: they are averages, and water is assumed to be a gas.'] },
+    moles: { ideas: ['One mole contains 6.02 × 10²³ particles. Molar mass M (g mol⁻¹) = sum of the atomic masses (C 12.01, H 1.01, O 16.00).', 'n = m ÷ M. Use the mole ratio from the balanced equation, then m = n × M.', 'kJ mol⁻¹ → kJ g⁻¹: divide ΔHc by the molar mass.', 'Percentage yield = actual ÷ theoretical × 100. Compare fuels by energy per gram and by energy per gram of CO₂ emitted.'], mistakes: ['Using the mass of fuel instead of moles in the mole ratio.', 'Forgetting the ratio from the equation (1 C₆H₁₄ : 6 CO₂).', 'Rounding too early in a multi-step calculation.'] }
+  };
+
+  const qs = [
+    /* ===== fuels ===== */
+    { id: 'fuels-i2-renew', sub: 'fuels', s: 'i', b: 2, topic: 'Energy resources', gen: (R) => ({ type: 'sort', stem: '<p>State whether each energy resource is renewable or non-renewable.</p>', bins: ['Renewable', 'Non-renewable'], items: H.sampleBins(R, [['Coal', 1], ['Natural gas', 1], ['Petroleum (crude oil)', 1], ['Uranium (nuclear fuel)', 1], ['Ethanol from sugar cane', 0], ['Biodiesel from vegetable oil', 0], ['Hydroelectric', 0], ['Wind', 0], ['Solar', 0], ['Wood from managed forests', 0]], 6), why: '<p>Renewable resources are replaced as fast as they are used. Fossil fuels took millions of years to form.</p>' }) },
+    { id: 'fuels-i4-sdg', sub: 'fuels', s: 'i', b: 4, topic: 'SDG 7', gen: () => ({ type: 'mcq', stem: '<p>Outline the aim of UN Sustainable Development Goal 7.</p>', choices: ['Ensure access to affordable, reliable, sustainable and modern energy for all', 'Stop all use of fossil fuels by 2030', 'Make every country produce its own oil', 'Provide clean water and sanitation for all'], ans: 0, why: '<p>SDG 7 is Affordable and Clean Energy. Its targets include more renewable energy, better energy efficiency and cleaner fossil-fuel technology.</p>' }) },
+    { id: 'fuels-i6-sustain', sub: 'fuels', s: 'i', b: 6, topic: 'Renewable vs sustainable', gen: () => H.self('<p>Describe the difference between a <b>renewable</b> and a <b>sustainable</b> fuel. Use a biofuel as an example.</p>',
+      'A renewable fuel is replaced at least as fast as it is used: for example, sugar cane for ethanol can be regrown each year. A sustainable fuel meets our needs now without harming the ability of future generations to meet theirs. A biofuel is renewable, but it is not always sustainable: growing the crops can use land needed for food, cause deforestation, use lots of water and fertiliser, and need energy from fossil fuels to farm, process and transport it.',
+      ['Renewable: replaced as fast as it is used (rate of replacement)', 'Sustainable: meets present needs without harming future generations', 'Biofuel example of renewable', 'Reason a biofuel may not be sustainable (land, food crops, deforestation, energy used)']) },
+    { id: 'fuels-ii2-kcal', sub: 'fuels', s: 'ii', b: 2, topic: 'Energy units', gen: (R) => { const kc = R.pick([150, 230, 280, 350, 520]), food = R.pick(['a granola bar', 'a bowl of cereal', 'a slice of pizza', 'a sandwich']); return { type: 'num', stem: `<p>The label on ${food} says it contains <b>${kc} Calories</b> (kcal). Given 1 kcal = 4.184 kJ, calculate the energy in kJ.</p>`, ans: kc * 4.184, unit: 'kJ', tol: 0.01, steps: [`${kc} × 4.184 = ${NUM.sf(kc * 4.184, 4)} kJ`] }; } },
+    { id: 'fuels-iii4-table', sub: 'fuels', s: 'iii', b: 4, topic: 'Comparing energy resources', gen: (R) => {
+      const rows = R.sample([['Coal', 24, 2400, 'No'], ['Natural gas', 50, 2750, 'No'], ['Ethanol (biofuel)', 30, 1910, 'Yes'], ['Wood', 16, 1800, 'Yes'], ['Diesel', 45, 3150, 'No']], 3);
+      const hi = rows.reduce((a, r) => r[1] > a[1] ? r : a), lo = rows.reduce((a, r) => r[2] < a[2] ? r : a);
+      return { type: 'parts', stem: `<p>The table compares three fuels.</p>${H.table(['Fuel', 'Energy released / MJ kg<sup>−1</sup>', 'CO<sub>2</sub> released / g per kg burned', 'Renewable?'], rows)}`, parts: [
+        { type: 'select', stem: 'Deduce which fuel releases the most energy per kilogram.', options: rows.map(r => r[0]), ans: rows.indexOf(hi) },
+        { type: 'select', stem: 'Deduce which fuel releases the least carbon dioxide per kilogram.', options: rows.map(r => r[0]), ans: rows.indexOf(lo) },
+        { type: 'mcq', stem: 'Which statement is a scientifically supported judgment?', choices: [`${hi[0]} gives the most energy per kg (${hi[1]} MJ), but the choice also depends on its CO₂ emissions and whether it is renewable`, `${lo[0]} is the best fuel in every way`, 'All the fuels release the same amount of CO₂', 'The fuel with the most CO₂ is the most renewable'], ans: 0 }
+      ] };
+    } },
+    { id: 'fuels-iii8-neutral', sub: 'fuels', s: 'iii', b: 8, topic: 'Biofuels', gen: () => H.self('<p>A company claims: <i>"Bioethanol is carbon neutral: the CO₂ released when it burns was taken in by the sugar cane as it grew."</i> Evaluate this claim.</p>',
+      'Partly supported: sugar cane takes in CO₂ by photosynthesis as it grows, and burning the ethanol releases about the same amount of CO₂ from the carbon in the plant, so the burning itself does not add new carbon to the atmosphere (unlike fossil fuels, which release carbon locked away for millions of years). However, the claim ignores the energy used to plant, fertilise, harvest, ferment, distil and transport the fuel, which often comes from fossil fuels, and any forest cleared to grow the crop (lost carbon store). Fermentation also releases CO₂. So bioethanol is lower-carbon than petrol but not completely carbon neutral; the claim is an overstatement.',
+      ['Photosynthesis takes in CO₂ as the crop grows', 'Burning releases CO₂ from carbon recently taken from the air', 'Energy for farming, fertiliser, processing and transport (often fossil fuels) adds CO₂', 'Land clearing / deforestation or fermentation CO₂', 'Clear judgment: lower carbon but not fully carbon neutral']) },
+
+    /* ===== organic compounds ===== */
+    { id: 'org-i2-organic', sub: 'organic', s: 'i', b: 2, topic: 'Organic or inorganic', gen: (R) => ({ type: 'sort', stem: '<p>Classify each compound as organic or inorganic.</p>', bins: ['Organic', 'Inorganic'], items: H.sampleBins(R, [['CH<sub>4</sub> (methane)', 0], ['C<sub>2</sub>H<sub>5</sub>OH (ethanol)', 0], ['C<sub>3</sub>H<sub>8</sub> (propane)', 0], ['C<sub>6</sub>H<sub>12</sub>O<sub>6</sub> (glucose)', 0], ['H<sub>2</sub>SO<sub>4</sub>', 1], ['CO<sub>2</sub>', 1], ['CO', 1], ['CaCO<sub>3</sub>', 1], ['NaHCO<sub>3</sub>', 1], ['H<sub>2</sub>O', 1]], 6), why: '<p>Organic compounds contain carbon, except carbon oxides, carbonates, hydrogen carbonates and carbon itself.</p>' }) },
+    { id: 'org-i4-formula', sub: 'organic', s: 'i', b: 4, topic: 'Formulas', gen: (R) => { const m = R.pick([...ALKANES.slice(1), ...ALKENES.slice(0, 9)]); return { type: 'parts', stem: '<p>Consider the molecule below.</p>', fig: draw(m), parts: [
+      { type: 'text', mode: 'formula', stem: 'State the molecular formula. <span class="small muted">(Type numbers normally, e.g. C3H8.)</span>', accept: [fTXT(m)], show: fHTML(m), label: 'Molecular formula', steps: [`Count the atoms: ${info(m).cnt.C} C and ${info(m).cnt.H} H`] },
+      { type: 'text', stem: 'State the name of the molecule.', accept: accepts(m), show: m.name, label: 'Name', why: `<p>${info(m).cnt.C} carbons → ${STEM[info(m).cnt.C]}-. ${m.dbl ? `A C=C double bond starting at carbon ${m.dbl} → ${m.name}.` : 'Only single bonds → -ane.'}</p>` },
+      { type: 'select', stem: 'Identify the homologous series.', options: ['Alkane', 'Alkene', 'Alcohol'], ans: m.dbl ? 1 : 0 }
+    ] }; } },
+    { id: 'org-i6-compare', sub: 'organic', s: 'i', b: 6, topic: 'Alkanes and alkenes', gen: () => H.self('<p>Compare and contrast <b>alkanes</b> and <b>alkenes</b>. Refer to bonding, general formulas and an example of each.</p>',
+      'Both are hydrocarbons (contain only carbon and hydrogen) and both form homologous series. Alkanes are saturated: they contain only single C–C bonds and have the general formula CₙH₂ₙ₊₂ (e.g. ethane, C₂H₆). Alkenes are unsaturated: they contain at least one C=C double bond and have the general formula CₙH₂ₙ (e.g. ethene, C₂H₄). For the same number of carbon atoms, an alkene has two fewer hydrogen atoms than the alkane.',
+      ['Similarity: both hydrocarbons (only C and H)', 'Alkanes: single bonds only / saturated', 'Alkenes: at least one C=C / unsaturated', 'General formulas CₙH₂ₙ₊₂ and CₙH₂ₙ', 'Correct example of each (e.g. ethane C₂H₆, ethene C₂H₄)']) },
+    { id: 'org-ii2-general', sub: 'organic', s: 'ii', b: 2, topic: 'General formulas', gen: (R) => { const n = R.int(9, 20), alk = R.chance(0.5); return { type: 'num', stem: `<p>Use the general formula to calculate the number of hydrogen atoms in an ${alk ? 'alkane' : 'alkene'} with <b>${n}</b> carbon atoms.</p>`, ans: alk ? 2 * n + 2 : 2 * n, unit: 'H atoms', tolAbs: 0, steps: [alk ? `CₙH₂ₙ₊₂: 2 × ${n} + 2 = ${2 * n + 2}` : `CₙH₂ₙ: 2 × ${n} = ${2 * n}`] }; } },
+    { id: 'org-ii4-classify', sub: 'organic', s: 'ii', b: 4, topic: 'Homologous series', gen: (R) => {
+      const m = R.pick([...ALKANES.slice(2), ...ALKENES.slice(1, 9), ...ALCOHOLS.slice(1, 7)]), c = info(m).cnt;
+      return { type: 'mcq', fixed: true, stem: `<p>A compound has the molecular formula <b>${fHTML(m)}</b>${m.cls === 'alcohol' ? ' and contains an –OH group' : ''}. Deduce its homologous series.</p>`, choices: ['Alkane', 'Alkene', 'Alcohol (alkanol)'], ans: { alkane: 0, alkene: 1, alcohol: 2 }[m.cls], why: `<p>${c.O ? 'It contains oxygen in an –OH group, so it is an alcohol: CₙH₂ₙ₊₁OH.' : c.H === 2 * c.C + 2 ? `${c.H} = 2 × ${c.C} + 2, so CₙH₂ₙ₊₂: an alkane.` : `${c.H} = 2 × ${c.C}, so CₙH₂ₙ: an alkene.`}</p>` };
+    } },
+    { id: 'org-iii6-series', sub: 'organic', s: 'iii', b: 6, topic: 'Patterns in formulas', gen: (R) => {
+      const k = R.pick([-2, 0, 2]), name = { '-2': 'alkynes', 0: 'alkenes', 2: 'alkanes' }[k], start = k === 2 ? 1 : 2, rows = [0, 1, 2, 3].map(i => [start + i, 2 * (start + i) + k]), N = R.int(10, 14);
+      return { type: 'parts', stem: `<p>A student recorded the formulas of the first four members of a homologous series.</p>${H.table(['Carbon atoms', 'Hydrogen atoms'], rows)}`, parts: [
+        { type: 'mcq', fixed: true, stem: 'Deduce the general formula.', choices: ['CₙH₂ₙ₊₂', 'CₙH₂ₙ', 'CₙH₂ₙ₋₂', 'CₙHₙ'], ans: { 2: 0, 0: 1, '-2': 2 }[k], why: `<p>Each extra C adds 2 H (CH₂). H = 2n ${k > 0 ? '+ 2' : k < 0 ? '− 2' : ''}: these are the ${name}.</p>` },
+        { type: 'num', stem: `Predict the number of hydrogen atoms in the member with ${N} carbon atoms.`, ans: 2 * N + k, unit: 'H atoms', tolAbs: 0 }
+      ] };
+    } },
+
+    /* ===== naming and isomers ===== */
+    { id: 'iso-i2-define', sub: 'isomers', s: 'i', b: 2, topic: 'Isomers', gen: () => ({ type: 'mcq', stem: '<p>State what is meant by <b>isomers</b>.</p>', choices: ['Compounds with the same molecular formula but a different structural formula', 'Atoms of the same element with different numbers of neutrons', 'Compounds with the same structural formula but a different molecular formula', 'Compounds in the same homologous series'], ans: 0, why: '<p>Isomers: same molecular formula, different arrangement of atoms. The second option describes isotopes.</p>' }) },
+    { id: 'iso-i4-name', sub: 'isomers', s: 'i', b: 4, topic: 'Naming', gen: (R) => { const m = R.pick([...BRANCHED, ...ALKENES.slice(3)]); return { type: 'text', stem: '<p>State the IUPAC name of this molecule.</p>', fig: draw(m), accept: accepts(m), show: m.name, label: 'Name', why: `<p>Find the longest chain, number from the end nearest the ${m.dbl ? 'double bond' : 'branch'}, then name the branches with their positions. Here: <b>${m.name}</b> (${fHTML(m)}).</p>` }; } },
+    { id: 'iso-ii4-which', sub: 'isomers', s: 'ii', b: 4, topic: 'Isomers', gen: (R) => {
+      const groups = ['C5H12', 'C6H14', 'C4H8', 'C5H10', 'C4H10O', 'C3H8O'], f = R.pick(groups), mem = ALL.filter(m => fTXT(m) === f), [a, b] = R.sample(mem, 2);
+      const others = R.sample(ALL.filter(m => fTXT(m) !== f && Math.abs(info(m).cnt.C - info(a).cnt.C) <= 1 && m.cls !== 'ether'), 3);
+      return { type: 'mcq', stem: `<p>Which compound is an isomer of <b>${a.name}</b>?</p>`, choices: [b.name, ...others.map(o => o.name)], ans: 0, why: `<p>${a.name} and ${b.name} both have the molecular formula ${fHTML(a)}, but different structures.</p>` };
+    } },
+    { id: 'iso-ii6-sort', sub: 'isomers', s: 'ii', b: 6, topic: 'Isomers', gen: (R) => {
+      const m = R.pick([byName('pentane'), byName('hexane'), byName('but-1-ene'), byName('pent-1-ene'), byName('butan-1-ol')]), iso = isomersOf(m), not = ALL.filter(x => fTXT(x) !== fTXT(m) && Math.abs(info(x).cnt.C - info(m).cnt.C) <= 1 && x.cls !== 'ether');
+      const items = R.shuffle([...R.sample(iso, Math.min(3, iso.length)).map(x => [x.name, 0]), ...R.sample(not, 3).map(x => [x.name, 1])]);
+      return { type: 'parts', stem: '<p>Consider the molecule below.</p>', fig: draw(m), parts: [
+        { type: 'text', mode: 'formula', stem: 'State its molecular formula.', accept: [fTXT(m)], show: fHTML(m), label: 'Molecular formula' },
+        { type: 'sort', stem: 'Is each compound an isomer of this molecule?', bins: ['Isomer', 'Not an isomer'], items, why: '<p>Write the molecular formula of each one: isomers have exactly the same numbers of each type of atom.</p>' }
+      ] };
+    } },
+    { id: 'iso-i8-explain', sub: 'isomers', s: 'i', b: 8, topic: 'Explaining isomers', gen: (R) => {
+      const set = R.pick([['propan-1-ol', 'methoxyethane', 'propane'], ['butane', '2-methylpropane', 'but-1-ene'], ['pent-1-ene', '2-methylbut-2-ene', 'pentane'], ['ethanol', 'methoxymethane', 'ethane'], ['propan-1-ol', 'propan-2-ol', 'propene']]).map(byName);
+      const [a, b, c] = set;
+      return { type: 'parts', stem: `<p>A student searched the internet for examples of isomers and found these structures.</p>${figs([[a, `Figure 1: ${a.name}`], [b, `Figure 2: ${b.name}`], [c, `Figure 3: ${c.name}`]])}`, parts: [
+        { type: 'self', stem: 'Explain that Figure 1 and Figure 3 are <b>not</b> isomers. Present relevant evidence.', model: `Isomers must have the same molecular formula (the same number of each type of atom). ${a.name} is ${fHTML(a)} but ${c.name} is ${fHTML(c)}, so they have different molecular formulas and cannot be isomers.`, check: ['States isomers need the same molecular formula / same number of each type of atom', `Gives both formulas: ${fHTML(a)} and ${fHTML(c)}`, 'Concludes they differ, so not isomers'] },
+        { type: 'self', stem: 'Explain that Figure 1 and Figure 2 <b>are</b> isomers. Present relevant evidence.', model: `Isomers have the same molecular formula but a different structural formula. ${a.name} and ${b.name} both have the molecular formula ${fHTML(a)}. Their structures are different: ${a.cls !== b.cls ? `in ${a.name} the atoms form ${a.cls === 'alcohol' ? 'an –OH group' : a.cls === 'alkene' ? 'a C=C double bond' : 'a chain'}, while in ${b.name} ${b.cls === 'ether' ? 'the O atom sits between two carbon atoms (C–O–C), with no O–H bond' : b.cls === 'alkene' ? 'there is a C=C double bond' : 'the atoms are arranged differently'}` : b.me.length ? `${b.name} has a branched chain, while ${a.name} is a straight chain` : `the ${a.dbl ? 'double bond' : '–OH group'} is on a different carbon atom`}.`, check: ['States isomers need the same molecular formula', `Shows both are ${fHTML(a)}`, 'States isomers have a different structural formula / arrangement of atoms', 'Identifies the specific structural difference from the figures'] }
+      ] };
+    } },
+    { id: 'iso-iii4-pairs', sub: 'isomers', s: 'iii', b: 4, topic: 'Isomers from data', gen: (R) => {
+      const pool = H.sampleBins(R, [['butane', '2-methylpropane'], ['pentane', '2,2-dimethylpropane'], ['but-1-ene', '2-methylpropene'], ['propan-1-ol', 'propan-2-ol'], ['ethanol', 'methoxymethane'], ['pentane', 'pent-1-ene'], ['butane', 'butan-1-ol'], ['propane', 'propene'], ['hexane', '3-methylpentane'], ['ethane', 'ethene']].map(p => [p.map(byName), 0]).map(([p]) => [p, fTXT(p[0]) === fTXT(p[1]) ? 0 : 1]), 6).map(x => x[0]);
+      return { type: 'sort', stem: `<p>The table gives pairs of compounds with their molecular formulas.</p>${H.table(['Compound A', 'Compound B'], pool.map(([a, b]) => [`${a.name} (${fHTML(a)})`, `${b.name} (${fHTML(b)})`]))}<p>Judge whether each pair are isomers.</p>`, bins: ['Isomers', 'Not isomers'], items: pool.map(([a, b]) => [`${a.name} and ${b.name}`, fTXT(a) === fTXT(b) ? 0 : 1]), why: '<p>Same molecular formula (and different structures, since the names differ) → isomers.</p>' };
+    } },
+
+    /* ===== alcohols ===== */
+    { id: 'alc-i2-group', sub: 'alcohols', s: 'i', b: 2, topic: 'Functional groups', gen: () => ({ type: 'mcq', stem: '<p>State the functional group found in all alcohols.</p>', choices: ['Hydroxyl group, –OH', 'Carbon–carbon double bond, C=C', 'Carbonyl group, C=O', 'Methyl group, –CH₃'], ans: 0 }) },
+    { id: 'alc-i4-name', sub: 'alcohols', s: 'i', b: 4, topic: 'Naming alcohols', gen: (R) => { const m = R.pick(ALCOHOLS.slice(1)); return { type: 'parts', stem: '<p>Consider the alcohol below.</p>', fig: draw(m), parts: [
+      { type: 'text', stem: 'State its name.', accept: accepts(m), show: m.name, label: 'Name', why: `<p>Longest chain with the –OH: ${STEM[m.chain.length]}an-; number from the end nearest the –OH${m.me.length ? '; a methyl branch on carbon 2' : ''}. → <b>${m.name}</b></p>` },
+      { type: 'text', mode: 'formula', stem: 'State its molecular formula.', accept: [fTXT(m), `C${plain(info(m).cnt.C)}H${plain(info(m).cnt.H - 1)}OH`], show: `${fHTML(m)} (or C${sub(info(m).cnt.C)}H${sub(info(m).cnt.H - 1)}OH)`, label: 'Molecular formula' }
+    ] }; } },
+    { id: 'alc-ii2-e10', sub: 'alcohols', s: 'ii', b: 2, topic: 'Ethanol in fuel', gen: (R) => { const e = R.pick([5, 10, 15, 85]), V = R.pick([40, 45, 50, 60]); return { type: 'num', stem: `<p>E${e} fuel contains ${e}% ethanol by volume. A car's tank holds ${V} L of E${e}. Calculate the volume of ethanol in a full tank.</p>`, ans: V * e / 100, unit: 'L', tol: 0.01, steps: [`${e}% of ${V} L = ${e} ÷ 100 × ${V} = ${V * e / 100} L`] }; } },
+    { id: 'alc-ii4-formula', sub: 'alcohols', s: 'ii', b: 4, topic: 'Alkanol formulas', gen: (R) => { const n = R.int(6, 12); return { type: 'text', mode: 'formula', stem: `<p>Alkanols have the general formula C<sub>n</sub>H<sub>2n+1</sub>OH. Deduce the formula of the straight-chain alkanol with <b>${n}</b> carbon atoms.</p><p class="small muted">Type numbers normally, e.g. C3H7OH.</p>`, accept: [`C${n}H${2 * n + 1}OH`, `C${n}H${2 * n + 2}O`], show: `C<sub>${n}</sub>H<sub>${2 * n + 1}</sub>OH`, label: 'Formula', steps: [`2n + 1 = 2 × ${n} + 1 = ${2 * n + 1}`] }; } },
+    { id: 'alc-i8-branch', sub: 'alcohols', s: 'i', b: 8, topic: 'Boiling points of alcohols', gen: () => ({ type: 'parts', stem: `<p>A student found that butan-1-ol boils at 118 °C, whereas 2-methylpropan-1-ol boils at 108 °C.</p>${figs([[byName('butan-1-ol'), 'butan-1-ol'], [byName('2-methylpropan-1-ol'), '2-methylpropan-1-ol']])}<p>Based on these data, the student proposed that pentan-1-ol would have a higher boiling point than 2-methylbutan-1-ol.</p>`, parts: [
+      { type: 'self', stem: 'Explain the reasoning used by the student. Include suitable formulas and names.', model: 'Butan-1-ol and 2-methylpropan-1-ol are isomers (both C₄H₁₀O / C₄H₉OH). Butan-1-ol has no branches (a longer main chain) and has the higher boiling point (118 °C vs 108 °C), so the data suggest that more branching (a shorter main chain) lowers the boiling point. Pentan-1-ol and 2-methylbutan-1-ol are also isomers (C₅H₁₂O / C₅H₁₁OH); pentan-1-ol is unbranched while 2-methylbutan-1-ol has a methyl branch, so pentan-1-ol is predicted to have the higher boiling point. Unbranched molecules can line up more closely, with stronger forces between molecules.', check: ['Uses the data: 118 °C (unbranched) > 108 °C (branched)', 'Identifies the pattern: branching lowers boiling point', 'Identifies the pentanols as isomers with formula C₅H₁₂O / C₅H₁₁OH', 'Applies the pattern: pentan-1-ol unbranched → higher boiling point', 'Explains with forces between molecules / surface contact'] }
+    ] }) },
+    { id: 'alc-iii6-bp', sub: 'alcohols', s: 'iii', b: 6, topic: 'Trends in alcohols', gen: (R) => {
+      const data = [['methanol', 1, 65], ['ethanol', 2, 78], ['propan-1-ol', 3, 97], ['butan-1-ol', 4, 118], ['pentan-1-ol', 5, 138], ['hexan-1-ol', 6, 157]], k = R.int(4, 6), shown = data.slice(0, k - 1), target = data[k - 1];
+      const fig = graph({ xmin: 0, xmax: 7, xstep: 1, ymin: 0, ymax: 180, ystep: 20, xlabel: 'Number of carbon atoms', ylabel: 'Boiling point / °C', series: [{ pts: shown.map(d => [d[1], d[2]]), dots: true }], label: 'Boiling points of alkanols' });
+      return { type: 'parts', stem: `<p>The graph shows the boiling points of the first ${k - 1} straight-chain alkanols (alcohols).</p>`, fig, parts: [
+        { type: 'mcq', fixed: true, stem: 'Describe the trend.', choices: ['Boiling point increases as the number of carbon atoms increases', 'Boiling point decreases as the number of carbon atoms increases', 'There is no trend'], ans: 0 },
+        { type: 'num', stem: `Predict the boiling point of ${target[0]} (${target[1]} carbon atoms).`, ans: target[2], unit: '°C', tolAbs: 10, steps: [`Extend the pattern: each extra CH₂ adds about 20 °C → about ${target[2]} °C`] },
+        { type: 'mcq', stem: 'Which explanation is best supported?', choices: ['Longer molecules have stronger forces between molecules, so more energy is needed to separate them', 'Longer molecules have weaker covalent bonds, so they break more easily', 'Longer molecules contain more oxygen atoms', 'Boiling breaks the C–C bonds inside the molecules'], ans: 0 }
+      ] };
+    } },
+
+    /* ===== crude oil and boiling point ===== */
+    { id: 'dist-i2-bp', sub: 'distil', s: 'i', b: 2, topic: 'Crude oil', gen: (R) => R.pick([
+      () => ({ type: 'mcq', stem: '<p>State the property used to separate crude oil into fractions.</p>', choices: ['Boiling point', 'Density', 'Colour', 'Solubility in water'], ans: 0 }),
+      () => ({ type: 'mcq', stem: '<p>State where in the fractionating column the hydrocarbons with the shortest chains are collected.</p>', choices: ['At the top, where it is coolest', 'At the bottom, where it is hottest', 'In the middle', 'They stay in the crude oil'], ans: 0 })
+    ])() },
+    { id: 'dist-i4-order', sub: 'distil', s: 'i', b: 4, topic: 'Fractions', gen: () => ({ type: 'order', stem: '<p>Outline where each fraction is collected in a fractionating column. Put the fractions in order from the <b>top</b> of the column to the <b>bottom</b>.</p>', items: ['Refinery gases', 'Petrol (gasoline)', 'Kerosene', 'Diesel', 'Fuel oil', 'Bitumen'], why: '<p>Short chains, low boiling points → top. Long chains, high boiling points → bottom.</p>' }) },
+    { id: 'dist-i6-describe', sub: 'distil', s: 'i', b: 6, topic: 'Fractional distillation', gen: () => H.self('<p>Describe how crude oil is separated by fractional distillation.</p>',
+      'Crude oil is a mixture of hydrocarbons. It is heated until most of it evaporates and the vapour enters the bottom of a fractionating column. The column is hottest at the bottom and coolest at the top. The vapour rises, and each hydrocarbon condenses when it reaches a level below its boiling point. Long-chain hydrocarbons (high boiling points) condense near the bottom (e.g. fuel oil, bitumen); short-chain hydrocarbons (low boiling points) rise higher and condense near the top, while the smallest stay as gases (refinery gases). Each fraction collected is a mixture of hydrocarbons with similar boiling points.',
+      ['Crude oil is heated and vaporised', 'Temperature gradient: hot at the bottom, cool at the top', 'Vapour rises and condenses at the level matching its boiling point', 'Long chains (high b.p.) at the bottom, short chains (low b.p.) at the top', 'Each fraction is a mixture with similar boiling points']) },
+    { id: 'dist-ii4-predict', sub: 'distil', s: 'ii', b: 4, topic: 'Predicting boiling points', gen: (R) => {
+      const names = ['methane', 'ethane', 'propane', 'butane', 'pentane', 'hexane', 'heptane', 'octane', 'nonane'], k = R.int(5, 8), shown = names.slice(0, k), t = names[k];
+      return { type: 'num', stem: `<p>The table shows the boiling points of some straight-chain alkanes.</p>${H.table(['Alkane', 'Carbon atoms', 'Boiling point / °C'], shown.map((n, i) => [n, i + 1, BP[n]]))}<p>Use the data to predict the boiling point of <b>${t}</b> (${k + 1} carbon atoms).</p>`, ans: BP[t], unit: '°C', tolAbs: 12, steps: [`The increase per carbon atom is getting smaller: ${BP[shown[k - 2]]} → ${BP[shown[k - 1]]} is +${BP[shown[k - 1]] - BP[shown[k - 2]]} °C`, `So add a little less: about ${BP[t]} °C (the real value)`] };
+    } },
+    { id: 'dist-iii6-graph', sub: 'distil', s: 'iii', b: 6, topic: 'Boiling point and chain length', gen: (R) => {
+      const names = ['methane', 'ethane', 'propane', 'butane', 'pentane', 'hexane', 'heptane', 'octane'], T = R.pick([20, 25]);
+      const fig = graph({ xmin: 0, xmax: 9, xstep: 1, ymin: -200, ymax: 150, ystep: 50, xlabel: 'Number of carbon atoms', ylabel: 'Boiling point / °C', series: [{ pts: names.map((n, i) => [i + 1, BP[n]]), dots: true }, { pts: [[0, T], [9, T]], dash: true, label: `room temperature (${T} °C)`, labelAt: [0.2, T + 8] }], label: 'Boiling points of alkanes' });
+      return { type: 'parts', stem: '<p>The graph shows the boiling points of the first eight straight-chain alkanes.</p>', fig, parts: [
+        { type: 'num', stem: 'Deduce how many of these alkanes are gases at room temperature.', ans: 4, unit: '', tolAbs: 0, steps: ['Alkanes with a boiling point below room temperature are gases: methane to butane (4)'] },
+        { type: 'mcq', fixed: true, stem: 'Describe the pattern.', choices: ['Boiling point increases with chain length, but by a smaller amount for each extra carbon', 'Boiling point increases by exactly the same amount for each extra carbon', 'Boiling point decreases with chain length'], ans: 0 },
+        { type: 'mcq', stem: 'Use the pattern to suggest which fraction of crude oil octane is found in.', choices: ['Petrol (gasoline), collected near the top of the column', 'Bitumen, at the bottom of the column', 'Refinery gases', 'Fuel oil'], ans: 0 }
+      ] };
+    } },
+    { id: 'dist-iii8-branch', sub: 'distil', s: 'iii', b: 8, topic: 'Branching and boiling point', gen: (R) => {
+      const set = R.pick([[['pentane', 36], ['2-methylbutane', 28], ['2,2-dimethylpropane', 10]], [['hexane', 69], ['3-methylpentane', 63], ['2-methylpentane', 60], ['2,3-dimethylbutane', 58], ['2,2-dimethylbutane', 50]]]);
+      const f = fHTML(byName(set[0][0]));
+      return { type: 'parts', stem: `<p>A student hypothesised: <i>"Isomers have the same boiling point because they have the same molecular formula."</i> She collected these data for isomers of ${f}.</p>${H.table(['Isomer', 'Number of branches', 'Boiling point / °C'], set.map(([n, b]) => [n, byName(n).me.length, b]))}`, parts: [
+        { type: 'mcq', fixed: true, stem: 'Do the data support the hypothesis?', choices: ['No: the boiling points are different, and they fall as branching increases', 'Yes: all the boiling points are the same', 'Yes: the boiling points rise as branching increases'], ans: 0 },
+        { type: 'self', stem: 'Evaluate the hypothesis. Use the data and suggest a scientific explanation.', model: `The hypothesis is not supported. All the compounds are isomers (${f}) but their boiling points differ from ${set[0][1]} °C (${set[0][0]}, unbranched) to ${set[set.length - 1][1]} °C (${set[set.length - 1][0]}, most branched). The more branched the molecule, the lower the boiling point. Branched molecules are more compact (more spherical), so they have less surface contact with neighbouring molecules and weaker forces between molecules, which need less energy to overcome. The molecular formula alone does not decide the boiling point: the structure matters. The data cover only one set of isomers, so testing other isomer sets would make the conclusion more reliable.`, check: ['Clear judgment: hypothesis not supported', 'Quotes boiling-point values as evidence', 'Pattern: more branching → lower boiling point', 'Explanation: compact shape, less surface contact, weaker forces between molecules', 'Comments on the limits of the data (one set of isomers)'] }
+      ] };
+    } },
+
+    /* ===== combustion ===== */
+    { id: 'comb-i2-products', sub: 'comb', s: 'i', b: 2, topic: 'Combustion products', gen: (R) => { const m = R.pick([...ALKANES, byName('ethanol'), byName('propene')]); return { type: 'mcq', stem: `<p>State the products of the <b>complete</b> combustion of ${m.name}.</p>`, choices: ['Carbon dioxide and water', 'Carbon monoxide and water', 'Carbon and hydrogen', 'Carbon dioxide and hydrogen'], ans: 0 }; } },
+    { id: 'comb-i4-compinc', sub: 'comb', s: 'i', b: 4, topic: 'Complete and incomplete combustion', gen: (R) => ({ type: 'sort', stem: '<p>Outline the differences: does each statement describe complete or incomplete combustion?</p>', bins: ['Complete', 'Incomplete'], items: H.sampleBins(R, [['There is plenty of oxygen', 0], ['The only products are CO₂ and H₂O', 0], ['A clean blue flame', 0], ['Releases the most energy from the fuel', 0], ['There is not enough oxygen', 1], ['Carbon monoxide can form', 1], ['Soot (carbon) can form', 1], ['A yellow, smoky flame', 1]], 6), why: '<p>With too little oxygen, some carbon forms CO or C instead of CO₂, and less energy is released.</p>' }) },
+    { id: 'comb-i6-co', sub: 'comb', s: 'i', b: 6, topic: 'Incomplete combustion', gen: () => H.self('<p>Describe why incomplete combustion of fuels in homes (for example a faulty gas heater) is dangerous and wasteful.</p>',
+      'Incomplete combustion happens when there is not enough oxygen. As well as water, it produces carbon monoxide (CO) and/or soot (carbon). Carbon monoxide is toxic: it binds to haemoglobin in red blood cells and stops the blood carrying oxygen, and it has no colour or smell, so it is hard to detect (CO alarms are needed). Soot blackens surfaces and can damage the lungs. Incomplete combustion is also wasteful because less energy is released from the same amount of fuel.',
+      ['Not enough oxygen', 'Produces carbon monoxide and/or soot', 'CO is toxic: reduces oxygen carried by the blood (haemoglobin)', 'CO is colourless and odourless / needs an alarm', 'Less energy released, so fuel is wasted']) },
+    { id: 'comb-ii4-balance', sub: 'comb', s: 'ii', b: 4, topic: 'Balancing combustion', gen: (R) => { const m = R.pick(ALKANES.slice(0, 8)), e = combust(m); return { type: 'parts', stem: `<p>Balance the equation for the complete combustion of ${m.name}, using the smallest whole numbers.</p><p class="eqn">__ ${fHTML(m)} + __ O<sub>2</sub> → __ CO<sub>2</sub> + __ H<sub>2</sub>O</p>`, parts: [
+      { type: 'num', stem: `Coefficient of ${fHTML(m)}`, ans: e.f, unit: '', tolAbs: 0 }, { type: 'num', stem: 'Coefficient of O<sub>2</sub>', ans: e.o2, unit: '', tolAbs: 0 },
+      { type: 'num', stem: 'Coefficient of CO<sub>2</sub>', ans: e.co2, unit: '', tolAbs: 0 }, { type: 'num', stem: 'Coefficient of H<sub>2</sub>O', ans: e.h2o, unit: '', tolAbs: 0, steps: [`Balance C, then H, then O: ${eqn(m, e, false)}`, e.f > 1 ? 'The O₂ needed a half, so every coefficient was doubled.' : 'All whole numbers already.'] }
+    ] }; } },
+    { id: 'comb-ii6-balance', sub: 'comb', s: 'ii', b: 6, topic: 'Balancing combustion', gen: (R) => { const m = R.pick([...ALCOHOLS.slice(0, 7), ...ALKENES.slice(0, 6)]), e = combust(m); return { type: 'parts', stem: `<p>Deduce the balanced equation for the complete combustion of <b>${m.name}</b> (${fHTML(m)}), using the smallest whole numbers.</p>`, parts: [
+      { type: 'num', stem: `Coefficient of ${fHTML(m)}`, ans: e.f, unit: '', tolAbs: 0 }, { type: 'num', stem: 'Coefficient of O<sub>2</sub>', ans: e.o2, unit: '', tolAbs: 0, steps: [info(m).cnt.O ? `${m.name} already contains one O atom, so it needs one fewer O atom from O₂.` : 'Count the O atoms in the products, then halve for O₂.'] },
+      { type: 'num', stem: 'Coefficient of CO<sub>2</sub>', ans: e.co2, unit: '', tolAbs: 0 }, { type: 'num', stem: 'Coefficient of H<sub>2</sub>O', ans: e.h2o, unit: '', tolAbs: 0, steps: [eqn(m, e, true)] }
+    ] }; } },
+    { id: 'comb-ii8-oxygen', sub: 'comb', s: 'ii', b: 8, topic: 'Oxygen needed', gen: (R) => { const m = R.pick([byName('pentane'), byName('hexane'), byName('octane'), byName('ethanol'), byName('propane')]), e = combust(m), mass = R.int(300, 800), Mf = molar(m), n = mass / Mf, nO2 = n * e.o2 / e.f;
+      return { type: 'parts', stem: `<p>A car engine burns ${mass} g of ${m.name} completely.</p><p class="small">Molar masses: C 12.01, H 1.01, O 16.00 g mol<sup>−1</sup>.</p>`, parts: [
+        { type: 'num', stem: `Calculate the moles of ${m.name} burned.`, ans: n, unit: 'mol', tol: 0.02, steps: [`M = ${molarSteps(m)}`, `n = m ÷ M = ${mass} ÷ ${r2(Mf)} = ${NUM.sf(n, 3)} mol`] },
+        { type: 'num', stem: 'Calculate the mass of oxygen needed.', ans: nO2 * 32, unit: 'g', tol: 0.02, steps: [`Equation: ${eqn(m, e, false)}`, `Ratio ${e.f} : ${e.o2} → n(O₂) = ${NUM.sf(n, 3)} × ${e.o2} ÷ ${e.f} = ${NUM.sf(nO2, 3)} mol`, `m = ${NUM.sf(nO2, 3)} × 32.00 = ${NUM.sf(nO2 * 32, 3)} g`] }
+      ] }; } },
+    { id: 'comb-iii2-flame', sub: 'comb', s: 'iii', b: 2, topic: 'Interpreting flames', gen: (R) => { const closed = R.chance(0.5); return { type: 'mcq', stem: `<p>A student lights a Bunsen burner with the air hole ${closed ? '<b>closed</b>. The flame is yellow and leaves black soot on a beaker' : '<b>open</b>. The flame is blue and leaves no soot on a beaker'}. Deduce the type of combustion.</p>`, choices: closed ? ['Incomplete combustion: not enough oxygen', 'Complete combustion: plenty of oxygen', 'No combustion is taking place'] : ['Complete combustion: plenty of oxygen', 'Incomplete combustion: not enough oxygen', 'No combustion is taking place'], ans: 0, fixed: false }; } },
+    { id: 'comb-iii6-equations', sub: 'comb', s: 'iii', b: 6, topic: 'Identifying combustion', gen: (R) => {
+      const eqs = R.sample([['CH<sub>4</sub> + 2O<sub>2</sub> → CO<sub>2</sub> + 2H<sub>2</sub>O', 0], ['2CH<sub>4</sub> + 3O<sub>2</sub> → 2CO + 4H<sub>2</sub>O', 1], ['CH<sub>4</sub> + O<sub>2</sub> → C + 2H<sub>2</sub>O', 1], ['C<sub>3</sub>H<sub>8</sub> + 5O<sub>2</sub> → 3CO<sub>2</sub> + 4H<sub>2</sub>O', 0], ['2C<sub>3</sub>H<sub>8</sub> + 7O<sub>2</sub> → 6CO + 8H<sub>2</sub>O', 1], ['C<sub>2</sub>H<sub>5</sub>OH + 3O<sub>2</sub> → 2CO<sub>2</sub> + 3H<sub>2</sub>O', 0], ['C<sub>2</sub>H<sub>5</sub>OH + 2O<sub>2</sub> → 2CO + 3H<sub>2</sub>O', 1], ['C<sub>6</sub>H<sub>12</sub>O<sub>6</sub> + 6O<sub>2</sub> → 6CO<sub>2</sub> + 6H<sub>2</sub>O', 0]], 5);
+      return { type: 'sort', stem: '<p>Analyse each equation. Does it represent complete or incomplete combustion?</p>', bins: ['Complete', 'Incomplete'], items: H.sampleBins(R, eqs, 5), why: '<p>Look at the carbon product: CO₂ only → complete. CO or C → incomplete (less O₂ per fuel molecule).</p>' };
+    } },
+
+    /* ===== energy and bond enthalpy ===== */
+    { id: 'en-i2-exo', sub: 'energy', s: 'i', b: 2, topic: 'Energy changes', gen: () => ({ type: 'mcq', stem: '<p>State the type of energy change in a combustion reaction.</p>', choices: ['Exothermic: energy is released and ΔH is negative', 'Endothermic: energy is absorbed and ΔH is positive', 'Exothermic: energy is absorbed and ΔH is negative', 'There is no energy change'], ans: 0 }) },
+    { id: 'en-i4-bonds', sub: 'energy', s: 'i', b: 4, topic: 'Bond breaking and making', gen: (R) => ({ type: 'sort', stem: '<p>Outline what happens to energy: is each statement about bond breaking or bond making?</p>', bins: ['Bond breaking', 'Bond making'], items: H.sampleBins(R, [['Energy is absorbed (endothermic)', 0], ['Needs energy from the surroundings', 0], ['The O=O bonds in oxygen molecules', 0], ['The C–H bonds in the fuel', 0], ['Energy is released (exothermic)', 1], ['Forming C=O bonds in carbon dioxide', 1], ['Forming O–H bonds in water', 1]], 6), why: '<p>Breaking bonds always needs energy; making bonds always releases energy.</p>' }) },
+    { id: 'en-i8-explain', sub: 'energy', s: 'i', b: 8, topic: 'Why combustion releases energy', gen: (R) => { const m = R.pick([byName('methane'), byName('ethanol'), byName('propane')]); return H.self(`<p>Explain, in terms of bonds, why the combustion of ${m.name} is exothermic. Refer to the balanced equation.</p>`,
+      `Balanced equation: ${eqn(m, combust(m), false)}. Energy must be absorbed to break the bonds in the reactants: the ${Object.keys(info(m).bc).join(', ')} bonds in ${m.name} and the O=O bonds in oxygen. Energy is released when new bonds form in the products: C=O bonds in carbon dioxide and O–H bonds in water. More energy is released making the product bonds than is absorbed breaking the reactant bonds, so overall energy is released to the surroundings and ΔH is negative (exothermic).`,
+      ['Correct balanced equation', 'Bond breaking (in fuel and O₂) absorbs energy / endothermic', 'Bond making (C=O, O–H) releases energy / exothermic', 'Energy released > energy absorbed', 'So ΔH negative / energy released to surroundings']); } },
+    { id: 'en-iii4-profile', sub: 'energy', s: 'iii', b: 4, topic: 'Enthalpy profiles', gen: (R) => {
+      const exo = R.chance(0.7), Rv = exo ? R.pick([300, 350, 400]) : R.pick([100, 150]), Pv = exo ? Rv - R.pick([150, 200, 250]) : Rv + R.pick([100, 150, 200]), B = R.pick([120, 150, 180]);
+      const pts = []; for (let t = 0; t <= 10.001; t += 0.1) { let E = t < 3 ? Rv : t > 7 ? Pv : Rv + (Pv - Rv) * (0.5 - 0.5 * Math.cos(Math.PI * (t - 3) / 4)) + B * Math.sin(Math.PI * (t - 3) / 4); pts.push([t, Math.round(E)]); }
+      const peak = Math.max(...pts.map(p => p[1])), ymax = Math.ceil((peak + 60) / 50) * 50;
+      const fig = graph({ xmin: 0, xmax: 10, xstep: 100, ymin: 0, ymax, ystep: 50, xlabel: 'Progress of reaction', ylabel: 'Enthalpy / kJ mol⁻¹', series: [{ pts }], label: 'Enthalpy profile diagram' });
+      return { type: 'parts', stem: '<p>The enthalpy profile diagram shows a reaction.</p>', fig, parts: [
+        { type: 'mcq', fixed: true, stem: 'Interpret the diagram: is the reaction exothermic or endothermic?', choices: ['Exothermic: the products are lower in energy than the reactants', 'Endothermic: the products are higher in energy than the reactants'], ans: exo ? 0 : 1 },
+        { type: 'num', stem: 'Deduce ΔH for the reaction.', ans: Pv - Rv, unit: 'kJ mol<sup>−1</sup>', tolAbs: 12, steps: [`ΔH = products − reactants = ${Pv} − ${Rv} = ${Pv - Rv} kJ mol⁻¹`] },
+        { type: 'num', stem: 'Deduce the activation energy.', ans: peak - Rv, unit: 'kJ mol<sup>−1</sup>', tolAbs: 15, steps: [`Ea = peak − reactants ≈ ${peak} − ${Rv} = ${peak - Rv} kJ mol⁻¹`] }
+      ] };
+    } },
+    { id: 'en-ii6-count', sub: 'energy', s: 'ii', b: 6, topic: 'Bond enthalpy', gen: (R) => { const m = R.pick([...ALKANES.slice(1, 6), ...ALKENES.slice(0, 5), ...ALCOHOLS.slice(0, 5)]), bc = info(m).bc;
+      return { type: 'parts', stem: `<p>Use the structural formula of ${m.name} and the table of average bond enthalpies.</p>${bondTable()}`, fig: draw(m), parts: [
+        ...Object.keys(bc).slice(0, 2).map(k => ({ type: 'num', stem: `How many ${k} bonds are in one molecule?`, ans: bc[k], unit: '', tolAbs: 0 })),
+        { type: 'num', stem: `Calculate the total energy needed to break all the bonds in one mole of ${m.name}.`, ans: bondSum(m), unit: 'kJ mol<sup>−1</sup>', tol: 0.005, steps: [`${bondList(m)} = ${bondSum(m)} kJ mol⁻¹`] }
+      ] }; } },
+    { id: 'en-ii8-estimate', sub: 'energy', s: 'ii', b: 8, topic: 'Estimating ΔHc', gen: (R) => { const m = R.pick([byName('methane'), byName('ethane'), byName('propane'), byName('butane'), byName('ethene'), byName('methanol'), byName('ethanol')]), e = combust(m);
+      const brk = e.f * bondSum(m) + e.o2 * BOND['O=O'], mk = e.co2 * 2 * BOND['C=O'] + e.h2o * 2 * BOND['O–H'], dh = (brk - mk) / e.f;
+      return { type: 'parts', stem: `<p>Estimate the enthalpy of combustion of ${m.name} using average bond enthalpies.</p><p class="eqn">${eqn(m, e, false)}</p>${bondTable()}`, fig: draw(m), parts: [
+        { type: 'num', stem: 'Calculate the energy absorbed breaking the bonds in the reactants.', ans: brk, unit: 'kJ', tol: 0.005, steps: [`${e.f > 1 ? e.f + ' × ' : ''}(${bondList(m)}) + ${e.o2} × 498 = ${brk} kJ`] },
+        { type: 'num', stem: 'Calculate the energy released making the bonds in the products.', ans: mk, unit: 'kJ', tol: 0.005, steps: [`${e.co2} CO₂ × 2 × 804 + ${e.h2o} H₂O × 2 × 463 = ${mk} kJ`] },
+        { type: 'num', stem: `Estimate ΔH<sub>c</sub> per mole of ${m.name}.`, ans: dh, unit: 'kJ mol<sup>−1</sup>', tol: 0.01, steps: [`ΔH = broken − made = ${brk} − ${mk} = ${brk - mk} kJ${e.f > 1 ? ` for ${e.f} mol, so ÷ ${e.f}` : ''} = ${NUM.sf(dh, 4)} kJ mol⁻¹ (negative: exothermic)`] }
+      ] }; } },
+    { id: 'en-iii6-error', sub: 'energy', s: 'iii', b: 6, topic: 'Comparing estimates', gen: (R) => { const m = R.pick(withDH.filter(x => ['methane', 'ethane', 'propane', 'butane', 'methanol', 'ethanol'].includes(x.name))), e = combust(m);
+      const est = (e.f * bondSum(m) + e.o2 * 498 - e.co2 * 1608 - e.h2o * 926) / e.f, lit = DHC[m.name], pe = Math.abs(est - lit) / Math.abs(lit) * 100;
+      return { type: 'parts', stem: `<p>A student estimated ΔH<sub>c</sub> of ${m.name} from average bond enthalpies as <b>${Math.round(est)} kJ mol<sup>−1</sup></b>. The literature (measured) value is <b>${lit} kJ mol<sup>−1</sup></b>.</p>`, parts: [
+        { type: 'num', stem: 'Calculate the percentage error of the estimate.', ans: Math.abs(Math.round(est) - lit) / Math.abs(lit) * 100, unit: '%', tol: 0.03, steps: [`|${Math.round(est)} − (${lit})| ÷ ${Math.abs(lit)} × 100 = ${NUM.sf(Math.abs(Math.round(est) - lit) / Math.abs(lit) * 100, 3)}%`] },
+        { type: 'mcq', stem: 'Which is the best scientific reason for the difference?', choices: ['Bond enthalpies are averages from many compounds, and they assume all substances (including water) are gases', 'The student used the wrong balanced equation', 'Combustion is endothermic', 'Bond enthalpies change with the mass of fuel burned'], ans: 0 }
+      ] }; } },
+    { id: 'en-iii8-isomers', sub: 'energy', s: 'iii', b: 8, topic: 'Bond enthalpies of isomers', gen: (R) => {
+      const set = R.pick([['propan-1-ol', 'methoxyethane', 'propan-2-ol'], ['but-1-ene', '2-methylpropene', 'butane'], ['ethanol', 'methoxymethane', 'ethanol'], ['butan-1-ol', '2-methylpropan-2-ol', 'butan-2-ol']]).map(byName).filter((m, i, a) => a.indexOf(m) === i);
+      const tots = set.map(bondSum), allSame = tots.every(t => t === tots[0]), same = set.filter(m => bondSum(m) === tots[0]), diff = set.filter(m => bondSum(m) !== tots[0]);
+      return { type: 'parts', stem: `<p>A student examined these molecules.</p>${figs(set.map((m, i) => [m, `Figure ${i + 1}: ${m.name} (${fHTML(m)})`]))}${bondTable(['C–C', 'C=C', 'C–H', 'C–O', 'O–H'])}<p>She hypothesised that the total bond enthalpy of each molecule would be identical.</p>`, parts: [
+        ...set.map((m, i) => ({ type: 'num', stem: `Calculate the total bond enthalpy of Figure ${i + 1} (${m.name}).`, ans: bondSum(m), unit: 'kJ mol<sup>−1</sup>', tol: 0.005, steps: [`${bondList(m)} = ${bondSum(m)} kJ mol⁻¹`] })),
+        { type: 'self', stem: 'Evaluate the student\'s hypothesis.', model: allSame ? `The hypothesis is supported: every molecule contains the same number and types of bonds, so the totals are equal (${tots[0]} kJ mol⁻¹). However, average bond enthalpies are estimates, so real values may still differ slightly.` : `The hypothesis is partly supported. ${same.map(m => m.name).join(' and ')} have the same number and types of bonds, so the same total (${tots[0]} kJ mol⁻¹). It is not supported for ${diff.map(m => `${m.name} (${bondSum(m)} kJ mol⁻¹)`).join(', ')}, which has different types of bonds${diff[0] && diff[0].cls === 'ether' ? ' (two C–O bonds and no O–H bond)' : ''}, a difference of ${Math.abs(bondSum(diff[0]) - tots[0])} kJ mol⁻¹. ${diff[0] && fTXT(diff[0]) !== fTXT(set[0]) ? 'This molecule is not even an isomer of the others (different molecular formula).' : 'So isomers can have different total bond enthalpies.'} Average bond enthalpies are estimates, so real values may differ.`, check: ['Correct totals calculated', 'Identifies which molecules are equal and why (same number and types of bonds)', 'Identifies the molecule that differs, with the difference in kJ mol⁻¹', 'Clear judgment on the hypothesis (partly supported)', 'Limitation: average bond enthalpies are estimates'] }
+      ] };
+    } },
+
+    /* ===== moles, energy and emissions ===== */
+    { id: 'mol-i2-mole', sub: 'moles', s: 'i', b: 2, topic: 'The mole', gen: () => ({ type: 'mcq', stem: '<p>State the number of particles in one mole of a substance.</p>', choices: ['6.02 × 10²³', '1.00 × 10²³', '6.02 × 10²³ grams', '12.01'], ans: 0, why: '<p>Avogadro\'s number: 6.02 × 10²³ particles per mole.</p>' }) },
+    { id: 'mol-i4-molar', sub: 'moles', s: 'i', b: 4, topic: 'Molar mass', gen: () => ({ type: 'mcq', stem: '<p>Outline what is meant by the <b>molar mass</b> of a compound.</p>', choices: ['The mass of one mole of the compound, the sum of the atomic masses in its formula, in g mol⁻¹', 'The mass of one molecule in grams', 'The number of atoms in one mole', 'The mass of the carbon atoms only'], ans: 0 }) },
+    { id: 'mol-ii2-molar', sub: 'moles', s: 'ii', b: 2, topic: 'Molar mass', gen: (R) => { const m = R.pick([...ALKANES, ...ALKENES.slice(0, 6), ...ALCOHOLS.slice(0, 7)]); return { type: 'num', stem: `<p>Calculate the molar mass of ${m.name}, ${fHTML(m)}.</p><p class="small">C 12.01, H 1.01, O 16.00 g mol<sup>−1</sup></p>`, ans: molar(m), unit: 'g mol<sup>−1</sup>', tol: 0.002, steps: [molarSteps(m)] }; } },
+    { id: 'mol-ii4-kjg', sub: 'moles', s: 'ii', b: 4, topic: 'Energy per gram', gen: (R) => {
+      const [a, b] = R.sample(withDH.filter(m => m.cls === 'alkane' || m.cls === 'alcohol'), 2), ka = DHC[a.name] / molar(a), kb = DHC[b.name] / molar(b), big = Math.abs(ka) > Math.abs(kb) ? a : b;
+      return { type: 'parts', stem: `<p>A student compared ${a.name} (ΔH<sub>c</sub> = ${DHC[a.name]} kJ mol<sup>−1</sup>) and ${b.name} (ΔH<sub>c</sub> = ${DHC[b.name]} kJ mol<sup>−1</sup>).</p><p class="small">C 12.01, H 1.01, O 16.00 g mol<sup>−1</sup></p>`, parts: [
+        { type: 'num', stem: `Calculate ΔH<sub>c</sub> of ${a.name} in kJ g<sup>−1</sup>.`, ans: ka, unit: 'kJ g<sup>−1</sup>', tol: 0.01, steps: [`M = ${molarSteps(a)}`, `${DHC[a.name]} ÷ ${r2(molar(a))} = ${NUM.sf(ka, 4)} kJ g⁻¹`] },
+        { type: 'num', stem: `Calculate ΔH<sub>c</sub> of ${b.name} in kJ g<sup>−1</sup>.`, ans: kb, unit: 'kJ g<sup>−1</sup>', tol: 0.01, steps: [`M = ${molarSteps(b)}`, `${DHC[b.name]} ÷ ${r2(molar(b))} = ${NUM.sf(kb, 4)} kJ g⁻¹`] },
+        { type: 'select', stem: 'Determine which releases more energy per gram.', options: [a.name, b.name], ans: big === a ? 0 : 1 }
+      ] };
+    } },
+    { id: 'mol-ii6-emissions', sub: 'moles', s: 'ii', b: 6, topic: 'Calculating emissions', gen: (R) => { const m = R.pick([byName('hexane'), byName('octane'), byName('pentane'), byName('heptane'), byName('butane')]), e = combust(m), mass = R.int(500, 800), Mf = molar(m), n = mass / Mf, nC = n * e.co2 / e.f, nW = n * e.h2o / e.f;
+      return { type: 'parts', stem: `<p>A student determined the emissions from the complete combustion of ${mass} g of ${m.name}, a component of petrol.</p><p class="small">C 12.01, H 1.01, O 16.00 g mol<sup>−1</sup>. Balanced equation: ${eqn(m, e, false)}</p>`, parts: [
+        { type: 'num', stem: `Calculate the moles of ${m.name}.`, ans: n, unit: 'mol', tol: 0.01, steps: [`M = ${molarSteps(m)}`, `n = ${mass} ÷ ${r2(Mf)} = ${NUM.sf(n, 3)} mol`] },
+        { type: 'num', stem: 'Calculate the moles of carbon dioxide produced.', ans: nC, unit: 'mol', tol: 0.015, steps: [`Ratio ${e.f} : ${e.co2} → ${NUM.sf(n, 3)} × ${e.co2} ÷ ${e.f} = ${NUM.sf(nC, 3)} mol`] },
+        { type: 'num', stem: 'Calculate the theoretical yield (mass) of carbon dioxide.', ans: nC * 44.01, unit: 'g', tol: 0.015, steps: [`M(CO₂) = 12.01 + 2 × 16.00 = 44.01 g mol⁻¹`, `${NUM.sf(nC, 3)} × 44.01 = ${NUM.sf(nC * 44.01, 3)} g`] },
+        { type: 'num', stem: 'Calculate the mass of water produced.', ans: nW * 18.02, unit: 'g', tol: 0.015, steps: [`Ratio ${e.f} : ${e.h2o} → ${NUM.sf(nW, 3)} mol`, `M(H₂O) = 2 × 1.01 + 16.00 = 18.02 g mol⁻¹`, `${NUM.sf(nW, 3)} × 18.02 = ${NUM.sf(nW * 18.02, 3)} g`] }
+      ] }; } },
+    { id: 'mol-ii8-yield', sub: 'moles', s: 'ii', b: 8, topic: 'Percentage yield', gen: (R) => { const m = R.pick([byName('butan-1-ol'), byName('ethanol'), byName('propan-1-ol'), byName('pentane')]), e = combust(m), w = R.pick([4, 5, 6, 8]), nW = w / 18.02, nC = nW * e.co2 / e.h2o, th = nC * 44.01, act = Math.round(th * R.pick([0.78, 0.82, 0.86, 0.9]) * 10) / 10;
+      return { type: 'parts', stem: `<p>A student burned some ${m.name} and collected <b>${w}.00 g of water</b>.</p><p class="small">Balanced equation: ${eqn(m, e, false)}. C 12.01, H 1.01, O 16.00 g mol<sup>−1</sup>.</p>`, parts: [
+        { type: 'num', stem: 'Calculate the theoretical yield of carbon dioxide, assuming complete combustion.', ans: th, unit: 'g', tol: 0.02, steps: [`n(H₂O) = ${w}.00 ÷ 18.02 = ${NUM.sf(nW, 3)} mol`, `Ratio H₂O : CO₂ = ${e.h2o} : ${e.co2} → n(CO₂) = ${NUM.sf(nC, 3)} mol`, `m = ${NUM.sf(nC, 3)} × 44.01 = ${NUM.sf(th, 3)} g`] },
+        { type: 'num', stem: `The actual yield of CO<sub>2</sub> was ${act} g. Calculate the percentage yield.`, ans: act / th * 100, unit: '%', tol: 0.02, steps: [`${act} ÷ ${NUM.sf(th, 3)} × 100 = ${NUM.sf(act / th * 100, 3)}%`] },
+        { type: 'mcq', stem: 'Suggest a reason the yield is below 100%.', choices: ['Some incomplete combustion produced CO or soot instead of CO₂ (or some CO₂ escaped)', 'Mass was created during the reaction', 'Too much oxygen was available', 'Water is not a product of combustion'], ans: 0 }
+      ] }; } },
+    { id: 'mol-iii4-fuels', sub: 'moles', s: 'iii', b: 4, topic: 'Comparing fuels', gen: (R) => {
+      const [a, b] = R.sample(withDH, 2), row = (m) => { const kg = 1000 / molar(m); return [m.name, fHTML(m), Math.round(DHC[m.name] * kg).toLocaleString('en'), Math.round(kg * info(m).cnt.C * 44.01)]; };
+      const ra = row(a), rb = row(b), Ea = -DHC[a.name] / molar(a), Eb = -DHC[b.name] / molar(b), Ca = info(a).cnt.C * 44.01 / molar(a), Cb = info(b).cnt.C * 44.01 / molar(b), better = Ea / Ca > Eb / Cb ? a : b;
+      return { type: 'parts', stem: `<p>Use the data (complete combustion of 1 kg of each fuel).</p>${H.table(['Fuel', 'Molecular formula', 'Enthalpy / kJ', 'CO<sub>2</sub> emissions / g'], [ra, rb])}`, parts: [
+        { type: 'select', stem: 'Deduce which fuel releases more energy.', options: [a.name, b.name], ans: Ea > Eb ? 0 : 1 },
+        { type: 'select', stem: 'Deduce which fuel releases more carbon dioxide.', options: [a.name, b.name], ans: Ca > Cb ? 0 : 1 },
+        { type: 'num', stem: `Calculate the energy released per gram of CO<sub>2</sub> for ${better.name}.`, ans: (better === a ? Ea / Ca : Eb / Cb), unit: 'kJ g<sup>−1</sup>', tol: 0.02, steps: [`${(better === a ? ra : rb)[2].replace('-', '')} kJ ÷ ${(better === a ? ra : rb)[3]} g = ${NUM.sf(better === a ? Ea / Ca : Eb / Cb, 3)} kJ per g CO₂`] },
+        { type: 'select', stem: 'Deduce the better fuel, based on energy released per gram of CO₂.', options: [a.name, b.name], ans: better === a ? 0 : 1 }
+      ] };
+    } },
+    { id: 'mol-iii6-trend', sub: 'moles', s: 'iii', b: 6, topic: 'Energy and molar mass', gen: (R) => {
+      const al = ALKANES.slice(0, 8), perg = R.chance(0.5);
+      const pts = al.map(m => [r2(molar(m)), perg ? r2(-DHC[m.name] / molar(m)) : -DHC[m.name]]);
+      const fig = graph({ xmin: 0, xmax: 120, xstep: 20, ymin: perg ? 46 : 0, ymax: perg ? 56 : 6000, ystep: perg ? 1 : 1000, xlabel: 'Molar mass / g mol⁻¹', ylabel: perg ? 'Energy released / kJ g⁻¹' : 'Energy released / kJ mol⁻¹', series: [{ pts, dots: true }], label: 'Alkane combustion data' });
+      return { type: 'parts', stem: `<p>The graph shows the energy released by the complete combustion of the first eight alkanes ${perg ? 'per gram' : 'per mole'}, against their molar mass.</p>`, fig, parts: [
+        { type: 'mcq', fixed: true, stem: 'Interpret the pattern.', choices: perg ? ['Energy per gram decreases as molar mass increases, quickly at first and then more slowly', 'Energy per gram increases steadily with molar mass', 'Energy per gram does not depend on molar mass'] : ['Energy per mole increases with molar mass, in a nearly straight line', 'Energy per mole decreases as molar mass increases', 'Energy per mole does not depend on molar mass'], ans: 0 },
+        { type: 'mcq', stem: 'A student suggests that "a heavier alkane is always a better fuel". Which judgment is best supported?', choices: perg ? ['Not supported: per gram, lighter alkanes such as methane release slightly more energy, even though per mole heavier alkanes release more', 'Supported: heavier alkanes release more energy per gram', 'Supported: mass has no effect'] : ['Only partly supported: heavier alkanes release more per mole, but per gram the energy is almost the same (slightly less), and they also emit more CO₂ per mole', 'Fully supported: more mass always means a better fuel', 'Not supported: heavier alkanes release less energy per mole'], ans: 0 }
+      ] };
+    } },
+    { id: 'mol-iii8-choose', sub: 'moles', s: 'iii', b: 8, topic: 'Choosing a fuel', gen: (R) => {
+      const a = byName('ethanol'), b = R.pick([byName('octane'), byName('heptane')]), Ea = -DHC[a.name] / molar(a), Eb = -DHC[b.name] / molar(b), Ca = 2 * 44.01 / molar(a), Cb = info(b).cnt.C * 44.01 / molar(b);
+      return { type: 'parts', stem: `<p>A government is deciding whether to replace petrol (modelled as ${b.name}) with bioethanol.</p>${H.table(['Fuel', 'Energy / kJ g<sup>−1</sup>', 'CO<sub>2</sub> / g per g of fuel', 'Source'], [['Ethanol', NUM.sf(Ea, 3), NUM.sf(Ca, 3), 'Fermented sugar cane (renewable)'], [b.name[0].toUpperCase() + b.name.slice(1), NUM.sf(Eb, 3), NUM.sf(Cb, 3), 'Crude oil (non-renewable)']])}`, parts: [
+        { type: 'num', stem: `Calculate the mass of ethanol that releases the same energy as 1.00 kg of ${b.name}.`, ans: Eb / Ea, unit: 'kg', tol: 0.02, steps: [`${NUM.sf(Eb, 3)} ÷ ${NUM.sf(Ea, 3)} = ${NUM.sf(Eb / Ea, 3)} kg`] },
+        { type: 'self', stem: 'Evaluate the proposal. Use the data and your wider knowledge.', model: `Against: ethanol releases less energy per gram (${NUM.sf(Ea, 3)} vs ${NUM.sf(Eb, 3)} kJ g⁻¹), so about ${NUM.sf(Eb / Ea, 2)} times the mass of fuel is needed for the same energy, and for the same energy it releases a similar or larger mass of CO₂ from the exhaust. For: ethanol is renewable, made from plants that took in CO₂ as they grew, so its net CO₂ emissions can be lower, and it reduces dependence on crude oil (SDG 7). However, growing the crop uses land, water and fertiliser and may compete with food crops. Judgment: replacing petrol completely is not clearly better; blending (e.g. E10) may be a reasonable compromise.`, check: ['Uses energy-per-gram values: ethanol lower', 'Calculates or uses the mass needed for equal energy', 'Considers CO₂ emissions per unit of energy', 'Renewable / carbon taken in during growth', 'Considers land use, food crops or sustainability', 'Clear, balanced judgment'] }
+      ] };
+    } }
+  ];
+
+  CONTENT['y11-che'] = {
+    flow: ['Fuels, energy resources and SDG 7', 'Crude oil, fractional distillation and boiling point', 'Organic compounds and hydrocarbons', 'Alkanes: formulas and naming', 'Isomers and IUPAC naming', 'Alkenes', 'Alcohols (alkanols)', 'Combustion reactions and balancing', 'Complete and incomplete combustion', 'Enthalpy profiles and energy changes', 'Moles, mass and energy (kJ mol⁻¹ to kJ g⁻¹)', 'Bond enthalpy', 'Comparing fuels: energy and emissions'],
     subs, notes, cards, qs
   };
 })();
@@ -3097,26 +3795,27 @@ const GAMES = (() => {
   /* ---------- Stop in Time (Year 11 Forces & Motion) ---------- */
   const ST_ROUNDS = 6;
   const ST_DRIVER = [['alert', 0.7], ['tired', 1.3], ['using a phone', 2.0]], ST_ROAD = [['dry', 7.5], ['wet', 5.0], ['icy', 2.5]];
+  const ST_OBJ = [['🍌', 'a banana'], ['⚽', 'a soccer ball'], ['🍉', 'a watermelon'], ['🎃', 'a pumpkin'], ['🧸', 'a teddy bear'], ['🏀', 'a basketball'], ['🥥', 'a coconut'], ['📦', 'a cardboard box']];
   function stNew(R) {
     const kmh = R.pick([36, 54, 72, 90, 108]), dr = R.pick(ST_DRIVER), rd = R.pick(ST_ROAD), v = kmh / 3.6;
     const react = v * dr[1], brake = v * v / (2 * rd[1]), stop = react + brake;
     const gap = Math.max(8, Math.round(stop * (R.chance(0.5) ? R.step(1.08, 1.35, 0.01) : R.step(0.7, 0.92, 0.01))));
-    return { kmh, v, dr, rd, react, brake, stop, gap, guess: null, verdict: null, done: false, pts: 0 };
+    return { kmh, v, dr, rd, obj: R.pick(ST_OBJ), react, brake, stop, gap, guess: null, verdict: null, done: false, pts: 0 };
   }
   const stopInTime = {
     id: 'y11-stop-in-time', y: 11, uid: 'y11-phy', icon: '🚦', name: 'Stop in Time',
-    desc: 'A child steps into the road. Work out the car\'s total stopping distance, predict whether it stops in time, then watch what happens. 6 drives.',
+    desc: 'Something is lying in the road ahead. Work out the car\'s total stopping distance, predict whether it stops in time, then watch what happens. 6 drives.',
     start: (R) => ({ R, i: 0, score: 0, t0: Date.now(), pen: 0, end: null, rd: stNew(R) }),
     render(G) {
       const t = ((G.end || Date.now()) - G.t0) / 1000, max = ST_ROUNDS * 3;
       if (G.end) return `<div class="game-top"><span class="gscore">Score ${G.score} / ${max}</span><span class="clock" id="gClock">${fmt(t)}</span></div>` + doneBar(G, `You scored ${G.score} / ${max} in ${fmt(t)}`);
       const r = G.rd, scale = Math.max(r.gap, r.stop) * 1.15, pct = (x) => (x / scale * 100).toFixed(1);
       const crash = r.stop > r.gap;
-      const track = `<div class="st-track"><span class="st-obst" style="left:${pct(r.gap)}%">🧒</span>${r.done ? `<span class="st-mark" style="left:${pct(r.react)}%" title="Brakes on"></span>` : ''}<span class="st-car ${r.done ? 'go' : ''}" style="--to:${pct(Math.min(r.stop, scale))}%">🚗</span>${r.done && crash ? `<span class="st-boom" style="left:${pct(r.gap)}%">💥</span>` : ''}<span class="st-gap muted small">${r.gap} m to the child</span></div>`;
+      const track = `<div class="st-track"><span class="st-obst" style="left:${pct(r.gap)}%">${r.obj[0]}</span>${r.done ? `<span class="st-mark" style="left:${pct(r.react)}%" title="Brakes on"></span>` : ''}<span class="st-car ${r.done ? 'go' : ''}" style="--to:${pct(Math.min(r.stop, scale))}%">🚗</span>${r.done && crash ? `<span class="st-boom" style="left:${pct(r.gap)}%">💥</span>` : ''}<span class="st-gap muted small">${r.gap} m to ${r.obj[1].replace(/^an? /, 'the ')}</span></div>`;
       return `<div class="game-top"><span class="gscore">Drive ${G.i + 1} / ${ST_ROUNDS}</span><span class="gscore">Score ${G.score}</span><span class="clock" id="gClock">${fmt(t)}</span></div>
-        <div class="scenario">A car is travelling at <b>${r.kmh} km h<sup>−1</sup></b>. The driver is <b>${r.dr[0]}</b> (reaction time <b>${r.dr[1]} s</b>) and the road is <b>${r.rd[0]}</b> (braking deceleration <b>${r.rd[1]} m s<sup>−2</sup></b>). A child steps into the road <b>${r.gap} m</b> ahead.</div>
+        <div class="scenario">A car is travelling at <b>${r.kmh} km h<sup>−1</sup></b>. The driver is <b>${r.dr[0]}</b> (reaction time <b>${r.dr[1]} s</b>) and the road is <b>${r.rd[0]}</b> (braking deceleration <b>${r.rd[1]} m s<sup>−2</sup></b>). There is <b>${r.obj[1]}</b> lying in the road <b>${r.gap} m</b> ahead.</div>
         ${track}
-        ${r.done ? `<div class="verdict ${r.pts === 3 ? 'ok' : 'no'}">${crash ? 'The car did not stop in time.' : 'The car stopped in time.'} +${r.pts} point${r.pts === 1 ? '' : 's'}</div>
+        ${r.done ? `<div class="verdict ${r.pts === 3 ? 'ok' : 'no'}">${crash ? `The car did not stop in time and hit ${r.obj[1]}!` : `The car stopped in time, just before ${r.obj[1]}.`} +${r.pts} point${r.pts === 1 ? '' : 's'}</div>
           <ol class="steps small"><li>Speed: ${r.kmh} ÷ 3.6 = ${NUM.sf(r.v, 3)} m s<sup>−1</sup></li><li>Reaction distance = speed × reaction time = ${NUM.sf(r.v, 3)} × ${r.dr[1]} = ${NUM.sf(r.react, 3)} m</li><li>Braking distance = v² ÷ (2a) = ${NUM.sf(r.v, 3)}² ÷ (2 × ${r.rd[1]}) = ${NUM.sf(r.brake, 3)} m</li><li>Stopping distance = ${NUM.sf(r.react, 3)} + ${NUM.sf(r.brake, 3)} = <b>${NUM.sf(r.stop, 3)} m</b>${r.guess != null ? ` (you said ${r.guess} m)` : ''}</li></ol>
           <div class="row"><button class="btn primary" id="stNext">${G.i + 1 < ST_ROUNDS ? 'Next Drive' : 'Finish'}</button></div>`
           : `<div class="st-form"><label class="field"><span>Total stopping distance (m)</span><input class="ans" id="stIn" inputmode="decimal" autocomplete="off"></label>
@@ -3199,7 +3898,7 @@ const GAMES = (() => {
    Rail, practice sheet, markscheme ticks, spaced-repetition recall, notes panels, stats tabs and backup code. Organised for MYP: years → units → subtopics, Criterion A strands and level bands. */
 (function () {
   'use strict';
-  const VERSION = '0.3', BUILT = '05 November 2026';
+  const VERSION = '0.4', BUILT = '06 November 2026';
   const KEY = 'myp-science-lab.v1';
   const DAY = 864e5;
   const $ = (s, el = document) => el.querySelector(s);
@@ -3318,7 +4017,7 @@ const GAMES = (() => {
   function renderRail() {
     const st = S.settings, rail = $('#rail'), v = currentView();
     const recall = v === 'recall', notes = v === 'notes', practice = v === 'practice';
-    const n = notes ? ALL_SUBS.filter(k => SUB[k].unit.y === Y() && subOK(k)).length : recall ? cardPool().length : pool().length;
+    const n = notes ? ALL_SUBS.filter(k => SUB[k].unit.y === Y() && subOK(k)).length : recall ? cardPool().length : pool({ ignoreFilters: v === 'test' }).length;
     const unit = recall ? 'card' : notes ? 'subtopic' : 'question';
     const tree = yearUnits().map(u => {
       const live = !!(u.live && CONTENT[u.id]);
@@ -3337,7 +4036,7 @@ const GAMES = (() => {
         ${!practice ? '' : `<div class="missed-box ${S.missed.length ? 'has' : ''} ${st.missedOnly ? 'on' : ''}"><label class="switch"><input type="checkbox" id="missedOnly" ${st.missedOnly ? 'checked' : ''}> <span><b>Only Questions I've Missed</b> <span class="missed-n num">${S.missed.filter(id => QBY[id] && QBY[id].y === Y()).length}</span><small>${st.missedOnly ? 'On: practising your missed questions' : 'Questions you get wrong will collect here'}</small></span></label></div>`}
         ${recall || notes ? `<div class="fieldset cmd-box"><label class="switch"><input type="checkbox" id="railCmd" ${st.incCmd ? 'checked' : ''}> <span><b>Command Terms</b><small>${recall ? 'Include the command-term cards' : 'Show the command terms at the top of Notes'}</small></span></label></div>` : ''}
         ${!practice ? '' : `<div class="fieldset"><span class="lbl">Criterion A strand</span><div class="chips">${STRANDS.map(s => `<button class="chip s-${s.id}" data-crit="${s.id}" aria-pressed="${!!st.crit[s.id]}" data-tip="${esc(s.blurb)}">${s.label} ${s.name}</button>`).join('')}</div></div>
-        <div class="fieldset"><span class="lbl">Level</span><div class="chips">${BANDS.map(b => `<button class="chip lv" data-band="${b}" aria-pressed="${!!st.band[b]}" data-tip="Achievement level ${BAND_LABEL[b]}">${BAND_LABEL[b]}</button>`).join('')}</div></div>`}
+        ${v === 'test' ? '' : `<div class="fieldset"><span class="lbl">Level</span><div class="chips">${BANDS.map(b => `<button class="chip lv" data-band="${b}" aria-pressed="${!!st.band[b]}" data-tip="Achievement level ${BAND_LABEL[b]}">${BAND_LABEL[b]}</button>`).join('')}</div></div>`}`}
         <div class="fieldset"><span class="lbl">Units &amp; subtopics</span><div class="row" style="gap:6px"><button class="btn sm" id="selAll">Select All</button><button class="btn sm" id="selNone">Clear All</button><button class="btn sm" id="railFold" aria-pressed="${allFolded}">${allFolded ? 'Expand All' : 'Collapse All'}</button></div><div class="tree">${tree}</div></div>
       </div>`;
     $$('input[data-mixed]', rail).forEach(i => { i.indeterminate = true; });
@@ -3470,7 +4169,7 @@ const GAMES = (() => {
     const i = e.target;
     if (i.dataset.in) st.val[i.dataset.in] = i.value;
     if (i.dataset.li !== undefined) (st.lab[i.dataset.k] = st.lab[i.dataset.k] || [])[+i.dataset.li] = i.value;
-    if (i.dataset.mp) { const [k, idx] = i.dataset.mp.split(':'); (st.ticks[k] = st.ticks[k] || [])[+idx] = i.checked; const el = $(`[data-pscore="${k}"]`); if (el) el.textContent = `You awarded ${st.ticks[k].filter(Boolean).length} / ${el.closest('.ms').querySelectorAll('.mp').length}`; }
+    if (i.dataset.mp) { const [k, idx] = i.dataset.mp.split(':'); (st.ticks[k] = st.ticks[k] || [])[+idx] = i.checked; const el = i.closest('.ms') && i.closest('.ms').querySelector('[data-pscore]'); if (el) el.textContent = `You awarded ${st.ticks[k].filter(Boolean).length} / ${el.closest('.ms').querySelectorAll('.mp').length}`; }
   }
   function checkAll(inst, st) { items(inst).forEach(([x, k]) => { if (x.type !== 'self') st.res[k] = score(x, k, st); }); }
   function missingAnswer(inst, st) {
@@ -3873,6 +4572,218 @@ const GAMES = (() => {
   GAMES.unshift(blitzGame, lmsGame);
   window.__CODE = { lmsEncode, lmsDecode, lmsMake, lmsSeq, lmsPool };
 
+  /* ======================= TEST MODE =======================
+     A timed Criterion A test like the unit tests: a section for each strand, questions from level 1–2 up to 7–8.
+     Answers stay hidden until the end. Auto-marked parts are marked by the site; written parts are self-marked with the markscheme.
+     Each strand then gets a best-fit level, as on the real tests. Class codes (TST-…) give everyone the same test. */
+  let TS = null, tsTimer = null;
+  const TS_MIN = { 2: 1.5, 4: 2.5, 6: 4, 8: 6 }; // minutes allowed per question at each level band
+  const tsPool = (c) => Q.filter(q => q.y === c.y && c.subs.includes(q.subKey) && c.strands.includes(q.s));
+  const tstGroup = (t) => 'TST-' + t.match(/.{1,4}/g).join('-');
+  function tstEncode(c) {
+    let big = 1n; const put = (v, n) => { big = (big << BigInt(n)) | BigInt(v); };
+    const keys = yearSubKeys(c.y); put(2, 3); put(c.y - 9, 2); put(c.seed & 0xfffff, 20); put(c.fp & 0x3ff, 10);
+    STRANDS.forEach(s => put(c.strands.includes(s.id) ? 1 : 0, 1)); put(c.per - 1, 1); put(c.strict ? 1 : 0, 1);
+    put(keys.length, 6); keys.forEach(k => put(c.subs.includes(k) ? 1 : 0, 1));
+    return tstGroup(toB32(big));
+  }
+  function tstDecode(str) {
+    const t = String(str || '').toUpperCase().replace(/^TST/, '').replace(/[^0-9A-Z]/g, '').replace(/O/g, '0').replace(/[IL]/g, '1');
+    const big = fromB32(t); if (!big) return null; const bits = big.toString(2).slice(1); let pos = 0;
+    const take = (n) => { const v = parseInt(bits.slice(pos, pos + n) || '0', 2); pos += n; return v; };
+    if (bits.length < 46 || take(3) !== 2) return null;
+    const y = 9 + take(2), seed = take(20), fp = take(10); if (!YEARS.some(Y => Y.y === y)) return null;
+    const strands = STRANDS.filter(() => take(1)).map(s => s.id), per = take(1) + 1, strict = !!take(1), n = take(6), keys = yearSubKeys(y);
+    const subs = []; for (let i = 0; i < n; i++) if (take(1) && keys[i]) subs.push(keys[i]);
+    const c = { y, seed, fp, strands, per, strict, subs }; if (!subs.length || !strands.length || !tsPool(c).length) return null;
+    c.fpOk = fp10(tsPool(c)) === fp; c.str = tstGroup(t); return c;
+  }
+  function tsConfig() { return { y: Y(), seed: 1 + Math.floor(Math.random() * 0xffffe), strands: STRANDS.map(s => s.id).filter(s => TS.strands[s]), per: TS.per, strict: TS.strict, subs: yearSubKeys(Y()).filter(k => subOK(k)) }; }
+  // pick the questions: for each strand, `per` questions at each level band, spread across the chosen subtopics
+  function tsBuild(c) {
+    const R = makeR(c.seed), list = tsPool(c), out = [], usedSub = {};
+    c.strands.forEach(s => {
+      BANDS.forEach(b => {
+        for (let k = 0; k < c.per; k++) {
+          let cands = list.filter(q => q.s === s && q.b === b && !out.some(o => o.q.qid === q.qid));
+          if (!cands.length) continue;
+          if (cands.some(q => !q.auto)) cands = cands.filter(q => !q.auto); // written questions first; key-term questions only fill gaps
+          const least = Math.min(...cands.map(q => usedSub[q.subKey] || 0));
+          cands = cands.filter(q => (usedSub[q.subKey] || 0) === least);
+          const q = R.pick(cands); usedSub[q.subKey] = (usedSub[q.subKey] || 0) + 1;
+          const seed = 1 + Math.floor(R.f() * 2e9);
+          out.push({ q, seed, inst: buildInst(q, seed), st: newState(), time: 0 });
+        }
+      });
+    });
+    return out;
+  }
+  const tsAnswered = (it) => { const st = it.st; return items(it.inst).some(([x, k]) => st.pick[k] !== undefined || (st.val[k] && String(st.val[k]).trim()) || (st.seq[k] || []).length || (st.bins[k] || []).some(v => v >= 0) || (st.lab[k] || []).some(Boolean)); };
+  /* best-fit level for one strand: climb the bands while at least half is achieved;
+     the upper level of a band (2, 4, 6, 8) needs 75% in that band */
+  function bestFit(its) {
+    let level = 0;
+    for (const b of BANDS) {
+      const xs = its.filter(it => it.q.b === b); if (!xs.length) continue;
+      const f = xs.reduce((a, it) => a + totalScore(it.inst, it.st), 0) / xs.length;
+      if (f >= 0.5) level = f >= 0.75 ? b : b - 1; else { if (!level && f > 0) level = 1; break; }
+    }
+    return level;
+  }
+  function tsLevels() {
+    const out = {};
+    TS.cfg.strands.forEach(s => { out[s] = bestFit(TS.items.filter(it => it.q.s === s)); });
+    const v = Object.values(out).sort((a, b) => a - b);
+    out.all = v.length === 3 ? v[1] : Math.round(v.reduce((a, b) => a + b, 0) / v.length);
+    return out;
+  }
+  const tsUnmarked = () => TS.items.some(it => items(it.inst).some(([x, k]) => x.type === 'self' && !(it.st.ticks[k] || []).some(Boolean)));
+  const tsSubNames = (c) => { const units = [...new Set(c.subs.map(k => SUB[k].unit))]; return units.map(u => { const all = CONTENT[u.id].subs.length, n = c.subs.filter(k => SUB[k].unit === u).length; return `U${u.n} ${esc(u.title)}${n < all ? ` (${n} of ${all} subtopics)` : ''}`; }).join('; '); };
+  const tsMinutes = (its) => Math.round(its.reduce((a, it) => a + TS_MIN[it.q.b], 0));
+
+  function renderTest(main) {
+    if (!TS) TS = { phase: 'setup', strands: { i: true, ii: true, iii: true }, per: 1, strict: true, code: null };
+    if (!yearLive().length) { main.innerHTML = head('Test 📝', '') + `<section class="panel empty"><h3>Coming Soon</h3><p class="muted">Units for Year ${Y()} are being written. Choose another year at the top.</p></section>`; return; }
+    if (TS.phase === 'run') return renderTestRun(main);
+    if (TS.phase === 'review') return renderTestReview(main);
+    const seg = (attr, val, label, on) => `<button type="button" data-${attr}="${val}" aria-pressed="${on}">${label}</button>`;
+    const c = TS.code;
+    if (c && c.y !== Y()) TS.code = null;
+    const prev = TS.code ? null : tsConfig();
+    const est = TS.code ? null : (prev.subs.length && prev.strands.length ? tsBuild(prev) : []);
+    const settings = TS.code ? `<div class="exrow"><div class="exlab">Class code</div><div class="exctl"><div class="codebox"><div class="code-str num">${TS.code.str}</div>
+        <div class="small">Units: <b>${tsSubNames(TS.code)}</b></div><div class="small">Strands: <b>${TS.code.strands.map(s => strandOf(s).label).join(', ')}</b> · ${TS.code.per} question${TS.code.per > 1 ? 's' : ''} per level · ${TS.code.strict ? 'answers lock at the end of the time' : 'overtime allowed'}</div>
+        ${TS.code.fpOk ? '' : '<p class="warn small">This code was made with a different version of the question bank, so your test may not match your classmates\' tests. Ask for a new code.</p>'}
+        <div class="row"><button class="btn sm" id="tsCopy">Copy</button><button class="linkbtn" id="tsClear">Stop using this code</button><span class="muted small">Overrides your selection.</span></div></div></div></div>`
+      : `<div class="exrow"><div class="exlab">Strands</div><div class="exctl"><div class="seg" role="group" aria-label="Strands">${STRANDS.map(s => seg('tsstrand', s.id, `${s.label} ${s.name}`, !!TS.strands[s.id])).join('')}</div></div></div>
+        <div class="exrow"><div class="exlab">Length</div><div class="exctl"><div class="seg" role="group" aria-label="Questions per level">${seg('tsper', 1, 'Standard: 1 per level', TS.per === 1)}${seg('tsper', 2, 'Long: 2 per level', TS.per === 2)}</div>
+          <span class="muted small">${est.length ? `<b class="num">${est.length}</b> questions · <b class="num">${tsMinutes(est)}</b> minutes` : 'Choose at least one strand and one subtopic.'}</span></div></div>
+        <div class="exrow"><div class="exlab">Finish</div><div class="exctl"><div class="seg" role="group" aria-label="Finish">${seg('tsfin', 'strict', 'Strict', TS.strict)}${seg('tsfin', 'soft', 'Soft', !TS.strict)}</div><span class="muted small">${TS.strict ? 'Answers lock when time runs out, like a real test.' : 'Keep going after time runs out; overtime is recorded.'}</span></div></div>
+        <div class="exrow"><div class="exlab">Class code <span class="exopt">optional</span></div><div class="exctl">
+          <div class="codeform">${codeBoxHTML('tsCodeIn', 'TST', 'Class code', TS.typed)}<button class="btn sm" id="tsUse">Use</button><button class="btn sm primary" id="tsMake">Make a Code</button></div>
+          <span class="muted small">Same code, same questions and values for everyone. Make a Code uses the subtopics ticked in the panel and the settings above. (The panel's strand and level filters are not used: a test always covers every level.)</span></div></div>`;
+    main.innerHTML = head('Test 📝', 'A timed Criterion A test like your unit tests: a section for each strand, from level 1–2 up to 7–8. Answers stay hidden until you finish.') + `
+      <section class="panel exset">${settings}
+        <div class="exgo"><div class="row"><button class="btn primary" id="tsStart">Start Test</button></div>
+        <p class="muted small">When you finish, the site marks the short answers. You mark the written answers with the markscheme, honestly. Then you get a best-fit level for each strand and can print your results.</p></div>
+      </section>
+      ${(S.tests || []).filter(t => t.y === Y()).length ? `<section class="panel"><h3>Your Recent Tests</h3>${tsHistory()}</section>` : ''}`;
+    bindCodeBox($('#tsCodeIn', main));
+  }
+  function tsHistory() {
+    const rows = (S.tests || []).filter(t => t.y === Y()).slice(-8).reverse().map(t => `<tr><td>${new Date(t.ts).toLocaleDateString()}</td><td class="num">${t.n}</td>${STRANDS.map(s => `<td class="num">${t.levels[s.id] != null ? t.levels[s.id] : '–'}</td>`).join('')}<td class="num"><b>${t.levels.all}</b></td><td class="num">${fmtClock(t.used)}</td><td class="small muted">${t.code || ''}</td></tr>`).join('');
+    return `<div class="tbl-wrap"><table class="stats"><thead><tr><th>Date</th><th>Qs</th>${STRANDS.map(s => `<th>${s.label}</th>`).join('')}<th>Crit. A</th><th>Time</th><th>Code</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  }
+  const tsElapsed = () => ((TS.finishedAt || now()) - TS.start) / 1000;
+  function tsSwitch(i) { const it = TS.items[TS.cur]; it.time += now() - TS.enter; TS.cur = i; TS.enter = now(); }
+  function renderTestRun(main) {
+    const it = TS.items[TS.cur], strandStart = TS.items.findIndex(x => x.q.s === it.q.s) === TS.cur;
+    main.innerHTML = head('Test 📝', `${TS.items.length} questions · ${fmtClock(TS.allowed)} allowed${TS.cfg.str ? ` · ${TS.cfg.str}` : ''}`) + `
+      <div class="instrument ex-inst"><div id="tsInst"></div></div>
+      <div class="palette ts-palette" role="group" aria-label="Questions">${TS.cfg.strands.map(s => `<span class="ts-sec stag s-${s}">${strandOf(s).label}</span>${TS.items.map((x, i) => x.q.s !== s ? '' : `<button data-go="${i}" class="${tsAnswered(x) ? 'answered' : ''} ${i === TS.cur ? 'current' : ''}" aria-label="Question ${i + 1}">${i + 1}</button>`).join('')}`).join('')}</div>
+      ${strandStart ? `<p class="ts-sechead">Section ${strandOf(it.q.s).label}: ${strandOf(it.q.s).name}</p>` : ''}
+      <article class="sheet ts-sheet" id="sheet"><div class="ts-qno">Question ${TS.cur + 1} of ${TS.items.length}</div>${questionHTML(it.q, it.inst, it.st)}</article>
+      <div class="row"><button class="btn" id="tsPrev" ${TS.cur === 0 ? 'disabled' : ''}>Previous</button><button class="btn" id="tsNext" ${TS.cur === TS.items.length - 1 ? 'disabled' : ''}>Next</button><span class="spacer"></span><button class="btn primary" id="tsFinish">Finish Test</button></div>
+      <div id="tsConfirm"></div>`;
+    tickTest();
+  }
+  function tickTest() {
+    if (!TS || TS.phase !== 'run') return;
+    const el = tsElapsed(), left = TS.allowed - el;
+    if (left <= 0 && TS.cfg.strict) { finishTest(); return; }
+    const box = $('#tsInst'); if (!box) return;
+    const done = TS.items.filter(tsAnswered).length;
+    box.innerHTML = `<div class="row"><span class="clock ${left < 0 ? 'over' : left < 180 ? 'low' : ''}">${left >= 0 ? fmtClock(left) : fmtClock(-left) + ' over'}</span><span class="spacer"></span><span class="pill">${done} of ${TS.items.length} answered</span></div>
+      <div class="pace"><div class="done" style="width:${100 * done / TS.items.length}%"></div><div class="exp" style="left:${Math.min(100, 100 * el / TS.allowed)}%"></div></div>`;
+    if (!TS.alert.five && left <= 300 && TS.allowed > 600) { TS.alert.five = true; toast('5 minutes left.'); }
+  }
+  function finishTest() {
+    if (!TS || TS.phase !== 'run') return;
+    tsSwitch(TS.cur); TS.finishedAt = now(); TS.phase = 'review'; clearInterval(tsTimer); tsTimer = null;
+    TS.items.forEach(it => { checkAll(it.inst, it.st); it.st.revealed = true; });
+    if (currentView() === 'test') { render(); window.scrollTo({ top: 0 }); } else toast('Time is up. Your test is ready to mark in Test.');
+  }
+  function tsTiles() {
+    const L = tsLevels(), used = tsElapsed(), un = tsUnmarked();
+    return TS.cfg.strands.map(s => `<div class="tile"><span class="k">${strandOf(s).label} ${strandOf(s).name}</span><span class="v num">${L[s]}</span><span class="s">best-fit level (0–8)</span></div>`).join('') +
+      `<div class="tile grade-tile"><span class="k">Criterion A</span><span class="v num">${L.all}</span><span class="s">${un ? 'Tick the markschemes below' : TS.cfg.strands.length === 3 ? 'best fit of the three strands' : 'from the strands you took'}</span></div>
+       <div class="tile"><span class="k">Time</span><span class="v num">${fmtClock(used)}</span><span class="s">${used > TS.allowed ? `<span style="color:var(--bad)">${fmtClock(used - TS.allowed)} over</span>` : `${fmtClock(TS.allowed - used)} to spare`}</span></div>`;
+  }
+  function tsDescs() {
+    const L = tsLevels();
+    return TS.cfg.strands.map(s => { const lv = L[s], b = lv ? Math.min(8, lv + (lv % 2)) : 0; return `<p class="small">${strandTag(s)} <b>Level ${lv}</b>${b ? `: ${descFor(TS.cfg.y, s, b)}` : ': not yet at level 1–2 for this strand.'}</p>`; }).join('');
+  }
+  function renderTestReview(main) {
+    const un = tsUnmarked();
+    main.innerHTML = head('Test Results 📝', `Year ${TS.cfg.y} · ${TS.items.length} questions · ${new Date(TS.start).toLocaleString()}${TS.cfg.str ? ` · ${TS.cfg.str}` : ''}`) + `
+      <div class="tiles" id="tsTiles">${tsTiles()}</div>
+      <section class="panel ts-desc"><h3>What Your Levels Mean</h3><div id="tsDescs">${tsDescs()}</div>
+        <p class="muted small">How the level is worked out: for each strand the site climbs from level 1–2 upwards while you score at least half the marks at that level; 75% or more gives the higher number of the pair (2, 4, 6 or 8). It is a guide: your teacher's judgement on the real test may differ.</p>
+        ${un ? '<p class="warn small no-print" id="tsUnWarn">Some written answers are not marked yet. Tick the markscheme points you made, below. Your levels update as you tick.</p>' : ''}</section>
+      ${TS.items.map((it, i) => `<article class="sheet ts-item" data-ti="${i}"><div class="ts-qno">Question ${i + 1} · <span class="num">${fmtMin(it.time / 1000)}</span> · <span class="num" data-tisc="${i}">${Math.round(totalScore(it.inst, it.st) * 100)}%</span></div>${questionHTML(it.q, it.inst, it.st)}</article>`).join('')}
+      <div class="row no-print">${TS.saved ? '<span class="pill good">Results saved to your stats</span>' : '<button class="btn primary" id="tsSave">Save Results</button>'}<button class="btn" id="tsPrint">🖨 Print Results</button><span class="spacer"></span><button class="btn" id="tsNew">New Test</button></div>
+      <p class="muted small no-print">Print Results opens the print window: choose a printer, or Save as PDF. It includes your levels, every question, your answers and the markschemes you ticked.</p>`;
+  }
+  function bindTest(main) {
+    main.onclick = (e) => {
+      const b = e.target.closest('button'); if (!b) return;
+      if (TS.phase === 'setup') {
+        const d = b.dataset;
+        if (d.tsstrand) { TS.strands[d.tsstrand] = !TS.strands[d.tsstrand]; renderTest(main); return; }
+        if (d.tsper) { TS.per = +d.tsper; renderTest(main); return; }
+        if (d.tsfin) { TS.strict = d.tsfin === 'strict'; renderTest(main); return; }
+        if (b.id === 'tsUse') { const c = tstDecode($('#tsCodeIn').value); if (!c) { toast("That code isn't valid. Check it and try again."); return; } if (c.y !== Y()) { S.settings.year = c.y; save(); applyYear(); } TS.code = c; TS.typed = ''; render(); return; }
+        if (b.id === 'tsMake') { const c = tsConfig(); if (!c.subs.length || !c.strands.length || !tsPool(c).length) { toast('Choose at least one strand and one subtopic first.'); return; } c.fp = fp10(tsPool(c)); c.fpOk = true; c.str = tstEncode(c); TS.code = c; renderTest(main); toast('Code created. Share it so everyone gets the same test.'); return; }
+        if (b.id === 'tsClear') { TS.code = null; renderTest(main); return; }
+        if (b.id === 'tsCopy') { const t = TS.code.str; (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast('Code copied.'), () => toast('Select the code and copy it: ' + t)); return; }
+        if (b.id === 'tsStart') {
+          const cfg = TS.code || tsConfig();
+          if (!cfg.subs.length || !cfg.strands.length) { toast('Choose at least one strand and one subtopic first.'); return; }
+          const its = tsBuild(cfg); if (!its.length) { toast('No questions match your selection.'); return; }
+          Object.assign(TS, { phase: 'run', cfg, items: its, cur: 0, allowed: tsMinutes(its) * 60, start: now(), enter: now(), finishedAt: null, alert: {}, saved: false });
+          clearInterval(tsTimer); tsTimer = setInterval(tickTest, 500); render(); window.scrollTo({ top: 0 }); return;
+        }
+        return;
+      }
+      if (TS.phase === 'run') {
+        const it = TS.items[TS.cur];
+        if (answerClick(b, it.inst, it.st)) { renderTestRun(main); return; }
+        if (b.dataset.go !== undefined) { tsSwitch(+b.dataset.go); renderTestRun(main); window.scrollTo({ top: 0 }); return; }
+        if (b.id === 'tsPrev') { tsSwitch(TS.cur - 1); renderTestRun(main); window.scrollTo({ top: 0 }); return; }
+        if (b.id === 'tsNext') { tsSwitch(TS.cur + 1); renderTestRun(main); window.scrollTo({ top: 0 }); return; }
+        if (b.id === 'tsFinish') {
+          const open = TS.items.filter(x => !tsAnswered(x)).length;
+          if (open) { $('#tsConfirm').innerHTML = `<div class="confirm"><span>${open} question${open > 1 ? 's are' : ' is'} not answered. Finish anyway?</span><div class="row"><button class="btn primary" id="tsFinishYes">Finish and Mark</button><button class="btn" id="tsFinishNo">Keep Working</button></div></div>`; return; }
+          finishTest(); return;
+        }
+        if (b.id === 'tsFinishYes') { finishTest(); return; }
+        if (b.id === 'tsFinishNo') { $('#tsConfirm').innerHTML = ''; return; }
+        return;
+      }
+      if (TS.phase === 'review') {
+        if (b.id === 'tsSave') {
+          TS.items.forEach(it => { const sc = totalScore(it.inst, it.st); logAttempt(it.q, sc, it.time / 1000, 'test'); if (sc < 0.6) addMissed(it.q.qid); else clearMissed(it.q.qid); });
+          S.tests = S.tests || []; S.tests.push({ ts: TS.start, y: TS.cfg.y, n: TS.items.length, levels: tsLevels(), used: Math.round(tsElapsed()), code: TS.cfg.str || '' }); if (S.tests.length > 60) S.tests.shift();
+          TS.saved = true; markDay(); save(); renderTestReview(main); toast('Results saved.'); return;
+        }
+        if (b.id === 'tsPrint') { window.print(); return; }
+        if (b.id === 'tsNew') { TS = { phase: 'setup', strands: Object.fromEntries(STRANDS.map(s => [s.id, TS.cfg.strands.includes(s.id)])), per: TS.cfg.per, strict: TS.cfg.strict, code: null }; render(); return; }
+        if (b.dataset.pt) return;
+      }
+    };
+    main.onchange = (e) => {
+      if (!TS) return;
+      if (TS.phase === 'run') { const it = TS.items[TS.cur]; answerInput(e, it.st); const pb = $$('.palette [data-go]', main).find(x => +x.dataset.go === TS.cur); if (pb) pb.classList.toggle('answered', tsAnswered(it)); tickTest(); return; }
+      if (TS.phase === 'review' && e.target.dataset.mp) {
+        const art = e.target.closest('[data-ti]'), i = +art.dataset.ti, it = TS.items[i]; answerInput(e, it.st);
+        $('#tsTiles').innerHTML = tsTiles(); $('#tsDescs').innerHTML = tsDescs();
+        const sc = $(`[data-tisc="${i}"]`); if (sc) sc.textContent = `${Math.round(totalScore(it.inst, it.st) * 100)}%`;
+        const w = $('#tsUnWarn'); if (w && !tsUnmarked()) w.remove();
+      }
+    };
+    main.oninput = (e) => { if (TS && TS.phase === 'run' && e.target.dataset.in) { const it = TS.items[TS.cur]; it.st.val[e.target.dataset.in] = e.target.value; const pb = $$('.palette [data-go]', main).find(x => +x.dataset.go === TS.cur); if (pb) pb.classList.toggle('answered', tsAnswered(it)); } };
+  }
+
   /* ======================= RECALL ======================= */
   let RC = null, GM = null, RC_PICKED = false;
   function stopGM() { if (GM && GM.tm) clearInterval(GM.tm); GM = null; }
@@ -4100,6 +5011,7 @@ const GAMES = (() => {
   /* ======================= WELCOME and ABOUT ======================= */
   const WMODES = [
     ['practice', '🎯', 'Practice', 'One question at a time for every Criterion A strand (A i, A ii, A iii) and level from 1–2 to 7–8, with worked solutions and markschemes.'],
+    ['test', '📝', 'Test', 'A timed Criterion A test like your unit tests, with a best-fit level for each strand and printable results. Your teacher can give a TST- code so everyone gets the same test.'],
     ['games', '🕹️', 'Games', 'Quick unit games: match elements, ions and isotopes in Year 9, or pick the motion graph in Year 11.'],
     ['recall', '🧠', 'Recall', 'Learn the key terms and command terms that earn marks, with flashcards that come back just before you forget them.'],
     ['notes', '📓', 'Notes', 'Short notes for every subtopic in lesson order: key ideas, common mistakes and key terms, with a link to the class slides.'],
@@ -4129,6 +5041,7 @@ const GAMES = (() => {
     { v: '0.1 alpha', d: '5 November 2026', items: ['First build: four units (Y11 Exchange & Transport, Y11 Forces & Motion, Y9 Disease & Our Immune System, Y9 Chemistry of Industry) with practice by Criterion A strand and level, recall cards, notes and progress.'] },
     { v: '0.2 alpha', d: '5 November 2026', items: ['New design: header, side panel, question sheet, markscheme ticks, spaced-repetition Recall (Flashcards, Pick’em!, Match It!), Notes panels, Stats tabs and backup code.', 'Every unit is split into subtopics, one per lesson topic, and every subtopic has questions for A i, A ii and A iii.', 'Unit games: Element Match (Year 9 Chemistry) and Graph It! (Year 11 Forces & Motion).', 'Notes for every subtopic with key ideas, common mistakes and key terms.'] },
     { v: '0.3 alpha', d: '5 November 2026', items: ['Games page grouped by unit, with Class Games for every year.', 'New unit games: Build-an-Atom and Periodic Mystery (Y9 Chemistry); Free-Body Builder, Stop in Time and suvat Sprint (Y11 Forces & Motion).', 'Blitz and Last Man Standing with class codes, using multiple-choice questions from the ticked subtopics.', 'Y9 Chemistry: a simplified Periodic Table (elements 1–20, whole-number atomic masses) on every question, in the header and in Notes.', 'Last Man Standing arena: ready screen, 3-2-1 countdown, synthesised music and sound effects, heartbeat in the last 30 seconds, Give Up and Game Over.', 'Code boxes start with their prefix (LMS-) and add capitals and dashes as you type.'] },
+    { v: '0.4 alpha', d: '6 November 2026', items: ['New <b>Test</b> mode: a timed Criterion A test like the unit tests, with a section for each strand from level 1–2 to 7–8. Answers stay hidden until the end; the site marks short answers, you tick the markschemes for written answers, and each strand gets a best-fit level. Print your results, or use a TST- class code so everyone gets the same test.', 'New unit: <b>Year 11 Combustible Fuels</b> (8 subtopics, 55 question types): fuels and SDG 7, hydrocarbons, naming and isomers with drawn structural formulas, alcohols, crude oil and boiling point, combustion and balancing, enthalpy profiles and bond enthalpy, moles, energy per gram and emissions.', 'More question types matched to the unit tests: Y9 Disease (vectors, Jenner, Fleming, Ebola, bacterial growth, vaccine boosters), Y9 Chemistry (nuclear notation, particle tables, spotting Bohr-diagram errors, covalent names, evidence of chemical change, ionisation energy trends), Y11 Exchange & Transport (Boyle\'s law, the double circulation, valves, blood pressure, exercise spirometry, maximum heart rate) and Y11 Forces & Motion (crane tension, runway length, skydiver, multi-stage v–t graphs, theory vs real data).', 'Stop in Time: everyday objects in the road instead of people.', 'Fixes: sorting questions always use every category; written-answer markschemes line up properly.'] },
   ];
   function renderAbout(main) {
     const rows = LIVE_UNITS.map(u => { const qs = Q.filter(q => q.uid === u.id); return `<tr><td><b>Y${u.y} U${u.n}</b> ${esc(u.title)}</td><td class="num">${CONTENT[u.id].subs.length}</td>${STRANDS.map(s => `<td class="num">${qs.filter(q => q.s === s.id).length}</td>`).join('')}<td class="num"><b>${qs.length}</b></td><td class="num">${CARDS.filter(c => c.uid === u.id).length}</td></tr>`; }).join('');
@@ -4155,7 +5068,7 @@ const GAMES = (() => {
 
   /* ======================= ROUTER ======================= */
   const VIEWS = {
-    practice: [renderPractice, bindPractice, 'Practice 🎯'], games: [renderGames, bindGames, 'Games 🕹️'], recall: [renderRecall, bindRecall, 'Recall 🧠'],
+    practice: [renderPractice, bindPractice, 'Practice 🎯'], test: [renderTest, bindTest, 'Test 📝'], games: [renderGames, bindGames, 'Games 🕹️'], recall: [renderRecall, bindRecall, 'Recall 🧠'],
     notes: [renderNotes, bindNotes, 'Notes 📓'], stats: [renderStats, bindStats, 'Stats 📈'],
     about: [renderAbout, bindAbout, 'About', true], welcome: [renderWelcome, bindWelcome, 'Welcome', true],
   };
@@ -4163,10 +5076,11 @@ const GAMES = (() => {
   function render() {
     const v = currentView(), main = $('#main');
     if (v !== 'games') stopGA();
+    if (v !== 'test' && TS && TS.phase === 'run') toast('Your test is still running. Go back to Test to finish it.');
     lmsTheme();
     if (v !== 'recall' && GM && GM.mode === 'match') stopGM();
     $$('#tabs a').forEach(a => a.setAttribute('aria-current', a.getAttribute('href') === '#' + v ? 'page' : 'false'));
-    const noRail = v === 'stats' || v === 'about' || v === 'welcome' || (v === 'games' && !(GA && (GA.id === 'blitz' || GA.id === 'lms') && GA.phase === 'setup'));
+    const noRail = (v === 'test' && TS && TS.phase !== 'setup') || v === 'stats' || v === 'about' || v === 'welcome' || (v === 'games' && !(GA && (GA.id === 'blitz' || GA.id === 'lms') && GA.phase === 'setup'));
     $('.shell').classList.toggle('no-rail', noRail);
     if (!noRail) renderRail();
     main.onclick = null; main.onchange = null; main.oninput = null; main.onkeydown = null;
@@ -4218,7 +5132,9 @@ const GAMES = (() => {
   window.__LAB = {
     Q, CARDS, SUB, S: () => S, render,
     force(qid, seed) { const q = QBY[qid]; S.settings.year = q.y; if (!S.settings.sel.includes(q.subKey)) S.settings.sel.push(q.subKey); S.settings.crit[q.s] = true; S.settings.band[q.b] = true; S.settings.missedOnly = false; applyYear(); if (location.hash !== '#practice') { location.hash = '#practice'; render(); } P.q = q; P.seed = seed; P.inst = buildInst(q, seed); P.st = newState(); P.t0 = now(); renderPractice($('#main')); bindPractice($('#main')); },
-    cur: () => P, ga: () => GA,
+    cur: () => P, ga: () => GA, ts: () => TS, tstDecode,
+    // fills one test item with the correct answers (for the automated tests)
+    fillCorrect: (it) => items(it.inst).forEach(([x, k]) => { const st = it.st; if (x.type === 'mcq') st.pick[k] = x.ans; else if (x.type === 'num') st.val[k] = String(x.ans); else if (x.type === 'text') st.val[k] = x.accept[0]; else if (x.type === 'select') st.val[k] = String(x.ans); else if (x.type === 'order') st.seq[k] = x.items.map((_, i) => i); else if (x.type === 'sort') st.bins[k] = x.items.map(i => i[1]); else if (x.type === 'label') st.lab[k] = x.labels.slice(); else st.val[k] = 'answer'; }),
   };
 })();
 
