@@ -1206,6 +1206,13 @@ dialog.terms-dlg.wide { width: min(1010px, 96vw); }
 .bi-tally tr.ok td { background: var(--good-soft); } .bi-tally tr.no td { background: var(--bad-soft); }
 .bi-msg { text-align: center; }
 
+/* teacher access (Test mode) */
+.teacher-access { margin-top: 18px; display: grid; justify-items: start; gap: 8px; }
+.teacher-access .linkbtn { color: var(--muted); }
+.tform { display: grid; gap: 6px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); max-width: 420px; width: 100%; box-sizing: border-box; }
+.tform .ans { flex: 1; min-width: 0; }
+.teacher-bar { margin-top: 14px; color: var(--muted); }
+
 </style>
 </head>
 <body>
@@ -4913,6 +4920,13 @@ const GAMES = (() => {
         const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 320; const low = ctx.createGain(); low.gain.value = 1; low.connect(lp); lp.connect(master);
         mus = { bus, low, i: 0, next: ctx.currentTime + 0.05, fast: !!fast }; mus.tm = setInterval(schedule, 90); schedule();
       },
+      // Test mode time alerts: gentle bells (n rings), or a longer three-note chord when time is up; own on/off setting
+      chime(n, end) {
+        if (S.settings.tsSound === false || !ac()) return; const t = ctx.currentTime;
+        if (end) { [[72, 0], [76, 0.18], [79, 0.36]].forEach(([m, d]) => tone(N(m), t + d, 1.6, 'sine', 0.3)); return; }
+        for (let i = 0; i < n; i++) { tone(N(84), t + i * 0.45, 0.9, 'sine', 0.28); tone(N(91), t + i * 0.45, 0.6, 'sine', 0.08); }
+      },
+      prime() { ac(); },
       toggle() { S.settings.lmsSound = !on(); save(); if (!on()) this.music(false); return on(); },
       isOn: on
     };
@@ -5028,10 +5042,12 @@ const GAMES = (() => {
   const TS_MIN = { 2: 1.5, 4: 2.5, 6: 4, 8: 6 }; // minutes allowed per question at each level band
   const tsPool = (c) => Q.filter(q => q.y === c.y && c.subs.includes(q.subKey) && c.strands.includes(q.s));
   const tstGroup = (t) => 'TST-' + t.match(/.{1,4}/g).join('-');
+  const TS_KINDS = [['online', 'Online', 'Students take it on screen, timed, with best-fit levels at the end'], ['sheet', 'Worksheet', 'A worksheet of questions, then the markscheme if you allow it'], ['formal', 'Test/Exam', 'Cover sheet with instructions, a section for each strand, the data booklet at the end']];
+  const kindName = (k) => (TS_KINDS.find(x => x[0] === k) || TS_KINDS[0])[1];
   function tstEncode(c) {
     let big = 1n; const put = (v, n) => { big = (big << BigInt(n)) | BigInt(v); };
-    const keys = yearSubKeys(c.y); put(2, 3); put(c.y - 9, 2); put(c.seed & 0xfffff, 20); put(c.fp & 0x3ff, 10);
-    STRANDS.forEach(s => put(c.strands.includes(s.id) ? 1 : 0, 1)); put(c.per - 1, 1); put(c.strict ? 1 : 0, 1);
+    const keys = yearSubKeys(c.y); put(3, 3); put(c.y - 9, 2); put(c.seed & 0xfffff, 20); put(c.fp & 0x3ff, 10);
+    STRANDS.forEach(s => put(c.strands.includes(s.id) ? 1 : 0, 1)); put(c.per - 1, 1); put(c.strict ? 1 : 0, 1); put(TS_KINDS.findIndex(k => k[0] === (c.kind || 'online')), 2); put(c.ms ? 1 : 0, 1);
     put(keys.length, 6); keys.forEach(k => put(c.subs.includes(k) ? 1 : 0, 1));
     return tstGroup(toB32(big));
   }
@@ -5039,14 +5055,14 @@ const GAMES = (() => {
     const t = String(str || '').toUpperCase().replace(/^TST/, '').replace(/[^0-9A-Z]/g, '').replace(/O/g, '0').replace(/[IL]/g, '1');
     const big = fromB32(t); if (!big) return null; const bits = big.toString(2).slice(1); let pos = 0;
     const take = (n) => { const v = parseInt(bits.slice(pos, pos + n) || '0', 2); pos += n; return v; };
-    if (bits.length < 46 || take(3) !== 2) return null;
+    if (bits.length < 49 || take(3) !== 3) return null;
     const y = 9 + take(2), seed = take(20), fp = take(10); if (!YEARS.some(Y => Y.y === y)) return null;
-    const strands = STRANDS.filter(() => take(1)).map(s => s.id), per = take(1) + 1, strict = !!take(1), n = take(6), keys = yearSubKeys(y);
+    const strands = STRANDS.filter(() => take(1)).map(s => s.id), per = take(1) + 1, strict = !!take(1), kind = (TS_KINDS[take(2)] || TS_KINDS[0])[0], ms = !!take(1), n = take(6), keys = yearSubKeys(y);
     const subs = []; for (let i = 0; i < n; i++) if (take(1) && keys[i]) subs.push(keys[i]);
-    const c = { y, seed, fp, strands, per, strict, subs }; if (!subs.length || !strands.length || !tsPool(c).length) return null;
+    const c = { y, seed, fp, strands, per, strict, kind, ms, subs }; if (!subs.length || !strands.length || !tsPool(c).length) return null;
     c.fpOk = fp10(tsPool(c)) === fp; c.str = tstGroup(t); return c;
   }
-  function tsConfig() { return { y: Y(), seed: 1 + Math.floor(Math.random() * 0xffffe), strands: STRANDS.map(s => s.id).filter(s => TS.strands[s]), per: TS.per, strict: TS.strict, subs: yearSubKeys(Y()).filter(k => subOK(k)) }; }
+  function tsConfig() { return { y: Y(), seed: 1 + Math.floor(Math.random() * 0xffffe), strands: STRANDS.map(s => s.id).filter(s => TS.strands[s]), per: TS.per, strict: TS.strict, kind: TS.kind || 'online', ms: (TS.kind || 'online') !== 'online' && !!TS.ms, subs: yearSubKeys(Y()).filter(k => subOK(k)) }; }
   // pick the questions: for each strand, `per` questions at each level band, spread across the chosen subtopics
   function tsBuild(c) {
     const R = makeR(c.seed), list = tsPool(c), out = [], usedSub = {};
@@ -5117,34 +5133,249 @@ const GAMES = (() => {
   const pauseSummary = (x) => x.pauses ? `Paused <b class="num">${x.pauses}</b> time${x.pauses > 1 ? 's' : ''} for a total of <b class="num">${fmtClock(x.pausedMs / 1000)}</b>. Paused time is not counted in the time used.` : 'No pauses: taken in one sitting.';
   const tsReport = (it) => reportBox({ type: 'Problem', id: it.q.qid, title: it.q.topic || SUB[it.q.subKey].name, yu: unitLabel(unitById(it.q.uid)), seed: it.seed, where: 'Test Mode' + (TS.cfg.str ? ' ' + TS.cfg.str : '') });
 
+  /* ---------- Teacher access (as in MVPhysics Lab) ----------
+     Without teacher access, Test mode shows only a class code box. The page stores only a PBKDF2-SHA256 hash of the
+     passphrase. A correct passphrase is remembered (lightly masked) on this device and re-checked against the hash on
+     every load, so a hand-set flag does nothing. This stops students and casual users; it is not a server-side lock. */
+  const TEACHER = { salt: 'mypoirier-science-lab:teacher:v1', hash: '73a5d0fe17c83e96e3d89fecce5ade5e37cf34a7bc0698818096ee06351f23f0', iter: 200000, key: 'myp-science-lab.tk' };
+  let TEACH = false;
+  async function teacherHash(pass) {
+    const enc = new TextEncoder(), k = await crypto.subtle.importKey('raw', enc.encode(pass), 'PBKDF2', false, ['deriveBits']);
+    const bits = await crypto.subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-256', salt: enc.encode(TEACHER.salt), iterations: TEACHER.iter }, k, 256);
+    return [...new Uint8Array(bits)].map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+  const MASK = 'mypoirier-science';
+  const maskPass = (p) => btoa(unescape(encodeURIComponent([...p].map((c, i) => String.fromCharCode(c.charCodeAt(0) ^ MASK.charCodeAt(i % MASK.length))).join(''))));
+  const unmaskPass = (m) => { const t = decodeURIComponent(escape(atob(m))); return [...t].map((c, i) => String.fromCharCode(c.charCodeAt(0) ^ MASK.charCodeAt(i % MASK.length))).join(''); };
+  const cryptoOK = () => !!(window.crypto && crypto.subtle && window.TextEncoder);
+  async function teacherUnlock(pass, remember = true) {
+    if (!cryptoOK()) return 'nocrypto';
+    if (await teacherHash(pass) !== TEACHER.hash) return 'wrong';
+    TEACH = true; if (remember) { try { localStorage.setItem(TEACHER.key, maskPass(pass)); } catch (e) { /* ignore */ } }
+    return 'ok';
+  }
+  function teacherLock() { TEACH = false; try { localStorage.removeItem(TEACHER.key); } catch (e) { /* ignore */ } }
+  async function teacherRestore() {
+    let m = null; try { m = localStorage.getItem(TEACHER.key); } catch (e) { /* ignore */ }
+    if (!m || !cryptoOK()) return;
+    try { if (await teacherHash(unmaskPass(m)) === TEACHER.hash) { TEACH = true; if (currentView() === 'test' && TS && TS.phase === 'setup') render(); } } catch (e) { /* ignore */ }
+  }
+
+  /* ======================= PRINTABLE WORKSHEETS AND TESTS (teacher access) =======================
+     A TST- code can be an online test, a printable worksheet or a printable test (cover sheet, a section per strand,
+     data booklet at the end). Printable codes say whether students get the markscheme. Teachers can print the
+     Student Copy (exactly what the code gives), the Markscheme pages only, or Both. */
+  const SITE_URL = 'https://mvpoirier.github.io/science-lab/';
+  // web font for printouts (the offline edition already has the fonts inside the page styles it copies)
+  const PR_FONTS = 'https://fonts.' + 'google' + 'apis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,600;0,700;0,900;1,400&display=swap';
+  const cssStr = (t) => '"' + t.replace(/\\/g, '\\\\').replace(/"/g, '\\"') + '"';
+  const docComment = (what, id) => `<!--
+  MYPoirier Science Lab · ${what}${id ? ' · ' + id : ''}
+  Made with version ${VERSION} (built ${BUILT}) on ${new Date().toISOString().slice(0, 10)}
+  Author: Mike Poirier (https://github.com/mvpoirier), developed with Claude by Anthropic
+  Terms: © 2026 Mike Poirier. All rights reserved. Free for students and teachers for their own study and classroom teaching; any other copying, hosting, adapting or commercial or tutoring use needs written permission.
+  Site: ${SITE_URL}
+  Not affiliated with or endorsed by the IB.
+-->
+`;
+  const docWatermark = (id) => `<style>@page { @bottom-left { content: ${cssStr(`MYPoirier Science Lab · ${VERSION} · © 2026 Mike Poirier · All rights reserved · Not for commercial or tutoring use · mvpoirier.github.io/science-lab${id ? ' · ' + id : ''}`)}; font: 7pt "IBM Plex Sans", Arial, sans-serif; color: #888; } @bottom-right { content: "Page " counter(page) " of " counter(pages); font: 7pt "IBM Plex Sans", Arial, sans-serif; color: #888; } }</style>`;
+  const docFooter = (id) => `<div class="wm"><b>MYPoirier Science Lab</b> · Version ${VERSION} (${BUILT})${id ? ` · ${esc(id)}` : ''}<br>© 2026 Mike Poirier, developed with Claude · All rights reserved · Free for students and teachers; not for commercial or tutoring use without written permission · mvpoirier.github.io/science-lab</div>`;
+  const PR_CSS = `
+    @page { size: A4; margin: 16mm 15mm; }
+    * { box-sizing: border-box; }
+    html, body { background: #fff !important; color: #111 !important; }
+    body.prdoc { font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif; font-size: 11pt; line-height: 1.5; margin: 0 auto; padding: 24px; max-width: 820px; display: block; }
+    .prdoc h1 { font-size: 18pt; margin: 0; font-weight: 500; font-family: inherit; } .prdoc h1 b { font-weight: 900; }
+    .prdoc h2 { font-size: 13pt; margin: 22px 0 8px; border-bottom: 1.5px solid #111; padding-bottom: 4px; font-family: inherit; }
+    .wshead { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+    .wscode { font: 600 10.5pt ui-monospace, Menlo, monospace; border: 1px solid #111; border-radius: 4px; padding: 2px 7px; letter-spacing: .03em; white-space: nowrap; }
+    .meta { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 9.5pt; color: #444; margin: 6px 0 12px; }
+    .namebox { display: grid; grid-template-columns: 3fr 1.3fr 1.3fr; gap: 10px; margin: 12px 0 6px; font-size: 10.5pt; } .namebox span { border: 1.2px solid #333; border-radius: 8px; padding: 8px 10px 14px; color: #444; }
+    .phint { background: #eef2fd; border: 1px solid #c9d4f6; padding: 10px 14px; border-radius: 8px; font-size: 10pt; margin-bottom: 14px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+    .phint button { font: inherit; padding: 5px 12px; border-radius: 6px; border: 1px solid #2547c9; background: #2547c9; color: #fff; cursor: pointer; }
+    .pq { break-inside: avoid; page-break-inside: avoid; margin: 14px 0 20px; }
+    .pqh { display: flex; gap: 10px; align-items: baseline; font-weight: 700; margin-bottom: 4px; }
+    .pqh .tag { font: 600 8.5pt ui-monospace, Menlo, monospace; border: 1px solid #111; padding: 0 5px; border-radius: 3px; font-weight: 600; }
+    .pqh .lv { margin-left: auto; font: 9.5pt ui-monospace, Menlo, monospace; font-weight: 400; white-space: nowrap; }
+    .ppart { display: grid; grid-template-columns: 30px 1fr; gap: 2px 6px; margin: 8px 0; } .ppart > .pl { font-weight: 700; }
+    .popts { display: grid; gap: 4px; margin: 6px 0; } .popts div { display: flex; gap: 8px; } .popts b { width: 18px; flex: none; }
+    .aline { margin: 8px 0 2px; } .aline span { display: inline-block; min-width: 55%; border-bottom: 1px solid #555; height: 1.4em; vertical-align: bottom; }
+    .lines { margin: 6px 0; } .lines div { border-bottom: 1px dotted #555; height: 8.5mm; }
+    table.psort { border-collapse: collapse; margin: 6px 0; font-size: 10pt; } table.psort th, table.psort td { border: 1px solid #888; padding: 4px 8px; } table.psort td.bx { width: 70px; } table.psort th { background: #f1f1f1; }
+    .porder { display: grid; gap: 4px; margin: 6px 0; } .porder div { display: flex; gap: 8px; align-items: center; } .porder i { display: inline-block; width: 26px; height: 20px; border: 1.2px solid #111; }
+    .pfig { margin: 6px 0; padding: 6px; border: 0; background: none; box-shadow: none; } .pfig svg { max-width: 100%; height: auto; max-height: 260px; width: auto; }
+    .psec + .psec { break-before: page; page-break-before: always; } .phead { font-size: 12pt; border-bottom: 1.5px solid #111; padding-bottom: 4px; margin: 18px 0 4px; break-after: avoid; } .phead span { font-weight: 400; }
+    .pins { font-size: 10pt; font-style: italic; margin: 0 0 10px; } .pend { text-align: center; font-weight: 700; font-size: 10pt; margin: 14px 0 22px; letter-spacing: .04em; }
+    .cover { break-after: page; page-break-after: always; }
+    .cover table { border-collapse: collapse; width: 100%; margin: 0 0 16px; } .cover td, .cover th { border: 1.2px solid #111; padding: 7px 10px; vertical-align: middle; text-align: left; }
+    .cv-k { font-weight: 700; white-space: nowrap; width: 1%; } .cv-names td { height: 34px; } .cover h3 { font-size: 12pt; margin: 18px 0 6px; } .cv-ins { padding-left: 20px; } .cv-ins li { margin: 4px 0; }
+    .cv-sec th { background: #f1f1f1; }
+    .answers { break-before: page; page-break-before: always; }
+    .overview { break-before: page; page-break-before: always; } table.ov { border-collapse: collapse; width: 100%; font-size: 9pt; margin: 8px 0; } table.ov th, table.ov td { border: 1px solid #999; padding: 3px 6px; text-align: left; vertical-align: top; } table.ov th { background: #f1f1f1; }
+    .sol { break-inside: avoid; margin: 10px 0 14px; padding-left: 10px; border-left: 2px solid #2547c9; } .sol h4 { font-size: 10pt; margin: 4px 0; } .sol ol { margin: 2px 0 4px 18px; padding: 0; }
+    .sol .ck { margin: 2px 0; } .sol .model { font-size: 10pt; color: #333; margin: 4px 0; padding: 4px 8px; background: #f6f6f6; border-radius: 4px; }
+    .bookpage { break-before: page; page-break-before: always; }
+    .bookpage .pt-tip { display: none !important; } .bookpage button.pt-cell { cursor: default; outline: none !important; }
+    .wm { break-inside: avoid; margin-top: 28px; padding-top: 8px; border-top: 1px solid #ccc; font-size: 8pt; color: #777; text-align: center; line-height: 1.5; }
+    @media print { body.prdoc { padding: 0; } .phint { display: none; } }`;
+  const plines = (n) => `<div class="lines">${'<div></div>'.repeat(Math.max(2, Math.min(12, n)))}</div>`;
+  // one answer area on paper
+  function prAnswer(x) {
+    switch (x.type) {
+      case 'mcq': return `<div class="popts">${x.order.map((ci, j) => `<div><b>${LETTERS[j]}.</b><span>${x.choices[ci]}</span></div>`).join('')}</div><div class="aline">Answer: <span style="min-width:60px"></span></div>`;
+      case 'num': return `<div class="aline">Answer: <span></span> ${x.unit || ''}</div>${plines(3)}`;
+      case 'text': return `<div class="aline">${x.label || 'Answer'}: <span></span></div>`;
+      case 'select': return `<div class="popts">${x.options.map((o, i) => `<div><b>${LETTERS[i]}.</b><span>${o}</span></div>`).join('')}</div><div class="aline">Answer: <span style="min-width:60px"></span></div>`;
+      case 'order': return `<p class="pins">Number the items in the correct order (1 = first).</p><div class="porder">${x.pool.map(i => `<div><i></i><span>${x.items[i]}</span></div>`).join('')}</div>`;
+      case 'sort': return `<table class="psort"><thead><tr><th></th>${x.bins.map(b => `<th>${b}</th>`).join('')}</tr></thead><tbody>${x.items.map(it => `<tr><td>${it[0]}</td>${x.bins.map(() => '<td class="bx"></td>').join('')}</tr>`).join('')}</tbody></table><p class="pins">Tick one box in each row.</p>`;
+      case 'label': return `<p class="pins">Choose from: ${x.options.join(' · ')}</p>${x.labels.map((l, i) => `<div class="aline">${i + 1}. <span></span></div>`).join('')}`;
+      case 'self': return plines(x.check.length * 2 + 1);
+      default: return plines(3);
+    }
+  }
+  function prQuestion(it, n) {
+    const q = it.q, inst = it.inst;
+    let h = `<section class="pq"><div class="pqh"><span>${n}.</span><span>${esc(q.topic || SUB[q.subKey].name)}</span><span class="lv">${strandOf(q.s).label} · Level ${BAND_LABEL[q.b]}</span></div>`;
+    if (inst.type === 'parts') h += `<div>${inst.stem || ''}</div>${inst.fig ? `<div class="figure pfig">${inst.fig}</div>` : ''}${inst.parts.map((p, i) => `<div class="ppart"><span class="pl">(${'abcdefgh'[i]})</span><div>${p.stem}${p.fig ? `<div class="figure pfig">${p.fig}</div>` : ''}${prAnswer(p)}</div></div>`).join('')}`;
+    else h += `<div>${inst.stem}</div>${inst.fig ? `<div class="figure pfig">${inst.fig}</div>` : ''}${prAnswer(inst)}`;
+    return h + '</section>';
+  }
+  const prMs = (x) => x.type === 'self'
+    ? `<div>${x.check.map(c => `<div class="ck">☐ ${c}</div>`).join('')}</div><div class="model"><b>Model answer:</b> ${x.model}</div>`
+    : `<div><b>Answer:</b> ${answerText(x)}</div>${solHTML(x)}`;
+  function prAnswerKey(it, n) {
+    const q = it.q, inst = it.inst;
+    return `<section class="sol"><div class="pqh"><span>${n}.</span><span>${esc(q.topic || SUB[q.subKey].name)}</span><span class="lv">${strandOf(q.s).label} · Level ${BAND_LABEL[q.b]}</span></div>${inst.type === 'parts' ? inst.parts.map((p, i) => `<div class="ppart"><span class="pl">(${'abcdefgh'[i]})</span><div>${prMs(p)}</div></div>`).join('') : prMs(inst)}</section>`;
+  }
+  function prSections(items, formal) {
+    let n = 0;
+    const used = STRANDS.filter(s => items.some(x => x.q.s === s.id));
+    const secs = used.map((s, si) => {
+      const its = items.filter(x => x.q.s === s.id), last = si === used.length - 1;
+      return `<div class="psec"><h2 class="phead">SECTION ${s.label.toUpperCase()}: ${s.name.toUpperCase()} <span>(${its.length} question${its.length > 1 ? 's' : ''}, levels ${BAND_LABEL[its[0].q.b]} to ${BAND_LABEL[its[its.length - 1].q.b]})</span></h2><p class="pins">Answer all questions.</p>${its.map(it => prQuestion(it, ++n)).join('')}${formal ? `<p class="pend">END OF SECTION ${s.label.toUpperCase()}</p>${last ? '<p class="pend">END OF TEST</p>' : ''}` : ''}</div>`;
+    }).join('');
+    return secs;
+  }
+  function prCover(c, items, mins) {
+    const units = tsSubNames(c), bk = { 9: 'the Year 9 data booklet (Periodic Table, elements 1–20)', 10: 'the data booklet (Periodic Table)', 11: 'the data booklet (Periodic Table and physics equations)' }[c.y];
+    return `<section class="cover"><div class="wshead" style="margin-bottom:14px"><h1><b>MYP</b>oirier Science Lab</h1></div>
+      <table><tr><td class="cv-k">Course</td><td>Year ${c.y} Science (MYP ${c.y - 6})</td></tr><tr><td class="cv-k">Assessment</td><td>Criterion A: Knowing and understanding</td></tr><tr><td class="cv-k">Units</td><td>${units}</td></tr><tr><td class="cv-k">Time allowed</td><td>${mins} minutes</td></tr></table>
+      <table class="cv-names"><tr><td class="cv-k">Name:</td><td style="width:45%"></td><td class="cv-k">Date:</td><td></td></tr><tr><td class="cv-k">Class / teacher:</td><td></td><td class="cv-k">Level:</td><td></td></tr></table>
+      <h3>Instructions</h3><ul class="cv-ins"><li>Do not open this test until you are told to do so.</li><li>Answer all questions. Write your answers in the spaces provided.</li><li>Show your working in calculations, and give units.</li><li>Use ${bk}, at the end of this test.</li><li>A calculator may be used.</li><li>You will receive a best-fit level (0–8) for each strand.</li></ul>
+      <table class="cv-sec"><tr><th>Section</th><th>Questions</th><th>Levels</th></tr>${STRANDS.filter(s => items.some(x => x.q.s === s.id)).map(s => { const its = items.filter(x => x.q.s === s.id); return `<tr><td>${s.label}: ${s.name}</td><td>${its.length}</td><td>${[...new Set(its.map(x => BAND_LABEL[x.q.b]))].join(', ')}</td></tr>`; }).join('')}</table></section>`;
+  }
+  function prOverview(c, items) {
+    return `<section class="overview"><div class="wshead"><h1>Markscheme and Question Overview</h1><div class="wscode">${c.str}</div></div>
+      <table class="ov"><thead><tr><th>#</th><th>Strand</th><th>Level</th><th>Unit</th><th>Subtopic</th><th>Question</th></tr></thead><tbody>${items.map((x, i) => `<tr><td>${i + 1}</td><td>${strandOf(x.q.s).label}</td><td>${BAND_LABEL[x.q.b]}</td><td>U${unitById(x.q.uid).n}</td><td>${esc(SUB[x.q.subKey].name)}</td><td>${esc(x.q.topic || '')}</td></tr>`).join('')}</tbody></table>
+      <p class="pins">Best fit for each strand: climb from level 1–2 while at least half the marks at that level are achieved; 75% or more gives the higher number of the pair. Written answers: award one mark for each markscheme point made.</p></section>`;
+  }
+  // variant: 'student' (exactly what the code gives students), 'ms' (overview and markscheme only), 'both'
+  function prDoc(c, variant) {
+    const items = tsBuild(c), mins = tsMinutes(items), formal = c.kind === 'formal';
+    const showQ = variant !== 'ms', showA = variant === 'ms' || variant === 'both' || (variant === 'student' && c.kind !== 'online' && c.ms);
+    const date = new Date().toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' });
+    const head = formal ? prCover(c, items, mins) : `<div class="wshead"><h1><b>MYP</b>oirier Science Lab · Worksheet</h1></div>
+      <div class="meta"><span>Year ${c.y} · Criterion A</span><span>${tsSubNames(c)}</span><span>${items.length} questions · about ${mins} min</span><span>Made ${date}</span></div>${showQ ? '<div class="namebox"><span>Name:</span><span>Date:</span><span>Class:</span></div>' : ''}`;
+    const css = [...document.querySelectorAll('style')].map(x => x.textContent).join('\n');
+    // the class code appears only with the markscheme, never on the students' question pages
+    const id = 'Class code ' + c.str, msId = showA ? id : '';
+    const doc = `<!doctype html>
+${docComment(formal ? 'Printable test' : 'Worksheet', variant === 'ms' ? id : '')}<html lang="en" data-theme="light" data-year="${c.y}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MYPoirier Science Lab ${variant === 'ms' ? `markscheme ${c.str}` : formal ? 'test' : 'worksheet'}</title>
+${window.__OFFLINE ? '' : `<link rel="stylesheet" href="${PR_FONTS}">`}<style>${css}\n${PR_CSS}</style></head><body class="prdoc">
+<div class="phint"><span>To make a PDF: Print this page, then choose <b>Save as PDF</b>.${showA && showQ ? ' The markscheme starts on a new page.' : ''}</span><button onclick="window.print()">Print</button></div>
+${showQ ? head + prSections(items, formal) : ''}
+${formal && showQ ? `<section class="bookpage"><h2>Data Booklet · Year ${c.y}</h2><div class="booklet">${BOOKLET[c.y]()}</div></section>` : ''}
+${showA ? `${prOverview(c, items)}<div class="${showQ ? 'answers' : ''}"><h2>Markscheme <span class="wscode" style="font-size:8.5pt">${c.str}</span></h2>${items.map((it, i) => prAnswerKey(it, i + 1)).join('')}</div>` : ''}
+${docWatermark(variant === 'ms' ? id : '')}${docFooter(msId)}</body></html>`;
+    return { doc, filename: `MYPoirier-${formal ? 'test' : 'worksheet'}-${variant === 'ms' ? 'markscheme-' : ''}${c.str}.html` };
+  }
+  function openWin(msg) {
+    let w = null; try { w = window.open('', '_blank'); } catch (e) { w = null; }
+    if (w) try { w.document.write(`<!doctype html><title>MYPoirier Science Lab</title><p style="font:16px system-ui,sans-serif;padding:24px;color:#444">${msg}</p>`); } catch (e) { /* ignore */ }
+    return w;
+  }
+  function saveFile(filename, doc, status, okMsg) {
+    try { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([doc], { type: 'text/html' })); a.download = filename; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 2000); if (status) status.innerHTML = okMsg; }
+    catch (e) { if (status) status.textContent = 'Downloads are not available here. Try opening the site in a browser tab.'; }
+  }
+  function showDoc(w, filename, doc, status, okMsg) {
+    doc = doc.replace('</body></html>', '<script>window.addEventListener(\'load\', function () { setTimeout(function () { window.print(); }, 500); });<\/script></body></html>');
+    if (w && !w.closed) {
+      try { w.location.href = URL.createObjectURL(new Blob([doc], { type: 'text/html' })); if (status) status.innerHTML = okMsg; return; }
+      catch (e) { try { w.document.open(); w.document.write(doc); w.document.close(); if (status) status.innerHTML = okMsg; return; } catch (e2) { try { w.close(); } catch (e3) { /* ignore */ } } }
+    }
+    saveFile(filename, doc, status, '✅ Pop-ups are blocked here, so the file was downloaded instead. Open it and choose Print.');
+  }
+  // mode 'open' (print) or 'save' (download)
+  function tsPrint(mode, variant) {
+    let c = TS.code;
+    if (!c) { if (!TEACH) return; c = tsConfig(); if (!c.subs.length || !c.strands.length || !tsPool(c).length) { toast('Choose at least one strand and one subtopic first.'); return; } c.fp = fp10(tsPool(c)); c.fpOk = true; c.str = tstEncode(c); TS.code = c; }
+    if (!TEACH) { if (c.kind === 'online') { toast('This code is for an online test.'); return; } variant = 'student'; }
+    const w = mode === 'open' ? openWin('Preparing…') : null, status = $('#prStatus');
+    const { doc, filename } = prDoc(c, variant);
+    window.__lastDoc = { doc, filename, variant };
+    if (mode === 'open') return showDoc(w, filename, doc, status, `✅ Opened in a new tab with the print window: choose a printer, or Save as PDF.${TEACH ? ` Class code <b class="num">${c.str}</b> recreates it.` : ''}`);
+    saveFile(filename, doc, status, `✅ File saved. Open it in a browser and choose Print. Class code <b class="num">${c.str}</b> recreates it.`);
+  }
+
   function renderTest(main) {
     if (!TS) TS = { phase: 'setup', strands: { i: true, ii: true, iii: true }, per: 1, strict: true, code: null };
-    if (!yearLive().length) { main.innerHTML = head('Test 📝', '') + `<section class="panel empty"><h3>Coming Soon</h3><p class="muted">Units for Year ${Y()} are being written. Choose another year at the top.</p></section>`; return; }
     if (TS.phase === 'run') return renderTestRun(main);
     if (TS.phase === 'review') return renderTestReview(main);
+    if (!TEACH) return renderTestStudent(main);
+    if (!yearLive().length) { main.innerHTML = head('Test 📝', '') + `<section class="panel empty"><h3>Coming Soon</h3><p class="muted">Units for Year ${Y()} are being written. Choose another year at the top.</p></section>${teacherBar()}`; return; }
     const seg = (attr, val, label, on) => `<button type="button" data-${attr}="${val}" aria-pressed="${on}">${label}</button>`;
     const c = TS.code;
     if (c && c.y !== Y()) TS.code = null;
     const prev = TS.code ? null : tsConfig();
     const est = TS.code ? null : (prev.subs.length && prev.strands.length ? tsBuild(prev) : []);
     const settings = TS.code ? `<div class="exrow"><div class="exlab">Class code</div><div class="exctl"><div class="codebox"><div class="code-str num">${TS.code.str}</div>
-        <div class="small">Units: <b>${tsSubNames(TS.code)}</b></div><div class="small">Strands: <b>${TS.code.strands.map(s => strandOf(s).label).join(', ')}</b> · ${TS.code.per} question${TS.code.per > 1 ? 's' : ''} per level · ${TS.code.strict ? 'answers lock at the end of the time' : 'overtime allowed'}</div>
+        <div class="small">Units: <b>${tsSubNames(TS.code)}</b></div><div class="small">Strands: <b>${TS.code.strands.map(s => strandOf(s).label).join(', ')}</b> · ${TS.code.per} question${TS.code.per > 1 ? 's' : ''} per level · ${TS.code.strict ? 'answers lock at the end of the time' : 'overtime allowed'}</div><div class="small"><b>${kindName(TS.code.kind)}</b>${TS.code.kind !== 'online' ? ` · markscheme ${TS.code.ms ? 'included' : 'not included'} for students` : ''}</div>
         ${TS.code.fpOk ? '' : '<p class="warn small">This code was made with a different version of the question bank, so your test may not match your classmates\' tests. Ask for a new code.</p>'}
         <div class="row"><button class="btn sm" id="tsCopy">Copy</button><button class="linkbtn" id="tsClear">Stop using this code</button><span class="muted small">Overrides your selection.</span></div></div></div></div>`
       : `<div class="exrow"><div class="exlab">Strands</div><div class="exctl"><div class="seg" role="group" aria-label="Strands">${STRANDS.map(s => seg('tsstrand', s.id, `${s.label} ${s.name}`, !!TS.strands[s.id])).join('')}</div></div></div>
         <div class="exrow"><div class="exlab">Length</div><div class="exctl"><div class="seg" role="group" aria-label="Questions per level">${seg('tsper', 1, 'Standard: 1 per level', TS.per === 1)}${seg('tsper', 2, 'Long: 2 per level', TS.per === 2)}</div>
           <span class="muted small">${est.length ? `<b class="num">${est.length}</b> questions · <b class="num">${tsMinutes(est)}</b> minutes` : 'Choose at least one strand and one subtopic.'}</span></div></div>
         <div class="exrow"><div class="exlab">Finish</div><div class="exctl"><div class="seg" role="group" aria-label="Finish">${seg('tsfin', 'strict', 'Strict', TS.strict)}${seg('tsfin', 'soft', 'Soft', !TS.strict)}</div><span class="muted small">${TS.strict ? 'Answers lock when time runs out, like a real test.' : 'Keep going after time runs out; overtime is recorded.'}</span></div></div>
+        <div class="exrow"><div class="exlab">Code type</div><div class="exctl"><div class="seg" role="group" aria-label="Code type">${TS_KINDS.map(([k, l]) => seg('tskind', k, l, (TS.kind || 'online') === k)).join('')}</div>
+          <span class="muted small">${(TS_KINDS.find(x => x[0] === (TS.kind || 'online')) || TS_KINDS[0])[2]}. Students who enter the code get only this.</span>
+          ${(TS.kind || 'online') !== 'online' ? `<div class="seg" role="group" aria-label="Markscheme for students" style="margin-top:8px">${seg('tsms', 'no', 'Questions only', !TS.ms)}${seg('tsms', 'yes', 'With markscheme', !!TS.ms)}</div>` : '<span class="muted small">The code also sets Finish as chosen above.</span>'}</div></div>
         <div class="exrow"><div class="exlab">Class code <span class="exopt">optional</span></div><div class="exctl">
           <div class="codeform">${codeBoxHTML('tsCodeIn', 'TST', 'Class code', TS.typed)}<button class="btn sm" id="tsUse">Use</button><button class="btn sm primary" id="tsMake">Make a Code</button></div>
           <span class="muted small">Same code, same questions and values for everyone. Make a Code uses the subtopics ticked in the panel and the settings above. (The panel's strand and level filters are not used: a test always covers every level.)</span></div></div>`;
     main.innerHTML = head('Test 📝', 'A timed Criterion A test like your unit tests: a section for each strand, from level 1–2 up to 7–8. Answers stay hidden until you finish.') + `
       <section class="panel exset">${settings}
-        <div class="exgo"><div class="row"><button class="btn primary" id="tsStart">Start Test</button></div>
-        <p class="muted small">When you finish, the site marks the short answers. You mark the written answers with the markscheme, honestly. Then you get a best-fit level for each strand and can print your results.</p></div>
+        <div class="exgo"><div class="row">${(TS.code ? TS.code.kind : TS.kind || 'online') === 'online' ? '<button class="btn primary" id="tsStart">Start Test</button><button class="btn" id="prOpen">🖨 Print/PDF</button>' : '<button class="btn primary" id="prOpen">🖨 Print/PDF</button>'}</div>
+          <div class="row ex-out"><span class="muted small">Print:</span><div class="seg" role="group" aria-label="What to print">${[['student', 'Student Copy'], ['ms', 'Markscheme'], ['both', 'Both']].map(([k, l]) => seg('tsout', k, l, (TS.out || 'both') === k)).join('')}</div><span class="muted small">${(TS.out || 'both') === 'student' ? 'Exactly what students get from a printable code (an online code prints questions only).' : (TS.out || 'both') === 'ms' ? 'Question overview and markscheme only.' : 'Questions, then the markscheme.'}</span></div>
+          <p class="muted small" id="prStatus">Print opens the ${(TS.code ? TS.code.kind : TS.kind) === 'formal' ? 'test (cover sheet, a section per strand, the data booklet at the end)' : 'worksheet'} in a new tab with the print window: choose a printer, or Save as PDF. The class code is printed only on the markscheme, never on the students' question pages. If no code is in use, printing makes one from your settings.</p></div>
       </section>
-      ${(S.tests || []).filter(t => t.y === Y()).length ? `<section class="panel"><h3>Your Recent Tests</h3>${tsHistory()}</section>` : ''}`;
+      ${(S.tests || []).filter(t => t.y === Y()).length ? `<section class="panel"><h3>Your Recent Tests</h3>${tsHistory()}</section>` : ''}${teacherBar()}`;
     bindCodeBox($('#tsCodeIn', main));
+  }
+  const teacherBar = () => `<p class="teacher-bar small"><span aria-hidden="true">🔓</span> Teacher access is on for this device. <button type="button" class="linkbtn" id="tLock">Lock</button></p>`;
+  // student view: only a class code box (and the test the code gives)
+  function renderTestStudent(main) {
+    const c = TS.code;
+    const box = c ? `<div class="exrow"><div class="exlab">Class code</div><div class="exctl"><div class="codebox"><div class="code-str num">${c.str}</div>
+        <div class="small">Year ${c.y} · Units: <b>${tsSubNames(c)}</b></div><div class="small">Strands: <b>${c.strands.map(s => strandOf(s).label).join(', ')}</b> · ${c.per} question${c.per > 1 ? 's' : ''} per level · <b class="num">${tsMinutes(tsBuild(c))}</b> minutes</div>
+        ${c.kind === 'online' ? `<div class="small">Finish: <b>${c.strict ? 'Strict' : 'Soft'}</b> · ${c.strict ? 'answers lock when time runs out' : 'you can keep going after time runs out; overtime is recorded'}</div>` : ''}
+        ${c.fpOk ? '' : '<p class="warn small">This code was made with a different version of the question bank, so your test may not match your classmates\' tests. Ask your teacher for a new code.</p>'}
+        <div class="row"><button class="linkbtn" id="tsClear">Use a different code</button></div></div></div></div>
+        ${c.kind === 'online' ? `<div class="exgo"><div class="row"><button class="btn primary" id="tsStart">Start Test</button></div>
+        <p class="muted small">When you finish, the site marks the short answers. You mark the written answers with the markscheme, honestly. Then you get a best-fit level for each strand and can print your results.</p></div>`
+        : `<div class="exgo"><p class="small"><b>${kindName(c.kind)}</b>. ${c.kind === 'formal' ? 'A test with a cover sheet, a section for each strand and the data booklet at the end.' : 'A worksheet of questions.'} ${c.ms ? 'The markscheme is at the end.' : 'Your teacher has the markscheme.'}</p>
+          <div class="row"><button class="btn primary" id="prOpen">🖨 Print/PDF</button></div><p class="muted small" id="prStatus"></p></div>`}`
+      : `<div class="exrow"><div class="exlab">Class code</div><div class="exctl"><div class="codeform">${codeBoxHTML('tsCodeIn', 'TST', 'Class code', TS.typed)}<button class="btn sm primary" id="tsUse">Use</button></div>
+        <span class="muted small">Your teacher gives you a TST- code. It decides what you get: an online test, a worksheet or a test/exam to print. Everyone with the same code gets the same questions and values.</span></div></div>`;
+    main.innerHTML = head('Test 📝', 'A timed Criterion A test like your unit tests: a section for each strand, from level 1–2 up to 7–8. Answers stay hidden until you finish.') + `
+      <section class="panel exset">${box}</section>
+      ${(S.tests || []).filter(t => t.y === Y()).length ? `<section class="panel"><h3>Your Recent Tests</h3>${tsHistory()}</section>` : ''}
+      <div class="teacher-access"><button type="button" class="linkbtn small" id="tOpen" aria-expanded="${!!TS.tForm}">🔑 Teacher access</button>
+        ${TS.tForm ? `<form class="tform" id="tForm" autocomplete="off"><label class="small" for="tPass">Teacher passphrase</label><div class="row"><input type="password" id="tPass" class="ans" autocomplete="current-password" aria-label="Teacher passphrase"><button class="btn sm primary" type="submit">Unlock</button></div>
+          <p class="muted small" id="tMsg">${cryptoOK() ? 'Teacher access stays on for this device until you press Lock.' : 'Teacher access needs a secure page (https). Open the site from mvpoirier.github.io.'}</p></form>` : ''}</div>`;
+    bindCodeBox($('#tsCodeIn', main));
+    const f = $('#tForm', main);
+    if (f) { const inp = $('#tPass', f); inp.focus(); f.onsubmit = async (e) => { e.preventDefault(); const msg = $('#tMsg', f); msg.textContent = 'Checking…'; const r = await teacherUnlock(inp.value); if (r === 'ok') { TS.tForm = false; render(); toast('Teacher access is on for this device.'); } else { msg.textContent = r === 'nocrypto' ? 'Teacher access needs a secure page (https).' : 'That passphrase is not right.'; inp.select(); } }; }
   }
   function tsHistory() {
     const rows = (S.tests || []).filter(t => t.y === Y()).slice(-8).reverse().map(t => `<tr><td>${new Date(t.ts).toLocaleDateString()}</td><td class="num">${t.n}</td>${STRANDS.map(s => `<td class="num">${t.levels[s.id] != null ? t.levels[s.id] : '–'}</td>`).join('')}<td class="num"><b>${t.levels.all}</b></td><td class="num">${fmtClock(t.used)}</td><td class="num">${t.pauses || 0}</td><td class="small muted">${t.code || ''}</td></tr>`).join('');
@@ -5163,15 +5394,23 @@ const GAMES = (() => {
       <div id="tsConfirm"></div>`;
     tickTest();
   }
+  // time alerts (with a sound) at 30, 15 and 5 minutes left, and when time is up
+  const TS_ALERTS = [[1800, '30 minutes left.', 1], [900, '15 minutes left.', 2], [300, '5 minutes left.', 3]];
+  function tsAlerts(left) {
+    TS_ALERTS.forEach(([sec, msg, n]) => { if (!TS.alert[sec] && left <= sec && TS.allowed > sec + 60) { TS.alert[sec] = true; toast('⏰ ' + msg); SFX.chime(n); } });
+    if (!TS.alert.end && left <= 0) { TS.alert.end = true; SFX.chime(0, true); if (!TS.cfg.strict) toast('⏰ Time is up. You can keep going; overtime is recorded.'); }
+  }
   function tickTest() {
     if (!TS || TS.phase !== 'run' || PZ) return;
     const el = tsElapsed(), left = TS.allowed - el;
-    if (left <= 0 && TS.cfg.strict) { finishTest(); return; }
+    tsAlerts(left);
+    if (left <= 0 && TS.cfg.strict) { finishTest(); toast('⏰ Time is up. Your answers are locked.'); return; }
     const box = $('#tsInst'); if (!box) return;
-    const done = TS.items.filter(tsAnswered).length;
-    box.innerHTML = `<div class="row"><span class="clock ${left < 0 ? 'over' : left < 180 ? 'low' : ''}">${left >= 0 ? fmtClock(left) : fmtClock(-left) + ' over'}</span><span class="spacer"></span><span class="pill">${done} of ${TS.items.length} answered</span></div>
-      <div class="pace"><div class="done" style="width:${100 * done / TS.items.length}%"></div><div class="exp" style="left:${Math.min(100, 100 * el / TS.allowed)}%"></div></div>`;
-    if (!TS.alert.five && left <= 300 && TS.allowed > 600) { TS.alert.five = true; toast('5 minutes left.'); }
+    const done = TS.items.filter(tsAnswered).length, hide = !!S.settings.tsHideClock, snd = S.settings.tsSound !== false;
+    box.innerHTML = `<div class="row">${hide ? '<span class="clock muted ts-hidden">Timer hidden</span>' : `<span class="clock ${left < 0 ? 'over' : left < 180 ? 'low' : ''}">${left >= 0 ? fmtClock(left) : fmtClock(-left) + ' over'}</span>`}
+        <button type="button" class="btn sm" id="tsClockBtn" aria-pressed="${!hide}">${hide ? '👁 Show timer' : '🙈 Hide timer'}</button><button type="button" class="btn sm" id="tsSoundBtn" aria-pressed="${snd}" title="Sound alerts at 30, 15 and 5 minutes left, and when time is up">${snd ? '🔔 Alerts on' : '🔕 Alerts off'}</button>
+        <span class="spacer"></span><span class="pill">${done} of ${TS.items.length} answered</span></div>
+      ${hide ? '' : `<div class="pace"><div class="done" style="width:${100 * done / TS.items.length}%"></div><div class="exp" style="left:${Math.min(100, 100 * el / TS.allowed)}%"></div></div>`}`;
   }
   function finishTest() {
     if (!TS || TS.phase !== 'run') return;
@@ -5207,6 +5446,13 @@ const GAMES = (() => {
       const b = e.target.closest('button'); if (!b) return;
       if (TS.phase === 'setup') {
         const d = b.dataset;
+        if (b.id === 'tOpen') { TS.tForm = !TS.tForm; render(); return; }
+        if (b.id === 'tLock') { teacherLock(); TS.code = null; render(); toast('Teacher access is off. Test mode now shows only the class code box.'); return; }
+        if (!TEACH && !['tsUse', 'tsClear', 'tsStart', 'prOpen'].includes(b.id)) return; // students can only use a code
+        if (b.id === 'prOpen') { tsPrint('open', TS.out || 'both'); if (TEACH) renderTest(main); return; }
+        if (d.tskind) { TS.kind = d.tskind; renderTest(main); return; }
+        if (d.tsms) { TS.ms = d.tsms === 'yes'; renderTest(main); return; }
+        if (d.tsout) { TS.out = d.tsout; renderTest(main); return; }
         if (d.tsstrand) { TS.strands[d.tsstrand] = !TS.strands[d.tsstrand]; renderTest(main); return; }
         if (d.tsper) { TS.per = +d.tsper; renderTest(main); return; }
         if (d.tsfin) { TS.strict = d.tsfin === 'strict'; renderTest(main); return; }
@@ -5215,17 +5461,21 @@ const GAMES = (() => {
         if (b.id === 'tsClear') { TS.code = null; renderTest(main); return; }
         if (b.id === 'tsCopy') { const t = TS.code.str; (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast('Code copied.'), () => toast('Select the code and copy it: ' + t)); return; }
         if (b.id === 'tsStart') {
+          if (!TEACH && !TS.code) { toast('Enter the class code from your teacher first.'); return; }
+          if ((TS.code ? TS.code.kind : TS.kind || 'online') !== 'online' && (TEACH || TS.code.kind !== 'online')) { toast('This code is for a printout. Use Print/PDF.'); return; }
           const cfg = TS.code || tsConfig();
           if (!cfg.subs.length || !cfg.strands.length) { toast('Choose at least one strand and one subtopic first.'); return; }
           const its = tsBuild(cfg); if (!its.length) { toast('No questions match your selection.'); return; }
           Object.assign(TS, { phase: 'run', cfg, items: its, cur: 0, allowed: tsMinutes(its) * 60, start: now(), enter: now(), finishedAt: null, alert: {}, saved: false, pauses: 0, pausedMs: 0 });
-          clearInterval(tsTimer); tsTimer = setInterval(tickTest, 500); render(); window.scrollTo({ top: 0 }); return;
+          SFX.prime(); clearInterval(tsTimer); tsTimer = setInterval(tickTest, 500); render(); window.scrollTo({ top: 0 }); return;
         }
         return;
       }
       if (TS.phase === 'run') {
         const it = TS.items[TS.cur];
         if (answerClick(b, it.inst, it.st)) { renderTestRun(main); return; }
+        if (b.id === 'tsClockBtn') { S.settings.tsHideClock = !S.settings.tsHideClock; save(); tickTest(); return; }
+        if (b.id === 'tsSoundBtn') { S.settings.tsSound = S.settings.tsSound === false; save(); if (S.settings.tsSound) SFX.chime(1); tickTest(); return; }
         if (b.dataset.go !== undefined) { tsSwitch(+b.dataset.go); renderTestRun(main); window.scrollTo({ top: 0 }); return; }
         if (b.id === 'tsPrev') { tsSwitch(TS.cur - 1); renderTestRun(main); window.scrollTo({ top: 0 }); return; }
         if (b.id === 'tsNext') { tsSwitch(TS.cur + 1); renderTestRun(main); window.scrollTo({ top: 0 }); return; }
@@ -5491,7 +5741,7 @@ const GAMES = (() => {
   /* ======================= WELCOME and ABOUT ======================= */
   const WMODES = [
     ['practice', '🎯', 'Practice', 'One question at a time for every Criterion A strand (A i, A ii, A iii) and level from 1–2 to 7–8, with worked solutions and markschemes.'],
-    ['test', '📝', 'Test', 'A timed Criterion A test like your unit tests, with a best-fit level for each strand and printable results. Your teacher can give a TST- code so everyone gets the same test.'],
+    ['test', '📝', 'Test', 'A timed Criterion A test like your unit tests, with a best-fit level for each strand and printable results. Enter the TST- code your teacher gives you.'],
     ['games', '🕹️', 'Games', 'Quick unit games: match elements, ions and isotopes in Year 9, or pick the motion graph in Year 11.'],
     ['recall', '🧠', 'Recall', 'Learn the key terms and command terms that earn marks, with flashcards that come back just before you forget them.'],
     ['notes', '📓', 'Notes', 'Short notes for every subtopic in lesson order: key ideas, common mistakes and key terms, with a link to the class slides.'],
@@ -5532,7 +5782,7 @@ const GAMES = (() => {
     { v: '0.1 alpha', d: '5 November 2026', items: ['First build: four units (Y11 Exchange & Transport, Y11 Forces & Motion, Y9 Disease & Our Immune System, Y9 Chemistry of Industry) with practice by Criterion A strand and level, recall cards, notes and progress.'] },
     { v: '0.2 alpha', d: '5 November 2026', items: ['New design: header, side panel, question sheet, markscheme ticks, spaced-repetition Recall (Flashcards, Pick’em!, Match It!), Notes panels, Stats tabs and backup code.', 'Every unit is split into subtopics, one per lesson topic, and every subtopic has questions for A i, A ii and A iii.', 'Unit games: Element Match (Year 9 Chemistry) and Graph It! (Year 11 Forces & Motion).', 'Notes for every subtopic with key ideas, common mistakes and key terms.'] },
     { v: '0.3 alpha', d: '5 November 2026', items: ['Games page grouped by unit, with Class Games for every year.', 'New unit games: Build-an-Atom and Periodic Mystery (Y9 Chemistry); Free-Body Builder, Stop in Time and suvat Sprint (Y11 Forces & Motion).', 'Blitz and Last Man Standing with class codes, using multiple-choice questions from the ticked subtopics.', 'Y9 Chemistry: a simplified Periodic Table (elements 1–20, whole-number atomic masses) on every question, in the header and in Notes.', 'Last Man Standing arena: ready screen, 3-2-1 countdown, synthesised music and sound effects, heartbeat in the last 30 seconds, Give Up and Game Over.', 'Code boxes start with their prefix (LMS-) and add capitals and dashes as you type.'] },
-    { v: '0.4 alpha', d: '6 November 2026', items: ['New <b>Test</b> mode: a timed Criterion A test like the unit tests, with a section for each strand from level 1–2 to 7–8. Answers stay hidden until the end; the site marks short answers, you tick the markschemes for written answers, and each strand gets a best-fit level. Print your results, or use a TST- class code so everyone gets the same test.', 'New unit: <b>Year 11 Combustible Fuels</b> (8 subtopics, 55 question types): fuels and SDG 7, hydrocarbons, naming and isomers with drawn structural formulas, alcohols, crude oil and boiling point, combustion and balancing, enthalpy profiles and bond enthalpy, moles, energy per gram and emissions.', 'More question types matched to the unit tests: Y9 Disease (vectors, Jenner, Fleming, Ebola, bacterial growth, vaccine boosters), Y9 Chemistry (nuclear notation, particle tables, spotting Bohr-diagram errors, covalent names, evidence of chemical change, ionisation energy trends), Y11 Exchange & Transport (Boyle\'s law, the double circulation, valves, blood pressure, exercise spirometry, maximum heart rate) and Y11 Forces & Motion (crane tension, runway length, skydiver, multi-stage v–t graphs, theory vs real data).', 'Stop in Time: everyday objects in the road instead of people.', 'A <b>Data Booklet</b> button for every year in the header (and on questions that need it): the Periodic Table for Year 9 (elements 1–20), the full Periodic Table for Years 10 and 11, and the physics formula sheet for Year 11. Point at, tap or tab to any element for its details.', '<b>Hints</b> in Practice: up to three per question (a nudge, the method, then the first step). Stats shows how often you answer without hints.', 'New Year 11 Fuels games: <b>Isomer Hunt</b> and <b>Balance It!</b>', '<b>🚩 Report a Problem</b> on every question (including in Test mode), flashcard, note and the Data Booklet, and <b>💬 Send Feedback</b> in the footer: they open your teacher’s Google Form already filled in.', '<b>Pause</b> in Test mode: the timer stops and the questions are hidden until you resume. Pauses are shown with your results.', 'The welcome card takes the colour of your year, and the revision history is grouped into collapsible stages.', 'Fixes: sorting questions always use every category; written-answer markschemes line up properly.'] },
+    { v: '0.4 alpha', d: '6 November 2026', items: ['New <b>Test</b> mode: a timed Criterion A test like the unit tests, with a section for each strand from level 1–2 to 7–8. Answers stay hidden until the end; the site marks short answers, you tick the markschemes for written answers, and each strand gets a best-fit level. Print your results, or use a TST- class code so everyone gets the same test.', 'New unit: <b>Year 11 Combustible Fuels</b> (8 subtopics, 55 question types): fuels and SDG 7, hydrocarbons, naming and isomers with drawn structural formulas, alcohols, crude oil and boiling point, combustion and balancing, enthalpy profiles and bond enthalpy, moles, energy per gram and emissions.', 'More question types matched to the unit tests: Y9 Disease (vectors, Jenner, Fleming, Ebola, bacterial growth, vaccine boosters), Y9 Chemistry (nuclear notation, particle tables, spotting Bohr-diagram errors, covalent names, evidence of chemical change, ionisation energy trends), Y11 Exchange & Transport (Boyle\'s law, the double circulation, valves, blood pressure, exercise spirometry, maximum heart rate) and Y11 Forces & Motion (crane tension, runway length, skydiver, multi-stage v–t graphs, theory vs real data).', 'Stop in Time: everyday objects in the road instead of people.', 'A <b>Data Booklet</b> button for every year in the header (and on questions that need it): the Periodic Table for Year 9 (elements 1–20), the full Periodic Table for Years 10 and 11, and the physics formula sheet for Year 11. Point at, tap or tab to any element for its details.', '<b>Hints</b> in Practice: up to three per question (a nudge, the method, then the first step). Stats shows how often you answer without hints.', 'New Year 11 Fuels games: <b>Isomer Hunt</b> and <b>Balance It!</b>', '<b>🚩 Report a Problem</b> on every question (including in Test mode), flashcard, note and the Data Booklet, and <b>💬 Send Feedback</b> in the footer: they open your teacher’s Google Form already filled in.', '<b>Pause</b> in Test mode: the timer stops and the questions are hidden until you resume. Pauses are shown with your results.', 'Online tests: show or hide the timer, and sound alerts at 30, 15 and 5 minutes left and when time is up (🔔 can be turned off).', 'Test mode is set up by your teacher: enter the TST- class code they give you. A code gives an online test, a worksheet or a test/exam to print (cover sheet, a section for each strand, the data booklet at the end), with or without the markscheme. Teachers unlock the full set-up with 🔑 Teacher access and can print a Student Copy, the Markscheme or Both.', 'The welcome card takes the colour of your year, and the revision history is grouped into collapsible stages.', 'Fixes: sorting questions always use every category; written-answer markschemes line up properly.'] },
   ];
   function renderAbout(main) {
     const rows = LIVE_UNITS.map(u => { const qs = Q.filter(q => q.uid === u.id); return `<tr><td><b>Y${u.y} U${u.n}</b> ${esc(u.title)}</td><td class="num">${CONTENT[u.id].subs.length}</td>${STRANDS.map(s => `<td class="num">${qs.filter(q => q.s === s.id).length}</td>`).join('')}<td class="num"><b>${qs.length}</b></td><td class="num">${CARDS.filter(c => c.uid === u.id).length}</td></tr>`; }).join('');
@@ -5554,6 +5804,7 @@ const GAMES = (() => {
       <section class="panel" id="termsInfo"><h3>Terms of Use</h3><p>© 2026 <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a>. All rights reserved. MYPoirier Science Lab, including its questions, question generators, notes, games and design, is the work of Mike Poirier, developed with Claude.</p>
         <ul class="about-list"><li><b>Free to use</b> for students and teachers, for their own study and classroom teaching.</li><li><b>Not allowed without written permission:</b> copying or hosting the site or its content elsewhere, adapting it, or using it in any commercial service, including paid tutoring, courses or question banks.</li><li>Printouts may be copied for use with your own students.</li></ul>
         <p class="small muted">This website is not affiliated with or endorsed by the IB.</p></section>
+      <section class="panel" id="testInfo"><h3>Tests</h3><p>Test mode gives a Criterion A test like your unit tests. Your teacher sets it up and gives you a <b>TST-</b> class code; enter it in Test mode. The code decides what you get: a timed online test, or a worksheet or test/exam to print. Everyone with the same code gets the same questions and values. Practice, Games, Recall and Notes are always open.</p></section>
       <section class="panel" id="reportInfo"><h3>Found a Mistake? Tell Us</h3><p>Every question (including in Test mode), flashcard, note and the Data Booklet has a <b>🚩 Report a Problem</b> box, and <b>💬 Send Feedback</b> in the footer is for anything else. Type what looks wrong and press <b>Send Report</b>: it opens your teacher’s Google Form already filled in, so you only need to press Submit.</p></section>
       <section class="panel"><h3>Privacy</h3><p>Nothing you do leaves your browser. Progress, recall schedules and settings are stored on this device only; use Stats → Backup to move them to another device.</p><p>Send Report and Send Feedback open your teacher’s Google Form in a new tab. Nothing is sent unless you press Submit there, and the form records your school email when you do.</p></section>
       <section class="panel" id="creditsInfo"><h3>Credits</h3>${window.__OFFLINE ? '<p>Offline copy: the fonts are inside this file, so it works without the internet. Its progress is stored separately from the website.</p>' : ''}<p class="muted small">Fonts: Archivo, IBM Plex Sans, IBM Plex Mono and Press Start 2P (SIL Open Font License 1.1).</p></section>
@@ -5576,7 +5827,7 @@ const GAMES = (() => {
     lmsTheme();
     if (v !== 'recall' && GM && GM.mode === 'match') stopGM();
     $$('#tabs a').forEach(a => a.setAttribute('aria-current', a.getAttribute('href') === '#' + v ? 'page' : 'false'));
-    const noRail = (v === 'test' && TS && TS.phase !== 'setup') || v === 'stats' || v === 'about' || v === 'welcome' || (v === 'games' && !(GA && (GA.id === 'blitz' || GA.id === 'lms') && GA.phase === 'setup'));
+    const noRail = (v === 'test' && (!TEACH || (TS && TS.phase !== 'setup'))) || v === 'stats' || v === 'about' || v === 'welcome' || (v === 'games' && !(GA && (GA.id === 'blitz' || GA.id === 'lms') && GA.phase === 'setup'));
     $('.shell').classList.toggle('no-rail', noRail);
     if (!noRail) renderRail();
     main.onclick = null; main.onchange = null; main.oninput = null; main.onkeydown = null;
@@ -5625,6 +5876,7 @@ const GAMES = (() => {
     if (d.showModal) d.showModal(); else d.setAttribute('open', '');
   }
   function init() {
+    teacherRestore();
     $('#yearSeg').innerHTML = YEARS.map(y => `<button type="button" data-year="${y.y}" aria-pressed="false" data-tip="${y.label} · ${y.note}">Y${y.y}</button>`).join('');
     $('#yearSeg').addEventListener('click', (e) => {
       const b = e.target.closest('[data-year]'); if (!b || +b.dataset.year === Y()) return;
@@ -5650,7 +5902,7 @@ const GAMES = (() => {
   window.__LAB = {
     Q, CARDS, SUB, S: () => S, render,
     force(qid, seed) { const q = QBY[qid]; S.settings.year = q.y; if (!S.settings.sel.includes(q.subKey)) S.settings.sel.push(q.subKey); S.settings.crit[q.s] = true; S.settings.band[q.b] = true; S.settings.missedOnly = false; applyYear(); if (location.hash !== '#practice') { location.hash = '#practice'; render(); } P.q = q; P.seed = seed; P.inst = buildInst(q, seed); P.st = newState(); P.t0 = now(); renderPractice($('#main')); bindPractice($('#main')); },
-    cur: () => P, ga: () => GA, ts: () => TS, tstDecode,
+    cur: () => P, ga: () => GA, ts: () => TS, tstDecode, teach: () => TEACH,
     // fills one test item with the correct answers (for the automated tests)
     fillCorrect: (it) => items(it.inst).forEach(([x, k]) => { const st = it.st; if (x.type === 'mcq') st.pick[k] = x.ans; else if (x.type === 'num') st.val[k] = String(x.ans); else if (x.type === 'text') st.val[k] = x.accept[0]; else if (x.type === 'select') st.val[k] = String(x.ans); else if (x.type === 'order') st.seq[k] = x.items.map((_, i) => i); else if (x.type === 'sort') st.bins[k] = x.items.map(i => i[1]); else if (x.type === 'label') st.lab[k] = x.labels.slice(); else st.val[k] = 'answer'; }),
   };
