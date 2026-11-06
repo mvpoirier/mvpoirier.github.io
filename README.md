@@ -16,3 +16,10 @@
 - Content-specific pages are coded using [Markdown](https://www.markdownguide.org/)
 - This [Markdown with Jekyll Style Guide](http://www.jekyllnow.com/Markdown-Style-Guide/) is handy
 - Also implemented [MathJax](https://www.mathjax.org/), a Javascript display engine for supporting $\LaTeX$ and math equations
+
+## Licensing
+- **MVPhysics Lab** (`physics-lab/`) and **MYPoirier Science Lab** (`science-lab/`): © 2026 Mike Poirier, all rights reserved. Free for students and teachers; no copying, hosting elsewhere, adapting, or commercial or tutoring use without written permission.
+- **Everything else** I have written here (pages, posts, resources, code examples): [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/), unless a file says otherwise.
+- **Theme:** based on [Jekyll Now](https://github.com/barryclark/jekyll-now/) (MIT).
+- Details: see [LICENSE](LICENSE).
+
