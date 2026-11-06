@@ -5089,6 +5089,34 @@ const GAMES = (() => {
   const tsSubNames = (c) => { const units = [...new Set(c.subs.map(k => SUB[k].unit))]; return units.map(u => { const all = CONTENT[u.id].subs.length, n = c.subs.filter(k => SUB[k].unit === u).length; return `U${u.n} ${esc(u.title)}${n < all ? ` (${n} of ${all} subtopics)` : ''}`; }).join('; '); };
   const tsMinutes = (its) => Math.round(its.reduce((a, it) => a + TS_MIN[it.q.b], 0));
 
+  /* Pause (Test mode, as in MVPhysics Lab): the timer stops and the question is hidden behind an overlay.
+     The number of pauses and the total time paused are shown with the results. */
+  let PZ = null, pzTimer = null;
+  const pauseBtn = (kind) => `<button class="btn sm pause-btn" type="button" data-pause="${kind}" aria-label="Pause the timer" data-tip="Pause the timer (eg for a break). The question is hidden while paused."><svg viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" style="vertical-align:-1px;margin-right:5px"><rect x="2" y="1.5" width="2.8" height="9" rx="0.8" fill="currentColor"/><rect x="7.2" y="1.5" width="2.8" height="9" rx="0.8" fill="currentColor"/></svg>Pause</button>`;
+  function pauseStart(kind) {
+    if (PZ) return;
+    PZ = { kind, start: now() };
+    const ov = document.createElement('div'); ov.id = 'pauseOv'; ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-modal', 'true'); ov.setAttribute('aria-labelledby', 'pzTitle');
+    ov.innerHTML = `<div class="pz-card"><div class="pz-icon" aria-hidden="true">⏸</div><h2 id="pzTitle">Paused</h2><p class="muted">The timer for your test has stopped and the questions are hidden.</p><p class="small">This pause will be shown with your results${TS && TS.pauses ? ` (pauses so far: ${TS.pauses})` : ''}.</p><p class="pz-for">Paused for <b class="num" id="pzFor">0:00</b></p><button class="btn primary" type="button" id="pzResume">▶ Resume</button></div>`;
+    document.body.appendChild(ov); document.body.classList.add('paused');
+    clearInterval(pzTimer); pzTimer = setInterval(() => { const e = $('#pzFor'); if (e && PZ) e.textContent = fmtClock((now() - PZ.start) / 1000); }, 500);
+    $('#pzResume').focus();
+  }
+  function pauseEnd() {
+    if (!PZ) return;
+    const d = now() - PZ.start, k = PZ.kind; PZ = null; clearInterval(pzTimer);
+    const ov = $('#pauseOv'); if (ov) ov.remove(); document.body.classList.remove('paused');
+    if (k === 'test' && TS && TS.phase === 'run') { TS.start += d; TS.enter += d; TS.pauses = (TS.pauses || 0) + 1; TS.pausedMs = (TS.pausedMs || 0) + d; tickTest(); }
+    const b = $(`[data-pause="${k}"]`); if (b) b.focus();
+  }
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-pause]'); if (b) { e.preventDefault(); pauseStart(b.dataset.pause); return; }
+    if (e.target.closest('#pzResume')) pauseEnd();
+  });
+  document.addEventListener('keydown', (e) => { if (PZ && e.key === 'Escape') pauseEnd(); });
+  const pauseSummary = (x) => x.pauses ? `Paused <b class="num">${x.pauses}</b> time${x.pauses > 1 ? 's' : ''} for a total of <b class="num">${fmtClock(x.pausedMs / 1000)}</b>. Paused time is not counted in the time used.` : 'No pauses: taken in one sitting.';
+  const tsReport = (it) => reportBox({ type: 'Problem', id: it.q.qid, title: it.q.topic || SUB[it.q.subKey].name, yu: unitLabel(unitById(it.q.uid)), seed: it.seed, where: 'Test Mode' + (TS.cfg.str ? ' ' + TS.cfg.str : '') });
+
   function renderTest(main) {
     if (!TS) TS = { phase: 'setup', strands: { i: true, ii: true, iii: true }, per: 1, strict: true, code: null };
     if (!yearLive().length) { main.innerHTML = head('Test 📝', '') + `<section class="panel empty"><h3>Coming Soon</h3><p class="muted">Units for Year ${Y()} are being written. Choose another year at the top.</p></section>`; return; }
@@ -5119,24 +5147,24 @@ const GAMES = (() => {
     bindCodeBox($('#tsCodeIn', main));
   }
   function tsHistory() {
-    const rows = (S.tests || []).filter(t => t.y === Y()).slice(-8).reverse().map(t => `<tr><td>${new Date(t.ts).toLocaleDateString()}</td><td class="num">${t.n}</td>${STRANDS.map(s => `<td class="num">${t.levels[s.id] != null ? t.levels[s.id] : '–'}</td>`).join('')}<td class="num"><b>${t.levels.all}</b></td><td class="num">${fmtClock(t.used)}</td><td class="small muted">${t.code || ''}</td></tr>`).join('');
-    return `<div class="tbl-wrap"><table class="stats"><thead><tr><th>Date</th><th>Qs</th>${STRANDS.map(s => `<th>${s.label}</th>`).join('')}<th>Crit. A</th><th>Time</th><th>Code</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+    const rows = (S.tests || []).filter(t => t.y === Y()).slice(-8).reverse().map(t => `<tr><td>${new Date(t.ts).toLocaleDateString()}</td><td class="num">${t.n}</td>${STRANDS.map(s => `<td class="num">${t.levels[s.id] != null ? t.levels[s.id] : '–'}</td>`).join('')}<td class="num"><b>${t.levels.all}</b></td><td class="num">${fmtClock(t.used)}</td><td class="num">${t.pauses || 0}</td><td class="small muted">${t.code || ''}</td></tr>`).join('');
+    return `<div class="tbl-wrap"><table class="stats"><thead><tr><th>Date</th><th>Qs</th>${STRANDS.map(s => `<th>${s.label}</th>`).join('')}<th>Crit. A</th><th>Time</th><th>Pauses</th><th>Code</th></tr></thead><tbody>${rows}</tbody></table></div>`;
   }
   const tsElapsed = () => ((TS.finishedAt || now()) - TS.start) / 1000;
   function tsSwitch(i) { const it = TS.items[TS.cur]; it.time += now() - TS.enter; TS.cur = i; TS.enter = now(); }
   function renderTestRun(main) {
     const it = TS.items[TS.cur], strandStart = TS.items.findIndex(x => x.q.s === it.q.s) === TS.cur;
     main.innerHTML = head('Test 📝', `${TS.items.length} questions · ${fmtClock(TS.allowed)} allowed${TS.cfg.str ? ` · ${TS.cfg.str}` : ''}`) + `
-      <div class="instrument ex-inst"><div id="tsInst"></div></div>
+      <div class="instrument ex-inst ts-inst"><div id="tsInst"></div>${pauseBtn('test')}</div>
       <div class="palette ts-palette" role="group" aria-label="Questions">${TS.cfg.strands.map(s => `<span class="ts-sec stag s-${s}">${strandOf(s).label}</span>${TS.items.map((x, i) => x.q.s !== s ? '' : `<button data-go="${i}" class="${tsAnswered(x) ? 'answered' : ''} ${i === TS.cur ? 'current' : ''}" aria-label="Question ${i + 1}">${i + 1}</button>`).join('')}`).join('')}</div>
       ${strandStart ? `<p class="ts-sechead">Section ${strandOf(it.q.s).label}: ${strandOf(it.q.s).name}</p>` : ''}
-      <article class="sheet ts-sheet" id="sheet"><div class="ts-qno">Question ${TS.cur + 1} of ${TS.items.length}</div>${questionHTML(it.q, it.inst, it.st)}</article>
+      <article class="sheet ts-sheet" id="sheet"><div class="ts-qno">Question ${TS.cur + 1} of ${TS.items.length}</div>${questionHTML(it.q, it.inst, it.st)}${tsReport(it)}</article>
       <div class="row"><button class="btn" id="tsPrev" ${TS.cur === 0 ? 'disabled' : ''}>Previous</button><button class="btn" id="tsNext" ${TS.cur === TS.items.length - 1 ? 'disabled' : ''}>Next</button><span class="spacer"></span><button class="btn primary" id="tsFinish">Finish Test</button></div>
       <div id="tsConfirm"></div>`;
     tickTest();
   }
   function tickTest() {
-    if (!TS || TS.phase !== 'run') return;
+    if (!TS || TS.phase !== 'run' || PZ) return;
     const el = tsElapsed(), left = TS.allowed - el;
     if (left <= 0 && TS.cfg.strict) { finishTest(); return; }
     const box = $('#tsInst'); if (!box) return;
@@ -5163,12 +5191,13 @@ const GAMES = (() => {
   }
   function renderTestReview(main) {
     const un = tsUnmarked();
-    main.innerHTML = head('Test Results 📝', `Year ${TS.cfg.y} · ${TS.items.length} questions · ${new Date(TS.start).toLocaleString()}${TS.cfg.str ? ` · ${TS.cfg.str}` : ''}`) + `
+    main.innerHTML = head('Test Results 📝', `Year ${TS.cfg.y} · ${TS.items.length} questions · ${new Date(TS.start).toLocaleString()}${TS.cfg.str ? ` · ${TS.cfg.str}` : ''}${TS.pauses ? ` · paused ${TS.pauses} time${TS.pauses > 1 ? 's' : ''} (${fmtClock(TS.pausedMs / 1000)})` : ''}`) + `
       <div class="tiles" id="tsTiles">${tsTiles()}</div>
+      <p class="pause-note ${TS.pauses ? 'has' : ''}"><span aria-hidden="true">⏸</span> ${pauseSummary(TS)}</p>
       <section class="panel ts-desc"><h3>What Your Levels Mean</h3><div id="tsDescs">${tsDescs()}</div>
         <p class="muted small">How the level is worked out: for each strand the site climbs from level 1–2 upwards while you score at least half the marks at that level; 75% or more gives the higher number of the pair (2, 4, 6 or 8). It is a guide: your teacher's judgement on the real test may differ.</p>
         ${un ? '<p class="warn small no-print" id="tsUnWarn">Some written answers are not marked yet. Tick the markscheme points you made, below. Your levels update as you tick.</p>' : ''}</section>
-      ${TS.items.map((it, i) => `<article class="sheet ts-item" data-ti="${i}"><div class="ts-qno">Question ${i + 1} · <span class="num">${fmtMin(it.time / 1000)}</span> · <span class="num" data-tisc="${i}">${Math.round(totalScore(it.inst, it.st) * 100)}%</span></div>${questionHTML(it.q, it.inst, it.st)}</article>`).join('')}
+      ${TS.items.map((it, i) => `<article class="sheet ts-item" data-ti="${i}"><div class="ts-qno">Question ${i + 1} · <span class="num">${fmtMin(it.time / 1000)}</span> · <span class="num" data-tisc="${i}">${Math.round(totalScore(it.inst, it.st) * 100)}%</span></div>${questionHTML(it.q, it.inst, it.st)}${tsReport(it)}</article>`).join('')}
       <div class="row no-print">${TS.saved ? '<span class="pill good">Results saved to your stats</span>' : '<button class="btn primary" id="tsSave">Save Results</button>'}<button class="btn" id="tsPrint">🖨 Print Results</button><span class="spacer"></span><button class="btn" id="tsNew">New Test</button></div>
       <div class="print-only doc-foot"><b>MYPoirier Science Lab</b> · Version ${VERSION} (${BUILT})${TS.cfg.str ? ` · ${TS.cfg.str}` : ''}<br>© 2026 Mike Poirier, developed with Claude · All rights reserved · Free for students and teachers; not for commercial or tutoring use without written permission · mvpoirier.github.io/science-lab</div>
       <p class="muted small no-print">Print Results opens the print window: choose a printer, or Save as PDF. It includes your levels, every question, your answers and the markschemes you ticked.</p>`;
@@ -5189,7 +5218,7 @@ const GAMES = (() => {
           const cfg = TS.code || tsConfig();
           if (!cfg.subs.length || !cfg.strands.length) { toast('Choose at least one strand and one subtopic first.'); return; }
           const its = tsBuild(cfg); if (!its.length) { toast('No questions match your selection.'); return; }
-          Object.assign(TS, { phase: 'run', cfg, items: its, cur: 0, allowed: tsMinutes(its) * 60, start: now(), enter: now(), finishedAt: null, alert: {}, saved: false });
+          Object.assign(TS, { phase: 'run', cfg, items: its, cur: 0, allowed: tsMinutes(its) * 60, start: now(), enter: now(), finishedAt: null, alert: {}, saved: false, pauses: 0, pausedMs: 0 });
           clearInterval(tsTimer); tsTimer = setInterval(tickTest, 500); render(); window.scrollTo({ top: 0 }); return;
         }
         return;
@@ -5212,7 +5241,7 @@ const GAMES = (() => {
       if (TS.phase === 'review') {
         if (b.id === 'tsSave') {
           TS.items.forEach(it => { const sc = totalScore(it.inst, it.st); logAttempt(it.q, sc, it.time / 1000, 'test'); if (sc < 0.6) addMissed(it.q.qid); else clearMissed(it.q.qid); });
-          S.tests = S.tests || []; S.tests.push({ ts: TS.start, y: TS.cfg.y, n: TS.items.length, levels: tsLevels(), used: Math.round(tsElapsed()), code: TS.cfg.str || '' }); if (S.tests.length > 60) S.tests.shift();
+          S.tests = S.tests || []; S.tests.push({ ts: TS.start, y: TS.cfg.y, n: TS.items.length, levels: tsLevels(), used: Math.round(tsElapsed()), code: TS.cfg.str || '', pauses: TS.pauses || 0, pausedMs: TS.pausedMs || 0 }); if (S.tests.length > 60) S.tests.shift();
           TS.saved = true; markDay(); save(); renderTestReview(main); toast('Results saved.'); return;
         }
         if (b.id === 'tsPrint') { window.print(); return; }
@@ -5503,7 +5532,7 @@ const GAMES = (() => {
     { v: '0.1 alpha', d: '5 November 2026', items: ['First build: four units (Y11 Exchange & Transport, Y11 Forces & Motion, Y9 Disease & Our Immune System, Y9 Chemistry of Industry) with practice by Criterion A strand and level, recall cards, notes and progress.'] },
     { v: '0.2 alpha', d: '5 November 2026', items: ['New design: header, side panel, question sheet, markscheme ticks, spaced-repetition Recall (Flashcards, Pick’em!, Match It!), Notes panels, Stats tabs and backup code.', 'Every unit is split into subtopics, one per lesson topic, and every subtopic has questions for A i, A ii and A iii.', 'Unit games: Element Match (Year 9 Chemistry) and Graph It! (Year 11 Forces & Motion).', 'Notes for every subtopic with key ideas, common mistakes and key terms.'] },
     { v: '0.3 alpha', d: '5 November 2026', items: ['Games page grouped by unit, with Class Games for every year.', 'New unit games: Build-an-Atom and Periodic Mystery (Y9 Chemistry); Free-Body Builder, Stop in Time and suvat Sprint (Y11 Forces & Motion).', 'Blitz and Last Man Standing with class codes, using multiple-choice questions from the ticked subtopics.', 'Y9 Chemistry: a simplified Periodic Table (elements 1–20, whole-number atomic masses) on every question, in the header and in Notes.', 'Last Man Standing arena: ready screen, 3-2-1 countdown, synthesised music and sound effects, heartbeat in the last 30 seconds, Give Up and Game Over.', 'Code boxes start with their prefix (LMS-) and add capitals and dashes as you type.'] },
-    { v: '0.4 alpha', d: '6 November 2026', items: ['New <b>Test</b> mode: a timed Criterion A test like the unit tests, with a section for each strand from level 1–2 to 7–8. Answers stay hidden until the end; the site marks short answers, you tick the markschemes for written answers, and each strand gets a best-fit level. Print your results, or use a TST- class code so everyone gets the same test.', 'New unit: <b>Year 11 Combustible Fuels</b> (8 subtopics, 55 question types): fuels and SDG 7, hydrocarbons, naming and isomers with drawn structural formulas, alcohols, crude oil and boiling point, combustion and balancing, enthalpy profiles and bond enthalpy, moles, energy per gram and emissions.', 'More question types matched to the unit tests: Y9 Disease (vectors, Jenner, Fleming, Ebola, bacterial growth, vaccine boosters), Y9 Chemistry (nuclear notation, particle tables, spotting Bohr-diagram errors, covalent names, evidence of chemical change, ionisation energy trends), Y11 Exchange & Transport (Boyle\'s law, the double circulation, valves, blood pressure, exercise spirometry, maximum heart rate) and Y11 Forces & Motion (crane tension, runway length, skydiver, multi-stage v–t graphs, theory vs real data).', 'Stop in Time: everyday objects in the road instead of people.', 'A <b>Data Booklet</b> button for every year in the header (and on questions that need it): the Periodic Table for Year 9 (elements 1–20), the full Periodic Table for Years 10 and 11, and the physics formula sheet for Year 11. Point at, tap or tab to any element for its details.', '<b>Hints</b> in Practice: up to three per question (a nudge, the method, then the first step). Stats shows how often you answer without hints.', 'New Year 11 Fuels games: <b>Isomer Hunt</b> and <b>Balance It!</b>', '<b>🚩 Report a Problem</b> on every question, flashcard, note and the Data Booklet, and <b>💬 Send Feedback</b> in the footer: they open your teacher’s Google Form already filled in.', 'The welcome card takes the colour of your year, and the revision history is grouped into collapsible stages.', 'Fixes: sorting questions always use every category; written-answer markschemes line up properly.'] },
+    { v: '0.4 alpha', d: '6 November 2026', items: ['New <b>Test</b> mode: a timed Criterion A test like the unit tests, with a section for each strand from level 1–2 to 7–8. Answers stay hidden until the end; the site marks short answers, you tick the markschemes for written answers, and each strand gets a best-fit level. Print your results, or use a TST- class code so everyone gets the same test.', 'New unit: <b>Year 11 Combustible Fuels</b> (8 subtopics, 55 question types): fuels and SDG 7, hydrocarbons, naming and isomers with drawn structural formulas, alcohols, crude oil and boiling point, combustion and balancing, enthalpy profiles and bond enthalpy, moles, energy per gram and emissions.', 'More question types matched to the unit tests: Y9 Disease (vectors, Jenner, Fleming, Ebola, bacterial growth, vaccine boosters), Y9 Chemistry (nuclear notation, particle tables, spotting Bohr-diagram errors, covalent names, evidence of chemical change, ionisation energy trends), Y11 Exchange & Transport (Boyle\'s law, the double circulation, valves, blood pressure, exercise spirometry, maximum heart rate) and Y11 Forces & Motion (crane tension, runway length, skydiver, multi-stage v–t graphs, theory vs real data).', 'Stop in Time: everyday objects in the road instead of people.', 'A <b>Data Booklet</b> button for every year in the header (and on questions that need it): the Periodic Table for Year 9 (elements 1–20), the full Periodic Table for Years 10 and 11, and the physics formula sheet for Year 11. Point at, tap or tab to any element for its details.', '<b>Hints</b> in Practice: up to three per question (a nudge, the method, then the first step). Stats shows how often you answer without hints.', 'New Year 11 Fuels games: <b>Isomer Hunt</b> and <b>Balance It!</b>', '<b>🚩 Report a Problem</b> on every question (including in Test mode), flashcard, note and the Data Booklet, and <b>💬 Send Feedback</b> in the footer: they open your teacher’s Google Form already filled in.', '<b>Pause</b> in Test mode: the timer stops and the questions are hidden until you resume. Pauses are shown with your results.', 'The welcome card takes the colour of your year, and the revision history is grouped into collapsible stages.', 'Fixes: sorting questions always use every category; written-answer markschemes line up properly.'] },
   ];
   function renderAbout(main) {
     const rows = LIVE_UNITS.map(u => { const qs = Q.filter(q => q.uid === u.id); return `<tr><td><b>Y${u.y} U${u.n}</b> ${esc(u.title)}</td><td class="num">${CONTENT[u.id].subs.length}</td>${STRANDS.map(s => `<td class="num">${qs.filter(q => q.s === s.id).length}</td>`).join('')}<td class="num"><b>${qs.length}</b></td><td class="num">${CARDS.filter(c => c.uid === u.id).length}</td></tr>`; }).join('');
@@ -5525,7 +5554,7 @@ const GAMES = (() => {
       <section class="panel" id="termsInfo"><h3>Terms of Use</h3><p>© 2026 <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a>. All rights reserved. MYPoirier Science Lab, including its questions, question generators, notes, games and design, is the work of Mike Poirier, developed with Claude.</p>
         <ul class="about-list"><li><b>Free to use</b> for students and teachers, for their own study and classroom teaching.</li><li><b>Not allowed without written permission:</b> copying or hosting the site or its content elsewhere, adapting it, or using it in any commercial service, including paid tutoring, courses or question banks.</li><li>Printouts may be copied for use with your own students.</li></ul>
         <p class="small muted">This website is not affiliated with or endorsed by the IB.</p></section>
-      <section class="panel" id="reportInfo"><h3>Found a Mistake? Tell Us</h3><p>Every question, flashcard, note and the Data Booklet has a <b>🚩 Report a Problem</b> box, and <b>💬 Send Feedback</b> in the footer is for anything else. Type what looks wrong and press <b>Send Report</b>: it opens your teacher’s Google Form already filled in, so you only need to press Submit.</p></section>
+      <section class="panel" id="reportInfo"><h3>Found a Mistake? Tell Us</h3><p>Every question (including in Test mode), flashcard, note and the Data Booklet has a <b>🚩 Report a Problem</b> box, and <b>💬 Send Feedback</b> in the footer is for anything else. Type what looks wrong and press <b>Send Report</b>: it opens your teacher’s Google Form already filled in, so you only need to press Submit.</p></section>
       <section class="panel"><h3>Privacy</h3><p>Nothing you do leaves your browser. Progress, recall schedules and settings are stored on this device only; use Stats → Backup to move them to another device.</p><p>Send Report and Send Feedback open your teacher’s Google Form in a new tab. Nothing is sent unless you press Submit there, and the form records your school email when you do.</p></section>
       <section class="panel" id="creditsInfo"><h3>Credits</h3>${window.__OFFLINE ? '<p>Offline copy: the fonts are inside this file, so it works without the internet. Its progress is stored separately from the website.</p>' : ''}<p class="muted small">Fonts: Archivo, IBM Plex Sans, IBM Plex Mono and Press Start 2P (SIL Open Font License 1.1).</p></section>
       <section class="panel"><h3>Revision History</h3>${historyHTML()}
