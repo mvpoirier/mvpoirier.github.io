@@ -7,7 +7,7 @@
   MYPoirier Science Lab: MYP Science Criterion A revision (Years 9-11, MYP 3-5)
   Version: 0.4 · Built: 06 November 2026
   Author: Mike Poirier (https://github.com/mvpoirier), developed with Claude by Anthropic
-  Licence: CC BY-NC-SA 4.0, https://creativecommons.org/licenses/by-nc-sa/4.0/
+  Terms: © 2026 Mike Poirier. All rights reserved. Free for students and teachers for their own study and classroom teaching; any other copying, hosting, adapting or commercial or tutoring use needs written permission.
   Site: https://mvpoirier.github.io/science-lab/
   Original questions written from the unit notes. Not affiliated with or endorsed by the IB.
   No student data leaves the browser: progress is stored on the device (localStorage key myp-science-lab.v1).
@@ -1132,6 +1132,15 @@ details.hist-stage > summary::before { content: "▸"; color: var(--accent); tra
 details.hist-stage[open] > summary::before { transform: rotate(90deg); }
 details.hist-stage > ol.history { margin-top: 12px; }
 
+/* printouts: terms watermark on every page, and an end-of-document footer */
+.print-only { display: none; }
+@media print {
+  .print-only { display: block !important; }
+  .doc-foot { margin-top: 18px; padding-top: 8px; border-top: 1px solid #bbb; font-size: 8pt; color: #555; }
+  @page { @bottom-left { content: "MYPoirier Science Lab · 0.4 · © 2026 Mike Poirier · All rights reserved · Not for commercial or tutoring use · mvpoirier.github.io/science-lab"; font: 7pt "IBM Plex Sans", Arial, sans-serif; color: #888; } @bottom-right { content: "Page " counter(page) " of " counter(pages); font: 7pt "IBM Plex Sans", Arial, sans-serif; color: #888; } }
+}
+#termsInfo, #creditsInfo { scroll-margin-top: 84px; }
+
 </style>
 </head>
 <body>
@@ -1155,11 +1164,11 @@ details.hist-stage > ol.history { margin-top: 12px; }
     <div class="foot-brand"><div class="foot-name"><b class="mvp">MYP</b>oirier Science Lab <span class="trophy" aria-hidden="true">⚛️</span><span class="beta-tag">ALPHA 0.4</span></div></div>
     <nav class="foot-links" aria-label="Site">
       <a href="#about">About</a>
-      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener license">CC BY-NC-SA 4.0</a>
+      <a href="#about" data-terms="1">Terms of Use</a>
     </nav>
   </div>
   <div class="foot-meta">
-    <span>Developed by <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a> using Claude</span>
+    <span>Developed by <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a> using Claude. © 2026 Mike Poirier. All rights reserved: free for students and teachers; see the Terms of Use on the About page.</span>
     <span class="foot-ver">Version 0.4 · Updated 06 November 2026</span>
   </div>
 </div></footer>
@@ -4770,6 +4779,7 @@ const GAMES = (() => {
         ${un ? '<p class="warn small no-print" id="tsUnWarn">Some written answers are not marked yet. Tick the markscheme points you made, below. Your levels update as you tick.</p>' : ''}</section>
       ${TS.items.map((it, i) => `<article class="sheet ts-item" data-ti="${i}"><div class="ts-qno">Question ${i + 1} · <span class="num">${fmtMin(it.time / 1000)}</span> · <span class="num" data-tisc="${i}">${Math.round(totalScore(it.inst, it.st) * 100)}%</span></div>${questionHTML(it.q, it.inst, it.st)}</article>`).join('')}
       <div class="row no-print">${TS.saved ? '<span class="pill good">Results saved to your stats</span>' : '<button class="btn primary" id="tsSave">Save Results</button>'}<button class="btn" id="tsPrint">🖨 Print Results</button><span class="spacer"></span><button class="btn" id="tsNew">New Test</button></div>
+      <div class="print-only doc-foot"><b>MYPoirier Science Lab</b> · Version ${VERSION} (${BUILT})${TS.cfg.str ? ` · ${TS.cfg.str}` : ''}<br>© 2026 Mike Poirier, developed with Claude · All rights reserved · Free for students and teachers; not for commercial or tutoring use without written permission · mvpoirier.github.io/science-lab</div>
       <p class="muted small no-print">Print Results opens the print window: choose a printer, or Save as PDF. It includes your levels, every question, your answers and the markschemes you ticked.</p>`;
   }
   function bindTest(main) {
@@ -5100,7 +5110,7 @@ const GAMES = (() => {
     { v: '0.1 alpha', d: '5 November 2026', items: ['First build: four units (Y11 Exchange & Transport, Y11 Forces & Motion, Y9 Disease & Our Immune System, Y9 Chemistry of Industry) with practice by Criterion A strand and level, recall cards, notes and progress.'] },
     { v: '0.2 alpha', d: '5 November 2026', items: ['New design: header, side panel, question sheet, markscheme ticks, spaced-repetition Recall (Flashcards, Pick’em!, Match It!), Notes panels, Stats tabs and backup code.', 'Every unit is split into subtopics, one per lesson topic, and every subtopic has questions for A i, A ii and A iii.', 'Unit games: Element Match (Year 9 Chemistry) and Graph It! (Year 11 Forces & Motion).', 'Notes for every subtopic with key ideas, common mistakes and key terms.'] },
     { v: '0.3 alpha', d: '5 November 2026', items: ['Games page grouped by unit, with Class Games for every year.', 'New unit games: Build-an-Atom and Periodic Mystery (Y9 Chemistry); Free-Body Builder, Stop in Time and suvat Sprint (Y11 Forces & Motion).', 'Blitz and Last Man Standing with class codes, using multiple-choice questions from the ticked subtopics.', 'Y9 Chemistry: a simplified Periodic Table (elements 1–20, whole-number atomic masses) on every question, in the header and in Notes.', 'Last Man Standing arena: ready screen, 3-2-1 countdown, synthesised music and sound effects, heartbeat in the last 30 seconds, Give Up and Game Over.', 'Code boxes start with their prefix (LMS-) and add capitals and dashes as you type.'] },
-    { v: '0.4 alpha', d: '6 November 2026', items: ['New <b>Test</b> mode: a timed Criterion A test like the unit tests, with a section for each strand from level 1–2 to 7–8. Answers stay hidden until the end; the site marks short answers, you tick the markschemes for written answers, and each strand gets a best-fit level. Print your results, or use a TST- class code so everyone gets the same test.', 'New unit: <b>Year 11 Combustible Fuels</b> (8 subtopics, 55 question types): fuels and SDG 7, hydrocarbons, naming and isomers with drawn structural formulas, alcohols, crude oil and boiling point, combustion and balancing, enthalpy profiles and bond enthalpy, moles, energy per gram and emissions.', 'More question types matched to the unit tests: Y9 Disease (vectors, Jenner, Fleming, Ebola, bacterial growth, vaccine boosters), Y9 Chemistry (nuclear notation, particle tables, spotting Bohr-diagram errors, covalent names, evidence of chemical change, ionisation energy trends), Y11 Exchange & Transport (Boyle\'s law, the double circulation, valves, blood pressure, exercise spirometry, maximum heart rate) and Y11 Forces & Motion (crane tension, runway length, skydiver, multi-stage v–t graphs, theory vs real data).', 'Stop in Time: everyday objects in the road instead of people.', 'A <b>Data Booklet</b> button for every year in the header (and on questions that need it): the Periodic Table for Year 9, and the physics formula sheet and chemistry values for Year 11.', 'The welcome card takes the colour of your year, and the revision history is grouped into collapsible stages.', 'Fixes: sorting questions always use every category; written-answer markschemes line up properly.'] },
+    { v: '0.4 alpha', d: '6 November 2026', items: ['New <b>Test</b> mode: a timed Criterion A test like the unit tests, with a section for each strand from level 1–2 to 7–8. Answers stay hidden until the end; the site marks short answers, you tick the markschemes for written answers, and each strand gets a best-fit level. Print your results, or use a TST- class code so everyone gets the same test.', 'New unit: <b>Year 11 Combustible Fuels</b> (8 subtopics, 55 question types): fuels and SDG 7, hydrocarbons, naming and isomers with drawn structural formulas, alcohols, crude oil and boiling point, combustion and balancing, enthalpy profiles and bond enthalpy, moles, energy per gram and emissions.', 'More question types matched to the unit tests: Y9 Disease (vectors, Jenner, Fleming, Ebola, bacterial growth, vaccine boosters), Y9 Chemistry (nuclear notation, particle tables, spotting Bohr-diagram errors, covalent names, evidence of chemical change, ionisation energy trends), Y11 Exchange & Transport (Boyle\'s law, the double circulation, valves, blood pressure, exercise spirometry, maximum heart rate) and Y11 Forces & Motion (crane tension, runway length, skydiver, multi-stage v–t graphs, theory vs real data).', 'Stop in Time: everyday objects in the road instead of people.', 'A <b>Data Booklet</b> button for every year in the header (and on questions that need it): the Periodic Table for Year 9, and the physics formula sheet and chemistry values for Year 11.', 'The welcome card takes the colour of your year, and the revision history is grouped into collapsible stages.', 'New Terms of Use (About page): © Mike Poirier, all rights reserved; free for students and teachers; not for commercial or tutoring use without permission. This replaces the CC BY-NC-SA licence from this version on.', 'Fixes: sorting questions always use every category; written-answer markschemes line up properly.'] },
   ];
   function renderAbout(main) {
     const rows = LIVE_UNITS.map(u => { const qs = Q.filter(q => q.uid === u.id); return `<tr><td><b>Y${u.y} U${u.n}</b> ${esc(u.title)}</td><td class="num">${CONTENT[u.id].subs.length}</td>${STRANDS.map(s => `<td class="num">${qs.filter(q => q.s === s.id).length}</td>`).join('')}<td class="num"><b>${qs.length}</b></td><td class="num">${CARDS.filter(c => c.uid === u.id).length}</td></tr>`; }).join('');
@@ -5119,7 +5129,11 @@ const GAMES = (() => {
       </ul></section>
       <section class="panel"><h3>The Question Bank</h3><div class="tbl-wrap"><table class="stats"><thead><tr><th>Unit</th><th>Subtopics</th>${STRANDS.map(s => `<th>${s.label}</th>`).join('')}<th>Total</th><th>Cards</th></tr></thead><tbody>${rows}</tbody></table></div></section>
       <section class="panel"><h3>Quality Checks</h3><ul class="about-list"><li>Every question type is generated with hundreds of values and checked for missing values, broken answers, duplicate options and impossible labels.</li><li>Every question is played in a browser with the correct answer and must score 100%, on desktop and phone sizes, in light and dark mode.</li></ul></section>
+      <section class="panel" id="termsInfo"><h3>Terms of Use</h3><p>© 2026 Mike Poirier. All rights reserved. MYPoirier Science Lab, including its questions, question generators, notes, games and design, is the work of Mike Poirier, developed with Claude.</p>
+        <ul class="about-list"><li><b>Free to use</b> for students and teachers, for their own study and classroom teaching.</li><li><b>Not allowed without written permission:</b> copying or hosting the site or its content elsewhere, adapting it, or using it in any commercial service, including paid tutoring, courses or question banks.</li><li>Printouts may be copied for use with your own students.</li></ul>
+        <p class="small muted">Copies of earlier builds (Alpha 0.1–0.4) made before these terms were adopted on 6 November 2026 were shared under CC BY-NC-SA 4.0; those terms still cover those copies. Not affiliated with or endorsed by the IB. For permission, contact Mike Poirier via <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">GitHub</a>.</p></section>
       <section class="panel"><h3>Privacy</h3><p>Nothing you do leaves your browser. Progress, recall schedules and settings are stored on this device only; use Stats → Backup to move them to another device.</p></section>
+      <section class="panel" id="creditsInfo"><h3>Credits</h3>${window.__OFFLINE ? '<p>Offline copy: the fonts are inside this file, so it works without the internet. Its progress is stored separately from the website.</p>' : ''}<p class="muted small">Fonts: Archivo, IBM Plex Sans, IBM Plex Mono and Press Start 2P (SIL Open Font License 1.1).</p></section>
       <section class="panel"><h3>Revision History</h3>${historyHTML()}
         <p class="muted small">Version ${VERSION} · Built ${BUILT}.</p></section>`;
   }
@@ -5160,6 +5174,7 @@ const GAMES = (() => {
     const d = $('#termsDlg'); $('#termsTitle').textContent = `Data Booklet · Year ${Y()}`; $('#termsBody').innerHTML = `<div class="booklet">${BOOKLET[Y()]()}</div>`;
     if (d.showModal) d.showModal(); else d.setAttribute('open', '');
   }
+  document.addEventListener('click', (e) => { if (e.target.closest('[data-terms]')) setTimeout(() => { const t = $('#termsInfo'); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 80); });
   document.addEventListener('click', (e) => { if (e.target.closest('[data-booklet]')) { e.preventDefault(); openBooklet(); } });
   function openTerms() {
     const d = $('#termsDlg'); $('#termsTitle').textContent = 'Command Terms'; $('#termsBody').innerHTML = `<p class="small">The command terms used on your Criterion A tests and exams.</p><table class="cmdtbl"><tbody>${COMMAND_TERMS.map(([t, x]) => `<tr><th>${t}</th><td>${x}</td></tr>`).join('')}</tbody></table>`;
