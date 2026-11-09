@@ -1251,13 +1251,13 @@ dialog.terms-dlg.wide { width: min(1010px, 96vw); }
 .pp-svg .pp-strip { fill: var(--surface); stroke: var(--ink); stroke-width: .9; }
 .pp-svg { max-width: 96px; } .pp-slot { min-height: 112px; } .pp-trayb { width: 96px; }
 /* Class Games: collapsible, closed at first */
-details.class-games > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
-details.class-games > summary::-webkit-details-marker { display: none; }
-details.class-games > summary > div { flex: 1; }
-details.class-games .cg-hint { display: block; margin-top: 2px; }
-details.class-games .cg-chev { font-size: 18px; color: var(--accent); transition: transform .15s; }
-details.class-games[open] .cg-chev { transform: rotate(90deg); }
-details.class-games:not([open]) { padding-bottom: 6px; }
+details.class-games > summary, details.ug-fold > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+details.class-games > summary::-webkit-details-marker, details.ug-fold > summary::-webkit-details-marker { display: none; }
+details.class-games > summary > div, details.ug-fold > summary > div { flex: 1; }
+details.class-games .cg-hint, details.ug-fold .cg-hint { display: block; margin-top: 2px; }
+details.class-games .cg-chev, details.ug-fold .cg-chev { font-size: 18px; color: var(--accent); transition: transform .15s; }
+details.class-games[open] .cg-chev, details.ug-fold[open] .cg-chev { transform: rotate(90deg); }
+details.class-games:not([open]), details.ug-fold:not([open]) { padding-bottom: 6px; }
 
 </style>
 </head>
@@ -4892,20 +4892,22 @@ const GAMES = (() => {
     }, 250);
   }
   const gameCard = (g) => { const best = S.games[g.id]; return `<button type="button" class="mode-card" data-game="${g.id}"><span class="wic" aria-hidden="true">${g.icon}</span><b>${g.name}</b><span>${g.desc}</span>${best ? `<span class="muted small num">Best: ${g.bestText(best)}</span>` : ''}</button>`; };
-  // Class Games starts collapsed on every visit to the site; stays as the student leaves it while they browse
-  let classGamesOpen = false;
-  document.addEventListener('toggle', (e) => { if (e.target && e.target.id === 'classGames') classGamesOpen = e.target.open; }, true);
+  // every game section starts collapsed on each visit to the site; it stays as the student leaves it while they browse
+  const gamesOpen = new Set();
+  document.addEventListener('toggle', (e) => { const id = e.target && e.target.id; if (id === 'classGames' || /^ug-/.test(id || '')) { if (e.target.open) gamesOpen.add(id); else gamesOpen.delete(id); } }, true);
   function renderGames(main) {
     if (!GA || GA.id !== 'lms') lmsTheme();
     if (!GA) {
       const list = gamesForYear(), cls = yearLive().length ? list.filter(g => g.y === 0) : [];
       const unitPanels = yearUnits().map(u => {
         const gs = list.filter(g => g.uid === u.id), live = u.live && CONTENT[u.id];
-        return `<section class="unit-games${gs.length ? '' : ' empty'}"><div class="ug-head"><span class="ug-em" aria-hidden="true">${u.em}</span><div><span class="ug-n">Unit ${u.n} · ${esc(u.subject)}</span><h3>${esc(u.title)}</h3></div>${gs.length ? `<span class="pill">${gs.length} game${gs.length > 1 ? 's' : ''}</span>` : ''}</div>
-          ${gs.length ? `<div class="mode-cards">${gs.map(gameCard).join('')}</div>` : `<p class="muted small ug-soon">${live ? 'Games for this unit are coming soon. In the meantime, try Blitz or Last Man Standing with this unit ticked.' : 'This unit is coming soon.'}</p>`}</section>`;
+        if (gs.length) return `<details class="unit-games ug-fold" id="ug-${u.id}" ${gamesOpen.has('ug-' + u.id) ? 'open' : ''}><summary class="ug-head"><span class="ug-em" aria-hidden="true">${u.em}</span><div><span class="ug-n">Unit ${u.n} · ${esc(u.subject)}</span><h3>${esc(u.title)}</h3><span class="muted small cg-hint">${gs.map(g => esc(g.name)).join(' · ')}</span></div><span class="pill">${gs.length} game${gs.length > 1 ? 's' : ''}</span><span class="cg-chev" aria-hidden="true">▸</span></summary>
+          <div class="mode-cards">${gs.map(gameCard).join('')}</div></details>`;
+        return `<section class="unit-games empty"><div class="ug-head"><span class="ug-em" aria-hidden="true">${u.em}</span><div><span class="ug-n">Unit ${u.n} · ${esc(u.subject)}</span><h3>${esc(u.title)}</h3></div></div>
+          <p class="muted small ug-soon">${live ? 'Games for this unit are coming soon. In the meantime, try Blitz or Last Man Standing with this unit ticked.' : 'This unit is coming soon.'}</p></section>`;
       }).join('');
       main.innerHTML = head('Games 🕹️', 'Race the clock, beat your best and challenge your class. Games are grouped by unit.') +
-        (cls.length ? `<details class="unit-games class-games" id="classGames" ${classGamesOpen ? 'open' : ''}><summary class="ug-head"><span class="ug-em" aria-hidden="true">🏁</span><div><span class="ug-n">All Year ${Y()} units</span><h3>Class Games</h3><span class="muted small cg-hint">Blitz and Last Man Standing: quick-fire multiple-choice questions from the subtopics you tick.</span></div><span class="cg-chev" aria-hidden="true">▸</span></summary><div class="mode-cards">${cls.map(gameCard).join('')}</div></details>` : '') + unitPanels;
+        (cls.length ? `<details class="unit-games class-games" id="classGames" ${gamesOpen.has('classGames') ? 'open' : ''}><summary class="ug-head"><span class="ug-em" aria-hidden="true">🏁</span><div><span class="ug-n">All Year ${Y()} units</span><h3>Class Games</h3><span class="muted small cg-hint">Blitz and Last Man Standing: quick-fire multiple-choice questions from the subtopics you tick.</span></div><span class="cg-chev" aria-hidden="true">▸</span></summary><div class="mode-cards">${cls.map(gameCard).join('')}</div></details>` : '') + unitPanels;
       return;
     }
     const g = gameById(GA.id);
