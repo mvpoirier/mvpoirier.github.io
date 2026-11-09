@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--
   MYPoirier Science Lab: MYP Science Criterion A revision (Years 9-11, MYP 3-5)
-  Version: 0.4 · Built: 06 November 2026
+  Version: 0.4 · Built: 09 November 2026
   Author: Mike Poirier (https://github.com/mvpoirier), developed with Claude by Anthropic
   Terms: © 2026 Mike Poirier. All rights reserved. Free for students and teachers for their own study and classroom teaching; any other copying, hosting, adapting or commercial or tutoring use needs written permission.
   Site: https://mvpoirier.github.io/science-lab/
@@ -1213,6 +1213,52 @@ dialog.terms-dlg.wide { width: min(1010px, 96vw); }
 .tform .ans { flex: 1; min-width: 0; }
 .teacher-bar { margin-top: 14px; color: var(--muted); }
 
+/* Periodic People (Y9 Chemistry) */
+.pp-grid { display: grid; grid-template-columns: repeat(8, minmax(62px, 1fr)); grid-template-rows: repeat(3, auto); gap: 5px; margin: 10px 0; overflow-x: auto; }
+.pp-slot { min-height: 96px; border: 2px dashed var(--line); border-radius: 10px; background: var(--surface); padding: 2px; display: grid; place-items: center; cursor: pointer; color: var(--ink); font: inherit; }
+.pp-slot:disabled { cursor: default; border-style: solid; }
+.pp-slot.sel, .pp-trayb.sel { border-color: var(--accent); border-style: solid; background: color-mix(in srgb, var(--accent) 10%, var(--surface)); }
+.pp-slot.bad { border-color: var(--bad); border-style: solid; background: var(--bad-soft); }
+.pp-slot.miss { border: 3px solid var(--good); background: var(--good-soft); }
+.pp-tray { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface-2, var(--surface)); min-height: 60px; margin-bottom: 10px; }
+.pp-trayb { border: 2px solid var(--line); border-radius: 10px; background: var(--surface); padding: 2px; cursor: pointer; color: var(--ink); width: 74px; }
+.pp-card { display: grid; justify-items: center; gap: 1px; width: 100%; }
+.pp-svg { width: 100%; max-width: 70px; height: auto; display: block; }
+.pp-svg .pp-ln { stroke: var(--ink); stroke-width: 1.6; fill: none; stroke-linecap: round; }
+.pp-svg .pp-fill { fill: var(--ink); }
+.pp-svg .pp-head { fill: var(--surface); stroke: var(--ink); stroke-width: 1.6; }
+.pp-svg .pp-body { fill: var(--surface); stroke: var(--ink); stroke-width: 1.6; }
+.pp-svg .pp-btn { fill: var(--year, var(--accent)); stroke: var(--ink); stroke-width: .8; }
+.pp-pl { stroke: var(--ink); stroke-width: 1.1; opacity: .55; }
+.pp-pf { fill: var(--ink); opacity: .45; }
+.pp-el { font-size: 11px; line-height: 1.1; text-align: center; color: var(--muted); }
+.pp-el b { color: var(--ink); font-size: 13px; }
+.pp-build { display: grid; grid-template-columns: 160px 1fr; gap: 16px; align-items: start; margin: 10px 0; }
+.pp-preview { border: 1px solid var(--line); border-radius: 12px; padding: 8px; background: var(--surface); }
+.pp-preview .pp-svg { max-width: 150px; margin: 0 auto; }
+.pp-ctl { margin-bottom: 10px; display: grid; gap: 4px; }
+.pp-ctl .seg { flex-wrap: wrap; }
+.pp-picks { display: grid; grid-template-columns: repeat(4, minmax(90px, 140px)); gap: 10px; margin: 10px 0; }
+.pp-pick { border: 2px solid var(--line); border-radius: 12px; background: var(--surface); padding: 6px; cursor: pointer; color: var(--ink); }
+.pp-pick .pp-svg { max-width: 110px; margin: 0 auto; }
+.pp-pick.right { border-color: var(--good); background: var(--good-soft); } .pp-pick.wrong { border-color: var(--bad); background: var(--bad-soft); }
+.pp-q { margin-bottom: 14px; } .pp-q textarea { width: 100%; box-sizing: border-box; }
+.pp-model { margin-top: 6px; padding: 8px 10px; border-radius: 8px; background: var(--good-soft); font-size: 14px; }
+@media (max-width: 640px) { .pp-build { grid-template-columns: 1fr; } .pp-grid { grid-template-columns: repeat(8, 62px); } .pp-picks { grid-template-columns: repeat(2, 1fr); } }
+.pp-svg .pp-outline { fill: none; stroke: var(--ink); stroke-width: 1.6; }
+.pp-pl { stroke-width: 1.4; opacity: .7; } .pp-pf { opacity: .6; }
+.pp-trayb { width: 86px; } .pp-svg { max-width: 80px; }
+.pp-svg .pp-strip { fill: var(--surface); stroke: var(--ink); stroke-width: .9; }
+.pp-svg { max-width: 96px; } .pp-slot { min-height: 112px; } .pp-trayb { width: 96px; }
+/* Class Games: collapsible, closed at first */
+details.class-games > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+details.class-games > summary::-webkit-details-marker { display: none; }
+details.class-games > summary > div { flex: 1; }
+details.class-games .cg-hint { display: block; margin-top: 2px; }
+details.class-games .cg-chev { font-size: 18px; color: var(--accent); transition: transform .15s; }
+details.class-games[open] .cg-chev { transform: rotate(90deg); }
+details.class-games:not([open]) { padding-bottom: 6px; }
+
 </style>
 </head>
 <body>
@@ -1242,7 +1288,7 @@ dialog.terms-dlg.wide { width: min(1010px, 96vw); }
   </div>
   <div class="foot-meta">
     <span>© 2026 <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a>. All rights reserved: free for students and teachers; see the Terms of Use on the About page.</span>
-    <span class="foot-ver">Updated 06 November 2026</span>
+    <span class="foot-ver">Updated 09 November 2026</span>
   </div>
 </div></footer>
 <dialog id="termsDlg" class="terms-dlg" aria-labelledby="termsTitle"><div class="panel" style="margin:0;border:0"><div class="row"><h3 id="termsTitle" style="margin:0">Command Terms</h3><span class="spacer"></span><button class="btn sm" id="termsClose">Close</button></div><div id="termsBody"></div></div></dialog>
@@ -4247,7 +4293,124 @@ const GAMES = (() => {
     bestText: (best) => `${best.score} balanced in 2:30`
   };
 
-  return [elementMatch, buildAtom, periodicMystery, graphIt, freeBody, stopInTime, suvatSprint, isomerHunt, balanceIt];
+  /* ---------- Periodic People (Year 9 Chemistry of Industry) ----------
+     Original characters (not the published activity art). Hidden rules, matching the real table for H–Ar:
+     antennae = period (shells), buttons = valence electrons (He has 2), body pattern = column (family), size grows with atomic number.
+     Students arrange 17 agents in the table, then build the missing one (or pick from four), then see the elements. */
+  const PP_COLS = [1, 2, 13, 14, 15, 16, 17, 18];
+  const ppSpot = (Z) => { const e = ELEMENTS20.find(x => x.Z === Z); return { r: e.per, c: PP_COLS.indexOf(e.grp) + 1 }; };
+  const ppAgent = (Z) => { const { r, c } = ppSpot(Z); return { Z, ant: r, pat: c, btn: Z === 2 ? 2 : c }; };
+  const PP_SLOTS = Array.from({ length: 18 }, (_, i) => i + 1).map(Z => ({ Z, ...ppSpot(Z) }));
+  const PP_PAT_NAMES = ['plain', 'horizontal stripes', 'vertical stripes', 'dots', 'diagonal stripes', 'checks', 'waves', 'stars'];
+  function ppPatDefs() {
+    const P = (id, w, h, body) => `<pattern id="pp-p${id}" width="${w}" height="${h}" patternUnits="userSpaceOnUse">${body}</pattern>`;
+    return `<defs>${P(2, 6, 6, '<path d="M0 3h6" class="pp-pl"/>')}${P(3, 6, 6, '<path d="M3 0v6" class="pp-pl"/>')}${P(4, 7, 7, '<circle cx="3.5" cy="3.5" r="1.4" class="pp-pf"/>')}${P(5, 6, 6, '<path d="M-1 7L7 -1M-1 1L1 -1M5 7L7 5" class="pp-pl"/>')}${P(6, 6, 6, '<path d="M0 0h3v3H0zM3 3h3v3H3z" class="pp-pf"/>')}${P(7, 8, 6, '<path d="M0 3q2 -3 4 0t4 0" class="pp-pl" fill="none"/>')}${P(8, 9, 9, '<path d="M4.5 1l1 2.4 2.5.2-1.9 1.6.6 2.5-2.2-1.4-2.2 1.4.6-2.5L1.5 3.6l2.5-.2z" class="pp-pf"/>')}</defs>`;
+  }
+  function ppSVG(a, size = 1) {
+    // body grows with atomic number; antennae, buttons and pattern follow the rules above
+    const k = a.Z ? 0.82 + a.Z * 0.016 : 1, bw = 34 * k * size, bh = 32 * k * size, cx = 40, by = 44, hy = 24, hr = 10;
+    let g = '';
+    for (let i = 0; i < a.ant; i++) { const x = cx + (i - (a.ant - 1) / 2) * 7; g += `<path d="M${x} ${hy - hr + 1}L${x + (i - (a.ant - 1) / 2) * 3} ${hy - hr - 9}" class="pp-ln"/><circle cx="${x + (i - (a.ant - 1) / 2) * 3}" cy="${hy - hr - 10.5}" r="2" class="pp-fill"/>`; }
+    g += `<path d="M${cx - bw / 2 + 2} ${by + 4}l-12 -8M${cx + bw / 2 - 2} ${by + 4}l12 -8" class="pp-ln"/><path d="M${cx - 6} ${by + bh - 2}l-3 11h-4M${cx + 6} ${by + bh - 2}l3 11h4" class="pp-ln"/>`;
+    const body = `x="${cx - bw / 2}" y="${by}" width="${bw}" height="${bh}" rx="${bw / 3.2}"`;
+    g += `<rect ${body} class="pp-body"/>${a.pat > 1 ? `<rect ${body} style="fill:url(#pp-p${a.pat});stroke:none"/><rect ${body} class="pp-outline"/>` : ''}`;
+    g += `<circle cx="${cx}" cy="${hy}" r="${hr}" class="pp-head"/><circle cx="${cx - 3.5}" cy="${hy - 1.5}" r="1.3" class="pp-fill"/><circle cx="${cx + 3.5}" cy="${hy - 1.5}" r="1.3" class="pp-fill"/><path d="M${cx - 4} ${hy + 3.5}q4 3 8 0" class="pp-ln" fill="none"/>`;
+    const n = a.btn, col2 = n > 4, rows = col2 ? Math.ceil(n / 2) : n, sw = col2 ? 13 : 7, sh = Math.min(bh - 4, rows * 6 + 3);
+    g += `<rect x="${cx - sw / 2}" y="${by + bh / 2 - sh / 2}" width="${sw}" height="${sh}" rx="3.5" class="pp-strip"/>`;
+    for (let i = 0; i < n; i++) { const cxx = col2 ? cx + (i % 2 ? 4 : -4) : cx, j = col2 ? Math.floor(i / 2) : i, yy = by + bh / 2 - sh / 2 + 4.5 + j * 6; g += `<circle cx="${cxx}" cy="${yy}" r="2" class="pp-btn"/>`; }
+    return `<svg viewBox="0 0 80 92" class="pp-svg" role="img" aria-label="Agent with ${a.ant} antenna${a.ant > 1 ? 'e' : ''}, ${a.btn} button${a.btn > 1 ? 's' : ''} and a ${PP_PAT_NAMES[a.pat - 1]} body">${g}</svg>`;
+  }
+  const PP_QS = [
+    ['List all the patterns you see as you look <b>down a column</b> of your table.', 'Everyone in a column has the same body pattern and the same number of buttons. Going down, each agent has one more antenna and a bigger body. (In the real table: a group has the same number of valence electrons and similar properties; each period down adds a shell.)'],
+    ['List all the patterns you see as you look <b>across a row</b>.', 'Everyone in a row has the same number of antennae. Going across, each agent has one more button, a different body pattern and a slightly bigger body. (In the real table: a period has the same number of shells; valence electrons go up by one across it.)'],
+    ['What do you think the word <b>periodicity</b> means?', 'A pattern that repeats at regular intervals. In chemistry: when elements are listed in order of atomic number, similar properties repeat in each row, so similar elements line up in columns.'],
+    ['How does this activity relate to the organisation of the Periodic Table? Watch the video first.', 'Like the agents, the elements are put in one line (by atomic number), then the line is "chopped" into rows (periods) so that elements with similar properties line up in columns (groups). Mendeleev left gaps where the pattern showed an element was missing and predicted its properties (e.g. germanium), just as we predicted the missing agent from his row and column.']
+  ];
+  const PP_VIDEO = 'https://www.youtube.com/watch?v=fPnwBITSmgU';
+  const periodicPeople = {
+    id: 'y9-periodic-people', y: 9, uid: 'y9-che', icon: '🕴️', name: 'Periodic People',
+    desc: 'A family of secret agents with one missing. Arrange the agents into a table so that rows and columns share features, then build the missing agent. Then see how it matches the real Periodic Table.',
+    start(R) {
+      const missing = R.pick(PP_SLOTS.filter(s => s.r > 1)).Z;
+      const tray = R.shuffle(PP_SLOTS.map(s => s.Z).filter(Z => Z !== missing));
+      return { R, missing, tray, place: {}, sel: null, phase: 'arrange', checks: 0, bad: [], build: { ant: 1, pat: 1, btn: 1 }, buildTries: 0, firstTry: null, picks: null, picked: null, t0: Date.now(), end: null, ans: ['', '', '', ''], show: [] };
+    },
+    render(G) {
+      const t = ((G.end || Date.now()) - G.t0) / 1000, reveal = G.phase === 'done';
+      const top = `<svg width="0" height="0" style="position:absolute" aria-hidden="true">${ppPatDefs()}</svg><div class="game-top"><span class="gscore">${{ arrange: 'Arrange the agents', build: 'Build the missing agent', pick: 'Pick the missing agent', done: 'Mission complete' }[G.phase]}</span><span class="clock" id="gClock">${fmt(t)}</span></div>`;
+      const card = (Z, extra = '') => { const a = ppAgent(Z), e = ELEMENTS20.find(x => x.Z === Z); return `<span class="pp-card ${extra}">${ppSVG(a)}${reveal ? `<span class="pp-el"><b>${e.sym}</b> ${e.name}</span>` : ''}</span>`; };
+      const slot = (s) => {
+        const Z = Object.keys(G.place).find(k => G.place[k] === `${s.r}-${s.c}`), here = Z ? +Z : null, isMiss = reveal && s.Z === G.missing;
+        const cls = `pp-slot ${G.sel && here === G.sel.Z ? 'sel' : ''} ${G.bad.includes(here) ? 'bad' : ''} ${isMiss ? 'miss' : ''}`;
+        const inner = isMiss ? card(s.Z, 'pp-built') : here ? card(here) : '';
+        return `<button type="button" class="${cls}" data-pps="${s.r}-${s.c}" style="grid-row:${s.r};grid-column:${s.c}" aria-label="Row ${s.r}, column ${s.c}${here ? ', occupied' : ', empty'}" ${G.phase !== 'arrange' ? 'disabled' : ''}>${inner}</button>`;
+      };
+      const grid = `<div class="pp-grid">${PP_SLOTS.map(slot).join('')}</div>`;
+      if (G.phase === 'arrange') {
+        const left = G.tray.filter(Z => !G.place[Z]);
+        return top + `<div class="scenario">Your mission: these secret agents belong to one family, but the most dangerous one has never been sketched. Put them in a line from simplest to most complex, then “chop” the line into rows so that every row and every column shares features, like the Periodic Table. One space will be left for the missing agent. <span class="muted small">Tap an agent, then tap a space. Tap a placed agent to move it back.</span></div>
+          ${grid}<div class="pp-tray">${left.map(Z => `<button type="button" class="pp-trayb ${G.sel && G.sel.Z === Z ? 'sel' : ''}" data-ppt="${Z}" aria-label="Agent">${card(Z)}</button>`).join('') || '<span class="muted small">All agents placed.</span>'}</div>
+          <div class="row"><button class="btn primary" id="ppCheck" ${left.length ? 'disabled' : ''}>Check My Table</button>${G.checks ? `<span class="small ${G.bad.length ? 'no' : ''}">${G.bad.length} agent${G.bad.length === 1 ? ' is' : 's are'} in the wrong place (outlined in red).${G.checks >= 2 ? ' Hint: who is the simplest agent? Start there and add one feature at a time.' : ''}</span>` : ''}</div>`;
+      }
+      if (G.phase === 'build') {
+        const b = G.build, seg = (k, vals, lab) => `<div class="pp-ctl"><span class="small">${lab}</span><div class="seg">${vals.map(v => `<button type="button" data-ppb="${k}" data-v="${v[0]}" aria-pressed="${b[k] === v[0]}">${v[1]}</button>`).join('')}</div></div>`;
+        return top + `<div class="scenario">Your table is right! Now use its row and column to build the missing agent.</div>${grid}
+          <div class="pp-build"><div class="pp-preview">${ppSVG({ ...b, Z: 0 }, 1.1)}</div><div>${seg('ant', [[1, '1'], [2, '2'], [3, '3']], 'Antennae')}${seg('btn', [1, 2, 3, 4, 5, 6, 7, 8].map(n => [n, String(n)]), 'Buttons')}${seg('pat', PP_PAT_NAMES.map((n, i) => [i + 1, n]), 'Body pattern')}
+          <div class="row"><button class="btn primary" id="ppBuild">Check My Agent</button></div></div></div>`;
+      }
+      if (G.phase === 'pick') {
+        return top + `<div class="scenario">Not quite. Look at the agents in his row and his column again, then pick the missing agent.</div>${grid}
+          <div class="pp-picks">${G.picks.map((a, i) => `<button type="button" class="pp-pick ${G.picked === i ? (a.ok ? 'right' : 'wrong') : ''}" data-ppk="${i}" ${G.picked !== null && G.picks[G.picked].ok ? 'disabled' : ''}>${ppSVG(a)}</button>`).join('')}</div>`;
+      }
+      const m = ELEMENTS20.find(x => x.Z === G.missing), sp = ppSpot(G.missing);
+      return top + `<div class="scenario">Mission complete! ${G.firstTry ? 'You built the missing agent first time.' : 'You found the missing agent.'} Each agent stands where an element sits in the real Periodic Table: the missing agent is <b>${m.name} (${m.sym})</b>, period ${sp.r}, group ${m.grp}.</div>${grid}
+        <section class="panel pp-rules"><h3>The hidden rules</h3><ul><li><b>Antennae</b> = the row = the <b>period</b>: the number of electron shells.</li><li><b>Buttons</b> = the <b>valence electrons</b> (helium has 2 but sits with the noble gases).</li><li><b>Body pattern</b> = the column = the <b>group</b> (family): elements with similar properties.</li><li><b>Size</b> grows along the line, like <b>atomic number</b>.</li></ul></section>
+        <section class="panel pp-qs"><h3>Reflection</h3>${PP_QS.map((q, i) => `<div class="pp-q"><p>${i + 1}. ${q[0]}${i === 3 ? ` <a href="${PP_VIDEO}" target="_blank" rel="noopener">▶ TED-Ed: The genius of Mendeleev’s periodic table</a>` : ''}</p><textarea class="ans" rows="3" data-ppa="${i}" aria-label="Your answer to question ${i + 1}">${String(G.ans[i]).replace(/[&<>]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[ch]))}</textarea>${G.show.includes(i) ? `<div class="pp-model"><b>Model answer:</b> ${q[1]}</div>` : `<button type="button" class="btn sm" data-ppm="${i}">Show Model Answer</button>`}</div>`).join('')}</section>` + doneBar(G, `Mission complete in ${fmt(t)}`);
+    },
+    afterRender(G) { document.querySelectorAll('textarea[data-ppa]').forEach(ta => { ta.oninput = () => { G.ans[+ta.dataset.ppa] = ta.value; }; }); },
+    click(G, b) {
+      const d = b.dataset;
+      if (G.phase === 'arrange') {
+        if (d.ppt) { const Z = +d.ppt; G.sel = G.sel && G.sel.Z === Z ? null : { Z }; return true; }
+        if (d.pps) {
+          const here = Object.keys(G.place).find(k => G.place[k] === d.pps);
+          if (G.sel) { const from = G.place[G.sel.Z]; if (here && +here !== G.sel.Z) { if (from) G.place[here] = from; else delete G.place[here]; } G.place[G.sel.Z] = d.pps; G.sel = null; G.bad = G.bad.filter(z => z !== +here); return true; }
+          if (here) { delete G.place[here]; G.bad = G.bad.filter(z => z !== +here); return true; }
+          return false;
+        }
+        if (b.id === 'ppCheck') {
+          G.checks++; G.bad = G.tray.filter(Z => { const s = ppSpot(Z); return G.place[Z] !== `${s.r}-${s.c}`; });
+          if (!G.bad.length) { G.phase = 'build'; return true; }
+          return { wrong: true };
+        }
+      }
+      if (G.phase === 'build') {
+        if (d.ppb) { G.build[d.ppb] = +d.v; return true; }
+        if (b.id === 'ppBuild') {
+          const want = ppAgent(G.missing), ok = G.build.ant === want.ant && G.build.btn === want.btn && G.build.pat === want.pat;
+          G.buildTries++;
+          if (ok) { G.firstTry = true; G.phase = 'done'; G.end = Date.now(); return true; }
+          G.firstTry = false; G.phase = 'pick';
+          const w = { ...want, ok: true }, opts = [w], R = G.R;
+          const tweak = (k, vals) => { const v = R.pick(vals.filter(x => x !== want[k])); return { ...want, [k]: v, ok: false }; };
+          opts.push(tweak('ant', [1, 2, 3]), tweak('btn', [1, 2, 3, 4, 5, 6, 7, 8]), tweak('pat', [1, 2, 3, 4, 5, 6, 7, 8]));
+          G.picks = R.shuffle(opts).map(a => ({ ...a, Z: G.missing })); G.picked = null;
+          return { wrong: true };
+        }
+      }
+      if (G.phase === 'pick' && d.ppk !== undefined) {
+        G.picked = +d.ppk; if (G.picks[G.picked].ok) { G.phase = 'done'; G.end = Date.now(); return true; }
+        return { wrong: true };
+      }
+      if (G.phase === 'done' && d.ppm !== undefined) { G.show.push(+d.ppm); return true; }
+      return false;
+    },
+    result(G, prev) { const r = { time: Math.round((G.end - G.t0) / 1000), first: !!G.firstTry }; G.newBest = !prev || periodicPeople.better(r, prev); return r; },
+    better: (res, prev) => (res.first && !prev.first) || (res.first === prev.first && res.time < prev.time),
+    bestText: (best) => `${fmt(best.time)}${best.first ? ', built first time' : ''}`
+  };
+
+  return [elementMatch, buildAtom, periodicMystery, periodicPeople, graphIt, freeBody, stopInTime, suvatSprint, isomerHunt, balanceIt];
 })();
 
 /* ---- engine.js ---- */
@@ -4255,7 +4418,7 @@ const GAMES = (() => {
    Rail, practice sheet, markscheme ticks, spaced-repetition recall, notes panels, stats tabs and backup code. Organised for MYP: years → units → subtopics, Criterion A strands and level bands. */
 (function () {
   'use strict';
-  const VERSION = '0.4', BUILT = '06 November 2026';
+  const VERSION = '0.4', BUILT = '09 November 2026';
   const KEY = 'myp-science-lab.v1';
   const DAY = 864e5;
   const $ = (s, el = document) => el.querySelector(s);
@@ -4729,6 +4892,9 @@ const GAMES = (() => {
     }, 250);
   }
   const gameCard = (g) => { const best = S.games[g.id]; return `<button type="button" class="mode-card" data-game="${g.id}"><span class="wic" aria-hidden="true">${g.icon}</span><b>${g.name}</b><span>${g.desc}</span>${best ? `<span class="muted small num">Best: ${g.bestText(best)}</span>` : ''}</button>`; };
+  // Class Games starts collapsed on every visit to the site; stays as the student leaves it while they browse
+  let classGamesOpen = false;
+  document.addEventListener('toggle', (e) => { if (e.target && e.target.id === 'classGames') classGamesOpen = e.target.open; }, true);
   function renderGames(main) {
     if (!GA || GA.id !== 'lms') lmsTheme();
     if (!GA) {
@@ -4739,7 +4905,7 @@ const GAMES = (() => {
           ${gs.length ? `<div class="mode-cards">${gs.map(gameCard).join('')}</div>` : `<p class="muted small ug-soon">${live ? 'Games for this unit are coming soon. In the meantime, try Blitz or Last Man Standing with this unit ticked.' : 'This unit is coming soon.'}</p>`}</section>`;
       }).join('');
       main.innerHTML = head('Games 🕹️', 'Race the clock, beat your best and challenge your class. Games are grouped by unit.') +
-        (cls.length ? `<section class="unit-games class-games"><div class="ug-head"><span class="ug-em" aria-hidden="true">🏁</span><div><span class="ug-n">All Year ${Y()} units</span><h3>Class Games</h3></div></div><p class="muted small" style="margin:0 0 4px">Quick-fire multiple-choice questions from the subtopics you tick.</p><div class="mode-cards">${cls.map(gameCard).join('')}</div></section>` : '') + unitPanels;
+        (cls.length ? `<details class="unit-games class-games" id="classGames" ${classGamesOpen ? 'open' : ''}><summary class="ug-head"><span class="ug-em" aria-hidden="true">🏁</span><div><span class="ug-n">All Year ${Y()} units</span><h3>Class Games</h3><span class="muted small cg-hint">Blitz and Last Man Standing: quick-fire multiple-choice questions from the subtopics you tick.</span></div><span class="cg-chev" aria-hidden="true">▸</span></summary><div class="mode-cards">${cls.map(gameCard).join('')}</div></details>` : '') + unitPanels;
       return;
     }
     const g = gameById(GA.id);
@@ -5783,7 +5949,7 @@ ${docWatermark(variant === 'ms' ? id : '')}${docFooter(msId)}</body></html>`;
     { v: '0.1 alpha', d: '5 November 2026', items: ['First build: four units (Y11 Exchange & Transport, Y11 Forces & Motion, Y9 Disease & Our Immune System, Y9 Chemistry of Industry) with practice by Criterion A strand and level, recall cards, notes and progress.'] },
     { v: '0.2 alpha', d: '5 November 2026', items: ['New design: header, side panel, question sheet, markscheme ticks, spaced-repetition Recall (Flashcards, Pick’em!, Match It!), Notes panels, Stats tabs and backup code.', 'Every unit is split into subtopics, one per lesson topic, and every subtopic has questions for A i, A ii and A iii.', 'Unit games: Element Match (Year 9 Chemistry) and Graph It! (Year 11 Forces & Motion).', 'Notes for every subtopic with key ideas, common mistakes and key terms.'] },
     { v: '0.3 alpha', d: '5 November 2026', items: ['Games page grouped by unit, with Class Games for every year.', 'New unit games: Build-an-Atom and Periodic Mystery (Y9 Chemistry); Free-Body Builder, Stop in Time and suvat Sprint (Y11 Forces & Motion).', 'Blitz and Last Man Standing with class codes, using multiple-choice questions from the ticked subtopics.', 'Y9 Chemistry: a simplified Periodic Table (elements 1–20, whole-number atomic masses) on every question, in the header and in Notes.', 'Last Man Standing arena: ready screen, 3-2-1 countdown, synthesised music and sound effects, heartbeat in the last 30 seconds, Give Up and Game Over.', 'Code boxes start with their prefix (LMS-) and add capitals and dashes as you type.'] },
-    { v: '0.4 alpha', d: '6 November 2026', items: ['New <b>Test</b> mode: a timed Criterion A test like the unit tests, with a section for each strand from level 1–2 to 7–8. Answers stay hidden until the end; the site marks short answers, you tick the markschemes for written answers, and each strand gets a best-fit level. Print your results, or use a TST- class code so everyone gets the same test.', 'New unit: <b>Year 11 Combustible Fuels</b> (8 subtopics, 55 question types): fuels and SDG 7, hydrocarbons, naming and isomers with drawn structural formulas, alcohols, crude oil and boiling point, combustion and balancing, enthalpy profiles and bond enthalpy, moles, energy per gram and emissions.', 'More question types matched to the unit tests: Y9 Disease (vectors, Jenner, Fleming, Ebola, bacterial growth, vaccine boosters), Y9 Chemistry (nuclear notation, particle tables, spotting Bohr-diagram errors, covalent names, evidence of chemical change, ionisation energy trends), Y11 Exchange & Transport (Boyle\'s law, the double circulation, valves, blood pressure, exercise spirometry, maximum heart rate) and Y11 Forces & Motion (crane tension, runway length, skydiver, multi-stage v–t graphs, theory vs real data).', 'Stop in Time: everyday objects in the road instead of people.', 'A <b>Data Booklet</b> button for every year in the header (and on questions that need it): the Periodic Table for Year 9 (elements 1–20), the full Periodic Table for Years 10 and 11, and the physics formula sheet for Year 11. Point at, tap or tab to any element for its details.', '<b>Hints</b> in Practice: up to three per question (a nudge, the method, then the first step). Stats shows how often you answer without hints.', 'New Year 11 Fuels games: <b>Isomer Hunt</b> and <b>Balance It!</b>', '<b>🚩 Report a Problem</b> on every question (including in Test mode), flashcard, note and the Data Booklet, and <b>💬 Send Feedback</b> in the footer: they open your teacher’s Google Form already filled in.', '<b>Pause</b> in Test mode: the timer stops and the questions are hidden until you resume. Pauses are shown with your results.', 'Online tests: show or hide the timer, and sound alerts at 30, 15 and 5 minutes left and when time is up (🔔 can be turned off).', 'Test mode is set up by your teacher: enter the TST- class code they give you. A code gives an online test, a worksheet or a test/exam to print (cover sheet, a section for each strand, the data booklet at the end), with or without the markscheme. Teachers unlock the full set-up with 🔑 Teacher access and can print a Student Copy, the Markscheme or Both.', 'The welcome card takes the colour of your year, and the revision history is grouped into collapsible stages.', 'Fixes: sorting questions always use every category; written-answer markschemes line up properly.'] },
+    { v: '0.4 alpha', d: '6 November 2026', items: ['New <b>Test</b> mode: a timed Criterion A test like the unit tests, with a section for each strand from level 1–2 to 7–8. Answers stay hidden until the end; the site marks short answers, you tick the markschemes for written answers, and each strand gets a best-fit level. Print your results, or use a TST- class code so everyone gets the same test.', 'New unit: <b>Year 11 Combustible Fuels</b> (8 subtopics, 55 question types): fuels and SDG 7, hydrocarbons, naming and isomers with drawn structural formulas, alcohols, crude oil and boiling point, combustion and balancing, enthalpy profiles and bond enthalpy, moles, energy per gram and emissions.', 'More question types matched to the unit tests: Y9 Disease (vectors, Jenner, Fleming, Ebola, bacterial growth, vaccine boosters), Y9 Chemistry (nuclear notation, particle tables, spotting Bohr-diagram errors, covalent names, evidence of chemical change, ionisation energy trends), Y11 Exchange & Transport (Boyle\'s law, the double circulation, valves, blood pressure, exercise spirometry, maximum heart rate) and Y11 Forces & Motion (crane tension, runway length, skydiver, multi-stage v–t graphs, theory vs real data).', 'Stop in Time: everyday objects in the road instead of people.', 'A <b>Data Booklet</b> button for every year in the header (and on questions that need it): the Periodic Table for Year 9 (elements 1–20), the full Periodic Table for Years 10 and 11, and the physics formula sheet for Year 11. Point at, tap or tab to any element for its details.', '<b>Hints</b> in Practice: up to three per question (a nudge, the method, then the first step). Stats shows how often you answer without hints.', 'New Year 11 Fuels games: <b>Isomer Hunt</b> and <b>Balance It!</b>', 'New Year 9 Chemistry activity: <b>Periodic People</b>. Arrange a family of secret agents into a table, build the missing one, then see the elements they stand for.', '<b>🚩 Report a Problem</b> on every question (including in Test mode), flashcard, note and the Data Booklet, and <b>💬 Send Feedback</b> in the footer: they open your teacher’s Google Form already filled in.', '<b>Pause</b> in Test mode: the timer stops and the questions are hidden until you resume. Pauses are shown with your results.', 'Online tests: show or hide the timer, and sound alerts at 30, 15 and 5 minutes left and when time is up (🔔 can be turned off).', 'Test mode is set up by your teacher: enter the TST- class code they give you. A code gives an online test, a worksheet or a test/exam to print (cover sheet, a section for each strand, the data booklet at the end), with or without the markscheme. Teachers unlock the full set-up with 🔑 Teacher access and can print a Student Copy, the Markscheme or Both.', 'The welcome card takes the colour of your year, and the revision history is grouped into collapsible stages.', 'Fixes: sorting questions always use every category; written-answer markschemes line up properly.'] },
   ];
   function renderAbout(main) {
     const rows = LIVE_UNITS.map(u => { const qs = Q.filter(q => q.uid === u.id); return `<tr><td><b>Y${u.y} U${u.n}</b> ${esc(u.title)}</td><td class="num">${CONTENT[u.id].subs.length}</td>${STRANDS.map(s => `<td class="num">${qs.filter(q => q.s === s.id).length}</td>`).join('')}<td class="num"><b>${qs.length}</b></td><td class="num">${CARDS.filter(c => c.uid === u.id).length}</td></tr>`; }).join('');
