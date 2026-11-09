@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--
   MVPhysics Lab: IB DP Physics revision (SL and HL)
-  Version: 1.4 Beta (online edition) · Built: 6 November 2026
+  Version: 1.4 Beta (online edition) · Built: 9 November 2026
   Author: Mike Poirier (https://github.com/mvpoirier), developed with Claude by Anthropic
   Terms: © 2026 Mike Poirier. All rights reserved. Free for students and teachers for their own study and classroom teaching; any other copying, hosting, adapting or commercial or tutoring use needs written permission.
   Site: https://mvpoirier.github.io/physics-lab/
@@ -892,6 +892,19 @@ html[data-course="HL"] .welcome-hero { background: linear-gradient(135deg, var(-
 .teacher-access { margin-top: 14px; } .teacher-access summary { cursor: pointer; color: var(--muted); font-size: 13px; font-weight: 600; } .ex-total { margin-top: 8px; max-width: 360px; } .ex-total input { width: 7em; }
 .sinfo:focus-visible { outline: 2px solid var(--accent) !important; outline-offset: 2px; }
 .ex-out { margin-top: 8px; gap: 8px; align-items: center; }
+/* 1.4 (9 Nov): Test Mode — Finish Paper beside the pace bar, alert lines, teacher options */
+.pace-row { display: flex; align-items: center; gap: 12px; }
+.pace-row .pace { flex: 1; overflow: visible; }
+.pace-row .pace .done { border-radius: 99px; }
+.pace .alert-line { position: absolute; top: -5px; bottom: -5px; width: 12px; margin-left: -6px; cursor: help; z-index: 2; }
+.pace .alert-line::after { content: ''; position: absolute; left: 5px; top: 0; bottom: 0; width: 2px; background: #d92d20; border-radius: 1px; }
+.pace .alert-line:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; border-radius: 3px; }
+.alert-key { display: inline-block; width: 2px; height: 11px; background: #d92d20; vertical-align: -1px; margin-right: 3px; }
+.btn.btn-finish { background: #b42318; border-color: #b42318; color: #fff; white-space: nowrap; }
+.btn.btn-finish:hover { filter: brightness(1.08); }
+.ex-opts { display: grid; gap: 8px; margin-top: 8px; }
+.ex-opt { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.ex-opt > span { min-width: 270px; }
 
 </style>
 <header class="top"><div class="top-inner">
@@ -924,7 +937,7 @@ html[data-course="HL"] .welcome-hero { background: linear-gradient(135deg, var(-
   <details class="report report-general foot-report" id="footFb"><summary class="foot-fb-sum"><span class="flag" aria-hidden="true">💬</span> Send Feedback</summary><div class="report-body"><textarea class="report-note" rows="3" placeholder="Your feedback: a bug, an idea, something confusing… Say which page or feature." aria-label="Your feedback"></textarea><div class="row"><a class="btn sm primary send-report" href="#" target="_blank" rel="noopener" data-send="general|||footer">Send Report ↗</a><button type="button" class="btn sm" data-report="general|||footer">Copy Report</button><span class="muted small">Send Report opens your teacher’s Google Form (sign in with your school account). The page you are on is added automatically. Copy Report is a backup.</span></div></div></details>
   <div class="foot-meta">
     <span>© 2026 <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a>. All rights reserved: free for students and teachers; see the Terms of Use on the About page.</span>
-    <span class="foot-ver">Updated 6 November 2026</span>
+    <span class="foot-ver">Updated 9 November 2026</span>
   </div>
 </div></footer>
 <script>
@@ -16195,7 +16208,7 @@ function tname0(id) { return id.replace('.', ''); }
 
 </script>
 <script>
-const FOOTER_TEXT = 'Questions are original and written in the style of the IB DP Physics course (first assessment 2025).<br>Developed by <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a> using Claude. © 2026 Mike Poirier. All rights reserved: free for students and teachers; see the Terms of Use on the About page.<br>Version 1.4 Beta · Last updated: 6 November 2026';
+const FOOTER_TEXT = 'Questions are original and written in the style of the IB DP Physics course (first assessment 2025).<br>Developed by <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a> using Claude. © 2026 Mike Poirier. All rights reserved: free for students and teachers; see the Terms of Use on the About page.<br>Version 1.4 Beta · Last updated: 9 November 2026';
 /* ===== MVPhysics Lab — app ===== */
 (function () {
   'use strict';
@@ -16793,7 +16806,8 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     let big = 1n; const put = (v, b) => { big = (big << BigInt(b)) | BigInt(v); };
     const sl = !c.strands.some(id => STRAND[id] && STRAND[id].hl);
     const lk = Math.max(0, LINKED.findIndex(x => x[0] === c.linked)), kd = Math.max(0, CODE_TYPES.findIndex(x => x[0] === c.kind));
-    put(7, 3); put(c.seed & 0xfffff, 20); put(c.fp & 0x3ff, 10); put(c.chili, 3); put(lk, 2); put(sl ? 1 : 0, 1); put(kd, 2); put(c.ms ? 1 : 0, 1); put(c.strict === false ? 0 : 1, 1); put(c.hideClock ? 1 : 0, 1);
+    // format 8 (written as version 0): cover sheet, Paper 1A answer sheet and "students may print results" replace the old countdown bit
+    put(0, 3); put(c.seed & 0xfffff, 20); put(c.fp & 0x3ff, 10); put(c.chili, 3); put(lk, 2); put(sl ? 1 : 0, 1); put(kd, 2); put(c.ms ? 1 : 0, 1); put(c.strict === false ? 0 : 1, 1); put(c.cover ? 1 : 0, 1); put(c.booklet ? 1 : 0, 1); put(c.dl === false ? 0 : 1, 1);
     const papersOn = PAPERS.reduce((a, p, i) => a | ((c.marks[p] || 0) > 0 ? 1 << i : 0), 0);
     const pi = PRESETS.findIndex(t => sameMarks(presetMarks(c, t, papersOn), c.marks));
     if (pi >= 0) { put(0, 1); put(pi, 3); put(papersOn, 3); } else { put(1, 1); PAPERS.forEach(p => put(c.marks[p], 7)); }
@@ -16815,9 +16829,11 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     if (body.length >= 63 && ['001', '010'].includes(body.slice(0, 3))) { c = decodeOld(body); if (c) c.str = group('MVP', toB32(big)); }
     else {
       let pos = 0; const take = (n) => { const v = parseInt(body.slice(pos, pos + n), 2) || 0; pos += n; return v; };
-      const ver = take(3); if (ver < 3 || ver > 7) return null;
-      c = { seed: take(20), fp: take(10), chili: take(3), sl: ver === 4 || ver === 6 }; c.linked = ver >= 5 ? (LINKED[take(2)] || LINKED[0])[0] : 'off'; c.kind = 'online'; c.ms = false; c.strict = true; c.hideClock = false;
-      if (ver === 7) { c.sl = take(1) === 1; c.kind = (CODE_TYPES[take(2)] || CODE_TYPES[0])[0]; c.ms = take(1) === 1; c.strict = take(1) === 1; c.hideClock = take(1) === 1; }
+      const ver = take(3); if (ver !== 0 && (ver < 3 || ver > 7)) return null;
+      c = { seed: take(20), fp: take(10), chili: take(3), sl: ver === 4 || ver === 6 }; c.linked = ver >= 5 || ver === 0 ? (LINKED[take(2)] || LINKED[0])[0] : 'off'; c.kind = 'online'; c.ms = false; c.strict = true; c.hideClock = false; c.cover = false; c.booklet = false; c.dl = true;
+      if (ver === 7 || ver === 0) { c.sl = take(1) === 1; c.kind = (CODE_TYPES[take(2)] || CODE_TYPES[0])[0]; c.ms = take(1) === 1; c.strict = take(1) === 1; }
+      if (ver === 7) { take(1); c.cover = c.booklet = c.kind === 'ib'; } // format 7: the countdown bit is ignored; Test/Exam had both
+      if (ver === 0) { c.cover = take(1) === 1; c.booklet = take(1) === 1; c.dl = take(1) === 1; }
       let preset = null; if (take(1) === 0) preset = [take(3), take(3)]; else c.marks = { '1A': take(7), '1B': take(7), '2': take(7) };
       const byStrand = take(1) === 1, rest = body.slice(pos);
       c.strands = byStrand ? maskRead(rest, codeStrands()) : liveStrandsOf(maskRead(rest, CODE_TOPICS), c.sl);
@@ -16838,10 +16854,15 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   ];
   const realPaperFor = (m) => REAL_PAPERS.find(p => PAPERS.every(k => (p.marks[k] || 0) === (m[k] || 0)));
   function currentMarks() {
-    if (EX.mode === 'paper' && !EX.paper.startsWith(isHL() ? 'hl' : 'sl')) EX.paper = isHL() ? 'hl1' : 'sl1'; return EX.mode === 'custom' ? { ...EX.marks } : EX.mode === 'paper' ? { ...(REAL_PAPERS.find(p => p.id === EX.paper) || REAL_PAPERS[0]).marks } : ibMarks(EX.target); }
+    if (EX.mode === 'paper' && !EX.paper.startsWith(isHL() ? 'hl' : 'sl')) EX.paper = isHL() ? 'hl1' : 'sl1';
+    if (EX.mode === 'paper') return { ...(REAL_PAPERS.find(p => p.id === EX.paper) || REAL_PAPERS[0]).marks };
+    // a paper switched off in Papers (or with no questions) counts as 0 in the total, the time, codes and printing
+    const m = EX.mode === 'custom' ? { ...EX.marks } : ibMarks(EX.target), av = availMarks(pool());
+    PAPERS.forEach(p => { if (!S.settings.papers[p] || !av[p]) m[p] = 0; });
+    return m; }
   function makeClassCode() {
     const marks = currentMarks();
-    const c = { seed: 1 + rnd(0xffffe), chili: [1, 2, 3].reduce((a, k) => a | (S.settings.chili[k] ? 1 << (k - 1) : 0), 0), marks, strands: effSel(), linked: S.settings.linked || 'off', kind: EX.kind || 'online', ms: !!EX.ms, strict: EX.strict, hideClock: false }; c.sl = !c.strands.some(id => STRAND[id] && STRAND[id].hl);
+    const c = { seed: 1 + rnd(0xffffe), chili: [1, 2, 3].reduce((a, k) => a | (S.settings.chili[k] ? 1 << (k - 1) : 0), 0), marks, strands: effSel(), linked: S.settings.linked || 'off', kind: EX.kind || 'online', ms: !!EX.ms, strict: EX.strict, hideClock: false, cover: !!EX.cover, booklet: !!EX.booklet, dl: EX.dl !== false }; c.sl = !c.strands.some(id => STRAND[id] && STRAND[id].hl);
     PAPERS.forEach(p => { if (!S.settings.papers[p] && EX.mode !== 'paper') c.marks[p] = 0; c.marks[p] = Math.min(p === '1A' ? MAX_1A : 127, c.marks[p]); });
     if (!sumMarks(c.marks) || !codePool(c).length) return null;
     c.fp = fp10(codePool(c)); c.fpOk = true; c.str = encodeCode(c);
@@ -16881,8 +16902,11 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     else { b.disabled = false; if (msg) msg.textContent = 'That passphrase is not right.'; }
   });
   document.addEventListener('keydown', (e) => { if (e.target && e.target.id === 'tPass' && e.key === 'Enter') { e.preventDefault(); const g = document.getElementById('tGo'); if (g) g.click(); } });
-  const CODE_TYPES = [['online', 'Online', 'Students take it on screen, timed'], ['sheet', 'Worksheet', 'A printable worksheet: questions, then the markscheme if you allow it'], ['ib', 'Test/Exam', 'A printable IB-style test: cover sheet, Paper 1A answer sheet, Paper 1A, 1B and 2 in IB order']];
+  const CODE_TYPES = [['online', 'Online', 'Students take it on screen, timed'], ['sheet', 'Worksheet', 'A printable worksheet: questions, then the markscheme if you allow it (cover sheet and answer booklet off to start)'], ['ib', 'Test/Exam', 'A printable IB-style test: Paper 1A, 1B and 2 in IB order (cover sheet and answer booklet on to start)']];
   const kindName = (k) => (CODE_TYPES.find(x => x[0] === k) || CODE_TYPES[0])[1];
+  const codeOpts = (c) => c.kind === 'online'
+    ? `Finish ${c.strict ? 'Strict' : 'Soft'} · students ${c.dl === false ? 'cannot' : 'can'} print or download their results`
+    : `markscheme ${c.ms ? 'included' : 'not included'} for students · cover sheet ${c.cover ? 'on' : 'off'} · answer booklet ${c.booklet ? 'on' : 'off'}`;
   // what a student sees in Test Mode without teacher access: a class code box, then only what the code allows (1.4)
   function studentExamView() {
     const intro = head('Test Mode 📝', 'Tests set by your teacher. Enter the class code your teacher gives you.');
@@ -16895,13 +16919,13 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
       ${c.fpOk ? '' : '<p class="warn small">This code was made with a different version of the question bank, so your paper may not match your classmates\' papers. Ask for a new code.</p>'}
       <div class="row"><button class="btn sm btn-clear" id="exClear">Clear</button></div></div>`;
     const act = kind === 'online'
-      ? `<p class="small">Finish: <b>${c.strict ? 'Strict' : 'Soft'}</b> (${c.strict ? 'answers lock when time runs out' : 'you can keep going; overtime is recorded'}) · The timer starts shown; you can hide it during the test.</p><div class="row"><button class="btn primary" id="exStart">Start</button></div>`
-      : `<p class="small">${kind === 'ib' ? 'An IB-style paper with a cover sheet and a Paper 1A answer sheet.' : 'A worksheet of questions.'} ${c.ms ? 'The markscheme is at the end.' : 'Your teacher has the markscheme.'}</p>
+      ? `<p class="small">Finish: <b>${c.strict ? 'Strict' : 'Soft'}</b> (${c.strict ? 'answers lock when time runs out' : 'you can keep going; overtime is recorded'}) · The timer starts shown; you can hide it or mute its alerts during the test.</p><div class="row"><button class="btn primary" id="exStart">Start</button></div>`
+      : `<p class="small">${c.cover && c.booklet ? 'A paper with a cover sheet and a Paper 1A answer sheet.' : c.cover ? 'A paper with a cover sheet.' : c.booklet ? 'A paper with a Paper 1A answer sheet.' : kind === 'ib' ? 'A test paper.' : 'A worksheet of questions.'} ${c.ms ? 'The markscheme is at the end.' : 'Your teacher has the markscheme.'}</p>
         <div class="row"><button class="btn primary" id="wsOpen">🖨 Print/PDF</button></div><p class="muted small" id="wsStatus"></p>`;
     return head('Test Mode 📝', 'A test set by your teacher.') + `<section class="panel exset"><div class="exrow"><div class="exlab">Class code</div><div class="exctl">${box}</div></div><div class="exgo">${act}</div></section>${teacherLine()}`;
   }
   function renderExam(main) {
-    if (!EX) EX = { phase: 'setup', mode: 'ib', paper: 'sl1', target: 30, kind: 'online', ms: false, marks: { '1A': 5, '1B': 4, '2': 11 }, strict: true, hideClock: false, code: null };
+    if (!EX) EX = { phase: 'setup', mode: 'ib', paper: 'sl1', target: 30, kind: 'online', ms: false, cover: false, booklet: false, dl: true, marks: { '1A': 5, '1B': 4, '2': 11 }, strict: true, hideClock: false, code: null };
     if (EX.phase === 'setup') {
       const n = (EX.mode === 'paper' ? pool({ ignorePapers: true }) : pool()).length, av = availMarks(pool());
       const seg = (attr, val, label, on) => `<button type="button" data-${attr}="${val}" aria-pressed="${on}">${label}</button>`;
@@ -16927,15 +16951,20 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
         <section class="panel exset">
           <div class="exrow"><div class="exlab">${EX.code ? 'Class code' : 'Length'}</div><div class="exctl">${length}</div></div>
           <div class="exrow"><div class="exlab">Finish</div><div class="exctl"><div class="seg" role="group" aria-label="Finish">${seg('exfin', 'strict', 'Strict', EX.strict)}${seg('exfin', 'soft', 'Soft', !EX.strict)}</div><span class="muted small">${fin}</span></div></div>
-          ${EX.code ? `<div class="exrow"><div class="exlab">Code type</div><div class="exctl"><b>${kindName(EX.code.kind)}</b>${EX.code.kind !== 'online' ? ` · <span class="muted">markscheme ${EX.code.ms ? 'included' : 'not included'} for students</span>` : ''}</div></div>` : `<div class="exrow"><div class="exlab">Code type</div><div class="exctl"><div class="seg" role="group" aria-label="Code type">${CODE_TYPES.map(([k, l]) => seg('exkind', k, l, EX.kind === k)).join('')}</div>
+          ${EX.code ? `<div class="exrow"><div class="exlab">Code type</div><div class="exctl"><b>${kindName(EX.code.kind)}</b> · <span class="muted">${codeOpts(EX.code)}</span></div></div>` : `<div class="exrow"><div class="exlab">Code type</div><div class="exctl"><div class="seg" role="group" aria-label="Code type">${CODE_TYPES.map(([k, l]) => seg('exkind', k, l, EX.kind === k)).join('')}</div>
             <span class="muted small">${(CODE_TYPES.find(x => x[0] === EX.kind) || CODE_TYPES[0])[2]}. Students who enter the code get only this.</span>
-            ${EX.kind !== 'online' ? `<div class="seg" role="group" aria-label="Markscheme for students" style="margin-top:8px">${seg('exms', 'no', 'Questions only', !EX.ms)}${seg('exms', 'yes', 'With markscheme', EX.ms)}</div>` : '<span class="muted small">The code also sets Finish as chosen above. Print/PDF gives a worksheet copy as a backup.</span>'}</div></div>`}
+            ${EX.kind !== 'online' ? `<div class="ex-opts">
+              <div class="ex-opt"><span class="small">Markscheme for students</span><div class="seg" role="group" aria-label="Markscheme for students">${seg('exms', 'no', 'Questions only', !EX.ms)}${seg('exms', 'yes', 'With markscheme', EX.ms)}</div></div>
+              <div class="ex-opt"><span class="small">Cover sheet</span><div class="seg" role="group" aria-label="Cover sheet">${seg('excover', 'on', 'On', !!EX.cover)}${seg('excover', 'off', 'Off', !EX.cover)}</div></div>
+              <div class="ex-opt"><span class="small">Answer booklet <span class="muted">(Paper 1A answer sheet)</span></span><div class="seg" role="group" aria-label="Answer booklet">${seg('exbook', 'on', 'On', !!EX.booklet)}${seg('exbook', 'off', 'Off', !EX.booklet)}</div></div></div>`
+              : `<div class="ex-opts"><div class="ex-opt"><span class="small">Students can print or download their results</span><div class="seg" role="group" aria-label="Students can print or download their results">${seg('exdl', 'on', 'On', EX.dl !== false)}${seg('exdl', 'off', 'Off', EX.dl === false)}</div></div></div>
+              <span class="muted small">The code also sets Finish as chosen above. Print/PDF gives a printable copy as a backup.</span>`}</div></div>`}
           ${EX.code ? '' : `<div class="exrow"><div class="exlab">Class code <span class="exopt">optional</span></div><div class="exctl">
             <div class="codeform"><input type="text" id="exCodeIn" class="codein" data-prefix="MVP" value="MVP-" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Class code (starts MVP-)"><button class="btn sm" id="exUse">Use</button><span class="muted small">or</span><button class="btn primary sm" id="exMake">Make a Code</button></div>
             <span class="muted small">Same code, same questions and values for everyone.</span></div></div>`}
           <div class="exgo"><div class="row"><button class="btn primary" id="exStart">Start</button><button class="btn" id="wsOpen">🖨 Print/PDF</button></div>
             <div class="row ex-out"><span class="muted small">Print or download:</span><div class="seg" role="group" aria-label="What to print">${[['student', 'Student Copy'], ['ms', 'Markscheme'], ['both', 'Both']].map(([k, l]) => seg('exout', k, l, (EX.out || 'both') === k)).join('')}</div><span class="muted small">${(EX.out || 'both') === 'student' ? (EX.code && EX.code.kind !== 'online' ? 'Exactly what students get from the code.' : 'Questions only.') : (EX.out || 'both') === 'ms' ? 'Overview, answer key and markscheme only.' : 'Questions, then the markscheme.'}</span></div>
-            <p class="muted small" id="wsStatus">Print/PDF opens the paper in a new tab with the print window: choose a printer, or Save as PDF. The layout follows the code type (Worksheet or Test/Exam). The class code appears only on the markscheme pages.</p></div>
+            <p class="muted small" id="wsStatus">Print/PDF opens the paper in a new tab with the print window: choose a printer, or Save as PDF. The layout follows the code type and its Cover sheet and Answer booklet switches. The class code appears only on the markscheme pages, and the file is named after it.</p></div>
         </section>${teacherLine()}` : emptySel() + teacherLine());
       return;
     }
@@ -16954,14 +16983,14 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
       <div class="instrument ex-inst"><div id="exInst"></div>${pauseBtn('exam')}</div>
       <div class="palette" role="group" aria-label="Questions">${EX.items.map((x, i) => `<button data-go="${i}" class="${x.answer !== null || x.done ? 'answered' : ''} ${i === EX.cur ? 'current' : ''}" aria-label="Question ${i + 1}">${i + 1}</button>`).join('')}</div>
       <article class="sheet" id="sheet"><div class="qmeta"><span class="paper">${PAPER_NAME[q.paper]}</span><span class="marks">Question ${EX.cur + 1} [${q.marks} mark${q.marks > 1 ? 's' : ''}]</span></div>${body}</article>
-      <div class="row"><button class="btn" id="exPrev" ${EX.cur === 0 ? 'disabled' : ''}>Previous</button><button class="btn" id="exNext" ${EX.cur === EX.items.length - 1 ? 'disabled' : ''}>Next</button><span class="spacer"></span><button class="btn primary" id="exFinish">Finish Paper</button></div>
-      <div id="exConfirm"></div>`;
+      <div class="row"><button class="btn" id="exPrev" ${EX.cur === 0 ? 'disabled' : ''}>Previous</button><button class="btn" id="exNext" ${EX.cur === EX.items.length - 1 ? 'disabled' : ''}>Next</button></div>`;
     typeset($('#sheet'));
     tickExam();
   }
   // short chimes made in the browser (no sound files, works offline); started from the Start click so browsers allow it
   let AC = null;
   function chime(n = 2, low = false) {
+    if (S.settings.mute) return;
     try {
       AC = AC || new (window.AudioContext || window.webkitAudioContext)(); if (AC.state === 'suspended') AC.resume();
       for (let i = 0; i < n; i++) { const t = AC.currentTime + i * 0.32, o = AC.createOscillator(), g = AC.createGain(); o.type = 'sine'; o.frequency.value = low ? 660 : 880;
@@ -16977,9 +17006,20 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     const doneMarks = EX.items.filter(x => x.answer !== null || x.done).reduce((a, x) => a + x.q.marks, 0);
     const expMarks = Math.min(EX.total, EX.total * el / EX.allowed);
     const behind = doneMarks + 0.5 < expMarks;
-    inst.innerHTML = `<div class="row">${EX.hideClock ? '<span class="clock muted" style="font-size:15px">Timer hidden</span>' : `<span class="clock ${left < 0 ? 'over' : left < 300 ? 'low' : ''}">${left >= 0 ? fmtClock(left) : fmtClock(left) + ' over'}</span>`}<button type="button" class="btn sm ghost" id="exClockTog">${EX.hideClock ? 'Show timer' : 'Hide timer'}</button><span class="spacer"></span><span class="pill ${behind ? 'warn' : 'good'}">${behind ? 'Behind pace' : 'On pace'}</span>${EX.pauses ? `<span class="pill neutral num" title="Pauses so far">⏸ ${EX.pauses}</span>` : ''}</div>
-      <div class="pace ${behind ? 'behind' : ''}"><div class="done" style="width:${100 * doneMarks / EX.total}%"></div><div class="exp" style="left:${Math.min(100, 100 * expMarks / EX.total)}%"></div></div>
-      <div class="pace-legend"><span>Done: <b class="num">${doneMarks}</b> of ${EX.total} marks</span><span>By now at exam pace: <b class="num">${Math.round(expMarks)}</b> marks</span></div>`;
+    // 1.4 (9 Nov): the panel is built once and then updated, so the buttons and the alert-line tooltips stay put
+    if (!inst.firstChild) inst.innerHTML = `<div class="row"><span id="exClk"></span><button type="button" class="btn sm ghost" id="exClockTog"></button><button type="button" class="btn sm ghost" id="exMute"></button><span class="spacer"></span><span id="exPacePill"></span><span id="exPz"></span></div>
+      <div class="pace-row"><div class="pace" id="exPace"><div class="done"></div><div class="exp"></div>${[30, 15, 5].filter(m => EX.allowed > m * 60).map(m => `<span class="alert-line" style="left:${(100 * (EX.allowed - m * 60) / EX.allowed).toFixed(2)}%" data-tip="${m} minutes left: a chime and a message when the time marker reaches this line" tabindex="0" aria-label="Alert at ${m} minutes left"></span>`).join('')}</div><button type="button" class="btn sm btn-finish" id="exFinish">Finish Paper</button></div>
+      <div class="pace-legend" id="exLeg"></div><div id="exConfirm"></div>`;
+    const clk = $('#exClk', inst);
+    if (EX.hideClock) { clk.className = 'clock muted'; clk.style.fontSize = '15px'; clk.textContent = 'Timer hidden'; }
+    else { clk.className = `clock ${left < 0 ? 'over' : left < 300 ? 'low' : ''}`; clk.style.fontSize = ''; clk.textContent = left >= 0 ? fmtClock(left) : fmtClock(left) + ' over'; }
+    $('#exClockTog', inst).textContent = EX.hideClock ? 'Show timer' : 'Hide timer';
+    const mu = $('#exMute', inst); mu.textContent = S.settings.mute ? '🔕 Sound off' : '🔔 Sound on'; mu.setAttribute('aria-pressed', String(!!S.settings.mute)); mu.setAttribute('data-tip', S.settings.mute ? 'Alert sounds are off; the messages still show. Click to turn the sound on.' : 'Click to mute the alert chimes (the messages still show).');
+    $('#exPacePill', inst).innerHTML = `<span class="pill ${behind ? 'warn' : 'good'}">${behind ? 'Behind pace' : 'On pace'}</span>`;
+    $('#exPz', inst).innerHTML = EX.pauses ? `<span class="pill neutral num" title="Pauses so far">⏸ ${EX.pauses}</span>` : '';
+    const pace = $('#exPace', inst); pace.classList.toggle('behind', behind);
+    $('.done', pace).style.width = (100 * doneMarks / EX.total) + '%'; $('.exp', pace).style.left = Math.min(100, 100 * expMarks / EX.total) + '%';
+    $('#exLeg', inst).innerHTML = `<span>Done: <b class="num">${doneMarks}</b> of ${EX.total} marks</span><span>By now at exam pace: <b class="num">${Math.round(expMarks)}</b> marks</span>${[30, 15, 5].some(m => EX.allowed > m * 60) ? '<span><i class="alert-key"></i> alerts</span>' : ''}`;
     if (!EX.alert.half && el >= EX.allowed / 2) { EX.alert.half = true; toast('Halfway through the time.'); }
     // 1.4: chime and message at 30, 15 and 5 minutes left (only those shorter than the test) and when time is up
     for (const m of [30, 15, 5]) if (!EX.alert['m' + m] && EX.allowed > m * 60 && left <= m * 60 && left > 0) { EX.alert['m' + m] = true; chime(m === 5 ? 3 : 2); toast(`${m} minutes left.`); }
@@ -17014,6 +17054,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
         <div class="tile"><span class="k">Time</span><span class="v num">${fmtClock(used)}</span><span class="s">${used > EX.allowed ? `<span style="color:var(--bad)">${fmtClock(used - EX.allowed)} over</span>` : `${fmtClock(EX.allowed - used)} to spare`}</span></div>
         ${gradeTile()}`;
   }
+  const canPrintResults = () => TEACHER || !EX.code || EX.code.dl !== false;
   function gradeTile() {
     const r = exScore();
     const s = r.unmarked ? 'Tick the markscheme first' : EX.total < 20 ? 'Rough guide: short paper' : `Estimate · ${EX.hl ? 'HL' : 'SL'}`;
@@ -17036,8 +17077,8 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
         else b = `<div class="qbody">${inst.intro}</div><div class="parts">${inst.parts.map(p => `<div class="part"><span class="plabel">(${p.label})</span><div class="pbody qbody">${partPrompt(p)}</div><span class="pmarks">[${p.marks}]</span>${x.texts[p.label] ? `<div class="ms" style="border-left-color:var(--line)"><span class="muted small">Your answer</span><div>${esc(x.texts[p.label])}</div></div>` : ''}${msBlock(p, x.ticks, i + ':' + p.label, EX.saved)}</div>`).join('')}</div>`;
         return `<article class="sheet exam-item"><div class="qmeta"><span class="paper">${PAPER_NAME[q.paper]}</span>${chiliIcon(q.chili)}<span class="marks">Question ${i + 1} [${q.marks}]</span><span>${esc(q.title)}</span><span class="num">${fmtMin(x.time / 1000)}</span></div>${b}${reportBox(q, x.seed, 'Test Mode' + (EX.code ? ' ' + EX.code.str : ''))}</article>`;
       }).join('')}
-      <div class="row">${EX.saved ? '<span class="pill good">Results saved to your stats</span>' : '<button class="btn primary" id="exSave">Save Results to My Stats</button>'}<button class="btn" id="exPrint">🖨 Print Results</button><button class="btn" id="exDownload">⬇ Download Results</button><button class="btn" id="exNew">New Paper</button></div>
-      <p class="muted small" id="exDlStatus">Print results opens them in a new tab with the print window (choose a printer, or Save as PDF). The file has every question, your answers, the markschemes you ticked, your score, time, pauses and estimated grade.</p>`;
+      <div class="row">${EX.saved ? '<span class="pill good">Results saved to your stats</span>' : '<button class="btn primary" id="exSave">Save Results to My Stats</button>'}${canPrintResults() ? '<button class="btn" id="exPrint">🖨 Print/PDF</button>' : ''}${TEACHER ? '<span class="spacer"></span><button class="btn" id="exBack">Back to Test Set-up</button>' : ''}</div>
+      <p class="muted small" id="exDlStatus">${canPrintResults() ? 'Print/PDF opens your results in a new tab with the print window: choose a printer, or Save as PDF. It has every question, your answers, the markschemes you ticked, your score, time, pauses and estimated grade.' : 'Your teacher has turned off printing and downloading results for this test.'}</p>`;
     $$('.exam-item', main).forEach(typeset);
   }
   function bindExam(main) {
@@ -17051,11 +17092,15 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     main.onclick = (e) => {
       const b = e.target.closest('button'); if (!b) return;
       if (b.id === 'exClockTog' && EX && EX.phase === 'run') { EX.hideClock = !EX.hideClock; tickExam(); return; }
+      if (b.id === 'exMute' && EX && EX.phase === 'run') { S.settings.mute = !S.settings.mute; save(); tickExam(); toast(S.settings.mute ? 'Alert sounds off. The messages still show.' : 'Alert sounds on.'); return; }
       if (EX && EX.phase === 'setup') {
         const d = b.dataset;
         if (d.exmode) { EX.mode = d.exmode; if (EX.mode === 'custom' && !sumMarks(EX.marks)) EX.marks = ibMarks(EX.target); renderExam(main); return; }
         if (d.extarget) { if (d.extarget === 'custom') EX.tcustom = true; else { EX.tcustom = false; EX.target = +d.extarget; } EX.marks = ibMarks(EX.target); renderExam(main); return; }
-        if (d.exkind) { EX.kind = d.exkind; renderExam(main); return; }
+        if (d.exkind) { EX.kind = d.exkind; if (EX.kind !== 'online') EX.cover = EX.booklet = EX.kind === 'ib'; renderExam(main); return; } // Worksheet and Test/Exam are presets for the two layout switches
+        if (d.excover) { EX.cover = d.excover === 'on'; renderExam(main); return; }
+        if (d.exbook) { EX.booklet = d.exbook === 'on'; renderExam(main); return; }
+        if (d.exdl) { EX.dl = d.exdl === 'on'; renderExam(main); return; }
         if (d.exout) { EX.out = d.exout; renderExam(main); return; }
         if (d.exms) { EX.ms = d.exms === 'yes'; renderExam(main); return; }
         if (d.expaper) { EX.paper = d.expaper; renderExam(main); return; }
@@ -17106,9 +17151,9 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
           S.exams.push({ ts: now(), total: EX.total, score: sc, grade: estGrade(100 * sc / EX.total, EX.hl), seed: EX.code ? EX.code.str : EX.seed, used: Math.round((EX.finishedAt - EX.start) / 1000), allowed: EX.allowed, lvl: EX.level, pauses: EX.pauses || 0, paused: Math.round((EX.pausedMs || 0) / 1000) });
           EX.saved = true; save(); renderExamReview(main); renderRail(); toast('Results saved.'); return;
         }
-        if (b.id === 'exDownload') { examReport(); return; }
-        if (b.id === 'exPrint') { examReport('open'); return; }
-        if (b.id === 'exNew') { EX = { phase: 'setup', mode: EX.mode, paper: EX.paper, target: EX.target, marks: EX.marks, strict: EX.strict, hideClock: EX.hideClock, code: EX.code }; renderExam(main); return; }
+        if (b.id === 'exPrint' && canPrintResults()) { examReport('open'); return; }
+        // 1.4: no New Paper or redo for students (Mike, 9 Nov); teachers can go back to the set-up
+        if (b.id === 'exBack' && TEACHER) { EX = { phase: 'setup', mode: EX.mode, paper: EX.paper, target: EX.target, tcustom: EX.tcustom, kind: EX.kind, ms: EX.ms, cover: EX.cover, booklet: EX.booklet, dl: EX.dl, out: EX.out, marks: EX.marks, strict: EX.strict, hideClock: false, code: EX.code }; renderExam(main); return; }
       }
     };
     main.onchange = (e) => {
@@ -18064,7 +18109,7 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
   /* Printable files (worksheets, exam results): authorship comment at the top, and a watermark line on every printed page
      (CSS page-margin boxes: Chrome and Edge) plus a footer at the end of the document (all browsers). */
   const SITE_URL = 'https://mvpoirier.github.io/physics-lab/', REPO_URL = 'https://github.com/mvpoirier/mvpoirier.github.io';
-  const DOC_DATE = '6 November 2026';
+  const DOC_DATE = '9 November 2026';
   const docComment = (what, id) => `<!--
   MVPhysics Lab · ${what}${id ? ' · ' + id : ''}
   Made with version ${APP_VERSION} (built ${DOC_DATE}) on ${new Date().toISOString().slice(0, 10)}
@@ -18208,8 +18253,12 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
     const w = mode === 'open' ? openWin('Preparing your paper…') : null;
     const status = $('#wsStatus');
     const code = EX && EX.code ? EX.code : makeClassCode();
-    const kindNow = EX && EX.code ? EX.code.kind : (currentView() === 'exam' ? (EX && EX.kind) || 'online' : (WS.cover === true ? 'ib' : 'sheet'));
-    let cover = kindNow === 'ib', answers = true, msOnly = variant === 'ms';
+    // 1.4: the cover sheet and the Paper 1A answer sheet (answer booklet) are separate switches; Worksheet and Test/Exam only set their starting values
+    const src = EX && EX.code ? EX.code : currentView() === 'exam' ? EX : null;
+    let cover, booklet;
+    if (src) { const online = (src.kind || 'online') === 'online'; cover = !online && !!src.cover; booklet = !online && !!src.booklet; }
+    else cover = booklet = WS.cover === true;
+    let answers = true, msOnly = variant === 'ms';
     if (code && !TEACHER && EX && EX.code) { if (EX.code.kind === 'online') { toast('This code is for an online test.'); return; } variant = 'student'; msOnly = false; }
     if (variant === 'student') answers = EX && EX.code && EX.code.kind !== 'online' ? !!EX.code.ms : false;
     if (!code) { toast('No questions match your selection.'); return; }
@@ -18222,25 +18271,27 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
     const strands = topicsOf(code.strands) + ': ' + code.strands.filter(id => STRAND[id] && STRAND[id].live).map(id => STRAND[id].name).join(', ');
     const box = document.createElement('div');
     box.style.cssText = 'position:absolute;left:-10000px;top:0;width:760px';
-    box.innerHTML = `<div id="wsQ">${paperSections(items, cover)}</div>${answers ? `<div id="wsA">${items.map((it, i) => wsAnswer(it, i + 1)).join('')}</div>` : ''}`;
+    box.innerHTML = `<div id="wsQ">${paperSections(items, booklet)}</div>${answers ? `<div id="wsA">${items.map((it, i) => wsAnswer(it, i + 1)).join('')}</div>` : ''}`;
     document.body.appendChild(box);
     try { if (window.MathJax && MathJax.typesetPromise) await MathJax.typesetPromise([box]); } catch (e) { /* keep raw LaTeX */ }
     const mjCss = (window.MathJax && MathJax.svgStylesheet) ? MathJax.svgStylesheet().textContent : '';
     const qHTML = $('#wsQ', box).innerHTML, aHTML = answers ? $('#wsA', box).innerHTML : '';
     box.remove();
     const date = new Date().toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' });
+    // the title becomes the suggested PDF file name; the code always goes last, in brackets (Mike, 9 Nov)
+    const docTitle = `MVPhysics Lab Test${msOnly ? ' Markscheme' : answers ? ' with Markscheme' : ''} (${code.str})`;
     const doc = `<!doctype html>
-${docComment(msOnly ? 'Markscheme' : 'Practice paper', answers ? 'Class code ' + code.str : '')}<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MVPhysics Lab worksheet</title>
+${docComment(msOnly ? 'Markscheme' : 'Practice paper', answers ? 'Class code ' + code.str : '')}<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(docTitle)}</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700;900&display=swap"><style>${mjCss}${WS_CSS}</style></head><body>
-<div class="hint"><span>To make a PDF: Print this page, then choose <b>Save as PDF</b>. ${cover ? 'Order: cover sheet, Paper 1A answer sheet, Paper 1A, Paper 1B, Paper 2, then the markschemes. ' : 'The markschemes start on a new page. '}</span><button onclick="window.print()">Print</button></div>
+<div class="hint"><span>To make a PDF: Print this page, then choose <b>Save as PDF</b>. ${cover || booklet ? `Order: ${[cover && 'cover sheet', booklet && 'Paper 1A answer sheet', 'the papers in IB order'].filter(Boolean).join(', ')}${answers ? ', then the markschemes' : ''}. ` : answers ? 'The markschemes start on a new page. ' : ''}</span><button onclick="window.print()">Print</button></div>
 ${msOnly ? `<div class="wshead"><h1><b>MVP</b>hysics Lab · Markscheme</h1><div class="wscode">${code.str}</div></div>` : cover ? coverSheet(items, code, total, mins) : `<div class="wshead"><h1><b>MVP</b>hysics Lab · Practice Paper</h1></div>
 <div class="meta"><span>${PAPERS.filter(p => items.some(x => x.q.paper === p)).map(p => `${PAPER_NAME[p]} (${items.filter(x => x.q.paper === p).reduce((n, x) => n + x.q.marks, 0)})`).join(' · ')} · <b>Total (${total})</b></span><span>${mins} min</span><span>${esc(topicsOf(code.strands))}</span><span>Made ${date}</span></div>
 <div class="namebox"><span>Name:</span><span>Date:</span><span class="sc"><span style="border:0;padding:0">Score:</span><span style="border:0;padding:0">/ ${total}</span></span></div>`}
-${!msOnly && cover ? mcqSheet(items, code, false) : ''}
+${!msOnly && booklet ? mcqSheet(items, code, false) : ''}
 ${msOnly ? '' : qHTML}
 ${answers ? `${overviewPage(items, code, total)}<div class="answers"><h2>Markscheme <span class="wscode small">${code.str}</span></h2>${mcqSheet(items, code, true)}${aHTML}</div>` : ''}
 ${docWatermark('')}${docFooter(answers ? 'Class code ' + code.str + ' (markscheme)' : '')}</body></html>`;
-    const filename = `MVPhysics-${msOnly ? 'markscheme' : variant === 'student' ? 'student-copy' : 'paper'}-${code.str}.html`;
+    const filename = docTitle + '.html';
     if (mode === 'open') return showDoc(w, filename, doc, status, `✅ Opened in a new tab with the print window: choose a printer, or Save as PDF. Class code <b class="num">${code.str}</b> will recreate the paper.`);
     await saveFile(filename, doc, status, `✅ File saved! Class code <b class="num">${code.str}</b> will recreate the paper.`);
   }
@@ -18283,9 +18334,10 @@ ${docWatermark('')}${docFooter(answers ? 'Class code ' + code.str + ' (markschem
     const body = box.innerHTML; box.remove();
     const taken = new Date(EX.takenAt || EX.start), dateStr = taken.toLocaleString(undefined, { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
     const seedTxt = EX.code ? `Class code ${EX.code.str}` : `Paper seed ${EX.seed}`;
+    const resTitle = `MVPhysics Lab Test Results (${EX.code ? EX.code.str : taken.toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })})`;
     const rows = EX.items.map((x, i) => { const sc = x.q.paper === '1A' ? (x.answer === x.inst.answer ? 1 : 0) : writtenScore(x.inst, x.ticks); return `<tr><td>${i + 1}</td><td>${PAPER_NAME[x.q.paper]}</td><td>${esc(x.q.title)}</td><td>${sc} / ${x.q.marks}</td><td>${fmtMin(x.time / 1000)}</td><td>${x.seed}</td></tr>`; }).join('');
     const doc = `<!doctype html>
-${docComment('Exam results', seedTxt)}<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MVPhysics Lab exam results</title>
+${docComment('Exam results', seedTxt)}<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(resTitle)}</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700;900&display=swap"><style>${mjCss}${WS_CSS}${REP_CSS}</style></head><body>
 <div class="hint"><span>To make a PDF: Print this page, then choose <b>Save as PDF</b>.</span><button onclick="window.print()">Print</button></div>
 <div class="wshead"><h1><b>MVP</b>hysics Lab · Exam Results</h1><div class="wscode">${esc(seedTxt)}</div></div>
@@ -18297,8 +18349,7 @@ ${docComment('Exam results', seedTxt)}<html lang="en"><head><meta charset="utf-8
 <h2>Summary</h2><table class="rs"><thead><tr><th>#</th><th>Paper</th><th>Question</th><th>Marks</th><th>Time</th><th>Seed</th></tr></thead><tbody>${rows}</tbody></table>
 <h2>Questions, your answers and markschemes</h2>${body}
 ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
-    const stamp = `${taken.getFullYear()}-${String(taken.getMonth() + 1).padStart(2, '0')}-${String(taken.getDate()).padStart(2, '0')}`;
-    const fname = `MVPhysics-results-${stamp}-${EX.code ? EX.code.str : EX.seed}.html`;
+    const fname = resTitle + '.html';
     if (mode === 'open') return showDoc(w, fname, doc, status, '✅ Opened in a new tab with the print window: choose a printer, or Save as PDF.');
     await saveFile(fname, doc, status, '✅ Results saved. Open the file to read or print it.');
   }
@@ -18408,7 +18459,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     { v: '1.1 Beta', d: '3 November 2026', m: 'Claude Opus 5.5', items: ['Games and Recall now open with cards for each mode and a short description; inside a mode, “← All games” or “← All recall modes” takes you back.', 'The offline copy shows an OFFLINE badge next to the version, with a tooltip explaining it.', 'New Welcome page: a quick guide to every mode, a short tour, and how to use the site for revision. Click the MVPhysics heading at any time to come back to it.', 'Blitz is now part of Games 🕹️, with two modes so far: Blitz and Last Man Standing. More game modes will follow.', '“Only questions I’ve missed” is now at the top of the question panel in Practice and highlighted when you have missed questions to practise (it now applies to Practice only; Exam Mode always uses your full selection).', 'Stats: a Last Man Standing best tile; Blitz average time to 0.1 s.', 'The version is shown in the badge (BETA 1.1), and the Claude model used for each build is listed in this revision history.', 'Fixed: flashcards scrolled sideways on phones.', 'Last Man Standing: a Give up button (with a check first); a run you give up does not count as a best time.', 'Last Man Standing: after every run, a review of each question you answered, right or wrong, with the worked solution. Wrong answers go into "Only questions I\'ve missed".', 'Last Man Standing has its own stats (runs, best survival, recent runs), separate from Blitz Classic, so the Blitz stats now show the right mode.', 'Notes and Recall: the All and None buttons stay together.', 'Removed Saved selections from the question panel.', 'Solutions for radiated intensity now start from the data booklet equation L = σAT⁴ (or eσAT⁴).', 'FE2028 percentage error, difference and change equations shown as separate equations.'] },
     { v: '1.2 Beta', d: '4 November 2026', m: 'Claude Opus 5.5', items: ['The site is now called <b>MVPhysics Lab</b>, with a new address: <b>mvpoirier.github.io/mvphysics/</b>. The old revision-lab address takes you there automatically, and your saved progress carries over. A 🏆 now shows on the browser tab.', 'The site address (with nothing after it) now always opens the Welcome page. Links to a page, such as …/#practice or …/#games, still open that page.', 'The Welcome page is simpler: the welcome message, what’s here and how to revise. The start buttons, level switch and tour are gone (use SL/HL at the top of the page).', 'Printed papers look like IB exams: answer boxes with a border and dotted lines. With “IB-style test” ticked, the order is cover sheet (topics, marks, time, instructions, class code), Paper 1A answer sheet (always 40 rows), Paper 1A, Paper 1B, Paper 2, then the markschemes, starting with the answer sheet with the correct answers crossed.', 'Games: Blitz now ends with a review of every question you answered, with worked solutions, and both Blitz and Last Man Standing can print their results.', 'The Print buttons open the paper or results in a new tab with the print window already open: choose a printer, or Save as PDF.', 'Printed tests: no site name on the cover; the class code appears only on the markscheme pages; the answer sheet lists the topics; and a one-page question overview (topics, strand, difficulty and marks for every question) comes before the markschemes.', 'Last Man Standing: choose the starting time (3, 5 or 10 minutes, or your own).', 'New Syllabus toggle (FE2025 / FE2028) in the Questions panel and in Recall. FE2025 is on by default; FE2028 adds content that is new for exams from May 2028, tagged FE2028.', 'Game stats are now on each game’s own screen and on the Stats page.', 'More resources on precision, accuracy, percentage error and percentage difference; more solutions now start from the data booklet equation.'] },
     { v: '1.3 Beta', d: '5 November 2026', m: 'Claude Opus 5.5', items: ['New game: <b>Unit Detective 🔍</b>. Five case files on units: The Mystery Quantity (identify), Down to the Bones (SI base units), The Scales of Justice (is the equation homogeneous?), The Impostor Equation (the one formula that could be right) and The Deduction (predict a formula from units alone). Play an untimed Investigation of 10 clues, or The Chase against the clock. Harder “case file” clues include constants such as σ, G, μ<sub>0</sub> and ε<sub>0</sub>.', 'The side panel is now called <b>Topics</b> and appears in Recall and Notes too. One selection is shared by every mode; the topic chips at the top of Recall and Notes are gone.', 'Command terms: a switch at the top of the Topics panel in Recall and Notes. Notes now has a Command terms section, grouped by assessment objective, with worked examples of which answer earns the marks.', 'Stats has section buttons: Practice, Exam, Games and Recall. Unit Detective scores are under Games.', 'The space above the footer is the same on every page.', '“← All Games” and “← All Recall Modes” are now buttons. The backup box in Stats has its own colour.', 'Clearer feedback links: <b>🚩 Report a Problem</b> under each question, card and note; <b>💬 Send Feedback</b> in the footer on every page.', 'Headings and buttons use Title Case.', 'Unit Detective uses the same look as the rest of the site.', 'New address: <b>mvpoirier.github.io/physics-lab/</b>. Old links (…/mvphysics/ and …/revision-lab/) still work and your progress carries over.', 'Stats opens straight on its sections (the summary cards at the top are gone). Reset All Progress is a red button.', 'About: the revision history starts collapsed, with one group per major Beta version and a short summary of the Alpha builds.'] },
-    { v: '1.4 Beta', d: '6 November 2026', m: 'Claude Opus 5.5', items: ['<b>Exam Mode is now Test Mode</b> (old #exam links still work). Printing has an <b>Exam mode</b> switch, off by default, with an ⓘ tooltip: cover sheet, Paper 1A answer sheet, IB paper order and markscheme overview.', 'Send Results to Teacher is gone; Print Results and Download stay.', 'Codes: one blue <b>Make a Code</b> button everywhere and a red <b>Clear</b> button. Code boxes start with their mode’s prefix (MVP- for Test Mode, LMS- for Last Man Standing), add the dashes and capitals as you type, and tell you if a code belongs to a different mode. Codes are shown in groups of four.', 'A coloured bar across the top shows your level: blue for SL, purple for HL.', 'In Test Mode, students see no Topics sidebar: the class code sets the topics.', 'Test Mode: code types are now <b>Online</b>, <b>Worksheet</b> and <b>Test/Exam</b> (the Exam mode checkbox is gone: Test/Exam gives the IB layout). One <b>🖨 Print/PDF</b> button (no Download). The class code appears only on markscheme pages, never on student copies. The timer always starts shown; students can hide or show it during the test, and a chime sounds at 30, 15 and 5 minutes left and when time is up.', 'Teachers can print a <b>Student Copy</b> (exactly what the code gives students), the <b>Markscheme</b> on its own, or <b>Both</b>.', 'Papers have at most 40 Paper 1A questions, the size of the IB answer sheet.', '<b>Test Mode is set by your teacher.</b> Students enter a class code, and the code decides the test: an online test (with its finish and countdown settings), a printable worksheet or a printable IB-style test, with or without the markscheme. Setting up tests, printing and making codes need teacher access (also for Practice worksheets). IB Proportions offers 15, 30 or 45 marks or a Custom total; Custom marks is now Custom.', '<b>Linked topics</b> in the Topics panel: Off (as before), Include (also questions that link a ticked strand with other topics) or Only (just the questions that combine topics). Class codes remember the setting.', 'Shareable codes for <b>Blitz</b> (BLZ-) and <b>Unit Detective</b> (UD-): everyone with the code gets the same questions, values and time.', 'In HL mode, MVP and the Welcome box turn purple to match the level bar. The Exam mode ⓘ shows one tooltip, not two.', 'The footer matches MYPoirier Science Lab: About, Terms of Use (goes straight to the terms) and a 💬 Send Feedback button. New <b>Terms of Use</b> (About page): © Mike Poirier, all rights reserved; free for students and teachers; not for commercial or tutoring use without permission. This replaces the CC BY-NC-SA licence from this version on.', '<b>42 new questions</b> aimed at the mistakes IB examiners reported in the 2025 sessions: average velocity versus speed, areas under a–t graphs, buoyancy, inelastic collisions, units in SI base units, ice below 0 °C, conduction, albedo, kelvin, internal resistance, resistivity, refraction angles, fields between opposite charges, magnetic force on electrons, background count rate, fission equations and more. Each solution names the trap.', 'New question styles: “which statement is the cause?” (all options true, only one explains), units that must be in SI base units, and Paper 1B data questions from real class investigations (Boyle’s law, a cell’s emf and internal resistance, density with uncertainties), plus a Paper 2 question on a rising oil droplet.'] },
+    { v: '1.4 Beta', d: '6 November 2026', m: 'Claude Opus 5.5', items: ['<b>Exam Mode is now Test Mode</b> (old #exam links still work). Printing has an <b>Exam mode</b> switch, off by default, with an ⓘ tooltip: cover sheet, Paper 1A answer sheet, IB paper order and markscheme overview.', 'Send Results to Teacher is gone; Print Results and Download stay.', 'Codes: one blue <b>Make a Code</b> button everywhere and a red <b>Clear</b> button. Code boxes start with their mode’s prefix (MVP- for Test Mode, LMS- for Last Man Standing), add the dashes and capitals as you type, and tell you if a code belongs to a different mode. Codes are shown in groups of four.', 'A coloured bar across the top shows your level: blue for SL, purple for HL.', 'In Test Mode, students see no Topics sidebar: the class code sets the topics.', 'Test Mode: code types are now <b>Online</b>, <b>Worksheet</b> and <b>Test/Exam</b> (the Exam mode checkbox is gone: Test/Exam gives the IB layout). One <b>🖨 Print/PDF</b> button (no Download). The class code appears only on markscheme pages, never on student copies. The timer always starts shown; students can hide or show it during the test, and a chime sounds at 30, 15 and 5 minutes left and when time is up.', 'Teachers can print a <b>Student Copy</b> (exactly what the code gives students), the <b>Markscheme</b> on its own, or <b>Both</b>.', 'Papers have at most 40 Paper 1A questions, the size of the IB answer sheet.', '<b>Test Mode is set by your teacher.</b> Students enter a class code, and the code decides the test: an online test (with its finish and countdown settings), a printable worksheet or a printable IB-style test, with or without the markscheme. Setting up tests, printing and making codes need teacher access (also for Practice worksheets). IB Proportions offers 15, 30 or 45 marks or a Custom total; Custom marks is now Custom.', '<b>Linked topics</b> in the Topics panel: Off (as before), Include (also questions that link a ticked strand with other topics) or Only (just the questions that combine topics). Class codes remember the setting.', 'Shareable codes for <b>Blitz</b> (BLZ-) and <b>Unit Detective</b> (UD-): everyone with the code gets the same questions, values and time.', 'In HL mode, MVP and the Welcome box turn purple to match the level bar. The Exam mode ⓘ shows one tooltip, not two.', 'The footer matches MYPoirier Science Lab: About, Terms of Use (goes straight to the terms) and a 💬 Send Feedback button. New <b>Terms of Use</b> (About page): © Mike Poirier, all rights reserved; free for students and teachers; not for commercial or tutoring use without permission. This replaces the CC BY-NC-SA licence from this version on.', '<b>42 new questions</b> aimed at the mistakes IB examiners reported in the 2025 sessions: average velocity versus speed, areas under a–t graphs, buoyancy, inelastic collisions, units in SI base units, ice below 0 °C, conduction, albedo, kelvin, internal resistance, resistivity, refraction angles, fields between opposite charges, magnetic force on electrons, background count rate, fission equations and more. Each solution names the trap.', 'New question styles: “which statement is the cause?” (all options true, only one explains), units that must be in SI base units, and Paper 1B data questions from real class investigations (Boyle’s law, a cell’s emf and internal resistance, density with uncertainties), plus a Paper 2 question on a rising oil droplet.', '<b>Test Mode update (9 Nov):</b> printable codes have separate <b>Cover sheet</b> and <b>Answer booklet</b> (Paper 1A answer sheet) switches (Worksheet and Test/Exam set their starting values); online codes can let students print their results or not. Printouts are named after the code, eg “MVPhysics Lab Test (MVP-…)”. During a test, <b>Finish Paper</b> is red and sits beside the pace bar, red lines on the bar show when the 30, 15 and 5 minute alerts will come, and a 🔔 button mutes the chimes. The results page has one 🖨 Print/PDF button, and New Paper is gone. Fixed: with a paper switched off, Custom showed the wrong total and time.'] },
   ];
   HISTORY.forEach(h => { h.items = h.items.map(TL); });
   const fmtBig = (n) => n >= 1e6 ? (n / 1e6).toFixed(1) + ' million' : n.toLocaleString('en-GB');
