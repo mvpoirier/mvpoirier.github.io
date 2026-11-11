@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--
   MVPhysics Lab: IB DP Physics revision (SL and HL)
-  Version: 1.4 Beta (online edition) · Built: 9 November 2026
+  Version: 1.5 Beta (online edition) · Built: 11 November 2026
   Author: Mike Poirier (https://github.com/mvpoirier), developed with Claude by Anthropic
   Terms: © 2026 Mike Poirier. All rights reserved. Free for students and teachers for their own study and classroom teaching; any other copying, hosting, adapting or commercial or tutoring use needs written permission.
   Site: https://mvpoirier.github.io/physics-lab/
@@ -919,10 +919,24 @@ html[data-course="HL"] .welcome-hero { background: linear-gradient(135deg, var(-
 .pace.behind .tfill { background: color-mix(in srgb, var(--warn) 45%, var(--paper)); }
 .tfill-key.behind { background: color-mix(in srgb, var(--warn) 45%, var(--paper)); }
 .ex-top { margin-bottom: -4px; }
+/* 1.5: clearer back buttons (All Games / All Recall Modes / All Skills) and the Skills page */
+.btn.backbtn { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); font-size: 14.5px; padding: 8px 16px; }
+.btn.backbtn:hover { background: var(--accent); color: var(--on-accent, #fff); }
+.sk-sheet .qbody svg.graph { max-width: 460px; }
+.sk-sheet .qmeta { justify-content: space-between; }
+/* 1.5: FE2028 card gets the same ▸ arrow as the other notes */
+details.fe28sum > summary { list-style: none; justify-content: flex-start; }
+details.fe28sum > summary::-webkit-details-marker { display: none; }
+details.fe28sum > summary::before { content: "▸"; color: var(--muted); font-size: 14px; transition: transform .15s; }
+details.fe28sum[open] > summary::before { transform: rotate(90deg); }
+details.fe28sum > summary > .muted { margin-left: auto; }
+.cmd-box.compact { display: grid; gap: 6px; padding: 8px 12px; }
+.cmd-box .sw-line { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.cmd-box .sw-line .switch { gap: 8px; }
 
 </style>
 <header class="top"><div class="top-inner">
-  <div class="brand"><h1><b class="mvp">MVP</b>hysics Lab <span class="trophy" aria-hidden="true">🏆</span><span class="beta-tag" title="Beta for student testing: version 1.4 Beta">Beta 1.4</span></h1></div>
+  <div class="brand"><h1><b class="mvp">MVP</b>hysics Lab <span class="trophy" aria-hidden="true">🏆</span><span class="beta-tag" title="Beta for student testing: version 1.5 Beta">Beta 1.5</span></h1></div>
   <nav class="tabs" id="tabs" aria-label="Modes"></nav>
   <div class="hbar">
     <div class="course-seg" id="courseSeg" role="group" aria-label="Course level" data-tip="SL hides HL-only content"><button type="button" data-course="SL" aria-pressed="false">SL</button><button type="button" data-course="HL" aria-pressed="true">HL</button></div>
@@ -940,7 +954,7 @@ html[data-course="HL"] .welcome-hero { background: linear-gradient(135deg, var(-
 <footer class="site-foot"><div class="foot-wrap">
   <div class="foot-inner">
     <div class="foot-brand">
-      <div class="foot-name"><b class="mvp">MVP</b>hysics Lab <span class="trophy" aria-hidden="true">🏆</span><span class="beta-tag" title="Beta for student testing: version 1.4 Beta">Beta 1.4</span></div>
+      <div class="foot-name"><b class="mvp">MVP</b>hysics Lab <span class="trophy" aria-hidden="true">🏆</span><span class="beta-tag" title="Beta for student testing: version 1.5 Beta">Beta 1.5</span></div>
     </div>
     <nav class="foot-links" aria-label="Site">
       <a href="#about">About</a>
@@ -951,7 +965,7 @@ html[data-course="HL"] .welcome-hero { background: linear-gradient(135deg, var(-
   <details class="report report-general foot-report" id="footFb"><summary class="foot-fb-sum"><span class="flag" aria-hidden="true">💬</span> Send Feedback</summary><div class="report-body"><textarea class="report-note" rows="3" placeholder="Your feedback: a bug, an idea, something confusing… Say which page or feature." aria-label="Your feedback"></textarea><div class="row"><a class="btn sm primary send-report" href="#" target="_blank" rel="noopener" data-send="general|||footer">Send Report ↗</a><button type="button" class="btn sm" data-report="general|||footer">Copy Report</button><span class="muted small">Send Report opens your teacher’s Google Form (sign in with your school account). The page you are on is added automatically. Copy Report is a backup.</span></div></div></details>
   <div class="foot-meta">
     <span>© 2026 <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a>. All rights reserved: free for students and teachers; see the Terms of Use on the About page.</span>
-    <span class="foot-ver">Updated 9 November 2026</span>
+    <span class="foot-ver">Updated 11 November 2026</span>
   </div>
 </div></footer>
 <script>
@@ -9634,8 +9648,10 @@ mc('d1-m19', 'Mass of a planet from a moon’s orbit', ['d1-orbit'], 3, (R) => {
   return { stem: L`A moon orbits a planet in a circle of radius $${sf(r, 2)}\,\mathrm{m}$ with period $${Td}$ days. What is the mass of the planet?`, ...numMCQ(M, [4 * Math.PI ** 2 * r ** 3 / (GN * Td * Td), 4 * Math.PI ** 2 * r ** 2 / (GN * T * T), 2 * Math.PI * r ** 3 / (GN * T * T)], 2, L`\,\mathrm{kg}`), solution: L`$\dfrac{GMm}{r^2} = m\dfrac{4\pi^2 r}{T^2}$, so $M = \dfrac{4\pi^2r^3}{GT^2}$. Convert days to seconds: $T = ${sf(T, 3)}\,\mathrm{s}$. $M = ${sf(M, 2)}\,\mathrm{kg}$. The moon's mass cancels.` };
 });
 mc('d1-m20', 'Radius of a geostationary orbit', ['d1-orbit'], 3, (R) => {
-  const T = 86400 * R.pick([1, 1]), M = 5.97e24, r = Math.cbrt(GN * M * T * T / (4 * Math.PI ** 2));
-  return { stem: L`A geostationary satellite has a period of $24.0$ hours. The mass of the Earth is $5.97\times10^{24}\,\mathrm{kg}$. What is the radius of its orbit?`, ...numMCQ(r, [Math.sqrt(GN * M * T * T / (4 * Math.PI ** 2)), Math.cbrt(GN * M * 24 * 24 / (4 * Math.PI ** 2)), r - 6.37e6], 2, U.m), solution: L`$r^3 = \dfrac{GMT^2}{4\pi^2}$ with $T = 86\,400\,\mathrm{s}$: $r = ${sf(r, 3)}\,\mathrm{m}$ (about 6.6 Earth radii).`, fixed: true };
+  // 1.5: three versions (was the same every time)
+  const [what, body, M, h, Rp] = R.pick([['A geostationary satellite', 'the Earth', 5.97e24, 24.0, 6.37e6], ['A GPS satellite', 'the Earth', 5.97e24, 12.0, 6.37e6], ['A satellite that stays above one point on Mars', 'Mars', 6.42e23, 24.6, 3.39e6]]);
+  const T = 3600 * h, r = Math.cbrt(GN * M * T * T / (4 * Math.PI ** 2));
+  return { stem: L`${what} has a period of $${h.toFixed(1)}$ hours. The mass of ${body} is $${sf(M, 3)}\,\mathrm{kg}$. What is the radius of its orbit?`, ...numMCQ(r, [Math.sqrt(GN * M * T * T / (4 * Math.PI ** 2)), Math.cbrt(GN * M * h * h / (4 * Math.PI ** 2)), r - Rp], 2, U.m), solution: L`$r^3 = \dfrac{GMT^2}{4\pi^2}$ with $T = ${sf(T, 3)}\,\mathrm{s}$ (hours must be converted to seconds): $r = ${sf(r, 3)}\,\mathrm{m}$, about ${sf(r / Rp, 2)} times the radius of ${body}.` };
 });
 mc('d1-m21', 'What does the orbital speed depend on?', ['d1-orbit'], 1, (R) => {
   const o = txtMCQ(R, 'the mass of the planet and the radius of the orbit only', ['the mass of the satellite and the radius of the orbit', 'the masses of both the planet and the satellite', 'the radius of the orbit only']);
@@ -9817,14 +9833,16 @@ Q.push({
 Q.push({
   id: 'd1-p02', title: 'The field between a planet and its moon', paper: '2', strands: ['d1-field', 'd1-newton'], chili: 3, marks: 8,
   gen(R) {
-    const M = 5.97e24, m = 7.35e22, d = 3.84e8, x = d * Math.sqrt(M / m) / (Math.sqrt(M / m) + 1), xm = d / 2, gm = GN * M / (xm * xm) - GN * m / (xm * xm);
+    // 1.5: three planet–moon pairs (was always the Earth and the Moon)
+    const [P, Mn, M, m, d, dTxt] = R.pick([['the Earth', 'the Moon', 5.97e24, 7.35e22, 3.84e8, '3.84×10⁸ m'], ['Saturn', 'Titan', 5.68e26, 1.35e23, 1.22e9, '1.22×10⁹ m'], ['Pluto', 'Charon', 1.30e22, 1.59e21, 1.96e7, '1.96×10⁷ m']]);
+    const x = d * Math.sqrt(M / m) / (Math.sqrt(M / m) + 1), xm = d / 2, gm = GN * M / (xm * xm) - GN * m / (xm * xm), cap = (t) => t[0].toUpperCase() + t.slice(1);
     return {
-      intro: L`The Earth (mass $5.97\times10^{24}\,\mathrm{kg}$) and the Moon (mass $7.35\times10^{22}\,\mathrm{kg}$) are $3.84\times10^{8}\,\mathrm{m}$ apart, centre to centre.` + twoBodySvg('Earth', 'Moon', '3.84×10⁸ m', 26, 10),
+      intro: L`${cap(P)} (mass $${sf(M, 3)}\,\mathrm{kg}$) and ${Mn} (mass $${sf(m, 3)}\,\mathrm{kg}$) are $${sf(d, 3)}\,\mathrm{m}$ apart, centre to centre.` + twoBodySvg(cap(P.replace('the ', '')), cap(Mn.replace('the ', '')), dTxt, 26, M / m > 50 ? 10 : 16),
       parts: [
-        { label: 'a', cmd: 'Outline', marks: 2, prompt: L`why the Earth and the Moon can be treated as point masses here.`, mps: [L`they are (approximately) spherical with uniform / symmetric mass distribution ✓`, L`for points outside a sphere, the field is as if all the mass were at the centre ✓`] },
-        { label: 'b', cmd: 'Calculate', marks: 2, prompt: L`the resultant gravitational field strength at the midpoint of the line joining their centres.`, mps: [L`$g = \dfrac{G(M - m)}{(d/2)^2}$ «fields opposite» ✓`, L`$= ${sf(gm, 2)}\,\mathrm{N\,kg^{-1}}$ towards the Earth ✓`] },
-        { label: 'c', cmd: 'Determine', marks: 3, prompt: L`the distance from the Earth's centre at which the resultant field is zero.`, mps: [L`$\dfrac{GM}{x^2} = \dfrac{Gm}{(d - x)^2}$ ✓`, L`$\dfrac{x}{d - x} = \sqrt{\dfrac{M}{m}} = ${sf(Math.sqrt(M / m), 3)}$ ✓`, L`$x = ${sf(x, 3)}\,\mathrm{m}$ ✓`] },
-        { label: 'd', cmd: 'Sketch', marks: 1, prompt: L`the variation of the resultant field strength along the line from the Earth's surface to the Moon's surface (take towards the Moon as positive).`, mps: [L`negative and large near Earth, rising to zero at about $0.9d$, then positive and increasing towards the Moon ✓`] },
+        { label: 'a', cmd: 'Outline', marks: 2, prompt: L`why ${P} and ${Mn} can be treated as point masses here.`, mps: [L`they are (approximately) spherical with uniform / symmetric mass distribution ✓`, L`for points outside a sphere, the field is as if all the mass were at the centre ✓`] },
+        { label: 'b', cmd: 'Calculate', marks: 2, prompt: L`the resultant gravitational field strength at the midpoint of the line joining their centres.`, mps: [L`$g = \dfrac{G(M - m)}{(d/2)^2}$ «fields opposite» ✓`, L`$= ${sf(gm, 2)}\,\mathrm{N\,kg^{-1}}$ towards ${P} ✓`] },
+        { label: 'c', cmd: 'Determine', marks: 3, prompt: L`the distance from the centre of ${P} at which the resultant field is zero.`, mps: [L`$\dfrac{GM}{x^2} = \dfrac{Gm}{(d - x)^2}$ ✓`, L`$\dfrac{x}{d - x} = \sqrt{\dfrac{M}{m}} = ${sf(Math.sqrt(M / m), 3)}$ ✓`, L`$x = ${sf(x, 3)}\,\mathrm{m}$ ✓`] },
+        { label: 'd', cmd: 'Sketch', marks: 1, prompt: L`the variation of the resultant field strength along the line from the surface of ${P} to the surface of ${Mn} (take towards ${Mn} as positive).`, mps: [L`negative and large near ${P}, rising to zero at about $${(x / d).toFixed(2)}d$, then positive and increasing towards ${Mn} ✓`] },
       ],
     };
   },
@@ -10446,8 +10464,10 @@ mc('d3-m06', 'Comparing accelerations in a field', ['d3-efield'], 2, (R) => {
   return { stem: L`In the same uniform electric field, what is the ratio $\dfrac{\text{acceleration of ${a1}}}{\text{acceleration of ${a2}}}$?`, ...numMCQ(r, [r * 2, r * 4, r / 2], 2, ''), solution: L`$a = \dfrac{qE}{m} \propto \dfrac{q}{m}$. ${a1 === 'an alpha particle' ? 'Alpha: $q = 2e$, $m = 4u$' : 'Deuteron: $q = e$, $m = 2u$'}; proton: $q = e$, $m = 1u$. Ratio $= ${sf(r, 2)}$.` };
 });
 mc('d3-m07', 'Speed gained by different particles', ['d3-efield'], 3, (R) => {
-  const r = Math.sqrt(2 / 4);
-  return { stem: L`A proton and an alpha particle are each accelerated from rest through the same potential difference. What is $\dfrac{\text{final speed of alpha}}{\text{final speed of proton}}$?`, ...numMCQ(r, [0.5, 0.25, 1], 2, ''), solution: L`$qV = \tfrac12mv^2$, so $v \propto \sqrt{\dfrac{q}{m}}$: $\sqrt{\dfrac{2/4}{1/1}} = \dfrac{1}{\sqrt2} = ${sf(r, 2)}$. The alpha gains twice the energy but has four times the mass.`, fixed: true };
+  // 1.5: four particle pairs (was the same every time); charge in e, mass in u
+  const [n1, q1, m1, n2, q2, m2] = R.pick([['alpha particle', 2, 4, 'proton', 1, 1], ['deuteron', 1, 2, 'proton', 1, 1], ['helium-3 nucleus', 2, 3, 'proton', 1, 1], ['alpha particle', 2, 4, 'deuteron', 1, 2]]);
+  const r = Math.sqrt((q1 / m1) / (q2 / m2)), d = [r * r, 1 / r, q1 / q2, m2 / m1, 1].filter(x => Math.abs(x - r) > 0.02);
+  return { stem: L`A ${n2} and ${n1 === 'helium-3 nucleus' ? 'a' : 'an'} ${n1} are each accelerated from rest through the same potential difference. What is $\dfrac{\text{final speed of the ${n1}}}{\text{final speed of the ${n2}}}$?`, ...numMCQ(r, [...new Set(d.map(x => +x.toFixed(3)))].slice(0, 3), 2, ''), solution: L`$qV = \tfrac12mv^2$, so $v \propto \sqrt{\dfrac{q}{m}}$: $\sqrt{\dfrac{${q1}/${m1}}{${q2}/${m2}}} = ${sf(r, 2)}$. Charge sets the energy gained; mass sets how fast that energy makes it go.` };
 });
 mc('d3-m08', 'Released from rest in a uniform field', ['d3-efield'], 1, (R) => {
   const neg = R.pick([true, false]);
@@ -11164,8 +11184,9 @@ mc('e1-m28', 'Quantized angular momentum', ['e1-bohr'], 2, (R) => {
   return { stem: L`In the Bohr model, what is the angular momentum of the electron in the $n = ${n}$ orbit?`, ...numMCQ(Lm, [n * HP, n * HP / Math.PI, n * n * HP / (2 * Math.PI)], 2, L`\,\mathrm{J\,s}`), solution: L`$mvr = \dfrac{nh}{2\pi} = \dfrac{${n} \times 6.63\times10^{-34}}{2\pi} = ${sf(Lm, 2)}\,\mathrm{J\,s}$.` };
 });
 mc('e1-m29', 'Speed of the electron in the ground state', ['e1-bohr'], 3, (R) => {
-  const r = 5.29e-11, v = HP / (2 * Math.PI * ME * r);
-  return { stem: L`In the Bohr model the radius of the ground-state orbit of hydrogen is $5.29\times10^{-11}\,\mathrm{m}$. What is the speed of the electron?`, ...numMCQ(v, [HP / (ME * r), HP / (2 * Math.PI * MP * r) * 1e3, v * 2 * Math.PI], 2, U.ms), solution: L`$m_evr = \dfrac{h}{2\pi}$ for $n = 1$: $v = \dfrac{h}{2\pi m_er} = ${sf(v, 2)}\,\mathrm{m\,s^{-1}}$, under 1% of $c$.`, fixed: true };
+  // 1.5: n = 1, 2 or 3 (was the same every time)
+  const n = R.pick([1, 2, 3]), r = 5.29e-11 * n * n, v = n * HP / (2 * Math.PI * ME * r);
+  return { stem: L`In the Bohr model of hydrogen, the orbit with $n = ${n}$ has radius $${sf(r, 3)}\,\mathrm{m}$. What is the speed of the electron in this orbit?`, ...numMCQ(v, [HP / (2 * Math.PI * ME * r), n * HP / (ME * r), v * 2 * Math.PI].filter(x => Math.abs(x / v - 1) > 0.05).concat([v / n / n]).slice(0, 3), 2, U.ms), solution: L`$m_evr = \dfrac{nh}{2\pi}$ with $n = ${n}$: $v = \dfrac{nh}{2\pi m_er} = ${sf(v, 2)}\,\mathrm{m\,s^{-1}}$. Speeds fall as $1/n$ for higher orbits.` };
 });
 mc('e1-m30', 'A limitation of the Bohr model', ['e1-bohr'], 2, (R) => {
   const o = txtMCQ(R, 'It works only for hydrogen and one-electron ions.', ['It cannot explain why hydrogen has spectral lines.', 'It predicts continuous spectra.', 'It does not use quantized energy.']);
@@ -11455,8 +11476,10 @@ mc('e2-m11', 'Evidence for matter waves', ['e2-matter'], 1, (R) => {
   return { stem: 'Which observation is evidence for the wave nature of particles?', ...o, solution: 'Diffraction is a wave property. Electron diffraction rings match the de Broglie wavelength. The other observations show particle behaviour.', fixed: true };
 });
 mc('e2-m12', 'Proton and electron with the same energy', ['e2-matter'], 3, (R) => {
-  const r = Math.sqrt(ME / MP);
-  return { stem: L`A proton and an electron have the same kinetic energy. What is $\dfrac{\lambda_\text{proton}}{\lambda_\text{electron}}$?`, ...numMCQ(r, [ME / MP, Math.sqrt(MP / ME) / 100, 1], 2, ''), solution: L`$p = \sqrt{2mE_k}$, so $\lambda \propto \dfrac{1}{\sqrt m}$: $\sqrt{\dfrac{m_e}{m_p}} = ${sf(r, 2)}$.`, fixed: true };
+  // 1.5: three particle pairs (was the same every time)
+  const [a, ma, b, mb, rel] = R.pick([['proton', MP, 'electron', ME, '$m_e/m_p$'], ['alpha particle', 4 * MP, 'proton', MP, '$m_p/m_\\alpha = 1/4$'], ['deuteron', 2 * MP, 'proton', MP, '$m_p/m_d = 1/2$']]);
+  const r = Math.sqrt(mb / ma);
+  return { stem: L`${a === 'alpha particle' ? 'An' : 'A'} ${a} and a ${b} have the same kinetic energy. What is $\dfrac{\lambda_\text{${a}}}{\lambda_\text{${b}}}$?`, ...numMCQ(r, [mb / ma, 1 / r, 1].filter(x => Math.abs(x / r - 1) > 0.05).concat([r * r * r]).slice(0, 3), 2, ''), solution: L`$p = \sqrt{2mE_k}$, so $\lambda \propto \dfrac{1}{\sqrt m}$: the ratio is $\sqrt{\text{mass ratio}}$ with ${rel}, giving $${sf(r, 2)}$.` };
 });
 mc('e2-m13', 'Why balls do not diffract', ['e2-matter'], 2, (R) => {
   const m = R.pick([0.058, 0.16, 0.43]), v = R.pick([20, 30, 40]), lam = HP / (m * v);
@@ -11480,9 +11503,10 @@ mc('e2-m17', 'Compton shift', ['e2-compton'], 2, (R) => {
   const th = R.pick([30, 45, 60, 90, 120]), d = COMPTON * (1 - Math.cos(rad(th)));
   return { stem: L`An X-ray photon is scattered by a free electron through an angle of $${th}^\circ$. By how much does its wavelength increase?`, ...numMCQ(d, [COMPTON * Math.cos(rad(th)) || d * 2, COMPTON * (1 - Math.sin(rad(th))) || d / 2, HP / (MP * CL) * (1 - Math.cos(rad(th)))], 2, U.m), solution: L`$\Delta\lambda = \dfrac{h}{m_ec}(1 - \cos\theta) = 2.43\times10^{-12} \times (1 - \cos ${th}^\circ) = ${sf(d, 3)}\,\mathrm{m}$.` };
 });
-mc('e2-m18', 'Largest possible Compton shift', ['e2-compton'], 1, (R) => {
-  const d = 2 * COMPTON;
-  return { stem: L`What is the largest possible increase in wavelength when a photon is scattered by a free electron?`, ...numMCQ(d, [COMPTON, 4 * COMPTON, HP / (MP * CL) * 2], 2, U.m), solution: L`Maximum at $\theta = 180^\circ$: $\Delta\lambda = \dfrac{2h}{m_ec} = ${sf(d, 3)}\,\mathrm{m}$.`, fixed: true };
+mc('e2-m18', 'Compton shift at a given angle', ['e2-compton'], 1, (R) => {
+  // 1.5: four angles (was always the largest possible shift)
+  const th = R.pick([60, 90, 120, 180]), d = COMPTON * (1 - Math.cos(rad(th)));
+  return { stem: th === 180 ? L`What is the largest possible increase in wavelength when a photon is scattered by a free electron?` : L`A photon is scattered by a free electron through an angle of $${th}^\circ$. What is the increase in its wavelength?`, ...numMCQ(d, [COMPTON * (1 + Math.cos(rad(th))) || 4 * COMPTON, 2 * COMPTON * (th === 180 ? 2 : 1), HP / (MP * CL) * (1 - Math.cos(rad(th)))].filter(x => Math.abs(x / d - 1) > 0.05).concat([COMPTON / 2]).slice(0, 3), 2, U.m), solution: L`$\Delta\lambda = \dfrac{h}{m_ec}(1 - \cos\theta) = ${sf(COMPTON, 3)} \times (1 - \cos ${th}^\circ) = ${sf(d, 3)}\,\mathrm{m}$.${th === 180 ? ' The largest shift is at $180^\\circ$ (head-on bounce back).' : ''}` };
 });
 mc('e2-m19', 'Energy of the scattered photon', ['e2-compton'], 1, (R) => {
   const o = txtMCQ(R, 'a longer wavelength and less energy, because it gives energy to the electron', ['a shorter wavelength and more energy', 'the same wavelength, because photons always travel at $c$', 'a longer wavelength but the same energy']);
@@ -11962,14 +11986,16 @@ Q.push({
 Q.push({
   id: 'e3-p01', title: 'Decay equations and binding energy', paper: '2', strands: ['e3-decay', 'e3-binding'], chili: 3, marks: 10,
   gen(R) {
-    const mRa = 225.977, mRn = 221.970, mHe = 4.0015, dm = mRa - mRn - mHe, Q0 = dm * MEV_U, Ka = Q0 * mRn / (mRn + mHe);
+    // 1.5: four alpha emitters (was always radium-226); atomic masses, so the electrons balance
+    const [nm, A, Z, X, dn, Y, mP, mD] = R.pick([['Radium-226', 226, 88, 'Ra', 'radon', 'Rn', 226.025410, 222.017578], ['Polonium-210', 210, 84, 'Po', 'lead', 'Pb', 209.982874, 205.974465], ['Uranium-238', 238, 92, 'U', 'thorium', 'Th', 238.050788, 234.043601], ['Americium-241', 241, 95, 'Am', 'neptunium', 'Np', 241.056829, 237.048173]]);
+    const mHe = 4.002603, dm = mP - mD - mHe, Q0 = dm * MEV_U, Ka = Q0 * mD / (mD + mHe);
     return {
-      intro: L`Radium-226 ($${nuc(226, 88, 'Ra')}$) decays by alpha emission to radon (Rn). Nuclear masses: Ra $225.977\,\mathrm{u}$, Rn $221.970\,\mathrm{u}$, alpha $4.0015\,\mathrm{u}$.`,
+      intro: L`${nm} ($${nuc(A, Z, X)}$) decays by alpha emission to ${dn} (${Y}). Atomic masses: ${X} $${mP.toFixed(6)}\,\mathrm{u}$, ${Y} $${mD.toFixed(6)}\,\mathrm{u}$, helium-4 $4.002603\,\mathrm{u}$.`,
       parts: [
-        { label: 'a', cmd: 'State', marks: 2, prompt: L`the decay equation.`, mps: [L`$${nuc(226, 88, 'Ra')} \to ${nuc(222, 86, 'Rn')} + ${nuc(4, 2, '\\alpha')}$ ✓`, L`numbers balance: 222 and 86 ✓`] },
+        { label: 'a', cmd: 'State', marks: 2, prompt: L`the decay equation.`, mps: [L`$${nuc(A, Z, X)} \to ${nuc(A - 4, Z - 2, Y)} + ${nuc(4, 2, '\\alpha')}$ ✓`, L`numbers balance: ${A - 4} and ${Z - 2} ✓`] },
         { label: 'b', cmd: 'Calculate', marks: 2, prompt: L`the energy released in the decay, in MeV.`, mps: [L`$\Delta m = ${sf(dm, 3)}\,\mathrm{u}$ ✓`, L`$E = ${sf(Q0, 3)}\,\mathrm{MeV}$ ✓`] },
         { label: 'c', cmd: 'Explain', marks: 2, prompt: L`why the alpha particle carries most of this energy.`, mps: [L`momentum is conserved: equal and opposite momenta ✓`, L`$E_k = \dfrac{p^2}{2m}$, so the lighter alpha has much more kinetic energy «$\approx ${sf(Ka, 3)}\,\mathrm{MeV}$» ✓`] },
-        { label: 'd', cmd: 'Outline', marks: 2, prompt: L`why the total mass of the products is less than the mass of the radium nucleus.`, mps: [L`energy is released in the decay ✓`, L`mass and energy are equivalent, $\Delta m = E/c^2$ ✓`] },
+        { label: 'd', cmd: 'Outline', marks: 2, prompt: L`why the total mass of the products is less than the mass of the ${nm.split('-')[0].toLowerCase()} nucleus.`, mps: [L`energy is released in the decay ✓`, L`mass and energy are equivalent, $\Delta m = E/c^2$ ✓`] },
         { label: 'e', cmd: 'State', marks: 2, prompt: L`two properties of the strong nuclear force.`, mps: [L`attractive between nucleons ✓`, L`very short range «$\sim10^{-15}\,\mathrm{m}$» ✓`] },
       ],
     };
@@ -12524,8 +12550,10 @@ mc('e5-m24', 'Limits of stellar parallax', ['e5-distance'], 1, (R) => {
   return { stem: 'Stellar parallax can be used only for relatively nearby stars because', ...o, solution: L`$p = 1/d$: at 1000 pc the angle is 0.001 arc-seconds, close to the limit of even space-based measurements.`, fixed: true };
 });
 mc('e5-m25', 'Light years and astronomical units', ['e5-distance', 's-units'], 1, (R) => {
-  const r = LY / AU;
-  return { stem: L`Using $1\,\mathrm{ly} = 9.46\times10^{15}\,\mathrm{m}$ and $1\,\mathrm{AU} = 1.50\times10^{11}\,\mathrm{m}$, how many AU are in one light year?`, ...numMCQ(r, [AU / LY * 1e9, LY / AU / 3.26, r * 3.26], 2, L`\,\mathrm{AU}`), solution: L`$\dfrac{9.46\times10^{15}}{1.50\times10^{11}} = ${sf(r, 2)}\,\mathrm{AU}$.`, fixed: true };
+  // 1.5: three conversions (was always ly → AU)
+  const U3 = { ly: [LY, '9.46\\times10^{15}', 'light year', 'ly'], AU: [AU, '1.50\\times10^{11}', 'astronomical unit', 'AU'], pc: [PARSEC, '3.09\\times10^{16}', 'parsec', 'pc'] };
+  const [big, small] = R.pick([['ly', 'AU'], ['pc', 'AU'], ['pc', 'ly']]), A = U3[big], B = U3[small], r = A[0] / B[0];
+  return { stem: L`Using $1\,\mathrm{${A[3]}} = ${A[1]}\,\mathrm{m}$ and $1\,\mathrm{${B[3]}} = ${B[1]}\,\mathrm{m}$, how many ${B[3]} are in one ${A[2]}?`, ...numMCQ(r, [B[0] / A[0] * (r > 100 ? 1e9 : 10), r / 3.26 > 1.5 ? r / 3.26 : r * 10, r * 3.26].filter(x => Math.abs(x / r - 1) > 0.05).slice(0, 3), 2, L`\,\mathrm{${B[3]}}`), solution: L`$\dfrac{${A[1]}}{${B[1]}} = ${sf(r, 3)}\,\mathrm{${B[3]}}$.` };
 });
 
 /* ---------- Paper 1B ---------- */
@@ -12599,10 +12627,12 @@ Q.push({
 Q.push({
   id: 'e5-p02', title: 'The HR diagram and stellar evolution', paper: '2', strands: ['e5-hr', 'e5-distance'], chili: 3, marks: 10,
   gen(R) {
-    const pts = [{ T: 5800, L: 1, label: 'Sun' }, { T: 4000, L: 300, label: 'R' }, { T: 15000, L: 0.005, label: 'W' }];
-    const rR = Math.sqrt(300) * (5800 / 4000) ** 2, rW = Math.sqrt(0.005) * (5800 / 15000) ** 2;
+    // 1.5: R and W vary (were always the same two stars)
+    const TR = R.pick([3500, 4000, 4500]), LR = R.pick([100, 300, 1000]), TW = R.pick([10000, 15000, 20000]), LW = R.pick([0.001, 0.005, 0.01]);
+    const pts = [{ T: 5800, L: 1, label: 'Sun' }, { T: TR, L: LR, label: 'R' }, { T: TW, L: LW, label: 'W' }];
+    const rR = Math.sqrt(LR) * (5800 / TR) ** 2, rW = Math.sqrt(LW) * (5800 / TW) ** 2;
     return {
-      intro: L`The Hertzsprung–Russell diagram shows the Sun and two other stars, R and W.` + hrSvg({ points: pts }),
+      intro: L`The Hertzsprung–Russell diagram shows the Sun and two other stars, R and W. Star R: $T = ${TR}\,\mathrm{K}$, $L = ${LR}\,L_\odot$. Star W: $T = ${TW}\,\mathrm{K}$, $L = ${LW}\,L_\odot$. The Sun: $T = 5800\,\mathrm{K}$.` + hrSvg({ points: pts }),
       parts: [
         { label: 'a', cmd: 'Identify', marks: 2, prompt: L`the types of star R and W.`, mps: [L`R: red giant ✓`, L`W: white dwarf ✓`] },
         { label: 'b', cmd: 'Calculate', marks: 2, prompt: L`the ratio $\dfrac{\text{radius of R}}{\text{radius of the Sun}}$.`, mps: [L`$\dfrac{R}{R_\odot} = \sqrt{\dfrac{L}{L_\odot}}\left(\dfrac{T_\odot}{T}\right)^2$ ✓`, L`$= ${sf(rR, 2)}$ ✓`] },
@@ -12647,12 +12677,15 @@ Q.push({
 Q.push({
   id: 'e5-p05', title: 'Fusion on Earth', paper: '2', strands: ['e5-fusion', 'e4-energy'], chili: 2, marks: 8,
   gen(R) {
-    const dm = 2.014102 + 3.016049 - 4.002603 - 1.008665, E = dm * MEV_U, perKg = E * 1e6 * QE / (5.030151 * AMU);
+    // 1.5: D–T or D–D fusion (was always D–T)
+    const dt = R.pick([true, false]), fuel = dt ? 2.014102 + 3.016049 : 2 * 2.014102, prod = dt ? 4.002603 + 1.008665 : 3.016029 + 1.008665;
+    const dm = fuel - prod, E = dm * MEV_U, perKg = E * 1e6 * QE / (fuel * AMU);
     return {
-      intro: L`Experimental reactors aim to produce energy from the fusion of deuterium and tritium: ${'$'}{}^{2}_{1}\mathrm{H} + {}^{3}_{1}\mathrm{H} \to {}^{4}_{2}\mathrm{He} + {}^{1}_{0}\mathrm{n}$. Masses: H-2 $2.014102\,\mathrm{u}$, H-3 $3.016049\,\mathrm{u}$, He-4 $4.002603\,\mathrm{u}$, n $1.008665\,\mathrm{u}$.`,
+      intro: dt ? L`Experimental reactors aim to produce energy from the fusion of deuterium and tritium: ${'$'}{}^{2}_{1}\mathrm{H} + {}^{3}_{1}\mathrm{H} \to {}^{4}_{2}\mathrm{He} + {}^{1}_{0}\mathrm{n}$. Masses: H-2 $2.014102\,\mathrm{u}$, H-3 $3.016049\,\mathrm{u}$, He-4 $4.002603\,\mathrm{u}$, n $1.008665\,\mathrm{u}$.`
+        : L`Some fusion experiments use deuterium alone: ${'$'}{}^{2}_{1}\mathrm{H} + {}^{2}_{1}\mathrm{H} \to {}^{3}_{2}\mathrm{He} + {}^{1}_{0}\mathrm{n}$. Masses: H-2 $2.014102\,\mathrm{u}$, He-3 $3.016029\,\mathrm{u}$, n $1.008665\,\mathrm{u}$.`,
       parts: [
         { label: 'a', cmd: 'Calculate', marks: 2, prompt: L`the energy released per reaction.`, mps: [L`$\Delta m = ${sf(dm, 4)}\,\mathrm{u}$ ✓`, L`$E = ${sf(E, 3)}\,\mathrm{MeV}$ ✓`] },
-        { label: 'b', cmd: 'Calculate', marks: 2, prompt: L`the energy released per kilogram of fuel.`, mps: [L`mass of fuel per reaction $= 5.030\,\mathrm{u}$ ✓`, L`$${sf(perKg, 2)}\,\mathrm{J\,kg^{-1}}$ ✓`] },
+        { label: 'b', cmd: 'Calculate', marks: 2, prompt: L`the energy released per kilogram of fuel.`, mps: [L`mass of fuel per reaction $= ${fuel.toFixed(3)}\,\mathrm{u}$ ✓`, L`$${sf(perKg, 2)}\,\mathrm{J\,kg^{-1}}$ ✓`] },
         { label: 'c', cmd: 'Compare', marks: 1, prompt: L`this with fission of uranium-235 ($\approx 8\times10^{13}\,\mathrm{J\,kg^{-1}}$).`, mps: [L`fusion gives about $${sf(perKg / 8e13, 1)}$ times more per kg ✓`] },
         { label: 'd', cmd: 'Explain', marks: 3, prompt: L`why sustained fusion is much harder to achieve on Earth than in the Sun.`, mps: [L`temperatures of order $10^{8}\,\mathrm{K}$ are needed to overcome the electric repulsion ✓`, L`no material can contain such a hot plasma; magnetic confinement is needed ✓`, L`the Sun's huge gravity provides the density and confinement; on Earth the plasma is far less dense ✓`] },
       ],
@@ -15781,6 +15814,18 @@ const MORE_LINKS = {
   's-graph': [MIKE_LIN, DESMOS, OP('t3', 'Graph maker')],
   's-lin': [MIKE_LIN, DESMOS],
 };
+/* Electronics 101 (Dilum Sanjaya): free interactive 3D circuit lessons, linked only (1.5, Mike 6 Nov; paths checked 11 Nov) */
+const E101 = (p, name) => ({ kind: 'sim', label: `Electronics 101: ${name}`, url: `https://electronics-101-six.vercel.app/${p}` });
+const E101_LINKS = {
+  'b5-charge': [E101('closed-loop', 'Open and closed circuits'), E101('conductors', 'Conductors and insulators')],
+  'b5-resist': [E101('ohms-law', 'Volts, amps and ohms'), E101('resistor', 'How a resistor works')],
+  'b5-power': [E101('power', 'Power and heat')],
+  'b5-circuits': [E101('circuit-types', 'Types of circuit'), E101('series', 'Resistors in series'), E101('parallel', 'Resistors in parallel'), E101('kirchhoff', "Kirchhoff's two rules"), E101('multimeter', 'Using a multimeter'), E101('bridge', 'Wheatstone bridge')],
+  'b5-internal': [E101('cells', 'Batteries in series and parallel')],
+  'b5-vary': [E101('divider', 'Voltage divider'), E101('pot', 'Variable resistor'), E101('ldr-meter', 'Light sensor (LDR)'), E101('thermistor', 'Temperature sensor'), E101('diode', 'The plain diode')],
+  'd4-gen': [E101('ac-dc', 'AC and DC')],
+};
+for (const [id, l] of Object.entries(E101_LINKS)) MORE_LINKS[id] = (MORE_LINKS[id] || []).concat(l);
 for (const [id, extra] of Object.entries(MORE_LINKS)) if (NOTES[id]) { const have = new Set((NOTES[id].links || []).map(l => l.url)); NOTES[id].links = [...extra.filter(l => !have.has(l.url)), ...(NOTES[id].links || [])]; }
 addBooklet('b2-albedo', [L`S = 1.36\times10^{3}\,\mathrm{W\,m^{-2}}`, L`\sigma = 5.67\times10^{-8}\,\mathrm{W\,m^{-2}\,K^{-4}}`]); addBooklet('b2-balance', [L`L = \sigma AT^4`, L`\sigma = 5.67\times10^{-8}\,\mathrm{W\,m^{-2}\,K^{-4}}`]); addBooklet('b2-gases', [L`\lambda_\text{max}T = 2.9\times10^{-3}\,\mathrm{m\,K}`]);
 
@@ -16222,7 +16267,7 @@ function tname0(id) { return id.replace('.', ''); }
 
 </script>
 <script>
-const FOOTER_TEXT = 'Questions are original and written in the style of the IB DP Physics course (first assessment 2025).<br>Developed by <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a> using Claude. © 2026 Mike Poirier. All rights reserved: free for students and teachers; see the Terms of Use on the About page.<br>Version 1.4 Beta · Last updated: 9 November 2026';
+const FOOTER_TEXT = 'Questions are original and written in the style of the IB DP Physics course (first assessment 2025).<br>Developed by <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a> using Claude. © 2026 Mike Poirier. All rights reserved: free for students and teachers; see the Terms of Use on the About page.<br>Version 1.5 Beta · Last updated: 11 November 2026';
 /* ===== MVPhysics Lab — app ===== */
 (function () {
   'use strict';
@@ -16374,11 +16419,29 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     if (!o.ignorePapers && !S.settings.papers[q.paper]) return false;
     if (!o.ignoreChili && !S.settings.chili[q.chili]) return false;
     if (!specOK(q)) return false;
+    if (q.reserve === true && !o.withReserve && currentView() !== 'exam') return false; // test-only questions stay out of Practice, Blitz and Recall
     if (!qualifiesL(q, strandOK, toolsOnly(ALL_STRANDS.map(s => s.id).filter(id => STRAND[id].live && strandOK(id))), S.settings.linked, id => STRAND[id] && STRAND[id].live && levelOK(id))) return false;
     if (!o.ignoreMissed && S.settings.missedOnly && currentView() === 'practice' && !S.missed.includes(q.id)) return false; // Practice only (1.2)
     return true;
   }
+  // 1.5 (Mike 9 Nov): short names in the Topics panel only, so each fits on one line on a laptop; the full name shows on hover and everywhere else
+  const RAIL_SHORT = {"a1-fluid": "Drag & terminal speed", "a2-newton": "Newton's laws & FBDs", "a2-coll2": "2D collisions", "a3-energy": "Mechanical energy", "a4-torque": "Torque & equilibrium", "a4-mom": "Angular momentum", "a4-energy": "Rotational KE & rolling", "a5-galilean": "Galilean relativity", "a5-lorentz": "Lorentz transformations", "a5-dilation": "Time dilation & contraction", "a5-spacetime": "Space–time diagrams", "b1-molec": "Molecules, density & T", "b1-heat": "Specific & latent heat", "b1-rad": "Radiation & black bodies", "b2-albedo": "Albedo & emissivity", "b2-balance": "Energy balance", "b2-gases": "Greenhouse gases", "b3-pressure": "Pressure & moles", "b3-laws": "Gas laws & pV = nRT", "b4-first": "First law & work", "b4-processes": "Gas processes & pV", "b4-engines": "Heat engines & Carnot", "b5-charge": "Current, pd & emf", "b5-resist": "Resistance & resistivity", "b5-vary": "Potential dividers", "c1-shm": "SHM conditions & equation", "c1-period": "Spring & pendulum periods", "c2-types": "Transverse & longitudinal", "c2-em": "Sound & EM waves", "c3-refr": "Refraction & Snell's law", "c3-grating": "Single slit & gratings", "c5-sound": "Doppler for sound", "d1-newton": "Kepler & Newton's law", "d1-field": "Gravitational field g", "d1-orbit": "Circular orbits", "d1-pot": "Gravitational potential", "d1-escape": "Escape speed & orbits", "d2-charge": "Coulomb's law & Millikan", "d2-efield": "Electric field strength", "d2-pot": "Electric potential", "d3-efield": "Charges in E fields", "d3-bfield": "Charges in B fields", "d3-wires": "Forces on wires", "d4-flux": "Flux & Faraday's law", "d4-lenz": "Lenz's law", "d4-gen": "Generators & AC", "e1-nucleus": "Rutherford & notation", "e1-spectra": "Energy levels & spectra", "e1-radius": "Nuclear radius & density", "e1-bohr": "Bohr model", "e2-matter": "Matter waves", "e3-binding": "Binding energy", "e3-law": "The decay law", "e3-stability": "Nuclear stability", "e4-energy": "Fission energy", "e4-reactor": "Reactors & chain reactions", "e5-hr": "HR diagram & evolution", "e5-distance": "Parallax & stellar radii", "s-units": "Units, prefixes & sig figs", "s-err": "Random & systematic errors", "s-prec": "Precision & accuracy"}, RAIL_TSHORT = {"A.5": "Relativity", "C.1": "SHM", "C.4": "Standing waves", "D.2": "E & M fields", "D.3": "Motion in E/M fields", "Skills": "Skills"};
   const pool = (o) => Q.filter(q => matches(q, o));
+  /* Test-only reserve (1.5, Mike 11 Nov): about 25% of each strand's Paper 1A templates (always leaving at least 6 for Practice), and of Paper 1B/2
+     where a strand has 3 or more, are kept out of Practice, Blitz and Recall and appear only in Test Mode. A template can force it with reserve: true/false.
+     The choice is stable (by a hash of the id). Revisit the size at every major build. */
+  (function markReserve() {
+    const h = (id) => { let x = 5381; for (const ch of id) x = ((x * 33) ^ ch.charCodeAt(0)) >>> 0; return x; };
+    const groups = {};
+    Q.forEach(q => { if (q.fe28 || q.reserve === false) return; if (q.reserve === true) return; (groups[q.strands[0] + '|' + q.paper] = groups[q.strands[0] + '|' + q.paper] || []).push(q); });
+    Object.entries(groups).forEach(([k, list]) => {
+      const forced = Q.filter(q => q.reserve === true && (q.strands[0] + '|' + q.paper) === k).length, n = list.length + forced, is1A = k.endsWith('|1A');
+      let r = is1A ? Math.min(Math.floor(n * 0.25), Math.max(0, n - 6)) : (n >= 3 ? Math.max(1, Math.floor(n / 4)) : 0);
+      r = Math.max(0, r - forced);
+      list.slice().sort((a, b) => h(a.id) - h(b.id)).slice(0, r).forEach(q => { q.reserve = true; });
+    });
+  })();
+  const RESERVED = Q.filter(q => q.reserve === true).length;
   function addMissed(id) { if (!S.missed.includes(id)) S.missed.push(id); }
   function clearMissed(id) { S.missed = S.missed.filter(x => x !== id); }
   function logAttempt(q, score, t, mode) {
@@ -16397,7 +16460,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     const det = blitz && GA && GA.picked && GA.mode === 'detective';
     const n = det || notes ? nStr : blitz ? gaPool().length : recall ? cardPool().length : pool().length;
     const unit = recall ? 'card' : notes || det ? 'strand' : 'question';
-    const li = (s, live) => `<li><label class="${live ? '' : 'disabled'}"><input type="checkbox" data-strand="${s.id}" ${st.sel.includes(s.id) && live ? 'checked' : ''} ${live ? '' : 'disabled'}><span>${esc(s.name)}${s.hl ? '<span class="hl">HL</span>' : ''}</span></label>${s.info ? `<button type="button" class="sinfo" aria-label="Includes: ${esc(s.info)}" data-tip="${esc(TL(s.info))}">i</button>` : ''}</li>`;
+    const li = (s, live) => `<li><label class="${live ? '' : 'disabled'}"${RAIL_SHORT[s.id] ? ` title="${esc(s.name)}"` : ''}><input type="checkbox" data-strand="${s.id}" ${st.sel.includes(s.id) && live ? 'checked' : ''} ${live ? '' : 'disabled'}><span>${esc(RAIL_SHORT[s.id] || s.name)}${s.hl ? '<span class="hl">HL</span>' : ''}</span></label>${s.info ? `<button type="button" class="sinfo" aria-label="Includes: ${esc(s.info)}" data-tip="${esc(TL(s.info))}">i</button>` : ''}</li>`;
     const shown = TOPICS.filter(t => (isHL() || !topicHL(t)) && t.live), allFolded = shown.length > 0 && shown.every(t => RAIL_FOLD.has(t.id));
     const tree = TOPICS.filter(t => isHL() || !topicHL(t)).map(t => {
       const vis = t.strands.filter(s => levelOK(s.id)), slS = vis.filter(s => !s.hl), hlS = vis.filter(s => s.hl);
@@ -16407,7 +16470,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
       const list = slS.length && hlS.length ? slS.map(s => li(s, t.live)).join('') + hlS.map(s => li(s, t.live)).join('') : vis.map(s => li(s, t.live)).join('');
       return `<details data-fold="${t.id}" ${t.live && !RAIL_FOLD.has(t.id) ? 'open' : ''}><summary><span class="caret">▶</span>
         ${t.live ? `<input type="checkbox" data-topic="${t.id}" ${state} aria-label="Select all of ${esc(t.name)}">` : ''}
-        <span class="tname"><span class="tid${t.id === 'Skills' ? ' tip' : ''}"${t.id === 'Skills' ? ` data-tip="${SSP_TIP}"` : ''}>${tname(t.id)}</span> ${esc(t.name)}${tag}</span>${t.live ? '' : '<span class="soon">next</span>'}</summary>
+        <span class="tname"><span class="tid${t.id === 'Skills' ? ' tip' : ''}"${t.id === 'Skills' ? ` data-tip="${SSP_TIP}"` : ''}>${tname(t.id)}</span> <span${RAIL_TSHORT[t.id] ? ` title="${esc(t.name)}"` : ''}>${esc(RAIL_TSHORT[t.id] || t.name)}</span>${tag}</span>${t.live ? '' : '<span class="soon">next</span>'}</summary>
         <ul>${list}</ul></details>`;
     }).join('');
     const hiddenHL = isHL() ? 0 : ALL_STRANDS.filter(x => x.live && x.hl).length;
@@ -16416,8 +16479,8 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
       <div class="rail-body">
         ${v !== 'practice' ? '' : `<div class="missed-box ${S.missed.length ? 'has' : ''} ${st.missedOnly ? 'on' : ''}"><label class="switch"><input type="checkbox" id="missedOnly" ${st.missedOnly ? 'checked' : ''}> <span><b>Only Questions I've Missed</b> <span class="missed-n num">${S.missed.length}</span><small>${S.missed.length ? (st.missedOnly ? 'On: practising your missed questions' : 'Practise the questions you got wrong') : 'Questions you get wrong will collect here'}</small></span></label></div>`}
         ${hiddenHL ? `<p class="sl-note" role="note"><b>SL mode:</b> ${hiddenHL} HL-only strand${hiddenHL === 1 ? ' is' : 's are'} hidden. Switch to HL at the top of the page to see them.</p>` : ''}
-        ${notes ? `<div class="fieldset cmd-box"><label class="switch"><input type="checkbox" id="railFe28" ${st.incFe28 ? 'checked' : ''}> <span><b>FE2028 Changes at a Glance</b><small>Show the summary of changes for exams from May 2028 at the top of Notes</small></span></label></div>` : ''}
-        ${recall || notes ? `<div class="fieldset cmd-box"><label class="switch"><input type="checkbox" id="railCmd" ${st.incCmd ? 'checked' : ''}> <span><b>Command Terms</b><small>${recall ? 'Include the IB command-term cards' : 'Show the command terms at the top of Notes'}</small></span></label></div>` : ''}
+        ${recall || notes ? `<div class="fieldset cmd-box compact">${notes ? `<div class="sw-line"><label class="switch"><input type="checkbox" id="railFe28" ${st.incFe28 ? 'checked' : ''}> <b>FE2028 Changes</b></label><button type="button" class="sinfo inline" aria-label="About FE2028 Changes" data-tip="Shows the summary of changes for exams from May 2028 at the top of Notes.">i</button></div>` : ''}
+          <div class="sw-line"><label class="switch"><input type="checkbox" id="railCmd" ${st.incCmd ? 'checked' : ''}> <b>Command Terms</b></label><button type="button" class="sinfo inline" aria-label="About Command Terms" data-tip="${recall ? 'Includes the IB command-term cards.' : 'Shows the IB command terms at the top of Notes.'}">i</button></div></div>` : ''}
         ${!qmode ? '' : `<div class="fieldset"><span class="lbl">Papers</span><div class="chips">${PAPERS.map(p => `<button class="chip" data-paper="${p}" aria-pressed="${!!st.papers[p]}">${PAPER_NAME[p]}</button>`).join('')}</div></div>
         <div class="fieldset"><span class="lbl">Difficulty</span><div class="chips">${[1, 2, 3].map(c => `<button class="chip" data-chili="${c}" aria-pressed="${!!st.chili[c]}" aria-label="${CHILI_TIP[c]}">${chiliIcon(c)}</button>`).join('')}</div></div>`}
         ${(qmode || (blitz && !det && !(GA && GA.mode === 'lms'))) ? `<div class="fieldset"><span class="lbl">Linked topics <button type="button" class="sinfo inline" aria-label="About linked topics" data-tip="Some questions combine two topics, eg energy (A.3) with circuits (B.5). Off: only questions whose strands are all ticked. Include: also questions that link a ticked strand with other topics. Only: just the questions that combine two or more topics.">i</button></span><div class="chips seg-chips" role="group" aria-label="Linked topics">${LINKED.map(([k, l, d]) => `<button class="chip" data-linked="${k}" aria-pressed="${(st.linked || 'off') === k}" title="${d}">${l}</button>`).join('')}</div></div>` : ''}
@@ -16466,7 +16529,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   }
 
   /* ---------- question rendering ---------- */
-  const APP_VERSION = '1.4 Beta';
+  const APP_VERSION = '1.5 Beta';
   const INFO_ICON = '<svg class="info-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M12 10.6v6.2"/><circle class="dot" cx="12" cy="7.4" r="1.15"/></svg>';
   /* Report a problem: copies the exact question (id + seed) so the teacher can recreate what the student saw */
   /* ---------- Report a problem / feedback, everywhere ----------
@@ -16587,7 +16650,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     if (!P.q) { main.innerHTML = head('Practice 🎯', 'Questions one at a time, with full worked solutions.') + emptySel(); return; }
     const { q, inst } = P;
     const expected = q.marks * rate(q.paper) * 60;
-    const coach = S.settings.paceCoach ? `<div class="instrument" id="coach"><div class="row"><span class="clock" id="coachClock">0:00</span><span class="muted small">Exam pace for this question: ${fmtMin(expected)}</span><span class="spacer"></span>${P.revealed ? '' : pauseBtn('practice')}</div><div class="pace" id="coachBar"><div class="done" style="width:0%"></div></div></div>` : '';
+    const coach = S.settings.paceCoach ? `<div class="instrument" id="coach"><div class="row"><span class="clock" id="coachClock">0:00</span><span class="muted small">Exam pace for this question: ${fmtMin(expected)}</span><span class="spacer"></span>${P.revealed ? '' : pauseBtn('practice')}</div><div class="pace" id="coachBar"><div class="tfill" style="width:0%"></div></div></div>` : '';
     let body;
     if (q.paper === '1A') {
       body = `<div class="qbody">${inst.stem}</div>${optionsHTML(inst, P.picked, P.revealed)}`;
@@ -16625,7 +16688,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
       if (PZ) return;
       const sec = (P.revealed ? P.tUsed : now() - P.t0) / 1000;
       el.textContent = fmtClock(sec); el.classList.toggle('over', sec > exp);
-      const bar = $('#coachBar'); bar.querySelector('.done').style.width = Math.min(100, 100 * sec / exp) + '%'; bar.classList.toggle('behind', sec > exp);
+      const bar = $('#coachBar'); bar.querySelector('.tfill').style.width = Math.min(100, 100 * sec / exp) + '%'; bar.classList.toggle('behind', sec > exp);
     };
     tick(); paceTimer = setInterval(tick, 500);
   }
@@ -16729,7 +16792,8 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     const items = [];
     for (const p of PAPERS) {
       const tgt = marks[p] || 0; if (!tgt) continue;
-      let m = 0; const list = weightedOrder(src.pool.filter(q => q.paper === p), shuf, src.hl === undefined ? isHL() : src.hl);
+      let m = 0; let list = weightedOrder(src.pool.filter(q => q.paper === p && (src.tonly !== false || q.reserve !== true)), shuf, src.hl === undefined ? isHL() : src.hl);
+      if (src.tonly !== false) list = list.filter(q => q.reserve === true).concat(list.filter(q => q.reserve !== true)); // test-only first, then top up from Practice questions
       const take = (q) => { const seed = seedOf(); items.push({ q, seed, inst: q.gen(makeR(seed)), time: 0, answer: null, done: false, ticks: {}, texts: {} }); m += q.marks; };
       for (const q of list) {
         if (m >= tgt) break;
@@ -16822,8 +16886,8 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     let big = 1n; const put = (v, b) => { big = (big << BigInt(b)) | BigInt(v); };
     const sl = !c.strands.some(id => STRAND[id] && STRAND[id].hl);
     const lk = Math.max(0, LINKED.findIndex(x => x[0] === c.linked)), kd = Math.max(0, CODE_TYPES.findIndex(x => x[0] === c.kind));
-    // format 8 (written as version 0): cover sheet, Paper 1A answer sheet and "students may print results" replace the old countdown bit
-    put(0, 3); put(c.seed & 0xfffff, 20); put(c.fp & 0x3ff, 10); put(c.chili, 3); put(lk, 2); put(sl ? 1 : 0, 1); put(kd, 2); put(c.ms ? 1 : 0, 1); put(c.strict === false ? 0 : 1, 1); put(c.cover ? 1 : 0, 1); put(c.booklet ? 1 : 0, 1); put(c.dl === false ? 0 : 1, 1);
+    // format 9 (1.5, written as version 3; the old format-3 codes from the alpha no longer decode): kind is Online/Printable, plus test-only questions and retakes
+    put(3, 3); put(c.seed & 0xfffff, 20); put(c.fp & 0x3ff, 10); put(c.chili, 3); put(lk, 2); put(sl ? 1 : 0, 1); put(kd, 2); put(c.ms ? 1 : 0, 1); put(c.strict === false ? 0 : 1, 1); put(c.cover ? 1 : 0, 1); put(c.booklet ? 1 : 0, 1); put(c.dl === false ? 0 : 1, 1); put(c.tonly === false ? 0 : 1, 1); put(c.retake ? 1 : 0, 1);
     const papersOn = PAPERS.reduce((a, p, i) => a | ((c.marks[p] || 0) > 0 ? 1 << i : 0), 0);
     const pi = PRESETS.findIndex(t => sameMarks(presetMarks(c, t, papersOn), c.marks));
     if (pi >= 0) { put(0, 1); put(pi, 3); put(papersOn, 3); } else { put(1, 1); PAPERS.forEach(p => put(c.marks[p], 7)); }
@@ -16846,10 +16910,15 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     else {
       let pos = 0; const take = (n) => { const v = parseInt(body.slice(pos, pos + n), 2) || 0; pos += n; return v; };
       const ver = take(3); if (ver !== 0 && (ver < 3 || ver > 7)) return null;
-      c = { seed: take(20), fp: take(10), chili: take(3), sl: ver === 4 || ver === 6 }; c.linked = ver >= 5 || ver === 0 ? (LINKED[take(2)] || LINKED[0])[0] : 'off'; c.kind = 'online'; c.ms = false; c.strict = true; c.hideClock = false; c.cover = false; c.booklet = false; c.dl = true;
-      if (ver === 7 || ver === 0) { c.sl = take(1) === 1; c.kind = (CODE_TYPES[take(2)] || CODE_TYPES[0])[0]; c.ms = take(1) === 1; c.strict = take(1) === 1; }
-      if (ver === 7) { take(1); c.cover = c.booklet = c.kind === 'ib'; } // format 7: the countdown bit is ignored; Test/Exam had both
+      if (ver === 3) { // format 9 (1.5)
+        c = { seed: take(20), fp: take(10), chili: take(3) }; c.linked = (LINKED[take(2)] || LINKED[0])[0]; c.sl = take(1) === 1; c.kind = take(2) === 0 ? 'online' : 'print';
+        c.ms = take(1) === 1; c.strict = take(1) === 1; c.hideClock = false; c.cover = take(1) === 1; c.booklet = take(1) === 1; c.dl = take(1) === 1; c.tonly = take(1) === 1; c.retake = take(1) === 1;
+      } else {
+      c = { seed: take(20), fp: take(10), chili: take(3), sl: ver === 4 || ver === 6 }; c.linked = ver >= 5 || ver === 0 ? (LINKED[take(2)] || LINKED[0])[0] : 'off'; c.kind = 'online'; c.ms = false; c.strict = true; c.hideClock = false; c.cover = false; c.booklet = false; c.dl = true; c.tonly = true; c.retake = true;
+      if (ver === 7 || ver === 0) { c.sl = take(1) === 1; c.kind = take(2) === 0 ? 'online' : 'print'; c.ms = take(1) === 1; c.strict = take(1) === 1; }
+      if (ver === 7) { take(1); c.cover = c.booklet = c.kind === 'print'; } // format 7: the countdown bit is ignored
       if (ver === 0) { c.cover = take(1) === 1; c.booklet = take(1) === 1; c.dl = take(1) === 1; }
+      }
       let preset = null; if (take(1) === 0) preset = [take(3), take(3)]; else c.marks = { '1A': take(7), '1B': take(7), '2': take(7) };
       const byStrand = take(1) === 1, rest = body.slice(pos);
       c.strands = byStrand ? maskRead(rest, codeStrands()) : liveStrandsOf(maskRead(rest, CODE_TOPICS), c.sl);
@@ -16878,7 +16947,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     return m; }
   function makeClassCode() {
     const marks = currentMarks();
-    const c = { seed: 1 + rnd(0xffffe), chili: [1, 2, 3].reduce((a, k) => a | (S.settings.chili[k] ? 1 << (k - 1) : 0), 0), marks, strands: effSel(), linked: S.settings.linked || 'off', kind: EX.kind || 'online', ms: !!EX.ms, strict: EX.strict, hideClock: false, cover: !!EX.cover, booklet: !!EX.booklet, dl: EX.dl !== false }; c.sl = !c.strands.some(id => STRAND[id] && STRAND[id].hl);
+    const c = { seed: 1 + rnd(0xffffe), chili: [1, 2, 3].reduce((a, k) => a | (S.settings.chili[k] ? 1 << (k - 1) : 0), 0), marks, strands: effSel(), linked: S.settings.linked || 'off', kind: EX.kind || 'online', ms: !!EX.ms, strict: EX.strict, hideClock: false, cover: !!EX.cover, booklet: !!EX.booklet, dl: EX.dl !== false, tonly: EX.tonly !== false, retake: !!EX.retake }; c.sl = !c.strands.some(id => STRAND[id] && STRAND[id].hl);
     PAPERS.forEach(p => { if (!S.settings.papers[p] && EX.mode !== 'paper') c.marks[p] = 0; c.marks[p] = Math.min(p === '1A' ? MAX_1A : 127, c.marks[p]); });
     if (!sumMarks(c.marks) || !codePool(c).length) return null;
     c.fp = fp10(codePool(c)); c.fpOk = true; c.str = encodeCode(c);
@@ -16918,30 +16987,32 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     else { b.disabled = false; if (msg) msg.textContent = 'That passphrase is not right.'; }
   });
   document.addEventListener('keydown', (e) => { if (e.target && e.target.id === 'tPass' && e.key === 'Enter') { e.preventDefault(); const g = document.getElementById('tGo'); if (g) g.click(); } });
-  const CODE_TYPES = [['online', 'Online', 'Students take it on screen, timed'], ['sheet', 'Worksheet', 'A printable worksheet: questions, then the markscheme if you allow it (cover sheet and answer booklet off to start)'], ['ib', 'Test/Exam', 'A printable IB-style test: Paper 1A, 1B and 2 in IB order (cover sheet and answer booklet on to start)']];
+  const CODE_TYPES = [['online', 'Online', 'Students take it on screen, timed'], ['print', 'Printable', 'A printable paper: you choose the cover sheet, the Paper 1A answer booklet and whether students get the markscheme']]; // 1.5: Worksheet and Test/Exam merged into Printable
   const kindName = (k) => (CODE_TYPES.find(x => x[0] === k) || CODE_TYPES[0])[1];
-  const codeOpts = (c) => c.kind === 'online'
-    ? `Finish ${c.strict ? 'Strict' : 'Soft'} · students ${c.dl === false ? 'cannot' : 'can'} print or download their results`
-    : `markscheme ${c.ms ? 'included' : 'not included'} for students · cover sheet ${c.cover ? 'on' : 'off'} · answer booklet ${c.booklet ? 'on' : 'off'}`;
+  const codeOpts = (c) => (c.kind === 'online'
+    ? `Finish ${c.strict ? 'Strict' : 'Soft'} · students ${c.dl === false ? 'cannot' : 'can'} print or download their results · retakes ${c.retake ? 'allowed' : 'not allowed'}`
+    : `markscheme ${c.ms ? 'included' : 'not included'} for students · cover sheet ${c.cover ? 'on' : 'off'} · answer booklet ${c.booklet ? 'on' : 'off'}`) + ` · test-only questions ${c.tonly === false ? 'not used' : 'used first'}`;
   // what a student sees in Test Mode without teacher access: a class code box, then only what the code allows (1.4)
   function studentExamView() {
     const intro = head('Test Mode 📝', 'Tests set by your teacher. Enter the class code your teacher gives you.');
     if (!EX.code) return intro + `<section class="panel exset"><div class="exrow"><div class="exlab">Class code</div><div class="exctl">
         <div class="codeform"><input type="text" id="exCodeIn" class="codein" data-prefix="MVP" value="MVP-" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Class code (starts MVP-)"><button class="btn primary sm" id="exUse">Use</button></div>
-        <span class="muted small">The code decides the test: an online test, a printable worksheet or a printable IB-style test.</span></div></div>
+        <span class="muted small">The code decides the test: an online test or a printable paper.</span></div></div>
         <p class="muted small">For practice on your own, use Practice, Games and Recall.</p></section>${teacherLine()}`;
     const c = EX.code, kind = c.kind || 'online';
     const box = `<div class="codebox"><div class="code-str num">${c.str}</div><div class="small"><b>${kindName(kind)}</b> · Topics: <b>${topicsOf(c.strands)}</b></div><div class="small">${marksLine(c.marks)}</div>
       ${c.fpOk ? '' : '<p class="warn small">This code was made with a different version of the question bank, so your paper may not match your classmates\' papers. Ask for a new code.</p>'}
       <div class="row"><button class="btn sm btn-clear" id="exClear">Clear</button></div></div>`;
-    const act = kind === 'online'
+    const taken = kind === 'online' && !c.retake && (S.doneCodes || []).includes(c.str);
+    const act = taken ? `<p class="warn small">You have already taken this test on this device. Your teacher has not allowed retakes.</p>`
+      : kind === 'online'
       ? `<p class="small">Finish: <b>${c.strict ? 'Strict' : 'Soft'}</b> (${c.strict ? 'answers lock when time runs out' : 'you can keep going; overtime is recorded'}) · The timer starts shown; you can hide it or mute its alerts during the test.</p><div class="row"><button class="btn primary" id="exStart">Start</button></div>`
-      : `<p class="small">${c.cover && c.booklet ? 'A paper with a cover sheet and a Paper 1A answer sheet.' : c.cover ? 'A paper with a cover sheet.' : c.booklet ? 'A paper with a Paper 1A answer sheet.' : kind === 'ib' ? 'A test paper.' : 'A worksheet of questions.'} ${c.ms ? 'The markscheme is at the end.' : 'Your teacher has the markscheme.'}</p>
+      : `<p class="small">${c.cover && c.booklet ? 'A paper with a cover sheet and a Paper 1A answer sheet.' : c.cover ? 'A paper with a cover sheet.' : c.booklet ? 'A paper with a Paper 1A answer sheet.' : 'A paper of questions.'} ${c.ms ? 'The markscheme is at the end.' : 'Your teacher has the markscheme.'}</p>
         <div class="row"><button class="btn primary" id="wsOpen">🖨 Print/PDF</button></div><p class="muted small" id="wsStatus"></p>`;
     return head('Test Mode 📝', 'A test set by your teacher.') + `<section class="panel exset"><div class="exrow"><div class="exlab">Class code</div><div class="exctl">${box}</div></div><div class="exgo">${act}</div></section>${teacherLine()}`;
   }
   function renderExam(main) {
-    if (!EX) EX = { phase: 'setup', mode: 'ib', paper: 'sl1', target: 30, kind: 'online', ms: false, cover: false, booklet: false, dl: true, marks: { '1A': 5, '1B': 4, '2': 11 }, strict: true, hideClock: false, code: null };
+    if (!EX) EX = { phase: 'setup', mode: 'ib', paper: 'sl1', target: 30, kind: 'online', ms: false, cover: true, booklet: true, dl: true, tonly: true, retake: false, marks: { '1A': 5, '1B': 4, '2': 11 }, strict: true, hideClock: false, code: null };
     if (EX.phase === 'setup') {
       const n = (EX.mode === 'paper' ? pool({ ignorePapers: true }) : pool()).length, av = availMarks(pool());
       const seg = (attr, val, label, on) => `<button type="button" data-${attr}="${val}" aria-pressed="${on}">${label}</button>`;
@@ -16958,7 +17029,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
             ? `<div class="paperchips" role="group" aria-label="IB paper">${REAL_PAPERS.filter(p => p.id.startsWith(isHL() ? 'hl' : 'sl')).map(p => `<button type="button" class="paperchip" data-expaper="${p.id}" aria-pressed="${EX.paper === p.id}"><b>${p.label}</b><span>${p.sub}</span></button>`).join('')}</div><p class="muted small">The real paper's marks and time, using questions from your selected topics (the Papers filter is ignored).</p>`
             : EX.mode === 'ib'
             ? `<div class="chips" role="group" aria-label="Total marks">${[15, 30, 45].map(t => `<button type="button" class="chip" data-extarget="${t}" aria-pressed="${!EX.tcustom && EX.target === t}">${t} marks</button>`).join('')}<button type="button" class="chip" data-extarget="custom" aria-pressed="${!!EX.tcustom}">Custom</button></div>${EX.tcustom ? `<label class="field ex-total"><span>Total marks (5 to 120), shared between the papers in IB proportions</span><input type="number" id="exTotal" min="5" max="120" step="1" value="${EX.target}"></label><p class="muted small">Paper 1A stops at 40 questions (the size of the IB answer sheet), so a large total may come out smaller.</p>` : ''}`
-            : `<div class="exmarks">${PAPERS.map(p => { const off = !S.settings.papers[p] || !av[p]; return `<label class="field"><span>${PAPER_NAME[p]}</span><input type="number" min="0" max="${p === '1A' ? Math.min(MAX_1A, av[p]) : av[p]}" step="1" data-exmk="${p}" value="${off ? 0 : EX.marks[p]}" ${off ? 'disabled' : ''}><small class="muted">${!S.settings.papers[p] ? 'Paper is off' : p === '1A' ? `up to ${Math.min(MAX_1A, av[p])} (answer sheet limit 40)` : `${av[p]} available`}</small></label>`; }).join('')}</div>`) +
+            : `<div class="exmarks">${PAPERS.map(p => { const off = !S.settings.papers[p] || !av[p]; return `<label class="field"><span>${PAPER_NAME[p]}</span><input type="number" min="0" max="${p === '1A' ? Math.min(MAX_1A, av[p]) : av[p]}" step="1" data-exmk="${p}" value="${off ? 0 : EX.marks[p]}" ${off ? 'disabled' : ''}><small class="muted">${!S.settings.papers[p] ? 'Paper is off' : p === '1A' ? `up to ${Math.min(MAX_1A, av[p])}` : `${av[p]} available`}</small></label>`; }).join('')}</div>`) +
           `<p class="exsum small" id="exSum">${marksLine(m)}</p>`;
       }
       const fin = EX.strict ? 'Answers lock when time runs out.' : 'Keep going after time runs out; overtime is recorded.';
@@ -16973,8 +17044,11 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
               <div class="ex-opt"><span class="small">Markscheme for students</span><div class="seg" role="group" aria-label="Markscheme for students">${seg('exms', 'no', 'Questions only', !EX.ms)}${seg('exms', 'yes', 'With markscheme', EX.ms)}</div></div>
               <div class="ex-opt"><span class="small">Cover sheet</span><div class="seg" role="group" aria-label="Cover sheet">${seg('excover', 'on', 'On', !!EX.cover)}${seg('excover', 'off', 'Off', !EX.cover)}</div></div>
               <div class="ex-opt"><span class="small">Answer booklet <span class="muted">(Paper 1A answer sheet)</span></span><div class="seg" role="group" aria-label="Answer booklet">${seg('exbook', 'on', 'On', !!EX.booklet)}${seg('exbook', 'off', 'Off', !EX.booklet)}</div></div></div>`
-              : `<div class="ex-opts"><div class="ex-opt"><span class="small">Students can print or download their results</span><div class="seg" role="group" aria-label="Students can print or download their results">${seg('exdl', 'on', 'On', EX.dl !== false)}${seg('exdl', 'off', 'Off', EX.dl === false)}</div></div></div>
-              <span class="muted small">The code also sets Finish as chosen above. Print/PDF gives a printable copy as a backup.</span>`}</div></div>`}
+              : `<div class="ex-opts"><div class="ex-opt"><span class="small">Students can print or download their results</span><div class="seg" role="group" aria-label="Students can print or download their results">${seg('exdl', 'on', 'On', EX.dl !== false)}${seg('exdl', 'off', 'Off', EX.dl === false)}</div></div>
+              <div class="ex-opt"><span class="small">Allow retakes</span><div class="seg" role="group" aria-label="Allow retakes">${seg('exretake', 'yes', 'Yes', !!EX.retake)}${seg('exretake', 'no', 'No', !EX.retake)}</div></div></div>
+              <span class="muted small">The code also sets Finish as chosen above. With retakes off, a device that has finished this code cannot start it again. Print/PDF gives a printable copy as a backup.</span>`}</div></div>`}
+          ${EX.code ? '' : `<div class="exrow"><div class="exlab">Questions</div><div class="exctl"><div class="seg" role="group" aria-label="Test-only questions">${seg('extonly', 'use', 'Use test-only questions', EX.tonly !== false)}${seg('extonly', 'no', "Don't use", EX.tonly === false)}</div>
+            <span class="muted small">${RESERVED} test-only questions never appear in Practice, Blitz or Recall. ${EX.tonly === false ? 'Off: the test uses only questions students can practise.' : 'On: the test uses them first, then tops up with Practice questions.'}</span></div></div>`}
           ${EX.code ? '' : `<div class="exrow"><div class="exlab">Class code <span class="exopt">optional</span></div><div class="exctl">
             <div class="codeform"><input type="text" id="exCodeIn" class="codein" data-prefix="MVP" value="MVP-" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Class code (starts MVP-)"><button class="btn sm" id="exUse">Use</button><span class="muted small">or</span><button class="btn primary sm" id="exMake">Make a Code</button></div>
             <span class="muted small">Same code, same questions and values for everyone.</span></div></div>`}
@@ -17047,6 +17121,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   function finishExam() {
     if (!EX || EX.phase !== 'run') return;
     exSwitch(EX.cur); EX.finishedAt = now(); EX.phase = 'review'; clearInterval(exTimer);
+    if (EX.code && EX.code.kind === 'online' && !EX.code.retake && !TEACHER) { S.doneCodes = (S.doneCodes || []).filter(x => x !== EX.code.str).concat(EX.code.str).slice(-200); save(); } // 1.5: no retakes on this device
     const main = $('#main'); if (currentView() === 'exam') { renderExam(main); window.scrollTo({ top: 0 }); }
     else toast('Time is up. Your paper is ready to mark in Test Mode.');
   }
@@ -17114,7 +17189,9 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
         const d = b.dataset;
         if (d.exmode) { EX.mode = d.exmode; if (EX.mode === 'custom' && !sumMarks(EX.marks)) EX.marks = ibMarks(EX.target); renderExam(main); return; }
         if (d.extarget) { if (d.extarget === 'custom') EX.tcustom = true; else { EX.tcustom = false; EX.target = +d.extarget; } EX.marks = ibMarks(EX.target); renderExam(main); return; }
-        if (d.exkind) { EX.kind = d.exkind; if (EX.kind !== 'online') EX.cover = EX.booklet = EX.kind === 'ib'; renderExam(main); return; } // Worksheet and Test/Exam are presets for the two layout switches
+        if (d.exkind) { EX.kind = d.exkind; if (EX.kind === 'print' && EX.cover === undefined) EX.cover = EX.booklet = true; renderExam(main); return; }
+        if (d.extonly) { EX.tonly = d.extonly === 'use'; renderExam(main); return; }
+        if (d.exretake) { EX.retake = d.exretake === 'yes'; renderExam(main); return; }
         if (d.excover) { EX.cover = d.excover === 'on'; renderExam(main); return; }
         if (d.exbook) { EX.booklet = d.exbook === 'on'; renderExam(main); return; }
         if (d.exdl) { EX.dl = d.exdl === 'on'; renderExam(main); return; }
@@ -17129,12 +17206,13 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
         if (b.id === 'exCopy') { const t = EX.code.str; (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast('Code copied.'), () => toast('Select the code and copy it: ' + t)); return; }
       }
       if (b.id === 'exStart') {
+        if (!TEACHER && EX.code && EX.code.kind === 'online' && !EX.code.retake && (S.doneCodes || []).includes(EX.code.str)) { toast('You have already taken this test on this device.'); return; }
         try { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); AC.resume(); } catch (e) {}
         EX.hideClock = false;
         const marks = EX.code ? EX.code.marks : currentMarks();
         if (!sumMarks(marks)) { toast('Choose at least 1 mark for one of the papers.'); return; }
         const seed = EX.code ? EX.code.seed : newSeed(), hl = EX.code ? codeHL(EX.code) : isHL();
-        const items = buildExam(marks, { pool: EX.code ? codePool(EX.code) : EX.mode === 'paper' ? pool({ ignorePapers: true }) : pool(), R: makeR(seed), hl });
+        const items = buildExam(marks, { pool: EX.code ? codePool(EX.code) : EX.mode === 'paper' ? pool({ ignorePapers: true }) : pool(), R: makeR(seed), hl, tonly: EX.code ? EX.code.tonly !== false : EX.tonly !== false });
         EX.target = sumMarks(marks);
         if (!items.length) { toast('No questions match your selection.'); return; }
         const total = items.reduce((a, x) => a + x.q.marks, 0);
@@ -17209,7 +17287,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     return head('Games 🕹️', 'Race the clock and challenge your class. Choose a game.') + `<div class="mode-cards">${GAME_CARDS.map(([k, ic, name, d]) => `<button type="button" class="mode-card" data-gamode="${k}"><span class="wic" aria-hidden="true">${ic}</span><b>${name}</b><span>${d}</span></button>`).join('')}
       <div class="mode-card soon" aria-disabled="true"><span class="wic" aria-hidden="true">🎮</span><b>More Games Coming Soon…</b></div></div><p class="muted small">Your scores for each game are on its own screen and on the Stats page.</p>`;
   }
-  const modeBack = (id, label) => `<div class="mode-back"><button type="button" class="btn sm backbtn" id="${id}"><span aria-hidden="true">←</span> ${label}</button></div>`;
+  const modeBack = (id, label) => `<div class="mode-back"><button type="button" class="btn backbtn" id="${id}"><span aria-hidden="true">←</span> ${label}</button></div>`;
   function renderGauntlet(main) {
     if (!GA) GA = { phase: 'setup', dur: 5, custom: false };
     const n = gaPool().length;
@@ -18181,7 +18259,7 @@ ${docWatermark('')}${docFooter('')}</body></html>`;
   /* Printable files (worksheets, exam results): authorship comment at the top, and a watermark line on every printed page
      (CSS page-margin boxes: Chrome and Edge) plus a footer at the end of the document (all browsers). */
   const SITE_URL = 'https://mvpoirier.github.io/physics-lab/', REPO_URL = 'https://github.com/mvpoirier/mvpoirier.github.io';
-  const DOC_DATE = '9 November 2026';
+  const DOC_DATE = '11 November 2026';
   const docComment = (what, id) => `<!--
   MVPhysics Lab · ${what}${id ? ' · ' + id : ''}
   Made with version ${APP_VERSION} (built ${DOC_DATE}) on ${new Date().toISOString().slice(0, 10)}
@@ -18334,7 +18412,7 @@ ${docWatermark('')}${docFooter('')}</body></html>`;
     if (code && !TEACHER && EX && EX.code) { if (EX.code.kind === 'online') { toast('This code is for an online test.'); return; } variant = 'student'; msOnly = false; }
     if (variant === 'student') answers = EX && EX.code && EX.code.kind !== 'online' ? !!EX.code.ms : false;
     if (!code) { toast('No questions match your selection.'); return; }
-    const items = buildExam(code.marks, { pool: codePool(code), R: makeR(code.seed), hl: codeHL(code) });
+    const items = buildExam(code.marks, { pool: codePool(code), R: makeR(code.seed), hl: codeHL(code), tonly: code.tonly !== false });
     if (!items.length) { toast('No questions match your selection.'); return; }
     status.textContent = 'Preparing…';
     if (window.MathJax && MathJax.startup && MathJax.startup.promise) await MathJax.startup.promise;
@@ -18492,7 +18570,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
   }
 
   /* ---------- About: methodology, bank size, value combinations, revision history ---------- */
-  const COMBOS = {"a1-m01":2,"a1-m02":713,"a1-m03":180,"a1-m04":240,"a1-m05":108,"a1-m06":1,"a1-m07":328,"a1-m08":300,"a1-m09":13,"a1-m10":310,"a1-m11":4,"a1-m12":3,"a1-m13":72,"a1-m14":112,"a1-m15":1,"a1-m16":1,"a1-m17":1430,"a1-m18":572,"a1-m19":1,"a1-m20":1,"a1-m21":1,"a1-m22":12,"a1-m23":80,"a1-b01":16,"a1-b02":84,"a1-b03":80,"a1-b04":84,"a1-p01":448,"a1-p02":1404,"a1-p03":144,"a1-p04":1,"a1-p05":168,"a1-m24":25,"a1-m25":1,"a1-m26":1,"a1-m27":5,"a1-m28":150,"a1-m29":36,"a1-b05":13,"a1-p06":20,"a1-p07":36,"a1-m30":60,"a1-m31":25,"a1-m32":1,"a1-m33":108,"a1-m34":1,"a1-m35":20,"a1-m36":100,"a1-b06":20,"a1-p08":144,"a2-m01":2,"a2-m02":410,"a2-m03":725,"a2-m04":80,"a2-m05":108,"a2-m06":1122,"a2-m07":216,"a2-m09":20,"a2-m10":125,"a2-m11":2,"a2-m12":70,"a2-m13":6,"a2-m14":135,"a2-m15":100,"a2-m16":7560,"a2-m17":25,"a2-m18":100,"a2-m19":3,"a2-m20":720,"a2-m21":8,"a2-m22":96,"a2-m23":1,"a2-m24":36,"a2-m25":36,"a2-m26":6,"a2-m27":656,"a2-b01":21,"a2-b02":36,"a2-p01":320,"a2-p02":2304,"a2-p03":14020,"a2-p04":576,"a2-p05":27,"a2-m28":29160,"a2-m29":48,"a2-m30":80,"a2-m32":3825,"a2-m33":20,"a2-b03":9,"a2-p06":24,"a2-p07":216,"a2-m34":164,"a2-m35":7,"a2-m36":2480,"a2-m37":1,"a2-m38":1,"a2-m39":3,"a2-m40":1,"a2-m41":1,"a2-m42":3,"a2-m43":1,"a2-b04":9,"a3-m01":101808,"a3-m02":36,"a3-m03":2,"a3-m04":3,"a3-m05":4,"a3-m06":32,"a3-m07":30,"a3-m08":150,"a3-m09":2,"a3-m10":900,"a3-m11":35,"a3-m12":1080,"a3-m13":132,"a3-m14":36,"a3-m15":800,"a3-m16":500,"a3-m17":64,"a3-m18":144,"a3-m19":80,"a3-m20":6,"a3-m21":3,"a3-m22":1,"a3-m23":15,"a3-m24":125,"a3-m25":1,"a3-b01":84,"a3-b02":192,"a3-p01":256,"a3-p02":1296,"a3-p03":972,"a3-p04":72,"a3-p05":496,"a3-m26":2,"a3-m27":100,"a3-m28":2,"a3-m29":30,"a3-b03":5,"a4-m01":100,"a4-m02":1,"a4-m03":24,"a4-m04":16,"a4-m05":1,"a4-m06":6,"a4-m07":64,"a4-m08":20,"a4-m09":36,"a4-m10":4,"a4-m11":32,"a4-m12":1,"a4-m13":64,"a4-m14":64,"a4-m15":1,"a4-m16":16,"a4-m17":36,"a4-m18":1,"a4-m19":80,"a4-m20":36,"a4-m21":16,"a4-m22":16,"a4-m23":3,"a4-m24":1,"a4-t01":1,"a4-t02":6,"a4-b01":3,"a4-b02":27,"a4-p01":27,"a4-p02":54,"a4-p03":54,"a5-m01":1,"a5-m02":80,"a5-m03":32,"a5-m04":1,"a5-m18":1,"a5-m05":1,"a5-m06":6,"a5-m07":64,"a5-m08":12,"a5-m09":16,"a5-m10":1,"a5-m11":16,"a5-m12":3,"a5-m13":1,"a5-m14":5,"a5-m15":5,"a5-m16":1,"a5-m17":3,"a5-t01":8,"a5-b01":3,"a5-p01":6,"a5-p02":2,"a5-p03":9,"a2e-m01":1414,"a2e-m02":36,"a2e-m03":16,"a2e-m04":1,"a2e-m05":360,"a2e-m06":27,"a2e-p01":124,"a2f-m01":204,"a2f-m02":4320,"a2f-m03":1,"a2f-m04":16,"a2f-m05":1,"a2f-b01":21,"a1d-m01":16,"a1d-m02":64,"a1d-b01":12,"a1g-b01":36,"a1f-m01":1,"a1f-m02":1,"a1f-p01":36,"a2m-b01":27,"a2c-m01":36,"a2c-m02":81,"a2c-m03":1,"a2c-p01":54,"a3s-m01":48,"a3s-m02":20,"a3s-m03":243,"a3d-m01":24,"a3d-m02":3,"a3d-m03":1,"a3d-b01":12,"a3d-p01":54,"a3w-b01":3,"lg-b01":9,"lg-b02":3,"lg-b03":1,"ax-m01":80,"ax-m02":20,"ax-m03":20,"ax-m04":8,"ax-m05":5,"ax-m06":20,"ax-p01":240,"ax-p02":81,"ax-p03":256,"ax-p04":243,"ax-p05":216,"ax-p06":12,"ax-p07":81,"ax-p08":64,"b1-m01":300,"b1-m02":684,"b1-m03":7,"b1-m04":5,"b1-m05":1,"b1-m06":1,"b1-m07":2,"b1-m08":1,"b1-m09":1,"b1-m10":2772,"b1-m11":144,"b1-m12":240,"b1-m13":6,"b1-m14":64,"b1-m15":192,"b1-m16":16,"b1-m17":16,"b1-m18":81,"b1-m19":100,"b1-m20":18,"b1-m21":1,"b1-m22":1,"b1-m23":320,"b1-m24":1,"b1-m25":20,"b1-m26":9,"b1-m27":6,"b1-m28":7,"b1-m29":25,"b1-m30":12,"b1-m31":9,"b1-m32":25,"b1-m33":25,"b1-b01":216,"b1-b02":1,"b1-b03":3,"b1-p01":36,"b1-p02":729,"b1-p03":120,"b1-p04":576,"b1-p05":192,"b1-p06":3,"b1-p07":18,"b1-p08":27,"b2-m01":20,"b2-m02":16,"b2-m03":1,"b2-m04":3,"b2-m05":4,"b2-m06":1,"b2-m07":1,"b2-m08":4,"b2-m09":4,"b2-m10":4,"b2-m11":1,"b2-m12":12,"b2-m13":9,"b2-m14":3,"b2-m15":1,"b2-m16":3,"b2-m17":1,"b2-t01":5,"b2-b01":12,"b2-p01":3,"b2-p02":27,"b3-m01":20,"b3-m02":30,"b3-m03":5,"b3-m04":80,"b3-m05":80,"b3-m06":48,"b3-m07":243,"b3-m08":80,"b3-m09":48,"b3-m10":16,"b3-m11":81,"b3-m12":45,"b3-m13":1,"b3-m14":1,"b3-m15":12,"b3-m16":4,"b3-m17":20,"b3-m18":1,"b3-m19":1,"b3-m20":1,"b3-m21":1,"b3-m22":6,"b3-m23":2,"b3-b01":12,"b3-b02":12,"b3-b03":9,"b3-p01":180,"b3-p02":144,"b3-p03":162,"b3-p04":8,"b3-p05":54,"b3-p06":36,"b4-m01":16,"b4-m02":36,"b4-m03":16,"b4-m04":1,"b4-m05":8,"b4-m06":1,"b4-m07":1,"b4-m08":1,"b4-m09":3,"b4-m10":3,"b4-m11":6,"b4-m12":1,"b4-m13":9,"b4-m14":9,"b4-m15":18,"b4-m16":1,"b4-m17":3,"b4-m18":4,"b4-m19":1,"b4-m20":1,"b4-m21":1,"b4-m22":9,"b4-m23":12,"b4-m24":1,"b4-m25":16,"b4-m26":12,"b4-m27":9,"b4-m28":1,"b4-m29":1,"b4-m30":6,"b4-m31":1,"b4-m32":8,"b4-b01":3,"b4-b02":3,"b4-b03":3,"b4-p01":4,"b4-p02":4,"b4-p03":4,"b4-p04":2,"b4-p05":36,"b5-m01":40,"b5-m02":4,"b5-m03":25,"b5-m04":1,"b5-m05":1,"b5-m06":2,"b5-m07":25,"b5-m08":48,"b5-m09":2,"b5-m10":9,"b5-m11":9,"b5-m12":2,"b5-m13":1,"b5-m14":1,"b5-m15":25,"b5-m16":6,"b5-m17":25,"b5-m18":15,"b5-m19":8,"b5-m20":25,"b5-m21":48,"b5-m22":64,"b5-m23":27,"b5-m24":1,"b5-m25":1,"b5-m26":12,"b5-m27":100,"b5-m28":16,"b5-m29":64,"b5-m30":1,"b5-m31":27,"b5-m32":12,"b5-m33":60,"b5-m34":2,"b5-m35":1,"b5-m36":27,"b5-b01":12,"b5-b02":9,"b5-b03":3,"b5-p01":81,"b5-p02":24,"b5-p03":243,"b5-p04":216,"b5-p05":162,"b5-p06":4,"b5-p07":72,"b5-p08":36,"b1-m34":36,"b3-m24":12,"b3-m25":5,"b3-m26":36,"b5-m37":12,"b5-m38":16,"b5-m39":36,"b5-m40":12,"b5-b04":27,"c1-m01":1,"c1-m02":1,"c1-m03":1,"c1-m04":48,"c1-m05":12,"c1-m06":1,"c1-m07":36,"c1-m08":7,"c1-m09":5,"c1-m10":4,"c1-m11":3,"c1-m12":2,"c1-m13":20,"c1-m14":16,"c1-m15":2,"c1-m16":1,"c1-m17":1,"c1-m18":1,"c1-m19":12,"c1-m20":20,"c1-m21":40,"c1-h01":20,"c1-h02":64,"c1-h03":64,"c1-h04":5,"c1-h05":96,"c1-h06":2,"c1-t01":2,"c1-t02":36,"c1-b01":1,"c1-b02":9,"c1-p01":48,"c1-p02":6,"c1-p03":27,"c1-p04":9,"c2-m01":2,"c2-m02":1,"c2-m03":75,"c2-m04":4,"c2-m05":60,"c2-m06":20,"c2-m07":8,"c2-m08":30,"c2-m09":1,"c2-m10":1,"c2-m11":1,"c2-m12":4,"c2-m13":1,"c2-m14":18,"c2-m15":10,"c2-m16":16,"c2-m17":3,"c2-t01":36,"c2-b01":3,"c2-p01":27,"c2-p02":18,"c2-p03":27,"c3-m01":35,"c3-m02":16,"c3-m03":5,"c3-m04":10,"c3-m05":1,"c3-m06":1,"c3-m07":25,"c3-m08":5,"c3-m09":1,"c3-m10":1,"c3-m11":1,"c3-m12":9,"c3-m13":20,"c3-m14":96,"c3-m15":1,"c3-m16":12,"c3-m17":12,"c3-m18":80,"c3-m19":81,"c3-m20":5,"c3-m21":1,"c3-h01":96,"c3-h02":1,"c3-h03":32,"c3-h04":12,"c3-h05":1,"c3-h06":1,"c3-h07":1,"c3-h08":12,"c3-t01":24,"c3-t02":1,"c3-b01":3,"c3-b02":6,"c3-p01":27,"c3-p02":54,"c3-p03":24,"c3-p04":3,"c3-p05":54,"c4-m01":1,"c4-m02":40,"c4-m03":2,"c4-m04":1,"c4-m05":80,"c4-m06":16,"c4-m07":15,"c4-m08":15,"c4-m09":18,"c4-m10":10,"c4-m11":10,"c4-m12":45,"c4-m13":1,"c4-m14":36,"c4-m15":1,"c4-m16":1,"c4-m17":3,"c4-m18":2,"c4-m19":5,"c4-m20":16,"c4-m21":1,"c4-m22":1,"c4-t01":9,"c4-b01":9,"c4-p01":9,"c4-p02":3,"c4-p03":9,"c5-m01":1,"c5-m02":2,"c5-m03":24,"c5-m04":3,"c5-m05":16,"c5-m06":1,"c5-m07":1,"c5-h01":50,"c5-h02":32,"c5-h03":16,"c5-h04":12,"c5-h05":1,"c5-t01":8,"c5-b01":9,"c5-p01":6,"c5-p02":12,"c5-p03":9,"d1-m01":48,"d1-m02":12,"d1-m03":1,"d1-m04":1,"d1-m05":12,"d1-m06":1,"d1-m07":8,"d1-m08":27,"d1-m09":20,"d1-m10":12,"d1-m11":20,"d1-m12":1,"d1-m13":1,"d1-m14":27,"d1-m15":1,"d1-m16":1,"d1-m17":20,"d1-m18":20,"d1-m19":16,"d1-m20":2,"d1-m21":1,"d1-m22":8,"d1-m23":1,"d1-m24":15,"d1-m25":15,"d1-m26":48,"d1-m27":45,"d1-m28":12,"d1-m29":1,"d1-m30":9,"d1-m31":24,"d1-m32":1,"d1-m33":6,"d1-m34":12,"d1-m35":12,"d1-m36":27,"d1-m37":1,"d1-m38":4,"d1-m39":1,"d1-m40":9,"d1-t01":1,"d1-t02":12,"d1-b01":6,"d1-b02":3,"d1-b03":3,"d1-p01":18,"d1-p02":1,"d1-p03":24,"d1-p04":6,"d1-p05":3,"d2-m01":48,"d2-m02":18,"d2-m03":1,"d2-m04":2,"d2-m05":3,"d2-m06":48,"d2-m07":6,"d2-m08":16,"d2-m09":6,"d2-m10":16,"d2-m11":16,"d2-m12":1,"d2-m13":1,"d2-m14":9,"d2-m15":3,"d2-m16":1,"d2-m17":2,"d2-m18":1,"d2-m19":6,"d2-m20":1,"d2-m21":16,"d2-m22":1,"d2-m23":2,"d2-m24":2,"d2-m25":1,"d2-m26":12,"d2-m27":18,"d2-m28":27,"d2-m29":1,"d2-m30":9,"d2-m31":1,"d2-m32":1,"d2-m33":9,"d2-m34":8,"d2-t01":1,"d2-b01":1,"d2-b02":9,"d2-b03":3,"d2-p01":36,"d2-p02":18,"d2-p03":9,"d2-p04":12,"d2-p05":9,"d3-m01":5,"d3-m02":16,"d3-m03":1,"d3-m04":27,"d3-m05":1,"d3-m06":2,"d3-m07":1,"d3-m08":2,"d3-m09":36,"d3-m10":18,"d3-m11":4,"d3-m12":1,"d3-m13":3,"d3-m14":9,"d3-m15":6,"d3-m16":1,"d3-m17":1,"d3-m18":64,"d3-m19":4,"d3-m20":27,"d3-m21":2,"d3-m22":81,"d3-m23":36,"d3-m24":3,"d3-m25":1,"d3-t01":1,"d3-b01":3,"d3-b02":6,"d3-b03":3,"d3-p01":9,"d3-p02":9,"d3-p03":9,"d3-p04":18,"d3-p05":9,"d4-m01":36,"d4-m02":1,"d4-m03":108,"d4-m04":36,"d4-m05":64,"d4-m06":81,"d4-m07":1,"d4-m08":2,"d4-m09":1,"d4-m10":81,"d4-m11":1,"d4-m12":1,"d4-m13":1,"d4-m14":1,"d4-m15":54,"d4-m16":5,"d4-t01":1,"d4-b01":9,"d4-p01":81,"d4-p02":54,"e1-m01":1,"e1-m02":1,"e1-m03":8,"e1-m04":3,"e1-m05":1,"e1-m06":12,"e1-m07":1,"e1-m08":1,"e1-m09":16,"e1-m10":3,"e1-m11":1,"e1-m12":4,"e1-m13":1,"e1-m14":1,"e1-m15":4,"e1-m16":1,"e1-m17":10,"e1-m18":10,"e1-m19":3,"e1-m20":12,"e1-m21":1,"e1-m22":9,"e1-m23":1,"e1-m24":1,"e1-m25":4,"e1-m26":5,"e1-m27":3,"e1-m28":4,"e1-m29":1,"e1-m30":1,"e1-m31":1,"e1-m32":1,"e1-t01":4,"e1-b01":3,"e1-b02":1,"e1-b03":1,"e1-p01":2,"e1-p02":2,"e1-p03":6,"e1-p04":3,"e1-p05":3,"e2-m01":24,"e2-m02":6,"e2-m03":12,"e2-m04":1,"e2-m05":1,"e2-m06":1,"e2-m07":1,"e2-m08":4,"e2-m09":4,"e2-m10":5,"e2-m11":1,"e2-m12":1,"e2-m13":9,"e2-m14":1,"e2-m15":1,"e2-m16":9,"e2-m17":5,"e2-m18":1,"e2-m19":1,"e2-m20":1,"e2-m21":9,"e2-m22":1,"e2-m23":3,"e2-m24":3,"e2-b01":3,"e2-b02":3,"e2-b03":2,"e2-p01":9,"e2-p02":6,"e2-p03":9,"e2-p04":3,"e2-p05":3,"e3-m01":4,"e3-m02":4,"e3-m03":4,"e3-m04":1,"e3-m05":27,"e3-m06":3,"e3-m07":1,"e3-m08":1,"e3-m09":4,"e3-m10":1,"e3-m11":3,"e3-m12":1,"e3-m13":1,"e3-m14":9,"e3-m15":1,"e3-m16":1,"e3-m17":12,"e3-m18":36,"e3-m19":18,"e3-m20":12,"e3-m21":1,"e3-m22":9,"e3-m23":1,"e3-m24":36,"e3-m25":8,"e3-m26":36,"e3-m27":9,"e3-m28":12,"e3-m29":1,"e3-m30":1,"e3-m31":9,"e3-m32":18,"e3-m33":1,"e3-m34":1,"e3-m35":1,"e3-m36":1,"e3-m37":1,"e3-m38":1,"e3-m39":4,"e3-m40":1,"e3-b01":27,"e3-b02":6,"e3-b03":6,"e3-p01":1,"e3-p02":6,"e3-p03":2,"e3-p04":18,"e3-p05":3,"e4-m01":4,"e4-m02":4,"e4-m03":9,"e4-m04":1,"e4-m05":9,"e4-m06":1,"e4-m07":3,"e4-m08":1,"e4-m09":1,"e4-m10":1,"e4-m11":1,"e4-m12":1,"e4-m13":1,"e4-m14":3,"e4-m15":1,"e4-m16":1,"e4-m17":1,"e4-b01":3,"e4-b02":9,"e4-b03":9,"e4-p01":4,"e4-p02":1,"e4-p03":9,"e4-p04":3,"e4-p05":4,"e5-m01":1,"e5-m02":1,"e5-m03":2,"e5-m04":4,"e5-m05":1,"e5-m06":1,"e5-m07":1,"e5-m08":1,"e5-m09":4,"e5-m10":1,"e5-m11":1,"e5-m12":1,"e5-m13":1,"e5-m14":1,"e5-m15":1,"e5-m16":1,"e5-m17":4,"e5-m18":4,"e5-m19":12,"e5-m20":16,"e5-m21":16,"e5-m22":6,"e5-m23":5,"e5-m24":1,"e5-m25":1,"e5-b01":1,"e5-b02":3,"e5-b03":27,"e5-p01":1,"e5-p02":1,"e5-p03":27,"e5-p04":18,"e5-p05":1,"tu-m01a":1,"tu-m01b":1,"tu-m01c":1,"tu-m01d":1,"tu-m01e":2,"tu-m01f":1,"tu-m01g":1,"tu-m02a":1,"tu-m02b":1,"tu-m02c":1,"tu-m02d":1,"tu-m02e":1,"tu-m02f":2,"tu-m02g":1,"tu-m02h":1,"tu-m03a":2,"tu-m03b":2,"tu-m03c":1,"tu-m03d":1,"tu-m03e":1,"tu-m03f":1,"tu-m04a":1,"tu-m04b":1,"tu-m04c":1,"tu-m04d":1,"tu-m04e":1,"tu-m04f":1,"tu-m05a":1,"tu-m05b":1,"tu-m05c":1,"tu-m05d":1,"tu-m05e":1,"tu-m06a":10,"tu-m06b":4,"tu-m06c":5,"tu-m07":30,"tu-m08a":6,"tu-m08b":10,"tu-m08c":4,"tu-m09":10,"tu-m10":16,"tu-m11":20,"tu-m12":48,"tu-m13":27,"tu-m14":16,"tu-m15":12,"tu-m16":9,"tu-m17":5,"tu-m18":24,"tu-m19":36,"tu-m20":12,"tu-m21":16,"tu-m22":12,"tu-m23":36,"tu-p01":27,"tu-p02":81,"tu-p03":81,"tb-m01":64,"tb-m02":6,"tb-m03":25,"tb-m04":1,"tb-m05":48,"tb-m06":16,"tb-m07":54,"tb-m08":9,"tb-m09":2,"tb-m10":4,"tb-m11":12,"tb-m12":4,"tb-m13":4,"tb-m14":5,"tb-m15":4,"tb-m16":1,"tb-m17":3,"tb-h01":72,"tb-h02":81,"tb-h03":4,"tb-t01":8,"tb-p01":24,"tb-p02":54,"tb-p03":18,"tb-p04":18,"tb-p05":9,"tb-p06":54,"tb-p07":243,"tb-p08":81,"tb-p09":9,"tb-b01":18,"tb-b02":3,"tb-b03":2,"tb-m18":48,"tb-m19":24,"tb-m20":12,"tb-m21":1,"tb-m22":27,"tb-m23":4,"tb-m24":12,"ak-m01":27,"ak-m02":1,"ak-m03":27,"ak-m04":1,"ak-m05":18,"ak-m06":9,"ak-m07":9,"ak-m08":1,"ak-m09":9,"ak-m10":81,"ak-m11":9,"ak-m12":27,"ak-m13":1,"ak-m14":12,"ak-m15":9,"ak-m16":9,"ak-m17":1,"ak-m18":3,"ak-m19":9,"ak-m20":5,"ak-m21":6,"ak-m22":9,"ak-m23":3,"ak-m24":9,"ak-m25":4,"ak-m26":1,"ak-b01":2,"ak-b02":3,"ak-b03":2,"ak-p01":12,"ak-p02":9,"bk-m01":1,"bk-m02":3,"bk-m03":1,"bk-m04":48,"bk-m05":27,"bk-m06":2,"bk-m07":1,"bk-b01":3,"bk-b02":1,"bk-p01":9,"bk-p02":3,"bk-p03":4,"ck-m01":6,"ck-m02":3,"ck-m03":1,"ck-m04":1,"ck-m05":1,"ck-m06":4,"ck-m07":1,"ck-m08":1,"ck-m09":1,"ck-m10":5,"ck-m11":12,"ck-m12":12,"ck-m13":1,"ck-m14":12,"ck-m15":9,"ck-m16":1,"ck-b01":3,"ck-b02":3,"ck-b03":3,"ck-b04":9,"ck-b05":3,"ck-b06":9,"ck-p01":6,"ck-p02":18,"ck-p03":9,"dk-m01":27,"dk-m02":81,"dk-m03":18,"dk-m04":6,"dk-m05":2,"dk-b01":3,"dk-b02":2,"dk-p01":32,"dk-p02":24,"sk-m01":36,"sk-m02":5,"sk-m03":5,"sk-m04":1,"sk-m05":9,"sk-m06":1,"sk-m07":1,"sk-m08":3,"sk-m09":1,"sk-m10":4,"sk-m11":1,"sk-m12":3,"sk-m13":3,"sk-m14":1,"sk-m15":4,"sk-m16":12,"sk-m17":1,"sk-m18":1,"sk-m19":1,"sk-m20":6,"sk-m21":1,"sk-m22":1,"sk-m23":1,"sk-m24":12,"sk-m25":9,"sk-m26":1,"sk-m27":3,"sk-m28":1,"sr-m01":25,"sr-m02":20,"sr-m03":24,"sr-m04":25,"sr-m05":4,"sr-m06":5,"sr-m07":30,"sr-m08":25,"sr-m09":64,"sr-m10":1,"sr-m11":48,"sr-m12":3,"sr-m13":20,"sr-m14":180,"sr-m15":5,"sr-m16":36,"sr-m17":12,"sr-m18":1,"sr-m19":3,"sr-m20":16,"sr-m21":1,"sr-m22":80,"sr-m23":60,"sr-m24":2,"sr-m25":15,"sr-m26":3,"sr-m27":3,"sr-m28":16,"sr-m29":48,"sr-m30":15,"sr-m31":4,"sr-m32":6,"sr-m33":72,"sr-m34":5,"sr-m35":3,"sr-m36":3,"sr-m37":1,"sr-m38":1,"sr-b01":4,"sr-b02":12,"sr-b03":12,"sr-p01":9,"a2x-m01":114,"a2x-m02":20412,"a2x-m03":492,"a2x-m04":36,"a2x-m05":3,"a2x-m06":45,"a2x-m07":40,"a2x-m08":64,"a2x-m09":30,"a2x-m10":48,"a2x-m11":54,"a2x-m12":24,"a2x-m13":5,"a2x-m14":16,"a2x-m15":15,"a2x-m16":12,"a2x-m19":1,"a2x-m20":96,"a2x-m21":54,"a2x-m23":1,"a2x-m24":24,"a2x-b01":6,"a2x-b02":11,"a2x-p01":108,"a2x-p02":234,"a2x-p03":54,"a2x-p04":1377};
+  const COMBOS = {"a1-m01":2,"a1-m02":713,"a1-m03":180,"a1-m04":240,"a1-m05":108,"a1-m06":1,"a1-m07":328,"a1-m08":300,"a1-m09":13,"a1-m10":310,"a1-m11":4,"a1-m12":3,"a1-m13":72,"a1-m14":112,"a1-m15":1,"a1-m16":1,"a1-m17":1430,"a1-m18":572,"a1-m19":1,"a1-m20":1,"a1-m21":1,"a1-m22":12,"a1-m23":80,"a1-b01":16,"a1-b02":84,"a1-b03":80,"a1-b04":84,"a1-p01":448,"a1-p02":1404,"a1-p03":144,"a1-p04":1,"a1-p05":168,"a1-m24":25,"a1-m25":1,"a1-m26":1,"a1-m27":5,"a1-m28":150,"a1-m29":36,"a1-b05":13,"a1-p06":20,"a1-p07":36,"a1-m30":60,"a1-m31":25,"a1-m32":1,"a1-m33":108,"a1-m34":1,"a1-m35":20,"a1-m36":100,"a1-b06":20,"a1-p08":144,"a2-m01":2,"a2-m02":410,"a2-m03":725,"a2-m04":80,"a2-m05":108,"a2-m06":1122,"a2-m07":216,"a2-m09":20,"a2-m10":125,"a2-m11":2,"a2-m12":70,"a2-m13":6,"a2-m14":135,"a2-m15":100,"a2-m16":7560,"a2-m17":25,"a2-m18":100,"a2-m19":3,"a2-m20":720,"a2-m21":8,"a2-m22":96,"a2-m23":1,"a2-m24":36,"a2-m25":36,"a2-m26":6,"a2-m27":656,"a2-b01":21,"a2-b02":36,"a2-p01":320,"a2-p02":2304,"a2-p03":14020,"a2-p04":576,"a2-p05":27,"a2-m28":29160,"a2-m29":48,"a2-m30":80,"a2-m32":3825,"a2-m33":20,"a2-b03":9,"a2-p06":24,"a2-p07":216,"a2-m34":164,"a2-m35":7,"a2-m36":2480,"a2-m37":1,"a2-m38":1,"a2-m39":3,"a2-m40":1,"a2-m41":1,"a2-m42":3,"a2-m43":1,"a2-b04":9,"a3-m01":101808,"a3-m02":36,"a3-m03":2,"a3-m04":3,"a3-m05":4,"a3-m06":32,"a3-m07":30,"a3-m08":150,"a3-m09":2,"a3-m10":900,"a3-m11":35,"a3-m12":1080,"a3-m13":132,"a3-m14":36,"a3-m15":800,"a3-m16":500,"a3-m17":64,"a3-m18":144,"a3-m19":80,"a3-m20":6,"a3-m21":3,"a3-m22":1,"a3-m23":15,"a3-m24":125,"a3-m25":1,"a3-b01":84,"a3-b02":192,"a3-p01":256,"a3-p02":1296,"a3-p03":972,"a3-p04":72,"a3-p05":496,"a3-m26":2,"a3-m27":100,"a3-m28":2,"a3-m29":30,"a3-b03":5,"a4-m01":100,"a4-m02":1,"a4-m03":24,"a4-m04":16,"a4-m05":1,"a4-m06":6,"a4-m07":64,"a4-m08":20,"a4-m09":36,"a4-m10":4,"a4-m11":32,"a4-m12":1,"a4-m13":64,"a4-m14":64,"a4-m15":1,"a4-m16":16,"a4-m17":36,"a4-m18":1,"a4-m19":80,"a4-m20":36,"a4-m21":16,"a4-m22":16,"a4-m23":3,"a4-m24":1,"a4-t01":1,"a4-t02":6,"a4-b01":3,"a4-b02":27,"a4-p01":27,"a4-p02":54,"a4-p03":54,"a5-m01":1,"a5-m02":80,"a5-m03":32,"a5-m04":1,"a5-m18":1,"a5-m05":1,"a5-m06":6,"a5-m07":64,"a5-m08":12,"a5-m09":16,"a5-m10":1,"a5-m11":16,"a5-m12":3,"a5-m13":1,"a5-m14":5,"a5-m15":5,"a5-m16":1,"a5-m17":3,"a5-t01":8,"a5-b01":3,"a5-p01":6,"a5-p02":2,"a5-p03":9,"a2e-m01":1414,"a2e-m02":36,"a2e-m03":16,"a2e-m04":1,"a2e-m05":360,"a2e-m06":27,"a2e-p01":124,"a2f-m01":204,"a2f-m02":4320,"a2f-m03":1,"a2f-m04":16,"a2f-m05":1,"a2f-b01":21,"a1d-m01":16,"a1d-m02":64,"a1d-b01":12,"a1g-b01":36,"a1f-m01":1,"a1f-m02":1,"a1f-p01":36,"a2m-b01":27,"a2c-m01":36,"a2c-m02":81,"a2c-m03":1,"a2c-p01":54,"a3s-m01":48,"a3s-m02":20,"a3s-m03":243,"a3d-m01":24,"a3d-m02":3,"a3d-m03":1,"a3d-b01":12,"a3d-p01":54,"a3w-b01":3,"lg-b01":9,"lg-b02":3,"lg-b03":1,"ax-m01":80,"ax-m02":20,"ax-m03":20,"ax-m04":8,"ax-m05":5,"ax-m06":20,"ax-p01":240,"ax-p02":81,"ax-p03":256,"ax-p04":243,"ax-p05":216,"ax-p06":12,"ax-p07":81,"ax-p08":64,"b1-m01":300,"b1-m02":684,"b1-m03":7,"b1-m04":5,"b1-m05":1,"b1-m06":1,"b1-m07":2,"b1-m08":1,"b1-m09":1,"b1-m10":2772,"b1-m11":144,"b1-m12":240,"b1-m13":6,"b1-m14":64,"b1-m15":192,"b1-m16":16,"b1-m17":16,"b1-m18":81,"b1-m19":100,"b1-m20":18,"b1-m21":1,"b1-m22":1,"b1-m23":320,"b1-m24":1,"b1-m25":20,"b1-m26":9,"b1-m27":6,"b1-m28":7,"b1-m29":25,"b1-m30":12,"b1-m31":9,"b1-m32":25,"b1-m33":25,"b1-b01":216,"b1-b02":1,"b1-b03":3,"b1-p01":36,"b1-p02":729,"b1-p03":120,"b1-p04":576,"b1-p05":192,"b1-p06":3,"b1-p07":18,"b1-p08":27,"b2-m01":20,"b2-m02":16,"b2-m03":1,"b2-m04":3,"b2-m05":4,"b2-m06":1,"b2-m07":1,"b2-m08":4,"b2-m09":4,"b2-m10":4,"b2-m11":1,"b2-m12":12,"b2-m13":9,"b2-m14":3,"b2-m15":1,"b2-m16":3,"b2-m17":1,"b2-t01":5,"b2-b01":12,"b2-p01":3,"b2-p02":27,"b3-m01":20,"b3-m02":30,"b3-m03":5,"b3-m04":80,"b3-m05":80,"b3-m06":48,"b3-m07":243,"b3-m08":80,"b3-m09":48,"b3-m10":16,"b3-m11":81,"b3-m12":45,"b3-m13":1,"b3-m14":1,"b3-m15":12,"b3-m16":4,"b3-m17":20,"b3-m18":1,"b3-m19":1,"b3-m20":1,"b3-m21":1,"b3-m22":6,"b3-m23":2,"b3-b01":12,"b3-b02":12,"b3-b03":9,"b3-p01":180,"b3-p02":144,"b3-p03":162,"b3-p04":8,"b3-p05":54,"b3-p06":36,"b4-m01":16,"b4-m02":36,"b4-m03":16,"b4-m04":1,"b4-m05":8,"b4-m06":1,"b4-m07":1,"b4-m08":1,"b4-m09":3,"b4-m10":3,"b4-m11":6,"b4-m12":1,"b4-m13":9,"b4-m14":9,"b4-m15":18,"b4-m16":1,"b4-m17":3,"b4-m18":4,"b4-m19":1,"b4-m20":1,"b4-m21":1,"b4-m22":9,"b4-m23":12,"b4-m24":1,"b4-m25":16,"b4-m26":12,"b4-m27":9,"b4-m28":1,"b4-m29":1,"b4-m30":6,"b4-m31":1,"b4-m32":8,"b4-b01":3,"b4-b02":3,"b4-b03":3,"b4-p01":4,"b4-p02":4,"b4-p03":4,"b4-p04":2,"b4-p05":36,"b5-m01":40,"b5-m02":4,"b5-m03":25,"b5-m04":1,"b5-m05":1,"b5-m06":2,"b5-m07":25,"b5-m08":48,"b5-m09":2,"b5-m10":9,"b5-m11":9,"b5-m12":2,"b5-m13":1,"b5-m14":1,"b5-m15":25,"b5-m16":6,"b5-m17":25,"b5-m18":15,"b5-m19":8,"b5-m20":25,"b5-m21":48,"b5-m22":64,"b5-m23":27,"b5-m24":1,"b5-m25":1,"b5-m26":12,"b5-m27":100,"b5-m28":16,"b5-m29":64,"b5-m30":1,"b5-m31":27,"b5-m32":12,"b5-m33":60,"b5-m34":2,"b5-m35":1,"b5-m36":27,"b5-b01":12,"b5-b02":9,"b5-b03":3,"b5-p01":81,"b5-p02":24,"b5-p03":243,"b5-p04":216,"b5-p05":162,"b5-p06":4,"b5-p07":72,"b5-p08":36,"b1-m34":36,"b3-m24":12,"b3-m25":5,"b3-m26":36,"b5-m37":12,"b5-m38":16,"b5-m39":36,"b5-m40":12,"b5-b04":27,"c1-m01":1,"c1-m02":1,"c1-m03":1,"c1-m04":48,"c1-m05":12,"c1-m06":1,"c1-m07":36,"c1-m08":7,"c1-m09":5,"c1-m10":4,"c1-m11":3,"c1-m12":2,"c1-m13":20,"c1-m14":16,"c1-m15":2,"c1-m16":1,"c1-m17":1,"c1-m18":1,"c1-m19":12,"c1-m20":20,"c1-m21":40,"c1-h01":20,"c1-h02":64,"c1-h03":64,"c1-h04":5,"c1-h05":96,"c1-h06":2,"c1-t01":2,"c1-t02":36,"c1-b01":1,"c1-b02":9,"c1-p01":48,"c1-p02":6,"c1-p03":27,"c1-p04":9,"c2-m01":2,"c2-m02":1,"c2-m03":75,"c2-m04":4,"c2-m05":60,"c2-m06":20,"c2-m07":8,"c2-m08":30,"c2-m09":1,"c2-m10":1,"c2-m11":1,"c2-m12":4,"c2-m13":1,"c2-m14":18,"c2-m15":10,"c2-m16":16,"c2-m17":3,"c2-t01":36,"c2-b01":3,"c2-p01":27,"c2-p02":18,"c2-p03":27,"c3-m01":35,"c3-m02":16,"c3-m03":5,"c3-m04":10,"c3-m05":1,"c3-m06":1,"c3-m07":25,"c3-m08":5,"c3-m09":1,"c3-m10":1,"c3-m11":1,"c3-m12":9,"c3-m13":20,"c3-m14":96,"c3-m15":1,"c3-m16":12,"c3-m17":12,"c3-m18":80,"c3-m19":81,"c3-m20":5,"c3-m21":1,"c3-h01":96,"c3-h02":1,"c3-h03":32,"c3-h04":12,"c3-h05":1,"c3-h06":1,"c3-h07":1,"c3-h08":12,"c3-t01":24,"c3-t02":1,"c3-b01":3,"c3-b02":6,"c3-p01":27,"c3-p02":54,"c3-p03":24,"c3-p04":3,"c3-p05":54,"c4-m01":1,"c4-m02":40,"c4-m03":2,"c4-m04":1,"c4-m05":80,"c4-m06":16,"c4-m07":15,"c4-m08":15,"c4-m09":18,"c4-m10":10,"c4-m11":10,"c4-m12":45,"c4-m13":1,"c4-m14":36,"c4-m15":1,"c4-m16":1,"c4-m17":3,"c4-m18":2,"c4-m19":5,"c4-m20":16,"c4-m21":1,"c4-m22":1,"c4-t01":9,"c4-b01":9,"c4-p01":9,"c4-p02":3,"c4-p03":9,"c5-m01":1,"c5-m02":2,"c5-m03":24,"c5-m04":3,"c5-m05":16,"c5-m06":1,"c5-m07":1,"c5-h01":50,"c5-h02":32,"c5-h03":16,"c5-h04":12,"c5-h05":1,"c5-t01":8,"c5-b01":9,"c5-p01":6,"c5-p02":12,"c5-p03":9,"d1-m01":48,"d1-m02":12,"d1-m03":1,"d1-m04":1,"d1-m05":12,"d1-m06":1,"d1-m07":8,"d1-m08":27,"d1-m09":20,"d1-m10":12,"d1-m11":20,"d1-m12":1,"d1-m13":1,"d1-m14":27,"d1-m15":1,"d1-m16":1,"d1-m17":20,"d1-m18":20,"d1-m19":16,"d1-m20":3,"d1-m21":1,"d1-m22":8,"d1-m23":1,"d1-m24":15,"d1-m25":15,"d1-m26":48,"d1-m27":45,"d1-m28":12,"d1-m29":1,"d1-m30":9,"d1-m31":24,"d1-m32":1,"d1-m33":6,"d1-m34":12,"d1-m35":12,"d1-m36":27,"d1-m37":1,"d1-m38":4,"d1-m39":1,"d1-m40":9,"d1-t01":1,"d1-t02":12,"d1-b01":6,"d1-b02":3,"d1-b03":3,"d1-p01":18,"d1-p02":3,"d1-p03":24,"d1-p04":6,"d1-p05":3,"d2-m01":48,"d2-m02":18,"d2-m03":1,"d2-m04":2,"d2-m05":3,"d2-m06":48,"d2-m07":6,"d2-m08":16,"d2-m09":6,"d2-m10":16,"d2-m11":16,"d2-m12":1,"d2-m13":1,"d2-m14":9,"d2-m15":3,"d2-m16":1,"d2-m17":2,"d2-m18":1,"d2-m19":6,"d2-m20":1,"d2-m21":16,"d2-m22":1,"d2-m23":2,"d2-m24":2,"d2-m25":1,"d2-m26":12,"d2-m27":18,"d2-m28":27,"d2-m29":1,"d2-m30":9,"d2-m31":1,"d2-m32":1,"d2-m33":9,"d2-m34":8,"d2-t01":1,"d2-b01":1,"d2-b02":9,"d2-b03":3,"d2-p01":36,"d2-p02":18,"d2-p03":9,"d2-p04":12,"d2-p05":9,"d3-m01":5,"d3-m02":16,"d3-m03":1,"d3-m04":27,"d3-m05":1,"d3-m06":2,"d3-m07":4,"d3-m08":2,"d3-m09":36,"d3-m10":18,"d3-m11":4,"d3-m12":1,"d3-m13":3,"d3-m14":9,"d3-m15":6,"d3-m16":1,"d3-m17":1,"d3-m18":64,"d3-m19":4,"d3-m20":27,"d3-m21":2,"d3-m22":81,"d3-m23":36,"d3-m24":3,"d3-m25":1,"d3-t01":1,"d3-b01":3,"d3-b02":6,"d3-b03":3,"d3-p01":9,"d3-p02":9,"d3-p03":9,"d3-p04":18,"d3-p05":9,"d4-m01":36,"d4-m02":1,"d4-m03":108,"d4-m04":36,"d4-m05":64,"d4-m06":81,"d4-m07":1,"d4-m08":2,"d4-m09":1,"d4-m10":81,"d4-m11":1,"d4-m12":1,"d4-m13":1,"d4-m14":1,"d4-m15":54,"d4-m16":5,"d4-t01":1,"d4-b01":9,"d4-p01":81,"d4-p02":54,"e1-m01":1,"e1-m02":1,"e1-m03":8,"e1-m04":3,"e1-m05":1,"e1-m06":12,"e1-m07":1,"e1-m08":1,"e1-m09":16,"e1-m10":3,"e1-m11":1,"e1-m12":4,"e1-m13":1,"e1-m14":1,"e1-m15":4,"e1-m16":1,"e1-m17":10,"e1-m18":10,"e1-m19":3,"e1-m20":12,"e1-m21":1,"e1-m22":9,"e1-m23":1,"e1-m24":1,"e1-m25":4,"e1-m26":5,"e1-m27":3,"e1-m28":4,"e1-m29":3,"e1-m30":1,"e1-m31":1,"e1-m32":1,"e1-t01":4,"e1-b01":3,"e1-b02":1,"e1-b03":1,"e1-p01":2,"e1-p02":2,"e1-p03":6,"e1-p04":3,"e1-p05":3,"e2-m01":24,"e2-m02":6,"e2-m03":12,"e2-m04":1,"e2-m05":1,"e2-m06":1,"e2-m07":1,"e2-m08":4,"e2-m09":4,"e2-m10":5,"e2-m11":1,"e2-m12":3,"e2-m13":9,"e2-m14":1,"e2-m15":1,"e2-m16":9,"e2-m17":5,"e2-m18":4,"e2-m19":1,"e2-m20":1,"e2-m21":9,"e2-m22":1,"e2-m23":3,"e2-m24":3,"e2-b01":3,"e2-b02":3,"e2-b03":2,"e2-p01":9,"e2-p02":6,"e2-p03":9,"e2-p04":3,"e2-p05":3,"e3-m01":4,"e3-m02":4,"e3-m03":4,"e3-m04":1,"e3-m05":27,"e3-m06":3,"e3-m07":1,"e3-m08":1,"e3-m09":4,"e3-m10":1,"e3-m11":3,"e3-m12":1,"e3-m13":1,"e3-m14":9,"e3-m15":1,"e3-m16":1,"e3-m17":12,"e3-m18":36,"e3-m19":18,"e3-m20":12,"e3-m21":1,"e3-m22":9,"e3-m23":1,"e3-m24":36,"e3-m25":8,"e3-m26":36,"e3-m27":9,"e3-m28":12,"e3-m29":1,"e3-m30":1,"e3-m31":9,"e3-m32":18,"e3-m33":1,"e3-m34":1,"e3-m35":1,"e3-m36":1,"e3-m37":1,"e3-m38":1,"e3-m39":4,"e3-m40":1,"e3-b01":27,"e3-b02":6,"e3-b03":6,"e3-p01":4,"e3-p02":6,"e3-p03":2,"e3-p04":18,"e3-p05":3,"e4-m01":4,"e4-m02":4,"e4-m03":9,"e4-m04":1,"e4-m05":9,"e4-m06":1,"e4-m07":3,"e4-m08":1,"e4-m09":1,"e4-m10":1,"e4-m11":1,"e4-m12":1,"e4-m13":1,"e4-m14":3,"e4-m15":1,"e4-m16":1,"e4-m17":1,"e4-b01":3,"e4-b02":9,"e4-b03":9,"e4-p01":4,"e4-p02":1,"e4-p03":9,"e4-p04":3,"e4-p05":4,"e5-m01":1,"e5-m02":1,"e5-m03":2,"e5-m04":4,"e5-m05":1,"e5-m06":1,"e5-m07":1,"e5-m08":1,"e5-m09":4,"e5-m10":1,"e5-m11":1,"e5-m12":1,"e5-m13":1,"e5-m14":1,"e5-m15":1,"e5-m16":1,"e5-m17":4,"e5-m18":4,"e5-m19":12,"e5-m20":16,"e5-m21":16,"e5-m22":6,"e5-m23":5,"e5-m24":1,"e5-m25":3,"e5-b01":1,"e5-b02":3,"e5-b03":27,"e5-p01":1,"e5-p02":81,"e5-p03":27,"e5-p04":18,"e5-p05":2,"tu-m01a":1,"tu-m01b":1,"tu-m01c":1,"tu-m01d":1,"tu-m01e":2,"tu-m01f":1,"tu-m01g":1,"tu-m02a":1,"tu-m02b":1,"tu-m02c":1,"tu-m02d":1,"tu-m02e":1,"tu-m02f":2,"tu-m02g":1,"tu-m02h":1,"tu-m03a":2,"tu-m03b":2,"tu-m03c":1,"tu-m03d":1,"tu-m03e":1,"tu-m03f":1,"tu-m04a":1,"tu-m04b":1,"tu-m04c":1,"tu-m04d":1,"tu-m04e":1,"tu-m04f":1,"tu-m05a":1,"tu-m05b":1,"tu-m05c":1,"tu-m05d":1,"tu-m05e":1,"tu-m06a":10,"tu-m06b":4,"tu-m06c":5,"tu-m07":30,"tu-m08a":6,"tu-m08b":10,"tu-m08c":4,"tu-m09":10,"tu-m10":16,"tu-m11":20,"tu-m12":48,"tu-m13":27,"tu-m14":16,"tu-m15":12,"tu-m16":9,"tu-m17":5,"tu-m18":24,"tu-m19":36,"tu-m20":12,"tu-m21":16,"tu-m22":12,"tu-m23":36,"tu-p01":27,"tu-p02":81,"tu-p03":81,"tb-m01":64,"tb-m02":6,"tb-m03":25,"tb-m04":1,"tb-m05":48,"tb-m06":16,"tb-m07":54,"tb-m08":9,"tb-m09":2,"tb-m10":4,"tb-m11":12,"tb-m12":4,"tb-m13":4,"tb-m14":5,"tb-m15":4,"tb-m16":1,"tb-m17":3,"tb-h01":72,"tb-h02":81,"tb-h03":4,"tb-t01":8,"tb-p01":24,"tb-p02":54,"tb-p03":18,"tb-p04":18,"tb-p05":9,"tb-p06":54,"tb-p07":243,"tb-p08":81,"tb-p09":9,"tb-b01":18,"tb-b02":3,"tb-b03":2,"tb-m18":48,"tb-m19":24,"tb-m20":12,"tb-m21":1,"tb-m22":27,"tb-m23":4,"tb-m24":12,"ak-m01":27,"ak-m02":1,"ak-m03":27,"ak-m04":1,"ak-m05":18,"ak-m06":9,"ak-m07":9,"ak-m08":1,"ak-m09":9,"ak-m10":81,"ak-m11":9,"ak-m12":27,"ak-m13":1,"ak-m14":12,"ak-m15":9,"ak-m16":9,"ak-m17":1,"ak-m18":3,"ak-m19":9,"ak-m20":5,"ak-m21":6,"ak-m22":9,"ak-m23":3,"ak-m24":9,"ak-m25":4,"ak-m26":1,"ak-b01":2,"ak-b02":3,"ak-b03":2,"ak-p01":12,"ak-p02":9,"bk-m01":1,"bk-m02":3,"bk-m03":1,"bk-m04":48,"bk-m05":27,"bk-m06":2,"bk-m07":1,"bk-b01":3,"bk-b02":1,"bk-p01":9,"bk-p02":3,"bk-p03":4,"ck-m01":6,"ck-m02":3,"ck-m03":1,"ck-m04":1,"ck-m05":1,"ck-m06":4,"ck-m07":1,"ck-m08":1,"ck-m09":1,"ck-m10":5,"ck-m11":12,"ck-m12":12,"ck-m13":1,"ck-m14":12,"ck-m15":9,"ck-m16":1,"ck-b01":3,"ck-b02":3,"ck-b03":3,"ck-b04":9,"ck-b05":3,"ck-b06":9,"ck-p01":6,"ck-p02":18,"ck-p03":9,"dk-m01":27,"dk-m02":81,"dk-m03":18,"dk-m04":6,"dk-m05":2,"dk-b01":3,"dk-b02":2,"dk-p01":32,"dk-p02":24,"sk-m01":36,"sk-m02":5,"sk-m03":5,"sk-m04":1,"sk-m05":9,"sk-m06":1,"sk-m07":1,"sk-m08":3,"sk-m09":1,"sk-m10":4,"sk-m11":1,"sk-m12":3,"sk-m13":3,"sk-m14":1,"sk-m15":4,"sk-m16":12,"sk-m17":1,"sk-m18":1,"sk-m19":1,"sk-m20":6,"sk-m21":1,"sk-m22":1,"sk-m23":1,"sk-m24":12,"sk-m25":9,"sk-m26":1,"sk-m27":3,"sk-m28":1,"sr-m01":25,"sr-m02":20,"sr-m03":24,"sr-m04":25,"sr-m05":4,"sr-m06":5,"sr-m07":30,"sr-m08":25,"sr-m09":64,"sr-m10":1,"sr-m11":48,"sr-m12":3,"sr-m13":20,"sr-m14":180,"sr-m15":5,"sr-m16":36,"sr-m17":12,"sr-m18":1,"sr-m19":3,"sr-m20":16,"sr-m21":1,"sr-m22":80,"sr-m23":60,"sr-m24":2,"sr-m25":15,"sr-m26":3,"sr-m27":3,"sr-m28":16,"sr-m29":48,"sr-m30":15,"sr-m31":4,"sr-m32":6,"sr-m33":72,"sr-m34":5,"sr-m35":3,"sr-m36":3,"sr-m37":1,"sr-m38":1,"sr-b01":4,"sr-b02":12,"sr-b03":12,"sr-p01":9,"a2x-m01":114,"a2x-m02":20412,"a2x-m03":492,"a2x-m04":36,"a2x-m05":3,"a2x-m06":45,"a2x-m07":40,"a2x-m08":64,"a2x-m09":30,"a2x-m10":48,"a2x-m11":54,"a2x-m12":24,"a2x-m13":5,"a2x-m14":16,"a2x-m15":15,"a2x-m16":12,"a2x-m19":1,"a2x-m20":96,"a2x-m21":54,"a2x-m23":1,"a2x-m24":24,"a2x-b01":6,"a2x-b02":11,"a2x-p01":108,"a2x-p02":234,"a2x-p03":54,"a2x-p04":1377};
   const HISTORY = [
     { v: '0.1–0.31 alpha', d: '30 October 2026', items: [
       'Pilot: A.1 Kinematics and the Paper 1B skills (uncertainties, graphs, linearising, errors). Practice and Test Mode, chili difficulty, LaTeX throughout, IB-style markschemes, seeded templates that regenerate with new values.',
@@ -18531,7 +18609,8 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     { v: '1.1 Beta', d: '3 November 2026', m: 'Claude Opus 5.5', items: ['Games and Recall now open with cards for each mode and a short description; inside a mode, “← All games” or “← All recall modes” takes you back.', 'The offline copy shows an OFFLINE badge next to the version, with a tooltip explaining it.', 'New Welcome page: a quick guide to every mode, a short tour, and how to use the site for revision. Click the MVPhysics heading at any time to come back to it.', 'Blitz is now part of Games 🕹️, with two modes so far: Blitz and Last Man Standing. More game modes will follow.', '“Only questions I’ve missed” is now at the top of the question panel in Practice and highlighted when you have missed questions to practise (it now applies to Practice only; Exam Mode always uses your full selection).', 'Stats: a Last Man Standing best tile; Blitz average time to 0.1 s.', 'The version is shown in the badge (BETA 1.1), and the Claude model used for each build is listed in this revision history.', 'Fixed: flashcards scrolled sideways on phones.', 'Last Man Standing: a Give up button (with a check first); a run you give up does not count as a best time.', 'Last Man Standing: after every run, a review of each question you answered, right or wrong, with the worked solution. Wrong answers go into "Only questions I\'ve missed".', 'Last Man Standing has its own stats (runs, best survival, recent runs), separate from Blitz Classic, so the Blitz stats now show the right mode.', 'Notes and Recall: the All and None buttons stay together.', 'Removed Saved selections from the question panel.', 'Solutions for radiated intensity now start from the data booklet equation L = σAT⁴ (or eσAT⁴).', 'FE2028 percentage error, difference and change equations shown as separate equations.'] },
     { v: '1.2 Beta', d: '4 November 2026', m: 'Claude Opus 5.5', items: ['The site is now called <b>MVPhysics Lab</b>, with a new address: <b>mvpoirier.github.io/mvphysics/</b>. The old revision-lab address takes you there automatically, and your saved progress carries over. A 🏆 now shows on the browser tab.', 'The site address (with nothing after it) now always opens the Welcome page. Links to a page, such as …/#practice or …/#games, still open that page.', 'The Welcome page is simpler: the welcome message, what’s here and how to revise. The start buttons, level switch and tour are gone (use SL/HL at the top of the page).', 'Printed papers look like IB exams: answer boxes with a border and dotted lines. With “IB-style test” ticked, the order is cover sheet (topics, marks, time, instructions, class code), Paper 1A answer sheet (always 40 rows), Paper 1A, Paper 1B, Paper 2, then the markschemes, starting with the answer sheet with the correct answers crossed.', 'Games: Blitz now ends with a review of every question you answered, with worked solutions, and both Blitz and Last Man Standing can print their results.', 'The Print buttons open the paper or results in a new tab with the print window already open: choose a printer, or Save as PDF.', 'Printed tests: no site name on the cover; the class code appears only on the markscheme pages; the answer sheet lists the topics; and a one-page question overview (topics, strand, difficulty and marks for every question) comes before the markschemes.', 'Last Man Standing: choose the starting time (3, 5 or 10 minutes, or your own).', 'New Syllabus toggle (FE2025 / FE2028) in the Questions panel and in Recall. FE2025 is on by default; FE2028 adds content that is new for exams from May 2028, tagged FE2028.', 'Game stats are now on each game’s own screen and on the Stats page.', 'More resources on precision, accuracy, percentage error and percentage difference; more solutions now start from the data booklet equation.'] },
     { v: '1.3 Beta', d: '5 November 2026', m: 'Claude Opus 5.5', items: ['New game: <b>Unit Detective 🔍</b>. Five case files on units: The Mystery Quantity (identify), Down to the Bones (SI base units), The Scales of Justice (is the equation homogeneous?), The Impostor Equation (the one formula that could be right) and The Deduction (predict a formula from units alone). Play an untimed Investigation of 10 clues, or The Chase against the clock. Harder “case file” clues include constants such as σ, G, μ<sub>0</sub> and ε<sub>0</sub>.', 'The side panel is now called <b>Topics</b> and appears in Recall and Notes too. One selection is shared by every mode; the topic chips at the top of Recall and Notes are gone.', 'Command terms: a switch at the top of the Topics panel in Recall and Notes. Notes now has a Command terms section, grouped by assessment objective, with worked examples of which answer earns the marks.', 'Stats has section buttons: Practice, Exam, Games and Recall. Unit Detective scores are under Games.', 'The space above the footer is the same on every page.', '“← All Games” and “← All Recall Modes” are now buttons. The backup box in Stats has its own colour.', 'Clearer feedback links: <b>🚩 Report a Problem</b> under each question, card and note; <b>💬 Send Feedback</b> in the footer on every page.', 'Headings and buttons use Title Case.', 'Unit Detective uses the same look as the rest of the site.', 'New address: <b>mvpoirier.github.io/physics-lab/</b>. Old links (…/mvphysics/ and …/revision-lab/) still work and your progress carries over.', 'Stats opens straight on its sections (the summary cards at the top are gone). Reset All Progress is a red button.', 'About: the revision history starts collapsed, with one group per major Beta version and a short summary of the Alpha builds.'] },
-    { v: '1.4 Beta', d: '6 November 2026', m: 'Claude Opus 5.5', items: ['<b>Exam Mode is now Test Mode</b> (old #exam links still work). Printing has an <b>Exam mode</b> switch, off by default, with an ⓘ tooltip: cover sheet, Paper 1A answer sheet, IB paper order and markscheme overview.', 'Send Results to Teacher is gone; Print Results and Download stay.', 'Codes: one blue <b>Make a Code</b> button everywhere and a red <b>Clear</b> button. Code boxes start with their mode’s prefix (MVP- for Test Mode, LMS- for Last Man Standing), add the dashes and capitals as you type, and tell you if a code belongs to a different mode. Codes are shown in groups of four.', 'A coloured bar across the top shows your level: blue for SL, purple for HL.', 'In Test Mode, students see no Topics sidebar: the class code sets the topics.', 'Test Mode: code types are now <b>Online</b>, <b>Worksheet</b> and <b>Test/Exam</b> (the Exam mode checkbox is gone: Test/Exam gives the IB layout). One <b>🖨 Print/PDF</b> button (no Download). The class code appears only on markscheme pages, never on student copies. The timer always starts shown; students can hide or show it during the test, and a chime sounds at 30, 15 and 5 minutes left and when time is up.', 'Teachers can print a <b>Student Copy</b> (exactly what the code gives students), the <b>Markscheme</b> on its own, or <b>Both</b>.', 'Papers have at most 40 Paper 1A questions, the size of the IB answer sheet.', '<b>Test Mode is set by your teacher.</b> Students enter a class code, and the code decides the test: an online test (with its finish and countdown settings), a printable worksheet or a printable IB-style test, with or without the markscheme. Setting up tests, printing and making codes need teacher access (also for Practice worksheets). IB Proportions offers 15, 30 or 45 marks or a Custom total; Custom marks is now Custom.', '<b>Linked topics</b> in the Topics panel: Off (as before), Include (also questions that link a ticked strand with other topics) or Only (just the questions that combine topics). Class codes remember the setting.', 'Shareable codes for <b>Blitz</b> (BLZ-) and <b>Unit Detective</b> (UD-): everyone with the code gets the same questions, values and time.', 'In HL mode, MVP and the Welcome box turn purple to match the level bar. The Exam mode ⓘ shows one tooltip, not two.', 'The footer matches MYPoirier Science Lab: About, Terms of Use (goes straight to the terms) and a 💬 Send Feedback button. New <b>Terms of Use</b> (About page): © Mike Poirier, all rights reserved; free for students and teachers; not for commercial or tutoring use without permission. This replaces the CC BY-NC-SA licence from this version on.', '<b>42 new questions</b> aimed at the mistakes IB examiners reported in the 2025 sessions: average velocity versus speed, areas under a–t graphs, buoyancy, inelastic collisions, units in SI base units, ice below 0 °C, conduction, albedo, kelvin, internal resistance, resistivity, refraction angles, fields between opposite charges, magnetic force on electrons, background count rate, fission equations and more. Each solution names the trap.', 'New question styles: “which statement is the cause?” (all options true, only one explains), units that must be in SI base units, and Paper 1B data questions from real class investigations (Boyle’s law, a cell’s emf and internal resistance, density with uncertainties), plus a Paper 2 question on a rising oil droplet.', '<b>Test Mode update (9 Nov):</b> printable codes have separate <b>Cover sheet</b> and <b>Answer booklet</b> (Paper 1A answer sheet) switches (Worksheet and Test/Exam set their starting values); online codes can let students print their results or not. Printouts are named after the code, eg “MVPhysics Lab Test (MVP-…)”. During a test, <b>Finish Paper</b> is red and sits beside the pace bar, red lines on the bar show when the 30, 15 and 5 minute alerts will come, and a 🔔 button mutes the chimes. The results page has one 🖨 Print/PDF button, and New Paper is gone. Fixed: with a paper switched off, Custom showed the wrong total and time. The pace bar now fills up with time used, turning orange when behind pace. Pause and Finish Paper sit above the question; a <b>Pace timer</b> checkbox (beside 🔔) hides the whole timer panel, as Pace coach does in Practice; alerts still come. Next is blue during a test.', 'Notes: a <b>🖨 Print/PDF</b> button prints the notes for every ticked strand, each on its own page (plus Command Terms and the FE2028 summary if switched on), with More Help as a bulleted list of links. The Notes buttons now sit above FE2028 and Command Terms. FE2028 Changes at a Glance has its own switch in the Topics panel, off to start.', 'Unit Detective: no more choosing case files. Every investigation mixes all five kinds of clue.'] },
+    { v: '1.5 Beta', d: '11 November 2026', m: 'Claude Opus 5.5', items: ['<b>Test-only questions:</b> about a quarter of each strand’s Paper 1A questions now appear only in Test Mode, so tests have questions students have not practised. Teachers choose whether a test uses them (first, then topped up from Practice questions).', 'Test Mode codes are <b>Online</b> or <b>Printable</b>; online codes can allow or block <b>retakes</b> on the same device.', 'New <b>Skills 🧰</b> section: a Significant Figures drill and Graphing practice (gradients, intercepts, uncertainty), built from Mr Poirier’s SSP guide and tasks.', 'Clicking Games, Recall or Skills in the top bar takes you back to its list; clearer back buttons.', 'Ten questions that never changed now have new values or versions. Practice’s Pace coach fills with time like Test Mode.', 'Notes: Electronics 101 links for circuits (B.5) and AC (D.4); shorter names in the Topics panel; the FE2028 card has an arrow like the other notes.'] },
+    { v: '1.4 Beta', d: '6–9 November 2026', m: 'Claude Opus 5.5', items: ['<b>Test Mode</b> (was Exam Mode) is set by your teacher: students enter a class code, and the code decides the test.', 'Teacher options for codes: online or printable, cover sheet, answer booklet, markscheme, results printing; Paper 1A capped at 40 questions; printouts named after the code.', 'During a test: a pace bar that fills with time, red lines for the 30, 15 and 5 minute alerts, a 🔔 mute button, a red Finish Paper button and a Pace timer switch.', '<b>Linked topics</b> (Off, Include, Only) and shareable codes for Blitz (BLZ-) and Unit Detective (UD-).', '<b>42 new questions</b> on the mistakes IB examiners reported in 2025, with new question styles.', 'Notes: 🖨 Print/PDF and an FE2028 Changes switch. Unit Detective mixes all five case files.', 'SL/HL colour bar, a footer like MYPoirier Science Lab, and the new Terms of Use (© Mike Poirier, all rights reserved; free for students and teachers).'] },
   ];
   HISTORY.forEach(h => { h.items = h.items.map(TL); });
   const fmtBig = (n) => n >= 1e6 ? (n / 1e6).toFixed(1) + ' million' : n.toLocaleString('en-GB');
@@ -18634,6 +18713,13 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
         <li><b>Go back to your misses.</b> In Practice, turn on <b>Only Questions I’ve Missed</b> at the top of the Topics panel and redo them with new values until they stick.</li>
         <li><b>Before a test, sit a timed paper in Test Mode.</b> Use IB pace, then check where the time went and your estimated grade. Read the Notes for any strand that cost you marks.</li>
         <li><b>For fun or a class challenge:</b> Games. Blitz on your own, or Last Man Standing with a shared code.</li></ol></section>
+      <section class="panel"><h3>Test Mode and Class Codes</h3><ul class="about-list">
+        <li><b>Tests come from your teacher.</b> In Test Mode, enter the class code your teacher gives you (it starts MVP-). Everyone with the same code gets the same questions and values.</li>
+        <li><b>Online codes</b> give a timed test on screen. The code sets the finish (Strict: answers lock when time runs out; Soft: overtime is recorded), whether you can print your results, and whether you may retake it on the same device.</li>
+        <li><b>Printable codes</b> give a paper to print or save as PDF, with a cover sheet, a Paper 1A answer sheet and the markscheme only if your teacher chose them.</li>
+        <li><b>Test-only questions:</b> some questions never appear in Practice, Blitz or Recall, so a test can check what you understand rather than what you remember.</li>
+        <li><b>Game codes</b> (BLZ- for Blitz, UD- for Unit Detective, LMS- for Last Man Standing) are open to everyone: share one so your class plays the same game.</li>
+      </ul></section>
       <section class="panel"><h3>Good to Know</h3><ul class="about-list">
         <li><b>Data booklet:</b> the 📘 button at the top, any time.</li>
         <li><b>Difficulty:</b> 🌶 one idea · 🌶🌶 two steps or a common trap · 🌶🌶🌶 several steps or topics.</li>
@@ -18644,9 +18730,112 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
   }
   function bindWelcome(main) { main.onclick = null; }
   function bindAbout() {}
+  /* ======================= SKILLS (1.5, Mike 11 Nov) =======================
+     Practice for the tools of physics, from Mr Poirier's SSP guide and tasks: a significant-figures drill and graphing practice.
+     Scores stay inside each mode (not in Stats). Later: Linearise It! (2.0), IA/EE brainstormer (parked), simulations (3.0+). */
+  let SK = { mode: null, q: null, done: false, right: 0, n: 0, streak: 0 };
+  const SK_CARDS = [['sf', '🔢', 'Significant Figures', 'Count them, round to them, and give calculated answers to the right number: the rules from your SSP guide.'],
+    ['graph', '📈', 'Graphing', 'Read gradients and intercepts with units, use them to find a physical quantity, and give the uncertainty in a gradient.'],
+    ['lin', '📉', 'Linearise It!', 'Coming in Beta 2.0: choose the axes that turn a curve into a straight line.', true]];
+  // a number to n significant figures, written for MathJax (scientific notation when toPrecision needs it)
+  const sigTex = (x, n) => { const t = Number(x).toPrecision(n); if (!/e/.test(t)) return t; const [m, e] = t.split('e'); return `${m}\\times10^{${+e}}`; };
+  const sigPlain = (x, n) => Number(x).toPrecision(n);
+  function skSF(R) {
+    const kind = R.pick(['count', 'count', 'round', 'muldiv', 'addsub']);
+    if (kind === 'count') {
+      const n = R.int(2, 5), form = R.pick(['small', 'mid', 'sci']);
+      let digits = String(R.int(1, 9)); while (digits.length < n) digits += String(R.int(0, 9));
+      if (R.f() < 0.4) digits = digits.slice(0, -1) + '0'; // a trailing zero that counts
+      let shown, why;
+      if (form === 'small') { const z = R.int(1, 3); shown = '0.' + '0'.repeat(z - 1) + digits; why = `Leading zeros only place the decimal point, so they never count. ${/0$/.test(digits) ? 'The final zero after the decimal point does count: it shows the precision of the measurement. ' : ''}`; }
+      else if (form === 'mid') { const k = R.int(1, n - 1); shown = digits.slice(0, k) + '.' + digits.slice(k); why = `All non-zero digits count, zeros between them count${/0$/.test(digits) ? ', and a trailing zero after the decimal point counts' : ''}. `; }
+      else { shown = digits[0] + (n > 1 ? '.' + digits.slice(1) : '') + `\\times10^{${R.pick([-6, -3, -2, 3, 4, 8])}}`; why = 'In scientific notation, count the digits in the number before $\\times10$; the power of ten does not count. '; }
+      const opts = [n, n - 1, n + 1, n + 2].filter(v => v > 0); while (opts.length < 4) opts.push(opts.length + 5);
+      return { stem: `How many significant figures are in $${shown}$?`, options: opts.map(String), answer: 0, solution: `${why}Answer: <b>${n}</b>.` };
+    }
+    if (kind === 'round') {
+      const n = R.int(2, 3), x = R.pick([R.int(1001, 9999) / 1e5, R.int(1001, 9999) / 100, R.int(10001, 99999) * 10, R.int(1001, 9999) / 1e3]);
+      const right = sigTex(x, n), trunc = sigTex(Math.trunc(x / 10 ** (Math.floor(Math.log10(x)) - n + 1)) * 10 ** (Math.floor(Math.log10(x)) - n + 1), n);
+      const cand = [right, sigTex(x, n + 1), sigTex(x, n - 1 || 1), trunc, x.toFixed(n)].filter((v, i, a) => a.indexOf(v) === i).slice(0, 4);
+      while (cand.length < 4) cand.push(sigTex(x * 10, n));
+      return { stem: `Round $${x}$ to ${n} significant figures.`, options: cand.map(v => `$${v}$`), answer: 0, solution: `Keep the first ${n} significant digits and round on the next digit. Use scientific notation if trailing zeros would be ambiguous. Answer: $${right}$.` };
+    }
+    if (kind === 'muldiv') {
+      const [qa, ua, qb, ub, op, nm] = R.pick([['m', 'kg', 'a', 'm\\,s^{-2}', '×', 'force'], ['V', 'V', 'I', 'A', '÷', 'resistance'], ['d', 'm', 't', 's', '÷', 'speed'], ['m', 'g', 'V', 'cm^3', '÷', 'density']]);
+      const na = R.int(2, 4), nb = R.int(2, 4), a = +sigPlain(R.f() * 8 + 1.2, na), b = +sigPlain(R.f() * 8 + 1.2, nb);
+      const v = op === '×' ? a * b : a / b, n = Math.min(na, nb);
+      const cand = [sigTex(v, n), sigTex(v, Math.max(na, nb) === n ? n + 1 : Math.max(na, nb)), String(+v.toPrecision(6)), sigTex(v, n + 2)].filter((x, i, arr) => arr.indexOf(x) === i);
+      while (cand.length < 4) cand.push(sigTex(v, Math.max(1, n - 1)));
+      return { stem: `A student measures $${qa} = ${sigPlain(a, na)}\\,\\mathrm{${ua}}$ and $${qb} = ${sigPlain(b, nb)}\\,\\mathrm{${ub}}$ and calculates the ${nm} ($${qa} ${op === '×' ? '\\times' : '\\div'} ${qb}$). Which answer has the right number of significant figures?`, options: cand.slice(0, 4).map(x => `$${x}$`), answer: 0, solution: `When multiplying or dividing, give the answer to the <b>fewest</b> significant figures in the data: ${na} and ${nb}, so ${n}. Round only at the final step. Answer: $${sigTex(v, n)}$.` };
+    }
+    const da = R.int(1, 3), db = R.int(0, 2), a = +(R.f() * 90 + 5).toFixed(da), b = +(R.f() * 9 + 0.5).toFixed(db), sub = R.pick([true, false]);
+    const v = sub ? a - b : a + b, d = Math.min(da, db);
+    const cand = [v.toFixed(d), v.toFixed(Math.max(da, db)), sigTex(v, Math.min(String(a).replace('.', '').replace(/^0+/, '').length, String(b).replace('.', '').replace(/^0+/, '').length)), v.toFixed(d + 1)].filter((x, i, arr) => arr.indexOf(x) === i);
+    while (cand.length < 4) cand.push(v.toFixed(Math.max(0, d - 1)));
+    return { stem: `Calculate $${a.toFixed(da)}\\,\\mathrm{cm} ${sub ? '-' : '+'} ${b.toFixed(db)}\\,\\mathrm{cm}$ to the correct precision.`, options: cand.slice(0, 4).map(x => `$${x}\\,\\mathrm{cm}$`), answer: 0, solution: `When adding or subtracting, the answer keeps the <b>fewest decimal places</b> in the data (${d}), not the fewest significant figures. Answer: $${v.toFixed(d)}\\,\\mathrm{cm}$.` };
+  }
+  // graphing contexts from Mr Poirier's labs: [name, x label, y label, gradient symbol, gradient unit, what it gives]
+  const SK_CTX = [
+    { id: 'ohm', intro: 'A student varies the current $I$ through a resistor and measures the potential difference $V$ across it.', xl: 'I / A', yl: 'V / V', xMax: 0.5, m: (R) => R.pick([10, 15, 20, 25, 30]), c: 0, gu: '\\Omega', gq: 'the resistance $R$', gwrong: ['A\\,V^{-1}', 'V'], trivial: true },
+    { id: 'rho', intro: 'A student adds water to a measuring cylinder on a balance and records the total mass $m$ of water for each volume $V$ (Mr Poirier’s water density task).', xl: 'V / cm³', yl: 'm / g', xMax: 50, m: (R) => R.pick([0.79, 0.92, 1.00, 1.26]), c: 0, gu: 'g\\,cm^{-3}', gq: 'the density $\\rho$', gwrong: ['cm^3\\,g^{-1}', 'g'], fromM: (m) => [m * 1000, 'kg\\,m^{-3}', '$\\rho$ = gradient; $1\\,\\mathrm{g\\,cm^{-3}} = 1000\\,\\mathrm{kg\\,m^{-3}}$'] },
+    { id: 'spring', intro: 'Masses are hung on a spring. The student measures the extension $x$ for each force $F$.', xl: 'x / m', yl: 'F / N', xMax: 0.2, m: (R) => R.pick([20, 30, 40, 50, 60]), c: 0, gu: 'N\\,m^{-1}', gq: 'the spring constant $k$', gwrong: ['m\\,N^{-1}', 'N'], trivial: true },
+    { id: 'pend', intro: 'A student measures the period $T$ of a simple pendulum for different lengths $L$ and plots $T^2$ against $L$.', xl: 'L / m', yl: 'T² / s²', xMax: 1.0, m: (R) => 4 * Math.PI * Math.PI / R.pick([9.75, 9.81, 9.6]), c: 0, gu: 's^2\\,m^{-1}', gq: '$g$', gwrong: ['m\\,s^{-2}', 's^2'], fromM: (m) => [4 * Math.PI * Math.PI / m, 'm\\,s^{-2}', '$T^2 = \\dfrac{4\\pi^2}{g}L$, so $g = \\dfrac{4\\pi^2}{\\text{gradient}}$'] },
+    { id: 'sound', intro: 'In Mr Poirier’s speed-of-sound task, a tube closed at one end resonates at its first harmonic. The student plots the length $L$ of the air column against $1/f$.', xl: '1/f / ms', yl: 'L / m', xMax: 4, m: (R) => R.pick([0.084, 0.0855, 0.087]), c: -0.012, gu: 'm\\,ms^{-1}', gq: 'the speed of sound $v$', gwrong: ['ms\\,m^{-1}', 'm'], fromM: (m) => [4 * m * 1000, 'm\\,s^{-1}', '$L = \\dfrac{v}{4f} - e$, so $v = 4 \\times$ gradient (with $1/f$ in ms, multiply by 1000)'], intq: ['the end correction $e$', 'm', (c) => -c, 'The intercept is $-e$: the antinode forms slightly beyond the open end.'] },
+    { id: 'emf', intro: 'In Mr Poirier’s internal resistance task, a cell is connected to a variable resistor. The student measures the terminal potential difference $V$ for each current $I$.', xl: 'I / A', yl: 'V / V', xMax: 1.0, m: (R) => -R.pick([0.5, 0.8, 1.2, 1.5]), c: 1.5, gu: 'V\\,A^{-1}', gq: 'the internal resistance $r$', gwrong: ['A\\,V^{-1}', 'V'], fromM: (m) => [-m, '\\Omega', '$V = \\varepsilon - Ir$, so $r = -$gradient'], intq: ['the emf $\\varepsilon$', 'V', (c) => c, 'The intercept on the $V$ axis is the emf (no current, no lost volts).'] },
+  ];
+  function skGraph(R) {
+    const ctx = R.pick(SK_CTX), m = ctx.m(R), c = ctx.c, xs = Array.from({ length: 6 }, (_, i) => ctx.xMax * (i + 1) / 6.5);
+    const pts = xs.map(x => ({ x, y: c + m * x * (1 + R.noise(0.02)) }));
+    const fit = linfit(pts.map(p => [p.x, p.y])), yVals = pts.map(p => p.y).concat([c, c + m * ctx.xMax]);
+    const yMin = Math.min(0, ...yVals), yMax = Math.max(...yVals) * 1.1 || 0.1;
+    const kinds = ['grad'].concat(ctx.trivial ? [] : ['mean']).concat(ctx.intq ? ['int'] : []).concat(['unc']);
+    const kind = R.pick(kinds);
+    const errs = kind === 'unc', ey = errs ? Math.abs(m) * ctx.xMax * 0.04 : 0;
+    const svg = graph({ xMax: ctx.xMax, yMin: yMin < 0 ? yMin * 1.15 : 0, yMax, xLabel: ctx.xl, yLabel: ctx.yl, points: pts.map(p => ({ ...p, ey })), lines: [{ pts: [[0, fit.c], [ctx.xMax, fit.c + fit.m * ctx.xMax]], cls: 'g-fit' }], aria: `graph of ${ctx.yl} against ${ctx.xl} with a line of best fit` });
+    const g = fit.m, mk = (v, u) => `$${sigTex(v, 3)}\\,\\mathrm{${u}}$`;
+    if (kind === 'grad') return { stem: `${ctx.intro} What is the gradient of the line of best fit, with its unit?` + svg, options: [mk(g, ctx.gu), mk(g, ctx.gwrong[0]), mk(1 / g, ctx.gwrong[0]), mk(fit.c + g * ctx.xMax, ctx.gwrong[1])], answer: 0, solution: `Gradient $= \\dfrac{\\Delta y}{\\Delta x}$ using two points far apart on the line (not data points). Its unit is the $y$ unit divided by the $x$ unit: ${mk(g, ctx.gu)}.` };
+    if (kind === 'mean') { const [v, u, how] = ctx.fromM(g); return { stem: `${ctx.intro} Use the gradient to find ${ctx.gq}.` + svg, options: [mk(v, u), mk(1 / v * (Math.abs(v) > 50 ? 1e4 : 1), u), ctx.id === 'rho' ? mk(g, u) : mk(g, ctx.gu), mk(v / (ctx.id === 'pend' ? 4 * Math.PI * Math.PI : ctx.id === 'sound' ? 4 : 10), u)], answer: 0, solution: `Gradient $= ${sigTex(g, 3)}\\,\\mathrm{${ctx.gu}}$. ${how}: ${mk(v, u)}.` }; }
+    if (kind === 'int') { const [what, u, f, why] = ctx.intq, v = f(fit.c); return { stem: `${ctx.intro} What does the intercept on the vertical axis give?` + svg, options: [`${what} $= ${sigTex(Math.abs(v), 2)}\\,\\mathrm{${u}}$`, `${what} $= ${sigTex(Math.abs(g), 2)}\\,\\mathrm{${u}}$`, `${ctx.gq} $= ${sigTex(Math.abs(fit.c), 2)}\\,\\mathrm{${ctx.gu}}$`, `nothing useful: only the gradient matters`], answer: 0, solution: `${why} Reading the intercept: $${sigTex(fit.c, 2)}\\,\\mathrm{${u}}$.` }; }
+    const gmax = g * (1 + 0.04 * R.pick([1, 1.5, 2])), gmin = g * (1 - 0.04 * R.pick([1, 1.5, 2])), dg = Math.abs(gmax - gmin) / 2, best = (gmax + gmin) / 2;
+    return { stem: `${ctx.intro} The steepest and shallowest straight lines that pass through all the error bars have gradients $${sigTex(gmax, 3)}$ and $${sigTex(gmin, 3)}\\,\\mathrm{${ctx.gu}}$. What is the gradient with its uncertainty?` + svg,
+      options: [`$(${sigTex(best, 3)} \\pm ${sigTex(dg, 1)})\\,\\mathrm{${ctx.gu}}$`, `$(${sigTex(best, 3)} \\pm ${sigTex(2 * dg, 1)})\\,\\mathrm{${ctx.gu}}$`, `$(${sigTex(best, 3)} \\pm ${sigTex(dg / Math.abs(best) * 100, 1)})\\,\\mathrm{${ctx.gu}}$`, `$(${sigTex(gmax, 3)} \\pm ${sigTex(dg, 1)})\\,\\mathrm{${ctx.gu}}$`], answer: 0,
+      solution: `Uncertainty in the gradient $= \\dfrac{\\text{max gradient} - \\text{min gradient}}{2} = ${sigTex(dg, 1)}$; the value is the best-fit (or mean) gradient, and the uncertainty is given to 1 significant figure.` };
+  }
+  function skNew() {
+    const R = makeR(newSeed()), raw = SK.mode === 'sf' ? skSF(R) : skGraph(R);
+    const order = R.shuffle(raw.options.map((t, i) => i));
+    SK.q = { ...raw, options: order.map(i => raw.options[i]), answer: order.indexOf(raw.answer) }; SK.done = false; SK.pick = null;
+  }
+  function renderSkills(main) {
+    if (!SK.mode) {
+      main.innerHTML = head('Skills 🧰', 'Practise the tools of physics. More skills are coming.') + `<div class="mode-cards">${SK_CARDS.map(([k, ic, name, d, soon]) => `<button type="button" class="mode-card${soon ? ' soon' : ''}" ${soon ? 'disabled' : `data-skmode="${k}"`}><span class="wic" aria-hidden="true">${ic}</span><b>${name}</b><span>${d}</span></button>`).join('')}</div>`;
+      return;
+    }
+    if (!SK.q) skNew();
+    const q = SK.q, card = SK_CARDS.find(c => c[0] === SK.mode);
+    main.innerHTML = modeBack('skModes', 'All Skills') + head(`${card[2]} ${card[1]}`, card[3]) + `
+      <section class="sheet sk-sheet"><div class="qmeta"><span class="pill info">${SK.mode === 'sf' ? 'Significant figures' : 'Graphs'}</span><span class="num">${SK.right} / ${SK.n} correct${SK.streak > 1 ? ` · <span class="streak">🔥 ${SK.streak}</span>` : ''}</span></div>
+        <div class="qbody">${q.stem}</div>
+        <div class="options">${q.options.map((o, i) => `<button type="button" class="opt${SK.done ? (i === q.answer ? ' correct' : i === SK.pick ? ' wrong' : '') : ''}" data-skopt="${i}" ${SK.done ? 'disabled' : ''}><span class="letter">${'ABCD'[i]}</span><span>${o}</span></button>`).join('')}</div>
+        ${SK.done ? `<div class="verdict ${SK.pick === q.answer ? 'ok' : 'no'}">${SK.pick === q.answer ? '✓ Correct' : '✗ Not quite'}</div><div class="solution"><h4>Why</h4><div>${q.solution}</div></div>` : ''}
+      </section><div class="row"><button class="btn primary" id="skNext">${SK.done ? 'Next Question' : 'Skip'}</button></div>`;
+    typeset(main);
+  }
+  function bindSkills(main) {
+    main.onclick = (e) => {
+      const b = e.target.closest('button'); if (!b) return;
+      if (b.dataset.skmode) { SK = { mode: b.dataset.skmode, q: null, done: false, right: 0, n: 0, streak: 0 }; renderSkills(main); return; }
+      if (b.id === 'skModes') { SK = { mode: null }; renderSkills(main); return; }
+      if (b.id === 'skNext') { skNew(); renderSkills(main); return; }
+      if (b.dataset.skopt !== undefined && !SK.done) {
+        SK.pick = +b.dataset.skopt; SK.done = true; SK.n++; if (SK.pick === SK.q.answer) { SK.right++; SK.streak++; } else SK.streak = 0;
+        renderSkills(main);
+      }
+    };
+  }
   const VIEWS = {
     practice: [renderPractice, bindPractice, 'Practice 🎯'], exam: [renderExam, bindExam, 'Test 📝'], blitz: [renderGauntlet, bindGauntlet, 'Games 🕹️'],
-    recall: [renderRecall, bindRecall, 'Recall 🧠'], notes: [renderNotes, bindNotes, 'Notes 📓'], stats: [renderStats, bindStats, 'Stats 📈'],
+    recall: [renderRecall, bindRecall, 'Recall 🧠'], notes: [renderNotes, bindNotes, 'Notes 📓'], skills: [renderSkills, bindSkills, 'Skills 🧰'], stats: [renderStats, bindStats, 'Stats 📈'],
     about: [renderAbout, bindAbout, 'About', true], welcome: [renderWelcome, bindWelcome, 'Welcome', true],
   };
   const ROUTE_ALIAS = { games: 'blitz', test: 'exam' }, ROUTE_HREF = { blitz: 'games', exam: 'test' }; // the Games page keeps its internal name 'blitz'
@@ -18662,7 +18851,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     main.onclick = main.onchange = main.oninput = main.onkeydown = null;
     clearInterval(paceTimer);
     lmsTheme();
-    const noRail = v === 'stats' || v === 'about' || v === 'welcome' || (v === 'exam' && !TEACHER); // 1.4: students in Test Mode see no sidebar (the code sets the topics)
+    const noRail = v === 'stats' || v === 'skills' || v === 'about' || v === 'welcome' || (v === 'exam' && !TEACHER); // 1.4: students in Test Mode see no sidebar (the code sets the topics)
     document.querySelector('.shell').classList.toggle('no-rail', noRail);
     if (!noRail) renderRail();
     VIEWS[v][0](main); VIEWS[v][1](main);
@@ -18697,6 +18886,16 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     darkMQ.addEventListener && darkMQ.addEventListener('change', applyTheme);
     applyTheme();
     $('#tabs').innerHTML = Object.entries(VIEWS).filter(([, v]) => !v[3]).map(([k, v]) => `<a href="#${ROUTE_HREF[k] || k}">${v[2]}</a>`).join('');
+    // 1.5 (Mike 11 Nov): clicking Games, Recall or Skills while already there goes back to its list of games or modes
+    $('#tabs').addEventListener('click', (e) => {
+      const a = e.target.closest('a'); if (!a) return;
+      const h = a.getAttribute('href').slice(1), v = ROUTE_ALIAS[h] || h; if (v !== currentView()) return;
+      e.preventDefault(); const main = $('#main');
+      if (v === 'blitz') { if ((GA && GA.phase === 'run') || LM || (UD && UD.phase === 'play')) { toast('End the current game first.'); return; } if (UD) { clearInterval(UD.tm); UD = null; } if (GA) { GA.picked = false; GA.phase = 'setup'; } renderRail(); renderGauntlet(main); bindGauntlet(main); }
+      else if (v === 'recall') { RC_PICKED = false; if (GM && GM.tm) clearInterval(GM.tm); GM = null; renderRecall(main); bindRecall(main); }
+      else if (v === 'skills') { SK = { mode: null }; renderSkills(main); bindSkills(main); }
+      window.scrollTo(0, 0);
+    });
     const brand = $('.top .brand h1'); if (brand) { brand.setAttribute('role', 'link'); brand.tabIndex = 0; brand.title = 'Welcome and guide'; const go = () => { location.hash = '#welcome'; }; brand.addEventListener('click', go); brand.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } }); }
     if (window.matchMedia('(max-width: 860px)').matches) $('#rail').classList.add('collapsed');
     initBooklet(); renderRail(); bindRail(); render();
