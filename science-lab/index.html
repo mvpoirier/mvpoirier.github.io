@@ -1409,7 +1409,7 @@ const UNIT_LIST = [
     soi: 'Changes in electrical energy transformations allow for innovative advances in technology but come with the need to balance risks and responsibilities.' },
   { id: 'y10-ess', y: 10, n: 1, subject: 'ESS', em: '🦌', title: 'Population & Conservation', live: true,
     soi: 'Evidence of the effect of interacting factors on environmental systems leads to data-driven decision-making.' },
-  { id: 'y10-che', y: 10, n: 2, subject: 'Chemistry', em: '🧂', title: 'Solution Chemistry', live: false,
+  { id: 'y10-che', y: 10, n: 2, subject: 'Chemistry', em: '🧂', title: 'Solution Chemistry', live: true,
     soi: 'Bonding explains the physical and chemical behaviour of particles in solution.' },
   { id: 'y10-bio', y: 10, n: 3, subject: 'Biology', em: '🧬', title: 'Patterns of Change', live: false,
     soi: 'Genetic variation may lead to predictable consequences.' },
@@ -1527,7 +1527,7 @@ function periodicTableHTML() {
 const eqRow = (name, words, sym) => `<tr><th scope="row">${name}</th><td>${words}</td><td class="eq">${sym}</td></tr>`;
 const BOOKLET = {
   9: () => `<section class="bk-sec"><h4>Periodic Table (elements 1–20)</h4><p class="small muted">Atomic masses are rounded to whole numbers. Use these values in every calculation.</p>${periodicTableHTML()}</section>`,
-  10: () => `<section class="bk-sec"><h4>Periodic Table</h4>${periodicTableFullHTML()}</section><section class="bk-sec"><p class="muted small">Population & Conservation: the formulas you need (population change, N = n × Q, the Lincoln index, percentage error) are given in each question. More of the Year 10 data booklet will be added with the other Year 10 units.</p></section>`,
+  10: () => `<section class="bk-sec"><h4>Periodic Table</h4>${periodicTableFullHTML()}</section><section class="bk-sec"><h4>Electronegativity Triangle</h4>${typeof CONTENT !== 'undefined' && CONTENT['y10-che'] ? `<div class="figure">${CONTENT['y10-che'].data.triangle()}</div>` : ''}<p class="small">ΔEN ≥ 1.8 → ionic. If ΔEN &lt; 1.8: average EN &lt; 2.0 → metallic; average EN ≥ 2.0 → covalent (polar if ΔEN ≥ 0.5, non-polar if ΔEN &lt; 0.5).</p></section><section class="bk-sec"><h4>Metals with variable valence</h4><table class="bk-table"><tr><th>Name</th><th>Ion</th><th>Name</th><th>Ion</th></tr><tr><td>copper(I)</td><td>Cu⁺</td><td>iron(I) <span class="muted">(rare)</span></td><td>Fe⁺</td></tr><tr><td>copper(II)</td><td>Cu²⁺</td><td>iron(II)</td><td>Fe²⁺</td></tr><tr><td>copper(III) <span class="muted">(rare)</span></td><td>Cu³⁺</td><td>iron(III)</td><td>Fe³⁺</td></tr></table></section><section class="bk-sec"><h4>Solution Chemistry</h4><table class="bk-table"><tr><th>Polyatomic ion</th><th>Formula</th></tr>${[['ammonium', 'NH₄⁺'], ['hydroxide', 'OH⁻'], ['nitrate', 'NO₃⁻'], ['carbonate', 'CO₃²⁻'], ['sulfate', 'SO₄²⁻'], ['phosphate', 'PO₄³⁻']].map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('')}</table><p class="small"><b>Solubility rules</b></p><ol class="small"><li>All nitrates (NO₃⁻) are soluble.</li><li>All ammonium (NH₄⁺) and alkali metal (Li⁺, Na⁺, K⁺) compounds are soluble.</li><li>Carbonates, phosphates and hydroxides are insoluble, except with the cations in rule 2.</li><li>Chlorides, bromides and iodides are soluble, except with Ag⁺ and Pb²⁺.</li><li>Sulfates are soluble, except with Ca²⁺, Ba²⁺ and Pb²⁺.</li></ol><p class="small"><b>Bonding</b>: ΔEN = |EN₁ − EN₂|; average EN = (EN₁ + EN₂) ÷ 2. % by mass = mass of solute ÷ mass of solution × 100. Dilution: C₁V₁ = C₂V₂.</p><p class="muted small">Electronegativity values are given in each question.</p></section><section class="bk-sec"><p class="muted small">Population & Conservation: the formulas you need (population change, N = n × Q, the Lincoln index, percentage error) are given in each question.</p></section>`,
   11: () => `<section class="bk-sec"><h4>Periodic Table</h4>${periodicTableFullHTML()}</section><section class="bk-sec"><h4>Physics equations</h4><div class="tbl-wrap"><table class="bk-eq"><tbody>
       ${eqRow('Force', 'force = mass × acceleration', '<i>F</i> = <i>ma</i>')}
       ${eqRow('Motion', 'final velocity = initial velocity + (acceleration × time)', '<i>v</i> = <i>u</i> + <i>at</i>')}
@@ -1545,7 +1545,7 @@ const BOOKLET = {
     </tbody></table></div><p class="small muted">Use the relative atomic masses from the Periodic Table above. Bond enthalpies and enthalpies of combustion are given in each question that needs them.</p></section>`
 };
 // units whose questions show a "Data Booklet" button
-const BOOKLET_UNITS = ['y9-che', 'y11-phy', 'y11-che'];
+const BOOKLET_UNITS = ['y9-che', 'y10-che', 'y11-phy', 'y11-che'];
 
 /* ---------- Full Periodic Table (Years 10 and 11) ----------
    Relative atomic masses to 2 decimal places (as in the IB data booklet); mass numbers in brackets for elements with no stable isotope. */
@@ -3227,6 +3227,441 @@ const SVG = (() => {
     flow: ['Levels of organisation: species, populations, communities, ecosystems and biomes', 'Biotic and abiotic factors; habitats and niches (Connell\'s barnacles)', 'Population dynamics: population change, J and S curves, carrying capacity', 'Sampling: quadrats and the Lincoln index (capture–mark–recapture)', 'Interactions: predation, competition and symbiosis', 'Food chains, food webs, trophic levels and trophic cascades'],
     subs, notes, cards, qs,
     data: { logistic }
+  };
+})();
+
+/* ---- content/y10-che.js ---- */
+/* Year 10 Unit 2: Solution Chemistry. Source: Y10 Science Notes (Unit 2), unit description, and the Y10 Chemistry
+   tests and formatives (models for style only). Bond types use the bonding-triangle rules stated in each question;
+   precipitates use the five solubility rules from the tests. */
+(() => {
+  const { svg, text, line, circle, rect, graph } = SVG;
+  const sub = (n) => n > 1 ? `<sub>${n}</sub>` : '';
+  const sup = (q) => `<sup>${Math.abs(q) > 1 ? Math.abs(q) : ''}${q > 0 ? '+' : '−'}</sup>`;
+
+  /* ---------- electronegativity and the bonding triangle ---------- */
+  const EN = { H: 2.2, Li: 1.0, Be: 1.6, B: 2.0, C: 2.6, N: 3.0, O: 3.4, F: 4.0, Na: 0.9, Mg: 1.3, Al: 1.6, Si: 1.9, P: 2.2, S: 2.6, Cl: 3.2, K: 0.8, Ca: 1.0, Br: 3.0, I: 2.7, Fe: 1.8, Cu: 1.9, Zn: 1.7, Ni: 1.9, Ag: 1.9, Sn: 2.0, Ba: 0.9, Se: 2.6, Ti: 1.5, Cr: 1.7 };
+  const NAME = { H: 'hydrogen', Li: 'lithium', Be: 'beryllium', B: 'boron', C: 'carbon', N: 'nitrogen', O: 'oxygen', F: 'fluorine', Na: 'sodium', Mg: 'magnesium', Al: 'aluminium', Si: 'silicon', P: 'phosphorus', S: 'sulfur', Cl: 'chlorine', K: 'potassium', Ca: 'calcium', Br: 'bromine', I: 'iodine', Fe: 'iron', Cu: 'copper', Zn: 'zinc', Ni: 'nickel', Ag: 'silver', Sn: 'tin', Ba: 'barium', Se: 'selenium', Ti: 'titanium', Cr: 'chromium' };
+  const RULE = '<p class="small muted">Bonding triangle rules: ΔEN ≥ 1.8 → ionic. If ΔEN &lt; 1.8: average EN &lt; 2.0 → metallic; average EN ≥ 2.0 → covalent (polar if ΔEN ≥ 0.5, non-polar if ΔEN &lt; 0.5).</p>';
+  const bondType = (a, b) => { const d = Math.abs(EN[a] - EN[b]), m = (EN[a] + EN[b]) / 2; return d >= 1.8 ? 'Ionic' : m < 2.0 ? 'Metallic' : d >= 0.5 ? 'Polar covalent' : 'Non-polar covalent'; };
+  const r1 = (x) => Math.round(x * 100) / 100;
+  // only pairs that sit clearly inside one region (at least 0.1 from any boundary)
+  const PAIRS = (() => { const ks = Object.keys(EN), out = []; ks.forEach((a, i) => ks.slice(i + 1).forEach(b => { const d = Math.abs(EN[a] - EN[b]), m = (EN[a] + EN[b]) / 2; if (Math.abs(d - 1.8) < 0.1 || Math.abs(m - 2.0) < 0.1 || (m >= 2 && Math.abs(d - 0.5) < 0.1)) return; out.push([a, b]); })); return out; })();
+  // the bonding triangle (simplified regions as above)
+  function triangle(mark) {
+    const X = (m) => 50 + (m - 0.8) * 100, Yy = (d) => 230 - d * 62; let g = '';
+    g += `<path d="M${X(0.8)} ${Yy(0)} L${X(4.0)} ${Yy(0)} L${X(2.4)} ${Yy(3.2)} Z" class="soft"/>`;
+    g += line(X(1.7), Yy(1.8), X(3.1), Yy(1.8), 'ln') + line(X(2.0), Yy(0), X(2.0), Yy(1.8), 'ln') + line(X(2.0), Yy(0.5), X(3.75), Yy(0.5), 'ln');
+    g += text(X(2.4), Yy(2.3), 'Ionic', 'tx') + text(X(1.45), Yy(0.6), 'Metallic', 'tx') + text(X(2.75), Yy(1.1), 'Polar covalent', 'tx') + text(X(2.8), Yy(0.18), 'Non-polar covalent', 'tx sm');
+    g += line(50, 230, 380, 230, 'ax') + line(50, 230, 50, 20, 'ax') + text(215, 262, 'Average electronegativity', 'tx sm') + `<text class="tx sm" text-anchor="middle" transform="translate(18 125) rotate(-90)">ΔEN</text>`;
+    [1, 2, 3, 4].forEach(m => { g += text(X(m), 245, m, 'tx sm'); }); [0, 1, 2, 3].forEach(d => { g += text(40, Yy(d) + 4, d, 'tx sm', 'end'); });
+    if (mark) g += circle(X(mark[0]), Yy(mark[1]), 6, 'el');
+    return svg(400, 270, g, 'Bonding triangle');
+  }
+
+  /* ---------- ions, names and formulas ---------- */
+  const CAT = [
+    ['Na', 'sodium', 1], ['K', 'potassium', 1], ['Li', 'lithium', 1], ['NH<sub>4</sub>', 'ammonium', 1, 1], ['Ag', 'silver', 1],
+    ['Mg', 'magnesium', 2], ['Ca', 'calcium', 2], ['Ba', 'barium', 2], ['Zn', 'zinc', 2], ['Pb', 'lead(II)', 2], ['Cu', 'copper(II)', 2], ['Fe', 'iron(II)', 2], ['Fe', 'iron(III)', 3], ['Al', 'aluminium', 3]
+  ];
+  const AN = [
+    ['Cl', 'chloride', -1], ['Br', 'bromide', -1], ['I', 'iodide', -1], ['F', 'fluoride', -1], ['O', 'oxide', -2], ['S', 'sulfide', -2], ['N', 'nitride', -3],
+    ['NO<sub>3</sub>', 'nitrate', -1, 1], ['OH', 'hydroxide', -1, 1], ['SO<sub>4</sub>', 'sulfate', -2, 1], ['CO<sub>3</sub>', 'carbonate', -2, 1], ['PO<sub>4</sub>', 'phosphate', -3, 1]
+  ];
+  const gcd = (a, b) => b ? gcd(b, a % b) : a;
+  const ratio = (c, a) => { const g = gcd(c[2], -a[2]); return [-a[2] / g, c[2] / g]; };
+  const part = (ion, n) => n > 1 ? (ion[3] ? `(${ion[0]})${sub(n)}` : `${ion[0]}${sub(n)}`) : ion[0];
+  const formula = (c, a) => { const [nc, na] = ratio(c, a); return part(c, nc) + part(a, na); };
+  const cname = (c, a) => `${c[1]} ${a[1]}`;
+  const ionHTML = (i) => `${i[0]}${sup(i[2])}`;
+  // the five solubility rules used on the Y10 tests
+  const SOL_RULES = ['Nitrate (NO₃⁻) compounds always dissolve.', 'Compounds of ammonium (NH₄⁺) or an alkali metal (Li⁺, Na⁺, K⁺) always dissolve.', 'Carbonate (CO₃²⁻), phosphate (PO₄³⁻) and hydroxide (OH⁻) compounds do not dissolve, unless the cation is one from rule 2.', 'Chloride (Cl⁻), bromide (Br⁻) and iodide (I⁻) compounds dissolve, unless the cation is Ag⁺ or Pb²⁺.', 'Sulfate (SO₄²⁻) compounds dissolve, unless the cation is Ca²⁺, Ba²⁺ or Pb²⁺.'];
+  const rulesHTML = `<ol class="small sol-rules">${SOL_RULES.map(r => `<li>${r}</li>`).join('')}</ol>`;
+  const alkali = (c) => ['Na', 'K', 'Li'].includes(c[0]) || c[1] === 'ammonium';
+  function soluble(c, a) {
+    if (a[1] === 'nitrate' || alkali(c)) return [true, a[1] === 'nitrate' ? 1 : 2];
+    if (['carbonate', 'phosphate', 'hydroxide'].includes(a[1])) return [false, 3];
+    if (['chloride', 'bromide', 'iodide'].includes(a[1])) return [!['Ag', 'Pb'].includes(c[0]), 4];
+    if (a[1] === 'sulfate') return [!['Ca', 'Ba', 'Pb'].includes(c[0]), 5];
+    return [false, 0];
+  }
+  const SOLVABLE = AN.filter(a => ['nitrate', 'chloride', 'bromide', 'iodide', 'sulfate', 'carbonate', 'phosphate', 'hydroxide'].includes(a[1]));
+  const CAT_RXN = CAT.filter(c => c[0] !== 'Fe' || c[2] === 3);
+  // a double-displacement reaction between two soluble salts in which exactly one product is a precipitate
+  function ppt(R) {
+    for (let k = 0; k < 400; k++) {
+      const c1 = R.pick(CAT_RXN), c2 = R.pick(CAT_RXN), a1 = R.pick(SOLVABLE), a2 = R.pick(SOLVABLE);
+      if (c1 === c2 || a1 === a2 || c1[0] === c2[0]) continue;
+      if (!soluble(c1, a1)[0] || !soluble(c2, a2)[0]) continue;
+      const p1 = soluble(c1, a2), p2 = soluble(c2, a1);
+      if (p1[0] === p2[0]) continue;
+      const [solid, sc, sa, rule] = p1[0] ? [[c2, a1], c2, a1, p2[1]] : [[c1, a2], c1, a2, p1[1]];
+      const other = p1[0] ? [c1, a2] : [c2, a1];
+      // coefficients: smallest whole numbers that conserve every ion
+      const r = (c, a) => ratio(c, a);
+      const [x1, y1] = r(c1, a1), [x2, y2] = r(c2, a2), [u1, v1] = r(c1, a2), [u2, v2] = r(c2, a1);
+      let best = null;
+      for (let A = 1; A <= 6 && !best; A++) for (let B = 1; B <= 6 && !best; B++) for (let C = 1; C <= 6 && !best; C++) for (let D = 1; D <= 6 && !best; D++) {
+        if (A * x1 === C * u1 && A * y1 === D * v2 && B * x2 === D * u2 && B * y2 === C * v1) best = [A, B, C, D];
+      }
+      if (!best) continue;
+      return { c1, a1, c2, a2, solid, other, rule, co: best };
+    }
+    return null;
+  }
+  const co = (n) => n > 1 ? n + ' ' : '';
+  const eqn = (p) => `${co(p.co[0])}${formula(p.c1, p.a1)}(aq) + ${co(p.co[1])}${formula(p.c2, p.a2)}(aq) → ${co(p.co[2])}${formula(p.c1, p.a2)}(${soluble(p.c1, p.a2)[0] ? 'aq' : 's'}) + ${co(p.co[3])}${formula(p.c2, p.a1)}(${soluble(p.c2, p.a1)[0] ? 'aq' : 's'})`;
+
+  /* ---------- covalent names ---------- */
+  const PRE = ['', 'mono', 'di', 'tri', 'tetra', 'penta', 'hexa'];
+  const MOLS = [['C', 1, 'O', 2, 'carbon dioxide'], ['C', 1, 'O', 1, 'carbon monoxide'], ['N', 2, 'O', 4, 'dinitrogen tetroxide'], ['N', 2, 'O', 1, 'dinitrogen monoxide'], ['N', 1, 'O', 2, 'nitrogen dioxide'], ['S', 1, 'O', 3, 'sulfur trioxide'], ['S', 1, 'O', 2, 'sulfur dioxide'], ['P', 1, 'Cl', 3, 'phosphorus trichloride'], ['P', 1, 'Cl', 5, 'phosphorus pentachloride'], ['C', 1, 'Cl', 4, 'carbon tetrachloride'], ['Si', 1, 'O', 2, 'silicon dioxide'], ['S', 1, 'F', 6, 'sulfur hexafluoride'], ['N', 1, 'Cl', 3, 'nitrogen trichloride'], ['P', 2, 'O', 5, 'diphosphorus pentoxide']];
+  const molF = (m) => `${m[0]}${sub(m[1])}${m[2]}${sub(m[3])}`;
+
+  /* ---------- solubility curves ---------- */
+  const CURVES = [
+    { n: 'potassium nitrate', f: 'KNO<sub>3</sub>', pts: [[0, 13], [10, 21], [20, 32], [30, 46], [40, 64], [50, 85], [60, 106], [70, 138], [80, 169]] },
+    { n: 'sodium chloride', f: 'NaCl', pts: [[0, 36], [10, 36], [20, 36], [30, 36], [40, 37], [50, 37], [60, 37], [70, 38], [80, 38]] },
+    { n: 'potassium chloride', f: 'KCl', pts: [[0, 28], [10, 31], [20, 34], [30, 37], [40, 40], [50, 43], [60, 45], [70, 48], [80, 51]] },
+    { n: 'ammonium chloride', f: 'NH<sub>4</sub>Cl', pts: [[0, 29], [10, 33], [20, 37], [30, 41], [40, 46], [50, 50], [60, 55], [70, 60], [80, 66]] },
+    { n: 'calcium chloride', f: 'CaCl<sub>2</sub>', pts: [[0, 60], [10, 65], [20, 74], [30, 100], [40, 115], [50, 125], [60, 137], [70, 142], [80, 147]] }
+  ];
+  const at = (c, T) => { const p = c.pts; for (let i = 0; i < p.length - 1; i++) if (T >= p[i][0] && T <= p[i + 1][0]) return p[i][1] + (p[i + 1][1] - p[i][1]) * (T - p[i][0]) / (p[i + 1][0] - p[i][0]); return p[p.length - 1][1]; };
+  const curveFig = (cs) => graph({ xmin: 0, xmax: 80, xstep: 10, ymin: 0, ymax: Math.ceil(Math.max(...cs.flatMap(c => c.pts.map(p => p[1]))) / 20) * 20 + 10, ystep: 20, xlabel: 'Temperature / °C', ylabel: 'Solubility / g per 100 g water', series: cs.map((c, i) => ({ pts: c.pts, dots: true, dash: i === 1 })) }) + (cs.length > 1 ? `<p class="small muted" style="text-align:center;margin:4px 0 0">${cs.map((c, i) => `${i ? 'Dashed' : 'Solid'}: ${c.f}`).join(' · ')}</p>` : '');
+
+  // water molecule with partial charges
+  const waterSVG = () => svg(220, 150, circle(110, 60, 30, 'bx') + text(110, 66, 'O', 'tx big') + circle(60, 108, 20, 'soft') + text(60, 113, 'H', 'tx') + circle(160, 108, 20, 'soft') + text(160, 113, 'H', 'tx') + text(110, 22, 'δ−', 'tx') + text(28, 140, 'δ+', 'tx') + text(192, 140, 'δ+', 'tx'), 'Water molecule: polar, with δ− oxygen and δ+ hydrogens');
+
+  const cards = [
+    ['Electronegativity', 'An atom\'s ability to attract the shared electrons in a bond (EN or χ). It increases across a period and decreases down a group; fluorine is highest.', 'bond'],
+    ['Ionic bond', 'The electrostatic attraction between oppositely charged ions (cations and anions); large difference in electronegativity.', 'bond'],
+    ['Covalent bond', 'A shared pair of electrons between two atoms, usually non-metals.', 'bond'],
+    ['Polar covalent bond', 'A covalent bond with unequal sharing of electrons because the atoms have different electronegativities (δ+ and δ− ends).', 'bond'],
+    ['Non-polar covalent bond', 'A covalent bond with equal (or nearly equal) sharing of electrons; little or no electronegativity difference.', 'bond'],
+    ['Metallic bond', 'The attraction between positive metal ions and a sea of delocalised electrons.', 'bond'],
+    ['Bonding triangle', 'A chart that uses the electronegativity difference and the average electronegativity of two elements to predict the bond type.', 'bond'],
+    ['Dipole', 'An uneven distribution of charge in a polar bond or molecule, with a δ+ end and a δ− end.', 'bond'],
+    ['Semiconductor', 'A material with conductivity between a conductor and an insulator, e.g. silicon and germanium.', 'bond'],
+    ['Cation', 'A positive ion, formed when an atom (usually a metal) loses electrons.', 'diag'],
+    ['Anion', 'A negative ion, formed when an atom (usually a non-metal) gains electrons.', 'diag'],
+    ['Ionic lattice', 'A regular, repeating 3D arrangement of oppositely charged ions held by ionic bonds.', 'diag'],
+    ['Lewis structure', 'A diagram that shows the valence electrons of atoms as dots (and crosses), with shared pairs as bonds.', 'diag'],
+    ['Polyatomic ion', 'A charged group of covalently bonded atoms, e.g. sulfate SO₄²⁻, nitrate NO₃⁻, ammonium NH₄⁺.', 'name'],
+    ['Variable valence', 'When a metal can form ions with different charges, shown by a Roman numeral, e.g. iron(III) = Fe³⁺.', 'name'],
+    ['Binary compound', 'A compound made of two elements, e.g. sodium chloride or carbon dioxide.', 'name'],
+    ['Solute', 'The substance that dissolves.', 'sol'],
+    ['Solvent', 'The substance that does the dissolving; water is the "universal solvent".', 'sol'],
+    ['Solution', 'A homogeneous mixture of a solute dissolved in a solvent.', 'sol'],
+    ['Concentration', 'The amount of solute in a given amount of solution, e.g. percentage by mass.', 'sol'],
+    ['Solubility', 'The maximum amount of solute that dissolves in a given amount of solvent at a given temperature.', 'sol'],
+    ['Solvation', 'Water molecules surrounding and pulling apart ions or polar molecules so that they dissolve.', 'sol'],
+    ['Solubility curve', 'A graph of how much solute dissolves in 100 g of water at each temperature.', 'sol'],
+    ['Saturated solution', 'A solution that holds the maximum amount of solute at that temperature.', 'sol'],
+    ['Common ion effect', 'The solubility of a salt decreases when a solution already contains one of its ions.', 'sol'],
+    ['Homogeneous mixture', 'A mixture with a uniform composition throughout, e.g. salt water.', 'sol'],
+    ['Precipitate', 'An insoluble solid that forms when two solutions are mixed.', 'rxn'],
+    ['Double displacement', 'A reaction in which two ionic compounds swap partners: AB + CD → AD + CB.', 'rxn'],
+    ['State symbols', '(s) solid, (l) liquid, (g) gas, (aq) aqueous (dissolved in water).', 'rxn'],
+    ['Solubility rules', 'Guidelines that predict which ionic compounds dissolve in water and which form precipitates.', 'rxn'],
+    ['Conservation of mass', 'Atoms are not created or destroyed in a reaction, so the total mass stays the same.', 'rxn']
+  ];
+  const notes = {
+    bond: { ideas: ['A chemical bond is an electrostatic attraction. <b>Ionic</b>: between cations and anions (metal + non-metal, large ΔEN). <b>Covalent</b>: shared electrons (non-metals). <b>Metallic</b>: metal ions in a sea of delocalised electrons.', '<b>Electronegativity</b> (EN, χ) increases across a period (more nuclear charge) and decreases down a group (more shells). Fluorine is the most electronegative; francium the least.', 'Use two numbers from the data table: the difference |EN₁ − EN₂| (ΔEN) and the average (EN₁ + EN₂) ÷ 2. Plot them on the <b>bonding triangle</b> to find the bond type. Bond type is a continuum, not sharp steps.', 'Polar covalent bonds have a δ+ and a δ− end (a dipole). Molecules can still be non-polar overall if their dipoles cancel (CO₂ is linear); water is bent, so it is polar.', 'Conductivity: metals conduct (delocalised electrons); ionic compounds conduct only when molten or dissolved (ions free to move); covalent substances are usually insulators. Silicon and germanium are semiconductors.'],
+      fig: triangle(), mistakes: ['Subtracting the wrong way round: ΔEN is always positive.', 'Forgetting to calculate the average as well as the difference.', 'Saying ionic solids conduct (the ions cannot move in a solid).'] },
+    diag: { ideas: ['Atoms bond to reach a stable electron configuration (a full outer shell: 2 for H, 8 for most others).', '<b>Ionic</b> Bohr and Lewis diagrams: the metal loses its outer electrons (shown moving across), the non-metal gains them; draw each ion in square brackets with its charge.', '<b>Covalent</b> Lewis structures: count the valence electrons, share pairs between atoms until each has a full shell; show lone pairs.', 'Ionic compounds form a lattice of ions; covalent substances form molecules.', 'Polyatomic ions (e.g. NH₄⁺) have covalent bonds inside them but form ionic bonds with other ions, so a compound like ammonium chloride has both.'],
+      mistakes: ['Drawing a shared pair between a metal and a non-metal (they transfer electrons).', 'Forgetting the brackets and charges on ions.', 'Losing count of valence electrons in a Lewis structure.'] },
+    name: { ideas: ['<b>Ionic</b> (metal + non-metal): name the metal, then the non-metal with -ide: sodium chloride, magnesium oxide. No prefixes.', '<b>Variable valence</b>: transition metals show their charge with a Roman numeral: iron(II) Fe²⁺, iron(III) Fe³⁺, copper(II) Cu²⁺, lead(II) Pb²⁺.', '<b>Covalent</b> (non-metal + non-metal): use prefixes mono-, di-, tri-, tetra-, penta-, hexa-: carbon dioxide, dinitrogen tetroxide. Leave out mono- on the first element.', '<b>Polyatomic ions</b>: ammonium NH₄⁺, hydroxide OH⁻, nitrate NO₃⁻, sulfate SO₄²⁻, carbonate CO₃²⁻, phosphate PO₄³⁻. Use brackets when you need more than one: Ca(OH)₂.', 'Formulas: balance the charges so the total is zero (criss-cross the charge numbers, then simplify): Al³⁺ + O²⁻ → Al₂O₃.'],
+      mistakes: ['Using prefixes for ionic compounds ("monosodium monochloride").', 'Changing the polyatomic ion itself instead of adding brackets.', 'Forgetting the Roman numeral for a metal with variable valence.'] },
+    sol: { ideas: ['A <b>solution</b> is a homogeneous mixture: the <b>solute</b> dissolves in the <b>solvent</b>. Water is the universal solvent because it is polar (δ− O, δ+ H).', '<b>Solvation</b>: water\'s δ− oxygen ends surround cations, its δ+ hydrogen ends surround anions, and they pull the ions out of the lattice. "Like dissolves like": polar and ionic solutes dissolve in water; non-polar ones (oil) do not.', '<b>Solubility</b> depends on temperature, the substances and other ions present. Most solids dissolve more when hot; gases dissolve less when hot (warm water holds less oxygen, harming fish). The common ion effect lowers solubility.', 'A <b>solubility curve</b> shows the mass of solute that dissolves in 100 g of water at each temperature. On the line = saturated; below = unsaturated.', 'Concentration by mass: % = mass of solute ÷ mass of solution × 100. Dilution keeps the solute the same: C₁V₁ = C₂V₂ (or C₁m₁ = C₂m₂).'],
+      fig: waterSVG(), mistakes: ['Dividing by the mass of water instead of the mass of solution for % by mass.', 'Saying all solids become more soluble when heated (NaCl barely changes).', 'Mixing up solute and solvent.'] },
+    rxn: { ideas: ['In a chemical change new substances form; mass is conserved. Balance equations by changing coefficients (big numbers), never subscripts.', 'State symbols: (s) solid, (l) liquid, (g) gas, (aq) dissolved in water. A precipitate is shown as (s).', '<b>Double displacement</b>: two ionic compounds in solution swap partners: AB(aq) + CD(aq) → AD + CB. If one product is insoluble, it forms a precipitate.', 'Use the <b>solubility rules</b>: (1) all nitrates soluble; (2) all ammonium and alkali metal compounds soluble; (3) carbonates, phosphates, hydroxides insoluble except with rule 2; (4) chlorides, bromides, iodides soluble except with Ag⁺ and Pb²⁺; (5) sulfates soluble except with Ca²⁺, Ba²⁺, Pb²⁺.', 'Steps: write the formulas of the reactants → swap partners → write the product formulas (balance charges) → use the rules to find the precipitate → balance the equation and add state symbols.'],
+      mistakes: ['Swapping subscripts between ions when you swap partners (rebalance the charges instead).', 'Leaving out state symbols.', 'Forgetting that both products cannot be precipitates in these questions.'] }
+  };
+  const subs = [
+    { id: 'bond', name: 'Bonding, electronegativity & polarity' }, { id: 'diag', name: 'Bohr & Lewis diagrams' }, { id: 'name', name: 'Naming & formulas' },
+    { id: 'sol', name: 'Water, solutions & solubility' }, { id: 'rxn', name: 'Equations & precipitates' }
+  ];
+
+  const factsI2 = [
+    ['bond', 'Which element is the most electronegative?', 'Fluorine', 'Francium', 'Oxygen', 'Chlorine', ''],
+    ['bond', 'Electronegativity generally increases…', 'across a period from left to right', 'down a group', 'from right to left across a period', 'with the number of shells', ''],
+    ['bond', 'Which type of bond forms between a metal and a non-metal?', 'Ionic', 'Non-polar covalent', 'Metallic', 'Hydrogen', ''],
+    ['bond', 'Which substance conducts electricity as a solid?', 'Copper', 'Sodium chloride', 'Sulfur', 'Sugar', ''],
+    ['diag', 'What is a cation?', 'A positive ion', 'A negative ion', 'A neutral atom', 'A shared pair of electrons', ''],
+    ['diag', 'How many electrons does a full second shell hold?', '8', '2', '6', '18', ''],
+    ['name', 'What is the formula of the sulfate ion?', 'SO₄²⁻', 'SO₃²⁻', 'S²⁻', 'SO₄⁻', ''],
+    ['name', 'Which ion is ammonium?', 'NH₄⁺', 'NH₃', 'NO₃⁻', 'NH₄⁻', ''],
+    ['name', 'What does the (III) in iron(III) chloride mean?', 'The iron ion has a 3+ charge', 'There are three chlorine atoms', 'There are three iron atoms', 'Iron is in group 3', ''],
+    ['sol', 'In salt water, the salt is the…', 'solute', 'solvent', 'precipitate', 'suspension', ''],
+    ['sol', 'Why is water called the universal solvent?', 'It dissolves more substances than any other liquid', 'It dissolves everything', 'It has no charge', 'It is the only liquid on Earth', ''],
+    ['sol', 'What usually happens to the solubility of a gas in water as the water warms up?', 'It decreases', 'It increases', 'It stays the same', 'It doubles', ''],
+    ['rxn', 'What does (aq) mean in a chemical equation?', 'Dissolved in water', 'A solid', 'A gas', 'A pure liquid', ''],
+    ['rxn', 'When balancing an equation, you may change only the…', 'coefficients', 'subscripts', 'charges', 'state symbols', ''],
+    ['rxn', 'An insoluble solid formed when two solutions are mixed is a…', 'precipitate', 'solvent', 'catalyst', 'solute', '']
+  ];
+  const factsI6 = [
+    ['bond', 'Why does electronegativity decrease down a group?', 'The valence electrons are further from the nucleus, so they are attracted less', 'The nuclear charge decreases', 'Atoms get smaller', 'There are fewer electrons', ''],
+    ['bond', 'Why does carbon dioxide have polar bonds but is a non-polar molecule?', 'It is linear, so the two bond dipoles cancel', 'Carbon and oxygen have the same electronegativity', 'It has no electrons', 'It is an ionic compound', ''],
+    ['bond', 'Why do ionic compounds conduct electricity only when molten or dissolved?', 'Only then are the ions free to move', 'The electrons become free in water', 'Water itself is an excellent conductor', 'The ionic bonds become metallic bonds', ''],
+    ['diag', 'What happens to the electrons when magnesium oxide forms?', 'Magnesium transfers two electrons to oxygen, forming Mg²⁺ and O²⁻', 'They share two pairs of electrons', 'Oxygen gives two electrons to magnesium', 'The electrons become delocalised', ''],
+    ['sol', 'How does water dissolve an ionic compound?', 'The δ− oxygen ends surround the cations and the δ+ hydrogen ends surround the anions, pulling the ions apart', 'Water reacts with the ions to make new substances', 'The ions melt in water', 'Water breaks the covalent bonds inside the ions', ''],
+    ['rxn', 'Which describes a double displacement reaction?', 'Two ionic compounds swap partners: AB + CD → AD + CB', 'One element replaces another: A + BC → AC + B', 'A compound splits into elements', 'Two elements join to make one compound', '']
+  ];
+
+  const qs = [
+    /* ===== A i ===== */
+    ...H.bank('i2-fact', 'i', 2, 'Recall', factsI2),
+    ...H.bank('i6-fact', 'i', 6, 'Describe', factsI6),
+    { id: 'bond-i4-sort', sub: 'bond', s: 'i', b: 4, topic: 'Bond types', gen: (R) => {
+      const all = [['Sodium chloride (NaCl)', 0], ['Magnesium oxide (MgO)', 0], ['Potassium fluoride (KF)', 0], ['Calcium bromide (CaBr₂)', 0], ['Water (H₂O)', 1], ['Methane (CH₄)', 1], ['Carbon dioxide (CO₂)', 1], ['Ammonia (NH₃)', 1], ['Copper (Cu)', 2], ['Iron (Fe)', 2], ['Magnesium (Mg)', 2], ['Aluminium (Al)', 2]];
+      return { type: 'sort', stem: '<p>Sort each substance by the type of bonding in it.</p>', bins: ['Ionic', 'Covalent', 'Metallic'], items: H.sampleBins(R, all, 7) };
+    } },
+    { id: 'bond-i4-trend', sub: 'bond', s: 'i', b: 4, topic: 'Electronegativity', gen: (R) => {
+      const pr = R.pick(H.split(R, [['O', 'S'], ['F', 'Cl'], ['N', 'P'], ['Cl', 'Br'], ['C', 'Si'], ['Li', 'Na'], ['O', 'N'], ['Cl', 'S'], ['F', 'O'], ['Br', 'I']]));
+      const hi = EN[pr[0]] > EN[pr[1]] ? pr[0] : pr[1];
+      return { type: 'mcq', fixed: true, stem: `<p>Using the Periodic Table, state which atom is more electronegative: ${NAME[pr[0]]} or ${NAME[pr[1]]}.</p>`, choices: [cap(NAME[pr[0]]), cap(NAME[pr[1]])], ans: hi === pr[0] ? 0 : 1, why: '<p>EN increases across a period (more protons pull the shared electrons) and decreases down a group (more shells).</p>' };
+    } },
+    { id: 'bond-i8-compare', sub: 'bond', s: 'i', b: 8, topic: 'Bonding', gen: (R) => {
+      const pair = R.pick(H.split(R, [['ionic and covalent bonding', 'Both are electrostatic attractions that hold atoms together, and both make the atoms more stable (full outer shells). Ionic bonds form between metal cations and non-metal anions after electrons are transferred, when the electronegativity difference is large (ΔEN ≥ about 1.8); they form lattices, have high melting points and conduct when molten or dissolved. Covalent bonds form between non-metal atoms that share pairs of electrons, when ΔEN is small; they form molecules with low melting points that usually do not conduct. Covalent bonds can be polar (unequal sharing) or non-polar.'],
+        ['polar and non-polar covalent bonds', 'Both are covalent: pairs of electrons are shared between non-metal atoms. In a non-polar bond the atoms have the same or very similar electronegativity (ΔEN below about 0.5), so the electrons are shared equally (e.g. Cl₂, C–H). In a polar bond one atom is more electronegative, so it pulls the shared electrons closer and gets a δ− charge while the other is δ+ (a dipole), e.g. O–H in water. The bigger ΔEN, the more polar the bond, until it becomes ionic.'],
+        ['metallic and ionic bonding', 'Both are electrostatic attractions involving positive ions. In metallic bonding, metal atoms lose their valence electrons into a "sea" of delocalised electrons that attract the positive metal ions; the electrons can move, so metals conduct as solids and are malleable. In ionic bonding, electrons are transferred from a metal to a non-metal, making cations and anions held in a lattice; the ions cannot move in the solid, so ionic compounds conduct only when molten or dissolved, and they are brittle.']]));
+      return H.self(`<p>Compare and contrast ${pair[0]}.</p>`, pair[1], ['At least one similarity', 'What happens to the electrons in each', 'Which kinds of elements / electronegativity difference', 'A property difference (conductivity, melting point…)', 'Examples']);
+    } },
+    { id: 'diag-i4-ion', sub: 'diag', s: 'i', b: 4, topic: 'Ions', gen: (R) => {
+      const e = R.pick(H.split(R, [['Na', 11, 1], ['Mg', 12, 2], ['Al', 13, 3], ['K', 19, 1], ['Ca', 20, 2], ['Li', 3, 1], ['O', 8, -2], ['F', 9, -1], ['Cl', 17, -1], ['S', 16, -2], ['N', 7, -3]]));
+      const el = e[1] - e[2];
+      return { type: 'parts', stem: `<p>${cap(NAME[e[0]])} (atomic number ${e[1]}) forms an ion to get a full outer shell.</p>`, parts: [
+        { type: 'mcq', fixed: true, stem: 'State the charge of the ion.', choices: ['3+', '2+', '1+', '1−', '2−', '3−'], ans: ['3+', '2+', '1+', '1−', '2−', '3−'].indexOf(`${Math.abs(e[2])}${e[2] > 0 ? '+' : '−'}`) },
+        { type: 'num', stem: 'How many electrons does the ion have?', ans: el, unit: 'electrons', tolAbs: 0.1, steps: [`${e[1]} protons; ${e[2] > 0 ? `loses ${e[2]}` : `gains ${-e[2]}`} electron${Math.abs(e[2]) > 1 ? 's' : ''} → ${el}`] }
+      ] };
+    } },
+    { id: 'diag-i8-dissolve', sub: 'sol', s: 'i', b: 8, topic: 'Solvation', gen: (R) => {
+      const s = R.pick(H.split(R, [['magnesium bromide', 'Mg²⁺', 'Br⁻'], ['sodium chloride', 'Na⁺', 'Cl⁻'], ['potassium iodide', 'K⁺', 'I⁻'], ['calcium chloride', 'Ca²⁺', 'Cl⁻'], ['lithium fluoride', 'Li⁺', 'F⁻']]));
+      return H.self(`<p>Explain how water dissolves ${s[0]}. Include what makes water polar.</p>`,
+        `Water is a polar molecule: oxygen is more electronegative than hydrogen, so it pulls the shared electrons closer and becomes δ−, and the hydrogens are δ+. The molecule is bent, so the dipoles do not cancel. ${cap(s[0])} is an ionic lattice of ${s[1]} and ${s[2]} ions. The δ− oxygen ends of water molecules are attracted to the ${s[1]} cations and the δ+ hydrogen ends to the ${s[2]} anions. These attractions pull the ions out of the lattice, and each ion becomes surrounded by water molecules (solvation), so the solid dissolves.`,
+        ['Oxygen more electronegative → δ− O, δ+ H', 'Bent shape → polar molecule', 'Ionic lattice of the named ions', 'δ− O attracted to cations; δ+ H to anions', 'Ions pulled apart and surrounded (solvation)']);
+    } },
+    { id: 'name-i4-ionic', sub: 'name', s: 'i', b: 4, topic: 'Naming', gen: (R) => {
+      const c = R.pick(CAT.filter(x => !x[3])), a = R.pick(AN.filter(x => !x[3])), right = cname(c, a);
+      const wrong = [...new Set([`${c[1].replace(/\(.*\)/, '')} ${a[1].replace('ide', 'ine')}`, `mono${c[1]} ${a[1]}`, `${c[1]} ${NAME[a[0]] || a[0]}`, `${a[1].replace('ide', '')} ${c[1]}`])].filter(x => x !== right).slice(0, 3);
+      return { type: 'mcq', stem: `<p>Name the compound ${formula(c, a)}.</p>`, choices: [right, ...wrong], ans: 0 };
+    } },
+    { id: 'name-i6-covalent', sub: 'name', s: 'i', b: 6, topic: 'Covalent names', gen: (R) => {
+      const m = R.pick(H.split(R, MOLS));
+      return { type: 'parts', stem: `<p>Covalent compounds use prefixes.</p>`, parts: [
+        { type: 'text', stem: `Name ${molF(m)}.`, accept: [m[4]], label: 'Name', why: '<p>Prefixes: mono, di, tri, tetra, penta, hexa. Leave out mono- on the first element; the second ends in -ide.</p>' },
+        { type: 'mcq', stem: 'Why are prefixes used for this compound but not for sodium chloride?', choices: ['It is covalent (two non-metals), so the name must show how many of each atom', 'It contains oxygen', 'It is a gas', 'Its elements are in the same group'], ans: 0 }
+      ] };
+    } },
+    { id: 'rxn-i4-states', sub: 'rxn', s: 'i', b: 4, topic: 'State symbols', gen: (R) => {
+      const all = [['Salt dissolved in water', 3], ['Ice', 0], ['Steam', 2], ['Pure water', 1], ['A precipitate', 0], ['Hydrochloric acid', 3], ['Oxygen gas', 2], ['Molten wax', 1], ['Copper metal', 0], ['Sugar solution', 3], ['Carbon dioxide gas', 2], ['Liquid mercury', 1]];
+      return { type: 'sort', stem: '<p>Sort each into its state symbol.</p>', bins: ['(s)', '(l)', '(g)', '(aq)'], items: H.sampleBins(R, all, 8) };
+    } },
+    { id: 'sol-i4-curve', sub: 'sol', s: 'i', b: 4, topic: 'Temperature and solubility', gen: (R) => {
+      const c = R.pick(H.split(R, [['Why do fish struggle in warm water?', 'Gases are less soluble in warm water, so less oxygen is dissolved'], ['Why does more sugar dissolve in hot tea than in iced tea?', 'Most solids are more soluble at higher temperatures'], ['Why does a fizzy drink go flat faster when it is warm?', 'Carbon dioxide is less soluble at higher temperature, so it escapes'], ['Why do hot springs often have mineral crusts around them?', 'Hot water dissolves more minerals; as it cools, they become less soluble and crystallise']]));
+      return { type: 'mcq', stem: `<p>${c[0]}</p>`, choices: [c[1], 'Solubility does not depend on temperature', 'Gases are more soluble in warm water', 'Solids are less soluble at higher temperatures'], ans: 0 };
+    } },
+    { id: 'rxn-i8-steps', sub: 'rxn', s: 'i', b: 8, topic: 'Precipitates', gen: () => H.self('<p>Explain how solubility rules are used to predict whether a precipitate forms when two ionic solutions are mixed. Use an example.</p>',
+      'When two soluble ionic compounds are mixed, their ions swap partners (double displacement). Write the formulas of the two possible new compounds by balancing the charges. Then use the solubility rules to decide whether each new compound is soluble or insoluble. If one is insoluble, it forms a solid precipitate (s); the other stays dissolved (aq). Example: silver nitrate + sodium chloride → silver chloride + sodium nitrate. Nitrates and sodium compounds are soluble (rules 1 and 2), but chlorides are insoluble with Ag⁺ (rule 4), so AgCl(s) is the white precipitate: AgNO₃(aq) + NaCl(aq) → AgCl(s) + NaNO₃(aq).',
+      ['Ions swap partners (double displacement)', 'Product formulas from balanced charges', 'Rules decide soluble or insoluble', 'Insoluble product = precipitate (s)', 'Correct worked example with state symbols']) },
+
+    /* ===== A ii ===== */
+    { id: 'bond-ii2-en', sub: 'bond', s: 'ii', b: 2, topic: 'Electronegativity', gen: (R) => {
+      const [a, b] = R.pick(PAIRS);
+      return { type: 'num', stem: `<p>The electronegativity of ${NAME[a]} is ${EN[a]} and of ${NAME[b]} is ${EN[b]}. Calculate the electronegativity difference (ΔEN).</p>`, ans: r1(Math.abs(EN[a] - EN[b])), unit: '', tolAbs: 0.015, steps: [`ΔEN = |${EN[a]} − ${EN[b]}| = ${r1(Math.abs(EN[a] - EN[b]))}`] };
+    } },
+    { id: 'bond-ii4-triangle', sub: 'bond', s: 'ii', b: 4, topic: 'Bonding triangle', gen: (R) => {
+      const [a, b] = R.pick(H.split(R, PAIRS)), d = r1(Math.abs(EN[a] - EN[b])), m = r1((EN[a] + EN[b]) / 2), t = bondType(a, b);
+      return { type: 'parts', stem: `<p>${cap(NAME[a])} (EN = ${EN[a]}) bonds with ${NAME[b]} (EN = ${EN[b]}).</p>${RULE}`, fig: triangle(), parts: [
+        { type: 'num', stem: 'Calculate ΔEN.', ans: d, unit: '', tolAbs: 0.015, steps: [`|${EN[a]} − ${EN[b]}| = ${d}`] },
+        { type: 'num', stem: 'Calculate the average electronegativity.', ans: m, unit: '', tolAbs: 0.015, steps: [`(${EN[a]} + ${EN[b]}) ÷ 2 = ${m}`] },
+        { type: 'mcq', fixed: true, stem: 'Deduce the bond type.', choices: ['Ionic', 'Polar covalent', 'Non-polar covalent', 'Metallic'], ans: ['Ionic', 'Polar covalent', 'Non-polar covalent', 'Metallic'].indexOf(t) }
+      ] };
+    } },
+    { id: 'name-ii2-formula', sub: 'name', s: 'ii', b: 2, topic: 'Formulas', gen: (R) => {
+      const c = R.pick(CAT.filter(x => !x[3] && x[2] === 1)), a = R.pick(AN.filter(x => !x[3] && x[2] === -1));
+      return { type: 'mcq', stem: `<p>Deduce the formula of ${cname(c, a)}.</p>`, choices: [formula(c, a), `${c[0]}${sub(2)}${a[0]}`, `${c[0]}${a[0]}${sub(2)}`, `${c[0]}${sub(2)}${a[0]}${sub(2)}`], ans: 0 };
+    } },
+    { id: 'name-ii4-formula', sub: 'name', s: 'ii', b: 4, topic: 'Formulas', gen: (R) => {
+      let c, a; do { c = R.pick(CAT); a = R.pick(AN); } while (c[2] === -a[2] && !c[3] && !a[3] && R.chance(0.7));
+      const right = formula(c, a), [nc, na] = ratio(c, a);
+      const wrong = [...new Set([part(c, na) + part(a, nc), c[0] + a[0], `${c[0]}${sub(nc)}${a[0]}${sub(na)}`, part(c, nc + 1) + part(a, na)])].filter(x => x !== right && x !== 'NaN').slice(0, 3);
+      return { type: 'mcq', stem: `<p>Deduce the formula of <b>${cname(c, a)}</b>. Ions: ${ionHTML(c)} and ${ionHTML(a)}.</p>`, choices: [right, ...wrong], ans: 0, why: '<p>Balance the charges so the total is zero; use brackets around a polyatomic ion when you need more than one.</p>' };
+    } },
+    { id: 'name-ii6-name', sub: 'name', s: 'ii', b: 6, topic: 'Naming', gen: (R) => {
+      const c = R.pick(H.split(R, CAT)), a = R.pick(AN);
+      return { type: 'text', stem: `<p>Name the compound <b>${formula(c, a)}</b>${['Fe', 'Cu', 'Pb'].includes(c[0]) ? ' (the metal has variable valence)' : ''}.</p>`, accept: [cname(c, a), cname(c, a).replace('aluminium', 'aluminum')], label: 'Name', why: `<p>Cation ${ionHTML(c)} = ${c[1]}; anion ${ionHTML(a)} = ${a[1]}.</p>` };
+    } },
+    { id: 'diag-ii4-lewis', sub: 'diag', s: 'ii', b: 4, topic: 'Lewis structures', gen: (R) => {
+      const m = R.pick(H.split(R, [['H₂O', 8, 2, 2], ['NH₃', 8, 3, 1], ['CH₄', 8, 4, 0], ['CO₂', 16, 4, 4], ['HCl', 8, 1, 3], ['PCl₃', 26, 3, 10], ['N₂', 10, 3, 2], ['CCl₄', 32, 4, 12]]));
+      return { type: 'parts', stem: `<p>Draw the Lewis structure of ${m[0]} on paper, then answer.</p>`, parts: [
+        { type: 'num', stem: 'How many valence electrons are there in total?', ans: m[1], unit: '', tolAbs: 0.1 },
+        { type: 'num', stem: 'How many shared pairs (bonds) are there?', ans: m[2], unit: '', tolAbs: 0.1 },
+        { type: 'num', stem: 'How many lone pairs are there in the whole molecule?', ans: m[3], unit: '', tolAbs: 0.1 }
+      ] };
+    } },
+    { id: 'diag-ii6-element', sub: 'diag', s: 'ii', b: 6, topic: 'Applying the Periodic Table', gen: (R) => {
+      const e = R.pick(H.split(R, [['Cl', 17, 3], ['Br', 17, 4], ['F', 17, 2], ['O', 16, 2], ['S', 16, 3], ['N', 15, 2]]));
+      const metal = R.pick(e[2] < 4 ? [['Na', 'sodium', 1], ['Mg', 'magnesium', 2], ['K', 'potassium', 1], ['Ca', 'calcium', 2]] : [['K', 'potassium', 1], ['Ca', 'calcium', 2]]);
+      const an = AN.find(x => x[0] === e[0]) || ['Br', 'bromide', -1];
+      const c = CAT.find(x => x[0] === metal[0]) || [metal[0], metal[1], metal[2]];
+      return { type: 'parts', stem: `<p>An unknown element, X, sits in period ${e[2]} of the Periodic Table, in group ${e[1]}.</p>`, parts: [
+        { type: 'text', stem: 'Identify X by name.', accept: [NAME[e[0]], NAME[e[0]].replace('sulfur', 'sulphur')], label: 'Element' },
+        { type: 'text', stem: `X forms an ionic compound with ${metal[1]}. Deduce the name of the compound.`, accept: [`${metal[1]} ${an[1]}`], label: 'Name' },
+        { type: 'mcq', stem: 'Deduce its formula.', choices: [...new Set([formula(c, an), `${c[0]}${an[0]}${sub(2)}`, `${c[0]}${sub(2)}${an[0]}`, `${c[0]}${sub(2)}${an[0]}${sub(3)}`])].slice(0, 4), ans: 0 }
+      ] };
+    } },
+    { id: 'sol-ii2-percent', sub: 'sol', s: 'ii', b: 2, topic: 'Concentration', gen: (R) => {
+      const m = R.int(2, 30), w = R.pick([50, 80, 100, 150, 200]);
+      return { type: 'num', stem: `<p>${m} g of salt is dissolved in ${w} g of water. Calculate the concentration as a percentage by mass. (% = mass of solute ÷ mass of solution × 100)</p>`, ans: m / (m + w) * 100, unit: '%', tol: 0.01, steps: [`Mass of solution = ${m} + ${w} = ${m + w} g`, `% = ${m} ÷ ${m + w} × 100 = ${NUM.sf(m / (m + w) * 100, 3)}%`] };
+    } },
+    { id: 'sol-ii4-dilution', sub: 'sol', s: 'ii', b: 4, topic: 'Dilution', gen: (R) => {
+      const c1 = R.pick([10, 20, 25, 40]), v1 = R.pick([10, 20, 25, 50]), v2 = v1 * R.pick([2, 4, 5, 10]);
+      return { type: 'num', stem: `<p>${v1} mL of a ${c1}% stock solution is diluted with water to a total of ${v2} mL. Calculate the new concentration. (C₁V₁ = C₂V₂)</p>`, ans: c1 * v1 / v2, unit: '%', tol: 0.01, steps: [`C₂ = C₁V₁ ÷ V₂ = ${c1} × ${v1} ÷ ${v2} = ${NUM.sf(c1 * v1 / v2, 3)}%`] };
+    } },
+    { id: 'sol-ii6-curve', sub: 'sol', s: 'ii', b: 6, topic: 'Solubility curves', gen: (R) => {
+      const c = R.pick(H.split(R, CURVES.filter(x => x.n !== 'sodium chloride'))), T1 = R.pick([60, 70, 80]), T2 = R.pick([10, 20, 30]), w = R.pick([50, 100, 200]);
+      const s1 = Math.round(at(c, T1)), s2 = Math.round(at(c, T2)), out = (s1 - s2) * w / 100;
+      return { type: 'parts', stem: `<p>The graph shows the solubility of ${c.n} (${c.f}).</p>`, fig: curveFig([c]), parts: [
+        { type: 'num', stem: `Read the solubility at ${T1} °C.`, ans: s1, unit: 'g per 100 g water', tolAbs: 4 },
+        { type: 'num', stem: `A saturated solution in ${w} g of water at ${T1} °C is cooled to ${T2} °C. Calculate the mass of crystals that form.`, ans: out, unit: 'g', tol: 0.1, steps: [`At ${T1} °C: ${s1} g per 100 g; at ${T2} °C: ${s2} g per 100 g`, `Difference = ${s1 - s2} g per 100 g`, `× ${w / 100} = ${NUM.sf(out, 3)} g`] }
+      ] };
+    } },
+    { id: 'rxn-ii4-balance', sub: 'rxn', s: 'ii', b: 4, topic: 'Balancing equations', gen: (R) => {
+      const e = R.pick(H.split(R, [['H₂ + O₂ → H₂O', [2, 1, 2]], ['N₂ + H₂ → NH₃', [1, 3, 2]], ['Na + Cl₂ → NaCl', [2, 1, 2]], ['Mg + O₂ → MgO', [2, 1, 2]], ['Al + O₂ → Al₂O₃', [4, 3, 2]], ['CH₄ + O₂ → CO₂ + H₂O', [1, 2, 1, 2]], ['Fe + Cl₂ → FeCl₃', [2, 3, 2]], ['K + H₂O → KOH + H₂', [2, 2, 2, 1]], ['C₃H₈ + O₂ → CO₂ + H₂O', [1, 5, 3, 4]], ['Ca + HCl → CaCl₂ + H₂', [1, 2, 1, 1]]]));
+      const opts = [e[1].join(', '), ...[[1, 1, 1, 1].slice(0, e[1].length), e[1].map((x, i) => i === 0 ? x + 1 : x), e[1].map((x, i) => i === e[1].length - 1 ? x * 2 : x)].map(x => x.join(', '))];
+      return { type: 'mcq', stem: `<p>Balance: <b>${e[0]}</b></p><p>Which coefficients (in order) balance the equation?</p>`, choices: [...new Set(opts)], ans: 0 };
+    } },
+    { id: 'rxn-ii6-ppt', sub: 'rxn', s: 'ii', b: 6, topic: 'Precipitates', gen: (R) => {
+      const p = ppt(R), [sc, sa] = p.solid;
+      return { type: 'parts', stem: `<p>Solutions of <b>${cname(p.c1, p.a1)}</b> and <b>${cname(p.c2, p.a2)}</b> are mixed. A solid forms.</p>${rulesHTML}`, parts: [
+        { type: 'mcq', stem: 'Deduce the name of the precipitate.', choices: R.shuffle([cname(sc, sa), cname(...p.other), cname(p.c1, p.a1), cname(p.c2, p.a2)]), ans: null, _right: cname(sc, sa) },
+        { type: 'mcq', stem: 'Deduce its formula.', choices: R.shuffle([formula(sc, sa), ...[...new Set([formula(...p.other), part(sc, 2) + part(sa, 1), part(sc, 1) + part(sa, 2), part(sc, ratio(sc, sa)[1]) + part(sa, ratio(sc, sa)[0]), part(sc, 3) + part(sa, 2)])].filter(x => x !== formula(sc, sa) && x !== 'NaN').slice(0, 3)]), ans: null, _right: formula(sc, sa) },
+        { type: 'select', stem: 'Which solubility rule shows it is insoluble?', options: ['Rule 1', 'Rule 2', 'Rule 3', 'Rule 4', 'Rule 5'], ans: p.rule - 1 }
+      ] };
+    } },
+    { id: 'rxn-ii8-equation', sub: 'rxn', s: 'ii', b: 8, topic: 'Balanced equations', gen: (R) => {
+      const p = ppt(R), right = eqn(p);
+      const wrongStates = right.replace(/\(s\)/, '(aq)').replace(/\(aq\)$/, '(s)');
+      const wrongCo = right.replace(/^(\d+ )?/, (m) => m ? '' : '2 ');
+      const swap = `${formula(p.c1, p.a1)}(aq) + ${formula(p.c2, p.a2)}(aq) → ${p.c1[0]}${p.a2[0].replace(/<[^>]+>/g, '')}(s) + ${p.c2[0]}${p.a1[0].replace(/<[^>]+>/g, '')}(aq)`;
+      return { type: 'parts', stem: `<p>A student mixes solutions of ${cname(p.c1, p.a1)} and ${cname(p.c2, p.a2)}.</p>${rulesHTML}`, parts: [
+        { type: 'mcq', stem: 'Deduce the balanced equation, with state symbols.', choices: R.shuffle([...new Set([right, wrongStates, wrongCo, swap])]), ans: null, _right: right },
+        { type: 'mcq', stem: 'Suggest how the student could collect the solid product.', choices: ['Filter the mixture and dry the residue', 'Evaporate all the water', 'Add more water and stir', 'Heat until it melts'], ans: 0 }
+      ] };
+    } },
+    { id: 'bond-ii8-unfamiliar', sub: 'bond', s: 'ii', b: 8, topic: 'Unfamiliar situation', gen: (R) => {
+      const c = R.pick(H.split(R, [['Ammonium chloride (NH₄Cl) is made of NH₄⁺ and Cl⁻ ions. A student says it contains only ionic bonds.', 'Partly true: the NH₄⁺ and Cl⁻ ions are held by ionic bonds (electrostatic attraction between opposite charges), but inside the ammonium ion the N and H atoms share electrons in covalent bonds (ΔEN = |3.0 − 2.2| = 0.8, polar covalent). So the compound has both ionic and covalent bonding.'],
+        ['Silicon (EN 1.9) is used in computer chips. Suggest, using the bonding triangle, why it is neither a good conductor like copper nor an insulator like sulfur.', 'Silicon bonded to itself has ΔEN = 0 and average EN 1.9, which is near the boundary between metallic and covalent bonding. Its electrons are mostly held in covalent bonds, but a few can be freed with energy, so it conducts a little: a semiconductor. Copper (metallic) has a sea of delocalised electrons; sulfur (average 2.6, covalent) has none free.'],
+        ['Aluminium chloride (Al: 1.6, Cl: 3.2) is a metal–non-metal compound, but it melts at only 192 °C and does not conduct when molten. Suggest why.', 'ΔEN = 1.6 and the average is 2.4, so on the bonding triangle it is polar covalent rather than ionic. It exists as small molecules with weak forces between them, so it melts at a low temperature, and there are no free ions to carry a current. Not every metal–non-metal compound is ionic.']]));
+      return H.self(`<p>${c[0]}</p>`, c[1], ['Uses electronegativity values / the triangle correctly', 'Identifies the bond type(s) with reasons', 'Links bonding to the property described', 'Reaches a clear conclusion', 'Uses correct terms (ions, shared electrons, delocalised)']);
+    } },
+
+
+    { id: 'bond-ii6-polar', sub: 'bond', s: 'ii', b: 6, topic: 'Polarity', gen: (R) => {
+      const b = R.pick(H.split(R, [['H', 'Cl'], ['O', 'H'], ['N', 'H'], ['C', 'O'], ['C', 'Cl'], ['S', 'O'], ['P', 'Cl'], ['C', 'F'], ['N', 'O'], ['C', 'N'], ['Si', 'O'], ['H', 'Br']]));
+      const neg = EN[b[0]] > EN[b[1]] ? b[0] : b[1], d = r1(Math.abs(EN[b[0]] - EN[b[1]]));
+      return { type: 'parts', stem: `<p>Consider a ${b[0]}–${b[1]} bond. EN: ${NAME[b[0]]} ${EN[b[0]]}, ${NAME[b[1]]} ${EN[b[1]]}.</p>${RULE}`, parts: [
+        { type: 'mcq', fixed: true, stem: 'Which atom carries the partial negative charge (δ−)?', choices: [cap(NAME[b[0]]), cap(NAME[b[1]])], ans: neg === b[0] ? 0 : 1 },
+        { type: 'mcq', fixed: true, stem: `ΔEN = ${d}. Deduce the bond type.`, choices: ['Ionic', 'Polar covalent', 'Non-polar covalent', 'Metallic'], ans: d >= 1.8 ? 0 : d >= 0.5 ? 1 : 2 }
+      ], why: '<p>The more electronegative atom pulls the shared pair closer, so it becomes δ−.</p>' };
+    } },
+    { id: 'rxn-ii2-atoms', sub: 'rxn', s: 'ii', b: 2, topic: 'Counting atoms', gen: (R) => {
+      const f = R.pick([['Ca(NO₃)₂', 9], ['Al₂(SO₄)₃', 17], ['Mg(OH)₂', 5], ['(NH₄)₂CO₃', 14], ['Na₂SO₄', 7], ['Ca₃(PO₄)₂', 13], ['Fe(OH)₃', 7], ['KNO₃', 5], ['Ba(NO₃)₂', 9], ['NH₄Cl', 6]]);
+      return { type: 'num', stem: `<p>How many atoms are there in one formula unit of ${f[0]}?</p>`, ans: f[1], unit: 'atoms', tolAbs: 0.1, steps: ['A subscript after a bracket multiplies everything inside the bracket.'] };
+    } },
+    { id: 'name-ii8-poly', sub: 'name', s: 'ii', b: 8, topic: 'Polyatomic formulas', gen: (R) => {
+      const c = R.pick(H.split(R, CAT.filter(x => x[2] > 1 || x[3]))), a = R.pick(AN.filter(x => x[3] && x[2] !== -c[2] * 1 && !(c[3] && x[1] === 'hydroxide')));
+      const [nc, na] = ratio(c, a), right = formula(c, a);
+      return { type: 'parts', stem: `<p>Write the formula of <b>${cname(c, a)}</b>, using the ions ${ionHTML(c)} and ${ionHTML(a)}.</p>`, parts: [
+        { type: 'num', stem: `How many ${c[1].replace(/\(.*\)/, '')} ions are needed in one formula unit?`, ans: nc, unit: '', tolAbs: 0.1, steps: [`Charges: ${nc} × (+${c[2]}) + ${na} × (${a[2]}) = 0`] },
+        { type: 'mcq', stem: 'Deduce the formula.', choices: [...new Set([right, `${c[0]}${sub(nc)}${a[0]}${sub(na)}`, part(c, na) + part(a, nc), `${c[0]}${a[0]}`])].filter(x => x !== 'NaN').slice(0, 4), ans: 0 }
+      ] };
+    } },
+    { id: 'diag-iii4-props', sub: 'diag', s: 'iii', b: 4, topic: 'Interpreting data', gen: (R) => {
+      const all = [['W', 1538, 'Yes', 'Yes', 'Metallic'], ['X', 801, 'No', 'Yes', 'Ionic lattice'], ['Y', -23, 'No', 'No', 'Covalent molecules'], ['Z', 2852, 'No', 'Yes', 'Ionic lattice'], ['V', 113, 'No', 'No', 'Covalent molecules'], ['U', 660, 'Yes', 'Yes', 'Metallic']];
+      const rows = R.sample(all, 4), k = R.int(0, 3);
+      return { type: 'mcq', fixed: true, stem: `<p>Data for four unknown substances:</p>${H.table(['Substance', 'Melting point / °C', 'Conducts as a solid?', 'Conducts when molten?'], rows.map(r => r.slice(0, 4)))}<p>Deduce the structure of substance <b>${rows[k][0]}</b>.</p>`, choices: ['Metallic', 'Ionic lattice', 'Covalent molecules'], ans: ['Metallic', 'Ionic lattice', 'Covalent molecules'].indexOf(rows[k][4]) };
+    } },
+    { id: 'diag-iii8-critique', sub: 'diag', s: 'iii', b: 8, topic: 'Evaluating a diagram', gen: (R) => {
+      const c = R.pick(H.split(R, [['magnesium chloride', 'MgCl₂', 'shows magnesium sharing one pair of electrons with each chlorine atom', 'Mg (EN 1.3) and Cl (EN 3.2) have ΔEN = 1.9, so the bonding is ionic, not covalent. Magnesium should lose its two outer electrons, one to each chlorine atom. The diagram should show Mg²⁺ with an empty third shell (2,8) in brackets with a 2+ charge, and two Cl⁻ ions, each with a full outer shell of 8 (one cross among the dots) in brackets with a 1− charge. No shared pairs.'],
+        ['sodium oxide', 'Na₂O', 'shows one sodium atom giving two electrons to oxygen', 'Sodium has only one valence electron, so each sodium can give only one. Two sodium atoms are needed: each forms Na⁺ (2,8), and oxygen gains two electrons to form O²⁻ (2,8). The formula Na₂O shows this 2 : 1 ratio. Both ions go in brackets with their charges.'],
+        ['ammonia', 'NH₃', 'shows nitrogen with three shared pairs and no other electrons', 'Nitrogen has five valence electrons. Three are shared with the three hydrogens (three bonding pairs) but the other two form a lone pair, which must be drawn, giving nitrogen a full shell of 8. Each hydrogen has 2. With the lone pair missing, nitrogen appears to have only 6 electrons.'],
+        ['carbon dioxide', 'CO₂', 'shows a single shared pair between carbon and each oxygen', 'With single bonds, carbon would have only 4 electrons around it and each oxygen only 6+1. Carbon needs to share two pairs with each oxygen (double bonds, O=C=O). Then carbon has 8, and each oxygen has two lone pairs plus two shared pairs = 8.']]));
+      return H.self(`<p>A student's diagram for ${c[0]} (${c[1]}) ${c[2]}. Evaluate the diagram and describe a correct one.</p>`, c[3], ['Judges the diagram as incorrect, with a reason', 'Uses electron counts / shells or EN to justify', 'Describes the correct electron arrangement', 'Includes charges / brackets or lone pairs as needed', 'Clear, correct terms']);
+    } },
+    { id: 'name-iii6-label', sub: 'name', s: 'iii', b: 6, topic: 'Evaluating names', gen: (R) => {
+      const c = R.pick(H.split(R, [['iron chloride', 'FeCl₃', 'Incomplete: iron has variable valence. Cl⁻ is 1−, so three of them means the iron is Fe³⁺: iron(III) chloride.'], ['copper oxide', 'CuO', 'Incomplete: copper has variable valence. O²⁻ is 2−, so the copper is Cu²⁺: copper(II) oxide.'], ['carbon oxide', 'CO₂', 'Incomplete: it is covalent, so prefixes are needed: carbon dioxide.'], ['lead iodide', 'PbI₂', 'Incomplete: lead has variable valence. Two I⁻ ions means Pb²⁺: lead(II) iodide.'], ['nitrogen oxide', 'N₂O', 'Incomplete: it is covalent, so prefixes are needed: dinitrogen monoxide.']]));
+      return { type: 'mcq', stem: `<p>A bottle in the lab is labelled "<b>${c[0]}</b>, ${c[1]}". Evaluate the label.</p>`, choices: [c[2], 'Correct: the name matches the formula exactly.', 'Incorrect: the formula should be changed to match the name.', 'Correct: Roman numerals and prefixes are optional.'], ans: 0 };
+    } },
+    /* ===== A iii ===== */
+    { id: 'sol-iii2-read', sub: 'sol', s: 'iii', b: 2, topic: 'Reading data', gen: (R) => {
+      const c = R.pick(CURVES), T = R.pick([10, 30, 50, 70]);
+      return { type: 'num', stem: `<p>Use the graph to find the solubility of ${c.f} at ${T} °C.</p>`, fig: curveFig([c]), ans: Math.round(at(c, T)), unit: 'g per 100 g water', tolAbs: 4 };
+    } },
+    { id: 'bond-iii4-table', sub: 'bond', s: 'iii', b: 4, topic: 'Interpreting data', gen: (R) => {
+      const ps = R.sample(PAIRS.filter(p => bondType(...p) !== 'Non-polar covalent'), 3);
+      const types = ['Ionic', 'Polar covalent', 'Metallic'];
+      const rows = ps.map(([a, b]) => [`${cap(NAME[a])} + ${NAME[b]}`, r1(Math.abs(EN[a] - EN[b])), r1((EN[a] + EN[b]) / 2)]);
+      const pick = R.int(0, 2);
+      return { type: 'mcq', fixed: true, stem: `<p>Three pairs of elements were analysed.</p>${H.table(['Pair', 'ΔEN', 'Average EN'], rows)}${RULE}<p>Deduce the bond type for <b>${rows[pick][0]}</b>.</p>`, choices: types.concat(['Non-polar covalent']), ans: types.concat(['Non-polar covalent']).indexOf(bondType(...ps[pick])) };
+    } },
+    { id: 'sol-iii4-unsat', sub: 'sol', s: 'iii', b: 4, topic: 'Interpreting data', gen: (R) => {
+      const c = R.pick(H.split(R, CURVES.filter(x => x.n !== 'sodium chloride'))), T = R.pick([20, 30, 40, 50]), s = Math.round(at(c, T)), m = s + R.pick([-15, -10, 10, 15]);
+      return { type: 'mcq', fixed: true, stem: `<p>${m} g of ${c.f} is added to 100 g of water at ${T} °C and stirred.</p>`, fig: curveFig([c]), choices: ['All of it dissolves: the solution is unsaturated', 'Some of it stays undissolved: the solution is saturated'], ans: m <= s ? 0 : 1, why: `<p>The curve shows about ${s} g dissolves at ${T} °C.</p>` };
+    } },
+    { id: 'sol-iii6-hyp', sub: 'sol', s: 'iii', b: 6, topic: 'Analysing data', gen: (R) => {
+      const c = R.pick(H.split(R, [CURVES[0], CURVES[3], CURVES[4], CURVES[2]]));
+      return { type: 'parts', stem: `<p>A student predicts that ${c.n} becomes more soluble in hotter water, and that the solubility rises in a straight line (a linear relationship). The results are shown.</p>`, fig: curveFig([c]), parts: [
+        { type: 'mcq', stem: 'Identify two variables that should be controlled.', choices: ['The mass of water and the stirring time', 'The temperature and the solubility', 'The colour of the solution and the beaker size', 'The mass dissolved and the temperature'], ans: 0 },
+        { type: 'self', stem: 'Analyse the graph and evaluate the hypothesis.', model: (() => { const p = c.pts, d1 = p[2][1] - p[0][1], d2 = p[8][1] - p[6][1]; const lin = Math.abs(d1 - d2) <= 6; return `Solubility increases with temperature, from ${p[0][1]} g at 0 °C to ${p[8][1]} g at 80 °C, which supports the first part of the hypothesis. ${lin ? `The increase is roughly the same for each 20 °C (about ${d1} g, then ${d2} g), so the relationship is close to linear and the hypothesis is supported.` : `But the increase is not constant: ${d1} g between 0 and 20 °C, but ${d2} g between 60 and 80 °C, so the curve gets ${d2 > d1 ? 'steeper' : 'flatter'} and the relationship is not linear. The hypothesis is only partly supported.`} Repeats at each temperature would make the conclusion more reliable.`; })(), check: ['Describes the trend with data', 'Compares the increase over equal intervals', 'Judges linear / not linear', 'Evaluates the hypothesis (supported / partly)', 'Suggests an improvement'] }
+      ] };
+    } },
+    { id: 'rxn-iii4-table', sub: 'rxn', s: 'iii', b: 4, topic: 'Interpreting observations', gen: (R) => {
+      const tests = R.sample([['Silver nitrate + sodium chloride', 'White solid forms', 1], ['Lead(II) nitrate + potassium iodide', 'Bright yellow solid forms', 1], ['Barium chloride + sodium sulfate', 'White solid forms', 1], ['Copper(II) sulfate + sodium hydroxide', 'Blue solid forms', 1], ['Sodium chloride + potassium nitrate', 'No change: clear solution', 0], ['Potassium chloride + sodium nitrate', 'No change: clear solution', 0], ['Ammonium sulfate + sodium chloride', 'No change: clear solution', 0]], 4);
+      if (!tests.some(t => !t[2])) tests[3] = ['Sodium chloride + potassium nitrate', 'No change: clear solution', 0];
+      const k = tests.findIndex(t => !t[2]);
+      return { type: 'mcq', fixed: true, stem: `<p>Pairs of solutions were mixed.</p>${H.table(['Test', 'Solutions mixed', 'Observation'], tests.map((t, i) => ['PQRS'[i], t[0], t[1]]))}${rulesHTML}<p>Which test shows that both possible products are soluble?</p>`, choices: tests.map((_, i) => 'Test ' + 'PQRS'[i]), ans: k };
+    } },
+    { id: 'rxn-iii6-mass', sub: 'rxn', s: 'iii', b: 6, topic: 'Analysing data', gen: (R) => {
+      const vols = [5, 10, 15, 20, 25, 30], k = R.step(0.20, 0.30, 0.01), cap0 = R.pick([15, 20]), m = vols.map(v => +(Math.min(v, cap0) * k + R.int(-2, 2) / 100).toFixed(2));
+      return { type: 'parts', stem: `<p>Different volumes of sodium sulfate solution were added to 20 mL of barium chloride solution. The barium sulfate precipitate was filtered, dried and weighed.</p>${H.table(['Volume of Na₂SO₄ / mL', ...vols], [['Mass of precipitate / g', ...m]])}`, parts: [
+        { type: 'mcq', stem: 'Describe the trend.', choices: [`The mass rises with volume up to about ${cap0} mL, then stays the same`, 'The mass rises steadily for every volume', 'The mass falls as more solution is added', 'There is no pattern'], ans: 0 },
+        { type: 'self', stem: 'Explain why the mass stops increasing.', model: `The precipitate forms from Ba²⁺ and SO₄²⁻ ions. Up to about ${cap0} mL, adding more sodium sulfate adds more SO₄²⁻, so more BaSO₄ forms. After that, all the Ba²⁺ ions in the 20 mL of barium chloride have reacted (barium chloride is used up / limiting), so extra sulfate cannot make any more precipitate.`, check: ['Names the ions forming the precipitate', 'More sulfate → more precipitate at first', 'Barium ions used up (limiting reactant)', 'Uses data'] }
+      ] };
+    } },
+    { id: 'bond-iii8-evaluate', sub: 'bond', s: 'iii', b: 8, topic: 'Evaluating claims', gen: (R) => {
+      const data = [['Sodium chloride', 801, 'No', 'Yes', 'Yes'], ['Glucose', 146, 'No', 'No', 'Yes'], ['Copper', 1085, 'Yes', 'Yes', 'No'], ['Paraffin wax', 60, 'No', 'No', 'No'], ['Magnesium oxide', 2852, 'No', 'Yes', 'Slightly']];
+      const rows = R.sample(data, 4);
+      return H.self(`<p>Properties of four substances:</p>${H.table(['Substance', 'Melting point / °C', 'Conducts as solid?', 'Conducts when molten?', 'Dissolves in water?'], rows)}<p>A student claims: "Every substance that dissolves in water is ionic." Evaluate this claim using the data and your knowledge of bonding.</p>`,
+        `Not fully supported. Some ionic substances do dissolve and conduct when molten (e.g. sodium chloride: high melting point, conducts only when molten, dissolves). But ${rows.some(r => r[0] === 'Glucose') ? 'glucose dissolves yet does not conduct when molten and has a low melting point, so it is covalent: it dissolves because it is a polar molecule that forms attractions with water' : 'polar covalent substances such as sugar dissolve in water without being ionic, because they are polar molecules'}. ${rows.some(r => r[0] === 'Magnesium oxide') ? 'Also, magnesium oxide is ionic but only slightly soluble, so being ionic does not guarantee dissolving. ' : ''}Better evidence of ionic bonding is a high melting point and conducting when molten or dissolved but not as a solid. The claim confuses solubility (which depends on polarity) with bond type.`,
+        ['Judges the claim (not supported / partly)', 'Uses data for an ionic example', 'Counter-example: a covalent substance that dissolves (polarity)', 'Better tests for ionic bonding (melting point, conductivity)', 'Clear conclusion linking polarity and solubility']);
+    } },
+    { id: 'name-iii4-check', sub: 'name', s: 'iii', b: 4, topic: 'Interpreting information', gen: (R) => {
+      const c = R.pick(H.split(R, [['Fe₂O₃', 'iron(III) oxide', 'iron(II) oxide'], ['CuCl₂', 'copper(II) chloride', 'copper(I) chloride'], ['PbI₂', 'lead(II) iodide', 'lead iodide(II)'], ['N₂O₄', 'dinitrogen tetroxide', 'nitrogen oxide'], ['Mg(OH)₂', 'magnesium hydroxide', 'magnesium dihydroxide'], ['Al₂(SO₄)₃', 'aluminium sulfate', 'dialuminium trisulfate']]));
+      return { type: 'mcq', stem: `<p>Two students name <b>${c[0]}</b>. Student A writes "${c[1]}"; student B writes "${c[2]}". Judge which name is correct.</p>`, choices: ['Student A', 'Student B', 'Both are correct', 'Neither is correct'], ans: 0, fixed: true };
+    } },
+    { id: 'diag-iii6-ammonium', sub: 'diag', s: 'iii', b: 6, topic: 'Analysing structures', gen: (R) => {
+      const s = R.pick(H.split(R, [['ammonium chloride', 'NH₄Cl', 'NH₄⁺', 'Cl⁻'], ['sodium hydroxide', 'NaOH', 'Na⁺', 'OH⁻'], ['potassium nitrate', 'KNO₃', 'K⁺', 'NO₃⁻'], ['calcium carbonate', 'CaCO₃', 'Ca²⁺', 'CO₃²⁻']]));
+      return { type: 'parts', stem: `<p>${cap(s[0])} (${s[1]}) is made of ${s[2]} and ${s[3]} ions.</p>`, parts: [
+        { type: 'mcq', stem: 'Which bonds are present?', choices: ['Ionic bonds between the ions and covalent bonds inside the polyatomic ion', 'Only ionic bonds', 'Only covalent bonds', 'Only metallic bonds'], ans: 0 },
+        { type: 'mcq', stem: `A student says ${s[1]} is "purely ionic". Judge this claim.`, choices: ['Partly supported: it is made of ions, but the polyatomic ion contains covalent bonds', 'Fully supported: all compounds with metals are ionic', 'Not supported: it has no ions', 'Fully supported: polyatomic ions have no bonds'], ans: 0 }
+      ] };
+    } },
+    { id: 'sol-iii8-oxygen', sub: 'sol', s: 'iii', b: 8, topic: 'Evaluating evidence', gen: (R) => {
+      const T = [5, 10, 15, 20, 25, 30], O = [12.8, 11.3, 10.1, 9.1, 8.3, 7.6].map(v => +(v + R.int(-2, 2) / 10).toFixed(1)), need = R.pick([6, 7, 8]);
+      return H.self(`<p>Dissolved oxygen in river water at different temperatures:</p>${H.table(['Water temperature / °C', ...T], [['Dissolved oxygen / mg L⁻¹', ...O]])}<p>Trout need at least ${need} mg L⁻¹ of oxygen. A factory wants to release warm cooling water (raising the river from 15 °C to 28 °C). It says: "The river will still be safe for trout." Evaluate this claim.</p>`,
+        `Oxygen solubility falls as temperature rises (from ${O[0]} mg L⁻¹ at 5 °C to ${O[5]} mg L⁻¹ at 30 °C), because gas molecules have more kinetic energy and escape the water more easily. At 15 °C there is about ${O[2]} mg L⁻¹. At 28 °C, between ${O[4]} and ${O[5]}, about ${NUM.dp(O[4] + (O[5] - O[4]) * 0.6, 1)} mg L⁻¹. ${O[4] + (O[5] - O[4]) * 0.6 >= need ? `This is just above the ${need} mg L⁻¹ trout need, so the claim may hold on average, but the margin is small` : `This is below the ${need} mg L⁻¹ trout need, so the claim is not supported`}. Other factors make it worse: warm water also raises fish metabolism (more oxygen needed), and decomposing material uses oxygen. The data are from one river; measuring oxygen downstream after release would test the claim.`,
+        ['Describes the trend with data', 'Explains why gases are less soluble when warm', 'Estimates the oxygen at 28 °C from the data', 'Compares with the trout requirement and judges the claim', 'Considers other factors / limitations']);
+    } }
+  ];
+
+  const cap = (t) => t[0].toUpperCase() + t.slice(1);
+  qs.forEach(t => { const gen = t.gen; t.gen = (R) => { const q = gen(R); (q.type === 'parts' ? q.parts : [q]).forEach(p => { if (p._right != null) { const list = p.choices || p.options; if (!list.includes(p._right)) list[list.length - 1] = p._right; p.ans = list.indexOf(p._right); delete p._right; } }); return q; }; });
+
+  CONTENT['y10-che'] = {
+    flow: ['Electronegativity, bond types and the bonding triangle', 'Polarity, dipoles and conductivity', 'Bohr and Lewis diagrams for ionic and covalent compounds', 'Naming and formulas: ionic, variable valence, covalent and polyatomic ions', 'Water as the universal solvent; solutions, concentration and dilution', 'Solubility, temperature and solubility curves', 'Double displacement reactions, solubility rules and precipitates', 'Balancing equations with state symbols'],
+    subs, notes, cards, qs,
+    data: { EN, CAT, AN, ppt, formula, cname, soluble, CURVES, triangle }
   };
 })();
 
@@ -5431,6 +5866,158 @@ const LINKS = {
    ]
   ]
  },
+ "y10-che": {
+  "bond": [
+   [
+    "video",
+    "How atoms bond (4 min)",
+    "https://www.youtube.com/watch?v=NgD9yHSJ29I"
+   ],
+   [
+    "video",
+    "Veritasium: the atomic bonding song (5 min)",
+    "https://www.youtube.com/watch?v=ljvX-RMv_lw"
+   ],
+   [
+    "video",
+    "Khan Academy: electronegativity and bond type (6 min)",
+    "https://www.youtube.com/watch?v=xv9igHCrnzQ"
+   ],
+   [
+    "video",
+    "Metallic bonding (4 min)",
+    "https://www.youtube.com/watch?v=b1y2Q6YX1bQ"
+   ],
+   [
+    "sim",
+    "Javalab: covalent bonding",
+    "https://javalab.org/en/covalent_bond_en/"
+   ],
+   [
+    "video",
+    "Why is water polar? (4 min)",
+    "https://www.youtube.com/watch?v=gC73AP7lnxU"
+   ],
+   [
+    "video",
+    "TED-Ed: how polarity makes water behave strangely (4 min)",
+    "https://www.youtube.com/watch?v=ASLUY2U1M-8"
+   ]
+  ],
+  "diag": [
+   [
+    "video",
+    "The octet rule song",
+    "https://www.youtube.com/watch?v=WzWk-mx_14E"
+   ],
+   [
+    "sim",
+    "PhET: Build an Atom",
+    "https://phet.colorado.edu/sims/html/build-an-atom/latest/build-an-atom_en.html"
+   ],
+   [
+    "game",
+    "Ionic bonding matchmaker game",
+    "https://interactivechemistry.org/Matchmaker/#"
+   ],
+   [
+    "read",
+    "ChemGym: ionic and covalent bonding quizzes",
+    "https://legacy.chemgym.net/as_a2/topics/ionic_and_covalent_bonding/index.html"
+   ]
+  ],
+  "name": [
+   [
+    "read",
+    "Purdue: naming ionic compounds (fixed charge)",
+    "https://www.chem.purdue.edu/gchelp/nomenclature/simple_ionic_2009.htm"
+   ],
+   [
+    "read",
+    "Purdue: naming ionic compounds (variable charge)",
+    "https://www.chem.purdue.edu/gchelp/nomenclature/vary_charge_2009.htm"
+   ],
+   [
+    "read",
+    "Purdue: polyatomic ions practice",
+    "https://www.chem.purdue.edu/gchelp/nomenclature/poly_atom_2009.htm"
+   ],
+   [
+    "video",
+    "The criss-cross method for formulas and polyatomic ions (5 min)",
+    "https://www.youtube.com/watch?v=VnzIqpdEims"
+   ],
+   [
+    "video",
+    "Naming ionic and polyatomic compounds (13 min)",
+    "https://www.youtube.com/watch?v=eM5mDnQX0k8"
+   ]
+  ],
+  "sol": [
+   [
+    "video",
+    "Solution formation animation (1 min)",
+    "https://www.youtube.com/watch?v=zePYWZ2AjnI"
+   ],
+   [
+    "video",
+    "Why water is the universal solvent (4 min)",
+    "https://www.youtube.com/watch?v=j_CTCryGRkQ"
+   ],
+   [
+    "video",
+    "Why water dissolves almost everything (3 min)",
+    "https://www.youtube.com/watch?v=lIs7PAW0mlM"
+   ],
+   [
+    "video",
+    "Temperature and solubility",
+    "https://www.youtube.com/watch?v=xxy7o4I3BMQ"
+   ],
+   [
+    "read",
+    "Science Geek: solubility curve practice",
+    "https://sciencegeek.net/Chemistry/taters/solubility.htm"
+   ],
+   [
+    "video",
+    "The Economist: what is ocean acidification?",
+    "https://www.youtube.com/watch?v=OVWZyDz--30"
+   ]
+  ],
+  "rxn": [
+   [
+    "video",
+    "Balancing chemical equations (12 min)",
+    "https://www.youtube.com/watch?v=yA3TZJ2em6g"
+   ],
+   [
+    "sim",
+    "PhET: Balancing Chemical Equations",
+    "https://phet.colorado.edu/sims/html/balancing-chemical-equations/latest/balancing-chemical-equations_en.html"
+   ],
+   [
+    "game",
+    "Jefferson Lab: balancing equations practice",
+    "https://education.jlab.org/elementbalancing/"
+   ],
+   [
+    "video",
+    "Precipitation reactions (10 min)",
+    "https://www.youtube.com/watch?v=hVBsrwJFBTY"
+   ],
+   [
+    "video",
+    "Worked example: balancing a precipitation reaction",
+    "https://www.youtube.com/watch?v=-ZJm11tuYoo"
+   ],
+   [
+    "video",
+    "Precipitation reaction examples",
+    "https://www.youtube.com/watch?v=H3MWVuLxqdo"
+   ]
+  ]
+ },
  "y11-sehs": {
   "lungvol": [
    [
@@ -5795,6 +6382,11 @@ const METHOD = {
   'y10-ess/cmr': 'Lincoln index: N = (n₁ × n₂) ÷ m, where m = marked animals in the second sample.',
   'y10-ess/inter': 'Write the effect on each species: + benefits, − harmed, 0 unaffected. Predation +/−, competition −/−, mutualism +/+, commensalism +/0.',
   'y10-ess/web': 'Arrows go from food to feeder. Count levels from the producer. A change at one level ripples through the web (trophic cascade).',
+  'y10-che/bond': 'ΔEN = bigger EN − smaller EN; average = (EN₁ + EN₂) ÷ 2. ΔEN ≥ 1.8 ionic; otherwise average < 2.0 metallic, ≥ 2.0 covalent (polar if ΔEN ≥ 0.5).',
+  'y10-che/diag': 'Metals lose their outer electrons (cations); non-metals gain to fill the shell (anions). Covalent: count valence electrons and share pairs until each atom has a full shell.',
+  'y10-che/name': 'Ionic: metal + non-metal-ide, charges add to zero, Roman numeral for variable-valence metals. Covalent: prefixes mono-, di-, tri-, tetra-, penta-, hexa-.',
+  'y10-che/sol': '% by mass = solute ÷ (solute + solvent) × 100. Dilution: C₁V₁ = C₂V₂. On a solubility curve, read up from the temperature to the line.',
+  'y10-che/rxn': 'Swap partners, rebuild each formula from the ion charges, check the solubility rules, then balance with coefficients and add state symbols.',
   'y11-sehs/org': 'Order the levels: cell → tissue → organ → organ system → organism.',
   'y11-sehs/vent': 'Inhaling: diaphragm and external intercostals contract, volume up, pressure down, air in. Exhaling at rest is the reverse and passive.',
   'y11-sehs/lungvol': 'Tidal volume = depth of one breath; minute ventilation = tidal volume × breathing rate; vital capacity = biggest breath in and out.',
@@ -5847,6 +6439,12 @@ const TEMPLATE_HINTS = {
   'y10-ess/cmr-iii6-gorilla': 'N = n₁ × n₂ ÷ m for the year asked; look for the year the estimate drops sharply.',
   'y10-ess/dyn-ii6-rate': 'Number of doublings = time ÷ doubling time; multiply the start by 2 that many times.',
   'y10-ess/web-iii6-energy': 'Percentage transferred = energy at the higher level ÷ energy at the lower level × 100.',
+  'y10-che/bond-ii4-triangle': 'Subtract to get ΔEN (always positive); add and halve to get the average. Then apply the rules in order: ionic first, then metallic or covalent.',
+  'y10-che/sol-ii6-curve': 'Read the solubility at both temperatures. The difference is what crystallises from 100 g of water; scale it for the mass of water used.',
+  'y10-che/rxn-ii6-ppt': 'Swap partners to get the two products. Check each against the rules: the one that is insoluble is the precipitate.',
+  'y10-che/rxn-ii8-equation': 'Write both products with balanced charges, decide (s) or (aq) from the rules, then balance the ions with coefficients.',
+  'y10-che/sol-iii6-hyp': 'Linear means equal increases for equal temperature steps. Compare the rise from 0–20 °C with the rise from 60–80 °C.',
+  'y10-che/sol-iii8-oxygen': 'Read or estimate the oxygen at the new temperature from the table, then compare it with what the trout need.',
   'y11-sehs/ii6-spiro': 'On the spirometer trace, tidal volume is the height of one normal breath (peak to trough).',
   'y11-sehs/ii6-minvent': 'Minute ventilation = tidal volume × breathing rate (breaths per minute). Check the units of volume.',
   'y11-sehs/ii6-hrchange': 'Percentage change = (new − old) ÷ old × 100.',
@@ -8598,7 +9196,7 @@ ${docWatermark('')}${docFooter('')}</body></html>`;
     { v: '0.2 alpha', d: '5 November 2026', items: ['New design: header, side panel, question sheet, markscheme ticks, spaced-repetition Recall (Flashcards, Pick’em!, Match It!), Notes panels, Stats tabs and backup code.', 'Every unit is split into subtopics, one per lesson topic, and every subtopic has questions for A i, A ii and A iii.', 'Unit games: Element Match (Year 9 Chemistry) and Graph It! (Year 11 Forces & Motion).', 'Notes for every subtopic with key ideas, common mistakes and key terms.'] },
     { v: '0.3 alpha', d: '5 November 2026', items: ['Games page grouped by unit, with Class Games for every year.', 'New unit games: Build-an-Atom and Periodic Mystery (Y9 Chemistry); Free-Body Builder, Stop in Time and suvat Sprint (Y11 Forces & Motion).', 'Blitz and Last Man Standing with class codes, using multiple-choice questions from the ticked subtopics.', 'Y9 Chemistry: a simplified Periodic Table (elements 1–20, whole-number atomic masses) on every question, in the header and in Notes.', 'Last Man Standing arena: ready screen, 3-2-1 countdown, synthesised music and sound effects, heartbeat in the last 30 seconds, Give Up and Game Over.', 'Code boxes start with their prefix (LMS-) and add capitals and dashes as you type.'] },
     { v: '0.4 alpha', d: '6 November 2026', items: ['New <b>Test</b> mode: a timed Criterion A test like the unit tests, with a section for each strand from level 1–2 to 7–8. Answers stay hidden until the end; the site marks short answers, you tick the markschemes for written answers, and each strand gets a best-fit level. Print your results, or use a TST- class code so everyone gets the same test.', 'New unit: <b>Year 11 Combustible Fuels</b> (8 subtopics, 55 question types): fuels and SDG 7, hydrocarbons, naming and isomers with drawn structural formulas, alcohols, crude oil and boiling point, combustion and balancing, enthalpy profiles and bond enthalpy, moles, energy per gram and emissions.', 'More question types matched to the unit tests: Y9 Disease (vectors, Jenner, Fleming, Ebola, bacterial growth, vaccine boosters), Y9 Chemistry (nuclear notation, particle tables, spotting Bohr-diagram errors, covalent names, evidence of chemical change, ionisation energy trends), Y11 Exchange & Transport (Boyle\'s law, the double circulation, valves, blood pressure, exercise spirometry, maximum heart rate) and Y11 Forces & Motion (crane tension, runway length, skydiver, multi-stage v–t graphs, theory vs real data).', 'Stop in Time: everyday objects in the road instead of people.', 'A <b>Data Booklet</b> button for every year in the header (and on questions that need it): the Periodic Table for Year 9 (elements 1–20), the full Periodic Table for Years 10 and 11, and the physics formula sheet for Year 11. Point at, tap or tab to any element for its details.', '<b>Hints</b> in Practice: up to three per question (a nudge, the method, then the first step). Stats shows how often you answer without hints.', 'New Year 11 Fuels games: <b>Isomer Hunt</b> and <b>Balance It!</b>', 'New Year 9 Chemistry activity: <b>Periodic People</b>. Arrange a family of secret agents into a table, build the missing one, then see the elements they stand for.', '<b>🚩 Report a Problem</b> on every question (including in Test mode), flashcard, note and the Data Booklet, and <b>💬 Send Feedback</b> in the footer: they open your teacher’s Google Form already filled in.', '<b>Pause</b> in Test mode: the timer stops and the questions are hidden until you resume. Pauses are shown with your results.', 'Online tests: show or hide the timer, and sound alerts at 30, 15 and 5 minutes left and when time is up (🔔 can be turned off).', 'Test mode is set up by your teacher: enter the TST- class code they give you. A code gives an online test, a worksheet or a test/exam to print (cover sheet, a section for each strand, the data booklet at the end), with or without the markscheme. Teachers unlock the full set-up with 🔑 Teacher access and can print a Student Copy, the Markscheme or Both.', 'The welcome card takes the colour of your year, and the revision history is grouped into collapsible stages.', 'Fixes: sorting questions always use every category; written-answer markschemes line up properly.'] },
-    { v: '0.5 alpha', d: '11 November 2026', items: ['Three new units: <b>Year 9 Unit 3, Evidence of a Changing Climate</b>; <b>Year 10 Unit 1, Population & Conservation</b> (the first Year 10 unit); <b>Year 11 Unit 4, Digestion & Metabolism</b>. Each has questions for every strand and level, notes, recall cards, hints, Test mode and printables.', 'New games: <b>Weather or Climate?</b> (Y9), <b>Oh Deer!</b> (Y10), <b>Digest It!</b> (Y11), and three Year 9 Chemistry games: <b>Element, Molecule or Compound?</b>, <b>Diagram Detective</b> (Bohr, Lewis and dot-and-cross diagrams) and <b>Ionic Matchmaker</b>.', '<b>Periodic People</b>: elements 1–20, 1, 2 or 3 missing characters, optional hints, and a new caterpillar theme.', 'Timed games: choose 3, 5 or 10 minutes, or your own time. suvat Sprint keeps the chosen equation on screen.', 'Test mode: about a quarter of the questions are kept for tests only, and tests use their own versions of the fact questions, so tests always include questions you have not practised.', 'New questions: fields and pressure (Y11 Forces & Motion); chemical and physical change, and forces between molecules (Y9 Chemistry).', 'Free-body diagrams show the ground when there is a normal force, and labels are never cut off. Speeds are in m s<sup>−1</sup>; km h<sup>−1</sup> appears only in an optional "good to know" question.', 'Notes: <b>More Help</b> links (videos, simulations and readings from the class slides) and <b>Print/PDF</b>; notes now start straight with the subtopics.', 'One <b>Data Booklet & Command Terms</b> button in the header. A clearer <b>All Games</b> button; the Games tab also returns to the list of games.', 'All codes now start with <b>MYP-</b>. Year 10 is blue.', 'Test Mode works like MVPhysics Lab: <b>Online</b> or <b>Printable</b> codes; teachers choose whether to use test-only questions, results printing, retakes, the cover sheet and answer space; a pace bar with alert lines, Sound on/off and a Pace timer switch.', 'Last Man Standing: the starting time is locked into the code.'] },
+    { v: '0.5 alpha', d: '11 November 2026', items: ['Four new units: <b>Year 9 Unit 3, Evidence of a Changing Climate</b>; <b>Year 10 Unit 1, Population & Conservation</b> and <b>Year 10 Unit 2, Solution Chemistry</b> (games for Solution Chemistry come in 0.6); <b>Year 11 Unit 4, Digestion & Metabolism</b>. Each has questions for every strand and level, notes, recall cards, hints, Test mode and printables.', 'New games: <b>Weather or Climate?</b> (Y9), <b>Oh Deer!</b> (Y10), <b>Digest It!</b> (Y11), and three Year 9 Chemistry games: <b>Element, Molecule or Compound?</b>, <b>Diagram Detective</b> (Bohr, Lewis and dot-and-cross diagrams) and <b>Ionic Matchmaker</b>.', '<b>Periodic People</b>: elements 1–20, 1, 2 or 3 missing characters, optional hints, and a new caterpillar theme.', 'Timed games: choose 3, 5 or 10 minutes, or your own time. suvat Sprint keeps the chosen equation on screen.', 'Test mode: about a quarter of the questions are kept for tests only, and tests use their own versions of the fact questions, so tests always include questions you have not practised.', 'New questions: fields and pressure (Y11 Forces & Motion); chemical and physical change, and forces between molecules (Y9 Chemistry).', 'Free-body diagrams show the ground when there is a normal force, and labels are never cut off. Speeds are in m s<sup>−1</sup>; km h<sup>−1</sup> appears only in an optional "good to know" question.', 'Notes: <b>More Help</b> links (videos, simulations and readings from the class slides) and <b>Print/PDF</b>; notes now start straight with the subtopics.', 'One <b>Data Booklet & Command Terms</b> button in the header. A clearer <b>All Games</b> button; the Games tab also returns to the list of games.', 'All codes now start with <b>MYP-</b>. Year 10 is blue.', 'Test Mode: <b>Online</b> or <b>Printable</b> codes; teachers choose whether to use test-only questions, results printing, retakes, the cover sheet and answer space; a pace bar with alert lines, Sound on/off and a Pace timer switch.', 'Last Man Standing: the starting time is locked into the code.'] },
   ];
   function renderAbout(main) {
     const rows = LIVE_UNITS.map(u => { const qs = Q.filter(q => q.uid === u.id); return `<tr><td><b>Y${u.y} U${u.n}</b> ${esc(u.title)}</td><td class="num">${CONTENT[u.id].subs.length}</td>${STRANDS.map(s => `<td class="num">${qs.filter(q => q.s === s.id).length}</td>`).join('')}<td class="num"><b>${qs.length}</b></td><td class="num">${CARDS.filter(c => c.uid === u.id).length}</td></tr>`; }).join('');
