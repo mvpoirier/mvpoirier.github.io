@@ -949,6 +949,65 @@ details.fe28sum > summary > .muted { margin-left: auto; }
 .tokbox .tok-story { background: var(--surface); border-left: 3px solid var(--hl); border-radius: 6px; padding: 8px 12px; margin: 8px 0; font-size: 14px; }
 .tokbox ul { padding-left: 20px; display: grid; gap: 5px; margin: 0; }
 
+/* ---------- 1.5 push 3: Games code box and Physics Quest ⚔️ (original pixel art) ---------- */
+.gcode { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; }
+.gcode .lbl { margin: 0; }
+.gcode .codeform { flex: 1 1 320px; width: auto; }
+.gcode .codeform input, .exset .codeform input { font-size: 1.05rem; letter-spacing: .04em; padding: 9px 12px; }
+.px { image-rendering: pixelated; vertical-align: middle; flex: none; }
+.qu-title { background: linear-gradient(135deg, #1d3b2a, #24324f); color: #f4f1e3; border-color: #2e4a3a; }
+.qu-title h2, .qu-clear h2, .qu-over h2 { margin: 0 0 4px; font-family: var(--f-mono); letter-spacing: .04em; }
+.qu-title p { color: #d9e2d0; margin: 0; }
+.qu-banner { display: flex; gap: 18px; align-items: center; }
+.qu-banner > div { flex: 1; }
+.qu-boss-art { opacity: .9; }
+.qu-rules { list-style: none; padding: 0; margin: 0 0 12px; display: grid; gap: 6px; }
+.qu-rules li { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.qu-opts { display: flex; flex-wrap: wrap; gap: 10px 28px; margin: 6px 0 10px; }
+.qu-map { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 0; margin: 6px 0 10px; }
+.qu-stop { display: flex; align-items: center; gap: 6px; padding: 6px 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+.qu-stop.done { border-color: var(--good); background: var(--good-soft); }
+.qu-stop.here { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-soft); }
+.qu-name { display: flex; flex-direction: column; line-height: 1.15; font-size: .9rem; }
+.qu-road { width: 18px; height: 3px; background: repeating-linear-gradient(90deg, var(--muted) 0 4px, transparent 4px 8px); }
+.qu-go { font-size: 1.05rem; padding: 10px 20px; }
+.qu-bar .row { flex-wrap: wrap; gap: 8px; }
+.qu-hearts { display: inline-flex; gap: 3px; flex-wrap: wrap; }
+.qu-hearts .full { animation: qu-beat 1.6s ease-in-out infinite; }
+@keyframes qu-beat { 0%, 100% { transform: scale(1); } 10% { transform: scale(1.12); } }
+.qu-clock { min-width: 4ch; }
+.qu-items { display: inline-flex; gap: 6px; }
+.qu-item { display: inline-flex; align-items: center; gap: 4px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); padding: 3px 8px; cursor: pointer; color: var(--ink); }
+.qu-item:disabled { opacity: .45; cursor: default; }
+.qu-item:not(:disabled):hover { border-color: var(--accent); }
+.qu-strip { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin: 8px 0; }
+.qu-path { display: flex; align-items: center; flex-wrap: wrap; }
+.qu-node { width: 30px; height: 30px; border-radius: 8px; border: 2px solid var(--line); display: inline-flex; align-items: center; justify-content: center; font-size: .8rem; color: var(--good); background: var(--surface); }
+.qu-node.past { border-color: var(--good); background: var(--good-soft); }
+.qu-node.here { border-color: var(--accent); background: var(--accent-soft); }
+.qu-node.boss { border-color: var(--bad); }
+.qu-link { width: 10px; height: 2px; background: var(--line); }
+.qu-bossroom { border: 2px solid var(--bad); box-shadow: 0 0 0 4px var(--bad-soft); }
+.qu-bosshead { display: flex; align-items: center; gap: 10px; color: var(--bad); margin-bottom: 6px; font-family: var(--f-mono); }
+.opt.struck { opacity: .3; text-decoration: line-through; }
+.qu-clear, .qu-over { text-align: left; }
+html.quest body { background-image: radial-gradient(circle at 20% 0%, rgba(63, 182, 232, .07), transparent 40%), radial-gradient(circle at 90% 10%, rgba(76, 175, 80, .07), transparent 40%); }
+@media (max-width: 640px) { .qu-banner { flex-direction: column; align-items: flex-start; } .qu-boss-art { display: none; } .qu-node { width: 24px; height: 24px; } .qu-link { width: 5px; } }
+@media (prefers-reduced-motion: reduce) { .qu-hearts .full { animation: none; } }
+.code-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin: 10px 0; }
+.code-row .lbl { font-weight: 600; }
+.code-chip .code-str { font-family: var(--f-mono); font-weight: 700; color: var(--accent); letter-spacing: .03em; }
+.qu-strip { background: linear-gradient(135deg, #1d3b2a, #24324f); color: #f4f1e3; border-radius: var(--r, 12px); padding: 10px 14px; border-bottom: 4px solid #6b4a2a; }
+.qu-strip .muted { color: #c9d3c0; }
+.qu-strip .qu-node { background: rgba(255, 255, 255, .08); border-color: rgba(255, 255, 255, .25); color: #9be7a8; }
+.qu-strip .qu-node.past { background: rgba(76, 175, 80, .25); border-color: #4caf50; }
+.qu-strip .qu-node.here { background: rgba(63, 182, 232, .25); border-color: #3fb6e8; }
+.qu-strip .qu-node.boss { border-color: #e5484d; }
+.qu-strip .qu-link { background: rgba(255, 255, 255, .25); }
+.qu-node.here .px { animation: qu-walk .7s steps(2) infinite; }
+@keyframes qu-walk { 50% { transform: translateY(-2px); } }
+@media (prefers-reduced-motion: reduce) { .qu-node.here .px { animation: none; } }
+
 </style>
 <header class="top"><div class="top-inner">
   <div class="brand"><h1><b class="mvp">MVP</b>hysics Lab <span class="trophy" aria-hidden="true">🏆</span><span class="beta-tag" title="Beta for student testing: version 1.5 Beta">Beta 1.5</span></h1></div>
@@ -17287,8 +17346,8 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     const rail = $('#rail');
     const v = currentView(), blitz = v === 'blitz', recall = v === 'recall', notes = v === 'notes', qmode = v === 'practice' || v === 'exam';
     const nStr = LIVE_IDS.filter(id => st.sel.includes(id) && levelOK(id)).length;
-    const det = blitz && GA && GA.picked && GA.mode === 'detective';
-    const n = det || notes ? nStr : blitz ? gaPool().length : recall ? cardPool().length : pool().length;
+    const det = false;
+    const n = det || notes ? nStr : blitz ? quPool().length : recall ? cardPool().length : pool().length;
     const unit = recall ? 'card' : notes || det ? 'strand' : 'question';
     const li = (s, live) => `<li><label class="${live ? '' : 'disabled'}"${RAIL_SHORT[s.id] ? ` title="${esc(s.name)}"` : ''}><input type="checkbox" data-strand="${s.id}" ${st.sel.includes(s.id) && live ? 'checked' : ''} ${live ? '' : 'disabled'}><span>${esc(RAIL_SHORT[s.id] || s.name)}${s.hl ? '<span class="hl">HL</span>' : ''}</span></label>${s.info ? `<button type="button" class="sinfo" aria-label="Includes: ${esc(s.info)}" data-tip="${esc(TL(s.info))}">i</button>` : ''}</li>`;
     const shown = TOPICS.filter(t => (isHL() || !topicHL(t)) && t.live), allFolded = shown.length > 0 && shown.every(t => RAIL_FOLD.has(t.id));
@@ -17409,7 +17468,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     else if (kind === 'which') { const w = WHICH.find(x => x.id === ref); if (w) f.title = `Who's Right? (${w.cmd}): ${stripTags(w.q).slice(0, 80)}`; f.paper = 'Recall game'; }
     else if (kind === 'note') { const st = STRAND[ref]; f.title = ref === 'fe28-summary' ? 'FE2028 changes at a glance' : st ? `${tname(st.topic)} ${st.name}` : ref; f.paper = 'Notes'; }
     else if (kind === 'booklet') { f.id = ''; f.paper = 'Data booklet'; }
-    else if (kind === 'ud') { const c = UD_CASES.find(x => String(ref).startsWith(x[0] + '-')); f.title = c ? `Case ${c[1]}: ${c[2]}` : ''; f.paper = 'Unit Detective'; }
+    else if (kind === 'ud') { const c = UD_CASES.find(x => String(ref).startsWith(x[0] + '-')); f.title = c ? `Case ${c[1]}: ${c[2]}` : ''; f.paper = 'Unit Analysis'; }
     else { f.id = ''; f.title = ''; }
     return f;
   }
@@ -17555,7 +17614,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   /* ---------- Pause: stops the timer in Practice (pace coach), Test Mode, Blitz Classic and Match It!. Not in Last Man Standing.
      While paused the question is hidden behind an overlay. Test Mode records the number of pauses and the total time paused. ---------- */
   let PZ = null, pzTimer = null;
-  const PAUSE_NAME = { practice: 'the pace coach', exam: 'your exam', blitz: 'Blitz', match: 'Match It!' };
+  const PAUSE_NAME = { practice: 'the pace coach', exam: 'your exam', match: 'Match It!' };
   const pauseBtn = (kind) => `<button class="btn sm pause-btn" type="button" data-pause="${kind}" aria-label="Pause the timer" data-tip="Pause the timer (eg for a break). The question is hidden while paused."><svg viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" style="vertical-align:-1px;margin-right:5px"><rect x="2" y="1.5" width="2.8" height="9" rx="0.8" fill="currentColor"/><rect x="7.2" y="1.5" width="2.8" height="9" rx="0.8" fill="currentColor"/></svg>Pause</button>`;
   function pauseStart(kind) {
     if (PZ) return;
@@ -17573,7 +17632,6 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     const ov = $('#pauseOv'); if (ov) ov.remove(); document.body.classList.remove('paused');
     if (k === 'practice' && P.t0) P.t0 += d;
     if (k === 'exam' && EX && EX.phase === 'run') { EX.start += d; EX.enter += d; EX.pauses = (EX.pauses || 0) + 1; EX.pausedMs = (EX.pausedMs || 0) + d; tickExam(); }
-    if (k === 'blitz' && GA && GA.phase === 'run') { GA.endAt += d; if (GA.cur) GA.cur.t0 += d; tickGa(); }
     if (k === 'match' && GM && !GM.end) GM.t0 += d;
     const b = $(`[data-pause="${k}"]`); if (b) b.focus();
   }
@@ -17653,34 +17711,63 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   const codeStrands = () => CODE_STRANDS.concat(ALL_STRANDS.map(x => x.id).filter(id => !CODE_STRANDS.includes(id)).sort());
   const fp10 = (list) => fingerprint(list) & 0x3ff;
   const toB32 = (big) => { let t = ''; while (big > 0n) { t = B32[Number(big & 31n)] + t; big >>= 5n; } return t; };
-  const fromB32 = (str, prefix) => {
-    const t = String(str).toUpperCase().replace(new RegExp('^\\s*' + prefix), '').replace(/[^0-9A-Z]/g, '').replace(/O/g, '0').replace(/[IL]/g, '1');
-    if (!t) return null; let big = 0n; for (const ch of t) { const v = B32.indexOf(ch); if (v < 0) return null; big = big * 32n + BigInt(v); } return big;
-  };
-  const group = (pre, t) => pre + '-' + t.match(/.{1,4}/g).join('-'); // 1.4: groups of 4, the same as the code boxes
-  const CODE_KIND = { MVP: 'Test Mode class code (use it in Test Mode)', LMS: 'Last Man Standing code (use it in Games → Last Man Standing)', BLZ: 'Blitz code (use it in Games → Blitz)', UD: 'Unit Detective code (use it in Games → Unit Detective)' };
-  // small bit writer/reader for the game codes (1.4)
-  const bitW = () => { let big = 1n; return { put(v, b) { big = (big << BigInt(b)) | BigInt(v); }, mask(m) { const t = m.toString(2); big = (big << BigInt(t.length)) | m; }, str(pre) { return group(pre, toB32(big)); } }; };
-  const bitR = (str, pre) => { const big = fromB32(str, pre); if (big === null || big === 0n) return null; const body = big.toString(2).slice(1); let pos = 0; return { take(n) { const v = parseInt(body.slice(pos, pos + n), 2) || 0; pos += n; return v; }, rest() { return body.slice(pos); }, len: body.length }; };
-  // Blitz code: version, seed, minutes, SL/HL, linked setting, strands. Everyone with it gets the same question set, the same values and the same time.
-  function blzEncode(c) { const w = bitW(); w.put(1, 3); w.put(c.seed & 0xfffff, 20); w.put(c.dur & 127, 7); w.put(c.sl ? 1 : 0, 1); w.put(Math.max(0, LINKED.findIndex(x => x[0] === c.linked)), 2); w.mask(maskBits(c.strands, codeStrands())); return w.str('BLZ'); }
-  function blzDecode(str) { const r = bitR(str, 'BLZ'); if (!r || r.len < 34 || r.take(3) !== 1) return null; const c = { seed: r.take(20), dur: r.take(7), sl: r.take(1) === 1, linked: (r.take(2), 'off') /* 1.5: linked topics are Test Mode only */ }; c.strands = maskRead(r.rest(), codeStrands()); if (!c.strands.length || c.dur < 1) return null; c.str = blzEncode(c); return c; }
-  // Unit Detective code: version, seed, cases, mode, minutes, SL/HL, topics.
-  const UD_DURS = [2, 3, 5];
-  function udEncode(c) { const w = bitW(); w.put(1, 3); w.put(c.seed & 0xfffff, 20); w.put(UD_CASES.reduce((a, x, i) => a | (c.cases.includes(x[0]) ? 1 << i : 0), 0), 5); w.put(c.mode === 'chase' ? 1 : 0, 1); w.put(Math.max(0, UD_DURS.indexOf(c.dur)), 2); w.put(c.sl ? 1 : 0, 1); w.mask(maskBits(c.topics, CODE_TOPICS)); return w.str('UD'); }
-  function udDecode(str) { const r = bitR(str, 'UD'); if (!r || r.len < 33 || r.take(3) !== 1) return null; const c = { seed: r.take(20) }; const cm = r.take(5); c.cases = UD_CASES.filter((x, i) => (cm >> i) & 1).map(x => x[0]); c.mode = r.take(1) ? 'chase' : 'inv'; c.dur = UD_DURS[r.take(2)] || 3; c.sl = r.take(1) === 1; c.topics = maskRead(r.rest(), CODE_TOPICS); if (!c.cases.length) return null; c.str = udEncode(c); return c; }
-  const codeRow = (kind, pre, cur, hint) => cur
+  /* 1.5 push 3 (Mike 11 Nov): one prefix for every code. MVP-T-… is a Test Mode code; MVP-G-<game>… is a Games code (Q Physics Quest, S Last Man Standing).
+     Reserved: MVP-L- online lobby (Beta 2.0), MVP-P- Practice Sets, MVP-C- Card Decks, MVP-S- Skills sets. Older codes (MVP-2…, BLZ-, LMS-, UD-) no longer work.
+     Codes leave out I, L, O and U; in a code body O is read as 0 and I/L as 1, and MVP-1- is read as MVP-L-. Spaces, dashes and lower case are ignored. */
+  const CODE_CATS = { T: 'Test Mode', G: 'Games', L: 'Online Lobby', P: 'Practice Set', C: 'Card Deck', S: 'Skills' };
+  const GAME_CODES = { Q: 'quest', S: 'lms' };
+  const SOON_CATS = { L: 'Online lobby codes arrive in Beta 2.0.', P: 'Practice Set codes are coming soon.', C: 'Card Deck codes are coming soon.', S: 'Skills codes are coming soon.' };
+  const b32Big = (t) => { if (!t) return null; let big = 0n; for (const ch of t) { const v = B32.indexOf(ch); if (v < 0) return null; big = big * 32n + BigInt(v); } return big; };
+  function parseCode(str) {
+    let t = String(str || '').toUpperCase().replace(/[^0-9A-Z]/g, '');
+    if (/^(BLZ|LMS|UD)/.test(t)) return { old: true };
+    if (!t.startsWith('MVP') || t.length < 5) return null;
+    t = t.slice(3); let cat = t[0]; if (cat === '1' || cat === 'I') cat = 'L';
+    if (!CODE_CATS[cat]) return { old: true };
+    t = t.slice(1); let game = null;
+    if (cat === 'G') { game = t[0]; t = t.slice(1); if (!GAME_CODES[game]) return { cat, bad: true }; }
+    t = t.replace(/O/g, '0').replace(/[IL]/g, '1');
+    const big = b32Big(t); if (big === null || big === 0n) return { cat, game, bad: true };
+    return { cat, game, big };
+  }
+  const groups4 = (t) => (t.match(/.{1,4}/g) || []).join('-');
+  const codeStr = (cat, game, big) => `MVP-${cat}-` + groups4((game || '') + toB32(big));
+  // small bit writer/reader shared by every code type
+  const bitW = () => { let big = 1n; return { put(v, b) { big = (big << BigInt(b)) | BigInt(v); }, mask(m) { const t = m.toString(2); big = (big << BigInt(t.length)) | m; }, get big() { return big; } }; };
+  const bitR = (big) => { if (big === null || big === undefined || big === 0n) return null; const body = big.toString(2).slice(1); let pos = 0; return { take(n) { const v = parseInt(body.slice(pos, pos + n), 2) || 0; pos += n; return v; }, rest() { return body.slice(pos); }, len: body.length }; };
+  const OLD_CODE = 'This code is from an older version of MVPhysics Lab. Ask your teacher for a new code.';
+  const BAD_CODE = "That code isn't valid. Check it and try again.";
+  // a shared-code row inside a game's set-up: shows the code in use, or offers to make one (codes are entered in the Enter Code box at the top of Games)
+  const codeRow = (kind, cur, hint) => cur
     ? `<div class="code-row"><span class="lbl">Shared code</span><span class="code-chip"><span class="code-str">${cur.str}</span></span><button class="btn sm" id="${kind}Copy">Copy</button><button class="btn sm btn-clear" id="${kind}Clear">Clear</button><span class="muted small">${hint}</span></div>`
-    : `<div class="code-row"><span class="lbl">Shared code <span class="muted small">optional</span></span><input type="text" id="${kind}In" class="codein" data-prefix="${pre}" value="${pre}-" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Code (starts ${pre}-)"><button class="btn sm" id="${kind}Use">Use</button><span class="muted small">or</span><button class="btn primary sm" id="${kind}Make">Make a Code</button></div>`;
-  const wrongKind = (val, want) => { const m = String(val).trim().toUpperCase().match(/^([A-Z]+)-/); return m && m[1] !== want && CODE_KIND[m[1]] ? `That's a ${CODE_KIND[m[1]]}.` : ''; };
-  // code boxes: keep the mode's prefix, capitalise, and add a dash every 4 characters as you type (1.4)
+    : `<div class="code-row"><span class="lbl">Shared code <span class="muted small">optional</span></span><button class="btn sm" id="${kind}Make">Make a Code</button><span class="muted small">${hint}</span></div>`;
+  const codeInput = (id, cat, label) => `<input type="text" id="${id}" class="codein" data-prefix="MVP-${cat}" value="MVP-${cat}-" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="${label}">`;
+  // code boxes: capitalise, keep MVP-<category>- at the front and add a dash every 4 characters as you type or paste
   function fmtCodeBox(el) {
-    let raw = el.value.toUpperCase().trim(), pre = el.dataset.prefix, m;
-    // strip any prefixes at the start (a pasted code may repeat the one already in the box); keep the last one seen
-    while ((m = raw.match(/^([A-Z]{2,4})-/)) && CODE_KIND[m[1]]) { pre = m[1]; raw = raw.slice(m[0].length); }
-    if (raw.startsWith(el.dataset.prefix) && raw.length <= el.dataset.prefix.length) raw = '';
-    const body = raw.replace(/[^0-9A-Z]/g, '');
-    el.value = pre + '-' + (body.match(/.{1,4}/g) || []).join('-');
+    const def = (el.dataset.prefix || 'MVP-T').slice(4);
+    let raw = el.value.toUpperCase().replace(/[^0-9A-Z]/g, '');
+    if (/^(BLZ|LMS|UD)/.test(raw) || (raw && 'MVP'.startsWith(raw) && raw !== 'MVP')) { el.value = raw; return; } // typing an old code, or the start of MVP- into an empty box
+    let cat = def; const catOf = (ch) => (ch === '1' || ch === 'I' ? 'L' : ch);
+    // take MVP and the category letter; a code typed or pasted after the prefix already in the box replaces it.
+    // wantCat: MVP was typed again with nothing after it yet, so the next letter typed is the category
+    const wantCat = el.dataset.wantCat === '1'; el.dataset.wantCat = '';
+    while (raw.startsWith('MVP')) { raw = raw.slice(3); if (raw[0]) { cat = catOf(raw[0]); raw = raw.slice(1); } else el.dataset.wantCat = '1'; }
+    if (wantCat) { if (!raw) el.dataset.wantCat = '1'; else if (CODE_CATS[catOf(raw[0])]) { cat = catOf(raw[0]); raw = raw.slice(1); } }
+    el.value = `MVP-${cat}-` + groups4(raw);
+  }
+  /* send a code to the right place: Test Mode codes open Test Mode, Games codes open their game. Returns true when it handled the code
+     (moved elsewhere or showed a message); false when the code belongs where it was typed. */
+  let PENDING_CODE = null;
+  function routeCode(v, here) {
+    const pc = parseCode(v);
+    if (!pc) { toast(BAD_CODE); return true; }
+    if (pc.old) { toast(OLD_CODE); return true; }
+    if (SOON_CATS[pc.cat]) { toast(SOON_CATS[pc.cat]); return true; }
+    if (pc.bad) { toast(BAD_CODE); return true; }
+    const want = pc.cat === 'T' ? 'test' : 'games';
+    if (want === here) return false;
+    PENDING_CODE = v; toast(want === 'test' ? 'That is a Test Mode code: opening Test Mode.' : 'That is a Games code: opening Games.');
+    location.hash = want === 'test' ? '#test' : '#games'; return true;
   }
   document.addEventListener('input', (e) => { const el = e.target; if (el && el.classList && el.classList.contains('codein')) fmtCodeBox(el); });
   // footer (1.4): Terms of Use goes straight to its section on About; Send Feedback opens the feedback box below the links
@@ -17690,7 +17777,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     const fb = e.target.closest('#footFbBtn');
     if (fb) { const d = document.getElementById('footFb'); d.open = !d.open; fb.setAttribute('aria-expanded', String(d.open)); if (d.open) { d.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); const ta = d.querySelector('textarea'); if (ta) ta.focus({ preventScroll: true }); } }
   });
-  document.addEventListener('keydown', (e) => { const el = e.target; if (el && el.classList && el.classList.contains('codein') && e.key === 'Enter') { const b = el.parentElement.querySelector('#exUse, #lmsUse, #blzUse, #udUse'); if (b) { e.preventDefault(); b.click(); } } });
+  document.addEventListener('keydown', (e) => { const el = e.target; if (el && el.classList && el.classList.contains('codein') && e.key === 'Enter') { const b = el.parentElement.querySelector('#exUse, #gcUse'); if (b) { e.preventDefault(); b.click(); } } });
   const maskBits = (items, order) => { let m = 0n; order.forEach((x, i) => { if (items.includes(x)) m |= 1n << BigInt(i); }); return m; };
   const maskRead = (bits, order) => { const out = []; for (let i = 0; i < bits.length; i++) if (bits[bits.length - 1 - i] === '1' && order[i]) out.push(order[i]); return out; };
   const liveStrandsOf = (topics, sl) => ALL_STRANDS.filter(x => STRAND[x.id].live && topics.includes(STRAND[x.id].topic) && !(sl && x.hl)).map(x => x.id);
@@ -17712,52 +17799,32 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     return out;
   }
   const sameMarks = (a, b) => PAPERS.every(p => (a[p] || 0) === (b[p] || 0));
+  // Test Mode code (MVP-T-): format 1, seed, bank fingerprint, difficulty, linked, SL, kind, options, marks (IB preset or three numbers), topics or strands
   function encodeCode(c) {
-    let big = 1n; const put = (v, b) => { big = (big << BigInt(b)) | BigInt(v); };
+    const w = bitW(), put = (v, b) => w.put(v, b);
     const sl = !c.strands.some(id => STRAND[id] && STRAND[id].hl);
     const lk = Math.max(0, LINKED.findIndex(x => x[0] === c.linked)), kd = Math.max(0, CODE_TYPES.findIndex(x => x[0] === c.kind));
-    // format 9 (1.5, written as version 3; the old format-3 codes from the alpha no longer decode): kind is Online/Printable, plus test-only questions and retakes
-    put(3, 3); put(c.seed & 0xfffff, 20); put(c.fp & 0x3ff, 10); put(c.chili, 3); put(lk, 2); put(sl ? 1 : 0, 1); put(kd, 2); put(c.ms ? 1 : 0, 1); put(c.strict === false ? 0 : 1, 1); put(c.cover ? 1 : 0, 1); put(c.booklet ? 1 : 0, 1); put(c.dl === false ? 0 : 1, 1); put(c.tonly === false ? 0 : 1, 1); put(c.retake ? 1 : 0, 1);
+    put(1, 3); put(c.seed & 0xfffff, 20); put(c.fp & 0x3ff, 10); put(c.chili, 3); put(lk, 2); put(sl ? 1 : 0, 1); put(kd, 2); put(c.ms ? 1 : 0, 1); put(c.strict === false ? 0 : 1, 1); put(c.cover ? 1 : 0, 1); put(c.booklet ? 1 : 0, 1); put(c.dl === false ? 0 : 1, 1); put(c.tonly === false ? 0 : 1, 1); put(c.retake ? 1 : 0, 1);
     const papersOn = PAPERS.reduce((a, p, i) => a | ((c.marks[p] || 0) > 0 ? 1 << i : 0), 0);
     const pi = PRESETS.findIndex(t => sameMarks(presetMarks(c, t, papersOn), c.marks));
     if (pi >= 0) { put(0, 1); put(pi, 3); put(papersOn, 3); } else { put(1, 1); PAPERS.forEach(p => put(c.marks[p], 7)); }
     const topics = wholeTopics(c.strands, sl);
-    const mask = topics ? maskBits(topics, CODE_TOPICS) : maskBits(c.strands, codeStrands());
-    put(topics ? 0 : 1, 1); big = (big << BigInt(mask.toString(2).length)) | mask;
-    return group('MVP', toB32(big));
-  }
-  function decodeOld(body) {
-    let pos = 0; const take = (n) => { const v = parseInt(body.slice(pos, pos + n), 2); pos += n; return v; };
-    const ver = take(3); if (ver !== 1 && ver !== 2) return null;
-    const c = { seed: take(24), fp: take(12), chili: take(3), marks: { '1A': take(7), '1B': take(7), '2': take(7) } };
-    c.strands = maskRead(body.slice(pos), codeOrder()); c.fpOk = fingerprint(codePool(c)) === c.fp; return c;
+    put(topics ? 0 : 1, 1); w.mask(topics ? maskBits(topics, CODE_TOPICS) : maskBits(c.strands, codeStrands()));
+    return codeStr('T', null, w.big);
   }
   function decodeCode(str) {
-    const big = fromB32(str, 'MVP'); if (big === null || big === 0n) return null;
-    const body = big.toString(2).slice(1); if (body.length < 30) return null;
-    let c;
-    if (body.length >= 63 && ['001', '010'].includes(body.slice(0, 3))) { c = decodeOld(body); if (c) c.str = group('MVP', toB32(big)); }
-    else {
-      let pos = 0; const take = (n) => { const v = parseInt(body.slice(pos, pos + n), 2) || 0; pos += n; return v; };
-      const ver = take(3); if (ver !== 0 && (ver < 3 || ver > 7)) return null;
-      if (ver === 3) { // format 9 (1.5)
-        c = { seed: take(20), fp: take(10), chili: take(3) }; c.linked = (LINKED[take(2)] || LINKED[0])[0]; c.sl = take(1) === 1; c.kind = take(2) === 0 ? 'online' : 'print';
-        c.ms = take(1) === 1; c.strict = take(1) === 1; c.hideClock = false; c.cover = take(1) === 1; c.booklet = take(1) === 1; c.dl = take(1) === 1; c.tonly = take(1) === 1; c.retake = take(1) === 1;
-      } else {
-      c = { seed: take(20), fp: take(10), chili: take(3), sl: ver === 4 || ver === 6 }; c.linked = ver >= 5 || ver === 0 ? (LINKED[take(2)] || LINKED[0])[0] : 'off'; c.kind = 'online'; c.ms = false; c.strict = true; c.hideClock = false; c.cover = false; c.booklet = false; c.dl = true; c.tonly = true; c.retake = true;
-      if (ver === 7 || ver === 0) { c.sl = take(1) === 1; c.kind = take(2) === 0 ? 'online' : 'print'; c.ms = take(1) === 1; c.strict = take(1) === 1; }
-      if (ver === 7) { take(1); c.cover = c.booklet = c.kind === 'print'; } // format 7: the countdown bit is ignored
-      if (ver === 0) { c.cover = take(1) === 1; c.booklet = take(1) === 1; c.dl = take(1) === 1; }
-      }
-      let preset = null; if (take(1) === 0) preset = [take(3), take(3)]; else c.marks = { '1A': take(7), '1B': take(7), '2': take(7) };
-      const byStrand = take(1) === 1, rest = body.slice(pos);
-      c.strands = byStrand ? maskRead(rest, codeStrands()) : liveStrandsOf(maskRead(rest, CODE_TOPICS), c.sl);
-      if (preset) { if (PRESETS[preset[0]] === undefined) return null; c.marks = presetMarks(c, PRESETS[preset[0]], preset[1]); }
-      c.fpOk = fp10(codePool(c)) === c.fp;
-    }
-    if (c && c.marks) c.marks['1A'] = Math.min(MAX_1A, c.marks['1A'] || 0);
-    if (!c || !c.strands.length || !sumMarks(c.marks)) return null;
-    if (!c.str) c.str = encodeCode({ ...c, fp: c.fpOk ? fp10(codePool(c)) : c.fp });
+    const pc = parseCode(str); if (!pc || pc.old || pc.bad || pc.cat !== 'T') return null;
+    const r = bitR(pc.big); if (!r || r.len < 30 || r.take(3) !== 1) return null;
+    const c = { seed: r.take(20), fp: r.take(10), chili: r.take(3) }; c.linked = (LINKED[r.take(2)] || LINKED[0])[0]; c.sl = r.take(1) === 1; c.kind = r.take(2) === 0 ? 'online' : 'print';
+    c.ms = r.take(1) === 1; c.strict = r.take(1) === 1; c.hideClock = false; c.cover = r.take(1) === 1; c.booklet = r.take(1) === 1; c.dl = r.take(1) === 1; c.tonly = r.take(1) === 1; c.retake = r.take(1) === 1;
+    let preset = null; if (r.take(1) === 0) preset = [r.take(3), r.take(3)]; else c.marks = { '1A': r.take(7), '1B': r.take(7), '2': r.take(7) };
+    const byStrand = r.take(1) === 1, rest = r.rest();
+    c.strands = byStrand ? maskRead(rest, codeStrands()) : liveStrandsOf(maskRead(rest, CODE_TOPICS), c.sl);
+    if (preset) { if (PRESETS[preset[0]] === undefined) return null; c.marks = presetMarks(c, PRESETS[preset[0]], preset[1]); }
+    if (!c.strands.length || !c.marks || !sumMarks(c.marks)) return null;
+    c.marks['1A'] = Math.min(MAX_1A, c.marks['1A'] || 0);
+    c.fpOk = fp10(codePool(c)) === c.fp;
+    c.str = encodeCode({ ...c, fp: c.fpOk ? fp10(codePool(c)) : c.fp });
     return c;
   }
   // the real IB papers (guide, first assessment 2025): marks and time allowed
@@ -17826,7 +17893,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   function studentExamView() {
     const intro = head('Test Mode 📝', 'Tests set by your teacher. Enter the class code your teacher gives you.');
     if (!EX.code) return intro + `<section class="panel exset"><div class="exrow"><div class="exlab">Class code</div><div class="exctl">
-        <div class="codeform"><input type="text" id="exCodeIn" class="codein" data-prefix="MVP" value="MVP-" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Class code (starts MVP-)"><button class="btn primary sm" id="exUse">Use</button></div>
+        <div class="codeform">${codeInput('exCodeIn', 'T', 'Class code (starts MVP-T-)')}<button class="btn primary sm" id="exUse">Use</button></div>
         <span class="muted small">The code decides the test: an online test or a printable paper.</span></div></div>
         <p class="muted small">For practice on your own, use Practice, Games and Recall.</p></section>${teacherLine()}`;
     const c = EX.code, kind = c.kind || 'online';
@@ -17842,6 +17909,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     return head('Test Mode 📝', 'A test set by your teacher.') + `<section class="panel exset"><div class="exrow"><div class="exlab">Class code</div><div class="exctl">${box}</div></div><div class="exgo">${act}</div></section>${teacherLine()}`;
   }
   function renderExam(main) {
+    if (PENDING_CODE && (!EX || EX.phase === 'setup')) { const c = decodeCode(PENDING_CODE); PENDING_CODE = null; if (c) { if (!EX) EX = { phase: 'setup', mode: 'ib', paper: 'sl1', target: 30, kind: 'online', ms: false, cover: true, booklet: true, dl: true, tonly: true, retake: false, marks: { '1A': 5, '1B': 4, '2': 4 } }; EX.code = c; EX.strict = c.strict; EX.hideClock = false; } else toast(BAD_CODE); }
     if (!EX) EX = { phase: 'setup', mode: 'ib', paper: 'sl1', target: 30, kind: 'online', ms: false, cover: true, booklet: true, dl: true, tonly: true, retake: false, marks: { '1A': 5, '1B': 4, '2': 11 }, strict: true, hideClock: false, code: null };
     if (EX.phase === 'setup') {
       const n = (EX.mode === 'paper' ? pool({ ignorePapers: true }) : pool()).length, av = availMarks(pool());
@@ -17878,11 +17946,11 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
               <div class="ex-opt"><span class="small">Allow retakes</span><div class="seg" role="group" aria-label="Allow retakes">${seg('exretake', 'yes', 'Yes', !!EX.retake)}${seg('exretake', 'no', 'No', !EX.retake)}</div></div></div>
               <span class="muted small">The code also sets Finish as chosen above. With retakes off, a device that has finished this code cannot start it again. Print/PDF gives a printable copy as a backup.</span>`}</div></div>`}
           ${EX.code ? '' : `<div class="exrow"><div class="exlab">Questions</div><div class="exctl"><div class="seg" role="group" aria-label="Test-only questions">${seg('extonly', 'use', 'Use test-only questions', EX.tonly !== false)}${seg('extonly', 'no', "Don't use", EX.tonly === false)}</div>
-            <span class="muted small"><b>${RESERVED} of ${LIVE_Q} questions are test-only</b> (including ${RES_LINKED} linked-topic questions): they never appear in Practice, Blitz or Recall. ${EX.tonly === false ? 'Off: the test uses only questions students can practise.' : 'On: the test uses them first, then tops up with Practice questions.'}</span></div></div>
+            <span class="muted small"><b>${RESERVED} of ${LIVE_Q} questions are test-only</b> (including ${RES_LINKED} linked-topic questions): they never appear in Practice, Games or Recall. ${EX.tonly === false ? 'Off: the test uses only questions students can practise.' : 'On: the test uses them first, then tops up with Practice questions.'}</span></div></div>
           <div class="exrow"><div class="exlab">Linked topics</div><div class="exctl"><div class="seg" role="group" aria-label="Linked topics">${LINKED.map(([k, l, d]) => seg('exlinked', k, l, (S.settings.linked || 'off') === k)).join('')}</div>
-            <span class="muted small">${(LINKED.find(x => x[0] === (S.settings.linked || 'off')) || LINKED[0])[2]}. Linked questions combine two topics, eg energy (A.3) with circuits (B.5). Practice and Blitz always use Off.</span></div></div>`}
+            <span class="muted small">${(LINKED.find(x => x[0] === (S.settings.linked || 'off')) || LINKED[0])[2]}. Linked questions combine two topics, eg energy (A.3) with circuits (B.5). Practice and Games always use Off.</span></div></div>`}
           ${EX.code ? '' : `<div class="exrow"><div class="exlab">Class code <span class="exopt">optional</span></div><div class="exctl">
-            <div class="codeform"><input type="text" id="exCodeIn" class="codein" data-prefix="MVP" value="MVP-" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Class code (starts MVP-)"><button class="btn sm" id="exUse">Use</button><span class="muted small">or</span><button class="btn primary sm" id="exMake">Make a Code</button></div>
+            <div class="codeform">${codeInput('exCodeIn', 'T', 'Class code (starts MVP-T-)')}<button class="btn sm" id="exUse">Use</button><span class="muted small">or</span><button class="btn primary sm" id="exMake">Make a Code</button></div>
             <span class="muted small">Same code, same questions and values for everyone.</span></div></div>`}
           <div class="exgo"><div class="row"><button class="btn primary" id="exStart">Start</button><button class="btn" id="wsOpen">🖨 Print/PDF</button></div>
             <div class="row ex-out"><span class="muted small">Print or download:</span><div class="seg" role="group" aria-label="What to print">${[['student', 'Student Copy'], ['ms', 'Markscheme'], ['both', 'Both']].map(([k, l]) => seg('exout', k, l, (EX.out || 'both') === k)).join('')}</div><span class="muted small">${(EX.out || 'both') === 'student' ? (EX.code && EX.code.kind !== 'online' ? 'Exactly what students get from the code.' : 'Questions only.') : (EX.out || 'both') === 'ms' ? 'Overview, answer key and markscheme only.' : 'Questions, then the markscheme.'}</span></div>
@@ -18033,7 +18101,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
         if (d.expaper) { EX.paper = d.expaper; renderExam(main); return; }
         if (d.exfin) { EX.strict = d.exfin === 'strict'; renderExam(main); return; }
         if (d.exclock) { EX.hideClock = d.exclock === 'hide'; renderExam(main); return; }
-        if (b.id === 'exUse') { const wk = wrongKind($('#exCodeIn').value, 'MVP'); if (wk) { toast(wk); return; } const c = decodeCode($('#exCodeIn').value); if (!c) { toast("That code isn't valid. Check it and try again."); return; } EX.code = c; EX.strict = c.strict; EX.hideClock = false; renderExam(main); return; }
+        if (b.id === 'exUse') { const v = $('#exCodeIn').value; if (routeCode(v, 'test')) return; const c = decodeCode(v); if (!c) { toast(BAD_CODE); return; } EX.code = c; EX.strict = c.strict; EX.hideClock = false; renderExam(main); return; }
         if (b.id === 'exMake') { const c = makeClassCode(); if (!c) { toast('Your selection has no questions for these settings.'); return; } EX.code = c; renderExam(main); toast('Code created. Share it so everyone gets the same paper.'); return; }
         if (b.id === 'exClear') { EX.code = null; renderExam(main); return; }
         if (b.id === 'exCopy') { const t = EX.code.str; (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast('Code copied.'), () => toast('Select the code and copy it: ' + t)); return; }
@@ -18097,84 +18165,247 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     };
   }
 
-  /* ======================= GAUNTLET ======================= */
-  let GA = null, gaTimer = null;
-  function gaPool() {
-    if (GA && GA.code) { const c = GA.code; return Q.filter(q => q.paper === '1A' && !q.fe28 && q.reserve !== true && !(c.sl && q.hl) && qualifiesL(q, id => c.strands.includes(id) && STRAND[id] && STRAND[id].live, toolsOnly(c.strands), c.linked, id => STRAND[id] && STRAND[id].live && !(c.sl && STRAND[id].hl))); }
+  /* ======================= GAMES SCREEN + PHYSICS QUEST ⚔️ (1.5 push 3, Mike 11 Nov: replaces Blitz) =======================
+     A lives-based adventure through the realms (the topics ticked in the Topics panel). Each realm has 9 rooms and a boss room.
+     Start with 3, 5 or 10 hearts; a wrong answer (or a room timer running out) costs a heart. 3 right in a row earns a Potion (removes two
+     wrong options), 5 in a row restores a heart (or gives a Shield when hearts are full), and a boss defeated adds a heart container.
+     Shields skip a room. Difficulty rises through each realm and on every lap of the map. Original theme, art and music. */
+  let GA = null; // the Games screen: { picked, mode: 'quest' | 'lms', phase: 'setup' | 'run' | 'done', lmsCode, qcode }
+  let QU = null, quTimer = null;
+  const QU_HEARTS = [3, 5, 10], QU_TIMERS = [0, 20, 30, 60], QU_ROOMS = 10, QU_ITEM_CAP = 3;
+  const REALM = { 'A.1': 'Kinematics Canyon', 'A.2': 'Forcewood', 'A.3': 'Energy Falls', 'A.4': 'Torque Tower', 'A.5': 'Relativity Rift', 'B.1': 'Thermal Caverns', 'B.2': 'Greenhouse Glade', 'B.3': 'Gas Giant Plains', 'B.4': 'Engine Forge', 'B.5': 'Circuit Citadel',
+    'C.1': 'Pendulum Peaks', 'C.2': 'Wave Shore', 'C.3': 'Prism Lake', 'C.4': 'Resonance Ruins', 'C.5': 'Doppler Dunes', 'D.1': 'Orbit Heights', 'D.2': 'Field Fortress', 'D.3': 'Lorentz Labyrinth', 'D.4': 'Induction Isles',
+    'E.1': 'Atom Archipelago', 'E.2': 'Quantum Marsh', 'E.3': 'Decay Wastes', 'E.4': 'Fission Furnace', 'E.5': 'Star Forge', Skills: "Toolmakers' Village" };
+  const BOSSES = ['the Stone Golem', 'the Ember Wyrm', 'the Shadow Knight', 'the Crystal Hydra', 'the Storm Giant', 'the Iron Sentinel', 'the Mire Serpent', 'the Clockwork Titan'];
+  /* ---------- pixel sprites: original art drawn as SVG rectangles ('.' is transparent) ---------- */
+  const PAL = { k: '#1b1f2a', s: '#f2c79b', h: '#7a4a24', g: '#3fb6e8', c: '#2d6cdf', C: '#1f4ea8', b: '#8a5a2b', y: '#f5c542', w: '#ffffff', r: '#e5484d', R: '#a8262b', p: '#b07cf0', P: '#7a45c9', t: '#8b93a7', T: '#5b6378', m: '#4caf50', M: '#2e7d32', o: '#ff8a3d', e: '#ffe066' };
+  function px(rows, scale = 4, cls = '', label = '') {
+    const w = rows[0].length, h = rows.length; let r = '';
+    rows.forEach((row, y) => { for (let x = 0; x < w; x++) { const ch = row[x]; if (ch !== '.' && PAL[ch]) r += `<rect x="${x}" y="${y}" width="1.02" height="1.02" fill="${PAL[ch]}"/>`; } });
+    return `<svg class="px ${cls}" viewBox="0 0 ${w} ${h}" width="${w * scale}" height="${h * scale}" shape-rendering="crispEdges" ${label ? `role="img" aria-label="${label}"` : 'aria-hidden="true"'}>${r}</svg>`;
+  }
+  const SPR = {
+    hero: ['....hhhh....', '...hhhhhh...', '...kgggggk..', '...ssssss...', '...sksskss..', '....ssss....', '..cccccccc..', '.scCccccCcs.', '.s.cccccc.s.', '...cc..cc...', '...bb..bb...', '..bbb..bbb..'],
+    heart: ['.rr.rr.', 'rrrrrwr', 'rrrrrrr', 'Rrrrrrr', '.RrrrR.', '..RrR..', '...R...'],
+    heartEmpty: ['.kk.kk.', 'k..k..k', 'k.....k', 'k.....k', '.k...k.', '..k.k..', '...k...'],
+    potion: ['..kkk..', '...t...', '..ktk..', '.kpppk.', 'kppwppk', 'kpppPPk', 'kPPPPPk', '.kkkkk.'],
+    shield: ['kkkkkkk', 'kttyttk', 'ktyyytk', 'kttyttk', 'kttyttk', '.kttTk.', '..kTk..', '...k...'],
+    boss: ['...kk....kk...', '..kTTk..kTTk..', '..kTTTkkTTTk..', '.kTTTTTTTTTTk.', '.kTTrrTTrrTTk.', '.kTTrrTTrrTTk.', '.kTTTTTTTTTTk.', '..kTTkkkkTTk..', 'kkTTTTTTTTTTkk', 'kTTkTTTTTTkTTk', 'kTk.kTTTTk.kTk', '....kTk.kTk...', '...kkTk.kTkk..'],
+    flag: ['k.....', 'kmmmm.', 'kmmmMm', 'kmmmm.', 'k.....', 'k.....', 'k.....', 'kk....'],
+    chest: ['.kkkkkkk.', 'kbbbbbbbk', 'kbbbybbbk', 'kkkkykkkk', 'kbbbbbbbk', 'kbbbbbbbk', '.kkkkkkk.'],
+    door: ['.kkkkk.', 'kbbbbbk', 'kbkbkbk', 'kbkbkbk', 'kbbbybk', 'kbkbkbk', 'kbbbbbk'],
+  };
+  const heartsHTML = (n, max) => `<span class="qu-hearts" role="img" aria-label="${n} of ${max} hearts">${Array.from({ length: max }, (_, i) => px(i < n ? SPR.heart : SPR.heartEmpty, 3, i < n ? 'full' : 'empty')).join('')}</span>`;
+  const quRealmName = (t) => REALM[t] || t;
+  function quPool(c) {
+    c = c || (GA && GA.qcode);
+    if (c) return Q.filter(q => q.paper === '1A' && !q.fe28 && q.reserve !== true && !(c.sl && q.hl) && qualifiesL(q, id => c.strands.includes(id) && STRAND[id] && STRAND[id].live, toolsOnly(c.strands), 'off', id => STRAND[id] && STRAND[id].live && !(c.sl && STRAND[id].hl)));
     return pool({ ignorePapers: true, ignoreChili: true, ignoreMissed: true }).filter(q => q.paper === '1A');
   }
-  function gaPick() {
-    const list = gaPool(); const want = GA.streak >= 6 ? 3 : GA.streak >= 3 ? 2 : 1;
-    let c = []; for (let d = 0; d <= 2 && !c.length; d++) c = list.filter(q => Math.abs(q.chili - want) === d && !GA.recent.slice(-6).includes(q.id));
+  const quTopic = (q) => (STRAND[q.strands[0]] || {}).topic;
+  function quRealms(list) { const ts = new Set(list.map(quTopic)); return TOPICS.map(t => t.id).filter(t => ts.has(t)); }
+  // Physics Quest code (MVP-G-Q…): format 1, seed, hearts, room timer, SL, strands
+  function questEncode(c) {
+    const w = bitW(), topics = wholeTopics(c.strands, c.sl); w.put(1, 3); w.put(c.seed & 0xfffff, 20); w.put(Math.max(0, QU_HEARTS.indexOf(c.hearts)), 2); w.put(Math.max(0, QU_TIMERS.indexOf(c.timer)), 2); w.put(c.sl ? 1 : 0, 1);
+    w.put(topics ? 0 : 1, 1); w.mask(topics ? maskBits(topics, CODE_TOPICS) : maskBits(c.strands, codeStrands())); // whole topics make a shorter code
+    return codeStr('G', 'Q', w.big);
+  }
+  function questDecode(str) {
+    const pc = typeof str === 'string' ? parseCode(str) : str; if (!pc || pc.old || pc.bad || pc.cat !== 'G' || pc.game !== 'Q') return null;
+    const r = bitR(pc.big); if (!r || r.len < 30 || r.take(3) !== 1) return null;
+    const c = { seed: r.take(20), hearts: QU_HEARTS[r.take(2)] || 3, timer: QU_TIMERS[r.take(2)] || 0, sl: r.take(1) === 1 }; const byStrand = r.take(1) === 1;
+    c.strands = byStrand ? maskRead(r.rest(), codeStrands()) : liveStrandsOf(maskRead(r.rest(), CODE_TOPICS), c.sl);
+    if (!c.strands.length || !quPool(c).length) return null; c.str = questEncode(c); return c;
+  }
+  function quSettings() { const st = S.settings; if (!QU_HEARTS.includes(st.quHearts)) st.quHearts = 3; if (!QU_TIMERS.includes(st.quTimer)) st.quTimer = 0; return st; }
+  // the question for the current room: chosen by the run's random generator so everyone with the same code meets the same rooms
+  function quPick() {
+    const Qs = QU, realm = Qs.realms[Qs.realmIdx], boss = Qs.room === QU_ROOMS;
+    const inRealm = Qs.list.filter(q => quTopic(q) === realm), list = inRealm.length ? inRealm : Qs.list;
+    const want = boss ? 3 : Math.min(3, 1 + Math.floor((Qs.room - 1) / 4) + Qs.lap);
+    let c = []; for (let d = 0; d <= 2 && !c.length; d++) c = list.filter(q => Math.abs(q.chili - want) === d && !Qs.recent.slice(-8).includes(q.id));
     if (!c.length) c = list;
-    const rr = (n) => GA.rng ? Math.floor(GA.rng() * n) : rnd(n); // a shared code makes the picks and values repeatable
-    const q = c[rr(c.length)]; GA.recent.push(q.id);
-    const seed = GA.rng ? 1 + Math.floor(GA.rng() * 2e9) : newSeed(); GA.cur = { q, seed, inst: q.gen(makeR(seed)), t0: now(), picked: null };
+    if (boss) { const top = Math.max(...c.map(q => q.chili)); c = c.filter(q => q.chili === top); }
+    const q = c[Math.floor(Qs.rng() * c.length)]; Qs.recent.push(q.id);
+    const seed = 1 + Math.floor(Qs.rng() * 2e9);
+    Qs.cur = { q, seed, inst: q.gen(makeR(seed)), t0: now(), picked: null, boss, struck: [], done: false };
   }
-  const GAME_CARDS = [
-    ['classic', '⚡', 'Blitz', 'Answer as many Paper 1A questions as you can before the clock runs out. Wrong answers cost time, and the questions get harder as your streak grows.'],
-    ['detective', '🔍', 'Unit Detective', 'Every equation leaves clues in its units. Identify quantities, break units down, expose impostor equations and deduce formulas from units alone.'],
-    ['lms', '💀', 'Last Man Standing', 'Everyone with the same code gets the same questions. Right answers add time, wrong answers take it away. Last one standing wins.'],
-  ];
-  function gameCards() {
-    return head('Games 🕹️', 'Race the clock and challenge your class. Choose a game.') + `<div class="mode-cards">${GAME_CARDS.map(([k, ic, name, d]) => `<button type="button" class="mode-card" data-gamode="${k}"><span class="wic" aria-hidden="true">${ic}</span><b>${name}</b><span>${d}</span></button>`).join('')}
-      <div class="mode-card soon" aria-disabled="true"><span class="wic" aria-hidden="true">🎮</span><b>More Games Coming Soon…</b></div></div><p class="muted small">Your scores for each game are on its own screen and on the Stats page.</p>`;
+  function quStart() {
+    const st = quSettings(), c = GA.qcode, list = quPool();
+    const hearts = c ? c.hearts : st.quHearts, timer = c ? c.timer : st.quTimer;
+    QU = { phase: 'room', list, realms: quRealms(list), realmIdx: 0, room: 1, lap: 0, hearts, max: hearts, startHearts: hearts, timer, streak: 0, bestStreak: 0, potions: 0, shields: 0,
+      cleared: 0, bosses: 0, answered: 0, correct: 0, recent: [], hist: [], rng: mulberry(c ? c.seed : 1 + rnd(0xffffe)), cleared_realms: [], code: c };
+    GA.phase = 'run'; SFX.unlock(); SFX.music(true, false, 'quest'); quPick();
+    clearInterval(quTimer); if (timer) quTimer = setInterval(quTick, 200);
   }
-  const modeBack = (id, label) => `<div class="mode-back"><button type="button" class="btn backbtn" id="${id}"><span aria-hidden="true">←</span> ${label}</button></div>`;
-  function renderGauntlet(main) {
-    if (!GA) GA = { phase: 'setup', dur: 5, custom: false };
-    const n = gaPool().length;
-    if (LM) return renderLms(main);
-    lmsTheme();
-    if (GA.phase === 'setup' && !GA.picked) { main.innerHTML = gameCards(); return; }
-    if (GA.picked && GA.mode === 'detective') return renderDetective(main);
-    if (GA.phase === 'setup' && GA.mode === 'lms') { main.innerHTML = modeBack('gaModes', 'All Games') + head('Last Man Standing 💀', 'Play against your class with a shared code.') + lmsSetup() + lmsStats(); return; }
-    if (GA.phase === 'setup') {
-      const maxMin = Math.min(120, n * 2);
-      const preset = [5, 10, 15, 20, 30, 40];
-      const isMax = GA.durSel === 'max', isCustom = !isMax && (GA.custom || !preset.includes(GA.dur));
-      main.innerHTML = modeBack('gaModes', 'All Games') + head('Blitz ⚡', 'Answer as many Paper 1A questions as you can before time runs out. Wrong answers cost 15 seconds, and the difficulty rises as your streak grows.') + (n ? `
-        <section class="panel">${GA.code ? `<p><b>Time limit: ${GA.code.dur} minutes</b> <span class="muted small">(set by the code, along with the topics)</span></p>` : `<div class="form-grid"><label class="field"><span>Time limit</span><select id="gaDur">${preset.map(d => `<option value="${d}" ${!isCustom && !isMax && GA.dur === d ? 'selected' : ''}>${d} minutes</option>`).join('')}<option value="max" ${isMax ? 'selected' : ''}>Maximum (${maxMin} minutes)</option><option value="custom" ${isCustom ? 'selected' : ''}>Custom…</option></select></label>
-        <label class="field" id="gaCustomWrap" ${isCustom ? '' : 'hidden'}><span>Minutes (3 to ${maxMin})</span><input type="number" id="gaCustom" min="3" max="${maxMin}" step="1" value="${GA.dur}"></label></div>`}
-        <p class="muted small" id="gaErr" role="alert"></p>
-        <p class="muted small">${n} question types in your selection, with new values every time, so you can choose 3 to ${maxMin} minutes. Every miss is added to "Only questions I've missed", so you can practise it properly later.</p>
-        ${codeRow('blz', 'BLZ', GA.code, 'Everyone with this code gets the same questions, values and time.')}
-        <div class="row"><button class="btn primary" id="gaStart">Start</button></div></section>` : (GA.code ? `<section class="panel">${codeRow('blz', 'BLZ', GA.code, '')}<p class="warn small">This code's topics have no Paper 1A questions in this version.</p></section>` : '') + emptySel('Blitz uses Paper 1A questions. Tick at least one strand in "Questions".')) + blitzStats();
+  function quTick() {
+    if (!QU || QU.phase !== 'room' || !QU.cur || QU.cur.done || !QU.timer) return;
+    const left = QU.timer - (now() - QU.cur.t0) / 1000, el = $('#quClock');
+    if (el) { el.textContent = Math.max(0, Math.ceil(left)) + ' s'; el.classList.toggle('low', left <= 5); }
+    if (left <= 0) quAnswer(-1);
+  }
+  function quAnswer(i) {
+    const cur = QU.cur; if (cur.done) return; cur.done = true; cur.picked = i < 0 ? null : i; cur.dt = now() - cur.t0;
+    const ok = i === cur.inst.answer; QU.answered++; QU.hist.push(cur);
+    logAttempt(cur.q, ok ? 1 : 0, cur.dt / 1000, 'quest');
+    const msgs = [];
+    if (ok) {
+      QU.correct++; QU.streak++; QU.bestStreak = Math.max(QU.bestStreak, QU.streak); QU.cleared++;
+      if (cur.boss) { QU.bosses++; QU.max++; QU.hearts++; msgs.push(`${quBossName()} is defeated! +1 heart container`); SFX.fanfare(); }
+      else SFX.good();
+      if (QU.streak % 3 === 0 && QU.potions < QU_ITEM_CAP) { QU.potions++; msgs.push('You found a Potion 🧪'); SFX.item(); }
+      if (QU.streak % 5 === 0) { if (QU.hearts < QU.max) { QU.hearts++; msgs.push('A heart is restored ❤️'); SFX.heal(); } else if (QU.shields < QU_ITEM_CAP) { QU.shields++; msgs.push('Hearts full: you found a Shield 🛡'); SFX.item(); } }
+    } else {
+      QU.streak = 0; QU.hearts--; addMissed(cur.q.id); SFX.bad();
+      msgs.push(i < 0 ? 'Time ran out! −1 heart' : '−1 heart');
+    }
+    cur.msgs = msgs; markDay(); save();
+    if (QU.hearts <= 0) { quOver(); return; }
+    renderGames($('#main'));
+  }
+  const quBossName = () => BOSSES[(QU.realmIdx + QU.lap * 3) % BOSSES.length];
+  function quAdvance() {
+    const cur = QU.cur, ok = cur.picked === cur.inst.answer;
+    if (cur.boss && !ok) { quPick(); return; } // the boss must be beaten before you can leave the realm
+    if (QU.room >= QU_ROOMS) { QU.phase = 'clear'; QU.cleared_realms.push(QU.realms[QU.realmIdx]); SFX.music(true, false, 'quest'); return; }
+    QU.room++; quPick(); if (QU.room === QU_ROOMS) { SFX.boss(); SFX.music(true, true, 'quest'); }
+  }
+  function quNextRealm() {
+    QU.realmIdx++; if (QU.realmIdx >= QU.realms.length) { QU.realmIdx = 0; QU.lap++; }
+    QU.room = 1; QU.phase = 'room'; SFX.music(true, false, 'quest'); quPick();
+  }
+  function quOver(quit) {
+    clearInterval(quTimer); QU.phase = 'over'; QU.quit = !!quit; GA.phase = 'done'; SFX.music(false); if (!quit) SFX.over();
+    const q = S.quest = S.quest || { runs: [], best: {} }; q.runs = q.runs || []; q.best = q.best || {};
+    const k = QU.startHearts; QU.newBest = !quit && QU.cleared > (q.best[k] || 0) && QU.cleared > 0; if (QU.newBest) q.best[k] = QU.cleared;
+    q.runs.push({ ts: now(), hearts: k, cleared: QU.cleared, bosses: QU.bosses, correct: QU.correct, answered: QU.answered, lap: QU.lap, quit: !!quit }); if (q.runs.length > 200) q.runs.splice(0, q.runs.length - 200);
+    save(); if (currentView() === 'blitz') renderGames($('#main')); renderRail();
+  }
+  function quWeakest() {
+    const by = {}; QU.hist.forEach(h => { const id = h.q.strands[0]; const b = by[id] = by[id] || [0, 0]; b[1]++; if (h.picked === h.inst.answer) b[0]++; });
+    const rows = Object.entries(by).filter(([, b]) => b[1] >= 2 && b[0] < b[1]).sort((a, b) => a[1][0] / a[1][1] - b[1][0] / b[1][1]);
+    return rows.length ? STRAND[rows[0][0]] : null;
+  }
+  function quMap(compact) {
+    const Qs = QU, realms = Qs ? Qs.realms : quRealms(quPool());
+    if (compact) {
+      const nodes = Array.from({ length: QU_ROOMS }, (_, i) => { const n = i + 1, here = n === Qs.room, past = n < Qs.room;
+        return `<span class="qu-node${here ? ' here' : ''}${past ? ' past' : ''}${n === QU_ROOMS ? ' boss' : ''}" title="${n === QU_ROOMS ? 'Boss room' : 'Room ' + n}">${here ? px(SPR.hero, 2) : n === QU_ROOMS ? px(SPR.boss, 2) : past ? '✓' : ''}</span>`; }).join('<span class="qu-link"></span>');
+      return `<div class="qu-strip"><div class="qu-realm"><b>${esc(quRealmName(realms[Qs.realmIdx]))}</b> <span class="muted small">${realms[Qs.realmIdx]}${Qs.lap ? ` · Lap ${Qs.lap + 1}` : ''}</span></div><div class="qu-path">${nodes}</div></div>`;
+    }
+    return `<div class="qu-map" aria-label="Realm map">${realms.map((t, i) => { const done = !!Qs && (Qs.lap > 0 || i < Qs.realmIdx || (Qs.phase === 'clear' && i === Qs.realmIdx)); const here = Qs && i === Qs.realmIdx;
+      return `<div class="qu-stop${done ? ' done' : ''}${here ? ' here' : ''}"><span class="qu-pin">${here ? px(SPR.hero, 3) : done ? px(SPR.flag, 3) : px(SPR.door, 3)}</span><span class="qu-name"><b>${esc(quRealmName(t))}</b><span class="muted small">${t}</span></span></div>`; }).join('<span class="qu-road" aria-hidden="true"></span>')}</div>`;
+  }
+  const quItems = () => `<span class="qu-items"><button type="button" class="qu-item" id="quPotion" ${QU.potions && !QU.cur.done && !QU.cur.struck.length ? '' : 'disabled'} title="Potion: removes two wrong options">${px(SPR.potion, 3)}<b class="num">${QU.potions}</b></button><button type="button" class="qu-item" id="quShield" ${QU.shields && !QU.cur.done && !QU.cur.boss ? '' : 'disabled'} title="Shield: skip this room safely (not boss rooms)">${px(SPR.shield, 3)}<b class="num">${QU.shields}</b></button></span>`;
+  function questSetup() {
+    const st = quSettings(), c = GA.qcode, list = quPool(), realms = quRealms(list);
+    return modeBack('gaModes', 'All Games') + `<section class="panel qu-title"><div class="qu-banner">${px(SPR.hero, 5, '', 'The hero')}<div><h2>Physics Quest</h2><p>Cross the realms, one room at a time. Every wrong answer costs a heart. Beat each realm's boss to move on.</p></div>${px(SPR.boss, 5, 'qu-boss-art', 'A boss')}</div></section>` + (list.length ? `
+      <section class="panel qu-setup">
+        <ul class="qu-rules"><li>${px(SPR.heart, 3)} A wrong answer costs a heart${(c ? c.timer : st.quTimer) ? ', and so does running out of time' : ''}. Lose them all and the quest ends.</li><li>${px(SPR.potion, 3)} 3 right in a row: a <b>Potion</b> removes two wrong options.</li><li>${px(SPR.heart, 3)} 5 in a row: a heart comes back (or a ${px(SPR.shield, 3)} <b>Shield</b> if your hearts are full; a Shield skips a room).</li><li>${px(SPR.boss, 2)} Room 10 of every realm is a <b>boss room</b>: a 🌶🌶🌶 question. Win to gain a heart container.</li></ul>
+        ${c ? `<p><b>Set by the code:</b> ${c.hearts} hearts · room timer ${c.timer ? c.timer + ' s' : 'off'} · ${c.sl ? 'SL' : 'HL'}.</p>` : `<div class="qu-opts"><div><span class="muted small">Start with</span><div class="chips" role="group" aria-label="Hearts">${QU_HEARTS.map(h => `<button type="button" class="chip" data-quhearts="${h}" aria-pressed="${st.quHearts === h}">${h} ❤️</button>`).join('')}</div></div>
+          <div><span class="muted small">Room timer</span><div class="chips" role="group" aria-label="Room timer">${QU_TIMERS.map(t => `<button type="button" class="chip" data-qutimer="${t}" aria-pressed="${st.quTimer === t}">${t ? t + ' s' : 'Off'}</button>`).join('')}</div></div></div>`}
+        <p class="small"><b>Your realms</b> <span class="muted">(the topics ticked in the Topics panel)</span></p>${quMap(false)}
+        <p class="muted small">${list.length} question types from ${realms.length} realm${realms.length > 1 ? 's' : ''}, with new values every time. Every miss is added to "Only questions I've missed" in Practice.</p>
+        ${codeRow('qu', c, 'Everyone with this code meets the same rooms, with the same hearts and timer.')}
+        <div class="row"><button class="btn primary qu-go" id="quStart">Begin the Quest ⚔️</button></div></section>` : (c ? `<section class="panel">${codeRow('qu', c, '')}<p class="warn small">This code's topics have no Paper 1A questions in this version.</p></section>` : emptySel('Physics Quest uses Paper 1A questions. Tick at least one strand in the Topics panel.'))) + questStats();
+  }
+  function renderQuest(main) {
+    const Qs = QU;
+    if (!Qs) { main.innerHTML = questSetup(); return; }
+    const bar = `<div class="instrument qu-bar"><div class="row">${heartsHTML(Qs.hearts, Qs.max)}${Qs.timer && Qs.phase === 'room' ? `<span class="clock qu-clock" id="quClock">${Qs.timer} s</span>` : ''}<span class="spacer"></span>${Qs.phase === 'room' ? quItems() : ''}<span class="pill info num">Rooms ${Qs.cleared}</span>${Qs.streak > 1 ? `<span class="pill neutral num">🔥 ${Qs.streak}</span>` : ''}${soundBtn()}</div></div>`;
+    if (Qs.phase === 'clear') {
+      main.innerHTML = bar + `<section class="panel qu-clear"><div class="qu-banner">${px(SPR.chest, 5)}<div><h2>${esc(quRealmName(Qs.realms[Qs.realmIdx]))} Cleared!</h2><p>${Qs.realmIdx + 1 >= Qs.realms.length ? 'You crossed every realm. The road loops back, and the realms grow harder.' : `Next: <b>${esc(quRealmName(Qs.realms[Qs.realmIdx + 1]))}</b>.`}</p></div></div>${quMap(false)}
+        <div class="row"><button class="btn primary qu-go" id="quOnward">Onward ⚔️</button><button class="btn ghost" id="quQuit">End Quest</button></div></section>`;
       return;
     }
-    if (GA.phase === 'run') {
-      const { q, inst } = GA.cur;
-      main.innerHTML = head('Blitz ⚡', '') + `<div class="instrument"><div class="row"><span class="clock" id="gaClock"></span>${pauseBtn('blitz')}<span class="spacer"></span><span class="pill info num">Score ${GA.score}</span><span class="pill neutral num">Streak ${GA.streak}</span></div></div>
-        <article class="sheet" id="sheet">${metaLine(q)}<div class="qbody">${inst.stem}</div>${optionsHTML(inst, GA.cur.picked, GA.cur.picked !== null)}</article>
-        <div class="row"><span class="spacer"></span><button class="btn ghost" id="gaQuit">End Now</button></div>`;
-      typeset($('#sheet')); tickGa(); return;
+    if (Qs.phase === 'room') {
+      const cur = Qs.cur, q = cur.q, inst = cur.inst, ok = cur.done && cur.picked === inst.answer;
+      const opts = `<div class="options ${inst.optionsAreGraphs ? 'graphs' : ''}">${inst.options.map((o, i) => { let cls = ''; if (cur.done) { if (i === inst.answer) cls = 'correct'; else if (i === cur.picked) cls = 'wrong'; } const gone = cur.struck.includes(i); return `<button class="opt ${cls}${gone ? ' struck' : ''}" data-opt="${i}" ${cur.done || gone ? 'disabled' : ''}><span class="letter">${LETTERS[i]}</span><span>${o}</span></button>`; }).join('')}</div>`;
+      main.innerHTML = bar + quMap(true) + `<article class="sheet qu-room${cur.boss ? ' qu-bossroom' : ''}" id="sheet">${cur.boss ? `<div class="qu-bosshead">${px(SPR.boss, 4)}<b>Boss Room: ${esc(quBossName())}</b></div>` : ''}<div class="qmeta">${topicTags(q.strands)}${chiliIcon(q.chili)}<span class="muted small">Room ${Qs.room}</span></div><div class="qbody">${inst.stem}</div>${opts}
+        ${cur.done ? `<div class="verdict ${ok ? 'ok' : 'no'}" role="status">${ok ? '✓ Correct' : cur.picked === null ? '⏱ Time ran out' : '✗ Not quite'}${cur.msgs.length ? ` · ${cur.msgs.join(' · ')}` : ''}</div>${ok ? '' : `<div class="solution"><h4>Solution</h4><div>${inst.solution}</div></div>`}` : ''}</article>
+        <div class="row"><button class="btn ghost" id="quQuit">End Quest</button><span class="spacer"></span>${cur.done ? `<button class="btn primary" id="quNext">${cur.boss && !ok ? 'Face the Boss Again' : Qs.room >= QU_ROOMS ? 'Claim the Realm' : Qs.room + 1 === QU_ROOMS ? 'Enter the Boss Room' : 'Next Room →'}</button>` : ''}</div>`;
+      typeset($('#sheet')); quTick(); return;
     }
-    const best = S.gbest[GA.dur];
-    main.innerHTML = head('Blitz ⚡', `${GA.dur}-minute run`) + `<section class="panel"><div class="row" style="align-items:end"><div><div class="muted small">Score</div><div class="big-score">${GA.score}</div></div><div class="muted">${GA.answered} answered · ${pct(GA.score, GA.answered)}% correct${GA.newBest ? ' · <span class="pill good">New personal best</span>' : best ? ` · best ${best}` : ''}</div></div></section>
-      ${runReview(GA.hist, 'Blitz', 'gaPrint')}
-      <div class="row"><button class="btn primary" id="gaAgain">Restart</button><button class="btn" id="gaSetup">End</button></div>` + blitzStats();
-    typeset(main);
+    // quest over
+    const weak = quWeakest(), best = ((S.quest || {}).best || {})[Qs.startHearts] || 0;
+    main.innerHTML = soundBtn() + `<section class="panel qu-over"><div class="qu-banner">${px(SPR.heartEmpty, 6)}<div><h2>${Qs.quit ? 'Quest Ended' : 'Quest Over'}</h2><p>You reached <b>${esc(quRealmName(Qs.realms[Qs.realmIdx]))}</b>${Qs.lap ? ` on lap ${Qs.lap + 1}` : ''}.</p></div></div>
+      <div class="tiles"><div class="tile"><span class="k">Rooms cleared</span><span class="v num">${Qs.cleared}</span><span class="s">${Qs.newBest ? 'New best!' : `best with ${Qs.startHearts} hearts: ${best}`}</span></div><div class="tile"><span class="k">Bosses defeated</span><span class="v num">${Qs.bosses}</span></div><div class="tile"><span class="k">Correct</span><span class="v num">${pct(Qs.correct, Qs.answered)}%</span><span class="s num">${Qs.correct} / ${Qs.answered}</span></div><div class="tile"><span class="k">Best streak</span><span class="v num">${Qs.bestStreak}</span></div></div>
+      ${weak ? `<p class="small"><b>Train before your next quest:</b> ${esc(weak.name)} (${weak.topic}) cost you the most hearts.</p>` : ''}
+      <div class="row"><button class="btn primary" id="quAgain">Quest Again</button><button class="btn" id="quEnd">Back to Set-up</button></div></section>${runReview(Qs.hist, 'Physics Quest', 'quPrint')}`;
+    typeset($('#runReview'));
   }
-  function tickGa() {
-    if (!GA || GA.phase !== 'run' || PZ) return;
-    const left = (GA.endAt - now()) / 1000;
-    const c = $('#gaClock'); if (c) { c.textContent = fmtClock(Math.max(0, left)); c.classList.toggle('low', left < 30); }
-    if (left <= 0) endGa();
+  function questStats() {
+    const q = S.quest || {}, runs = q.runs || [], best = Object.entries(q.best || {}).filter(([, v]) => v > 0);
+    const ans = S.log.filter(x => x.mode === 'quest'), right = ans.filter(x => x.score > 0).length;
+    return `<section class="panel" id="questStats"><h3>Your Physics Quest Stats ⚔️</h3>${runs.length ? `
+      <div class="tiles"><div class="tile"><span class="k">Quests</span><span class="v num">${runs.length}</span></div><div class="tile"><span class="k">Bosses defeated</span><span class="v num">${runs.reduce((a, r) => a + (r.bosses || 0), 0)}</span></div><div class="tile"><span class="k">Correct</span><span class="v num">${pct(right, ans.length)}%</span><span class="s num">${ans.length} rooms</span></div></div>
+      ${best.length ? `<div class="tbl-wrap"><table class="stats"><thead><tr><th>Starting hearts</th><th>Most rooms cleared</th></tr></thead><tbody>${best.map(([h, v]) => `<tr><td class="num">${h} ❤️</td><td class="num">${v}</td></tr>`).join('')}</tbody></table></div>` : ''}` : '<p class="muted">No quests yet. Your best runs for each number of hearts will appear here.</p>'}</section>`;
   }
-  function endGa() {
-    clearInterval(gaTimer); GA.phase = 'done';
-    const prev = S.gbest[GA.dur] || 0; GA.newBest = GA.score > prev && GA.score > 0; if (GA.newBest) S.gbest[GA.dur] = GA.score;
-    save(); if (currentView() === 'blitz') renderGauntlet($('#main')); renderRail();
+  const GAME_CARDS = [
+    ['quest', '⚔️', 'Physics Quest', 'An adventure through the realms of physics. Every wrong answer costs a heart; streaks earn potions, shields and hearts; beat the boss to cross each realm.'],
+    ['lms', '💀', 'Last Man Standing', 'Everyone with the same code gets the same questions. Right answers add time, wrong answers take it away. Last one standing wins.'],
+  ];
+  const gameCodeBox = () => `<section class="panel gcode"><label class="lbl" for="gcIn"><b>Have a game code?</b> <span class="muted small">Codes start MVP-G-</span></label><div class="codeform">${codeInput('gcIn', 'G', 'Game code (starts MVP-G-)')}<button class="btn primary sm" id="gcUse">Go</button></div></section>`;
+  function gameCards() {
+    return head('Games 🕹️', 'Go on a quest and challenge your class. Choose a game, or enter a code from your teacher or a friend.') + gameCodeBox() + `<div class="mode-cards">${GAME_CARDS.map(([k, ic, name, d]) => `<button type="button" class="mode-card" data-gamode="${k}"><span class="wic" aria-hidden="true">${ic}</span><b>${name}</b><span>${d}</span></button>`).join('')}
+      <div class="mode-card soon" aria-disabled="true"><span class="wic" aria-hidden="true">🎮</span><b>More Games Coming Soon…</b></div></div><p class="muted small">Your scores for each game are on its own screen and on the Stats page. Unit Analysis is now in Skills 🧰.</p>`;
   }
-  function blitzStats() {
-    const runs = S.log.filter(x => x.mode === 'gauntlet');
-    const durs = Object.keys(S.gbest).map(Number).filter(d => S.gbest[d] > 0).sort((a, b) => a - b);
-    const right = runs.filter(x => x.score > 0).length;
-    const avg = runs.length ? runs.reduce((a, x) => a + x.t, 0) / runs.length : 0;
-    return `<section class="panel"><h3>Your Blitz Stats</h3>${runs.length ? `
-      <div class="tiles"><div class="tile"><span class="k">Questions answered</span><span class="v num">${runs.length}</span></div><div class="tile"><span class="k">Correct</span><span class="v num">${pct(right, runs.length)}%</span></div><div class="tile"><span class="k">Average time</span><span class="v num">${avg < 60 ? avg.toFixed(1) + ' s' : fmtMin(avg)}</span></div></div>
-      ${durs.length ? `<div class="tbl-wrap"><table class="stats"><thead><tr><th>Time limit</th><th>Best score</th></tr></thead><tbody>${durs.map(d => `<tr><td class="num">${d} min</td><td class="num">${S.gbest[d]}</td></tr>`).join('')}</tbody></table></div>` : ''}` : '<p class="muted">No Blitz runs yet. Your best scores for each time limit will appear here.</p>'}</section>`;
+  const modeBack = (id, label) => `<div class="mode-back"><button type="button" class="btn backbtn" id="${id}"><span aria-hidden="true">←</span> ${label}</button></div>`;
+  // open a game from a code (the Enter Code box, or a code typed in Test Mode)
+  function useGameCode(v) {
+    const pc = parseCode(v);
+    if (pc && pc.cat === 'G' && pc.game === 'Q') { const c = questDecode(pc); if (!c) { toast(BAD_CODE); return false; } Object.assign(GA, { mode: 'quest', picked: true, phase: 'setup', qcode: c }); QU = null; return true; }
+    if (pc && pc.cat === 'G' && pc.game === 'S') { const c = lmsDecode(pc); if (!c) { toast(BAD_CODE); return false; } Object.assign(GA, { mode: 'lms', picked: true, phase: 'setup', lmsCode: c }); return true; }
+    toast(BAD_CODE); return false;
   }
+  function renderGames(main) {
+    if (!GA) GA = { phase: 'setup', picked: false, mode: 'quest' };
+    if (PENDING_CODE && !LM && GA.phase !== 'run') { const v = PENDING_CODE; PENDING_CODE = null; useGameCode(v); }
+    if (LM) return renderLms(main);
+    if (QU && QU.phase !== 'over' && SFX.musicOn()) SFX.music(true, QU.phase === 'room' && QU.room === QU_ROOMS, 'quest');
+    lmsTheme(); document.documentElement.classList.toggle('quest', GA.picked && GA.mode === 'quest' && !!QU);
+    if (!GA.picked) { main.innerHTML = gameCards(); return; }
+    if (GA.mode === 'lms') { main.innerHTML = modeBack('gaModes', 'All Games') + head('Last Man Standing 💀', 'Play against your class with a shared code.') + lmsSetup() + lmsStats(); return; }
+    renderQuest(main);
+  }
+  function bindGames(main) {
+    main.onchange = (e) => { if (e.target.id === 'lmsStartIn') { const v = Math.max(1, Math.min(60, Math.round(+e.target.value || 3))); S.settings.lmsStart = v; save(); renderGames(main); } };
+    main.onclick = (e) => {
+      const b = e.target.closest('button'); if (!b) return;
+      if (LM) { if (b.id === 'lmsPrint') { gameReport('lms'); return; } lmsClick(b, main); return; }
+      if (b.id === 'lmsSound') { const on = SFX.toggle(); if (on && QU && QU.phase !== 'over') { SFX.unlock(); SFX.music(true, QU.room === QU_ROOMS, 'quest'); } b.closest('.lms-sounds').outerHTML = soundBtn(); return; }
+      if (b.id === 'lmsMusic') { const on = SFX.toggleMusic(); if (on && QU && QU.phase !== 'over') { SFX.unlock(); SFX.music(true, QU.room === QU_ROOMS, 'quest'); } b.closest('.lms-sounds').outerHTML = soundBtn(); return; }
+      if (b.id === 'gcUse') { const v = $('#gcIn').value; if (routeCode(v, 'games')) return; if (useGameCode(v)) { renderRail(); renderGames(main); } return; }
+      if (b.dataset.gamode) { GA.mode = b.dataset.gamode; GA.phase = 'setup'; GA.picked = true; QU = null; renderRail(); renderGames(main); return; }
+      if (b.id === 'gaModes') { GA.picked = false; GA.phase = 'setup'; QU = null; renderRail(); renderGames(main); return; }
+      // Last Man Standing set-up
+      if (b.dataset.lmsstart) { if (b.dataset.lmsstart === 'custom') S.settings.lmsCustom = true; else { S.settings.lmsCustom = false; S.settings.lmsStart = +b.dataset.lmsstart; } save(); renderGames(main); return; }
+      if (b.id === 'lmsMake') { const c = lmsMake(); if (!c) { toast('Turn on at least one topic with Paper 1A questions.'); return; } GA.lmsCode = c; renderGames(main); return; }
+      if (b.id === 'lmsClear') { GA.lmsCode = null; renderGames(main); return; }
+      if (b.id === 'lmsCopy') { copyCode(GA.lmsCode.str); return; }
+      if (b.id === 'lmsEnter') { LM = { phase: 'ready', code: GA.lmsCode, seq: lmsSeq(GA.lmsCode) }; lmsTheme(); renderGames(main); return; }
+      // Physics Quest
+      if (b.dataset.quhearts) { quSettings().quHearts = +b.dataset.quhearts; save(); renderGames(main); return; }
+      if (b.dataset.qutimer !== undefined) { quSettings().quTimer = +b.dataset.qutimer; save(); renderGames(main); return; }
+      if (b.id === 'quMake') { const st = quSettings(); const c = questDecode(questEncode({ seed: 1 + rnd(0xffffe), hearts: st.quHearts, timer: st.quTimer, sl: !isHL(), strands: effSel() })); if (!c) { toast('Tick at least one strand with Paper 1A questions.'); return; } GA.qcode = c; renderRail(); renderGames(main); return; }
+      if (b.id === 'quClear') { GA.qcode = null; renderRail(); renderGames(main); return; }
+      if (b.id === 'quCopy') { copyCode(GA.qcode.str); return; }
+      if (b.id === 'quStart' || b.id === 'quAgain') { if (!quPool().length) { toast('Tick at least one strand with Paper 1A questions.'); return; } quStart(); renderRail(); renderGames(main); return; }
+      if (b.id === 'quEnd') { QU = null; GA.phase = 'setup'; renderRail(); renderGames(main); return; }
+      if (b.id === 'quPrint') { gameReport('quest'); return; }
+      if (!QU) return;
+      if (b.id === 'quQuit') { if (QU.phase === 'over') return; if (!b.dataset.sure) { b.dataset.sure = '1'; b.textContent = 'Click again to end the quest'; return; } quOver(true); return; }
+      if (b.id === 'quOnward' && QU.phase === 'clear') { quNextRealm(); renderGames(main); return; }
+      if (QU.phase !== 'room') return;
+      const cur = QU.cur;
+      if (b.id === 'quNext' && cur.done) { quAdvance(); renderGames(main); return; }
+      if (b.id === 'quPotion' && QU.potions && !cur.done && !cur.struck.length) { const wrong = cur.inst.options.map((_, i) => i).filter(i => i !== cur.inst.answer); cur.struck = shuffle(wrong).slice(0, 2); QU.potions--; SFX.item(); renderGames(main); return; }
+      if (b.id === 'quShield' && QU.shields && !cur.done && !cur.boss) { QU.shields--; QU.cleared++; SFX.item(); toast('🛡 The Shield carries you safely through this room.'); cur.done = true; cur.skipped = true; cur.picked = cur.inst.answer; quAdvance(); renderGames(main); return; }
+      if (b.dataset.opt !== undefined && !cur.done) { quAnswer(+b.dataset.opt); return; }
+    };
+  }
+  if (/[?&]qa\b/.test(location.search)) window.__quAns = () => (QU && QU.cur && !QU.cur.done ? QU.cur.inst.answer : -1); // browser tests only
+  const copyCode = (t) => { (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast('Code copied.'), () => toast('Select the code and copy it: ' + t)); };
   /* Last Man Standing stats: separate from Blitz Classic (1.1) */
   function lmsStats() {
     const runs = S.lmsRuns || [], ans = S.log.filter(x => x.mode === 'lms'), right = ans.filter(x => x.score > 0).length;
@@ -18189,13 +18420,13 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     if (!hist || !hist.length) return '';
     const wrong = hist.filter(h => h.picked !== h.inst.answer).length;
     return `<section class="panel lms-review run-review" id="runReview"><div class="row"><h3 style="margin:0">Review Your Run</h3><span class="spacer"></span><button class="btn sm" id="${printId}" type="button">🖨 Print Results</button></div><p class="muted small" id="runPrintStatus">${hist.length} question${hist.length > 1 ? 's' : ''} · ${hist.length - wrong} right · ${wrong} wrong${wrong ? ' (now in "Only questions I\'ve missed" in Practice)' : ''}</p>
-      ${hist.map((h, i) => { const ok = h.picked === h.inst.answer; return `<details class="solution ${ok ? 'rv-ok' : 'rv-no'}"><summary><span class="rv-mark" aria-label="${ok ? 'Right' : 'Wrong'}">${ok ? '✓' : '✗'}</span> ${i + 1}. ${esc(h.q.title)}: ${ok ? `you chose ${LETTERS[h.picked]}` : `you chose ${LETTERS[h.picked]}, answer ${LETTERS[h.inst.answer]}`}</summary><div class="qbody">${h.inst.stem}${optionsHTML(h.inst, h.picked, true)}<h4>Worked Solution</h4>${h.inst.solution}</div>${reportBox(h.q, h.seed, where)}</details>`; }).join('')}</section>`;
+      ${hist.map((h, i) => { const ok = h.picked === h.inst.answer; return `<details class="solution ${ok ? 'rv-ok' : 'rv-no'}"><summary><span class="rv-mark" aria-label="${ok ? 'Right' : 'Wrong'}">${ok ? '✓' : '✗'}</span> ${i + 1}. ${esc(h.q.title)}: ${ok ? `you chose ${h.picked === null || h.picked < 0 ? 'nothing (time ran out)' : LETTERS[h.picked]}` : `you chose ${h.picked === null || h.picked < 0 ? 'nothing (time ran out)' : LETTERS[h.picked]}, answer ${LETTERS[h.inst.answer]}`}</summary><div class="qbody">${h.inst.stem}${optionsHTML(h.inst, h.picked, true)}<h4>Worked Solution</h4>${h.inst.solution}</div>${reportBox(h.q, h.seed, where)}</details>`; }).join('')}</section>`;
   }
   const lmsReview = (L) => runReview(L.hist, 'Last Man Standing', 'lmsPrint');
   // printable results of a game run (same layout as the Test Mode results file)
   async function gameReport(kind) {
     const w = openWin('Preparing your results…'), status = $('#runPrintStatus');
-    const L = kind === 'lms' ? LM : GA; if (!L || !L.hist || !L.hist.length) { if (w) w.close(); return; }
+    const L = kind === 'lms' ? LM : QU; if (!L || !L.hist || !L.hist.length) { if (w) w.close(); return; }
     if (window.MathJax && MathJax.startup && MathJax.startup.promise) await MathJax.startup.promise;
     const items = L.hist.map(h => ({ q: h.q, inst: h.inst, answer: h.picked, time: h.dt || 0, seed: h.seed, ticks: {}, texts: {} }));
     const box = document.createElement('div'); box.style.cssText = 'position:absolute;left:-9999px;top:0;width:800px';
@@ -18203,9 +18434,9 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     try { if (window.MathJax && MathJax.typesetPromise) await MathJax.typesetPromise([box]); } catch (e) { /* keep raw LaTeX */ }
     const mjCss = (window.MathJax && MathJax.svgStylesheet) ? MathJax.svgStylesheet().textContent : '';
     const body = box.innerHTML; box.remove();
-    const right = items.filter(x => x.answer === x.inst.answer).length, title = kind === 'lms' ? 'Last Man Standing' : 'Blitz';
-    const id = kind === 'lms' ? `Code ${L.code.str}` : `${GA.dur}-minute run`, date = new Date().toLocaleString(undefined, { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-    const tiles = kind === 'lms' ? `<div><small>Survived</small><b>${fmtClock(L.survived)}</b></div><div><small>Correct</small><b>${right} / ${items.length}</b></div>${L.gaveUp ? '<div><small>Ended</small><b>Gave up</b></div>' : ''}` : `<div><small>Score</small><b>${GA.score}</b></div><div><small>Answered</small><b>${items.length}</b></div><div><small>Correct</small><b>${pct(right, items.length)}%</b></div>`;
+    const right = items.filter(x => x.answer === x.inst.answer).length, title = kind === 'lms' ? 'Last Man Standing' : 'Physics Quest';
+    const id = kind === 'lms' ? `Code ${L.code.str}` : L.code ? `Code ${L.code.str}` : `${L.startHearts}-heart quest`, date = new Date().toLocaleString(undefined, { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+    const tiles = kind === 'lms' ? `<div><small>Survived</small><b>${fmtClock(L.survived)}</b></div><div><small>Correct</small><b>${right} / ${items.length}</b></div>${L.gaveUp ? '<div><small>Ended</small><b>Gave up</b></div>' : ''}` : `<div><small>Rooms cleared</small><b>${L.cleared}</b></div><div><small>Bosses</small><b>${L.bosses}</b></div><div><small>Answered</small><b>${items.length}</b></div><div><small>Correct</small><b>${pct(right, items.length)}%</b></div>`;
     const doc = `<!doctype html>
 ${docComment(title + ' results', id)}<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MVPhysics Lab ${title.toLowerCase()} results</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700;900&display=swap"><style>${mjCss}${WS_CSS}${REP_CSS}</style></head><body>
@@ -18217,7 +18448,7 @@ ${docComment(title + ' results', id)}<html lang="en"><head><meta charset="utf-8"
 <h2>Questions, your answers and worked solutions</h2>${body}
 ${docWatermark(id)}${docFooter(id)}</body></html>`;
     const stamp = new Date().toISOString().slice(0, 10);
-    return showDoc(w, `MVPhysics-${kind === 'lms' ? 'last-man-standing' : 'blitz'}-${stamp}.html`, doc, status, '✅ Opened in a new tab with the print window: choose a printer, or Save as PDF.');
+    return showDoc(w, `MVPhysics-${kind === 'lms' ? 'last-man-standing' : 'physics-quest'}-${stamp}.html`, doc, status, '✅ Opened in a new tab with the print window: choose a printer, or Save as PDF.');
   }
   /* ---------- Last man standing 💀 ---------- */
   let LM = null, lmTimer = null, lmOverT = null;
@@ -18225,25 +18456,19 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
   // seconds; 1.5 (Mike 11 Nov): a code made in 1.5 or later locks the starting time
   const lmsCodeStart = () => (LM && LM.code && LM.code.start) || (GA && GA.lmsCode && GA.lmsCode.start) || 0;
   const lmsStart = () => Math.max(60, Math.min(3600, Math.round((lmsCodeStart() || +S.settings.lmsStart || 3) * 60)));
-  const blitzModeSeg = () => `<div class="seg blitz-mode" role="group" aria-label="Blitz mode"><button type="button" data-gamode="classic" aria-pressed="${GA.mode !== 'lms'}">Blitz ⚡</button><button type="button" data-gamode="lms" aria-pressed="${GA.mode === 'lms'}">Last Man Standing 💀</button></div>`;
   const TOPIC_ORDER = ['A.1', 'A.2', 'A.3', 'A.4', 'A.5', 'B.1', 'B.2', 'B.3', 'B.4', 'B.5', 'C.1', 'C.2', 'C.3', 'C.4', 'C.5', 'D.1', 'D.2', 'D.3', 'D.4', 'E.1', 'E.2', 'E.3', 'E.4', 'E.5', 'Skills', 'A.2+']; // append-only
   function lmsPool(c) { return Q.filter(q => q.paper === '1A' && q.reserve !== true && !(c.sl && q.hl) && qualifies(q, id => STRAND[id] && STRAND[id].live && c.topics.includes(STRAND[id].topic), c.topics.length === 1 && c.topics[0] === 'Skills')); }
+  // Last Man Standing code (MVP-G-S…): format 1, seed, bank fingerprint, SL, starting minutes, topics
   function lmsEncode(c) {
-    let big = 1n; const put = (v, b) => { big = (big << BigInt(b)) | BigInt(v); };
-    if (c.start) { put(c.sl ? 6 : 5, 3); put(c.seed & 0xfffff, 20); put(c.fp & 0x3ff, 10); put(Math.max(1, Math.min(60, c.start)), 6); } // 1.5: with the starting time (minutes)
-    else { put(c.sl ? 4 : 3, 3); put(c.seed & 0xfffff, 20); put(c.fp & 0x3ff, 10); }
-    const mask = maskBits(c.topics, CODE_TOPICS); big = (big << BigInt(mask.toString(2).length)) | mask;
-    return group('LMS', toB32(big));
+    const w = bitW(); w.put(1, 3); w.put(c.seed & 0xfffff, 20); w.put(c.fp & 0x3ff, 10); w.put(c.sl ? 1 : 0, 1); w.put(Math.max(1, Math.min(60, c.start || 3)), 6); w.mask(maskBits(c.topics, CODE_TOPICS));
+    return codeStr('G', 'S', w.big);
   }
   function lmsDecode(str) {
-    const big = fromB32(str, 'LMS'); if (big === null || big === 0n) return null;
-    const body = big.toString(2).slice(1); if (body.length < 34) return null;
-    let pos = 0; const take = (n) => { const v = parseInt(body.slice(pos, pos + n), 2) || 0; pos += n; return v; };
-    const ver = take(3); let c;
-    if (ver === 1 || ver === 2) { c = { seed: take(24), fp: take(12) }; c.topics = maskRead(body.slice(pos), TOPIC_ORDER); if (!c.topics.length || !lmsPool(c).length) return null; c.fpOk = fingerprint(lmsPool(c)) === c.fp; c.str = group('LMS', toB32(big)); }
-    else if (ver >= 3 && ver <= 6) { c = { seed: take(20), fp: take(10), sl: ver === 4 || ver === 6 }; if (ver >= 5) c.start = take(6) || 3; c.topics = maskRead(body.slice(pos), CODE_TOPICS); if (!c.topics.length || !lmsPool(c).length) return null; c.fpOk = fp10(lmsPool(c)) === c.fp; }
-    else return null;
-    if (!c.str) c.str = lmsEncode({ ...c, fp: c.fpOk ? fp10(lmsPool(c)) : c.fp }); return c;
+    const pc = typeof str === 'string' ? parseCode(str) : str; if (!pc || pc.old || pc.bad || pc.cat !== 'G' || pc.game !== 'S') return null;
+    const r = bitR(pc.big); if (!r || r.len < 41 || r.take(3) !== 1) return null;
+    const c = { seed: r.take(20), fp: r.take(10), sl: r.take(1) === 1, start: r.take(6) || 3 }; c.topics = maskRead(r.rest(), CODE_TOPICS);
+    if (!c.topics.length || !lmsPool(c).length) return null;
+    c.fpOk = fp10(lmsPool(c)) === c.fp; c.str = lmsEncode({ ...c, fp: c.fpOk ? fp10(lmsPool(c)) : c.fp }); return c;
   }
   function lmsMake() {
     const sel = effSel();
@@ -18274,7 +18499,7 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
         ${c.fpOk ? '' : '<p class="warn small">This code was made with a different version of the question bank, so your questions may not match everyone else\'s. Ask for a new code.</p>'}
         <div class="row"><button class="btn primary" id="lmsEnter">Enter 💀</button><button class="btn sm" id="lmsCopy">Copy Code</button><button class="btn sm btn-clear" id="lmsClear">Clear</button></div></div>`
       : `<p class="muted small">This mode needs a code so everyone faces the same questions. One person makes it from the topics ticked in the Topics panel and shares it.</p>
-        <div class="codeform"><input type="text" id="lmsIn" class="codein" data-prefix="LMS" value="LMS-" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Last Man Standing code (starts LMS-)"><button class="btn sm" id="lmsUse">Use Code</button><span class="muted small">or</span><button class="btn primary sm" id="lmsMake">Make a Code</button></div>`}
+        <div class="codeform">${codeInput('gcIn', 'G', 'Game code (starts MVP-G-)')}<button class="btn sm" id="gcUse">Use Code</button><span class="muted small">or</span><button class="btn primary sm" id="lmsMake">Make a Code</button></div>`}
       ${c && c.start ? `<p class="small lms-start"><b>Starting time:</b> ${c.start} min, set by the code.</p>` : `<div class="lms-start"><span class="muted small">Starting time:</span><div class="chips" role="group" aria-label="Starting time">${[3, 5, 10].map(m => `<button type="button" class="chip" data-lmsstart="${m}" aria-pressed="${!S.settings.lmsCustom && (+S.settings.lmsStart || 3) === m}">${m} min</button>`).join('')}<button type="button" class="chip" data-lmsstart="custom" aria-pressed="${!!S.settings.lmsCustom}">Custom</button></div>${S.settings.lmsCustom ? `<label class="field lms-custom"><span>Minutes (1 to 60)</span><input type="number" id="lmsStartIn" min="1" max="60" step="1" value="${+S.settings.lmsStart || 3}"></label>` : ''}</div>`}
       ${S.lmsBest ? `<p class="muted small">Your best survival time: <b class="num">${fmtClock(S.lmsBest)}</b></p>` : ''}</section>`;
   }
@@ -18304,8 +18529,20 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
     const N = (n) => 440 * Math.pow(2, (n - 69) / 12); // MIDI note to Hz
     // A minor / harmonic minor riff: creepy, loops every two bars
     const RIFF = [57, 60, 64, 57, 65, 64, 60, 59, 57, 60, 64, 57, 68, 64, 62, 59];
+    /* Physics Quest theme (1.5 push 3): an original heroic march in D major, 8 bars of eighth notes; the bass plays the bar's root.
+       The boss room plays it faster with a darker bass. Notes are MIDI numbers; 0 is a rest. */
+    const QUEST = [74, 0, 69, 74, 78, 76, 74, 69, 71, 73, 74, 76, 78, 0, 76, 0, 79, 78, 76, 74, 76, 0, 69, 0, 71, 74, 73, 71, 69, 0, 0, 0,
+      74, 0, 69, 74, 78, 76, 74, 78, 81, 0, 79, 78, 76, 0, 74, 76, 78, 79, 81, 78, 76, 74, 73, 76, 74, 0, 69, 0, 74, 0, 0, 0];
+    const QBASS = [50, 50, 43, 45, 43, 45, 43, 45, 50, 50, 47, 45, 43, 45, 50, 50];
+    function questStep(t, i, step) {
+      const n = QUEST[i % QUEST.length]; if (n) tone(N(n), t, step * 0.9, 'square', 0.045, 0, mus.bus);
+      if (i % 4 === 0) { const root = QBASS[Math.floor(i / 4) % QBASS.length] - (mus.fast ? 1 : 0); tone(N(root), t, step * 1.8, 'triangle', 0.16, 0, mus.bus); }
+      if (i % 4 === 2) tone(N(QBASS[Math.floor(i / 4) % QBASS.length] + 12), t, step * 0.8, 'triangle', 0.08, 0, mus.bus);
+      if (i % 2 === 0) tone(i % 8 === 0 ? 80 : 160, t, 0.08, i % 8 === 0 ? 'sine' : 'square', i % 8 === 0 ? 0.3 : 0.015, i % 8 === 0 ? 45 : 0, mus.bus);
+    }
     function schedule() {
       if (!mus) return;
+      if (mus.theme === 'quest') { const step = mus.fast ? 0.13 : 0.17; while (mus.next < ctx.currentTime + 0.35) { questStep(mus.next, mus.i, step); mus.next += step; mus.i++; } return; }
       const step = mus.fast ? 0.2 : 0.28;
       while (mus.next < ctx.currentTime + 0.35) {
         const t = mus.next, i = mus.i % RIFF.length;
@@ -18326,13 +18563,19 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
         [[67, 0], [66, 0.32], [65, 0.64], [64, 0.96]].forEach(([n, d]) => tone(N(n), t + d, n === 64 ? 1.4 : 0.3, 'square', 0.18, n === 64 ? N(52) : 0));
         tone(N(40), t + 0.96, 1.6, 'sawtooth', 0.12, N(28));
       },
-      music(start, fast) {
+      // Physics Quest effects
+      heal() { if (!on() || !ac()) return; const t = ctx.currentTime; [72, 76, 79, 84].forEach((n, k) => tone(N(n), t + k * 0.07, 0.16, 'square', 0.1)); },
+      item() { if (!on() || !ac()) return; const t = ctx.currentTime; [83, 88].forEach((n, k) => tone(N(n), t + k * 0.09, 0.18, 'triangle', 0.16)); },
+      boss() { if (!on() || !ac()) return; const t = ctx.currentTime; [[50, 0], [49, 0.25], [48, 0.5], [47, 0.75]].forEach(([n, d]) => tone(N(n), t + d, 0.3, 'sawtooth', 0.12)); },
+      fanfare() { if (!on() || !ac()) return; const t = ctx.currentTime; [[74, 0, 0.12], [74, 0.13, 0.12], [74, 0.26, 0.12], [78, 0.4, 0.3], [76, 0.72, 0.15], [78, 0.88, 0.15], [81, 1.04, 0.6]].forEach(([n, d, l]) => { tone(N(n), t + d, l, 'square', 0.12); tone(N(n - 12), t + d, l, 'triangle', 0.1); }); },
+      music(start, fast, theme = 'lms') {
         if (!start || !on() || S.settings.lmsMusic === false) { if (mus) { clearInterval(mus.tm); try { mus.bus.gain.setTargetAtTime(0.0001, ctx.currentTime, 0.15); mus.low.gain.setTargetAtTime(0.0001, ctx.currentTime, 0.15); } catch (e) { /* ignore */ } mus = null; } return; }
         if (!ac()) return;
+        if (mus && mus.theme !== theme) { clearInterval(mus.tm); try { mus.bus.gain.setTargetAtTime(0.0001, ctx.currentTime, 0.05); mus.low.gain.setTargetAtTime(0.0001, ctx.currentTime, 0.05); } catch (e) { /* ignore */ } mus = null; }
         if (mus) { mus.fast = !!fast; return; }
         const bus = ctx.createGain(); bus.gain.value = 1; bus.connect(master);
         const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 320; const low = ctx.createGain(); low.gain.value = 1; low.connect(lp); lp.connect(master);
-        mus = { bus, low, i: 0, next: ctx.currentTime + 0.05, fast: !!fast }; mus.tm = setInterval(schedule, 90); schedule();
+        mus = { bus, low, i: 0, next: ctx.currentTime + 0.05, fast: !!fast, theme }; mus.tm = setInterval(schedule, 90); schedule();
       },
       toggle() { S.settings.lmsSound = !on(); save(); if (!on()) this.music(false); return on(); },
       // 1.5 (Mike 11 Nov): background music can be muted on its own; game-over and other effects keep playing
@@ -18401,7 +18644,7 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
     const L = LM;
     if (b.id === 'lmsSound') { const on = SFX.toggle(); if (on) { SFX.unlock(); if (L.phase === 'run') SFX.music(true); } b.closest('.lms-sounds').outerHTML = soundBtn(); return; }
     if (b.id === 'lmsMusic') { const on = SFX.toggleMusic(); if (on && L.phase === 'run') { SFX.unlock(); SFX.music(true); } b.closest('.lms-sounds').outerHTML = soundBtn(); return; }
-    if (b.id === 'lmsLeave' || b.id === 'lmsEnd') { SFX.music(false); clearInterval(lmTimer); clearTimeout(lmOverT); LM = null; GA.phase = 'setup'; lmsTheme(); renderGauntlet(main); return; }
+    if (b.id === 'lmsLeave' || b.id === 'lmsEnd') { SFX.music(false); clearInterval(lmTimer); clearTimeout(lmOverT); LM = null; GA.phase = 'setup'; lmsTheme(); renderGames(main); return; }
     if (b.id === 'lmsReady' || b.id === 'lmsRestart') { lmsStartRun(); return; }
     if (b.id === 'lmsGiveUp' && L.phase === 'run') { $('#lmsConfirm').innerHTML = '<div class="confirm"><span>Give up this run? It ends now and will not count as a best time.</span><div class="row"><button class="btn primary" id="lmsGiveYes">Give Up</button><button class="btn" id="lmsGiveNo">Keep Going</button></div></div>'; return; }
     if (b.id === 'lmsGiveNo') { $('#lmsConfirm').innerHTML = ''; return; }
@@ -18418,15 +18661,16 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
   /* ======================= UNIT DETECTIVE 🔍 (1.3) =======================
      Five cases about units; answers are computed from dimension vectors in zz-units.js. Investigation: 10 clues, untimed, feedback each time.
      The Chase: timed, wrong answers cost 10 seconds. Uses the Topics panel to choose which quantities and equations appear. */
-  let UD = null, UDC = null, UDR = null; // UDC: shared Unit Detective code; UDR: its seeded random generator during a game
-  const udRand = () => (UDR ? UDR() : Math.random());
+  /* 1.5 push 3 (Mike 11 Nov): Unit Detective moved to Skills as Unit Analysis, with no codes. Quantities and equations come from every topic at the student's level. */
+  let UD = null;
+  const udRand = () => Math.random();
   const ushuffle = (arr) => { const x = arr.slice(); for (let i = x.length - 1; i > 0; i--) { const j = Math.floor(udRand() * (i + 1)); [x[i], x[j]] = [x[j], x[i]]; } return x; };
   const UD_SUP = { '-': '−' };
   const udVec = (form) => { const v = [0, 0, 0, 0, 0, 0]; String(form).trim().split(/\s+/).filter(Boolean).forEach(tok => { const [sym, e] = tok.split('^'); const d = UD_SYM[sym]; if (!d) throw new Error('UD symbol ' + sym); const x = e === undefined ? 1 : +e; d.forEach((k, i) => { v[i] += k * x; }); }); return v.map(x => Math.round(x * 1000) / 1000); };
   const udSame = (a, b) => a.every((x, i) => Math.abs(x - b[i]) < 1e-9);
   const udFmt = (v) => { const parts = v.map((x, i) => x === 0 ? '' : x === 1 ? UD_BASE[i] : `${UD_BASE[i]}<sup>${String(x).replace('-', '−')}</sup>`).filter(Boolean); return parts.length ? parts.join(' ') : 'no units'; };
-  const udTopicOK = (tid) => { const t = TOPICS.find(x => x.id === tid); if (!t) return true; if ((UDC ? UDC.sl : !isHL()) && topicHL(t)) return false; return true; };
-  const udTopicOn = (tid) => { const t = TOPICS.find(x => x.id === tid); if (!t) return true; if (UDC) return UDC.topics.includes(tid); return t.strands.some(s => S.settings.sel.includes(s.id) && levelOK(s.id)); };
+  const udTopicOK = (tid) => { const t = TOPICS.find(x => x.id === tid); if (!t) return true; if (!isHL() && topicHL(t)) return false; return true; };
+  const udTopicOn = () => true;
   const UD_WHY = { N: '$F = ma$: kg × m s<sup>−2</sup>.', J: '$W = Fs$: N × m = kg m s<sup>−2</sup> × m.', W: '$P = E/t$: J ÷ s.', Pa: '$P = F/A$: N ÷ m<sup>2</sup>.', C: '$Q = It$: A × s.',
     V: '$V = W/q$: J ÷ C = kg m<sup>2</sup> s<sup>−2</sup> ÷ (A s).', ohm: '$R = V/I$: V ÷ A.', T: '$F = qvB$, so $B = F/qv$: N ÷ (C × m s<sup>−1</sup>).', Wb: '$\\Phi = BA$: T × m<sup>2</sup>.', VA: 'V A = W (as $P = IV$).', Ns: 'Impulse = change in momentum: N s = kg m s<sup>−1</sup>.', Nm: 'N m has the same base units as the joule, but torque is not energy.' };
   // build every item for a case (unfiltered); each item: { id, cs, topic, hard, prompt, opts[], ans, why }
@@ -18488,16 +18732,16 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
     const u = S.ud || {}; const runs = u.runs || [], cs = u.cases || {};
     const rows = UD_CASES.map(([id, n, name, skill]) => { const [r, t] = cs[id] || [0, 0]; return t ? `<tr><td>Case ${n} · ${name} <span class="muted small">${skill}</span></td><td class="num">${r}/${t}</td><td style="min-width:110px"><div class="bar good"><i style="width:${pct(r, t)}%"></i></div></td><td class="num">${pct(r, t)}%</td></tr>` : ''; }).join('');
     const best = Object.entries(u.best || {}).filter(([, v]) => v > 0);
-    return `<section class="panel" id="udStats"><h3>Your Unit Detective Stats 🔍</h3>${runs.length ? `
+    return `<section class="panel" id="udStats"><h3>Your Unit Analysis Stats 🔍</h3>${runs.length ? `
       <div class="tiles"><div class="tile"><span class="k">Cases played</span><span class="v num">${runs.length}</span></div><div class="tile"><span class="k">Clues solved</span><span class="v num">${runs.reduce((a, r) => a + r.right, 0)}</span><span class="s num">of ${runs.reduce((a, r) => a + r.n, 0)}</span></div><div class="tile"><span class="k">Best chase</span><span class="v num">${best.length ? Math.max(...best.map(b => b[1])) : '–'}</span><span class="s">${best.map(([d, v]) => `${d} min: ${v}`).join(' · ') || 'no chases yet'}</span></div></div>
       ${rows ? `<div class="tbl-wrap"><table class="stats"><thead><tr><th>Case</th><th>Solved</th><th></th><th></th></tr></thead><tbody>${rows}</tbody></table></div>` : ''}` : '<p class="muted">No cases yet. Open your first case file above.</p>'}</section>`;
   }
   function renderDetective(main) {
     lmsTheme();
     const st = udSettings();
-    const headD = `<div class="ud-head"><div class="ud-badge" aria-hidden="true">🔍</div><div><h2>Unit Detective</h2><p>Every equation leaves clues in its units. Follow them.</p></div></div>`;
+    const headD = `<div class="ud-head"><div class="ud-badge" aria-hidden="true">🔍</div><div><h2>Unit Analysis</h2><p>Every equation leaves clues in its units. Follow them.</p></div></div>`;
     if (!UD || UD.phase === 'setup') {
-      main.innerHTML = modeBack('gaModes', 'All Games') + headD + `<section class="panel ud-desk">
+      main.innerHTML = modeBack('skModes', 'All Skills') + headD + `<section class="panel ud-desk">
         <h3>Your Case Files</h3>
         <p class="small">Every investigation mixes all five kinds of clue:</p>
         <ul class="ud-skills">${UD_CASES.map(([id, n, name, skill, d]) => `<li><span class="udskill">${skill}</span> <b>${name}</b> <span class="muted">${d}</span></li>`).join('')}</ul>
@@ -18507,9 +18751,7 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
           <button type="button" class="ud-mode" data-udmode="chase" aria-pressed="${st.udMode === 'chase'}"><b>🏃 The Chase</b><span>Solve as many clues as you can before time runs out. A wrong answer costs 10 seconds; harder clues come as your streak grows.</span></button>
         </div>
         ${st.udMode === 'chase' ? `<div class="row ud-dur"><span class="muted small">Time:</span>${[2, 3, 5].map(m => `<button type="button" class="chip" data-uddur="${m}" aria-pressed="${st.udDur === m}">${m} min</button>`).join('')}</div>` : ''}
-        <p class="muted small">Quantities and equations come from the topics ticked in the Topics panel (all topics if too few are ticked).</p>
-        ${codeRow('ud', 'UD', UDC, 'Everyone with this code gets the same clues in the same order.')}
-        ${UDC ? `<p class="small"><b>Set by the code:</b> ${UDC.mode === 'chase' ? `The Chase, ${UDC.dur} min` : 'Investigation'}.</p>` : ''}
+        <p class="muted small">Quantities and equations come from every topic at your level (${isHL() ? 'HL' : 'SL'}).</p>
         <div class="row"><button class="btn primary" id="udGo">Open the Case</button></div></section>` + udStats();
       return;
     }
@@ -18529,14 +18771,13 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
       <div class="ud-prompt">${q.prompt}</div>
       <div class="ud-opts${q.opts.length === 2 ? ' two' : ''}">${q.opts.map((o, i) => `<button type="button" class="ud-opt${answered ? (i === q.ans ? ' right' : i === UD.picked ? ' wrong' : '') : ''}" data-udopt="${i}" ${answered ? 'disabled' : ''}>${o}</button>`).join('')}</div>
       ${answered ? `<div class="ud-verdict ${UD.picked === q.ans ? 'good' : 'bad'}" role="status"><b>${UD.verdict}</b> <span>${q.why}</span></div>
-      <div class="row"><button class="btn primary" id="udNext">${UD.mode === 'inv' && UD.n >= 10 ? 'See the Verdict' : 'Next Clue'}</button></div>${reportBoxFor('ud', q.id, '', 'Unit Detective')}` : ''}</section>`;
+      <div class="row"><button class="btn primary" id="udNext">${UD.mode === 'inv' && UD.n >= 10 ? 'See the Verdict' : 'Next Clue'}</button></div>${reportBoxFor('ud', q.id, '', 'Unit Analysis')}` : ''}</section>`;
     typeset(main);
   }
   function udStart() {
     const st = udSettings();
-    UDR = UDC ? mulberry(UDC.seed) : null;
     const ALL = UD_CASES.map(c => c[0]); // 1.4 (9 Nov): every case is always on and mixed together
-    const cfg = UDC ? { mode: UDC.mode, dur: UDC.dur, cases: ALL } : { mode: st.udMode, dur: st.udDur, cases: ALL };
+    const cfg = { mode: st.udMode, dur: st.udDur, cases: ALL };
     UD = { phase: 'play', mode: cfg.mode, dur: cfg.dur, cases: ushuffle(cfg.cases), n: 0, right: 0, streak: 0, bestStreak: 0, used: new Set(), hist: [], q: null, picked: null };
     udNext();
     if (UD.mode === 'chase') { UD.end = now() + UD.dur * 60000; UD.tm = setInterval(udTick, 250); }
@@ -18552,16 +18793,12 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
     S.ud.runs.push({ ts: now(), mode: UD.mode, dur: UD.mode === 'chase' ? UD.dur : 0, n: UD.n, right: UD.right }); if (S.ud.runs.length > 200) S.ud.runs.splice(0, S.ud.runs.length - 200);
     if (UD.mode === 'chase' && UD.right > (S.ud.best[UD.dur] || 0)) { S.ud.best[UD.dur] = UD.right; UD.newBest = true; }
     markDay(); save();
-    const main = $('#main'); if (currentView() === 'blitz' && main) renderDetective(main);
+    const main = $('#main'); if (currentView() === 'skills' && main) renderDetective(main);
   }
   function udClick(b, main) {
     const st = udSettings();
     if (b.dataset.udmode) { st.udMode = b.dataset.udmode; save(); renderDetective(main); return true; }
     if (b.dataset.uddur) { st.udDur = +b.dataset.uddur; save(); renderDetective(main); return true; }
-    if (b.id === 'udUse') { const v = $('#udIn').value, wk = wrongKind(v, 'UD'); if (wk) { toast(wk); return true; } const c = udDecode(v); if (!c) { toast("That code isn't valid. Check it and try again."); return true; } UDC = c; renderDetective(main); return true; }
-    if (b.id === 'udClear') { UDC = null; renderDetective(main); return true; }
-    if (b.id === 'udCopy') { const t = UDC.str; (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast('Code copied.'), () => toast('Select the code and copy it: ' + t)); return true; }
-    if (b.id === 'udMake') { const topics = TOPICS.filter(t => t.strands.some(x => S.settings.sel.includes(x.id) && levelOK(x.id))).map(t => t.id).filter(t => CODE_TOPICS.includes(t)); const c = { seed: 1 + rnd(0xffffe), cases: UD_CASES.map(x => x[0]), mode: st.udMode, dur: st.udDur, sl: !isHL(), topics }; UDC = udDecode(udEncode(c)); renderDetective(main); return true; }
     if (b.id === 'udGo' || b.id === 'udAgain') { udStart(); renderDetective(main); return true; }
     if (b.id === 'udSetup') { UD = null; renderDetective(main); return true; }
     if (b.id === 'udQuit') { if (UD && UD.phase === 'play') { if (UD.picked === null && UD.mode === 'inv' && UD.n === 0) { clearInterval(UD.tm); UD = null; renderDetective(main); return true; } udFinish(); } return true; }
@@ -18577,62 +18814,6 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
     if (b.id === 'udNext' && UD) { if (UD.mode === 'inv' && UD.n >= 10) { udFinish(); return true; } udNext(); renderDetective(main); return true; }
     return false;
   }
-  function bindGauntlet(main) {
-    main.onchange = (e) => { if (e.target.dataset && e.target.dataset.udcase) { const st = udSettings(), id = e.target.dataset.udcase; st.udCases = e.target.checked ? [...new Set([...st.udCases, id])] : st.udCases.filter(x => x !== id); if (!st.udCases.length) { st.udCases = [id]; e.target.checked = true; toast('Keep at least one case file.'); } save(); return; } if (e.target.id === 'lmsStartIn') { const v = Math.max(1, Math.min(60, Math.round(+e.target.value || 3))); S.settings.lmsStart = v; save(); renderGauntlet(main); return; } if (e.target.id === 'gaDur') { const w = $('#gaCustomWrap'); if (w) w.hidden = e.target.value !== 'custom'; if (e.target.value === 'custom') $('#gaCustom').focus(); } };
-    main.onclick = (e) => {
-      const b = e.target.closest('button'); if (!b) return;
-      if (LM) { if (b.id === 'lmsPrint') { gameReport('lms'); return; } lmsClick(b, main); return; }
-      if (GA && GA.picked && GA.mode === 'detective' && b.id !== 'gaModes' && udClick(b, main)) return;
-      if (b.dataset.lmsstart) { if (b.dataset.lmsstart === 'custom') S.settings.lmsCustom = true; else { S.settings.lmsCustom = false; S.settings.lmsStart = +b.dataset.lmsstart; } save(); renderGauntlet(main); return; }
-      if (b.dataset.gamode) { GA.mode = b.dataset.gamode; GA.phase = 'setup'; GA.picked = true; renderRail(); renderGauntlet(main); return; }
-      if (b.id === 'gaModes') { if (UD) { clearInterval(UD.tm); UD = null; } GA.picked = false; GA.phase = 'setup'; renderRail(); renderGauntlet(main); return; }
-      if (b.id === 'lmsMake') { const c = lmsMake(); if (!c) { toast('Turn on at least one topic with Paper 1A questions.'); return; } GA.lmsCode = c; renderGauntlet(main); return; }
-      if (b.id === 'lmsUse') { const wk = wrongKind($('#lmsIn').value, 'LMS'); if (wk) { toast(wk); return; } const c = lmsDecode($('#lmsIn').value); if (!c) { toast("That code isn't valid. Check it and try again."); return; } GA.lmsCode = c; renderGauntlet(main); return; }
-      if (b.id === 'lmsClear') { GA.lmsCode = null; renderGauntlet(main); return; }
-      if (b.id === 'lmsCopy') { const t = GA.lmsCode.str; (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast('Code copied.'), () => toast('Select the code and copy it: ' + t)); return; }
-      if (b.id === 'lmsEnter') { LM = { phase: 'ready', code: GA.lmsCode, seq: lmsSeq(GA.lmsCode) }; lmsTheme(); renderGauntlet(main); return; }
-      if (b.id === 'blzUse') { const v = $('#blzIn').value, wk = wrongKind(v, 'BLZ'); if (wk) { toast(wk); return; } const c = blzDecode(v); if (!c) { toast("That code isn't valid. Check it and try again."); return; } GA.code = c; renderRail(); renderGauntlet(main); return; }
-      if (b.id === 'blzClear') { GA.code = null; GA.rng = null; renderRail(); renderGauntlet(main); return; }
-      if (b.id === 'blzCopy') { const t = GA.code.str; (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast('Code copied.'), () => toast('Select the code and copy it: ' + t)); return; }
-      if (b.id === 'blzMake') {
-        const sel = $('#gaDur').value, maxMin = gaPool().length * 2, want = sel === 'custom' ? +$('#gaCustom').value : sel === 'max' ? maxMin : +sel;
-        if (!(want >= 3 && want <= Math.min(120, maxMin) && Number.isInteger(want))) { toast('Choose a time limit first (3 to ' + Math.min(120, maxMin) + ' minutes).'); return; }
-        const c = { seed: 1 + rnd(0xffffe), dur: want, sl: !isHL(), linked: 'off', strands: effSel() }; c.str = blzEncode(c); GA.code = blzDecode(c.str); renderGauntlet(main); return;
-      }
-      if (b.id === 'gaStart' || b.id === 'gaAgain') {
-        if (GA.code) { GA.dur = GA.code.dur; GA.rng = mulberry(GA.code.seed); } else GA.rng = null;
-        if (b.id === 'gaStart' && !GA.code) {
-          const sel = $('#gaDur').value, maxMin = gaPool().length * 2;
-          const want = sel === 'custom' ? +$('#gaCustom').value : sel === 'max' ? maxMin : +sel;
-          const err = $('#gaErr');
-          if (!(want >= 3 && want <= maxMin && Number.isInteger(want))) {
-            err.className = 'warn small';
-            err.textContent = maxMin < 3 ? 'Your selection has too few questions for a Blitz. Tick more strands in "Questions".'
-              : `The time limit must be a whole number from 3 to ${maxMin} minutes (2 minutes per question type in your selection). Please choose again.`;
-            (sel === 'custom' ? $('#gaCustom') : $('#gaDur')).focus(); return;
-          }
-          GA.custom = sel === 'custom'; GA.durSel = sel; GA.dur = want;
-        }
-        Object.assign(GA, { phase: 'run', score: 0, answered: 0, streak: 0, recent: [], missedList: [], hist: [], endAt: now() + GA.dur * 60000, newBest: false });
-        gaPick(); clearInterval(gaTimer); gaTimer = setInterval(tickGa, 250); renderGauntlet(main); return;
-      }
-      if (b.id === 'gaSetup') { GA.phase = 'setup'; renderGauntlet(main); return; }
-      if (b.id === 'gaPrint') { gameReport('blitz'); return; }
-      if (b.id === 'lmsPrint') { gameReport('lms'); return; }
-      if (b.id === 'gaQuit') { endGa(); return; }
-      if (b.dataset.opt !== undefined && GA.phase === 'run' && GA.cur.picked === null) {
-        const cur = GA.cur; cur.picked = +b.dataset.opt; const ok = cur.picked === cur.inst.answer;
-        GA.answered++;
-        cur.dt = now() - cur.t0; GA.hist.push(cur); if (ok) { GA.score++; GA.streak++; } else { GA.streak = 0; GA.endAt -= 15000; GA.missedList.push(cur); addMissed(cur.q.id); }
-        logAttempt(cur.q, ok ? 1 : 0, (now() - cur.t0) / 1000, 'gauntlet');
-        $$('.opt', main).forEach((o, i) => { o.disabled = true; if (i === cur.inst.answer) o.classList.add('correct'); else if (i === cur.picked) o.classList.add('wrong'); });
-        const sh = $('#sheet'); sh.classList.add(ok ? 'flash-ok' : 'flash-no');
-        if (!ok) toast('−15 s');
-        setTimeout(() => { if (GA.phase === 'run') { gaPick(); renderGauntlet(main); } }, ok ? 650 : 1500);
-      }
-    };
-  }
-
   /* ======================= RECALL ======================= */
   let RC = null;
   // FE2025/FE2028 toggle (1.2): items tagged fe28 are content unique to FE2028; untagged items apply to both
@@ -19031,7 +19212,7 @@ ${docWatermark('')}${docFooter('')}</body></html>`;
   /* ======================= STATS ======================= */
   function renderStats(main) {
     const L = S.log;
-    const timed = L.filter(x => x.mode !== 'gauntlet' && x.t > 3 && x.t < x.marks * rate(x.paper, x.lvl) * 60 * 6);
+    const timed = L.filter(x => x.mode !== 'gauntlet' && x.mode !== 'quest' && x.t > 3 && x.t < x.marks * rate(x.paper, x.lvl) * 60 * 6);
     const marks = L.reduce((a, x) => a + x.marks, 0), got = L.reduce((a, x) => a + x.score, 0);
     const cards = CARDS.filter(c => S.cards[c.id]);
     const mature = cards.filter(c => S.cards[c.id].ivl >= 21).length;
@@ -19073,7 +19254,7 @@ ${docWatermark('')}${docFooter('')}</body></html>`;
       <section class="panel" id="gradeBands"><h3>Estimated DP Grade Boundaries</h3>
         <p class="muted small">Test Mode estimates your grade from the percentage you score, using these approximate minimums. They are typical of recent IB DP Physics sessions, not official FE2025 boundaries: real boundaries are set each session and include the IA, so use them as a guide only.</p>
         <div class="tbl-wrap"><table class="stats"><thead><tr><th>Level</th>${[7, 6, 5, 4, 3, 2, 1].map(g => `<th class="num">${g}</th>`).join('')}</tr></thead><tbody>${['SL', 'HL'].map(l => `<tr><td><span class="lvl-${l.toLowerCase()}">${l}</span></td>${GRADE_BANDS[l].map(v => `<td class="num">${v}%</td>`).join('')}<td class="num">0%</td></tr>`).join('')}</tbody></table></div></section>`}
-      ${tab !== 'games' ? '' : (blitzStats() + lmsStats() + (typeof udStats === 'function' ? udStats() : '')) || '<section class="panel"><h3>Games</h3><p class="muted">Play a game to see your scores here.</p></section>'}
+      ${tab !== 'games' ? '' : (questStats() + lmsStats() + udStats()) || '<section class="panel"><h3>Games</h3><p class="muted">Play a game to see your scores here.</p></section>'}
       <section class="panel backup-box"><h3>Move or Back Up Your Progress</h3><p class="muted small">Progress lives in this browser only. Copy the backup code and paste it into the box on another device to continue there.</p>
         <div class="row"><button class="btn" id="bkCopy">Copy Backup Code</button><button class="btn" id="bkShow">Restore from a Code</button><span class="spacer"></span><button class="btn danger" id="rsAsk">Reset All Progress</button></div>
         <div id="bkArea"></div></section>`;
@@ -19461,7 +19642,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     { v: '1.1 Beta', d: '3 November 2026', m: 'Claude Opus 5.5', items: ['Games and Recall now open with cards for each mode and a short description; inside a mode, “← All games” or “← All recall modes” takes you back.', 'The offline copy shows an OFFLINE badge next to the version, with a tooltip explaining it.', 'New Welcome page: a quick guide to every mode, a short tour, and how to use the site for revision. Click the MVPhysics heading at any time to come back to it.', 'Blitz is now part of Games 🕹️, with two modes so far: Blitz and Last Man Standing. More game modes will follow.', '“Only questions I’ve missed” is now at the top of the question panel in Practice and highlighted when you have missed questions to practise (it now applies to Practice only; Exam Mode always uses your full selection).', 'Stats: a Last Man Standing best tile; Blitz average time to 0.1 s.', 'The version is shown in the badge (BETA 1.1), and the Claude model used for each build is listed in this revision history.', 'Fixed: flashcards scrolled sideways on phones.', 'Last Man Standing: a Give up button (with a check first); a run you give up does not count as a best time.', 'Last Man Standing: after every run, a review of each question you answered, right or wrong, with the worked solution. Wrong answers go into "Only questions I\'ve missed".', 'Last Man Standing has its own stats (runs, best survival, recent runs), separate from Blitz Classic, so the Blitz stats now show the right mode.', 'Notes and Recall: the All and None buttons stay together.', 'Removed Saved selections from the question panel.', 'Solutions for radiated intensity now start from the data booklet equation L = σAT⁴ (or eσAT⁴).', 'FE2028 percentage error, difference and change equations shown as separate equations.'] },
     { v: '1.2 Beta', d: '4 November 2026', m: 'Claude Opus 5.5', items: ['The site is now called <b>MVPhysics Lab</b>, with a new address: <b>mvpoirier.github.io/mvphysics/</b>. The old revision-lab address takes you there automatically, and your saved progress carries over. A 🏆 now shows on the browser tab.', 'The site address (with nothing after it) now always opens the Welcome page. Links to a page, such as …/#practice or …/#games, still open that page.', 'The Welcome page is simpler: the welcome message, what’s here and how to revise. The start buttons, level switch and tour are gone (use SL/HL at the top of the page).', 'Printed papers look like IB exams: answer boxes with a border and dotted lines. With “IB-style test” ticked, the order is cover sheet (topics, marks, time, instructions, class code), Paper 1A answer sheet (always 40 rows), Paper 1A, Paper 1B, Paper 2, then the markschemes, starting with the answer sheet with the correct answers crossed.', 'Games: Blitz now ends with a review of every question you answered, with worked solutions, and both Blitz and Last Man Standing can print their results.', 'The Print buttons open the paper or results in a new tab with the print window already open: choose a printer, or Save as PDF.', 'Printed tests: no site name on the cover; the class code appears only on the markscheme pages; the answer sheet lists the topics; and a one-page question overview (topics, strand, difficulty and marks for every question) comes before the markschemes.', 'Last Man Standing: choose the starting time (3, 5 or 10 minutes, or your own).', 'New Syllabus toggle (FE2025 / FE2028) in the Questions panel and in Recall. FE2025 is on by default; FE2028 adds content that is new for exams from May 2028, tagged FE2028.', 'Game stats are now on each game’s own screen and on the Stats page.', 'More resources on precision, accuracy, percentage error and percentage difference; more solutions now start from the data booklet equation.'] },
     { v: '1.3 Beta', d: '5 November 2026', m: 'Claude Opus 5.5', items: ['New game: <b>Unit Detective 🔍</b>. Five case files on units: The Mystery Quantity (identify), Down to the Bones (SI base units), The Scales of Justice (is the equation homogeneous?), The Impostor Equation (the one formula that could be right) and The Deduction (predict a formula from units alone). Play an untimed Investigation of 10 clues, or The Chase against the clock. Harder “case file” clues include constants such as σ, G, μ<sub>0</sub> and ε<sub>0</sub>.', 'The side panel is now called <b>Topics</b> and appears in Recall and Notes too. One selection is shared by every mode; the topic chips at the top of Recall and Notes are gone.', 'Command terms: a switch at the top of the Topics panel in Recall and Notes. Notes now has a Command terms section, grouped by assessment objective, with worked examples of which answer earns the marks.', 'Stats has section buttons: Practice, Exam, Games and Recall. Unit Detective scores are under Games.', 'The space above the footer is the same on every page.', '“← All Games” and “← All Recall Modes” are now buttons. The backup box in Stats has its own colour.', 'Clearer feedback links: <b>🚩 Report a Problem</b> under each question, card and note; <b>💬 Send Feedback</b> in the footer on every page.', 'Headings and buttons use Title Case.', 'Unit Detective uses the same look as the rest of the site.', 'New address: <b>mvpoirier.github.io/physics-lab/</b>. Old links (…/mvphysics/ and …/revision-lab/) still work and your progress carries over.', 'Stats opens straight on its sections (the summary cards at the top are gone). Reset All Progress is a red button.', 'About: the revision history starts collapsed, with one group per major Beta version and a short summary of the Alpha builds.'] },
-    { v: '1.5 Beta', d: '11 November 2026', m: 'Claude Opus 5.5', items: ['<b>Test-only questions:</b> about a quarter of each strand’s Paper 1A questions now appear only in Test Mode, so tests have questions students have not practised. Teachers choose whether a test uses them (first, then topped up from Practice questions).', 'Test Mode codes are <b>Online</b> or <b>Printable</b>; online codes can allow or block <b>retakes</b> on the same device.', 'New <b>Skills 🧰</b> section: a Significant Figures drill and Graphing practice (gradients, intercepts, uncertainty), built from Mr Poirier’s SSP guide and tasks.', 'Clicking Games, Recall or Skills in the top bar takes you back to its list; clearer back buttons.', 'Ten questions that never changed now have new values or versions. Practice’s Pace coach fills with time like Test Mode.', 'Notes: Electronics 101 links for circuits (B.5) and AC (D.4); shorter names in the Topics panel; the FE2028 card has an arrow like the other notes.', '<b>Mr Poirier’s notes</b> in Notes for Skills, A.1–A.5 and B.1–B.5 (his tips and conventions), and a <b>TOK &amp; NOS</b> box for every topic, with stories (Millikan, the 1919 eclipse, false colour) and links.', 'About 75 new questions from Mr Poirier’s practice questions and labs (A.1–B.5 and Skills), a new <b>Nature of Science</b> strand in Skills with questions and Recall cards, three new Paper 1B labs, and new versions of the skydiver question.', '<b>Linked topics</b> are now a Test Mode option for teachers; half of the linked questions are test-only. Test Mode shows how many questions are test-only.', 'Last Man Standing: class codes set the starting time; a music-only mute; fixed maths that sometimes showed as raw code when answering quickly.'] },
+    { v: '1.5 Beta', d: '11 November 2026', m: 'Claude Opus 5.5', items: ['<b>Test-only questions:</b> about a quarter of each strand’s Paper 1A questions now appear only in Test Mode, so tests have questions students have not practised. Teachers choose whether a test uses them (first, then topped up from Practice questions).', 'Test Mode codes are <b>Online</b> or <b>Printable</b>; online codes can allow or block <b>retakes</b> on the same device.', 'New <b>Skills 🧰</b> section: a Significant Figures drill and Graphing practice (gradients, intercepts, uncertainty), built from Mr Poirier’s SSP guide and tasks.', 'Clicking Games, Recall or Skills in the top bar takes you back to its list; clearer back buttons.', 'Ten questions that never changed now have new values or versions. Practice’s Pace coach fills with time like Test Mode.', 'Notes: Electronics 101 links for circuits (B.5) and AC (D.4); shorter names in the Topics panel; the FE2028 card has an arrow like the other notes.', '<b>Mr Poirier’s notes</b> in Notes for Skills, A.1–A.5 and B.1–B.5 (his tips and conventions), and a <b>TOK &amp; NOS</b> box for every topic, with stories (Millikan, the 1919 eclipse, false colour) and links.', 'About 75 new questions from Mr Poirier’s practice questions and labs (A.1–B.5 and Skills), a new <b>Nature of Science</b> strand in Skills with questions and Recall cards, three new Paper 1B labs, and new versions of the skydiver question.', '<b>Linked topics</b> are now a Test Mode option for teachers; half of the linked questions are test-only. Test Mode shows how many questions are test-only.', 'Last Man Standing: class codes set the starting time; a music-only mute; fixed maths that sometimes showed as raw code when answering quickly.', '<b>Physics Quest ⚔️</b> replaces Blitz: an adventure through the realms of physics with 3, 5 or 10 hearts, potions, shields, a boss room in every realm, an optional room timer, original pixel art and music (with music and sound mutes).', '<b>Unit Analysis 🔍</b> (was Unit Detective) is now in Skills.', '<b>New codes:</b> every code starts MVP-. Test Mode codes are MVP-T-…, game codes are MVP-G-… and can be entered at the top of Games; a code typed in the wrong place opens the right one. Older codes no longer work.'] },
     { v: '1.4 Beta', d: '6–9 November 2026', m: 'Claude Opus 5.5', items: ['<b>Test Mode</b> (was Exam Mode) is set by your teacher: students enter a class code, and the code decides the test.', 'Teacher options for codes: online or printable, cover sheet, answer booklet, markscheme, results printing; Paper 1A capped at 40 questions; printouts named after the code.', 'During a test: a pace bar that fills with time, red lines for the 30, 15 and 5 minute alerts, a 🔔 mute button, a red Finish Paper button and a Pace timer switch.', '<b>Linked topics</b> (Off, Include, Only) and shareable codes for Blitz (BLZ-) and Unit Detective (UD-).', '<b>42 new questions</b> on the mistakes IB examiners reported in 2025, with new question styles.', 'Notes: 🖨 Print/PDF and an FE2028 Changes switch. Unit Detective mixes all five case files.', 'SL/HL colour bar, a footer like MYPoirier Science Lab, and the new Terms of Use (© Mike Poirier, all rights reserved; free for students and teachers).'] },
   ];
   HISTORY.forEach(h => { h.items = h.items.map(TL); });
@@ -19523,7 +19704,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
   const ALPHA_SUMMARY = [
     'Every topic in the FE2025 guide: themes A–E and the Skills in the Study of Physics, 102 strands, with SL and HL kept apart.',
     'Over 1,100 original question templates for Paper 1A, 1B and 2 that generate new values each time, with worked solutions and IB-style markschemes; over 370 recall cards.',
-    'Practice, Test Mode (IB paper presets, class codes, estimated grades), Blitz and Last Man Standing, Daily Recall with spaced repetition and quick games, Notes with data booklet equations, common mistakes and links, and Stats.',
+    'Practice, Test Mode (IB paper presets, class codes, estimated grades), Physics Quest and Last Man Standing, Daily Recall with spaced repetition and quick games, Notes with data booklet equations, common mistakes and links, and Stats.',
     'The data booklet in a side panel, an SL/HL switch, and FE2028 changes tagged in Notes and the booklet.',
     'Printable worksheets and exam results, and Report a Problem on every question.',
     'Light and dark themes, phone layouts, accessibility checks, an offline edition, and automatic checks on every build.',
@@ -19564,13 +19745,13 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
         <li><b>Practise by topic after each lesson.</b> Pick the strands you have just studied. Try the question before opening the solution, and tick the markscheme points honestly.</li>
         <li><b>Go back to your misses.</b> In Practice, turn on <b>Only Questions I’ve Missed</b> at the top of the Topics panel and redo them with new values until they stick.</li>
         <li><b>Before a test, sit a timed paper in Test Mode.</b> Use IB pace, then check where the time went and your estimated grade. Read the Notes for any strand that cost you marks.</li>
-        <li><b>For fun or a class challenge:</b> Games. Blitz on your own, or Last Man Standing with a shared code.</li></ol></section>
+        <li><b>For fun or a class challenge:</b> Games. Physics Quest on your own or with a shared code, or Last Man Standing with your class.</li></ol></section>
       <section class="panel"><h3>Test Mode and Class Codes</h3><ul class="about-list">
-        <li><b>Tests come from your teacher.</b> In Test Mode, enter the class code your teacher gives you (it starts MVP-). Everyone with the same code gets the same questions and values.</li>
+        <li><b>Tests come from your teacher.</b> In Test Mode, enter the class code your teacher gives you (it starts MVP-T-). Everyone with the same code gets the same questions and values.</li>
         <li><b>Online codes</b> give a timed test on screen. The code sets the finish (Strict: answers lock when time runs out; Soft: overtime is recorded), whether you can print your results, and whether you may retake it on the same device.</li>
         <li><b>Printable codes</b> give a paper to print or save as PDF, with a cover sheet, a Paper 1A answer sheet and the markscheme only if your teacher chose them.</li>
-        <li><b>Test-only questions:</b> some questions never appear in Practice, Blitz or Recall, so a test can check what you understand rather than what you remember.</li>
-        <li><b>Game codes</b> (BLZ- for Blitz, UD- for Unit Detective, LMS- for Last Man Standing) are open to everyone: share one so your class plays the same game.</li>
+        <li><b>Test-only questions:</b> some questions never appear in Practice, Games or Recall, so a test can check what you understand rather than what you remember.</li>
+        <li><b>Codes all start MVP-:</b> MVP-T- codes are Test Mode codes from your teacher; MVP-G- codes are game codes (Physics Quest and Last Man Standing), open to everyone: enter one at the top of Games so your class plays the same game. Spaces, dashes and capitals don't matter. Codes from before Beta 1.5 no longer work.</li>
       </ul></section>
       <section class="panel"><h3>Good to Know</h3><ul class="about-list">
         <li><b>Data booklet:</b> the 📘 button at the top, any time.</li>
@@ -19588,6 +19769,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
   let SK = { mode: null, q: null, done: false, right: 0, n: 0, streak: 0 };
   const SK_CARDS = [['sf', '🔢', 'Significant Figures', 'Count them, round to them, and give calculated answers to the right number: the rules from your SSP guide.'],
     ['graph', '📈', 'Graphing', 'Read gradients and intercepts with units, use them to find a physical quantity, and give the uncertainty in a gradient.'],
+    ['units', '🔍', 'Unit Analysis', 'Every equation leaves clues in its units: identify quantities, break units into SI base units, check equations and deduce formulas.'],
     ['lin', '📉', 'Linearise It!', 'Coming in Beta 2.0: choose the axes that turn a curve into a straight line.', true]];
   // a number to n significant figures, written for MathJax (scientific notation when toPrecision needs it)
   const sigTex = (x, n) => { const t = Number(x).toPrecision(n); if (!/e/.test(t)) return t; const [m, e] = t.split('e'); return `${m}\\times10^{${+e}}`; };
@@ -19659,6 +19841,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     SK.q = { ...raw, options: order.map(i => raw.options[i]), answer: order.indexOf(raw.answer) }; SK.done = false; SK.pick = null;
   }
   function renderSkills(main) {
+    if (SK.mode === 'units') return renderDetective(main);
     if (!SK.mode) {
       main.innerHTML = head('Skills 🧰', 'Practise the tools of physics. More skills are coming.') + `<div class="mode-cards">${SK_CARDS.map(([k, ic, name, d, soon]) => `<button type="button" class="mode-card${soon ? ' soon' : ''}" ${soon ? 'disabled' : `data-skmode="${k}"`}><span class="wic" aria-hidden="true">${ic}</span><b>${name}</b><span>${d}</span></button>`).join('')}</div>`;
       return;
@@ -19676,8 +19859,9 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
   function bindSkills(main) {
     main.onclick = (e) => {
       const b = e.target.closest('button'); if (!b) return;
+      if (SK.mode === 'units' && b.id !== 'skModes' && udClick(b, main)) return;
       if (b.dataset.skmode) { SK = { mode: b.dataset.skmode, q: null, done: false, right: 0, n: 0, streak: 0 }; renderSkills(main); return; }
-      if (b.id === 'skModes') { SK = { mode: null }; renderSkills(main); return; }
+      if (b.id === 'skModes') { if (UD) { clearInterval(UD.tm); UD = null; } SK = { mode: null }; renderSkills(main); return; }
       if (b.id === 'skNext') { skNew(); renderSkills(main); return; }
       if (b.dataset.skopt !== undefined && !SK.done) {
         SK.pick = +b.dataset.skopt; SK.done = true; SK.n++; if (SK.pick === SK.q.answer) { SK.right++; SK.streak++; } else SK.streak = 0;
@@ -19686,7 +19870,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     };
   }
   const VIEWS = {
-    practice: [renderPractice, bindPractice, 'Practice 🎯'], exam: [renderExam, bindExam, 'Test 📝'], blitz: [renderGauntlet, bindGauntlet, 'Games 🕹️'],
+    practice: [renderPractice, bindPractice, 'Practice 🎯'], exam: [renderExam, bindExam, 'Test 📝'], blitz: [renderGames, bindGames, 'Games 🕹️'],
     recall: [renderRecall, bindRecall, 'Recall 🧠'], notes: [renderNotes, bindNotes, 'Notes 📓'], skills: [renderSkills, bindSkills, 'Skills 🧰'], stats: [renderStats, bindStats, 'Stats 📈'],
     about: [renderAbout, bindAbout, 'About', true], welcome: [renderWelcome, bindWelcome, 'Welcome', true],
   };
@@ -19696,7 +19880,9 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
   let PREV_VIEW = null;
   function render() {
     const v = currentView(); const main = $('#main');
-    if (v !== PREV_VIEW && v !== 'blitz' && UD) { clearInterval(UD.tm); UD = null; }
+    if (v !== PREV_VIEW && v !== 'skills' && UD) { clearInterval(UD.tm); UD = null; }
+    if (v !== PREV_VIEW && v !== 'blitz' && QU) { SFX.music(false); if (QU.phase === 'over') { QU = null; if (GA) GA.phase = 'setup'; } }
+    document.documentElement.classList.toggle('quest', v === 'blitz' && !!QU && !!GA && GA.picked && GA.mode === 'quest');
     if (v !== PREV_VIEW) { if (v === 'recall') { RC_PICKED = false; if (GM && GM.tm) clearInterval(GM.tm); GM = null; } if (v === 'blitz' && GA && GA.phase === 'setup' && !LM) GA.picked = false; PREV_VIEW = v; }
     $$('nav.tabs a, #aboutBtn').forEach(a => a.setAttribute('aria-current', a.getAttribute('href') === '#' + (ROUTE_HREF[v] || v) ? 'page' : 'false'));
     if (v !== 'welcome' && v !== 'about' && S.settings.lastView !== v) { S.settings.lastView = v; save(); }
@@ -19743,9 +19929,9 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
       const a = e.target.closest('a'); if (!a) return;
       const h = a.getAttribute('href').slice(1), v = ROUTE_ALIAS[h] || h; if (v !== currentView()) return;
       e.preventDefault(); const main = $('#main');
-      if (v === 'blitz') { if ((GA && GA.phase === 'run') || LM || (UD && UD.phase === 'play')) { toast('End the current game first.'); return; } if (UD) { clearInterval(UD.tm); UD = null; } if (GA) { GA.picked = false; GA.phase = 'setup'; } renderRail(); renderGauntlet(main); bindGauntlet(main); }
+      if (v === 'blitz') { if ((GA && GA.phase === 'run') || LM) { toast('End the current game first.'); return; } if (GA) { GA.picked = false; GA.phase = 'setup'; } QU = null; document.documentElement.classList.remove('quest'); SFX.music(false); renderRail(); renderGames(main); bindGames(main); }
       else if (v === 'recall') { RC_PICKED = false; if (GM && GM.tm) clearInterval(GM.tm); GM = null; renderRecall(main); bindRecall(main); }
-      else if (v === 'skills') { SK = { mode: null }; renderSkills(main); bindSkills(main); }
+      else if (v === 'skills') { if (UD && UD.phase === 'play' && UD.mode === 'chase') { toast('End the current game first.'); return; } if (UD) { clearInterval(UD.tm); UD = null; } SK = { mode: null }; renderSkills(main); bindSkills(main); }
       window.scrollTo(0, 0);
     });
     const brand = $('.top .brand h1'); if (brand) { brand.setAttribute('role', 'link'); brand.tabIndex = 0; brand.title = 'Welcome and guide'; const go = () => { location.hash = '#welcome'; }; brand.addEventListener('click', go); brand.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } }); }
