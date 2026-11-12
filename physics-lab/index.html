@@ -1022,6 +1022,43 @@ html.quest body { background-image: radial-gradient(circle at 20% 0%, rgba(63, 1
 main mjx-container[display="true"] { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
 main li mjx-container { max-width: 100%; overflow-x: auto; overflow-y: hidden; vertical-align: middle; }
 
+/* ---------- 1.5 push 4 (Mike 12 Nov): game themes. Physics Quest: green and gold, forest adventure (original, no Nintendo art).
+   Last Man Standing: the brooding red theme from the start of its set-up. ---------- */
+.mode-card.game-quest, .mode-card.game-lms { color: #f4f1e3; border-width: 2px; position: relative; overflow: hidden; }
+.mode-card.game-quest { background: linear-gradient(160deg, #1e5a2c 0%, #123b1d 55%, #0b2613 100%); border-color: #d9b44a; box-shadow: inset 0 0 0 1px rgba(255, 230, 140, .15); }
+.mode-card.game-quest b { color: #f2d36b; font-family: var(--f-mono); letter-spacing: .03em; }
+.mode-card.game-quest > span:not(.wic):not(.mc-best) { color: #d6e8cf; }
+.mode-card.game-quest:hover, .mode-card.game-quest:focus-visible { border-color: #ffe27a; box-shadow: 0 0 0 3px rgba(242, 211, 107, .35), 0 8px 24px rgba(18, 59, 29, .45); }
+.mode-card.game-quest .mc-best { color: #ffe27a; }
+.mode-card.game-lms { background: linear-gradient(160deg, #2a0507 0%, #140405 60%, #070404 100%); border-color: #7a1015; }
+.mode-card.game-lms b { color: #ff4d4d; letter-spacing: .03em; text-shadow: 0 0 12px rgba(212, 20, 27, .55); }
+.mode-card.game-lms > span:not(.wic):not(.mc-best) { color: #d9b8b8; }
+.mode-card.game-lms:hover, .mode-card.game-lms:focus-visible { border-color: #d4141b; box-shadow: 0 0 0 3px rgba(212, 20, 27, .3), 0 8px 26px rgba(212, 20, 27, .35); }
+.mode-card.game-lms .mc-best { color: #ff8080; }
+.game-ic { display: inline-flex; width: 56px; height: 56px; border-radius: 12px; align-items: center; justify-content: center; }
+.game-quest .game-ic { background: rgba(242, 211, 107, .14); border: 1px solid rgba(242, 211, 107, .45); }
+.game-lms .game-ic { background: rgba(212, 20, 27, .14); border: 1px solid rgba(212, 20, 27, .45); }
+
+/* Physics Quest theme, set-up and run */
+:root.quest:not(#_) {
+  --paper: #07130b; --surface: #0e2216; --sheet: #0b1c12; --ink: #eef3e2; --muted: #a9bf9f; --line: #24452e;
+  --accent: #3fae4a; --accent-soft: #143a1e; --on-accent: #fff; --grid: rgba(63, 174, 74, .06); --grid-major: rgba(63, 174, 74, .13);
+  --good: #5fd36a; --good-soft: #10331a; --bad: #ff5a5a; --bad-soft: #3a1010; --warn: #f2b13d; --warn-soft: #33260a;
+  --chili: #ff6b4a; --chili-off: #34503a;
+  color-scheme: dark;
+}
+:root.quest body { background: radial-gradient(ellipse at 50% -10%, #1d4a26 0%, var(--paper) 62%) fixed; }
+:root.quest .btn.primary { color: #1b1404; background: linear-gradient(180deg, #f6d873, #d9a93a); border-color: #b8892a; box-shadow: 0 0 16px rgba(242, 211, 107, .35); }
+:root.quest .btn.primary:hover { background: linear-gradient(180deg, #ffe58c, #e5b544); }
+:root.quest .tabs a[aria-current="page"] { color: #fff; }
+:root.quest .top { border-top-color: #d9b44a; }
+:root.quest h1, :root.quest .panel h3 { color: #f2d36b; }
+:root.quest .qu-title, :root.quest .qu-strip { border: 1px solid #d9b44a; }
+:root.quest .chip[aria-pressed="true"] { border-color: #d9b44a; color: #ffe27a; }
+.qu-title, .qu-strip { background: linear-gradient(135deg, #1e5a2c, #0b2613); }
+.qu-title h2 { color: #f2d36b; }
+:root.lms h1 { color: #ff4d4d; text-shadow: 0 0 14px rgba(212, 20, 27, .45); }
+
 </style>
 <header class="top"><div class="top-inner">
   <div class="brand"><h1><b class="mvp">MVP</b>hysics Lab <span class="trophy" aria-hidden="true">🏆</span><span class="beta-tag" title="Beta for student testing: version 1.5 Beta">Beta 1.5</span></h1></div>
@@ -18275,6 +18312,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     boss: ['...kk....kk...', '..kTTk..kTTk..', '..kTTTkkTTTk..', '.kTTTTTTTTTTk.', '.kTTrrTTrrTTk.', '.kTTrrTTrrTTk.', '.kTTTTTTTTTTk.', '..kTTkkkkTTk..', 'kkTTTTTTTTTTkk', 'kTTkTTTTTTkTTk', 'kTk.kTTTTk.kTk', '....kTk.kTk...', '...kkTk.kTkk..'],
     flag: ['k.....', 'kmmmm.', 'kmmmMm', 'kmmmm.', 'k.....', 'k.....', 'k.....', 'kk....'],
     chest: ['.kkkkkkk.', 'kbbbbbbbk', 'kbbbybbbk', 'kkkkykkkk', 'kbbbbbbbk', 'kbbbbbbbk', '.kkkkkkk.'],
+    skull: ['..wwwwww..', '.wwwwwwww.', 'wwwwwwwwww', 'wkkwwwwkkw', 'wkRkwwkRkw', 'wwkkwwkkww', 'wwwwkkwwww', '.wwwwwwww.', '..wkwkwkw.', '..wwwwww..'],
     door: ['.kkkkk.', 'kbbbbbk', 'kbkbkbk', 'kbkbkbk', 'kbbbybk', 'kbkbkbk', 'kbbbbbk'],
   };
   const heartsHTML = (n, max) => `<span class="qu-hearts tip" tabindex="0" data-tip="Hearts: ${n} of ${max}. A wrong answer costs one; 5 right in a row restores one; beating a boss adds a heart container." role="img" aria-label="${n} of ${max} hearts">${Array.from({ length: max }, (_, i) => px(i < n ? SPR.heart : SPR.heartEmpty, 3, i < n ? 'full' : 'empty')).join('')}</span>`;
@@ -18432,7 +18470,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   const gameCodeBox = () => `<section class="panel gcode"><label class="lbl" for="gcIn"><b>Have a game code?</b> <span class="muted small">Codes start MVP-G-</span></label><div class="codeform">${codeInput('gcIn', 'G', 'Game code (starts MVP-G-)')}<button class="btn primary sm" id="gcUse">Go</button></div></section>`;
   function gameCards() {
     const qb = Math.max(0, ...Object.values((S.quest || {}).best || {})), best = { quest: qb ? `Your best: ${qb} rooms` : '', lms: S.lmsBest ? `Your best: ${fmtClock(S.lmsBest)} survived` : '' };
-    return head('Games 🕹️', 'Go on a quest and challenge your class. Choose a game, or enter a code from your teacher or a friend.') + gameCodeBox() + `<div class="mode-cards">${GAME_CARDS.map(([k, ic, name, d]) => `<button type="button" class="mode-card" data-gamode="${k}"><span class="wic" aria-hidden="true">${ic}</span><b>${name}</b><span>${d}</span>${best[k] ? `<span class="mc-best num">🏆 ${best[k]}</span>` : ''}</button>`).join('')}
+    return head('Games 🕹️', 'Go on a quest and challenge your class. Choose a game, or enter a code from your teacher or a friend.') + gameCodeBox() + `<div class="mode-cards">${GAME_CARDS.map(([k, ic, name, d]) => `<button type="button" class="mode-card game-${k}" data-gamode="${k}"><span class="wic game-ic" aria-hidden="true">${k === 'quest' ? px(SPR.hero, 4) : k === 'lms' ? px(SPR.skull, 4) : ic}</span><b>${name}</b><span>${d}</span>${best[k] ? `<span class="mc-best num">🏆 ${best[k]}</span>` : ''}</button>`).join('')}
       <div class="mode-card soon" aria-disabled="true"><span class="wic" aria-hidden="true">🎮</span><b>More Games Coming Soon…</b></div></div><p class="muted small">Your scores for each game are on its own screen and on the Stats page. Unit Analysis is now in Skills 🧰.</p>`;
   }
   const modeBack = (id, label) => `<div class="mode-back"><button type="button" class="btn backbtn" id="${id}"><span aria-hidden="true">←</span> ${label}</button></div>`;
@@ -18448,7 +18486,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     if (PENDING_CODE && !LM && GA.phase !== 'run') { const v = PENDING_CODE; PENDING_CODE = null; useGameCode(v); }
     if (LM) return renderLms(main);
     if (QU && QU.phase !== 'over' && SFX.musicOn()) SFX.music(true, QU.phase === 'room' && QU.room === QU_ROOMS, 'quest');
-    lmsTheme(); document.documentElement.classList.toggle('quest', GA.picked && GA.mode === 'quest' && !!QU);
+    lmsTheme();
     if (!GA.picked) { main.innerHTML = gameCards(); return; }
     if (GA.mode === 'lms') { main.innerHTML = modeBack('gaModes', 'All Games') + head('Last Man Standing 💀', 'Survive as long as you can, on your own or against your class.') + lmsSetup() + lmsStats(); return; }
     renderQuest(main);
@@ -18719,9 +18757,11 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
     lmsTheme(); if (currentView() === 'blitz') renderLms($('#main'));
   }
   function lmsTheme() {
-    const on = !!LM && currentView() === 'blitz';
+    // 1.5 push 4 (Mike 12 Nov): the brooding red theme covers the Last Man Standing set-up too, and Physics Quest gets its green theme
+    const on = currentView() === 'blitz' && (!!LM || (!!GA && GA.picked && GA.mode === 'lms'));
+    document.documentElement.classList.toggle('quest', currentView() === 'blitz' && !LM && !!GA && GA.picked && GA.mode === 'quest');
     document.documentElement.classList.toggle('lms', on);
-    document.documentElement.classList.toggle('lms-over', on && LM.phase === 'over');
+    document.documentElement.classList.toggle('lms-over', on && !!LM && LM.phase === 'over');
     
   }
   function lmsStartRun() { SFX.unlock(); Object.assign(LM, { phase: 'count', countStart: now(), idx: 0, correct: 0, answered: 0, cur: null, lastCount: null, hist: [], gaveUp: false }); clearInterval(lmTimer); lmTimer = setInterval(lmsTick, 100); lmsTheme(); renderLms($('#main')); }
@@ -19974,7 +20014,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     const v = currentView(); const main = $('#main');
     if (v !== PREV_VIEW && v !== 'skills' && UD) { clearInterval(UD.tm); UD = null; }
     if (v !== PREV_VIEW && v !== 'blitz' && QU) { SFX.music(false); if (QU.phase === 'over') { QU = null; if (GA) GA.phase = 'setup'; } }
-    document.documentElement.classList.toggle('quest', v === 'blitz' && !!QU && !!GA && GA.picked && GA.mode === 'quest');
+    document.documentElement.classList.toggle('quest', v === 'blitz' && !LM && !!GA && GA.picked && GA.mode === 'quest');
     if (v !== PREV_VIEW) { if (v === 'recall') { RC_PICKED = false; if (GM && GM.tm) clearInterval(GM.tm); GM = null; } if (v === 'skills' && !(UD && UD.phase === 'play')) { if (UD) { clearInterval(UD.tm); UD = null; } SK = { mode: null }; } if (v === 'blitz' && GA && GA.phase === 'setup' && !LM) GA.picked = false; PREV_VIEW = v; }
     $$('nav.tabs a, #aboutBtn').forEach(a => a.setAttribute('aria-current', a.getAttribute('href') === '#' + (ROUTE_HREF[v] || v) ? 'page' : 'false'));
     if (v !== 'welcome' && v !== 'about' && S.settings.lastView !== v) { S.settings.lastView = v; save(); }
