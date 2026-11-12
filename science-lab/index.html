@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--
   MYPoirier Science Lab: MYP Science Criterion A revision (Years 9-11, MYP 3-5)
-  Version: 0.5 · Built: 11 November 2026
+  Version: 0.5 · Built: 12 November 2026
   Author: Mike Poirier (https://github.com/mvpoirier), developed with Claude by Anthropic
   Terms: © 2026 Mike Poirier. All rights reserved. Free for students and teachers for their own study and classroom teaching; any other copying, hosting, adapting or commercial or tutoring use needs written permission.
   Site: https://mvpoirier.github.io/science-lab/
@@ -1329,6 +1329,28 @@ details.class-games:not([open]), details.ug-fold:not([open]) { padding-bottom: 6
 .ts-actions { margin: 8px 0; }
 #tsFinish.btn.danger { background: var(--bad, #dc2626); color: #fff; border-color: transparent; }
 #tsFinish.btn.danger:hover { filter: brightness(1.08); }
+.opt .lewis-opt { display: inline-block; vertical-align: middle; } .opt .lewis-opt svg { width: auto; max-width: 200px; max-height: 200px; height: auto; display: block; }
+.lewis-opt svg .nuc { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; } .lewis-opt svg .shell { fill: none; stroke: var(--muted); stroke-width: 1.4; } .lewis-opt svg .el { fill: var(--ink); } .lewis-opt svg text { fill: var(--ink); font-family: var(--f-mono); }
+.lewis-opt svg .tx { fill: var(--ink); font: 13px var(--f-body); } .lewis-opt svg .tx.sm { font-size: 11px; } .lewis-opt svg .tx.big { font: 700 28px var(--f-display); }
+/* Bohr ↔ Lewis and Give or Share? */
+.bl-pair, .gs-pair { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin: 6px 0 12px; }
+.bl-pair .figure svg { max-width: 240px; height: auto; }
+.bl-arrow { font: 700 28px var(--f-display); color: var(--muted); }
+.bl-build { display: grid; justify-items: center; }
+.bl-svg { width: 150px; height: 150px; }
+.bl-sym { fill: var(--ink); font: 700 34px var(--f-display); }
+.bl-dot { fill: var(--accent); }
+.bl-hit { fill: transparent; stroke: var(--line); stroke-dasharray: 4 3; cursor: pointer; }
+.bl-hit:hover, .bl-hit:focus { fill: var(--accent-soft); outline: none; }
+.gs-atom { display: grid; justify-items: center; gap: 2px; }
+.gs-atom .bl-svg { width: 120px; height: 120px; }
+.bl-grid { display: grid; grid-template-columns: 52px 64px 52px; grid-template-rows: 52px 64px 52px; place-items: center; }
+.bl-grid .bl-top { grid-area: 1 / 2; } .bl-grid .bl-left { grid-area: 2 / 1; } .bl-grid .bl-right { grid-area: 2 / 3; } .bl-grid .bl-bottom { grid-area: 3 / 2; } .bl-grid .bl-c { grid-area: 2 / 2; font: 700 34px var(--f-display); color: var(--ink); }
+.bl-side { width: 46px; height: 46px; border-radius: 10px; border: 1.5px dashed var(--line); background: var(--surface); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; padding: 0; }
+.bl-left, .bl-right { flex-direction: column; }
+.bl-side:hover, .bl-side:focus-visible { background: var(--accent-soft); border-color: var(--accent); }
+.bl-d { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); display: block; }
+.bl-plus { color: var(--muted); font-size: 14px; }
 
 </style>
 </head>
@@ -1358,7 +1380,7 @@ details.class-games:not([open]), details.ug-fold:not([open]) { padding-bottom: 6
   </div>
   <div class="foot-meta">
     <span>© 2026 <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a>. All rights reserved: free for students and teachers; see the Terms of Use on the About page.</span>
-    <span class="foot-ver">Updated 11 November 2026</span>
+    <span class="foot-ver">Updated 12 November 2026</span>
   </div>
 </div></footer>
 <dialog id="termsDlg" class="terms-dlg" aria-labelledby="termsTitle"><div class="panel" style="margin:0;border:0"><div class="row"><h3 id="termsTitle" style="margin:0">Command Terms</h3><span class="spacer"></span><button class="btn sm" id="termsClose">Close</button></div><div id="termsBody"></div></div></dialog>
@@ -1647,7 +1669,7 @@ const SVG = (() => {
         g += circle(c + r * Math.cos(ang), c + r * Math.sin(ang), 4.2, 'el');
       }
     });
-    if (charge) g = `<text x="${S - 6}" y="16" class="tx" text-anchor="end">${charge > 0 ? (charge > 1 ? charge : '') + '+' : (charge < -1 ? -charge : '') + '−'}</text>` + g;
+    if (charge) g = `<text x="${S - 6}" y="20" class="tx big" text-anchor="end" style="font-size:20px">${charge > 0 ? (charge > 1 ? charge : '') + '+' : (charge < -1 ? -charge : '') + '−'}</text>` + g;
     return svg(S, S, g, `Bohr diagram of ${sym}`);
   }
   // Lewis (electron dot) symbol for an atom with v valence electrons
@@ -2566,6 +2588,222 @@ const SVG = (() => {
       ] };
     } }
   );
+
+  /* ===== 0.5 refinement (Nov 2026): match this year's Unit 2 (elements, atoms, Periodic Table, bonding).
+     Equations and chemical change are "good to know" practice-only extras; formulas and names move to Bonding. ===== */
+  ['ii4-formula', 'ii4-name', 'eqn-ii6-covalent'].forEach(id => { const t = qs.find(q => q.id === id); if (t) t.sub = 'bond'; });
+  subs.find(s => s.id === 'eqn').name = 'Equations & conservation of mass (good to know)';
+  subs.find(s => s.id === 'change').name = 'Chemical & physical change (good to know)';
+  notes.bond.ideas.push('Formulas and names: the metal comes first, then the non-metal ending in -ide (sodium chloride). Balance the ion charges so the total is zero. Covalent compounds use prefixes (carbon dioxide).');
+  notes.atoms.ideas.push('<b>Relative atomic mass</b> (A<sub>r</sub>) is the average mass of all the isotopes of an element, weighted by how common each one is. That is why it is rarely a whole number: chlorine is 75% chlorine-35 and 25% chlorine-37, so A<sub>r</sub> = 35.5.',
+    'Rutherford\'s gold foil experiment: most alpha particles passed straight through (the atom is mostly empty space); a few bounced back (a tiny, dense, positive nucleus).',
+    '<b>Bohr diagrams</b> show every electron in its shell, and the nucleus. <b>Lewis (dot) diagrams</b> show only the symbol and the valence (outer) electrons, so they are quicker for bonding.');
+  notes.atoms.mistakes.push('Taking the relative atomic mass as the mass of one atom: it is an average of the isotopes.', 'Drawing all the electrons in a Lewis diagram: only the valence electrons are shown.');
+  notes.pt.ideas.push('<b>Atomic radius</b> decreases across a period: more protons pull the same number of shells closer. It increases down a group: each element has one more shell.',
+    '<b>Ionisation energy</b> (the energy to remove an outer electron) increases across a period and decreases down a group. The further the outer electron is from the nucleus, and the more shells shield it, the easier it is to remove.',
+    'Group 1 metals get <b>more</b> reactive down the group because the outer electron is further away and easier to lose. Group 17 non-metals get <b>less</b> reactive down the group because an extra electron is attracted less strongly.');
+  notes.pt.mistakes.push('Saying atoms get bigger across a period because they have more electrons: the extra electrons go into the same shell, and the extra protons pull them in.');
+  notes.bond.ideas.push('<b>Properties of metals</b> come from metallic bonding: <b>malleable</b> (can be hammered into shape) and <b>ductile</b> (can be drawn into wires) because the layers of ions can slide over each other without breaking the bonds; good conductors because the delocalised electrons move.');
+  notes.elem.ideas.push('An <b>atom</b> is neutral; an <b>ion</b> is charged (it has lost or gained electrons). A <b>molecule</b> is two or more atoms bonded together; a <b>compound</b> contains two or more different elements bonded together.');
+  cards.push(
+    ['Relative atomic mass', 'The average mass of an element\'s atoms, weighted by the abundance of each isotope (Aᵣ).', 'atoms'],
+    ['Abundance', 'How common an isotope is, as a percentage of all the atoms of that element.', 'atoms'],
+    ['Lewis (dot) diagram', 'The element symbol with dots for its valence electrons only.', 'atoms'],
+    ['Nucleus', 'The tiny, dense, positive centre of an atom, containing protons and neutrons (found by Rutherford).', 'atoms'],
+    ['Atomic radius', 'The distance from the nucleus to the outer shell; decreases across a period, increases down a group.', 'pt'],
+    ['Ionisation energy', 'The energy needed to remove an outer electron from an atom; decreases down a group.', 'pt'],
+    ['Malleable', 'Can be hammered or pressed into shape without breaking (a property of metals).', 'bond'],
+    ['Ductile', 'Can be drawn out into a wire (a property of metals).', 'bond'],
+    ['Ion', 'A charged particle formed when an atom loses or gains electrons.', 'elem'],
+    ['Compound', 'A substance containing two or more different elements chemically bonded together.', 'elem']
+  );
+  const RAD3 = [['Na', 186], ['Mg', 160], ['Al', 143], ['Si', 118], ['P', 110], ['S', 104], ['Cl', 99]];
+  const ISO = [['chlorine', 'Cl', [[35, 75], [37, 25]]], ['boron', 'B', [[10, 20], [11, 80]]], ['lithium', 'Li', [[6, 8], [7, 92]]], ['copper', 'Cu', [[63, 69], [65, 31]]], ['bromine', 'Br', [[79, 51], [81, 49]]], ['magnesium', 'Mg', [[24, 79], [25, 10], [26, 11]]], ['neon', 'Ne', [[20, 90], [22, 10]]], ['gallium', 'Ga', [[69, 60], [71, 40]]]];
+  const ram = (iso) => iso.reduce((a, [m, p]) => a + m * p, 0) / 100;
+  const MYSTERY = [
+    ['Shiny grey solid; conducts electricity; reacts quickly with water, giving off hydrogen; soft enough to cut with a knife', 'Group 1 (alkali metals)'],
+    ['Pale yellow-green gas; does not conduct; very reactive; forms ions with a 1− charge', 'Group 17 (halogens)'],
+    ['Colourless gas; does not conduct; does not react with anything; used in bright signs', 'Group 18 (noble gases)'],
+    ['Shiny solid; conducts electricity; reacts slowly with water; forms ions with a 2+ charge', 'Group 2'],
+    ['Dark red-brown liquid; does not conduct; reactive; forms ions with a 1− charge', 'Group 17 (halogens)'],
+    ['Silvery solid that burns with a lilac flame; reacts very violently with water; ions with a 1+ charge', 'Group 1 (alkali metals)']
+  ];
+  const GROUPS = ['Group 1 (alkali metals)', 'Group 2', 'Group 17 (halogens)', 'Group 18 (noble gases)'];
+  qs.push(
+    ...H.bank('u2-i2', 'i', 2, 'Recall', [
+      ['bond', 'A metal that can be drawn out into a thin wire is…', 'ductile', 'malleable', 'brittle', 'soluble', ''],
+      ['bond', 'A metal that can be hammered into a flat sheet is…', 'malleable', 'ductile', 'brittle', 'volatile', ''],
+      ['pt', 'Across a period, from left to right, atomic radius…', 'decreases', 'increases', 'stays the same', 'doubles', ''],
+      ['pt', 'Down a group, atomic radius…', 'increases', 'decreases', 'stays the same', 'halves', ''],
+      ['atoms', 'Which scientist discovered the nucleus?', 'Rutherford', 'Dalton', 'Thomson', 'Mendeleev', ''],
+      ['atoms', 'What does a Lewis (dot) diagram show around the symbol?', 'Only the valence electrons', 'All the electrons', 'The protons and neutrons', 'The isotopes', ''],
+      ['elem', 'Which particle has a charge?', 'An ion', 'An atom', 'A neutron', 'A molecule of oxygen', ''],
+      ['elem', 'A substance made of two or more different elements chemically bonded is a…', 'compound', 'mixture', 'element', 'isotope', '']
+    ]),
+    ...H.bank('u2-i6', 'i', 6, 'Describe', [
+      ['pt', 'Why does atomic radius decrease across Period 3?', 'More protons pull the electrons in, while the number of shells stays the same', 'More shells are added', 'Electrons are lost across the period', 'Neutrons push the electrons outwards', ''],
+      ['pt', 'Why does reactivity increase down group 1?', 'The outer electron is further from the nucleus, so it is lost more easily', 'The atoms have more protons, so they hold electrons more tightly', 'The atoms gain electrons more easily', 'The outer shell is full', ''],
+      ['pt', 'Why does reactivity decrease down group 17?', 'An extra electron is further from the nucleus, so it is attracted less strongly', 'The atoms lose electrons more easily', 'The outer shell has more electrons', 'The nucleus has fewer protons', ''],
+      ['atoms', 'Why is the relative atomic mass of chlorine 35.5, not a whole number?', 'It is the average mass of its isotopes (Cl-35 and Cl-37), weighted by how common each is', 'Some protons have half a mass', 'Electrons add half a mass unit', 'It has been rounded incorrectly', ''],
+      ['atoms', 'What does a Bohr diagram show that a Lewis diagram does not?', 'Every shell and electron, and the nucleus', 'The valence electrons', 'The element symbol', 'The charge of an ion', ''],
+      ['bond', 'Why are metals malleable?', 'Layers of positive ions can slide over each other while the delocalised electrons hold them together', 'The electrons are fixed between pairs of atoms', 'Metals are made of molecules', 'The ions repel and break apart', ''],
+      ['elem', 'What is the difference between an atom and an ion of sodium?', 'The ion (Na⁺) has lost one electron, so it has a positive charge; the atom is neutral', 'The ion has an extra proton', 'The ion has more neutrons', 'There is no difference', '']
+    ]),
+    { id: 'elem-i4-sort', sub: 'elem', s: 'i', b: 4, topic: 'Atoms, ions, molecules & compounds', gen: (R) => {
+      const all = [['He', 0], ['Na', 0], ['Mg', 0], ['C', 0], ['Na⁺', 1], ['Cl⁻', 1], ['O²⁻', 1], ['Mg²⁺', 1], ['O₂', 2], ['N₂', 2], ['Cl₂', 2], ['H₂', 2], ['H₂O', 3], ['CO₂', 3], ['NaCl', 3], ['CH₄', 3]];
+      return { type: 'sort', stem: '<p>Sort each particle or substance.</p>', bins: ['Atom', 'Ion', 'Molecule of an element', 'Compound'], items: H.sampleBins(R, all, 8) };
+    } },
+    { id: 'elem-iii2-read', sub: 'elem', s: 'iii', b: 2, topic: 'Reading data', gen: (R) => {
+      const rows = R.shuffle([['A', 'Shiny', 'Yes', 'Bends'], ['B', 'Dull', 'No', 'Shatters'], ['C', 'Dull', 'No', 'Crumbles'], ['D', 'Shiny', 'Yes', 'Can be drawn into a wire']]).slice(0, 3);
+      if (!rows.some(r => r[2] === 'Yes')) rows[0] = ['A', 'Shiny', 'Yes', 'Bends'];
+      const m = rows.findIndex(r => r[2] === 'Yes');
+      return { type: 'mcq', fixed: true, stem: `<p>Three elements were tested.</p>${H.table(['Element', 'Appearance', 'Conducts electricity?', 'When hit with a hammer'], rows)}<p>Which element is a metal?</p>`, choices: rows.map(r => r[0]), ans: m };
+    } },
+    { id: 'elem-iii6-identify', sub: 'elem', s: 'iii', b: 6, topic: 'Identifying elements', gen: (R) => {
+      const m = R.pick(H.split(R, MYSTERY));
+      return { type: 'parts', stem: `<p>An unknown element has these properties:</p><ul>${m[0].split('; ').map(x => `<li>${x}</li>`).join('')}</ul>`, parts: [
+        { type: 'mcq', fixed: true, stem: 'Deduce its group in the Periodic Table.', choices: GROUPS, ans: GROUPS.indexOf(m[1]) },
+        { type: 'mcq', stem: 'Which piece of evidence is the most useful?', choices: [m[1].includes('18') ? 'It does not react with anything' : m[0].includes('ions') ? `The charge of its ions` : 'Its reaction with water', 'Its colour', 'Whether it is shiny', 'Its name'], ans: 0, why: '<p>The charge of an ion (or how it reacts) shows the number of valence electrons, which gives the group.</p>' }
+      ] };
+    } },
+    { id: 'elem-iii8-identify', sub: 'elem', s: 'iii', b: 8, topic: 'Identifying elements', gen: (R) => {
+      const e = R.pick(H.split(R, ['Na', 'K', 'Mg', 'Ca', 'Cl', 'F', 'Al', 'O'].map(bySym)));
+      const metal = e.type === 'metal';
+      return H.self(`<p>A student is given an unknown element from period ${e.per}. It ${metal ? 'is shiny, conducts electricity' : 'does not conduct electricity'} and forms ions with a ${ionStr(e.ion)} charge. Identify the element and its group, and justify your answer with its electron arrangement.</p>`,
+        `It is ${e.name} (${e.sym}) in group ${e.grp}. It forms ${ionStr(e.ion)} ions, so it ${e.ion > 0 ? `loses ${e.ion}` : `gains ${-e.ion}`} electron${Math.abs(e.ion) > 1 ? 's' : ''} to get a full outer shell; that means it has ${valence(e)} valence electron${valence(e) > 1 ? 's' : ''}, so it is in group ${e.grp}. Period ${e.per} means ${e.per} shells: electron arrangement ${config(e.Z).join(',')}. ${metal ? 'Shiny and conducting fits a metal (left of the table).' : 'Not conducting fits a non-metal (right of the table).'}`,
+        ['Names the element', 'Links ion charge to valence electrons and group', 'Links period to number of shells', 'Gives the electron arrangement', 'Uses the metal/non-metal evidence']);
+    } },
+    { id: 'atoms-i4-ram', sub: 'atoms', s: 'i', b: 4, topic: 'Relative atomic mass', gen: (R) => {
+      const x = R.pick(H.split(R, ISO.filter(i => i[2].length === 2))), r = ram(x[2]);
+      return { type: 'mcq', stem: `<p>The relative atomic mass of ${x[0]} on the Periodic Table is ${NUM.dp(r, 1)}. Outline why it is not a whole number.</p>`, choices: [`It is a weighted average of the masses of ${x[0]}'s isotopes`, 'Electrons have a mass of 0.5', 'Some neutrons are lighter than others', 'It is the mass of the most common isotope'], ans: 0 };
+    } },
+    { id: 'atoms-ii6-ram', sub: 'atoms', s: 'ii', b: 6, topic: 'Relative atomic mass', gen: (R) => {
+      const x = R.pick(ISO), r = ram(x[2]);
+      return { type: 'num', stem: `<p>Calculate the relative atomic mass of ${x[0]} from its isotopes.</p>${H.table(['Isotope', 'Abundance / %'], x[2].map(([m, p]) => [`${x[0]}-${m}`, p]))}`, ans: r, unit: '', tol: 0.002,
+        steps: [`Aᵣ = (${x[2].map(([m, p]) => `${m} × ${p}`).join(' + ')}) ÷ 100`, `= ${NUM.sf(r, 4)}`] };
+    } },
+    { id: 'atoms-iii2-ion', sub: 'atoms', s: 'iii', b: 2, topic: 'Reading data', gen: (R) => {
+      const [a, b, c] = R.sample(EL.filter(e => e.ion !== null && e.Z > 2), 3), k = R.int(0, 2), ps = [a, b, c];
+      const rows = ps.map((e, i) => [['P', 'Q', 'R'][i], e.Z, e.A - e.Z, i === k ? e.Z - e.ion : e.Z]);
+      return { type: 'mcq', fixed: true, stem: `<p>The table shows three particles.</p>${H.table(['Particle', 'Protons', 'Neutrons', 'Electrons'], rows)}<p>Which particle is an ion?</p>`, choices: ['P', 'Q', 'R'], ans: k, why: '<p>In an ion, the number of electrons is different from the number of protons.</p>' };
+    } },
+    { id: 'atoms-iii4-gold', sub: 'atoms', s: 'iii', b: 4, topic: 'Interpreting evidence', gen: (R) => {
+      const n = R.pick([2000, 5000, 8000, 10000]), back = R.int(1, 4);
+      return { type: 'parts', stem: `<p>In Rutherford's experiment, positive alpha particles were fired at thin gold foil. Out of ${n.toLocaleString('en')} particles: ${n - back * 6 - back} passed straight through, ${back * 6} were deflected a little, and ${back} bounced back.</p>`, parts: [
+        { type: 'mcq', stem: 'What does it show that most particles passed straight through?', choices: ['The atom is mostly empty space', 'The atom is a solid sphere', 'Gold atoms are negative', 'The foil had holes in it'], ans: 0 },
+        { type: 'mcq', stem: 'What does it show that a few bounced back?', choices: ['There is a tiny, dense, positive nucleus', 'Electrons are spread through the atom', 'The atom has no charge', 'Alpha particles are negative'], ans: 0 }
+      ] };
+    } },
+    { id: 'atoms-ii2-dots', sub: 'atoms', s: 'ii', b: 2, topic: 'Bohr & Lewis diagrams', gen: (R) => {
+      const e = R.pick(EL.filter(x => x.Z >= 3 && x.grp !== 18));
+      return { type: 'num', stem: `<p>Here is the Bohr diagram of ${e.name}. How many dots will its Lewis (dot) diagram have?</p>`, fig: bohr(e.sym, e.Z, e.A - e.Z), ans: valence(e), unit: 'dots', tolAbs: 0, steps: [`Count only the outer shell: ${config(e.Z).join(',')} → ${valence(e)}`] };
+    } },
+    { id: 'atoms-ii4-lewispick', sub: 'atoms', s: 'ii', b: 4, topic: 'Bohr & Lewis diagrams', gen: (R) => {
+      const e = R.pick(H.split(R, EL.filter(x => x.Z >= 3 && x.grp !== 18 && x.Z <= 18))), v = valence(e);
+      const vs = R.shuffle([v, ...R.sample([1, 2, 3, 4, 5, 6, 7, 8].filter(x => x !== v), 3)]);
+      return { type: 'mcq', fixed: true, stem: `<p>Which is the correct Lewis (dot) diagram for ${e.name} (atomic number ${e.Z})?</p>`, choices: vs.map(x => `<span class="lewis-opt">${lewis(e.sym, x)}</span>`), ans: vs.indexOf(v), why: `<p>${e.name}: ${config(e.Z).join(',')}, so ${v} valence electron${v > 1 ? 's' : ''}.</p>` };
+    } },
+    { id: 'bond-ii6-iondiagram', sub: 'bond', s: 'ii', b: 6, topic: 'Ions in ionic bonding', gen: (R) => {
+      const e = R.pick(H.split(R, ['Na', 'Mg', 'Li', 'K', 'Ca', 'Al', 'O', 'F', 'Cl', 'S', 'N'].map(bySym))), N = e.A - e.Z;
+      const opts = R.shuffle([['ok', bohr(e.sym, e.Z, N, e.ion)], ['atom', bohr(e.sym, e.Z, N, 0)], ['flip', bohr(e.sym, e.Z, N, -e.ion)]]);
+      return { type: 'mcq', fixed: true, stem: `<p>${cap1(e.name)} forms an ion in ionic bonding. Which Bohr diagram shows this ion?</p>`, choices: opts.map(o => `<span class="lewis-opt">${o[1]}</span>`), ans: opts.findIndex(o => o[0] === 'ok'), why: `<p>${cap1(e.name)} has ${valence(e)} valence electron${valence(e) > 1 ? 's' : ''}; it ${e.ion > 0 ? `loses ${e.ion}` : `gains ${-e.ion}`} to get a full outer shell, giving ${e.sym}${ionStr(e.ion)}.</p>` };
+    } },
+    { id: 'pt-ii4-radius', sub: 'pt', s: 'ii', b: 4, topic: 'Atomic radius', gen: (R) => {
+      const pairs = [['Na', 'Cl'], ['Li', 'F'], ['Mg', 'S'], ['Li', 'Na'], ['F', 'Cl'], ['Na', 'K'], ['O', 'S'], ['C', 'O'], ['Al', 'P'], ['Be', 'Mg']];
+      const p = R.pick(H.split(R, pairs)).map(bySym), big = p[0].per === p[1].per ? (p[0].Z < p[1].Z ? 0 : 1) : (p[0].per > p[1].per ? 0 : 1);
+      return { type: 'mcq', fixed: true, stem: `<p>Use the Periodic Table to predict which atom has the larger atomic radius.</p>`, choices: p.map(e => `${cap1(e.name)} (${e.sym})`), ans: big, why: '<p>Across a period the radius decreases (more protons, same shells); down a group it increases (more shells).</p>' };
+    } },
+    { id: 'pt-i8-radius', sub: 'pt', s: 'i', b: 8, topic: 'Atomic radius', gen: (R) => {
+      const g = R.pick(H.split(R, [['across Period 3, from sodium to chlorine', 'Atomic radius decreases across Period 3. All these atoms have three shells, so the outer electrons are at a similar distance, but the number of protons increases from 11 to 17. The greater positive charge of the nucleus pulls the electrons closer, so the atom is smaller. The extra electrons go into the same shell, so they do not make the atom bigger.'],
+        ['down group 1, from lithium to potassium', 'Atomic radius increases down group 1. Each element has one more shell of electrons (Li 2,1; Na 2,8,1; K 2,8,8,1), so the outer electron is further from the nucleus. The extra protons are outweighed because the inner shells shield the outer electron from the nucleus.']]));
+      return H.self(`<p>Describe and explain the trend in atomic radius ${g[0]}.</p>`, g[1], ['States the trend correctly', 'Number of shells (same or more)', 'Number of protons / nuclear attraction', 'Uses electron arrangements or named elements', 'Links cause to effect clearly']);
+    } },
+    { id: 'pt-iii4-radius', sub: 'pt', s: 'iii', b: 4, topic: 'Analysing data', gen: (R) => {
+      const rows = RAD3.map(([s, r]) => [bySym(s).name, s, r]);
+      return { type: 'parts', stem: `<p>Atomic radii of the Period 3 elements (in picometres, pm):</p>${H.table(['Element', 'Symbol', 'Atomic radius / pm'], rows.map(r => [cap1(r[0]), r[1], r[2]]))}`, parts: [
+        { type: 'mcq', stem: 'Describe the trend.', choices: ['The radius decreases from sodium to chlorine', 'The radius increases from sodium to chlorine', 'The radius stays the same', 'The radius goes up and then down'], ans: 0 },
+        { type: 'num', stem: 'Calculate how much smaller a chlorine atom is than a sodium atom.', ans: 87, unit: 'pm', tolAbs: 0.5, steps: ['186 − 99 = 87 pm'] }
+      ] };
+    } },
+    { id: 'pt-iii6-radiusgraph', sub: 'pt', s: 'iii', b: 6, topic: 'Analysing data', gen: (R) => {
+      const gap = R.int(1, 5), pts = RAD3.map(([, r], i) => [i + 1, r]).filter((_, i) => i !== gap), miss = RAD3[gap];
+      return { type: 'parts', stem: `<p>The graph shows the atomic radius of the elements in Period 3 (1 = sodium … 7 = chlorine). The value for ${bySym(miss[0]).name} (element ${gap + 1}) is missing.</p>`, fig: graph({ xmin: 0, xmax: 8, xstep: 1, ymin: 0, ymax: 200, ystep: 40, xlabel: 'Position in Period 3', ylabel: 'Atomic radius / pm', series: [{ pts, dots: true }] }), parts: [
+        { type: 'num', stem: `Estimate the atomic radius of ${bySym(miss[0]).name}.`, ans: miss[1], unit: 'pm', tolAbs: 12, steps: [`Between its neighbours on the graph: about ${miss[1]} pm`] },
+        { type: 'self', stem: 'Suggest, with a reason, how the ionisation energy changes across the period.', model: 'It increases across the period. The atoms get smaller and have more protons, so the outer electrons are held closer and more strongly, and more energy is needed to remove one.', check: ['Increases', 'Smaller atoms / electrons closer', 'More protons, stronger attraction', 'More energy needed to remove an electron'] }
+      ] };
+    } },
+    { id: 'pt-iii2-ie', sub: 'pt', s: 'iii', b: 2, topic: 'Reading data', gen: (R) => {
+      const rows = R.shuffle([['Lithium', 520], ['Sodium', 496], ['Potassium', 419]]);
+      const lo = rows.reduce((a, r, i) => r[1] < rows[a][1] ? i : a, 0);
+      return { type: 'mcq', fixed: true, stem: `<p>Energy needed to remove the outer electron (ionisation energy):</p>${H.table(['Element', 'Ionisation energy / kJ per mole'], rows)}<p>Which element loses its outer electron most easily?</p>`, choices: rows.map(r => r[0]), ans: lo };
+    } },
+    { id: 'bond-ii4-metaluse', sub: 'bond', s: 'ii', b: 4, topic: 'Properties of metals', gen: (R) => {
+      const u = R.pick(H.split(R, [['electrical wires', 'copper', 'Ductile and a good electrical conductor'], ['saucepans', 'aluminium', 'A good thermal conductor and malleable'], ['car body panels', 'steel (mostly iron)', 'Malleable and strong'], ['jewellery', 'gold', 'Malleable, shiny and unreactive'], ['overhead power cables', 'aluminium', 'Ductile, a good conductor and low density']]));
+      return { type: 'mcq', stem: `<p>${cap1(u[1])} is used to make ${u[0]}. Which properties make it suitable?</p>`, choices: [u[2], 'Brittle and an insulator', 'Dull and soluble in water', 'Low melting point and brittle'], ans: 0 };
+    } },
+    { id: 'bond-iii6-metalgraph', sub: 'bond', s: 'iii', b: 6, topic: 'Analysing data', gen: (R) => {
+      const L0 = R.pick([2, 3, 4]), k = R.step(0.04, 0.08, 0.01), T = [20, 40, 60, 80, 100, 120], pts = T.map(t => [t, +(L0 + k * (t - 20) + (t > 80 ? k * (t - 80) * 0.6 : 0)).toFixed(1)]);
+      const metal = R.pick(['copper', 'aluminium', 'brass']);
+      return { type: 'parts', stem: `<p>A ${metal} wire was hung with the same weight at different temperatures. The graph shows how much it stretched.</p>`, fig: graph({ xmin: 0, xmax: 130, xstep: 20, ymin: 0, ymax: Math.ceil(pts[5][1] + 1), ystep: 2, xlabel: 'Temperature / °C', ylabel: 'Stretch / mm', series: [{ pts, dots: true }] }), parts: [
+        { type: 'mcq', stem: 'Describe the trend.', choices: ['The wire stretches more as the temperature increases, and faster above 80 °C', 'The wire stretches less as the temperature increases', 'The temperature has no effect', 'The wire stretches the same amount at every temperature'], ans: 0 },
+        { type: 'self', stem: 'Explain the trend using metallic bonding.', model: 'A metal is a lattice of positive ions in a sea of delocalised electrons. When the metal is heated, the ions vibrate more and move further apart, so the layers of ions slide over each other more easily under the weight. The wire is more ductile when hot, so it stretches more.', check: ['Lattice of ions and delocalised electrons', 'Ions vibrate more when heated', 'Layers slide more easily', 'Links to the data (more stretch at higher temperature)'] }
+      ] };
+    } }
+  );
+  qs.push(
+    { id: 'elem-ii2-elements', sub: 'elem', s: 'ii', b: 2, topic: 'Formulas', gen: (R) => {
+      const f = R.pick([['NaCl', 2], ['H₂O', 2], ['CO₂', 2], ['CaCO₃', 3], ['NaOH', 3], ['H₂SO₄', 3], ['CH₄', 2], ['NH₃', 2], ['C₆H₁₂O₆', 3], ['KNO₃', 3], ['NaHCO₃', 4], ['O₂', 1]]);
+      return { type: 'num', stem: `<p>How many different elements are in ${f[0]}?</p>`, ans: f[1], unit: '', tolAbs: 0, steps: ['Count the different symbols (a capital letter starts each one).'] };
+    } },
+    { id: 'elem-ii8-choose', sub: 'elem', s: 'ii', b: 8, topic: 'Unfamiliar situation', gen: (R) => {
+      const c = R.pick(H.split(R, [['A factory needs a gas to fill around hot metal while it is welded, so that the metal cannot react with the air.', 'Argon', 'Argon is a noble gas (group 18): its outer shell is full, so it does not react, and it is a gas.'],
+        ['A company needs a metal for a light, rust-free drinks can that is easy to press into shape.', 'Aluminium', 'Aluminium is a metal (malleable) with a low density, and a protective oxide layer stops it corroding.'],
+        ['A water company needs a reactive element to kill bacteria in drinking water.', 'Chlorine', 'Chlorine is a reactive halogen (group 17) that gains an electron easily; it kills microorganisms.'],
+        ['A balloon seller needs a gas that is lighter than air and will not burn.', 'Helium', 'Helium has a very low density and, as a noble gas, does not react or burn (hydrogen is lighter but flammable).']]));
+      return { type: 'parts', stem: `<p>${c[0]}</p>`, parts: [
+        { type: 'mcq', stem: 'Suggest the most suitable element.', choices: [c[1], ...['Argon', 'Aluminium', 'Chlorine', 'Helium', 'Sodium'].filter(x => x !== c[1]).slice(0, 3)], ans: 0 },
+        { type: 'self', stem: 'Justify your choice using its position in the Periodic Table.', model: c[2], check: ['Names the group or type of element', 'Links electron structure or reactivity to the use', 'Mentions the key property needed'] }
+      ] };
+    } },
+    { id: 'pt-ii8-predict', sub: 'pt', s: 'ii', b: 8, topic: 'Unfamiliar situation', gen: (R) => {
+      const e = R.pick(H.split(R, [['rubidium (Rb)', 'group 1, period 5', 'It will be a soft, shiny metal that reacts very violently with water (more than potassium), giving off hydrogen and forming Rb⁺ ions. It has one valence electron in its fifth shell; the outer electron is far from the nucleus and well shielded, so it is lost very easily. Its atoms are larger than potassium atoms.'],
+        ['astatine (At)', 'group 17, period 6', 'It will be a non-metal (dark solid) that is less reactive than iodine. It has seven valence electrons and forms At⁻ ions, but its outer shell is far from the nucleus, so an extra electron is attracted only weakly. Its atoms are larger than iodine atoms.'],
+        ['strontium (Sr)', 'group 2, period 5', 'It will be a shiny metal that reacts with water more quickly than calcium, forming Sr²⁺ ions. It has two valence electrons, which are far from the nucleus and lost more easily than calcium\'s. Its atoms are larger than calcium atoms.'],
+        ['krypton (Kr)', 'group 18, period 4', 'It will be a colourless gas that does not react, because its outer shell is full (8 valence electrons). It does not form ions. Its atoms are larger than argon atoms.']]));
+      return H.self(`<p>${cap1(e[0])} is in ${e[1]}, outside the first 20 elements. Predict its properties and reactivity, and explain your predictions using its position.</p>`, e[2], ['Metal / non-metal / gas prediction', 'Reactivity compared with an element above it', 'Valence electrons and ion charge from the group', 'Size / distance of the outer shell from the period', 'Reasoning linked to trends']);
+    } },
+    { id: 'bond-ii2-type', sub: 'bond', s: 'ii', b: 2, topic: 'Bonding', gen: (R) => {
+      const m = R.pick(METALS), x = R.pick(NONMETALS), y = R.pick(NONMETALS.filter(z => z !== x)), k = R.int(0, 2);
+      const pair = [[m, x, 'Ionic'], [x, y, 'Covalent'], [m, R.pick(METALS.filter(z => z !== m)), 'Metallic']][k];
+      return { type: 'mcq', fixed: true, stem: `<p>Which type of bonding forms between ${pair[0].name} and ${pair[1].name}?</p>`, choices: ['Ionic', 'Covalent', 'Metallic'], ans: ['Ionic', 'Covalent', 'Metallic'].indexOf(pair[2]), why: '<p>Metal + non-metal → ionic; non-metal + non-metal → covalent; metal + metal → metallic.</p>' };
+    } },
+    { id: 'bond-ii8-transfer', sub: 'bond', s: 'ii', b: 8, topic: 'Unfamiliar situation', gen: (R) => {
+      const c = R.pick(H.split(R, [['lithium', 'nitrogen', 'Li₃N', 'Lithium (2,1) has one valence electron; nitrogen (2,5) needs three more. Three lithium atoms each give one electron to one nitrogen atom, forming three Li⁺ ions and one N³⁻ ion. Three positive charges balance three negative charges, so the formula is Li₃N.'],
+        ['aluminium', 'oxygen', 'Al₂O₃', 'Aluminium (2,8,3) loses three electrons to form Al³⁺; oxygen (2,6) gains two to form O²⁻. Two aluminium atoms give six electrons to three oxygen atoms, so the charges balance (2 × 3+ = 3 × 2−) and the formula is Al₂O₃.'],
+        ['magnesium', 'nitrogen', 'Mg₃N₂', 'Magnesium (2,8,2) loses two electrons to form Mg²⁺; nitrogen (2,5) gains three to form N³⁻. Three magnesium atoms give six electrons to two nitrogen atoms (3 × 2+ = 2 × 3−), so the formula is Mg₃N₂.'],
+        ['calcium', 'fluorine', 'CaF₂', 'Calcium (2,8,8,2) loses two electrons to form Ca²⁺; fluorine (2,7) gains one to form F⁻. One calcium atom gives one electron to each of two fluorine atoms, so the formula is CaF₂.']]));
+      return H.self(`<p>${cap1(c[0])} reacts with ${c[1]} to form an ionic compound. Use electron arrangements to explain how the ions form, and deduce the formula.</p>`, c[3], ['Electron arrangements of both atoms', 'Electrons lost and gained → ion charges', 'How many of each atom balance the charges', `Correct formula (${c[2]})`, 'Full outer shells mentioned']);
+    } },
+    { id: 'bond-iii4-wire', sub: 'bond', s: 'iii', b: 4, topic: 'Interpreting data', gen: (R) => {
+      const rows = R.shuffle([['Silver', 'Very high', 'Very high'], ['Copper', 'Very high', 'Medium'], ['Aluminium', 'High', 'Low'], ['Iron', 'Medium', 'Low'], ['Lead', 'Low', 'Low']]).slice(0, 4);
+      const q = R.pick([['the best electrical conductor that is not expensive', (r) => r[1].startsWith('Very') && r[2] !== 'Very high'], ['the worst electrical conductor', (r) => r[1] === (rows.some(x => x[1] === 'Low') ? 'Low' : 'Medium')]]);
+      let k = rows.findIndex(q[1]); if (k < 0) { rows[0] = ['Copper', 'Very high', 'Medium']; k = rows.findIndex(q[1]); }
+      return { type: 'mcq', fixed: true, stem: `<p>Data for some metals:</p>${H.table(['Metal', 'Electrical conductivity', 'Cost'], rows)}<p>Which metal is ${q[0]}?</p>`, choices: rows.map(r => r[0]), ans: k };
+    } },
+    { id: 'bond-iii8-claim', sub: 'bond', s: 'iii', b: 8, topic: 'Evaluating claims', gen: (R) => {
+      const c = R.pick(H.split(R, [['"Sodium chloride contains a metal, so it must conduct electricity as a solid, like copper."', 'Not supported. Sodium chloride is ionic, not metallic: sodium gives an electron to chlorine and the Na⁺ and Cl⁻ ions are held in a lattice. In the solid the ions cannot move and there are no free electrons, so it does not conduct. It conducts only when melted or dissolved, when the ions can move. Copper conducts as a solid because metallic bonding has delocalised electrons.'],
+        ['"Water and sodium chloride both have high melting points, because both have strong bonds."', 'Partly supported. Both have strong bonds, but different kinds. Sodium chloride melts at 801 °C because melting breaks the strong ionic attractions between all the ions in the lattice. Water melts at 0 °C because melting only overcomes the weak forces between molecules; the strong covalent bonds inside each molecule do not break. So water does not have a high melting point.'],
+        ['"Metals bend instead of shattering because their atoms are stuck together by shared electron pairs."', 'Not supported. Shared pairs between two atoms are covalent bonds, which are directional and break when forced. Metals have metallic bonding: positive ions in a sea of delocalised electrons. The layers of ions can slide over each other while the electrons still hold them together, so metals are malleable and ductile.']]));
+      return H.self(`<p>A student claims: ${c[0]} Evaluate this claim.</p>`, c[1], ['Judges the claim (supported / partly / not)', 'Identifies the bonding in each substance', 'Explains with particles (ions, electrons, molecules)', 'Uses data or examples', 'Clear conclusion']);
+    } }
+  );
+  qs.push({ id: 'elem-i8-describe', sub: 'elem', s: 'i', b: 8, topic: 'Atoms, ions, molecules & compounds', gen: (R) => {
+    const c = R.pick(H.split(R, [['an atom, an ion and a molecule', 'An atom is the smallest particle of an element; it is neutral because it has equal numbers of protons and electrons (e.g. a sodium atom, Na: 11 protons, 11 electrons). An ion is a charged particle formed when an atom loses or gains electrons (Na⁺ has lost one electron, so it has 11 protons and 10 electrons). A molecule is two or more atoms joined by covalent bonds, such as O₂ (an element) or H₂O (a compound).'],
+      ['an element, a compound and a mixture', 'An element contains only one type of atom (e.g. oxygen, O₂, or iron, Fe) and cannot be broken down chemically. A compound contains two or more different elements chemically bonded in a fixed ratio (e.g. water, H₂O, or sodium chloride, NaCl); its properties differ from those of its elements and it can only be separated by a chemical reaction. A mixture contains substances that are not bonded together (e.g. air or salt water) and can be separated physically.']]));
+    return H.self(`<p>Describe the differences between ${c[0]}, with an example of each.</p>`, c[1], ['Correct definition of each term', 'Uses particles (atoms, electrons, bonds)', 'An example for each', 'Clear comparison between them']);
+  } });
+  // Equations and chemical change are practice-only "good to know" extras this year
+  qs.forEach(q => { if (q.sub === 'eqn' || q.sub === 'change') { q.extra = true; q.test = undefined; } });
 
   CONTENT['y9-che'] = {
     flow: ['Discovering the elements', 'Atoms: history, particles, Bohr model, isotopes and ions', 'The Periodic Table', 'Bonding: ionic, covalent and metallic; Lewis structures', 'Formulas, naming and equations', 'Chemical and physical change; conservation of mass'],
@@ -6439,6 +6677,9 @@ const TEMPLATE_HINTS = {
   'y10-ess/cmr-iii6-gorilla': 'N = n₁ × n₂ ÷ m for the year asked; look for the year the estimate drops sharply.',
   'y10-ess/dyn-ii6-rate': 'Number of doublings = time ÷ doubling time; multiply the start by 2 that many times.',
   'y10-ess/web-iii6-energy': 'Percentage transferred = energy at the higher level ÷ energy at the lower level × 100.',
+  'y9-che/atoms-ii6-ram': 'Multiply each isotope\'s mass by its percentage, add them up, then divide by 100. The answer must lie between the isotope masses, closer to the more common one.',
+  'y9-che/pt-iii6-radiusgraph': 'Read the neighbours on either side of the gap; the missing value fits the smooth downward trend between them.',
+  'y9-che/pt-iii4-radius': 'Compare the first and last values in the table; subtract to find the difference.',
   'y10-che/bond-ii4-triangle': 'Subtract to get ΔEN (always positive); add and halve to get the average. Then apply the rules in order: ionic first, then metallic or covalent.',
   'y10-che/sol-ii6-curve': 'Read the solubility at both temperatures. The difference is what crystallises from 100 g of water; scale it for the mass of water used.',
   'y10-che/rxn-ii6-ppt': 'Swap partners to get the two products. Check each against the rules: the one that is insoluble is the precipitate.',
@@ -7337,6 +7578,141 @@ const GAMES = (() => {
     bestText: (b) => `${b.score} / ${IM_ROUNDS} in ${fmt(b.time)}`
   };
 
+  /* Bohr ↔ Lewis: turn a Bohr diagram into a Lewis dot diagram (tap the sides to add dots), and a Lewis diagram
+     plus its period back into a Bohr diagram (set the electrons in each shell). 8 rounds. */
+  const BL_ROUNDS = 8;
+  function lewisSides(sym, k, live) {
+    if (live) {
+      const names = ['top', 'right', 'bottom', 'left'], dots = (n) => '<i class="bl-d"></i>'.repeat(n) || '<span class="bl-plus">+</span>';
+      const btn = (side) => `<button type="button" class="bl-side bl-${names[side]}" data-bls="${side}" aria-label="${names[side]} side: ${k[side]} dot${k[side] === 1 ? '' : 's'}. Tap to add">${dots(k[side])}</button>`;
+      return `<div class="bl-grid">${btn(0)}${btn(3)}<span class="bl-c">${sym}</span>${btn(1)}${btn(2)}</div>`;
+    }
+    const S = 150, c = S / 2, pos = [[0, -36], [36, 0], [0, 36], [-36, 0]], along = [[1, 0], [0, 1], [1, 0], [0, 1]], names = ['top', 'right', 'bottom', 'left'];
+    let g = `<text x="${c}" y="${c + 11}" text-anchor="middle" class="bl-sym">${sym}</text>`;
+    k.forEach((n, side) => {
+      const [px, py] = pos[side], [ax, ay] = along[side];
+      if (live) g += `<rect x="${c + px - 22}" y="${c + py - 22}" width="44" height="44" rx="10" class="bl-hit" data-bls="${side}" role="button" tabindex="0" aria-label="Add a dot on the ${names[side]}"/>`;
+      if (n === 1) g += `<circle cx="${c + px}" cy="${c + py}" r="5" class="bl-dot"/>`;
+      if (n === 2) g += `<circle cx="${c + px - ax * 8}" cy="${c + py - ay * 8}" r="5" class="bl-dot"/><circle cx="${c + px + ax * 8}" cy="${c + py + ay * 8}" r="5" class="bl-dot"/>`;
+    });
+    return `<svg viewBox="0 0 ${S} ${S}" class="bl-svg" role="img" aria-label="Lewis diagram of ${sym}">${g}</svg>`;
+  }
+  const blSpread = (v) => { const k = [0, 0, 0, 0]; for (let i = 0; i < v; i++) k[i % 4]++; return k; };
+  function blNew(R, kind, used) {
+    let e; do { e = R.pick(ELEMENTS20.filter(x => x.Z >= 3 && x.grp !== 18)); } while (used.includes(e.sym));
+    used.push(e.sym);
+    return kind === 'toLewis' ? { kind, e, v: ddValence(e), sides: [0, 0, 0, 0] } : { kind, e, want: ddConfig(e.Z), shells: [0, 0, 0, 0] };
+  }
+  const bohrLewis = {
+    id: 'y9-bohr-lewis', y: 9, uid: 'y9-che', icon: '🔁', name: 'Bohr ↔ Lewis',
+    desc: 'Change Bohr diagrams into Lewis dot diagrams (only the valence electrons, spread out singly before pairing), and Lewis diagrams back into Bohr diagrams. 8 rounds.',
+    start(R) { const used = []; const kinds = R.shuffle(['toLewis', 'toLewis', 'toLewis', 'toLewis', 'toBohr', 'toBohr', 'toBohr', 'toBohr']); return { R, i: 0, score: 0, t0: Date.now(), end: null, kinds, used, rd: blNew(R, kinds[0], used) }; },
+    render(G) {
+      const t = ((G.end || Date.now()) - G.t0) / 1000;
+      if (G.end) return `<div class="game-top"><span class="gscore">Score ${G.score} / ${BL_ROUNDS}</span><span class="clock" id="gClock">${fmt(t)}</span></div>` + doneBar(G, `You converted ${G.score} / ${BL_ROUNDS} diagrams in ${fmt(t)}`)
+        + '<section class="panel"><h3>Remember</h3><ul class="small"><li><b>Bohr</b>: nucleus and every electron in its shell (2, 8, 8, 2).</li><li><b>Lewis</b>: the symbol and the valence (outer) electrons only.</li><li>Place dots singly on the four sides first, then pair them.</li></ul></section>';
+      const r = G.rd, e = r.e, top = `<div class="game-top"><span class="gscore">Round ${G.i + 1} / ${BL_ROUNDS}</span><span class="gscore">Score ${G.score}</span><span class="clock" id="gClock">${fmt(t)}</span></div>`;
+      const verdict = r.done ? `<div class="row"><span class="verdict ${r.ok ? 'ok' : 'no'}">${r.ok ? 'Correct!' : r.why}</span><button class="btn primary" id="blNext">${G.i + 1 < BL_ROUNDS ? 'Next Round' : 'Finish'}</button></div>` : '';
+      if (r.kind === 'toLewis') {
+        const n = r.sides.reduce((a, b) => a + b, 0);
+        return top + `<div class="scenario">Here is the Bohr diagram of <b>${e.name}</b>. Draw its <b>Lewis diagram</b>: tap a side of the symbol to add a dot (a third tap clears that side).</div>
+          <div class="bl-pair"><div class="figure">${SVG.bohr(e.sym, e.Z, e.A - e.Z)}</div><div class="bl-arrow" aria-hidden="true">→</div><div class="bl-build">${lewisSides(e.sym, r.done && !r.ok ? blSpread(r.v) : r.sides, !r.done)}<p class="small muted">${r.done && !r.ok ? 'Correct diagram shown.' : `Dots placed: <b class="num">${n}</b>`}</p></div></div>
+          ${r.done ? verdict : `<div class="row"><button class="btn primary" id="blCheck" ${n ? '' : 'disabled'}>Check</button><button class="btn" id="blClear" ${n ? '' : 'disabled'}>Clear</button></div>`}`;
+      }
+      const shown = r.shells.reduce((a, b) => a + b, 0);
+      const steppers = r.shells.map((n, i) => `<div class="dd-shell"><span class="small muted">Shell ${i + 1}</span><div class="bi-step"><button type="button" class="btn sm" data-bld="${i}" data-d="1" aria-label="More electrons in shell ${i + 1}" ${r.done ? 'disabled' : ''}>▲</button><b class="num">${n}</b><button type="button" class="btn sm" data-bld="${i}" data-d="-1" aria-label="Fewer electrons in shell ${i + 1}" ${r.done ? 'disabled' : ''}>▼</button></div></div>`).join('');
+      return top + `<div class="scenario">This is the Lewis diagram of an element in <b>period ${e.per}</b>. Build its <b>Bohr diagram</b>: set the number of electrons in each shell.</div>
+        <div class="bl-pair"><div class="bl-build">${lewisSides(e.sym, blSpread(ddValence(e)), false)}</div><div class="bl-arrow" aria-hidden="true">→</div><div class="figure">${SVG.bohr(e.sym, e.Z, e.A - e.Z, e.Z - shown)}</div></div>
+        <div class="dd-shells">${steppers}</div><p class="small muted">Electrons placed: ${shown}. Use the Periodic Table if you need to.</p>
+        ${r.done ? verdict : `<div class="row"><button class="btn primary" id="blCheck" ${shown ? '' : 'disabled'}>Check</button></div>`}`;
+    },
+    click(G, b) {
+      if (G.end) return false;
+      const r = G.rd, d = b.dataset;
+      if (b.id === 'blNext') { G.i++; if (G.i >= BL_ROUNDS) { G.end = Date.now(); return true; } G.rd = blNew(G.R, G.kinds[G.i], G.used); return true; }
+      if (r.done) return false;
+      if (d.bls !== undefined) { const s = +d.bls; r.sides[s] = (r.sides[s] + 1) % 3; return true; }
+      if (b.id === 'blClear') { r.sides = [0, 0, 0, 0]; return true; }
+      if (d.bld !== undefined) { const i = +d.bld; r.shells[i] = Math.max(0, Math.min(8, r.shells[i] + +d.d)); return true; }
+      if (b.id === 'blCheck') {
+        r.done = true;
+        if (r.kind === 'toLewis') {
+          const n = r.sides.reduce((a, x) => a + x, 0), spread = r.v <= 4 ? r.sides.every(x => x <= 1) : r.sides.every(x => x >= 1);
+          r.ok = n === r.v && spread;
+          r.why = n !== r.v ? `${cap1(r.e.name)} (${ddConfig(r.e.Z).join(',')}) has ${r.v} valence electron${r.v > 1 ? 's' : ''}: count only the outer shell.` : 'Right number, but spread the dots out singly on each side before pairing them.';
+        } else {
+          const want = [...r.want, 0, 0, 0, 0].slice(0, 4); r.ok = want.every((n, i) => n === r.shells[i]);
+          r.why = `Period ${r.e.per} → ${r.e.per} shells, ${ddValence(r.e)} in the outer shell: ${r.e.name} is ${r.want.join(',')}.`;
+        }
+        if (r.ok) G.score++;
+        return r.ok ? true : { wrong: true };
+      }
+      return false;
+    },
+    result(G, prev) { const r = { score: G.score, time: Math.round((G.end - G.t0) / 1000) }; G.newBest = !prev || bohrLewis.better(r, prev); return r; },
+    better: (r, p) => r.score > p.score || (r.score === p.score && r.time < p.time),
+    bestText: (b) => `${b.score} / ${BL_ROUNDS} in ${fmt(b.time)}`
+  };
+
+  /* Give or Share? Two atoms meet (shown as Lewis diagrams): decide whether they transfer electrons (ionic) or share
+     them (covalent), then how many electrons move or how many pairs are shared. 2 points per round. */
+  const GS_ROUNDS = 8;
+  const GS_COV = [
+    { a: 'H', b: 'H', f: 'H<sub>2</sub>', name: 'hydrogen', pairs: 1 }, { a: 'Cl', b: 'Cl', f: 'Cl<sub>2</sub>', name: 'chlorine', pairs: 1 },
+    { a: 'O', b: 'O', f: 'O<sub>2</sub>', name: 'oxygen', pairs: 2 }, { a: 'N', b: 'N', f: 'N<sub>2</sub>', name: 'nitrogen', pairs: 3 },
+    { a: 'H', b: 'Cl', f: 'HCl', name: 'hydrogen chloride', pairs: 1 }, { a: 'H', b: 'O', f: 'H<sub>2</sub>O', name: 'water', pairs: 2 },
+    { a: 'H', b: 'N', f: 'NH<sub>3</sub>', name: 'ammonia', pairs: 3 }, { a: 'H', b: 'C', f: 'CH<sub>4</sub>', name: 'methane', pairs: 4 },
+    { a: 'C', b: 'O', f: 'CO<sub>2</sub>', name: 'carbon dioxide', pairs: 4 }, { a: 'F', b: 'F', f: 'F<sub>2</sub>', name: 'fluorine', pairs: 1 }
+  ];
+  const GS_M = ['Li', 'Na', 'K', 'Mg', 'Ca', 'Al'], GS_X = ['F', 'Cl', 'O', 'S', 'N'];
+  function gsNew(R, ionic) {
+    if (!ionic) { const c = R.pick(GS_COV); return { ionic: false, a: EL20(c.a), b: EL20(c.b), c, opts: [1, 2, 3, 4] }; }
+    const m = EL20(R.pick(GS_M)), x = EL20(R.pick(GS_X)), d = gcdI(m.ion, -x.ion), nm = -x.ion / d, nx = m.ion / d;
+    const f = `${m.sym}${nm > 1 ? `<sub>${nm}</sub>` : ''}${x.sym}${nx > 1 ? `<sub>${nx}</sub>` : ''}`;
+    const fw = [...new Set([f, `${m.sym}${x.sym}`, `${m.sym}${x.sym}<sub>${Math.max(2, m.ion)}</sub>`, `${m.sym}<sub>${Math.max(2, -x.ion)}</sub>${x.sym}`, `${m.sym}<sub>${nx + 1}</sub>${x.sym}<sub>${nm}</sub>`])].slice(0, 4);
+    return { ionic: true, a: m, b: x, f, give: m.ion, fopts: R.shuffle(fw), name: `${m.name} ${IM_IDE[x.sym]}` };
+  }
+  const giveShare = {
+    id: 'y9-give-share', y: 9, uid: 'y9-che', icon: '🤝', name: 'Give or Share?',
+    desc: 'Two atoms meet. Decide whether they give and take electrons (ionic) or share them (covalent), then how many electrons are given, or how many pairs are shared. 8 rounds, 2 points each.',
+    start(R) { const plan = R.shuffle([1, 1, 1, 1, 0, 0, 0, 0]); return { R, i: 0, score: 0, t0: Date.now(), end: null, plan, rd: gsNew(R, plan[0]), type: null, pick: null }; },
+    render(G) {
+      const t = ((G.end || Date.now()) - G.t0) / 1000, max = GS_ROUNDS * 2;
+      if (G.end) return `<div class="game-top"><span class="gscore">Score ${G.score} / ${max}</span><span class="clock" id="gClock">${fmt(t)}</span></div>` + doneBar(G, `You scored ${G.score} / ${max} in ${fmt(t)}`)
+        + '<section class="panel"><h3>Remember</h3><ul class="small"><li><b>Metal + non-metal → give</b> (ionic): the metal loses its valence electrons, the non-metal gains them; the ions attract.</li><li><b>Non-metal + non-metal → share</b> (covalent): each shared pair is one bond; atoms share until each has a full outer shell.</li></ul></section>';
+      const r = G.rd, top = `<div class="game-top"><span class="gscore">Round ${G.i + 1} / ${GS_ROUNDS}</span><span class="gscore">Score ${G.score}</span><span class="clock" id="gClock">${fmt(t)}</span></div>`;
+      const chip = (key, val, label, right) => { let cls = ''; if (G.checked) cls = val === right ? 'right' : (G[key] === val ? 'wrong' : ''); return `<button type="button" class="chip ${cls}" data-gs="${key}" data-v="${val}" aria-pressed="${G[key] === val}" ${G.checked ? 'disabled' : ''}>${label}</button>`; };
+      const atom = (e) => `<div class="gs-atom"><div class="bl-build">${lewisSides(e.sym, blSpread(ddValence(e)), false)}</div><span class="small">${cap1(e.name)} · ${e.type}</span></div>`;
+      const step2 = G.type == null ? '' : G.type === 'give'
+        ? (r.ionic ? `<p class="small muted">How many electrons does each ${r.a.name} atom give, and what is the formula of ${r.name}?</p><div class="chips">${[1, 2, 3].map(n => chip('pick', `n${n}`, `${n} electron${n > 1 ? 's' : ''}`, `n${r.give}`)).join('')}</div><div class="chips" style="margin-top:6px">${r.fopts.map(f => chip('pf', f, `<span>${f}</span>`, r.f)).join('')}</div>` : '<p class="small muted">Check your choice.</p>')
+        : (!r.ionic ? `<p class="small muted">The molecule formed is <b>${r.c.name} (${r.c.f})</b>. How many shared pairs (bonds) are there in one molecule?</p><div class="chips">${r.opts.map(n => chip('pick', `p${n}`, `${n}`, `p${r.c.pairs}`)).join('')}</div>` : '<p class="small muted">Check your choice.</p>');
+      const ready = G.type && (G.type === 'give' ? (!r.ionic || (G.pick && G.pf)) : (r.ionic || G.pick));
+      const why = r.ionic ? `${cap1(r.a.name)} (metal) gives ${r.give} electron${r.give > 1 ? 's' : ''} to become ${r.a.sym}${sup(ionStr(r.a.ion))}; ${r.b.name} gains to become ${r.b.sym}${sup(ionStr(r.b.ion))}. Formula ${r.f}.` : `Two non-metals share electrons. ${cap1(r.c.name)} (${r.c.f}) has ${r.c.pairs} shared pair${r.c.pairs > 1 ? 's' : ''}.`;
+      return top + `<div class="scenario">These two atoms meet. Do they <b>give</b> electrons or <b>share</b> them?</div>
+        <div class="gs-pair">${atom(r.a)}<span class="bl-arrow" aria-hidden="true">+</span>${atom(r.b)}</div>
+        <div class="chips">${chip('type', 'give', '🎁 Give (ionic)', r.ionic ? 'give' : 'share')}${chip('type', 'share', '🤝 Share (covalent)', r.ionic ? 'give' : 'share')}</div>
+        <div style="margin-top:8px">${step2}</div>
+        <div class="row" style="margin-top:10px">${G.checked ? `<span class="verdict ${G.last === 2 ? 'ok' : 'no'}">+${G.last} · ${why}</span><button class="btn primary" id="gsNext">${G.i + 1 < GS_ROUNDS ? 'Next Round' : 'Finish'}</button>` : `<button class="btn primary" id="gsCheck" ${ready ? '' : 'disabled'}>Check</button>`}</div>`;
+    },
+    click(G, b) {
+      if (G.end) return false;
+      const r = G.rd, d = b.dataset;
+      if (b.id === 'gsNext') { G.i++; G.checked = false; G.type = G.pick = G.pf = null; if (G.i >= GS_ROUNDS) { G.end = Date.now(); return true; } G.rd = gsNew(G.R, G.plan[G.i]); return true; }
+      if (G.checked) return false;
+      if (d.gs) { G[d.gs] = d.v; if (d.gs === 'type') { G.pick = G.pf = null; } return true; }
+      if (b.id === 'gsCheck') {
+        const typeOK = (G.type === 'give') === r.ionic;
+        const detailOK = typeOK && (r.ionic ? G.pick === `n${r.give}` && G.pf === r.f : G.pick === `p${r.c.pairs}`);
+        G.last = (typeOK ? 1 : 0) + (detailOK ? 1 : 0); G.score += G.last; G.checked = true;
+        return G.last === 2 ? true : { wrong: true };
+      }
+      return false;
+    },
+    result(G, prev) { const r = { score: G.score, time: Math.round((G.end - G.t0) / 1000) }; G.newBest = !prev || giveShare.better(r, prev); return r; },
+    better: (r, p) => r.score > p.score || (r.score === p.score && r.time < p.time),
+    bestText: (b) => `${b.score} / ${GS_ROUNDS * 2} in ${fmt(b.time)}`
+  };
+
   /* ---------- Digest It! (Year 11 Digestion & Metabolism) ----------
      Round 1: put the organs of the digestive pathway in order. Rounds 2–7: for each food molecule pick the enzyme,
      the product and where in the gut it is digested. */
@@ -7547,7 +7923,7 @@ const GAMES = (() => {
     };
   }
 
-  return [elementMatch, buildAtom, periodicMystery, periodicPeople, elMolComp, diagramDetective, ionicMatch, timed(weatherClimate, 3), ohDeer, graphIt, freeBody, stopInTime, timed(suvatSprint, 3), isomerHunt, timed(balanceIt, 3), digestIt];
+  return [elementMatch, buildAtom, periodicMystery, periodicPeople, elMolComp, diagramDetective, bohrLewis, ionicMatch, giveShare, timed(weatherClimate, 3), ohDeer, graphIt, freeBody, stopInTime, timed(suvatSprint, 3), isomerHunt, timed(balanceIt, 3), digestIt];
 })();
 
 /* ---- engine.js ---- */
@@ -7555,7 +7931,7 @@ const GAMES = (() => {
    Rail, practice sheet, markscheme ticks, spaced-repetition recall, notes panels, stats tabs and backup code. Organised for MYP: years → units → subtopics, Criterion A strands and level bands. */
 (function () {
   'use strict';
-  const VERSION = '0.5', BUILT = '11 November 2026';
+  const VERSION = '0.5', BUILT = '12 November 2026';
   const KEY = 'myp-science-lab.v1';
   const DAY = 864e5;
   const $ = (s, el = document) => el.querySelector(s);
@@ -7572,7 +7948,10 @@ const GAMES = (() => {
   const cap = (s) => s[0].toUpperCase() + s.slice(1);
 
   /* ---------- data: units, subtopics, questions, cards ---------- */
-  const LIVE_UNITS = UNIT_LIST.filter(u => u.live && CONTENT[u.id]);
+  // Units 3 and 4 are hidden while Unit 2 is refined (add ?allunits to the URL to see them)
+  const UNIT_CAP = /[?&]allunits\b/.test(location.search) ? 4 : 2;
+  const SHOWN = UNIT_LIST.filter(u => u.n <= UNIT_CAP);
+  const LIVE_UNITS = SHOWN.filter(u => u.live && CONTENT[u.id]);
   const unitById = (id) => UNIT_LIST.find(u => u.id === id);
   const SUB = {}; // "unit:sub" → { key, uid, id, name, unit }
   LIVE_UNITS.forEach(u => CONTENT[u.id].subs.forEach(s => { SUB[`${u.id}:${s.id}`] = { key: `${u.id}:${s.id}`, uid: u.id, id: s.id, name: s.name, unit: u }; }));
@@ -7637,7 +8016,7 @@ const GAMES = (() => {
   (() => { const known = Array.isArray(S.settings.known) ? S.settings.known : S.settings.sel; const fresh = ALL_SUBS.filter(id => !known.includes(id)); if (fresh.length) S.settings.sel = [...new Set([...S.settings.sel, ...fresh])]; S.settings.known = ALL_SUBS.slice(); })();
   function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* ignore */ } }
   const Y = () => S.settings.year;
-  const yearUnits = () => UNIT_LIST.filter(u => u.y === Y());
+  const yearUnits = () => SHOWN.filter(u => u.y === Y());
   const yearLive = () => LIVE_UNITS.filter(u => u.y === Y());
 
   /* ---------- tooltips and toast ---------- */
@@ -9196,7 +9575,7 @@ ${docWatermark('')}${docFooter('')}</body></html>`;
     { v: '0.2 alpha', d: '5 November 2026', items: ['New design: header, side panel, question sheet, markscheme ticks, spaced-repetition Recall (Flashcards, Pick’em!, Match It!), Notes panels, Stats tabs and backup code.', 'Every unit is split into subtopics, one per lesson topic, and every subtopic has questions for A i, A ii and A iii.', 'Unit games: Element Match (Year 9 Chemistry) and Graph It! (Year 11 Forces & Motion).', 'Notes for every subtopic with key ideas, common mistakes and key terms.'] },
     { v: '0.3 alpha', d: '5 November 2026', items: ['Games page grouped by unit, with Class Games for every year.', 'New unit games: Build-an-Atom and Periodic Mystery (Y9 Chemistry); Free-Body Builder, Stop in Time and suvat Sprint (Y11 Forces & Motion).', 'Blitz and Last Man Standing with class codes, using multiple-choice questions from the ticked subtopics.', 'Y9 Chemistry: a simplified Periodic Table (elements 1–20, whole-number atomic masses) on every question, in the header and in Notes.', 'Last Man Standing arena: ready screen, 3-2-1 countdown, synthesised music and sound effects, heartbeat in the last 30 seconds, Give Up and Game Over.', 'Code boxes start with their prefix (LMS-) and add capitals and dashes as you type.'] },
     { v: '0.4 alpha', d: '6 November 2026', items: ['New <b>Test</b> mode: a timed Criterion A test like the unit tests, with a section for each strand from level 1–2 to 7–8. Answers stay hidden until the end; the site marks short answers, you tick the markschemes for written answers, and each strand gets a best-fit level. Print your results, or use a TST- class code so everyone gets the same test.', 'New unit: <b>Year 11 Combustible Fuels</b> (8 subtopics, 55 question types): fuels and SDG 7, hydrocarbons, naming and isomers with drawn structural formulas, alcohols, crude oil and boiling point, combustion and balancing, enthalpy profiles and bond enthalpy, moles, energy per gram and emissions.', 'More question types matched to the unit tests: Y9 Disease (vectors, Jenner, Fleming, Ebola, bacterial growth, vaccine boosters), Y9 Chemistry (nuclear notation, particle tables, spotting Bohr-diagram errors, covalent names, evidence of chemical change, ionisation energy trends), Y11 Exchange & Transport (Boyle\'s law, the double circulation, valves, blood pressure, exercise spirometry, maximum heart rate) and Y11 Forces & Motion (crane tension, runway length, skydiver, multi-stage v–t graphs, theory vs real data).', 'Stop in Time: everyday objects in the road instead of people.', 'A <b>Data Booklet</b> button for every year in the header (and on questions that need it): the Periodic Table for Year 9 (elements 1–20), the full Periodic Table for Years 10 and 11, and the physics formula sheet for Year 11. Point at, tap or tab to any element for its details.', '<b>Hints</b> in Practice: up to three per question (a nudge, the method, then the first step). Stats shows how often you answer without hints.', 'New Year 11 Fuels games: <b>Isomer Hunt</b> and <b>Balance It!</b>', 'New Year 9 Chemistry activity: <b>Periodic People</b>. Arrange a family of secret agents into a table, build the missing one, then see the elements they stand for.', '<b>🚩 Report a Problem</b> on every question (including in Test mode), flashcard, note and the Data Booklet, and <b>💬 Send Feedback</b> in the footer: they open your teacher’s Google Form already filled in.', '<b>Pause</b> in Test mode: the timer stops and the questions are hidden until you resume. Pauses are shown with your results.', 'Online tests: show or hide the timer, and sound alerts at 30, 15 and 5 minutes left and when time is up (🔔 can be turned off).', 'Test mode is set up by your teacher: enter the TST- class code they give you. A code gives an online test, a worksheet or a test/exam to print (cover sheet, a section for each strand, the data booklet at the end), with or without the markscheme. Teachers unlock the full set-up with 🔑 Teacher access and can print a Student Copy, the Markscheme or Both.', 'The welcome card takes the colour of your year, and the revision history is grouped into collapsible stages.', 'Fixes: sorting questions always use every category; written-answer markschemes line up properly.'] },
-    { v: '0.5 alpha', d: '11 November 2026', items: ['Four new units: <b>Year 9 Unit 3, Evidence of a Changing Climate</b>; <b>Year 10 Unit 1, Population & Conservation</b> and <b>Year 10 Unit 2, Solution Chemistry</b> (games for Solution Chemistry come in 0.6); <b>Year 11 Unit 4, Digestion & Metabolism</b>. Each has questions for every strand and level, notes, recall cards, hints, Test mode and printables.', 'New games: <b>Weather or Climate?</b> (Y9), <b>Oh Deer!</b> (Y10), <b>Digest It!</b> (Y11), and three Year 9 Chemistry games: <b>Element, Molecule or Compound?</b>, <b>Diagram Detective</b> (Bohr, Lewis and dot-and-cross diagrams) and <b>Ionic Matchmaker</b>.', '<b>Periodic People</b>: elements 1–20, 1, 2 or 3 missing characters, optional hints, and a new caterpillar theme.', 'Timed games: choose 3, 5 or 10 minutes, or your own time. suvat Sprint keeps the chosen equation on screen.', 'Test mode: about a quarter of the questions are kept for tests only, and tests use their own versions of the fact questions, so tests always include questions you have not practised.', 'New questions: fields and pressure (Y11 Forces & Motion); chemical and physical change, and forces between molecules (Y9 Chemistry).', 'Free-body diagrams show the ground when there is a normal force, and labels are never cut off. Speeds are in m s<sup>−1</sup>; km h<sup>−1</sup> appears only in an optional "good to know" question.', 'Notes: <b>More Help</b> links (videos, simulations and readings from the class slides) and <b>Print/PDF</b>; notes now start straight with the subtopics.', 'One <b>Data Booklet & Command Terms</b> button in the header. A clearer <b>All Games</b> button; the Games tab also returns to the list of games.', 'All codes now start with <b>MYP-</b>. Year 10 is blue.', 'Test Mode: <b>Online</b> or <b>Printable</b> codes; teachers choose whether to use test-only questions, results printing, retakes, the cover sheet and answer space; a pace bar with alert lines, Sound on/off and a Pace timer switch.', 'Last Man Standing: the starting time is locked into the code.'] },
+    { v: '0.5 alpha', d: '11 November 2026', items: ['Four new units: <b>Year 9 Unit 3, Evidence of a Changing Climate</b>; <b>Year 10 Unit 1, Population & Conservation</b> and <b>Year 10 Unit 2, Solution Chemistry</b> (games for Solution Chemistry come in 0.6); <b>Year 11 Unit 4, Digestion & Metabolism</b>. Each has questions for every strand and level, notes, recall cards, hints, Test mode and printables.', '<b>Year 9 Chemistry of Industry</b> now matches this year\'s unit: new questions on atomic radius, ionisation energy, group 1 and 17 reactivity, metal properties, relative atomic mass, Rutherford\'s experiment, atoms vs ions vs compounds, identifying elements from their properties, and choosing the correct Lewis or Bohr diagram. Equations and chemical change stay as practice-only <i>good to know</i> extras (not in tests). New games: <b>Bohr ↔ Lewis</b> and <b>Give or Share?</b>', 'For now the site shows <b>Units 1 and 2</b> in every year while they are refined; Units 3 and 4 come back in later builds.', 'New games: <b>Weather or Climate?</b> (Y9), <b>Oh Deer!</b> (Y10), <b>Digest It!</b> (Y11), and three Year 9 Chemistry games: <b>Element, Molecule or Compound?</b>, <b>Diagram Detective</b> (Bohr, Lewis and dot-and-cross diagrams) and <b>Ionic Matchmaker</b>.', '<b>Periodic People</b>: elements 1–20, 1, 2 or 3 missing characters, optional hints, and a new caterpillar theme.', 'Timed games: choose 3, 5 or 10 minutes, or your own time. suvat Sprint keeps the chosen equation on screen.', 'Test mode: about a quarter of the questions are kept for tests only, and tests use their own versions of the fact questions, so tests always include questions you have not practised.', 'New questions: fields and pressure (Y11 Forces & Motion); chemical and physical change, and forces between molecules (Y9 Chemistry).', 'Free-body diagrams show the ground when there is a normal force, and labels are never cut off. Speeds are in m s<sup>−1</sup>; km h<sup>−1</sup> appears only in an optional "good to know" question.', 'Notes: <b>More Help</b> links (videos, simulations and readings from the class slides) and <b>Print/PDF</b>; notes now start straight with the subtopics.', 'One <b>Data Booklet & Command Terms</b> button in the header. A clearer <b>All Games</b> button; the Games tab also returns to the list of games.', 'All codes now start with <b>MYP-</b>. Year 10 is blue.', 'Test Mode: <b>Online</b> or <b>Printable</b> codes; teachers choose whether to use test-only questions, results printing, retakes, the cover sheet and answer space; a pace bar with alert lines, Sound on/off and a Pace timer switch.', 'Last Man Standing: the starting time is locked into the code.'] },
   ];
   function renderAbout(main) {
     const rows = LIVE_UNITS.map(u => { const qs = Q.filter(q => q.uid === u.id); return `<tr><td><b>Y${u.y} U${u.n}</b> ${esc(u.title)}</td><td class="num">${CONTENT[u.id].subs.length}</td>${STRANDS.map(s => `<td class="num">${qs.filter(q => q.s === s.id).length}</td>`).join('')}<td class="num"><b>${qs.length}</b></td><td class="num">${CARDS.filter(c => c.uid === u.id).length}</td></tr>`; }).join('');
