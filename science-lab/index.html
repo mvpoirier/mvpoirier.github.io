@@ -1363,6 +1363,13 @@ details.class-games:not([open]), details.ug-fold:not([open]) { padding-bottom: 6
 .gcard .gc-top .wic { font-size: 20px; } .gcard .gc-top b { font-size: 15px; }
 .gcard .gc-d { color: var(--muted); font-size: 13px; line-height: 1.35; }
 .gcard .gc-best { font-size: 12px; }
+/* Skills */
+.sk-table { border-collapse: collapse; margin: 8px 0; font-size: 14px; }
+.sk-table th, .sk-table td { border: 1px solid var(--line); padding: 6px 10px; text-align: center; }
+.sk-table th { background: var(--accent-soft); font-weight: 600; }
+.pill.crit-B { background: color-mix(in srgb, #0ea5e9 16%, var(--surface)); } .pill.crit-C { background: color-mix(in srgb, #a855f7 16%, var(--surface)); } .pill.crit-D { background: color-mix(in srgb, #f59e0b 18%, var(--surface)); }
+.gcard .gc-top .pill { margin-left: auto; font-size: 11px; }
+@media (min-width: 1100px) { .top-inner { gap: 12px 14px; } nav.tabs a { padding: 7px 8px; } }
 
 </style>
 </head>
@@ -7938,6 +7945,236 @@ const GAMES = (() => {
   return [elementMatch, buildAtom, periodicMystery, periodicPeople, elMolComp, diagramDetective, bohrLewis, ionicMatch, giveShare, timed(weatherClimate, 3), ohDeer, graphIt, freeBody, stopInTime, timed(suvatSprint, 3), isomerHunt, timed(balanceIt, 3), digestIt];
 })();
 
+/* ---- skills.js ---- */
+/* Skills 🧰: endless drills for MYP Criteria B and C skills, scaled by year (Y9 → Y11).
+   Each generator returns { kind, stem, fig?, options, answer, why }. Contexts come from the year's units; all wording is our own. */
+const SKILLS = (() => {
+  const { graph } = SVG;
+  const dp = (x, n) => Number(x).toFixed(n);
+  const uniq = (arr) => [...new Set(arr.map(String))];
+  // right answer first, then distinct wrong answers; shuffled; answer index returned
+  function mc(R, right, wrongs, n = 4) {
+    const opts = [String(right), ...uniq(wrongs).filter(w => w !== String(right))].slice(0, n);
+    const sh = R.shuffle(opts);
+    return { options: sh, answer: sh.indexOf(String(right)) };
+  }
+  const table = (head, rows) => `<table class="sk-table"><thead><tr>${head.map(h => `<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.map(r => `<tr>${r.map(c => `<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+
+  /* ---------- experiment contexts by year: iv (with unit), dv (with unit), typical dv values ---------- */
+  const CTX = {
+    9: [
+      { t: 'temperature of the water', tu: '°C', d: 'time for a tablet to dissolve', du: 's', lo: 20, hi: 120, dps: 1, ivs: [20, 30, 40, 50, 60], dir: -1, cat: false },
+      { t: 'mass of magnesium ribbon', tu: 'g', d: 'temperature rise of the acid', du: '°C', lo: 2, hi: 20, dps: 1, ivs: [0.1, 0.2, 0.3, 0.4, 0.5], dir: 1, cat: false },
+      { t: 'concentration of hand sanitiser', tu: '%', d: 'number of bacterial colonies', du: 'colonies', lo: 5, hi: 90, dps: 0, ivs: [0, 20, 40, 60, 80], dir: -1, cat: false },
+      { t: 'year', tu: '', d: 'atmospheric carbon dioxide', du: 'ppm', lo: 340, hi: 420, dps: 0, ivs: [1980, 1990, 2000, 2010, 2020], dir: 1, cat: false },
+      { t: 'type of metal', tu: '', d: 'time for the metal to react completely', du: 's', lo: 15, hi: 200, dps: 1, ivs: ['Magnesium', 'Zinc', 'Iron', 'Copper'], dir: 0, cat: true }
+    ],
+    10: [
+      { t: 'temperature of the water', tu: '°C', d: 'mass of potassium nitrate that dissolves in 100 g of water', du: 'g', lo: 20, hi: 160, dps: 0, ivs: [20, 30, 40, 50, 60], dir: 1, cat: false },
+      { t: 'distance from the river', tu: 'm', d: 'number of dandelions per quadrat', du: 'plants', lo: 1, hi: 25, dps: 0, ivs: [0, 5, 10, 15, 20], dir: -1, cat: false },
+      { t: 'concentration of salt solution', tu: 'g per 100 mL', d: 'electrical current', du: 'mA', lo: 5, hi: 80, dps: 1, ivs: [1, 2, 3, 4, 5], dir: 1, cat: false },
+      { t: 'type of habitat', tu: '', d: 'number of woodlice found', du: 'woodlice', lo: 2, hi: 40, dps: 0, ivs: ['Under logs', 'In leaf litter', 'On grass', 'On bare soil'], dir: 0, cat: true },
+      { t: 'temperature of the water', tu: '°C', d: 'dissolved oxygen', du: 'mg/L', lo: 6, hi: 13, dps: 1, ivs: [5, 10, 15, 20, 25], dir: -1, cat: false }
+    ],
+    11: [
+      { t: 'running speed', tu: 'km/h', d: 'heart rate', du: 'bpm', lo: 70, hi: 180, dps: 0, ivs: [4, 6, 8, 10, 12], dir: 1, cat: false },
+      { t: 'height of the ramp', tu: 'cm', d: 'time for the trolley to reach the bottom', du: 's', lo: 0.8, hi: 3.5, dps: 2, ivs: [10, 20, 30, 40, 50], dir: -1, cat: false },
+      { t: 'mass of fuel burned', tu: 'g', d: 'temperature rise of the water', du: '°C', lo: 5, hi: 45, dps: 1, ivs: [0.5, 1.0, 1.5, 2.0, 2.5], dir: 1, cat: false },
+      { t: 'type of alcohol', tu: '', d: 'temperature rise of the water', du: '°C', lo: 10, hi: 40, dps: 1, ivs: ['Methanol', 'Ethanol', 'Propanol', 'Butanol'], dir: 0, cat: true },
+      { t: 'temperature', tu: '°C', d: 'time for amylase to break down the starch', du: 's', lo: 40, hi: 300, dps: 0, ivs: [20, 30, 40, 50, 60], dir: 0, cat: false }
+    ]
+  };
+  const head = (name, unit) => unit ? `${name[0].toUpperCase() + name.slice(1)} (${unit})` : name[0].toUpperCase() + name.slice(1);
+  const val = (R, c) => { const v = c.lo + R.f() * (c.hi - c.lo); return +v.toFixed(c.dps); };
+  const near = (R, c, v) => +(v * (1 + (R.f() - 0.5) * 0.08)).toFixed(c.dps);
+
+  /* ===================== 📋 Tables & Averages ===================== */
+  function tables(R, y) {
+    const kinds = y === 9 ? ['mean', 'mean', 'anomaly', 'range', 'change', 'unit', 'dp'] : y === 10 ? ['mean', 'anomaly', 'range', 'change', 'error', 'unit', 'dp'] : ['mean', 'anomaly', 'change', 'error', 'error', 'unit', 'range'];
+    const k = R.pick(kinds), c = R.pick(CTX[y].filter(x => !x.cat));
+    const base = val(R, c), trials = [near(R, c, base), near(R, c, base), near(R, c, base)];
+    const iv = R.pick(c.ivs);
+    const tHead = [head(c.t, c.tu), 'Trial 1', 'Trial 2', 'Trial 3'].map((h, i) => i ? `${h}${c.du ? ` (${c.du})` : ''}` : h);
+    const out = (o) => ({ kind: 'Tables & Averages', ...o });
+    if (k === 'mean') {
+      const m = trials.reduce((a, b) => a + b, 0) / 3, n = c.dps + 1;
+      return out({ stem: `<p>A student measured the ${c.d} three times.</p>${table(tHead, [[iv, ...trials.map(v => dp(v, c.dps))]])}<p>Calculate the mean, to ${n} decimal place${n > 1 ? 's' : ''}.</p>`,
+        ...mc(R, dp(m, n), [dp(trials.reduce((a, b) => a + b, 0), n), dp((trials[0] + trials[2]) / 2, n), dp([...trials].sort((a, b) => a - b)[1], n), dp(m + 1, n)]),
+        why: `Add the trials and divide by how many there are: (${trials.map(v => dp(v, c.dps)).join(' + ')}) ÷ 3 = ${dp(m, n)}. Give the mean to one more decimal place than the raw data at most.` });
+    }
+    if (k === 'anomaly') {
+      const bad = R.int(0, 3), t4 = [...trials, near(R, c, base)], fac = R.pick([1.6, 1.8, 0.45, 0.55]);
+      t4[bad] = +(t4[bad] * fac).toFixed(c.dps);
+      const good = t4.filter((_, i) => i !== bad), m = good.reduce((a, b) => a + b, 0) / good.length, all = t4.reduce((a, b) => a + b, 0) / 4, n = c.dps + 1;
+      const head4 = [head(c.t, c.tu), 'Trial 1', 'Trial 2', 'Trial 3', 'Trial 4'].map((h, i) => i ? `${h}${c.du ? ` (${c.du})` : ''}` : h);
+      return out({ stem: `<p>Results for the ${c.d}:</p>${table(head4, [[iv, ...t4.map(v => dp(v, c.dps))]])}<p>Identify the anomaly and calculate the mean without it, to ${n} decimal place${n > 1 ? 's' : ''}.</p>`,
+        ...mc(R, `Trial ${bad + 1}; mean ${dp(m, n)}`, [`Trial ${bad + 1}; mean ${dp(all, n)}`, `Trial ${((bad + 1) % 4) + 1}; mean ${dp(m, n)}`, `No anomaly; mean ${dp(all, n)}`, `Trial ${((bad + 2) % 4) + 1}; mean ${dp(all, n)}`]),
+        why: `Trial ${bad + 1} (${dp(t4[bad], c.dps)}) is far from the others, so it is anomalous. Leave it out: mean = (${good.map(v => dp(v, c.dps)).join(' + ')}) ÷ ${good.length} = ${dp(m, n)}. Note the anomaly and, if you can, repeat that trial.` });
+    }
+    if (k === 'range') {
+      const r = Math.max(...trials) - Math.min(...trials);
+      return out({ stem: `<p>Three trials of the ${c.d}:</p>${table(tHead, [[iv, ...trials.map(v => dp(v, c.dps))]])}<p>What is the range of the results?</p>`,
+        ...mc(R, `${dp(r, c.dps)}${c.du ? ' ' + c.du : ''}`, [dp(Math.max(...trials), c.dps), dp(Math.min(...trials), c.dps), dp(r / 2, c.dps + 1), dp(r + Math.pow(10, -c.dps) * 2, c.dps)].map(x => `${x}${c.du ? ' ' + c.du : ''}`)),
+        why: `Range = highest − lowest = ${dp(Math.max(...trials), c.dps)} − ${dp(Math.min(...trials), c.dps)} = ${dp(r, c.dps)}. A small range means the results are close together (more reliable).` });
+    }
+    if (k === 'change') {
+      const a = val(R, c), pct = R.pick([-40, -25, -20, -10, 10, 15, 20, 25, 50, 60]) + R.int(-3, 3), b = +(a * (1 + pct / 100)).toFixed(c.dps), real = (b - a) / a * 100;
+      return out({ stem: `<p>The ${c.d} changed from <b>${dp(a, c.dps)}</b> to <b>${dp(b, c.dps)}</b>${c.du ? ' ' + c.du : ''}. Calculate the percentage change, to 1 decimal place.</p>`,
+        ...mc(R, `${real > 0 ? '+' : ''}${dp(real, 1)}%`, [`${real > 0 ? '+' : ''}${dp((b - a) / b * 100, 1)}%`, `${real > 0 ? '−' : '+'}${dp(Math.abs(real), 1)}%`, `${dp(Math.abs(b - a), 1)}%`, `${real > 0 ? '+' : ''}${dp(b / a * 100, 1)}%`]),
+        why: `% change = (new − original) ÷ original × 100 = (${dp(b, c.dps)} − ${dp(a, c.dps)}) ÷ ${dp(a, c.dps)} × 100 = ${dp(real, 1)}%. Divide by the <b>original</b> value; a negative answer is a decrease.` });
+    }
+    if (k === 'error') {
+      const lit = R.pick([[9.81, 'm/s²', 'acceleration due to gravity'], [4.18, 'J/g°C', 'specific heat capacity of water'], [100, '°C', 'boiling point of water'], [343, 'm/s', 'speed of sound in air'], [1.00, 'g/cm³', 'density of water'], [36.0, 'g per 100 g', 'solubility of sodium chloride at 20 °C']]);
+      const e = +(lit[0] * (1 + R.pick([-1, 1]) * R.int(3, 18) / 100)).toFixed(lit[0] >= 100 ? 0 : 2), pe = Math.abs(e - lit[0]) / lit[0] * 100;
+      return out({ stem: `<p>A class measured the ${lit[2]} as <b>${e} ${lit[1]}</b>. The accepted value is <b>${lit[0]} ${lit[1]}</b>. Calculate the percentage error, to 1 decimal place.</p>`,
+        ...mc(R, `${dp(pe, 1)}%`, [`${dp(Math.abs(e - lit[0]) / e * 100, 1)}%`, `${dp(Math.abs(e - lit[0]), 1)}%`, `${dp(e / lit[0] * 100, 1)}%`, `${dp(pe * 10, 1)}%`]),
+        why: `% error = |measured − accepted| ÷ accepted × 100 = |${e} − ${lit[0]}| ÷ ${lit[0]} × 100 = ${dp(pe, 1)}%. Always divide by the accepted value.` });
+    }
+    if (k === 'unit') {
+      const right = `${head(c.d, '').trim()} (${c.du})`, wrong = [head(c.d, ''), `${c.du}`, `${head(c.d, '')} ${c.du === 's' ? '(seconds) (s)' : ''}`.trim(), `Results (${c.du})`];
+      return out({ stem: `<p>A student is drawing a results table for the ${c.d}. Which column heading is best?</p>`, ...mc(R, right, wrong.filter(w => w !== right)),
+        why: 'A heading names the quantity <b>and</b> gives its unit once, in the heading, so the unit does not need to be written next to every number.' });
+    }
+    // decimal places consistency
+    const d = Math.max(1, c.dps), stepv = Math.pow(10, -d), vals = [0, 1, 2, 3].map(i => dp(base + (i * 3 + R.int(1, 2)) * stepv * (c.dps ? 1 : 10), d));
+    const odd = R.int(0, 3); vals[odd] = dp(+vals[odd] + R.int(1, 9) * stepv / 10, d + 1);
+    return out({ stem: `<p>Recorded values of the ${c.d}${c.du ? ' (' + c.du + ')' : ''}: <b>${vals.join(', ')}</b>. Which value is recorded inconsistently?</p>`, ...mc(R, vals[odd], vals.filter((_, i) => i !== odd)),
+      why: `${vals[odd]} has a different number of decimal places from the others. Record all values from the same instrument to the same precision.` });
+  }
+
+  /* ===================== 📈 Graphing ===================== */
+  function series(R, c, n = 5) {
+    const xs = c.ivs.slice(0, n), lo = c.lo, hi = c.hi;
+    return xs.map((x, i) => { const f = i / (xs.length - 1), shape = c.dir === 0 ? Math.sin(f * Math.PI) : c.dir > 0 ? f : 1 - f; return [x, +(lo + (hi - lo) * (0.15 + 0.75 * shape) + (R.f() - 0.5) * (hi - lo) * 0.04).toFixed(c.dps)]; });
+  }
+  function axes(pts, c) {
+    const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]), xmin = Math.min(...xs), xmax = Math.max(...xs);
+    const span = Math.max(...ys), ystep = [1, 2, 5, 10, 20, 25, 50, 100].find(s => span / s <= 8) || 100;
+    const xstep = (xmax - xmin) / (xs.length - 1);
+    return { xmin: Math.max(0, xmin - (xmin > 100 ? 0 : xstep)), xmax: xmax + (xmin > 100 ? 0 : 0), xstep, ymin: c.lo > 100 ? Math.floor(Math.min(...ys) / ystep) * ystep - ystep : 0, ymax: Math.ceil(span / ystep) * ystep + ystep, ystep, xlabel: head(c.t, c.tu), ylabel: head(c.d.length > 28 ? c.d.split(' ').slice(0, 4).join(' ') : c.d, c.du) };
+  }
+  function graphing(R, y) {
+    const kinds = y === 9 ? ['type', 'axis', 'read', 'read', 'trend', 'join'] : y === 10 ? ['type', 'axis', 'read', 'trend', 'interp', 'join'] : ['type', 'read', 'trend', 'interp', 'gradient', 'gradient'];
+    const k = R.pick(kinds), out = (o) => ({ kind: 'Graphing', ...o });
+    if (k === 'type') {
+      const c = R.pick(CTX[y]);
+      return out({ stem: `<p>A student investigates how the <b>${c.t}</b> affects the <b>${c.d}</b>. Which type of graph should they draw?</p>`, ...mc(R, c.cat ? 'Bar chart' : 'Line graph (scatter graph with a line of best fit)', ['Pie chart', c.cat ? 'Line graph (scatter graph with a line of best fit)' : 'Bar chart', 'Pictogram']),
+        why: c.cat ? `The ${c.t} is a category (not a number), so the bars are separate: a bar chart.` : `The ${c.t} is continuous (it can take any value), so plot points and draw a line of best fit.` });
+    }
+    if (k === 'axis') {
+      const c = R.pick(CTX[y]);
+      return out({ stem: `<p>In an investigation into how the ${c.t} affects the ${c.d}, which variable goes on the <b>x-axis</b>?</p>`, ...mc(R, `The ${c.t} (independent variable)`, [`The ${c.d} (dependent variable)`, 'A control variable', 'Whichever has bigger numbers']),
+        why: 'The independent variable (the one you change) goes on the x-axis; the dependent variable (the one you measure) goes on the y-axis.' });
+    }
+    if (k === 'join') {
+      return out({ stem: '<p>A student plots their results as points. How should they show the pattern?</p>', ...mc(R, 'Draw a smooth line or curve of best fit through the middle of the points', ['Join each point to the next with a ruler (dot-to-dot)', 'Draw a line from the first point to the last point', 'Do not draw a line at all']),
+        why: 'Real data has scatter. A line or curve of best fit shows the trend, with points roughly balanced on either side; it does not have to pass through every point (or the origin).' });
+    }
+    const c = R.pick(CTX[y].filter(x => !x.cat)), pts = series(R, c), ax = axes(pts, c);
+    const fig = graph({ ...ax, series: [{ pts, dots: true }] });
+    if (k === 'read') {
+      const i = R.int(0, pts.length - 1), p = pts[i], tol = ax.ystep / 2;
+      const right = dp(p[1], c.dps);
+      return out({ stem: `<p>Use the graph to read the ${c.d} when the ${c.t} is ${p[0]}${c.tu ? ' ' + c.tu : ''}.</p>`, fig,
+        ...mc(R, `About ${right}${c.du ? ' ' + c.du : ''}`, [p[1] + ax.ystep * 2, p[1] - ax.ystep * 2, pts[(i + 2) % pts.length][1], p[1] + ax.ystep * 4].map(v => `About ${dp(v, c.dps)}${c.du ? ' ' + c.du : ''}`)),
+        why: `Go up from ${p[0]} on the x-axis to the line, then across to the y-axis: about ${right} (within ${dp(tol, c.dps)}). Count what each small square is worth first.` });
+    }
+    if (k === 'trend') {
+      const first = pts[0], last = pts[pts.length - 1], up = last[1] > first[1];
+      const right = `As the ${c.t} increases from ${first[0]} to ${last[0]}${c.tu ? ' ' + c.tu : ''}, the ${c.d} ${c.dir === 0 ? 'rises to a peak, then falls' : up ? 'increases' : 'decreases'}, from ${dp(first[1], c.dps)} to ${dp(last[1], c.dps)}${c.du ? ' ' + c.du : ''}.`;
+      return out({ stem: '<p>Which is the best description of the trend?</p>', fig,
+        ...mc(R, right, [`The ${c.d} ${up ? 'increases' : 'decreases'}.`, `As the ${c.t} increases, the ${c.d} ${up ? 'decreases' : 'increases'}.`, 'The line goes up and down.', `The ${c.t} causes the ${c.d} to change.`]),
+        why: 'A good description gives the direction of the trend <b>and</b> quotes data from the graph, with units.' });
+    }
+    if (k === 'interp') {
+      const i = R.int(0, pts.length - 2), xm = (pts[i][0] + pts[i + 1][0]) / 2, ym = (pts[i][1] + pts[i + 1][1]) / 2;
+      return out({ stem: `<p>Estimate the ${c.d} when the ${c.t} is ${xm}${c.tu ? ' ' + c.tu : ''} (between two measured points).</p>`, fig,
+        ...mc(R, `About ${dp(ym, c.dps)}${c.du ? ' ' + c.du : ''}`, [pts[i][1], pts[i + 1][1], ym + (pts[i + 1][1] - pts[i][1]) * 1.6].map(v => `About ${dp(v, c.dps)}${c.du ? ' ' + c.du : ''}`)),
+        why: `Reading between measured points is <b>interpolation</b>: go up from ${xm} to the line and across. It is about halfway between ${dp(pts[i][1], c.dps)} and ${dp(pts[i + 1][1], c.dps)}. Reading beyond the data (extrapolation) is less reliable.` });
+    }
+    // gradient of a straight line (Y11)
+    const g = R.pick([[0, 10, 2, 'Time', 's', 'Distance', 'm', 'speed', 'm/s'], [0, 5, 1, 'Mass of fuel', 'g', 'Energy released', 'kJ', 'energy per gram', 'kJ/g'], [0, 8, 2, 'Current', 'A', 'Voltage', 'V', 'resistance', 'Ω'], [0, 6, 1, 'Time', 's', 'Velocity', 'm/s', 'acceleration', 'm/s²']]);
+    const m = R.pick([0.5, 1.5, 2, 2.5, 3, 4, 5, 12, 25, 30]), xs = Array.from({ length: (g[1] - g[0]) / g[2] + 1 }, (_, i) => g[0] + i * g[2]), lp = xs.map(x => [x, +(m * x).toFixed(2)]);
+    const ymax = m * g[1], ystep = [1, 2, 5, 10, 20, 25, 50, 100, 200].find(s => ymax / s <= 8);
+    const fig2 = graph({ xmin: 0, xmax: g[1], xstep: g[2], ymin: 0, ymax: Math.ceil(ymax / ystep) * ystep, ystep, xlabel: `${g[3]} (${g[4]})`, ylabel: `${g[5]} (${g[6]})`, series: [{ pts: lp, dots: true }] });
+    return out({ stem: `<p>Find the gradient of the line, with its unit. What does it represent?</p>`, fig: fig2,
+      ...mc(R, `${dp(m, m % 1 ? 1 : 0)} ${g[8]} (the ${g[7]})`, [`${dp(1 / m, 2)} ${g[8]} (the ${g[7]})`, `${dp(m, m % 1 ? 1 : 0)} ${g[6]} (the ${g[5].toLowerCase()})`, `${dp(m * g[1], 0)} ${g[8]} (the ${g[7]})`]),
+      why: `Gradient = rise ÷ run = Δy ÷ Δx. For example ${+(m * g[1]).toFixed(2)} ${g[6]} ÷ ${g[1]} ${g[4]} = ${+m.toFixed(2)} ${g[8]}, which is the ${g[7]}. Use a big triangle and read points on the line, not the data table.` });
+  }
+
+  /* ===================== ✅ Evaluate It ===================== */
+  const EV = [
+    // [year from, stem, right, wrongs, why]
+    [9, 'A student repeats each measurement three times and calculates a mean. What does this improve?', 'Reliability: random errors average out and anomalies can be spotted', ['Validity: it makes it a fair test', 'Accuracy: it removes systematic errors', 'Nothing: one result is enough'], 'Repeats make results more reliable (consistent). They cannot fix a systematic error, which shifts every result the same way.'],
+    [9, 'A student keeps the volume of acid the same in every test. Why?', 'It is a control variable, so the test is fair (valid)', ['It is the independent variable', 'It makes the results more precise', 'It makes the experiment faster'], 'Controlling variables means only the independent variable changes, so any change in the dependent variable is caused by it.'],
+    [9, 'Which is the most useful improvement to an experiment?', 'Use a water bath to keep the temperature at the same value for every test', ['Be more careful', 'Do it better next time', 'Use more equipment'], 'An improvement must be specific: say exactly what to change and how it reduces an error or controls a variable.'],
+    [9, 'A balance shows 0.3 g with nothing on it, and the student does not reset it. What type of error is this?', 'Systematic error: every mass is 0.3 g too high', ['Random error: masses scatter up and down', 'Human error that repeats will remove', 'No error, because 0.3 g is small'], 'A zero error shifts every reading by the same amount: a systematic error. Repeating does not remove it; zero (tare) the balance.'],
+    [9, 'A student times a reaction with a stopwatch and their reaction time varies. What type of error is this?', 'Random error: some times are too long, some too short', ['Systematic error: every time is too long', 'An anomaly', 'A control variable'], 'Reaction time varies unpredictably, so readings scatter on both sides: random error. Repeat and average, or use a light gate or data logger.'],
+    [9, 'One result is very different from the others in the same group. What should the student do?', 'Identify it as an anomaly, leave it out of the mean, and repeat that trial if possible', ['Delete it and say nothing', 'Include it to keep all the data', 'Change it to match the others'], 'Never hide or change data. Mark the anomaly, explain why it is excluded and repeat if you can.'],
+    [10, 'A student measures how far woodlice move in only one small tray. Why might the conclusion not be valid for all woodlice?', 'The sample is too small and from one place, so it may not be representative', ['The results are too precise', 'Woodlice are too small to measure', 'There were too many control variables'], 'A small or unrepresentative sample limits how far you can generalise a conclusion.'],
+    [10, 'Readings are close together but all far from the accepted value. The results are…', 'precise but not accurate', ['accurate but not precise', 'accurate and precise', 'neither precise nor reliable'], 'Precise = close to each other. Accurate = close to the true value. A systematic error can give precise but inaccurate results.'],
+    [10, 'Which would make a temperature measurement more precise?', 'A digital thermometer that reads to 0.1 °C instead of one marked every 1 °C', ['Reading the thermometer from above', 'Measuring faster', 'Using a bigger beaker'], 'Precision depends on the smallest division (resolution) of the instrument.'],
+    [10, 'Results support the hypothesis, but only three values of the independent variable were tested. What is the best evaluation?', 'The hypothesis is supported, but more values over a wider range are needed to be confident of the trend', ['The hypothesis is proved', 'The hypothesis is wrong', 'The experiment must be repeated exactly the same way'], 'Data can support a hypothesis, not prove it. More values and a wider range show the pattern more clearly.'],
+    [10, 'Heat is lost to the air when a fuel heats water. How does this affect the measured temperature rise?', 'It is smaller than it should be, so energy values are too low (systematic)', ['It is larger than it should be', 'It has no effect', 'It makes the results random'], 'Heat loss always lowers the result in the same direction: a systematic error. Insulate the beaker and use a lid or draught shield.'],
+    [11, 'Which statement about validity is correct?', 'A method is valid if it measures what it claims to and controls the other variables', ['A method is valid if the results are repeatable', 'A method is valid if it uses digital equipment', 'A method is valid if the results match the hypothesis'], 'Validity is about a fair test that measures the right thing. Reliability is about repeatable results.'],
+    [11, 'A heart-rate monitor gives readings that scatter by ±5 bpm. Which change best reduces the effect?', 'Take several readings at each speed and use the mean', ['Use a different person for each speed', 'Round every reading to the nearest 10 bpm', 'Only take readings at the highest speed'], 'Averaging repeats reduces random error; changing the person adds a new uncontrolled variable.'],
+    [11, 'The line of best fit does not pass through the origin, though theory says it should. What is the most likely cause?', 'A systematic error, such as a zero error in an instrument', ['A random error in one reading', 'Too few repeats', 'The independent variable was controlled'], 'A constant offset in every reading moves the whole line up or down, so it misses the origin: a systematic error.'],
+    [11, 'Which conclusion is best supported by a strong correlation between two variables?', 'The variables are related, but other evidence is needed to show one causes the other', ['One variable causes the other', 'The hypothesis is proved', 'There is no relationship'], 'Correlation does not prove causation: a third variable could affect both.']
+  ];
+  function evaluate(R, y) {
+    const pool = EV.filter(e => e[0] <= y), e = R.pick(pool);
+    return { kind: 'Evaluate It', stem: `<p>${e[1]}</p>`, ...mc(R, e[2], e[3]), why: e[4] };
+  }
+
+  /* ===================== 🔢 Rounding & Significant Figures ===================== */
+  const sfCount = (s) => { s = s.replace('-', ''); const [m] = s.split('e'); let d = m.replace('.', ''); d = d.replace(/^0+/, ''); if (!m.includes('.')) d = d.replace(/0+$/, '') || d; return d.length; };
+  const sfStr = (x, n) => { const t = x.toPrecision(n); return /e/.test(t) ? String(Number(t)) : t; };
+  function sigfigs(R, y) {
+    const kinds = y === 9 ? ['dp', 'dp', 'whole', 'dpread'] : y === 10 ? ['dp', 'whole', 'count', 'round'] : ['count', 'round', 'round', 'calc', 'dp'];
+    const k = R.pick(kinds), out = (o) => ({ kind: 'Rounding & Sig Figs', ...o });
+    if (k === 'dp' || k === 'dpread') {
+      const n = R.pick([1, 2]), x = +(R.int(1, 99) + R.f()).toFixed(4);
+      const right = x.toFixed(n), trunc = (Math.trunc(x * 10 ** n) / 10 ** n).toFixed(n);
+      return out({ stem: `<p>Round <b>${x}</b> to ${n} decimal place${n > 1 ? 's' : ''}.</p>`, ...mc(R, right, [trunc === right ? (x + 10 ** -n).toFixed(n) : trunc, x.toFixed(n + 1), x.toFixed(n - 1 || 0), String(Math.round(x))]),
+        why: `Look at the digit after the ${n === 1 ? 'first' : 'second'} decimal place: 5 or more rounds up, 4 or less stays. ${x} → ${right}.` });
+    }
+    if (k === 'whole') {
+      const x = +(R.int(10, 999) + R.f()).toFixed(2), right = String(Math.round(x));
+      return out({ stem: `<p>Round <b>${x}</b> to the nearest whole number.</p>`, ...mc(R, right, [String(Math.floor(x) === Math.round(x) ? Math.ceil(x) : Math.floor(x)), x.toFixed(1), String(Math.round(x / 10) * 10), String(Math.round(x) + 1), String(Math.round(x) - 1)]),
+        why: `The first decimal digit decides: ${x} → ${right}.` });
+    }
+    if (k === 'count') {
+      const forms = [() => `0.0${R.int(1, 9)}${R.int(0, 9)}${R.pick(['', R.int(1, 9)])}`, () => `${R.int(1, 9)}${R.int(0, 9)}.${R.int(0, 9)}0`, () => `${R.int(1, 9)}0${R.int(1, 9)}`, () => `${R.int(1, 9)}.${R.int(0, 9)}${R.int(0, 9)} × 10³`, () => `${R.int(1, 9)}${R.int(0, 9)}0.0`];
+      const s = R.pick(forms)(), n = sfCount(s.replace(' × 10³', ''));
+      return out({ stem: `<p>How many significant figures are in <b>${s}</b>?</p>`, ...mc(R, String(n), [String(n + 1), String(Math.max(1, n - 1)), String(s.replace(/[^0-9]/g, '').length + (s.includes('10³') ? -2 : 0))].filter(v => +v > 0)),
+        why: 'Leading zeros never count. Zeros between digits always count. Trailing zeros count after a decimal point. In scientific notation, count only the digits before × 10ⁿ.' });
+    }
+    if (k === 'round') {
+      const n = R.pick([2, 3]), x = R.pick([+(R.f() * 0.09 + 0.001).toFixed(5), +(R.int(100, 99999) + R.f()).toFixed(2), +(R.int(1, 9) + R.f()).toFixed(4)]);
+      return out({ stem: `<p>Write <b>${x}</b> to ${n} significant figures.</p>`, ...mc(R, sfStr(x, n), [sfStr(x, n + 1), x.toFixed(n), sfStr(x, Math.max(1, n - 1)), sfStr(x, n + 2), String(Math.trunc(x)), String(x)]),
+        why: `Start counting at the first non-zero digit, keep ${n} digits, then round. Big numbers keep their size with zeros (e.g. 45678 → 46000 to 2 s.f.); small numbers keep any zero that is significant (0.01204 → 0.0120 to 3 s.f.).` });
+    }
+    // calculation: answer to the fewest s.f. in the data
+    const a = +(R.int(10, 99) / 10).toFixed(1), b = +(R.int(100, 999) / 100).toFixed(2), r = a * b;
+    return out({ stem: `<p>A student calculates ${a} × ${b} (from measured data). To how many significant figures should the answer be given, and what is it?</p>`,
+      ...mc(R, `2 s.f.: ${sfStr(r, 2)}`, [`3 s.f.: ${sfStr(r, 3)}`, `${String(+r.toFixed(4))} (all the digits)`, `1 s.f.: ${sfStr(r, 1)}`]),
+      why: `For × and ÷, give the answer to the fewest significant figures in the data: ${a} has 2 s.f. and ${b} has 3, so 2 s.f.` });
+  }
+
+  const CARDS = [
+    { id: 'tab', icon: '📋', name: 'Tables & Averages', crit: 'C', d: 'Means, anomalies, range, % change and % error, and good table headings.', gen: tables },
+    { id: 'graph', icon: '📈', name: 'Graphing', crit: 'C', d: 'Choose the graph, place the axes, read values, describe trends; gradients in Year 11.', gen: graphing },
+    { id: 'eval', icon: '✅', name: 'Evaluate It', crit: 'C', d: 'Reliability and validity, random and systematic errors, anomalies and specific improvements.', gen: evaluate },
+    { id: 'sf', icon: '🔢', name: 'Rounding & Sig Figs', crit: 'C', d: 'Decimal places and whole numbers; significant figures from Year 10.', gen: sigfigs },
+    { id: 'var', icon: '🔬', name: 'Variables', crit: 'B', d: 'Independent, dependent and control variables.', soon: true },
+    { id: 'hyp', icon: '💡', name: 'Hypothesis Builder', crit: 'B', d: 'Testable If… then… because… hypotheses.', soon: true },
+    { id: 'measure', icon: '📏', name: 'Measure It', crit: 'B', d: 'Reading scales, choosing equipment and SI units.', soon: true },
+    { id: 'safety', icon: '⚠️', name: 'Lab Safety', crit: '', d: 'Hazard symbols and safe choices.', soon: true },
+    { id: 'apa', icon: '📚', name: 'Referencing (APA 7)', crit: 'D', d: 'In-text citations, reference lists and judging sources.', soon: true }
+  ];
+  return { CARDS, gen: (id, R, y) => CARDS.find(c => c.id === id).gen(R, y) };
+})();
+
 /* ---- engine.js ---- */
 /* ===== MYPoirier Science Lab: app =====
    Rail, practice sheet, markscheme ticks, spaced-repetition recall, notes panels, stats tabs and backup code. Organised for MYP: years → units → subtopics, Criterion A strands and level bands. */
@@ -8014,7 +8251,7 @@ const GAMES = (() => {
   /* ---------- storage (device only) ---------- */
   const DEF = () => ({
     settings: { theme: '', year: 11, sel: ALL_SUBS.slice(), crit: { i: true, ii: true, iii: true }, band: { 2: true, 4: true, 6: true, 8: true }, missedOnly: false, incCmd: true, rmode: 'flash', statsTab: 'practice', flipCards: false },
-    log: [], cards: {}, missed: [], days: [], games: {}, newDay: { d: '', n: 0 }, seenWelcome: false,
+    log: [], cards: {}, missed: [], days: [], games: {}, skills: {}, newDay: { d: '', n: 0 }, seenWelcome: false,
   });
   function load() {
     const d = DEF();
@@ -9503,7 +9740,7 @@ ${docWatermark('')}${docFooter('')}</body></html>`;
   }
 
   /* ======================= STATS ======================= */
-  const STAT_TABS = [['practice', 'Practice 🎯'], ['games', 'Games 🕹️'], ['recall', 'Recall 🧠']];
+  const STAT_TABS = [['practice', 'Practice 🎯'], ['games', 'Games 🕹️'], ['recall', 'Recall 🧠'], ['skills', 'Skills 🧰']];
   const accBar = (acc) => `<div class="row" style="gap:8px;flex-wrap:nowrap"><div class="bar ${acc >= 0.7 ? 'good' : acc >= 0.5 ? 'warn' : 'bad'}" style="flex:1"><i style="width:${Math.round(acc * 100)}%"></i></div><span class="num">${Math.round(acc * 100)}%</span></div>`;
   function renderStats(main) {
     const L = S.log.filter(x => QBY[x.id] && QBY[x.id].y === Y());
@@ -9523,6 +9760,7 @@ ${docWatermark('')}${docFooter('')}</body></html>`;
       ${tab !== 'practice' || !L.some(x => x.mode === 'practice') ? '' : (() => { const pr = L.filter(x => x.mode === 'practice'), nh = pr.filter(x => !x.h), wh = pr.filter(x => x.h); return `<section class="panel"><h3>Hints</h3><div class="tiles"><div class="tile"><span class="k">Answered without hints</span><span class="v num">${pct(nh.length, pr.length)}%</span><span class="s">${nh.length} of ${pr.length} questions</span></div><div class="tile"><span class="k">Score without hints</span><span class="v num">${nh.length ? pct(nh.reduce((a, x) => a + x.score, 0), nh.length) + '%' : '–'}</span><span class="s">average</span></div><div class="tile"><span class="k">Score with hints</span><span class="v num">${wh.length ? pct(wh.reduce((a, x) => a + x.score, 0), wh.length) + '%' : '–'}</span><span class="s">${wh.length ? `${(wh.reduce((a, x) => a + x.h, 0) / wh.length).toFixed(1)} hints on average` : 'no hints used yet'}</span></div></div><p class="muted small">Questions where you needed two or more hints stay in “Only Questions I’ve Missed” so you can try them again without help.</p></section>`; })()}
       ${tab !== 'practice' ? '' : `<section class="panel"><h3>By Strand and Level</h3><p class="muted small">Average score in Practice. Tests mark each strand separately, so aim to be secure in all three.</p><div class="tbl-wrap"><table class="stats"><tbody>${grid}</tbody></table></div></section>
       <section class="panel"><h3>By Subtopic</h3>${subRows ? `<div class="tbl-wrap"><table class="stats"><thead><tr><th>Subtopic</th><th>Tries</th><th>Average</th><th>By strand</th><th></th></tr></thead><tbody>${subRows}</tbody></table></div>` : '<p class="muted">Answer a few questions in Practice to see your results here.</p>'}</section>`}
+      ${tab !== 'skills' ? '' : (() => { const rows = SKILLS.CARDS.filter(c => !c.soon).map(c => { const st = S.skills[`${c.id}-${Y()}`]; return st && st.n ? `<tr><td>${c.icon} ${c.name}</td><td class="num">${st.n}</td><td style="min-width:140px">${accBar(st.right / st.n)}</td><td class="num">${st.best}</td></tr>` : ''; }).join(''); return `<section class="panel"><h3>Skills (Year ${Y()})</h3>${rows ? `<div class="tbl-wrap"><table class="stats"><thead><tr><th>Skill</th><th>Questions</th><th>Correct</th><th>Best streak</th></tr></thead><tbody>${rows}</tbody></table></div>` : '<p class="muted">Try a Skills drill to see your progress here.</p>'}</section>`; })()}
       ${tab !== 'games' ? '' : `<section class="panel"><h3>Personal Bests</h3>${games ? `<table class="stats"><thead><tr><th>Game</th><th>Best</th><th>Plays</th></tr></thead><tbody>${games}</tbody></table>` : '<p class="muted">Play a game to see your scores here.</p>'}</section>`}
       ${tab !== 'recall' ? '' : `<section class="panel"><h3>Recall Health</h3><p class="small">${cards.length} of ${CARDS.length} cards started · ${mature} in long-term memory (21+ days) · ${dueNow} due now${flagged ? ` · <span class="flag">${flagged} confident error${flagged > 1 ? 's' : ''}</span>` : ''}</p></section>
       <section class="panel"><h3>Unit Mastery</h3><p class="muted small">A card counts as mastered once it is scheduled 21 or more days ahead.</p><div class="tbl-wrap"><table class="stats"><tbody>${mastery}</tbody></table></div></section>`}
@@ -9598,7 +9836,7 @@ ${docWatermark('')}${docFooter('')}</body></html>`;
     { v: '0.2 alpha', d: '5 November 2026', items: ['New design: header, side panel, question sheet, markscheme ticks, spaced-repetition Recall (Flashcards, Pick’em!, Match It!), Notes panels, Stats tabs and backup code.', 'Every unit is split into subtopics, one per lesson topic, and every subtopic has questions for A i, A ii and A iii.', 'Unit games: Element Match (Year 9 Chemistry) and Graph It! (Year 11 Forces & Motion).', 'Notes for every subtopic with key ideas, common mistakes and key terms.'] },
     { v: '0.3 alpha', d: '5 November 2026', items: ['Games page grouped by unit, with Class Games for every year.', 'New unit games: Build-an-Atom and Periodic Mystery (Y9 Chemistry); Free-Body Builder, Stop in Time and suvat Sprint (Y11 Forces & Motion).', 'Blitz and Last Man Standing with class codes, using multiple-choice questions from the ticked subtopics.', 'Y9 Chemistry: a simplified Periodic Table (elements 1–20, whole-number atomic masses) on every question, in the header and in Notes.', 'Last Man Standing arena: ready screen, 3-2-1 countdown, synthesised music and sound effects, heartbeat in the last 30 seconds, Give Up and Game Over.', 'Code boxes start with their prefix (LMS-) and add capitals and dashes as you type.'] },
     { v: '0.4 alpha', d: '6 November 2026', items: ['New <b>Test</b> mode: a timed Criterion A test like the unit tests, with a section for each strand from level 1–2 to 7–8. Answers stay hidden until the end; the site marks short answers, you tick the markschemes for written answers, and each strand gets a best-fit level. Print your results, or use a TST- class code so everyone gets the same test.', 'New unit: <b>Year 11 Combustible Fuels</b> (8 subtopics, 55 question types): fuels and SDG 7, hydrocarbons, naming and isomers with drawn structural formulas, alcohols, crude oil and boiling point, combustion and balancing, enthalpy profiles and bond enthalpy, moles, energy per gram and emissions.', 'More question types matched to the unit tests: Y9 Disease (vectors, Jenner, Fleming, Ebola, bacterial growth, vaccine boosters), Y9 Chemistry (nuclear notation, particle tables, spotting Bohr-diagram errors, covalent names, evidence of chemical change, ionisation energy trends), Y11 Exchange & Transport (Boyle\'s law, the double circulation, valves, blood pressure, exercise spirometry, maximum heart rate) and Y11 Forces & Motion (crane tension, runway length, skydiver, multi-stage v–t graphs, theory vs real data).', 'Stop in Time: everyday objects in the road instead of people.', 'A <b>Data Booklet</b> button for every year in the header (and on questions that need it): the Periodic Table for Year 9 (elements 1–20), the full Periodic Table for Years 10 and 11, and the physics formula sheet for Year 11. Point at, tap or tab to any element for its details.', '<b>Hints</b> in Practice: up to three per question (a nudge, the method, then the first step). Stats shows how often you answer without hints.', 'New Year 11 Fuels games: <b>Isomer Hunt</b> and <b>Balance It!</b>', 'New Year 9 Chemistry activity: <b>Periodic People</b>. Arrange a family of secret agents into a table, build the missing one, then see the elements they stand for.', '<b>🚩 Report a Problem</b> on every question (including in Test mode), flashcard, note and the Data Booklet, and <b>💬 Send Feedback</b> in the footer: they open your teacher’s Google Form already filled in.', '<b>Pause</b> in Test mode: the timer stops and the questions are hidden until you resume. Pauses are shown with your results.', 'Online tests: show or hide the timer, and sound alerts at 30, 15 and 5 minutes left and when time is up (🔔 can be turned off).', 'Test mode is set up by your teacher: enter the TST- class code they give you. A code gives an online test, a worksheet or a test/exam to print (cover sheet, a section for each strand, the data booklet at the end), with or without the markscheme. Teachers unlock the full set-up with 🔑 Teacher access and can print a Student Copy, the Markscheme or Both.', 'The welcome card takes the colour of your year, and the revision history is grouped into collapsible stages.', 'Fixes: sorting questions always use every category; written-answer markschemes line up properly.'] },
-    { v: '0.5 alpha', d: '11 November 2026', items: ['Four new units: <b>Year 9 Unit 3, Evidence of a Changing Climate</b>; <b>Year 10 Unit 1, Population & Conservation</b> and <b>Year 10 Unit 2, Solution Chemistry</b> (games for Solution Chemistry come in 0.6); <b>Year 11 Unit 4, Digestion & Metabolism</b>. Each has questions for every strand and level, notes, recall cards, hints, Test mode and printables.', '<b>Year 9 Chemistry of Industry</b> now matches this year\'s unit: new questions on atomic radius, ionisation energy, group 1 and 17 reactivity, metal properties, relative atomic mass, Rutherford\'s experiment, atoms vs ions vs compounds, identifying elements from their properties, and choosing the correct Lewis or Bohr diagram. Equations and chemical change stay as practice-only <i>good to know</i> extras (not in tests). New games: <b>Bohr ↔ Lewis</b> and <b>Give or Share?</b>', 'Games page: every section stays open, with smaller cards and a bar at the top to jump to Class Games or any unit.', 'For now the site shows <b>Units 1 and 2</b> in every year while they are refined; Units 3 and 4 come back in later builds.', 'New games: <b>Weather or Climate?</b> (Y9), <b>Oh Deer!</b> (Y10), <b>Digest It!</b> (Y11), and three Year 9 Chemistry games: <b>Element, Molecule or Compound?</b>, <b>Diagram Detective</b> (Bohr, Lewis and dot-and-cross diagrams) and <b>Ionic Matchmaker</b>.', '<b>Periodic People</b>: elements 1–20, 1, 2 or 3 missing characters, optional hints, and a new caterpillar theme.', 'Timed games: choose 3, 5 or 10 minutes, or your own time. suvat Sprint keeps the chosen equation on screen.', 'Test mode: about a quarter of the questions are kept for tests only, and tests use their own versions of the fact questions, so tests always include questions you have not practised.', 'New questions: fields and pressure (Y11 Forces & Motion); chemical and physical change, and forces between molecules (Y9 Chemistry).', 'Free-body diagrams show the ground when there is a normal force, and labels are never cut off. Speeds are in m s<sup>−1</sup>; km h<sup>−1</sup> appears only in an optional "good to know" question.', 'Notes: <b>More Help</b> links (videos, simulations and readings from the class slides) and <b>Print/PDF</b>; notes now start straight with the subtopics.', 'One <b>Data Booklet & Command Terms</b> button in the header. A clearer <b>All Games</b> button; the Games tab also returns to the list of games.', 'All codes now start with <b>MYP-</b>. Year 10 is blue.', 'Test Mode: <b>Online</b> or <b>Printable</b> codes; teachers choose whether to use test-only questions, results printing, retakes, the cover sheet and answer space; a pace bar with alert lines, Sound on/off and a Pace timer switch.', 'Last Man Standing: the starting time is locked into the code.'] },
+    { v: '0.5 alpha', d: '11 November 2026', items: ['Four new units: <b>Year 9 Unit 3, Evidence of a Changing Climate</b>; <b>Year 10 Unit 1, Population & Conservation</b> and <b>Year 10 Unit 2, Solution Chemistry</b> (games for Solution Chemistry come in 0.6); <b>Year 11 Unit 4, Digestion & Metabolism</b>. Each has questions for every strand and level, notes, recall cards, hints, Test mode and printables.', '<b>Year 9 Chemistry of Industry</b> now matches this year\'s unit: new questions on atomic radius, ionisation energy, group 1 and 17 reactivity, metal properties, relative atomic mass, Rutherford\'s experiment, atoms vs ions vs compounds, identifying elements from their properties, and choosing the correct Lewis or Bohr diagram. Equations and chemical change stay as practice-only <i>good to know</i> extras (not in tests). New games: <b>Bohr ↔ Lewis</b> and <b>Give or Share?</b>', 'New <b>Skills 🧰</b> section for lab and report skills (Criterion C): <b>Tables & Averages</b>, <b>Graphing</b>, <b>Evaluate It</b> and <b>Rounding & Sig Figs</b>. Endless questions with new values, pitched at your year, with a running score, streaks and Stats. Coming soon: Variables, Hypothesis Builder, Measure It, Lab Safety and Referencing (APA 7).', 'Games page: every section stays open, with smaller cards and a bar at the top to jump to Class Games or any unit.', 'For now the site shows <b>Units 1 and 2</b> in every year while they are refined; Units 3 and 4 come back in later builds.', 'New games: <b>Weather or Climate?</b> (Y9), <b>Oh Deer!</b> (Y10), <b>Digest It!</b> (Y11), and three Year 9 Chemistry games: <b>Element, Molecule or Compound?</b>, <b>Diagram Detective</b> (Bohr, Lewis and dot-and-cross diagrams) and <b>Ionic Matchmaker</b>.', '<b>Periodic People</b>: elements 1–20, 1, 2 or 3 missing characters, optional hints, and a new caterpillar theme.', 'Timed games: choose 3, 5 or 10 minutes, or your own time. suvat Sprint keeps the chosen equation on screen.', 'Test mode: about a quarter of the questions are kept for tests only, and tests use their own versions of the fact questions, so tests always include questions you have not practised.', 'New questions: fields and pressure (Y11 Forces & Motion); chemical and physical change, and forces between molecules (Y9 Chemistry).', 'Free-body diagrams show the ground when there is a normal force, and labels are never cut off. Speeds are in m s<sup>−1</sup>; km h<sup>−1</sup> appears only in an optional "good to know" question.', 'Notes: <b>More Help</b> links (videos, simulations and readings from the class slides) and <b>Print/PDF</b>; notes now start straight with the subtopics.', 'One <b>Data Booklet & Command Terms</b> button in the header. A clearer <b>All Games</b> button; the Games tab also returns to the list of games.', 'All codes now start with <b>MYP-</b>. Year 10 is blue.', 'Test Mode: <b>Online</b> or <b>Printable</b> codes; teachers choose whether to use test-only questions, results printing, retakes, the cover sheet and answer space; a pace bar with alert lines, Sound on/off and a Pace timer switch.', 'Last Man Standing: the starting time is locked into the code.'] },
   ];
   function renderAbout(main) {
     const rows = LIVE_UNITS.map(u => { const qs = Q.filter(q => q.uid === u.id); return `<tr><td><b>Y${u.y} U${u.n}</b> ${esc(u.title)}</td><td class="num">${CONTENT[u.id].subs.length}</td>${STRANDS.map(s => `<td class="num">${qs.filter(q => q.s === s.id).length}</td>`).join('')}<td class="num"><b>${qs.length}</b></td><td class="num">${CARDS.filter(c => c.uid === u.id).length}</td></tr>`; }).join('');
@@ -9630,10 +9868,48 @@ ${docWatermark('')}${docFooter('')}</body></html>`;
   }
   function bindAbout(main) { main.onclick = null; }
 
+  /* ======================= SKILLS 🧰 ======================= */
+  // endless Criterion B/C drills (src/skills.js), scaled by year; stats per card in S.skills[id] = { n, right, best }
+  let SK = { mode: null };
+  const CRIT_TIP = { B: 'Criterion B: Inquiring and designing', C: 'Criterion C: Processing and evaluating', D: 'Criterion D: Reflecting on the impacts of science' };
+  function skNew() { SK.q = SKILLS.gen(SK.mode, makeR(newSeed()), Y()); SK.done = false; SK.pick = null; }
+  function renderSkills(main) {
+    if (!SK.mode) {
+      const card = (c) => { const st = S.skills[`${c.id}-${Y()}`]; return `<button type="button" class="mode-card gcard${c.soon ? ' soon' : ''}" ${c.soon ? 'disabled' : `data-skmode="${c.id}"`}><span class="gc-top"><span class="wic" aria-hidden="true">${c.icon}</span><b>${c.name}</b>${c.crit ? `<span class="pill crit-${c.crit}" data-tip="${CRIT_TIP[c.crit]}">Crit ${c.crit}</span>` : ''}</span><span class="gc-d">${c.soon ? 'Coming soon: ' : ''}${c.d}</span>${st && st.n ? `<span class="muted small num gc-best">${st.right} / ${st.n} correct · best streak ${st.best}</span>` : ''}</button>`; };
+      main.innerHTML = head('Skills 🧰', `Practise the skills you use in labs and reports (Criteria B and C), at Year ${Y()} level. Every question has new values.`)
+        + `<section class="unit-games"><div class="ug-head"><span class="ug-em" aria-hidden="true">🧪</span><div><span class="ug-n">Criterion C</span><h3>Processing & Evaluating</h3></div></div><div class="mode-cards">${SKILLS.CARDS.filter(c => !c.soon).map(card).join('')}</div></section>`
+        + `<section class="unit-games empty"><div class="ug-head"><span class="ug-em" aria-hidden="true">🛠️</span><div><span class="ug-n">Coming soon</span><h3>Criteria B and D</h3></div></div><div class="mode-cards">${SKILLS.CARDS.filter(c => c.soon).map(card).join('')}</div></section>`;
+      return;
+    }
+    if (!SK.q || SK.y !== Y()) { SK.y = Y(); skNew(); }
+    const q = SK.q, c = SKILLS.CARDS.find(x => x.id === SK.mode);
+    main.innerHTML = `<nav class="mode-back games-back" aria-label="Skills"><button type="button" class="btn backbtn" id="skBack"><span aria-hidden="true">←</span> All Skills</button><span class="muted small">Skills › ${esc(c.name)}</span></nav>` + head(`${c.icon} ${c.name}`, c.d)
+      + `<article class="sheet sk-sheet"><div class="qmeta"><span class="pill">Year ${Y()}</span>${c.crit ? `<span class="pill crit-${c.crit}">Criterion ${c.crit}</span>` : ''}<span class="num">${SK.right} / ${SK.n} correct${SK.streak > 1 ? ` · 🔥 ${SK.streak}` : ''}</span></div>
+        <div class="qbody">${q.stem}${q.fig ? `<div class="figure">${q.fig}</div>` : ''}</div>
+        <div class="options">${q.options.map((o, i) => { let cls = ''; if (SK.done) cls = i === q.answer ? 'correct' : (i === SK.pick ? 'wrong' : ''); return `<button type="button" class="opt ${cls}" data-skopt="${i}" ${SK.done ? 'disabled' : ''}><span class="letter">${LETTERS[i]}</span><span>${o}</span></button>`; }).join('')}</div>
+        ${SK.done ? `<div class="verdict ${SK.pick === q.answer ? 'ok' : 'no'}">${SK.pick === q.answer ? '✓ Correct' : '✗ Not quite'}</div><div class="solution"><h4>Why</h4><div>${q.why}</div></div>` : ''}
+      </article><div class="row"><button class="btn primary" id="skNext">${SK.done ? 'Next Question' : 'Skip'}</button></div>`;
+  }
+  function bindSkills(main) {
+    main.onclick = (e) => {
+      const b = e.target.closest('button'); if (!b) return;
+      if (b.dataset.skmode) { SK = { mode: b.dataset.skmode, q: null, right: 0, n: 0, streak: 0 }; renderSkills(main); window.scrollTo({ top: 0 }); return; }
+      if (b.id === 'skBack') { SK = { mode: null }; renderSkills(main); return; }
+      if (b.id === 'skNext') { skNew(); renderSkills(main); return; }
+      if (b.dataset.skopt !== undefined && SK.q && !SK.done) {
+        SK.pick = +b.dataset.skopt; SK.done = true; SK.n++;
+        const ok = SK.pick === SK.q.answer; if (ok) { SK.right++; SK.streak++; } else SK.streak = 0;
+        const k = `${SK.mode}-${Y()}`, st = S.skills[k] || (S.skills[k] = { n: 0, right: 0, best: 0 });
+        st.n++; if (ok) st.right++; st.best = Math.max(st.best, SK.streak); save();
+        renderSkills(main);
+      }
+    };
+  }
+
   /* ======================= ROUTER ======================= */
   const VIEWS = {
     practice: [renderPractice, bindPractice, 'Practice 🎯'], test: [renderTest, bindTest, 'Test 📝'], games: [renderGames, bindGames, 'Games 🕹️'], recall: [renderRecall, bindRecall, 'Recall 🧠'],
-    notes: [renderNotes, bindNotes, 'Notes 📓'], stats: [renderStats, bindStats, 'Stats 📈'],
+    notes: [renderNotes, bindNotes, 'Notes 📓'], skills: [renderSkills, bindSkills, 'Skills 🧰'], stats: [renderStats, bindStats, 'Stats 📈'],
     about: [renderAbout, bindAbout, 'About', true], welcome: [renderWelcome, bindWelcome, 'Welcome', true],
   };
   function currentView() { const h = (location.hash || '').slice(1); return VIEWS[h] ? h : 'welcome'; }
@@ -9644,7 +9920,7 @@ ${docWatermark('')}${docFooter('')}</body></html>`;
     lmsTheme();
     if (v !== 'recall' && GM && GM.mode === 'match') stopGM();
     $$('#tabs a').forEach(a => a.setAttribute('aria-current', a.getAttribute('href') === '#' + v ? 'page' : 'false'));
-    const noRail = (v === 'test' && (!TEACH || (TS && TS.phase !== 'setup'))) || v === 'stats' || v === 'about' || v === 'welcome' || (v === 'games' && !(GA && (GA.id === 'blitz' || GA.id === 'lms') && GA.phase === 'setup'));
+    const noRail = (v === 'test' && (!TEACH || (TS && TS.phase !== 'setup'))) || v === 'stats' || v === 'skills' || v === 'about' || v === 'welcome' || (v === 'games' && !(GA && (GA.id === 'blitz' || GA.id === 'lms') && GA.phase === 'setup'));
     $('.shell').classList.toggle('no-rail', noRail);
     if (!noRail) renderRail();
     main.onclick = null; main.onchange = null; main.oninput = null; main.onkeydown = null;
@@ -9723,7 +9999,7 @@ ${docWatermark('')}${docFooter('')}</body></html>`;
   window.__LAB = {
     Q, CARDS, SUB, S: () => S, render,
     force(qid, seed) { const q = QBY[qid]; S.settings.year = q.y; if (!S.settings.sel.includes(q.subKey)) S.settings.sel.push(q.subKey); S.settings.crit[q.s] = true; S.settings.band[q.b] = true; S.settings.missedOnly = false; applyYear(); if (location.hash !== '#practice') { location.hash = '#practice'; render(); } P.q = q; P.seed = seed; P.inst = buildInst(q, seed); P.st = newState(); P.t0 = now(); renderPractice($('#main')); bindPractice($('#main')); },
-    cur: () => P, ga: () => GA, ts: () => TS, tstDecode, teach: () => TEACH,
+    cur: () => P, ga: () => GA, ts: () => TS, sk: () => SK, tstDecode, teach: () => TEACH,
     // fills one test item with the correct answers (for the automated tests)
     fillCorrect: (it) => items(it.inst).forEach(([x, k]) => { const st = it.st; if (x.type === 'mcq') st.pick[k] = x.ans; else if (x.type === 'num') st.val[k] = String(x.ans); else if (x.type === 'text') st.val[k] = x.accept[0]; else if (x.type === 'select') st.val[k] = String(x.ans); else if (x.type === 'order') st.seq[k] = x.items.map((_, i) => i); else if (x.type === 'sort') st.bins[k] = x.items.map(i => i[1]); else if (x.type === 'label') st.lab[k] = x.labels.slice(); else st.val[k] = 'answer'; }),
   };
