@@ -1058,6 +1058,13 @@ main li mjx-container { max-width: 100%; overflow-x: auto; overflow-y: hidden; v
 .qu-title, .qu-strip { background: linear-gradient(135deg, #1e5a2c, #0b2613); }
 .qu-title h2 { color: #f2d36b; }
 :root.lms h1 { color: #ff4d4d; text-shadow: 0 0 14px rgba(212, 20, 27, .45); }
+/* 1.5 push 5: Test Mode entry at the bottom of Practice */
+.test-entry { margin-top: 22px; display: grid; gap: 12px; }
+.test-entry .te-row { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 8px 16px; align-items: center; }
+.test-entry .te-lab { display: grid; gap: 2px; }
+.test-entry .te-teacher { grid-template-columns: minmax(0, 1fr); border-top: 1px solid var(--line); padding-top: 10px; }
+.test-entry .te-teacher .teacher-access, .test-entry .te-teacher .pin-open { margin: 0; }
+@media (max-width: 700px) { .test-entry .te-row { grid-template-columns: minmax(0, 1fr); } }
 
 </style>
 <header class="top"><div class="top-inner">
@@ -17653,7 +17660,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   }
   function renderPractice(main) {
     if (!P.q) practiceNext();
-    if (!P.q) { main.innerHTML = head('Practice 🎯', 'Questions one at a time, with full worked solutions.') + emptySel(); return; }
+    if (!P.q) { main.innerHTML = head('Practice 🎯', 'Questions one at a time, with full worked solutions.') + emptySel() + testEntry(); return; }
     const { q, inst } = P;
     const expected = q.marks * rate(q.paper) * 60;
     const coach = S.settings.paceCoach ? `<div class="instrument" id="coach"><div class="row"><span class="clock" id="coachClock">0:00</span><span class="muted small">Exam pace for this question: ${fmtMin(expected)}</span><span class="spacer"></span>${P.revealed ? '' : pauseBtn('practice')}</div><div class="pace" id="coachBar"><div class="tfill" style="width:0%"></div></div></div>` : '';
@@ -17681,7 +17688,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
         <button class="btn primary" id="nextQ">Next Question</button>
         <span class="spacer"></span>
         <label class="switch small"><input type="checkbox" id="paceCoach" ${S.settings.paceCoach ? 'checked' : ''}> Pace coach</label>
-      </div>${reportBox(q, P.seed, 'Practice')}`;
+      </div>${reportBox(q, P.seed, 'Practice')}${testEntry()}`;
     typeset($('#sheet'));
     startCoach();
   }
@@ -17885,7 +17892,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     if (pc.bad) { toast(BAD_CODE); return true; }
     const want = pc.cat === 'T' ? 'test' : 'games';
     if (want === here) return false;
-    PENDING_CODE = v; toast(want === 'test' ? 'That is a Test Mode code: opening Test Mode.' : 'That is a Games code: opening Games.');
+    PENDING_CODE = v; if (!(here === 'practice' && want === 'test')) toast(want === 'test' ? 'That is a Test Mode code: opening Test Mode.' : 'That is a Games code: opening Games.');
     location.hash = want === 'test' ? '#test' : '#games'; return true;
   }
   document.addEventListener('input', (e) => { const el = e.target; if (el && el.classList && el.classList.contains('codein')) fmtCodeBox(el); });
@@ -17979,20 +17986,21 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
      (200,000 rounds, so guessing a long passphrase is impractical). Unlocking saves an obfuscated copy of the passphrase on this
      device and re-checks it on every load, so a hand-set "unlocked" flag does nothing. This keeps students and casual users out;
      it cannot stop someone who edits the page's code in their own browser. */
-  const T_HASH = 'e8d3a853183295a5e8e5c8a3f9ac92856ea4a877afc7a302e321159f45813807', T_SALT = 'mvphysics-lab:teacher:v1', T_KEY = 'mvp-teacher';
+  // 1.5 push 5 (Mike 12 Nov): teachers unlock by typing MVP-T- and the passphrase in the same box as a test code. Capitals, spaces and symbols are ignored,
+  // so the hash is of the passphrase's letters and digits in capitals (salt v2). Students only ever see a code box.
+  const T_HASH = 'c0003bfd6d2c86e9db104c871deea9c46cdcb242e3f8861ede63f9552925147e', T_SALT = 'mvphysics-lab:teacher:v2', T_KEY = 'mvp-teacher';
+  const tNorm = (t) => String(t || '').toUpperCase().replace(/[^0-9A-Z]/g, '');
   let TEACHER = false;
   async function tCheck(pass) {
     try {
-      const enc = new TextEncoder(), k = await crypto.subtle.importKey('raw', enc.encode(pass), 'PBKDF2', false, ['deriveBits']);
+      const enc = new TextEncoder(), k = await crypto.subtle.importKey('raw', enc.encode(tNorm(pass)), 'PBKDF2', false, ['deriveBits']);
       const bits = await crypto.subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-256', salt: enc.encode(T_SALT), iterations: 200000 }, k, 256);
       return [...new Uint8Array(bits)].map(x => x.toString(16).padStart(2, '0')).join('') === T_HASH;
     } catch (e) { return false; }
   }
   const tMask = (t) => { const k = 'MVPhysicsLab'; let o = ''; for (let i = 0; i < t.length; i++) o += String.fromCharCode(t.charCodeAt(i) ^ k.charCodeAt(i % k.length)); return o; };
   (async () => { let v = null; try { v = localStorage.getItem(T_KEY); } catch (e) {} if (!v) return; let p = ''; try { p = tMask(atob(v)); } catch (e) { return; } if (await tCheck(p)) { TEACHER = true; try { render(); } catch (e) {} } })();
-  const teacherLine = () => TEACHER ? `<p class="pin-open small">🔓 Teacher access is on for this device. <button type="button" class="btn sm" id="tLock">Lock</button></p>`
-    : `<details class="teacher-access"><summary>🔑 Teacher access</summary><div class="pinbox"><p class="small">Teachers: enter the passphrase to set up tests, print papers and make class codes. It is remembered on this device until you press Lock.</p>
-      <div class="row"><input type="password" id="tPass" autocomplete="current-password" aria-label="Teacher passphrase" placeholder="Passphrase"><button class="btn primary sm" id="tGo">Unlock</button><span class="muted small" id="tMsg" role="alert"></span></div></div></details>`;
+  const teacherLine = () => TEACHER ? `<p class="pin-open small">🔓 Teacher access is on for this device. <button type="button" class="btn sm" id="tLock">Lock</button></p>` : ''; // teachers unlock with their code in the code box
   document.addEventListener('click', async (e) => {
     const b = e.target.closest('#tGo, #tLock'); if (!b) return;
     if (b.id === 'tLock') { TEACHER = false; try { localStorage.removeItem(T_KEY); } catch (x) {} toast('Teacher access locked on this device.'); render(); return; }
@@ -18003,14 +18011,32 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     else { b.disabled = false; if (msg) msg.textContent = 'That passphrase is not right.'; }
   });
   document.addEventListener('keydown', (e) => { if (e.target && e.target.id === 'tPass' && e.key === 'Enter') { e.preventDefault(); const g = document.getElementById('tGo'); if (g) g.click(); } });
+  /* 1.5 push 5 (Mike 12 Nov): Test Mode has no tab of its own. The bottom of Practice has two rows: a test code box, and Teacher Access.
+     A test code (or a teacher's set-up) opens the Test Mode page, where Practice stays highlighted; while a test is running you can't leave it. */
+  const testEntry = () => `<section class="panel test-entry" aria-label="Test Mode"><div class="te-row"><div class="te-lab"><b>Test Mode 📝</b><span class="muted small">Got a class code from your teacher?</span></div>
+      <div class="codeform">${codeInput('pxCodeIn', 'T', 'Test code (starts MVP-T-)')}<button class="btn primary sm" id="pxUse">Open Test</button></div></div>
+    ${TEACHER ? `<div class="te-row te-teacher"><p class="pin-open small">🔓 Teacher access is on for this device. <a class="btn sm primary" href="#test">Set Up a Test</a> <button type="button" class="btn sm" id="tLock">Lock</button></p></div>` : ''}</section>`;
+  // a code box's text: the teacher code (MVP-T- + passphrase) unlocks teacher access; anything else is treated as a test or game code
+  async function tryTeacher(v) {
+    const t = tNorm(v); if (!t.startsWith('MVPT') || t.length < 9 || !(window.crypto && crypto.subtle)) return false;
+    const pass = t.slice(4); if (!(await tCheck(pass))) return false;
+    TEACHER = true; try { localStorage.setItem(T_KEY, btoa(tMask(pass))); } catch (x) {} toast('Teacher access on for this device.'); return true;
+  }
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('#pxUse'); if (!b || b.disabled) return;
+    const v = $('#pxCodeIn').value; b.disabled = true;
+    tryTeacher(v).then(ok => { b.disabled = false; if (ok) { location.hash = '#test'; render(); return; } routeCode(v, 'practice'); });
+  });
+  document.addEventListener('keydown', (e) => { if (e.target && e.target.id === 'pxCodeIn' && e.key === 'Enter') { e.preventDefault(); const g = document.getElementById('pxUse'); if (g) g.click(); } });
   const CODE_TYPES = [['online', 'Online', 'Students take it on screen, timed'], ['print', 'Printable', 'A printable paper: you choose the cover sheet, the Paper 1A answer booklet and whether students get the markscheme']]; // 1.5: Worksheet and Test/Exam merged into Printable
   const kindName = (k) => (CODE_TYPES.find(x => x[0] === k) || CODE_TYPES[0])[1];
   const codeOpts = (c) => (c.kind === 'online'
     ? `Finish ${c.strict ? 'Strict' : 'Soft'} · students ${c.dl === false ? 'cannot' : 'can'} print or download their results · retakes ${c.retake ? 'allowed' : 'not allowed'}`
     : `markscheme ${c.ms ? 'included' : 'not included'} for students · cover sheet ${c.cover ? 'on' : 'off'} · answer booklet ${c.booklet ? 'on' : 'off'}`) + ` · questions: ${(TSRC.find(x => x[0] === srcOf(c.tonly)) || TSRC[0])[1].toLowerCase()}`;
   // what a student sees in Test Mode without teacher access: a class code box, then only what the code allows (1.4)
+  const BACK_PRACTICE = '<div class="mode-back"><a class="btn backbtn" href="#practice"><span aria-hidden="true">←</span> Back to Practice</a></div>';
   function studentExamView() {
-    const intro = head('Test Mode 📝', 'Tests set by your teacher. Enter the class code your teacher gives you.');
+    const intro = BACK_PRACTICE + head('Test Mode 📝', 'Tests set by your teacher. Enter the class code your teacher gives you.');
     if (!EX.code) return intro + `<section class="panel exset"><div class="exrow"><div class="exlab">Class code</div><div class="exctl">
         <div class="codeform">${codeInput('exCodeIn', 'T', 'Class code (starts MVP-T-)')}<button class="btn primary sm" id="exUse">Use</button></div>
         <span class="muted small">The code decides the test: an online test or a printable paper.</span></div></div>
@@ -18025,7 +18051,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
       ? `<p class="small">Finish: <b>${c.strict ? 'Strict' : 'Soft'}</b> (${c.strict ? 'answers lock when time runs out' : 'you can keep going; overtime is recorded'}) · The timer starts shown; you can hide it or mute its alerts during the test.</p><div class="row"><button class="btn primary" id="exStart">Start</button></div>`
       : `<p class="small">${c.cover && c.booklet ? 'A paper with a cover sheet and a Paper 1A answer sheet.' : c.cover ? 'A paper with a cover sheet.' : c.booklet ? 'A paper with a Paper 1A answer sheet.' : 'A paper of questions.'} ${c.ms ? 'The markscheme is at the end.' : 'Your teacher has the markscheme.'}</p>
         <div class="row"><button class="btn primary" id="wsOpen">🖨 Print/PDF</button></div><p class="muted small" id="wsStatus"></p>`;
-    return head('Test Mode 📝', 'A test set by your teacher.') + `<section class="panel exset"><div class="exrow"><div class="exlab">Class code</div><div class="exctl">${box}</div></div><div class="exgo">${act}</div></section>${teacherLine()}`;
+    return BACK_PRACTICE + head('Test Mode 📝', 'A test set by your teacher.') + `<section class="panel exset"><div class="exrow"><div class="exlab">Class code</div><div class="exctl">${box}</div></div><div class="exgo">${act}</div></section>${teacherLine()}`;
   }
   function renderExam(main) {
     if (PENDING_CODE && (!EX || EX.phase === 'setup')) { const c = decodeCode(PENDING_CODE); PENDING_CODE = null; if (c) { if (!EX) EX = { phase: 'setup', mode: 'ib', paper: 'sl1', target: 30, kind: 'online', ms: false, cover: true, booklet: true, dl: true, tonly: 'first', retake: false, marks: { '1A': 5, '1B': 4, '2': 4 } }; EX.code = c; EX.strict = c.strict; EX.hideClock = false; } else toast(BAD_CODE); }
@@ -18051,7 +18077,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
       }
       const fin = EX.strict ? 'Answers lock when time runs out.' : 'Keep going after time runs out; overtime is recorded.';
       if (!TEACHER) { main.innerHTML = studentExamView(); return; }
-      main.innerHTML = head('Test Mode 📝', 'A timed paper from your selection. Answers stay hidden until you finish.') + (n || EX.code ? `
+      main.innerHTML = BACK_PRACTICE + head('Test Mode 📝', 'A timed paper from your selection. Answers stay hidden until you finish.') + (n || EX.code ? `
         <section class="panel exset">
           <div class="exrow"><div class="exlab">${EX.code ? 'Class code' : 'Length'}</div><div class="exctl">${length}</div></div>
           <div class="exrow"><div class="exlab">Finish</div><div class="exctl"><div class="seg" role="group" aria-label="Finish">${seg('exfin', 'strict', 'Strict', EX.strict)}${seg('exfin', 'soft', 'Soft', !EX.strict)}</div><span class="muted small">${fin}</span></div></div>
@@ -18176,7 +18202,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     const used = (EX.finishedAt - EX.start) / 1000;
     const byPaper = PAPERS.map(p => { const its = EX.items.filter(x => x.q.paper === p); if (!its.length) return ''; const m = its.reduce((a, x) => a + x.q.marks, 0), t = its.reduce((a, x) => a + x.time, 0) / 1000; const mpm = t / 60 / m; const r = rate(p, EX.level); return `<tr><td>${PAPER_NAME[p]}</td><td class="num">${m}</td><td class="num">${fmtMin(t)}</td><td class="num">${mpm.toFixed(2)}</td><td class="num">${r.toFixed(2)}</td><td>${t < 1 ? '<span class="muted small">no time recorded</span>' : `<span class="pill ${mpm > r * 1.1 ? 'warn' : 'good'}">${mpm > r * 1.1 ? 'Slower than exam pace' : 'Within exam pace'}</span>`}</td></tr>`; }).join('');
     const flags = EX.items.map((x, i) => { const exp = x.q.marks * rate(x.q.paper, EX.level) * 60, t = x.time / 1000; if (t > exp * 1.5 && t > 60) return `<li>Question ${i + 1}: ${fmtMin(t)} on a ${x.q.marks}-mark question (exam pace ${fmtMin(exp)})</li>`; if (x.q.paper === '1A' && x.answer !== null && x.answer !== x.inst.answer && t < exp * 0.35) return `<li>Question ${i + 1}: answered wrongly in ${fmtMin(t)}. Possibly rushed.</li>`; return ''; }).filter(Boolean);
-    main.innerHTML = head('Test Results 📝', `${fmtClock(used)} used of ${fmtClock(EX.allowed)}${EX.pauses ? ` · paused ${EX.pauses} time${EX.pauses > 1 ? 's' : ''} (${fmtClock(EX.pausedMs / 1000)})` : ''}`) + `
+    main.innerHTML = BACK_PRACTICE + head('Test Results 📝', `${fmtClock(used)} used of ${fmtClock(EX.allowed)}${EX.pauses ? ` · paused ${EX.pauses} time${EX.pauses > 1 ? 's' : ''} (${fmtClock(EX.pausedMs / 1000)})` : ''}`) + `
       <div class="tiles" id="exTiles">${exTiles()}</div>
       <p class="pause-note ${EX.pauses ? 'has' : ''}"><span aria-hidden="true">⏸</span> ${pauseSummary(EX)}</p>
       <p class="muted small grade-note">The estimated DP grade uses approximate IB DP Physics grade boundaries (${EX.hl ? 'HL' : 'SL'}) for the percentage you scored; see Stats for the table. Real boundaries change each session and include your IA, so treat it as a guide only.</p>
@@ -18220,7 +18246,8 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
         if (d.expaper) { EX.paper = d.expaper; renderExam(main); return; }
         if (d.exfin) { EX.strict = d.exfin === 'strict'; renderExam(main); return; }
         if (d.exclock) { EX.hideClock = d.exclock === 'hide'; renderExam(main); return; }
-        if (b.id === 'exUse') { const v = $('#exCodeIn').value; if (routeCode(v, 'test')) return; const c = decodeCode(v); if (!c) { toast(BAD_CODE); return; } EX.code = c; EX.strict = c.strict; EX.hideClock = false; renderExam(main); return; }
+        if (b.id === 'exUse') { const v = $('#exCodeIn').value; b.disabled = true; tryTeacher(v).then(ok => { b.disabled = false; if (ok) { render(); return; } if (routeCode(v, 'test')) return; const c = decodeCode(v); if (!c) { toast(BAD_CODE); return; } EX.code = c; EX.strict = c.strict; EX.hideClock = false; renderExam(main); }); return; }
+        
         if (b.id === 'exMake') { const c = makeClassCode(); if (!c) { toast('Your selection has no questions for these settings.'); return; } EX.code = c; renderExam(main); toast('Code created. Share it so everyone gets the same paper.'); return; }
         if (b.id === 'exClear') { EX.code = null; renderExam(main); return; }
         if (b.id === 'exCopy') { const t = EX.code.str; (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast('Code copied.'), () => toast('Select the code and copy it: ' + t)); return; }
@@ -19769,7 +19796,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     { v: '1.1 Beta', d: '3 November 2026', m: 'Claude Opus 5.5', items: ['Games and Recall now open with cards for each mode and a short description; inside a mode, “← All games” or “← All recall modes” takes you back.', 'The offline copy shows an OFFLINE badge next to the version, with a tooltip explaining it.', 'New Welcome page: a quick guide to every mode, a short tour, and how to use the site for revision. Click the MVPhysics heading at any time to come back to it.', 'Blitz is now part of Games 🕹️, with two modes so far: Blitz and Last Man Standing. More game modes will follow.', '“Only questions I’ve missed” is now at the top of the question panel in Practice and highlighted when you have missed questions to practise (it now applies to Practice only; Exam Mode always uses your full selection).', 'Stats: a Last Man Standing best tile; Blitz average time to 0.1 s.', 'The version is shown in the badge (BETA 1.1), and the Claude model used for each build is listed in this revision history.', 'Fixed: flashcards scrolled sideways on phones.', 'Last Man Standing: a Give up button (with a check first); a run you give up does not count as a best time.', 'Last Man Standing: after every run, a review of each question you answered, right or wrong, with the worked solution. Wrong answers go into "Only questions I\'ve missed".', 'Last Man Standing has its own stats (runs, best survival, recent runs), separate from Blitz Classic, so the Blitz stats now show the right mode.', 'Notes and Recall: the All and None buttons stay together.', 'Removed Saved selections from the question panel.', 'Solutions for radiated intensity now start from the data booklet equation L = σAT⁴ (or eσAT⁴).', 'FE2028 percentage error, difference and change equations shown as separate equations.'] },
     { v: '1.2 Beta', d: '4 November 2026', m: 'Claude Opus 5.5', items: ['The site is now called <b>MVPhysics Lab</b>, with a new address: <b>mvpoirier.github.io/mvphysics/</b>. The old revision-lab address takes you there automatically, and your saved progress carries over. A 🏆 now shows on the browser tab.', 'The site address (with nothing after it) now always opens the Welcome page. Links to a page, such as …/#practice or …/#games, still open that page.', 'The Welcome page is simpler: the welcome message, what’s here and how to revise. The start buttons, level switch and tour are gone (use SL/HL at the top of the page).', 'Printed papers look like IB exams: answer boxes with a border and dotted lines. With “IB-style test” ticked, the order is cover sheet (topics, marks, time, instructions, class code), Paper 1A answer sheet (always 40 rows), Paper 1A, Paper 1B, Paper 2, then the markschemes, starting with the answer sheet with the correct answers crossed.', 'Games: Blitz now ends with a review of every question you answered, with worked solutions, and both Blitz and Last Man Standing can print their results.', 'The Print buttons open the paper or results in a new tab with the print window already open: choose a printer, or Save as PDF.', 'Printed tests: no site name on the cover; the class code appears only on the markscheme pages; the answer sheet lists the topics; and a one-page question overview (topics, strand, difficulty and marks for every question) comes before the markschemes.', 'Last Man Standing: choose the starting time (3, 5 or 10 minutes, or your own).', 'New Syllabus toggle (FE2025 / FE2028) in the Questions panel and in Recall. FE2025 is on by default; FE2028 adds content that is new for exams from May 2028, tagged FE2028.', 'Game stats are now on each game’s own screen and on the Stats page.', 'More resources on precision, accuracy, percentage error and percentage difference; more solutions now start from the data booklet equation.'] },
     { v: '1.3 Beta', d: '5 November 2026', m: 'Claude Opus 5.5', items: ['New game: <b>Unit Detective 🔍</b>. Five case files on units: The Mystery Quantity (identify), Down to the Bones (SI base units), The Scales of Justice (is the equation homogeneous?), The Impostor Equation (the one formula that could be right) and The Deduction (predict a formula from units alone). Play an untimed Investigation of 10 clues, or The Chase against the clock. Harder “case file” clues include constants such as σ, G, μ<sub>0</sub> and ε<sub>0</sub>.', 'The side panel is now called <b>Topics</b> and appears in Recall and Notes too. One selection is shared by every mode; the topic chips at the top of Recall and Notes are gone.', 'Command terms: a switch at the top of the Topics panel in Recall and Notes. Notes now has a Command terms section, grouped by assessment objective, with worked examples of which answer earns the marks.', 'Stats has section buttons: Practice, Exam, Games and Recall. Unit Detective scores are under Games.', 'The space above the footer is the same on every page.', '“← All Games” and “← All Recall Modes” are now buttons. The backup box in Stats has its own colour.', 'Clearer feedback links: <b>🚩 Report a Problem</b> under each question, card and note; <b>💬 Send Feedback</b> in the footer on every page.', 'Headings and buttons use Title Case.', 'Unit Detective uses the same look as the rest of the site.', 'New address: <b>mvpoirier.github.io/physics-lab/</b>. Old links (…/mvphysics/ and …/revision-lab/) still work and your progress carries over.', 'Stats opens straight on its sections (the summary cards at the top are gone). Reset All Progress is a red button.', 'About: the revision history starts collapsed, with one group per major Beta version and a short summary of the Alpha builds.'] },
-    { v: '1.5 Beta', d: '11 November 2026', m: 'Claude Opus 5.5', items: ['<b>Test-only questions:</b> about a quarter of each strand’s Paper 1A questions now appear only in Test Mode, so tests have questions students have not practised. Teachers choose whether a test uses them (first, then topped up from Practice questions).', 'Test Mode codes are <b>Online</b> or <b>Printable</b>; online codes can allow or block <b>retakes</b> on the same device.', 'New <b>Skills 🧰</b> section: a Significant Figures drill and Graphing practice (gradients, intercepts, uncertainty), built from Mr Poirier’s SSP guide and tasks.', 'Clicking Games, Recall or Skills in the top bar takes you back to its list; clearer back buttons.', 'Ten questions that never changed now have new values or versions. Practice’s Pace coach fills with time like Test Mode.', 'Notes: Electronics 101 links for circuits (B.5) and AC (D.4); shorter names in the Topics panel; the FE2028 card has an arrow like the other notes.', '<b>Mr Poirier’s notes</b> in Notes for Skills, A.1–A.5 and B.1–B.5 (his tips and conventions), and a <b>TOK &amp; NOS</b> box for every topic, with stories (Millikan, the 1919 eclipse, false colour) and links.', 'About 75 new questions from Mr Poirier’s practice questions and labs (A.1–B.5 and Skills), a new <b>Nature of Science</b> strand in Skills with questions and Recall cards, three new Paper 1B labs, and new versions of the skydiver question.', '<b>Linked topics</b> are now a Test Mode option for teachers; half of the linked questions are test-only. Test Mode shows how many questions are test-only.', 'Last Man Standing: class codes set the starting time; a music-only mute; fixed maths that sometimes showed as raw code when answering quickly.', '<b>Physics Quest ⚔️</b> replaces Blitz: an adventure through the realms of physics with 3, 5 or 10 hearts, potions, shields, a boss room in every realm, an optional room timer, original pixel art and music (with music and sound mutes).', '<b>Unit Analysis 🔍</b> (was Unit Detective) is now in Skills.', '<b>New codes:</b> every code starts MVP-. Test Mode codes are MVP-T-…, game codes are MVP-G-… and can be entered at the top of Games; a code typed in the wrong place opens the right one. Older codes no longer work.', '<b>Test-only questions are now mostly test-only <i>values</i>:</b> every question whose numbers change is back in Practice, while about 1 in 4 of its sets of values is kept for Test Mode; only questions that hardly change (mostly conceptual) are kept back whole. Teachers choose Test-only First, Practice Only or Mixed.', 'Topics panel: topics grouped into Themes A–E, which you can fold and tick as a whole.', 'Unit Analysis Case 6, <b>The Paper Trail</b> (base units and conversions), Greek-letter Recall cards, item tooltips and best scores in Physics Quest, and a simpler Last Man Standing set-up (Make a Code or Play).', 'Fixed: Skills Graphing could show two identical answers.'] },
+    { v: '1.5 Beta', d: '11 November 2026', m: 'Claude Opus 5.5', items: ['<b>Test-only questions:</b> about a quarter of each strand’s Paper 1A questions now appear only in Test Mode, so tests have questions students have not practised. Teachers choose whether a test uses them (first, then topped up from Practice questions).', 'Test Mode codes are <b>Online</b> or <b>Printable</b>; online codes can allow or block <b>retakes</b> on the same device.', 'New <b>Skills 🧰</b> section: a Significant Figures drill and Graphing practice (gradients, intercepts, uncertainty), built from Mr Poirier’s SSP guide and tasks.', 'Clicking Games, Recall or Skills in the top bar takes you back to its list; clearer back buttons.', 'Ten questions that never changed now have new values or versions. Practice’s Pace coach fills with time like Test Mode.', 'Notes: Electronics 101 links for circuits (B.5) and AC (D.4); shorter names in the Topics panel; the FE2028 card has an arrow like the other notes.', '<b>Mr Poirier’s notes</b> in Notes for Skills, A.1–A.5 and B.1–B.5 (his tips and conventions), and a <b>TOK &amp; NOS</b> box for every topic, with stories (Millikan, the 1919 eclipse, false colour) and links.', 'About 75 new questions from Mr Poirier’s practice questions and labs (A.1–B.5 and Skills), a new <b>Nature of Science</b> strand in Skills with questions and Recall cards, three new Paper 1B labs, and new versions of the skydiver question.', '<b>Linked topics</b> are now a Test Mode option for teachers; half of the linked questions are test-only. Test Mode shows how many questions are test-only.', 'Last Man Standing: class codes set the starting time; a music-only mute; fixed maths that sometimes showed as raw code when answering quickly.', '<b>Physics Quest ⚔️</b> replaces Blitz: an adventure through the realms of physics with 3, 5 or 10 hearts, potions, shields, a boss room in every realm, an optional room timer, original pixel art and music (with music and sound mutes).', '<b>Unit Analysis 🔍</b> (was Unit Detective) is now in Skills.', '<b>New codes:</b> every code starts MVP-. Test Mode codes are MVP-T-…, game codes are MVP-G-… and can be entered at the top of Games; a code typed in the wrong place opens the right one. Older codes no longer work.', '<b>Test-only questions are now mostly test-only <i>values</i>:</b> every question whose numbers change is back in Practice, while about 1 in 4 of its sets of values is kept for Test Mode; only questions that hardly change (mostly conceptual) are kept back whole. Teachers choose Test-only First, Practice Only or Mixed.', 'Topics panel: topics grouped into Themes A–E, which you can fold and tick as a whole.', 'Unit Analysis Case 6, <b>The Paper Trail</b> (base units and conversions), Greek-letter Recall cards, item tooltips and best scores in Physics Quest, and a simpler Last Man Standing set-up (Make a Code or Play).', 'Fixed: Skills Graphing could show two identical answers.', 'The top bar is now Practice, Skills, Recall, Games, Notes, Stats. Test Mode has moved to the bottom of Practice: enter a class code there. While a test is running you stay in it until you finish.', 'New looks: a green-and-gold Physics Quest and a brooding red Last Man Standing.'] },
     { v: '1.4 Beta', d: '6–9 November 2026', m: 'Claude Opus 5.5', items: ['<b>Test Mode</b> (was Exam Mode) is set by your teacher: students enter a class code, and the code decides the test.', 'Teacher options for codes: online or printable, cover sheet, answer booklet, markscheme, results printing; Paper 1A capped at 40 questions; printouts named after the code.', 'During a test: a pace bar that fills with time, red lines for the 30, 15 and 5 minute alerts, a 🔔 mute button, a red Finish Paper button and a Pace timer switch.', '<b>Linked topics</b> (Off, Include, Only) and shareable codes for Blitz (BLZ-) and Unit Detective (UD-).', '<b>42 new questions</b> on the mistakes IB examiners reported in 2025, with new question styles.', 'Notes: 🖨 Print/PDF and an FE2028 Changes switch. Unit Detective mixes all five case files.', 'SL/HL colour bar, a footer like MYPoirier Science Lab, and the new Terms of Use (© Mike Poirier, all rights reserved; free for students and teachers).'] },
   ];
   HISTORY.forEach(h => { h.items = h.items.map(TL); });
@@ -19853,13 +19880,13 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
   }
   /* ======================= WELCOME (1.2) =======================
      First visit lands here; the MVPhysics heading always brings you back. One-page overview + how to revise. */
-  const WMODES = [
-    ['practice', '🎯', 'Practice', 'One question at a time, with full worked solutions and markschemes. Retry any calculation with new values.'],
-    ['games', '🕹️', 'Games', 'Race the clock and challenge your class: fast-paced physics games with scores, streaks and personal bests.'],
-    ['test', '📝', 'Test Mode', 'A timed paper at IB pace from your topics. Answers stay hidden until you finish; then mark it, see an estimated grade and print it.'],
+  const WMODES = [ // 1.5 push 5: same order as the top bar; Test Mode is entered from the bottom of Practice
+    ['practice', '🎯', 'Practice', 'One question at a time, with full worked solutions and markschemes. Retry any calculation with new values. Tests from your teacher start at the bottom of Practice.'],
+    ['skills', '🧰', 'Skills', 'Practise the tools of physics: significant figures, graphs and gradients, and Unit Analysis.'],
     ['recall', '🧠', 'Recall', 'Learn the words and equations that earn marks: definitions, equations and command terms, with flashcards that come back just before you forget them.'],
+    ['games', '🕹️', 'Games', 'Go on Physics Quest or survive Last Man Standing with your class: physics games with scores, streaks and personal bests.'],
     ['notes', '📓', 'Notes', 'Short notes for every strand: data booklet equations, what you must know, common mistakes, videos and simulations.'],
-    ['stats', '📈', 'Stats', 'Your progress by topic and paper, your pace, exam results and best scores. Back up your progress here too.'],
+    ['stats', '📈', 'Stats', 'Your progress by topic and paper, your pace, test results and best scores. Back up your progress here too.'],
   ];
   function renderWelcome(main) {
     S.seenWelcome = true; save();
@@ -19871,10 +19898,10 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
         <li><b>Every day, 5–10 minutes of Recall.</b> Spaced repetition brings each card back just before you would forget it. Short daily sessions beat one long one.</li>
         <li><b>Practise by topic after each lesson.</b> Pick the strands you have just studied. Try the question before opening the solution, and tick the markscheme points honestly.</li>
         <li><b>Go back to your misses.</b> In Practice, turn on <b>Only Questions I’ve Missed</b> at the top of the Topics panel and redo them with new values until they stick.</li>
-        <li><b>Before a test, sit a timed paper in Test Mode.</b> Use IB pace, then check where the time went and your estimated grade. Read the Notes for any strand that cost you marks.</li>
+        <li><b>Before a test, sit a timed paper your teacher sets (enter its code at the bottom of Practice).</b> Use IB pace, then check where the time went and your estimated grade. Read the Notes for any strand that cost you marks.</li>
         <li><b>For fun or a class challenge:</b> Games. Physics Quest on your own or with a shared code, or Last Man Standing with your class.</li></ol></section>
       <section class="panel"><h3>Test Mode and Class Codes</h3><ul class="about-list">
-        <li><b>Tests come from your teacher.</b> In Test Mode, enter the class code your teacher gives you (it starts MVP-T-). Everyone with the same code gets the same questions and values.</li>
+        <li><b>Tests come from your teacher.</b> At the bottom of Practice, enter the class code your teacher gives you (it starts MVP-T-). Everyone with the same code gets the same questions and values.</li>
         <li><b>Online codes</b> give a timed test on screen. The code sets the finish (Strict: answers lock when time runs out; Soft: overtime is recorded), whether you can print your results, and whether you may retake it on the same device.</li>
         <li><b>Printable codes</b> give a paper to print or save as PDF, with a cover sheet, a Paper 1A answer sheet and the markscheme only if your teacher chose them.</li>
         <li><b>Test-only questions:</b> some questions never appear in Practice, Games or Recall, so a test can check what you understand rather than what you remember.</li>
@@ -20002,8 +20029,8 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     };
   }
   const VIEWS = {
-    practice: [renderPractice, bindPractice, 'Practice 🎯'], exam: [renderExam, bindExam, 'Test 📝'], blitz: [renderGames, bindGames, 'Games 🕹️'],
-    recall: [renderRecall, bindRecall, 'Recall 🧠'], notes: [renderNotes, bindNotes, 'Notes 📓'], skills: [renderSkills, bindSkills, 'Skills 🧰'], stats: [renderStats, bindStats, 'Stats 📈'],
+    practice: [renderPractice, bindPractice, 'Practice 🎯'], skills: [renderSkills, bindSkills, 'Skills 🧰'], recall: [renderRecall, bindRecall, 'Recall 🧠'], blitz: [renderGames, bindGames, 'Games 🕹️'],
+    notes: [renderNotes, bindNotes, 'Notes 📓'], exam: [renderExam, bindExam, 'Test 📝', true], stats: [renderStats, bindStats, 'Stats 📈'],
     about: [renderAbout, bindAbout, 'About', true], welcome: [renderWelcome, bindWelcome, 'Welcome', true],
   };
   const ROUTE_ALIAS = { games: 'blitz', test: 'exam' }, ROUTE_HREF = { blitz: 'games', exam: 'test' }; // the Games page keeps its internal name 'blitz'
@@ -20016,7 +20043,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     if (v !== PREV_VIEW && v !== 'blitz' && QU) { SFX.music(false); if (QU.phase === 'over') { QU = null; if (GA) GA.phase = 'setup'; } }
     document.documentElement.classList.toggle('quest', v === 'blitz' && !LM && !!GA && GA.picked && GA.mode === 'quest');
     if (v !== PREV_VIEW) { if (v === 'recall') { RC_PICKED = false; if (GM && GM.tm) clearInterval(GM.tm); GM = null; } if (v === 'skills' && !(UD && UD.phase === 'play')) { if (UD) { clearInterval(UD.tm); UD = null; } SK = { mode: null }; } if (v === 'blitz' && GA && GA.phase === 'setup' && !LM) GA.picked = false; PREV_VIEW = v; }
-    $$('nav.tabs a, #aboutBtn').forEach(a => a.setAttribute('aria-current', a.getAttribute('href') === '#' + (ROUTE_HREF[v] || v) ? 'page' : 'false'));
+    $$('nav.tabs a, #aboutBtn').forEach(a => a.setAttribute('aria-current', a.getAttribute('href') === '#' + (v === 'exam' ? 'practice' : ROUTE_HREF[v] || v) ? 'page' : 'false')); // Test Mode lives under Practice
     if (v !== 'welcome' && v !== 'about' && S.settings.lastView !== v) { S.settings.lastView = v; save(); }
     main.onclick = main.onchange = main.oninput = main.onkeydown = null;
     clearInterval(paceTimer);
@@ -20069,7 +20096,10 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     const brand = $('.top .brand h1'); if (brand) { brand.setAttribute('role', 'link'); brand.tabIndex = 0; brand.title = 'Welcome and guide'; const go = () => { location.hash = '#welcome'; }; brand.addEventListener('click', go); brand.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } }); }
     if (window.matchMedia('(max-width: 860px)').matches) $('#rail').classList.add('collapsed');
     initBooklet(); renderRail(); bindRail(); render();
-    window.addEventListener('hashchange', () => { render(); window.scrollTo({ top: 0 }); });
+    window.addEventListener('hashchange', () => {
+      if (EX && EX.phase === 'run' && currentView() !== 'exam') { history.replaceState(null, '', '#test'); toast('Finish your test first: use the red Finish button.'); render(); return; }
+      render(); window.scrollTo({ top: 0 });
+    });
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
