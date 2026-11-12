@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--
   MVPhysics Lab: IB DP Physics revision (SL and HL)
-  Version: 1.5 Beta (online edition) · Built: 11 November 2026
+  Version: 1.5 Beta (online edition) · Built: 12 November 2026
   Author: Mike Poirier (https://github.com/mvpoirier), developed with Claude by Anthropic
   Terms: © 2026 Mike Poirier. All rights reserved. Free for students and teachers for their own study and classroom teaching; any other copying, hosting, adapting or commercial or tutoring use needs written permission.
   Site: https://mvpoirier.github.io/physics-lab/
@@ -1007,6 +1007,20 @@ html.quest body { background-image: radial-gradient(circle at 20% 0%, rgba(63, 1
 .qu-node.here .px { animation: qu-walk .7s steps(2) infinite; }
 @keyframes qu-walk { 50% { transform: translateY(-2px); } }
 @media (prefers-reduced-motion: reduce) { .qu-node.here .px { animation: none; } }
+.qu-item.off { opacity: .45; cursor: default; }
+.qu-item.tip[data-tip]:hover::after, .qu-item.tip[data-tip]:focus-visible::after { width: 260px; white-space: normal; text-align: left; }
+.qu-items .qu-item:last-child.tip[data-tip]:hover::after, .qu-items .qu-item:last-child.tip[data-tip]:focus-visible::after { left: auto; right: 0; transform: none; }
+.mode-card .mc-best { font-weight: 600; color: var(--accent); font-size: .85rem; }
+.qu-hearts.tip[data-tip]:hover::after, .qu-hearts.tip[data-tip]:focus-visible::after { left: 0; transform: none; }
+/* 1.5 push 4: theme groups (A–E) in the Topics panel; no extra indent so strand names keep fitting on one line */
+.tree details.theme > summary { background: var(--paper); border: 1px solid var(--line); margin-top: 4px; }
+.tree details.theme > summary .tname { font-size: 13px; text-transform: uppercase; letter-spacing: .04em; font-weight: 700; }
+.tree details.theme > summary .tid { font-weight: 800; }
+.tree .theme-n { flex: none; }
+.tree .theme-body { display: grid; gap: 4px; padding: 4px 0 2px; }
+/* 1.5 push 4 (review): long formulas scroll inside their box instead of running off narrow screens */
+main mjx-container[display="true"] { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
+main li mjx-container { max-width: 100%; overflow-x: auto; overflow-y: hidden; vertical-align: middle; }
 
 </style>
 <header class="top"><div class="top-inner">
@@ -1039,7 +1053,7 @@ html.quest body { background-image: radial-gradient(circle at 20% 0%, rgba(63, 1
   <details class="report report-general foot-report" id="footFb"><summary class="foot-fb-sum"><span class="flag" aria-hidden="true">💬</span> Send Feedback</summary><div class="report-body"><textarea class="report-note" rows="3" placeholder="Your feedback: a bug, an idea, something confusing… Say which page or feature." aria-label="Your feedback"></textarea><div class="row"><a class="btn sm primary send-report" href="#" target="_blank" rel="noopener" data-send="general|||footer">Send Report ↗</a><button type="button" class="btn sm" data-report="general|||footer">Copy Report</button><span class="muted small">Send Report opens your teacher’s Google Form (sign in with your school account). The page you are on is added automatically. Copy Report is a backup.</span></div></div></details>
   <div class="foot-meta">
     <span>© 2026 <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a>. All rights reserved: free for students and teachers; see the Terms of Use on the About page.</span>
-    <span class="foot-ver">Updated 11 November 2026</span>
+    <span class="foot-ver">Updated 12 November 2026</span>
   </div>
 </div></footer>
 <script>
@@ -1068,6 +1082,10 @@ function mulberry(seed) {
     return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
   };
 }
+// 1.5 push 4: what makes two instances of a template "the same question": the stem (or intro and prompts) and the options in any order.
+// Used at build time (tools/variety.js) to measure how much each template varies, and at run time to keep about 1 in 4 value sets for Test Mode.
+function instKey(inst) { return inst.options ? inst.stem + '|' + inst.options.slice().sort().join('|') : String(inst.intro || '') + '|' + (inst.parts || []).map(p => p.prompt).join('|'); }
+function keyHash(t) { let x = 5381; for (let i = 0; i < t.length; i++) x = ((x * 33) ^ t.charCodeAt(i)) >>> 0; return x; }
 function makeR(seed) {
   const r = mulberry(seed);
   const R = {
@@ -1404,7 +1422,7 @@ mc('a1-m13', 'Horizontal launch', ['a1-proj'], 1, (R) => {
   const h = R.pick([5, 10, 15, 20, 30, 45]), u = R.int(4, 15);
   const t = Math.sqrt(2 * h / G9), x = u * t;
   return {
-    stem: L`A ball rolls off a horizontal table top $${h}\,\mathrm{m}$ above the floor with a horizontal speed of $${u}\,\mathrm{m\,s^{-1}}$. Air resistance is negligible. What horizontal distance does the ball travel before hitting the floor?`,
+    stem: L`A ball rolls off a horizontal ledge $${h}\,\mathrm{m}$ above the ground with a horizontal speed of $${u}\,\mathrm{m\,s^{-1}}$. Air resistance is negligible. What horizontal distance does the ball travel before hitting the floor?`,
     ...numMCQ(x, [u * Math.sqrt(h / G9), u * 2 * h / G9, u * u / G9], 2, U.m),
     solution: L`Treat the two components separately. Vertically ($u_y = 0$):
 $$t = \sqrt{\frac{2h}{g}} = \sqrt{\frac{2(${h})}{9.8}} = ${sf(t, 3)}\,\mathrm{s}$$
@@ -6903,7 +6921,7 @@ Object.assign(NOTES, {
     ],
     mistakes: [L`Using the chemistry convention ($W$ done on the gas) with the IB equation.`, L`Forgetting to convert $\mathrm{cm^3}$ or $\mathrm{dm^3}$ to $\mathrm{m^3}$.`],
     video: 'IB physics HL first law of thermodynamics work done by gas',
-    links: [LK('sim', 'PhET: Gas Properties', 'https://phet.colorado.edu/en/simulations/gas-properties'), LK('read', 'HyperPhysics: First law of thermodynamics', 'http://hyperphysics.phy-astr.gsu.edu/hbase/thermo/firlaw.html')],
+    links: [LK('sim', 'PhET: Gas Properties', 'https://phet.colorado.edu/en/simulations/gas-properties'), LK('read', 'HyperPhysics: First law of thermodynamics', 'https://hyperphysics.phy-astr.gsu.edu/hbase/thermo/firlaw.html')],
   },
   'b4-processes': {
     booklet: [L`PV^{5/3} = \text{constant}`], bookletSection: 'B.4 (additional higher level) · B.3',
@@ -6915,7 +6933,7 @@ Object.assign(NOTES, {
     ],
     mistakes: [L`Saying "adiabatic" means constant temperature.`, L`Using $PV = $ constant for an adiabatic process.`],
     video: 'IB physics HL isothermal adiabatic isobaric isovolumetric pV diagrams',
-    links: [LK('sim', 'PhET: Gas Properties', 'https://phet.colorado.edu/en/simulations/gas-properties'), LK('read', 'HyperPhysics: Adiabatic processes', 'http://hyperphysics.phy-astr.gsu.edu/hbase/thermo/adiab.html')],
+    links: [LK('sim', 'PhET: Gas Properties', 'https://phet.colorado.edu/en/simulations/gas-properties'), LK('read', 'HyperPhysics: Adiabatic processes', 'https://hyperphysics.phy-astr.gsu.edu/hbase/thermo/adiab.html')],
   },
   'b4-entropy': {
     booklet: [L`\Delta S = \dfrac{\Delta Q}{T}`, L`S = k_B\ln\Omega`], bookletSection: 'B.4 (additional higher level) · Fundamental constants',
@@ -6927,7 +6945,7 @@ Object.assign(NOTES, {
     ],
     mistakes: [L`Using $^\circ\mathrm{C}$ in $\Delta Q/T$.`, L`Saying the second law forbids any entropy decrease anywhere.`],
     video: 'IB physics HL entropy second law microstates',
-    links: [LK('read', 'HyperPhysics: Entropy', 'http://hyperphysics.phy-astr.gsu.edu/hbase/Therm/entrop.html')],
+    links: [LK('read', 'HyperPhysics: Entropy', 'https://hyperphysics.phy-astr.gsu.edu/hbase/Therm/entrop.html')],
   },
   'b4-engines': {
     booklet: [L`\eta = \dfrac{\text{useful work}}{\text{input energy}}`, L`\eta_\text{Carnot} = 1 - \dfrac{T_c}{T_h}`], bookletSection: 'B.4 (additional higher level)',
@@ -6939,7 +6957,7 @@ Object.assign(NOTES, {
     ],
     mistakes: [L`Using Celsius in the Carnot formula.`, L`Using the output energy as the denominator of efficiency.`],
     video: 'IB physics HL heat engines Carnot cycle efficiency',
-    links: [LK('read', 'HyperPhysics: Carnot cycle', 'http://hyperphysics.phy-astr.gsu.edu/hbase/thermo/carnot.html'), LK('sim', 'oPhysics: Heat engine cycles', 'https://ophysics.com/t3.html')],
+    links: [LK('read', 'HyperPhysics: Carnot cycle', 'https://hyperphysics.phy-astr.gsu.edu/hbase/thermo/carnot.html'), LK('sim', 'oPhysics: Heat engine cycles', 'https://ophysics.com/t3.html')],
   },
 });
 CARDS.push(
@@ -10052,7 +10070,7 @@ Object.assign(NOTES, {
     ],
     mistakes: [L`Dropping the minus sign, or treating potential as a vector.`, L`Using $mgh$ over large distances where $g$ changes.`],
     video: 'IB physics HL gravitational potential energy equipotentials',
-    links: [LK('read', 'HyperPhysics: Gravitational potential energy', 'http://hyperphysics.phy-astr.gsu.edu/hbase/gpot.html'), LK('sim', 'PhET: Gravity and Orbits', 'https://phet.colorado.edu/en/simulations/gravity-and-orbits')],
+    links: [LK('read', 'HyperPhysics: Gravitational potential energy', 'https://hyperphysics.phy-astr.gsu.edu/hbase/gpot.html'), LK('sim', 'PhET: Gravity and Orbits', 'https://phet.colorado.edu/en/simulations/gravity-and-orbits')],
   },
   'd1-escape': {
     booklet: [L`v_\text{esc} = \sqrt{\dfrac{2GM}{r}}`, L`v_\text{orbital} = \sqrt{\dfrac{GM}{r}}`], bookletSection: 'D.1 (additional higher level)',
@@ -10066,7 +10084,7 @@ Object.assign(NOTES, {
     ],
     mistakes: [L`Saying drag slows a satellite down.`, L`Using the change in $E_p$ alone as the energy needed to change orbit.`],
     video: 'IB physics HL escape speed orbital energy satellites',
-    links: [LK('read', 'HyperPhysics: Escape velocity', 'http://hyperphysics.phy-astr.gsu.edu/hbase/vesc.html'), LK('sim', 'PhET: Gravity and Orbits', 'https://phet.colorado.edu/en/simulations/gravity-and-orbits')],
+    links: [LK('read', 'HyperPhysics: Escape velocity', 'https://hyperphysics.phy-astr.gsu.edu/hbase/vesc.html'), LK('sim', 'PhET: Gravity and Orbits', 'https://phet.colorado.edu/en/simulations/gravity-and-orbits')],
   },
 });
 CARDS.push(
@@ -10484,7 +10502,7 @@ Object.assign(NOTES, {
     ],
     mistakes: [L`Adding potentials as vectors, or ignoring their signs.`, L`Thinking zero potential means zero field (e.g. midway between $+Q$ and $-Q$).`],
     video: 'IB physics HL electric potential equipotentials',
-    links: [LK('sim', 'PhET: Charges and Fields (voltmeter)', 'https://phet.colorado.edu/en/simulations/charges-and-fields'), LK('read', 'HyperPhysics: Electric potential', 'http://hyperphysics.phy-astr.gsu.edu/hbase/electric/elepot.html')],
+    links: [LK('sim', 'PhET: Charges and Fields (voltmeter)', 'https://phet.colorado.edu/en/simulations/charges-and-fields'), LK('read', 'HyperPhysics: Electric potential', 'https://hyperphysics.phy-astr.gsu.edu/hbase/electric/elepot.html')],
   },
 });
 CARDS.push(
@@ -11474,7 +11492,7 @@ Object.assign(NOTES, {
     ],
     mistakes: [L`Using the charge $e$ instead of $2e$ for the alpha particle.`, L`Leaving MeV unconverted.`],
     video: 'IB physics HL distance of closest approach nuclear radius',
-    links: [LK('read', 'HyperPhysics: Nuclear size and density', 'http://hyperphysics.phy-astr.gsu.edu/hbase/Nuclear/nucuni.html'), LK('sim', 'PhET: Rutherford Scattering', 'https://phet.colorado.edu/en/simulations/rutherford-scattering')],
+    links: [LK('read', 'HyperPhysics: Nuclear size and density', 'https://hyperphysics.phy-astr.gsu.edu/hbase/Nuclear/nucuni.html'), LK('sim', 'PhET: Rutherford Scattering', 'https://phet.colorado.edu/en/simulations/rutherford-scattering')],
   },
   'e1-bohr': {
     booklet: [L`E = -\dfrac{13.6}{n^2}\,\mathrm{eV}`, L`mvr = \dfrac{nh}{2\pi}`], bookletSection: 'E.1 (additional higher level)',
@@ -11804,7 +11822,7 @@ Object.assign(NOTES, {
     ],
     mistakes: [L`Saying the scattered photon slows down (it still travels at $c$).`, L`Thinking the shift depends on the initial wavelength.`],
     video: 'IB physics HL Compton scattering',
-    links: [LK('read', 'HyperPhysics: Compton scattering', 'http://hyperphysics.phy-astr.gsu.edu/hbase/quantum/compdat.html')],
+    links: [LK('read', 'HyperPhysics: Compton scattering', 'https://hyperphysics.phy-astr.gsu.edu/hbase/quantum/compdat.html')],
   },
 });
 CARDS.push(
@@ -12174,7 +12192,7 @@ Object.assign(NOTES, {
     ],
     mistakes: [L`Dividing binding energy by $Z$ instead of $A$.`, L`Saying binding energy is stored in the nucleus (it is the energy needed to pull it apart).`],
     video: 'IB physics mass defect binding energy per nucleon',
-    links: [LK('read', 'HyperPhysics: Nuclear binding energy', 'http://hyperphysics.phy-astr.gsu.edu/hbase/NucEne/nucbin.html')],
+    links: [LK('read', 'HyperPhysics: Nuclear binding energy', 'https://hyperphysics.phy-astr.gsu.edu/hbase/NucEne/nucbin.html')],
   },
   'e3-decay': {
     booklet: [], bookletSection: 'E.3 Radioactive decay',
@@ -12223,7 +12241,7 @@ Object.assign(NOTES, {
     ],
     mistakes: [L`Saying the strong force acts only between protons.`, L`Linking beta decay energy spectra to electron energy levels.`],
     video: 'IB physics HL nuclear stability energy levels beta spectrum neutrino',
-    links: [LK('read', 'HyperPhysics: Nuclear stability', 'http://hyperphysics.phy-astr.gsu.edu/hbase/Nuclear/nucstructcon.html')],
+    links: [LK('read', 'HyperPhysics: Nuclear stability', 'https://hyperphysics.phy-astr.gsu.edu/hbase/Nuclear/nucstructcon.html')],
   },
 });
 CARDS.push(
@@ -12802,7 +12820,7 @@ Object.assign(NOTES, {
     ],
     mistakes: [L`Saying the radiation pressure acts inwards.`, L`Saying stars "burn" hydrogen chemically.`],
     video: 'IB physics nuclear fusion in stars equilibrium',
-    links: [LK('read', 'HyperPhysics: Proton–proton cycle', 'http://hyperphysics.phy-astr.gsu.edu/hbase/Astro/procyc.html')],
+    links: [LK('read', 'HyperPhysics: Proton–proton cycle', 'https://hyperphysics.phy-astr.gsu.edu/hbase/Astro/procyc.html')],
   },
   'e5-hr': {
     booklet: [], bookletSection: 'E.5 Fusion and stars',
@@ -13491,6 +13509,23 @@ CARDS.push(
   { id: 'mp-c8', strand: 's-nos', type: 'def', front: 'What is a scientific <b>model</b>?', back: L`A simplified representation of a system, based on stated assumptions, used to explain and predict. It only works within the limits of those assumptions.`, term: 'scientific model', keys: ['simplified representation', 'assumptions'] },
   { id: 'mp-c9', strand: 'a2-forces', type: 'def', front: 'Name the forces on a free-body diagram: contact force <b>perpendicular</b> to a surface, and contact force <b>along</b> a surface.', back: L`Normal force $F_N$ (perpendicular to the surface) and friction $F_f$ (along the surface, opposing relative motion or its tendency).`, keys: ['Normal force', 'friction'] },
   { id: 'mp-c10', strand: 'a1-describe', type: 'def', front: 'What is <b>jerk</b>?', back: L`The rate of change of acceleration, $\dfrac{\Delta a}{\Delta t}$, unit $\mathrm{m\,s^{-3}}$. Large jerk is what makes a ride feel uncomfortable.`, term: 'jerk', keys: ['rate of change of acceleration'] },
+);
+// 1.5 push 4: Greek letters (Mr Poirier's SSP notes: the same letter can mean different things in different topics)
+CARDS.push(
+  { id: 'mp-g-lambda', strand: 's-units', type: 'def', front: 'Greek letters: what does <b>λ</b> (lambda) usually stand for in IB Physics?', back: L`wavelength (waves) <i>or</i> the decay constant (radioactivity).` },
+  { id: 'mp-g-theta', strand: 's-units', type: 'def', front: 'Greek letters: what does <b>θ</b> (theta) usually stand for in IB Physics?', back: L`an angle (eg the launch angle or the angle of a slope).` },
+  { id: 'mp-g-omega', strand: 's-units', type: 'def', front: 'Greek letters: what does <b>ω</b> (omega) usually stand for in IB Physics?', back: L`angular velocity or angular frequency (rad s<sup>−1</sup>).` },
+  { id: 'mp-g-rho', strand: 's-units', type: 'def', front: 'Greek letters: what does <b>ρ</b> (rho) usually stand for in IB Physics?', back: L`density (kg m<sup>−3</sup>) <i>or</i> resistivity (Ω m).` },
+  { id: 'mp-g-mu', strand: 's-units', type: 'def', front: 'Greek letters: what does <b>μ</b> (mu) usually stand for in IB Physics?', back: L`the coefficient of friction; also the prefix micro (10<sup>−6</sup>) and μ<sub>0</sub>, the permeability of free space.` },
+  { id: 'mp-g-epsilon', strand: 's-units', type: 'def', front: 'Greek letters: what does <b>ε</b> (epsilon) usually stand for in IB Physics?', back: L`emf (V); also ε<sub>0</sub>, the permittivity of free space.` },
+  { id: 'mp-g-sigma', strand: 's-units', type: 'def', front: 'Greek letters: what does <b>σ</b> (sigma) usually stand for in IB Physics?', back: L`the Stefan–Boltzmann constant (W m<sup>−2</sup> K<sup>−4</sup>).` },
+  { id: 'mp-g-delta', strand: 's-units', type: 'def', front: 'Greek letters: what does <b>Δ</b> (capital delta) usually stand for in IB Physics?', back: L`a change in a quantity, eg Δ<i>v</i> = <i>v</i> − <i>u</i>.` },
+  { id: 'mp-g-tau', strand: 's-units', type: 'def', front: 'Greek letters: what does <b>τ</b> (tau) usually stand for in IB Physics?', back: L`torque (N m), in rigid body mechanics (HL).` },
+  { id: 'mp-g-alpha', strand: 's-units', type: 'def', front: 'Greek letters: what does <b>α</b> (alpha) usually stand for in IB Physics?', back: L`angular acceleration (rad s<sup>−2</sup>, HL); also the alpha particle.` },
+  { id: 'mp-g-gamma', strand: 's-units', type: 'def', front: 'Greek letters: what does <b>γ</b> (gamma) usually stand for in IB Physics?', back: L`the Lorentz factor (relativity, HL); also gamma radiation (photons).` },
+  { id: 'mp-g-phi', strand: 's-units', type: 'def', front: 'Greek letters: what does <b>Φ</b> (capital phi) usually stand for in IB Physics?', back: L`magnetic flux (Wb); lower-case φ is often a phase angle.` },
+  { id: 'mp-g-eta', strand: 's-units', type: 'def', front: 'Greek letters: what does <b>η</b> (eta) usually stand for in IB Physics?', back: L`efficiency (no unit); also viscosity in Stokes’ law.` },
+  { id: 'mp-g-pi', strand: 's-units', type: 'def', front: 'Greek letters: what does <b>π</b> (pi) usually stand for in IB Physics?', back: L`the ratio of a circle’s circumference to its diameter, 3.14159…; no unit.` },
 );
 TERM_GROUPS.push(['scientific law', 'scientific theory', 'scientific model', 'falsifiable', 'peer review', "Occam's razor"]);
 
@@ -17036,6 +17071,24 @@ const UD_CASES = [
   ['scales', 3, 'The Scales of Justice', 'Verify', 'Is the equation homogeneous: do both sides have the same units?'],
   ['impostor', 4, 'The Impostor Equation', 'Expose', 'Three formulas cannot be right. Find the one that could be.'],
   ['deduce', 5, 'The Deduction', 'Deduce', 'Use units alone to predict the form of a formula.'],
+  ['convert', 6, 'The Paper Trail', 'Convert', 'Spot the SI base units and convert between units, one step at a time.'],
+];
+// 1.5 push 4: Case 6 from Mr Poirier's SSP unit practice questions (new values, our wording): [id, prompt, correct, [wrong ×3], why, topic]
+const UD_CONV = [
+  ['c1', 'Which of these is an SI base (fundamental) unit?', 'the ampere (A)', ['the newton (N)', 'the joule (J)', 'the degree Celsius (°C)'], 'The seven SI base units are kg, m, s, A, K, mol and cd. The newton and the joule are derived units; temperature’s base unit is the kelvin.'],
+  ['c2', 'Which of these is an SI base (fundamental) unit?', 'the kelvin (K)', ['the volt (V)', 'the watt (W)', 'the coulomb (C)'], 'The kelvin is the base unit of temperature. The coulomb is derived: 1 C = 1 A s.'],
+  ['c3', 'Which of these is <b>not</b> an SI base unit?', 'the radian (rad)', ['the mole (mol)', 'the second (s)', 'the kilogram (kg)'], 'The radian is a ratio of two lengths (arc ÷ radius), so it has no base units at all.'],
+  ['c4', 'Which quantity is measured in an SI base unit?', 'electric current', ['electric charge', 'potential difference', 'energy'], 'Current (A) is a base quantity. Charge is derived from it: Q = It, so 1 C = 1 A s.'],
+  ['c5', 'How many seconds are there in 4.5 hours?', '$1.62\times10^{4}\,\mathrm{s}$', ['$270\,\mathrm{s}$', '$2.7\times10^{3}\,\mathrm{s}$', '$1.62\times10^{5}\,\mathrm{s}$'], '4.5 h × 60 min/h × 60 s/min = 16 200 s = 1.62 × 10<sup>4</sup> s. Write each conversion factor as a fraction so the unwanted units cancel.'],
+  ['c6', 'Convert 250 km into millimetres.', '$2.5\times10^{8}\,\mathrm{mm}$', ['$2.5\times10^{5}\,\mathrm{mm}$', '$2.5\times10^{6}\,\mathrm{mm}$', '$2.5\times10^{11}\,\mathrm{mm}$'], '250 km × 1000 m/km × 1000 mm/m = 2.5 × 10<sup>8</sup> mm.'],
+  ['c7', 'Convert 5400 g into kilograms.', '$5.4\,\mathrm{kg}$', ['$54\,\mathrm{kg}$', '$0.54\,\mathrm{kg}$', '$5.4\times10^{6}\,\mathrm{kg}$'], '1 kg = 1000 g, so 5400 g ÷ 1000 = 5.4 kg.'],
+  ['c8', 'A car travels at 90 km h<sup>−1</sup>. What is this in m s<sup>−1</sup>?', '$25\,\mathrm{m\,s^{-1}}$', ['$324\,\mathrm{m\,s^{-1}}$', '$1.5\,\mathrm{m\,s^{-1}}$', '$90\,\mathrm{m\,s^{-1}}$'], '90 km/h × 1000 m/km ÷ 3600 s/h = 25 m/s. Shortcut: divide km/h by 3.6.'],
+  ['c9', 'Convert 3.0 cm<sup>2</sup> into m<sup>2</sup>.', '$3.0\times10^{-4}\,\mathrm{m^2}$', ['$3.0\times10^{-2}\,\mathrm{m^2}$', '$3.0\times10^{-6}\,\mathrm{m^2}$', '$3.0\times10^{2}\,\mathrm{m^2}$'], '1 cm = 10<sup>−2</sup> m, so 1 cm<sup>2</sup> = (10<sup>−2</sup>)<sup>2</sup> m<sup>2</sup> = 10<sup>−4</sup> m<sup>2</sup>. Square the conversion factor too!'],
+  ['c10', 'Convert 2.0 L (2000 cm<sup>3</sup>) into m<sup>3</sup>.', '$2.0\times10^{-3}\,\mathrm{m^3}$', ['$2.0\times10^{-1}\,\mathrm{m^3}$', '$2.0\times10^{-6}\,\mathrm{m^3}$', '$2.0\times10^{3}\,\mathrm{m^3}$'], '1 cm<sup>3</sup> = (10<sup>−2</sup> m)<sup>3</sup> = 10<sup>−6</sup> m<sup>3</sup>, so 2000 cm<sup>3</sup> = 2.0 × 10<sup>−3</sup> m<sup>3</sup>.'],
+  ['c11', 'The density of water is 1.0 g cm<sup>−3</sup>. What is this in kg m<sup>−3</sup>?', '$1.0\times10^{3}\,\mathrm{kg\,m^{-3}}$', ['$1.0\times10^{-3}\,\mathrm{kg\,m^{-3}}$', '$1.0\,\mathrm{kg\,m^{-3}}$', '$1.0\times10^{6}\,\mathrm{kg\,m^{-3}}$'], '1 g = 10<sup>−3</sup> kg and 1 cm<sup>3</sup> = 10<sup>−6</sup> m<sup>3</sup>: 10<sup>−3</sup> ÷ 10<sup>−6</sup> = 10<sup>3</sup>.'],
+  ['c12', 'A battery stores 1.5 kW h. How much energy is this in joules?', '$5.4\times10^{6}\,\mathrm{J}$', ['$1.5\times10^{3}\,\mathrm{J}$', '$9.0\times10^{4}\,\mathrm{J}$', '$5.4\times10^{3}\,\mathrm{J}$'], '1 kW h = 1000 W × 3600 s = 3.6 × 10<sup>6</sup> J, so 1.5 kW h = 5.4 × 10<sup>6</sup> J.'],
+  ['c13', 'Express 650 nm in metres.', '$6.5\times10^{-7}\,\mathrm{m}$', ['$6.5\times10^{-9}\,\mathrm{m}$', '$6.5\times10^{-4}\,\mathrm{m}$', '$6.5\times10^{-6}\,\mathrm{m}$'], 'nano = 10<sup>−9</sup>: 650 × 10<sup>−9</sup> m = 6.5 × 10<sup>−7</sup> m.'],
+  ['c14', 'Express 2.4 MeV in joules. (1 eV = 1.60 × 10<sup>−19</sup> J)', '$3.8\times10^{-13}\,\mathrm{J}$', ['$3.8\times10^{-16}\,\mathrm{J}$', '$3.8\times10^{-19}\,\mathrm{J}$', '$1.5\times10^{25}\,\mathrm{J}$'], 'mega = 10<sup>6</sup>: 2.4 × 10<sup>6</sup> eV × 1.60 × 10<sup>−19</sup> J/eV = 3.8 × 10<sup>−13</sup> J.'],
 ];
 
 /* ===== Chris Doner (YouTube) videos per strand, from his FE2025 topic playlists (read 3 Nov 2026). =====
@@ -17150,7 +17203,7 @@ function tname0(id) { return id.replace('.', ''); }
 
 </script>
 <script>
-const FOOTER_TEXT = 'Questions are original and written in the style of the IB DP Physics course (first assessment 2025).<br>Developed by <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a> using Claude. © 2026 Mike Poirier. All rights reserved: free for students and teachers; see the Terms of Use on the About page.<br>Version 1.5 Beta · Last updated: 11 November 2026';
+const FOOTER_TEXT = 'Questions are original and written in the style of the IB DP Physics course (first assessment 2025).<br>Developed by <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a> using Claude. © 2026 Mike Poirier. All rights reserved: free for students and teachers; see the Terms of Use on the About page.<br>Version 1.5 Beta · Last updated: 12 November 2026';
 /* ===== MVPhysics Lab — app ===== */
 (function () {
   'use strict';
@@ -17316,21 +17369,35 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   /* Test-only reserve (1.5, Mike 11 Nov): about 25% of each strand's Paper 1A templates (always leaving at least 6 for Practice), and of Paper 1B/2
      where a strand has 3 or more, are kept out of Practice, Blitz and Recall and appear only in Test Mode. A template can force it with reserve: true/false.
      The choice is stable (by a hash of the id). Revisit the size at every major build. */
+  /* Test-only questions (1.5 push 4, Mike 12 Nov: "the mix").
+     Templates with 8+ different value sets (VARIETY, measured at build time) all stay in Practice, but about 1 in 4 of their value sets
+     is test-only: Practice, Games and Recall re-roll past them and Test Mode uses them. Templates with fewer value sets (mostly conceptual)
+     are test-only as whole templates instead: about 25% per strand and paper, keeping enough in Practice. Linked questions follow the same rules. */
+  const VARIETY = {"a1-m01":2,"a1-m02":24,"a1-m03":24,"a1-m04":24,"a1-m05":24,"a1-m06":1,"a1-m07":24,"a1-m08":24,"a1-m09":13,"a1-m10":24,"a1-m11":4,"a1-m12":3,"a1-m13":24,"a1-m14":24,"a1-m15":1,"a1-m16":1,"a1-m17":24,"a1-m18":24,"a1-m19":1,"a1-m20":1,"a1-m21":1,"a1-m22":12,"a1-m23":24,"a1-b01":24,"a1-b02":24,"a1-b03":24,"a1-b04":24,"a1-p01":24,"a1-p02":24,"a1-p03":24,"a1-p04":24,"a1-p05":24,"a1-m24":24,"a1-m25":1,"a1-m26":1,"a1-m27":5,"a1-m28":24,"a1-m29":24,"a1-b05":24,"a1-p06":20,"a1-p07":24,"a1-m30":24,"a1-m31":24,"a1-m32":1,"a1-m33":24,"a1-m34":1,"a1-m35":19,"a1-m36":24,"a1-b06":24,"a1-p08":24,"a2-m01":2,"a2-m02":24,"a2-m03":24,"a2-m04":24,"a2-m05":24,"a2-m06":24,"a2-m07":24,"a2-m09":20,"a2-m10":24,"a2-m11":2,"a2-m12":24,"a2-m13":6,"a2-m14":24,"a2-m15":24,"a2-m16":24,"a2-m17":24,"a2-m18":24,"a2-m19":3,"a2-m20":24,"a2-m21":8,"a2-m22":24,"a2-m23":1,"a2-m24":24,"a2-m25":24,"a2-m26":6,"a2-m27":24,"a2-b01":24,"a2-b02":24,"a2-p01":24,"a2-p02":24,"a2-p03":24,"a2-p04":24,"a2-p05":24,"a2-m28":24,"a2-m29":24,"a2-m30":24,"a2-m32":24,"a2-m33":20,"a2-b03":24,"a2-p06":24,"a2-p07":24,"a2-m34":24,"a2-m35":7,"a2-m36":24,"a2-m37":1,"a2-m38":1,"a2-m39":3,"a2-m40":1,"a2-m41":1,"a2-m42":3,"a2-m43":1,"a2-b04":24,"a3-m01":24,"a3-m02":24,"a3-m03":2,"a3-m04":3,"a3-m05":4,"a3-m06":24,"a3-m07":24,"a3-m08":24,"a3-m09":2,"a3-m10":24,"a3-m11":24,"a3-m12":24,"a3-m13":24,"a3-m14":24,"a3-m15":24,"a3-m16":24,"a3-m17":24,"a3-m18":24,"a3-m19":24,"a3-m20":6,"a3-m21":3,"a3-m22":1,"a3-m23":15,"a3-m24":24,"a3-m25":1,"a3-b01":24,"a3-b02":24,"a3-p01":24,"a3-p02":24,"a3-p03":24,"a3-p04":24,"a3-p05":24,"a3-m26":2,"a3-m27":24,"a3-m28":2,"a3-m29":24,"a3-b03":24,"a4-m01":24,"a4-m02":1,"a4-m03":23,"a4-m04":16,"a4-m05":1,"a4-m06":6,"a4-m07":24,"a4-m08":20,"a4-m09":24,"a4-m10":7,"a4-m11":24,"a4-m12":1,"a4-m13":24,"a4-m14":24,"a4-m15":1,"a4-m16":16,"a4-m17":24,"a4-m18":1,"a4-m19":24,"a4-m20":24,"a4-m21":16,"a4-m22":7,"a4-m23":3,"a4-m24":1,"a4-t01":1,"a4-t02":6,"a4-b01":24,"a4-b02":24,"a4-p01":24,"a4-p02":24,"a4-p03":24,"a5-m01":1,"a5-m02":24,"a5-m03":24,"a5-m04":1,"a5-m18":1,"a5-m05":1,"a5-m06":6,"a5-m07":24,"a5-m08":12,"a5-m09":16,"a5-m10":1,"a5-m11":16,"a5-m12":3,"a5-m13":1,"a5-m14":5,"a5-m15":5,"a5-m16":1,"a5-m17":3,"a5-t01":7,"a5-b01":24,"a5-p01":6,"a5-p02":2,"a5-p03":9,"a2e-m01":24,"a2e-m02":24,"a2e-m03":16,"a2e-m04":24,"a2e-m05":24,"a2e-m06":24,"a2e-p01":24,"a2f-m01":24,"a2f-m02":24,"a2f-m03":1,"a2f-m04":16,"a2f-m05":1,"a2f-b01":24,"a1d-m01":16,"a1d-m02":24,"a1d-b01":24,"a1g-b01":24,"a1f-m01":1,"a1f-m02":1,"a1f-p01":24,"a2m-b01":24,"a2c-m01":12,"a2c-m02":24,"a2c-m03":1,"a2c-p01":24,"a3s-m01":24,"a3s-m02":20,"a3s-m03":24,"a3d-m01":24,"a3d-m02":3,"a3d-m03":1,"a3d-b01":24,"a3d-p01":24,"a3w-b01":24,"lg-b01":24,"lg-b02":24,"lg-b03":24,"ax-m01":24,"ax-m02":20,"ax-m03":20,"ax-m04":8,"ax-m05":5,"ax-m06":20,"ax-p01":24,"ax-p02":24,"ax-p03":24,"ax-p04":24,"ax-p05":24,"ax-p06":7,"ax-p07":24,"ax-p08":24,"b1-m01":24,"b1-m02":7,"b1-m03":7,"b1-m04":5,"b1-m05":1,"b1-m06":1,"b1-m07":2,"b1-m08":1,"b1-m09":1,"b1-m10":24,"b1-m11":24,"b1-m12":24,"b1-m13":6,"b1-m14":24,"b1-m15":24,"b1-m16":16,"b1-m17":16,"b1-m18":24,"b1-m19":24,"b1-m20":18,"b1-m21":1,"b1-m22":1,"b1-m23":24,"b1-m24":1,"b1-m25":20,"b1-m26":9,"b1-m27":6,"b1-m28":7,"b1-m29":24,"b1-m30":12,"b1-m31":9,"b1-m32":24,"b1-m33":24,"b1-b01":24,"b1-b02":24,"b1-b03":24,"b1-p01":24,"b1-p02":24,"b1-p03":24,"b1-p04":24,"b1-p05":24,"b1-p06":3,"b1-p07":18,"b1-p08":24,"b2-m01":20,"b2-m02":16,"b2-m03":1,"b2-m04":3,"b2-m05":4,"b2-m06":1,"b2-m07":1,"b2-m08":4,"b2-m09":4,"b2-m10":4,"b2-m11":1,"b2-m12":12,"b2-m13":9,"b2-m14":12,"b2-m15":1,"b2-m16":3,"b2-m17":1,"b2-t01":5,"b2-b01":24,"b2-p01":3,"b2-p02":24,"b3-m01":20,"b3-m02":24,"b3-m03":5,"b3-m04":24,"b3-m05":24,"b3-m06":24,"b3-m07":24,"b3-m08":24,"b3-m09":24,"b3-m10":16,"b3-m11":24,"b3-m12":24,"b3-m13":1,"b3-m14":1,"b3-m15":12,"b3-m16":4,"b3-m17":20,"b3-m18":1,"b3-m19":1,"b3-m20":1,"b3-m21":1,"b3-m22":6,"b3-m23":2,"b3-b01":24,"b3-b02":24,"b3-b03":24,"b3-p01":24,"b3-p02":24,"b3-p03":24,"b3-p04":7,"b3-p05":24,"b3-p06":24,"b4-m01":16,"b4-m02":24,"b4-m03":16,"b4-m04":1,"b4-m05":8,"b4-m06":1,"b4-m07":1,"b4-m08":1,"b4-m09":3,"b4-m10":3,"b4-m11":6,"b4-m12":1,"b4-m13":7,"b4-m14":9,"b4-m15":7,"b4-m16":1,"b4-m17":3,"b4-m18":4,"b4-m19":1,"b4-m20":1,"b4-m21":1,"b4-m22":8,"b4-m23":12,"b4-m24":1,"b4-m25":16,"b4-m26":12,"b4-m27":9,"b4-m28":1,"b4-m29":1,"b4-m30":6,"b4-m31":1,"b4-m32":8,"b4-b01":24,"b4-b02":24,"b4-b03":24,"b4-p01":4,"b4-p02":4,"b4-p03":4,"b4-p04":2,"b4-p05":24,"b5-m01":24,"b5-m02":4,"b5-m03":24,"b5-m04":1,"b5-m05":1,"b5-m06":2,"b5-m07":24,"b5-m08":24,"b5-m09":2,"b5-m10":9,"b5-m11":7,"b5-m12":2,"b5-m13":1,"b5-m14":1,"b5-m15":24,"b5-m16":6,"b5-m17":24,"b5-m18":15,"b5-m19":5,"b5-m20":23,"b5-m21":24,"b5-m22":24,"b5-m23":24,"b5-m24":1,"b5-m25":1,"b5-m26":12,"b5-m27":24,"b5-m28":7,"b5-m29":24,"b5-m30":1,"b5-m31":24,"b5-m32":12,"b5-m33":24,"b5-m34":2,"b5-m35":1,"b5-m36":24,"b5-b01":24,"b5-b02":24,"b5-b03":24,"b5-p01":24,"b5-p02":22,"b5-p03":24,"b5-p04":24,"b5-p05":24,"b5-p06":4,"b5-p07":24,"b5-p08":24,"b1-m34":24,"b3-m24":12,"b3-m25":5,"b3-m26":24,"b5-m37":12,"b5-m38":16,"b5-m39":24,"b5-m40":12,"b5-b04":24,"c1-m01":1,"c1-m02":1,"c1-m03":1,"c1-m04":24,"c1-m05":12,"c1-m06":1,"c1-m07":24,"c1-m08":7,"c1-m09":5,"c1-m10":4,"c1-m11":3,"c1-m12":2,"c1-m13":20,"c1-m14":16,"c1-m15":2,"c1-m16":1,"c1-m17":1,"c1-m18":1,"c1-m19":12,"c1-m20":20,"c1-m21":24,"c1-h01":20,"c1-h02":24,"c1-h03":24,"c1-h04":5,"c1-h05":24,"c1-h06":2,"c1-t01":2,"c1-t02":24,"c1-b01":24,"c1-b02":24,"c1-p01":24,"c1-p02":6,"c1-p03":24,"c1-p04":7,"c2-m01":2,"c2-m02":1,"c2-m03":24,"c2-m04":4,"c2-m05":24,"c2-m06":20,"c2-m07":8,"c2-m08":20,"c2-m09":1,"c2-m10":1,"c2-m11":1,"c2-m12":4,"c2-m13":1,"c2-m14":10,"c2-m15":10,"c2-m16":16,"c2-m17":3,"c2-t01":24,"c2-b01":24,"c2-p01":24,"c2-p02":18,"c2-p03":24,"c3-m01":24,"c3-m02":16,"c3-m03":5,"c3-m04":9,"c3-m05":1,"c3-m06":1,"c3-m07":24,"c3-m08":5,"c3-m09":1,"c3-m10":1,"c3-m11":1,"c3-m12":9,"c3-m13":19,"c3-m14":24,"c3-m15":1,"c3-m16":7,"c3-m17":7,"c3-m18":24,"c3-m19":24,"c3-m20":5,"c3-m21":1,"c3-h01":24,"c3-h02":1,"c3-h03":24,"c3-h04":12,"c3-h05":1,"c3-h06":1,"c3-h07":1,"c3-h08":12,"c3-t01":24,"c3-t02":1,"c3-b01":24,"c3-b02":24,"c3-p01":24,"c3-p02":24,"c3-p03":12,"c3-p04":3,"c3-p05":24,"c4-m01":1,"c4-m02":24,"c4-m03":2,"c4-m04":1,"c4-m05":24,"c4-m06":16,"c4-m07":15,"c4-m08":15,"c4-m09":18,"c4-m10":10,"c4-m11":10,"c4-m12":24,"c4-m13":1,"c4-m14":24,"c4-m15":1,"c4-m16":1,"c4-m17":3,"c4-m18":2,"c4-m19":5,"c4-m20":16,"c4-m21":1,"c4-m22":1,"c4-t01":9,"c4-b01":24,"c4-p01":9,"c4-p02":3,"c4-p03":9,"c5-m01":1,"c5-m02":2,"c5-m03":23,"c5-m04":3,"c5-m05":16,"c5-m06":1,"c5-m07":1,"c5-h01":24,"c5-h02":24,"c5-h03":16,"c5-h04":12,"c5-h05":1,"c5-t01":7,"c5-b01":24,"c5-p01":6,"c5-p02":12,"c5-p03":9,"d1-m01":24,"d1-m02":12,"d1-m03":1,"d1-m04":1,"d1-m05":12,"d1-m06":1,"d1-m07":7,"d1-m08":24,"d1-m09":20,"d1-m10":12,"d1-m11":20,"d1-m12":1,"d1-m13":1,"d1-m14":24,"d1-m15":1,"d1-m16":1,"d1-m17":20,"d1-m18":20,"d1-m19":16,"d1-m20":3,"d1-m21":1,"d1-m22":7,"d1-m23":1,"d1-m24":15,"d1-m25":15,"d1-m26":24,"d1-m27":24,"d1-m28":12,"d1-m29":1,"d1-m30":7,"d1-m31":24,"d1-m32":1,"d1-m33":6,"d1-m34":12,"d1-m35":12,"d1-m36":24,"d1-m37":1,"d1-m38":4,"d1-m39":1,"d1-m40":9,"d1-t01":1,"d1-t02":12,"d1-b01":24,"d1-b02":24,"d1-b03":24,"d1-p01":18,"d1-p02":3,"d1-p03":24,"d1-p04":6,"d1-p05":3,"d2-m01":24,"d2-m02":18,"d2-m03":1,"d2-m04":2,"d2-m05":24,"d2-m06":24,"d2-m07":6,"d2-m08":7,"d2-m09":6,"d2-m10":16,"d2-m11":16,"d2-m12":1,"d2-m13":1,"d2-m14":9,"d2-m15":3,"d2-m16":1,"d2-m17":2,"d2-m18":1,"d2-m19":6,"d2-m20":1,"d2-m21":16,"d2-m22":1,"d2-m23":2,"d2-m24":2,"d2-m25":1,"d2-m26":12,"d2-m27":18,"d2-m28":24,"d2-m29":1,"d2-m30":9,"d2-m31":1,"d2-m32":1,"d2-m33":7,"d2-m34":7,"d2-t01":1,"d2-b01":24,"d2-b02":24,"d2-b03":24,"d2-p01":24,"d2-p02":18,"d2-p03":9,"d2-p04":12,"d2-p05":9,"d3-m01":5,"d3-m02":16,"d3-m03":1,"d3-m04":24,"d3-m05":1,"d3-m06":2,"d3-m07":4,"d3-m08":2,"d3-m09":24,"d3-m10":18,"d3-m11":4,"d3-m12":1,"d3-m13":3,"d3-m14":7,"d3-m15":6,"d3-m16":1,"d3-m17":1,"d3-m18":24,"d3-m19":4,"d3-m20":24,"d3-m21":2,"d3-m22":24,"d3-m23":24,"d3-m24":3,"d3-m25":1,"d3-t01":1,"d3-b01":24,"d3-b02":24,"d3-b03":24,"d3-p01":9,"d3-p02":9,"d3-p03":9,"d3-p04":18,"d3-p05":9,"d4-m01":24,"d4-m02":1,"d4-m03":24,"d4-m04":24,"d4-m05":24,"d4-m06":24,"d4-m07":1,"d4-m08":2,"d4-m09":1,"d4-m10":24,"d4-m11":1,"d4-m12":1,"d4-m13":1,"d4-m14":1,"d4-m15":24,"d4-m16":5,"d4-t01":1,"d4-b01":24,"d4-p01":24,"d4-p02":24,"e1-m01":1,"e1-m02":1,"e1-m03":7,"e1-m04":3,"e1-m05":1,"e1-m06":12,"e1-m07":1,"e1-m08":1,"e1-m09":16,"e1-m10":3,"e1-m11":1,"e1-m12":4,"e1-m13":1,"e1-m14":1,"e1-m15":4,"e1-m16":1,"e1-m17":10,"e1-m18":10,"e1-m19":3,"e1-m20":7,"e1-m21":1,"e1-m22":7,"e1-m23":1,"e1-m24":1,"e1-m25":4,"e1-m26":5,"e1-m27":3,"e1-m28":4,"e1-m29":3,"e1-m30":1,"e1-m31":1,"e1-m32":1,"e1-t01":4,"e1-b01":24,"e1-b02":24,"e1-b03":24,"e1-p01":2,"e1-p02":2,"e1-p03":6,"e1-p04":3,"e1-p05":3,"e2-m01":21,"e2-m02":6,"e2-m03":7,"e2-m04":1,"e2-m05":1,"e2-m06":1,"e2-m07":1,"e2-m08":4,"e2-m09":4,"e2-m10":5,"e2-m11":1,"e2-m12":3,"e2-m13":7,"e2-m14":1,"e2-m15":1,"e2-m16":9,"e2-m17":5,"e2-m18":4,"e2-m19":1,"e2-m20":1,"e2-m21":7,"e2-m22":1,"e2-m23":3,"e2-m24":3,"e2-b01":24,"e2-b02":24,"e2-b03":24,"e2-p01":9,"e2-p02":6,"e2-p03":9,"e2-p04":3,"e2-p05":3,"e3-m01":4,"e3-m02":4,"e3-m03":4,"e3-m04":1,"e3-m05":24,"e3-m06":3,"e3-m07":1,"e3-m08":1,"e3-m09":4,"e3-m10":1,"e3-m11":3,"e3-m12":1,"e3-m13":1,"e3-m14":7,"e3-m15":1,"e3-m16":1,"e3-m17":7,"e3-m18":24,"e3-m19":18,"e3-m20":12,"e3-m21":1,"e3-m22":9,"e3-m23":1,"e3-m24":24,"e3-m25":8,"e3-m26":24,"e3-m27":9,"e3-m28":12,"e3-m29":1,"e3-m30":1,"e3-m31":9,"e3-m32":18,"e3-m33":1,"e3-m34":1,"e3-m35":1,"e3-m36":1,"e3-m37":1,"e3-m38":1,"e3-m39":4,"e3-m40":1,"e3-b01":24,"e3-b02":24,"e3-b03":24,"e3-p01":4,"e3-p02":6,"e3-p03":2,"e3-p04":18,"e3-p05":3,"e4-m01":4,"e4-m02":4,"e4-m03":9,"e4-m04":1,"e4-m05":9,"e4-m06":1,"e4-m07":3,"e4-m08":1,"e4-m09":1,"e4-m10":1,"e4-m11":1,"e4-m12":1,"e4-m13":1,"e4-m14":3,"e4-m15":1,"e4-m16":1,"e4-m17":1,"e4-b01":24,"e4-b02":24,"e4-b03":24,"e4-p01":4,"e4-p02":1,"e4-p03":9,"e4-p04":3,"e4-p05":4,"e5-m01":1,"e5-m02":1,"e5-m03":2,"e5-m04":4,"e5-m05":1,"e5-m06":1,"e5-m07":1,"e5-m08":1,"e5-m09":4,"e5-m10":1,"e5-m11":1,"e5-m12":1,"e5-m13":1,"e5-m14":1,"e5-m15":1,"e5-m16":1,"e5-m17":4,"e5-m18":4,"e5-m19":12,"e5-m20":7,"e5-m21":16,"e5-m22":6,"e5-m23":5,"e5-m24":1,"e5-m25":3,"e5-b01":24,"e5-b02":24,"e5-b03":24,"e5-p01":1,"e5-p02":24,"e5-p03":24,"e5-p04":18,"e5-p05":2,"mp-a1-01":24,"mp-a1-02":24,"mp-a1-03":24,"mp-a1-04":7,"mp-a1-05":24,"mp-a1-06":24,"mp-a1-07":16,"mp-a1-08":24,"mp-a1-09":7,"mp-a1-10":7,"mp-a1-11":7,"mp-a1-12":24,"mp-a1-13":16,"mp-a1-14":20,"mp-a1-15":1,"mp-a1-16":3,"mp-a2-01":18,"mp-a2-02":24,"mp-a2-03":5,"mp-a2-04":24,"mp-a2-05":24,"mp-a2-06":15,"mp-a2-07":24,"mp-a2-08":1,"mp-a2-09":24,"mp-a2-10":1,"mp-a2-11":6,"mp-a3-01":24,"mp-a3-02":20,"mp-a3-03":16,"mp-a3-04":15,"mp-a3-05":24,"mp-a3-06":4,"mp-a3-07":24,"mp-a3-08":12,"mp-a4-01":24,"mp-a4-02":24,"mp-a4-03":24,"mp-a4-04":9,"mp-a5-01":3,"mp-a5-02":1,"mp-b1-01":24,"mp-b1-02":3,"mp-b1-03":12,"mp-b1-04":24,"mp-b2-01":9,"mp-b2-02":1,"mp-b3-01":5,"mp-b3-02":24,"mp-b3-03":1,"mp-b3-04":5,"mp-b4-01":24,"mp-b4-02":4,"mp-b4-03":12,"mp-b5-01":16,"mp-b5-02":16,"mp-b5-03":4,"mp-b5-04":24,"mp-b5-05":2,"mp-b5-06":1,"mp-b5-07":12,"mp-s-01":4,"mp-s-02":24,"mp-s-03":16,"mp-s-04":9,"mp-s-05":3,"mp-n-01":1,"mp-n-02":1,"mp-n-03":2,"mp-n-04":1,"mp-n-05":3,"mp-n-06":1,"mp-n-07":3,"mp-b01":24,"mp-b02":24,"mp-b03":24,"tu-m01a":1,"tu-m01b":1,"tu-m01c":1,"tu-m01d":1,"tu-m01e":2,"tu-m01f":1,"tu-m01g":1,"tu-m02a":1,"tu-m02b":1,"tu-m02c":1,"tu-m02d":1,"tu-m02e":1,"tu-m02f":2,"tu-m02g":1,"tu-m02h":1,"tu-m03a":7,"tu-m03b":20,"tu-m03c":10,"tu-m03d":10,"tu-m03e":10,"tu-m03f":7,"tu-m04a":1,"tu-m04b":1,"tu-m04c":1,"tu-m04d":1,"tu-m04e":1,"tu-m04f":1,"tu-m05a":1,"tu-m05b":1,"tu-m05c":1,"tu-m05d":1,"tu-m05e":1,"tu-m06a":9,"tu-m06b":4,"tu-m06c":5,"tu-m07":24,"tu-m08a":6,"tu-m08b":8,"tu-m08c":4,"tu-m09":24,"tu-m10":15,"tu-m11":20,"tu-m12":17,"tu-m13":24,"tu-m14":16,"tu-m15":12,"tu-m16":7,"tu-m17":5,"tu-m18":23,"tu-m19":24,"tu-m20":12,"tu-m21":16,"tu-m22":12,"tu-m23":24,"tu-p01":24,"tu-p02":24,"tu-p03":24,"tb-m01":24,"tb-m02":6,"tb-m03":24,"tb-m04":1,"tb-m05":24,"tb-m06":16,"tb-m07":7,"tb-m08":9,"tb-m09":2,"tb-m10":4,"tb-m11":12,"tb-m12":4,"tb-m13":4,"tb-m14":5,"tb-m15":4,"tb-m16":1,"tb-m17":3,"tb-h01":24,"tb-h02":24,"tb-h03":4,"tb-t01":8,"tb-p01":23,"tb-p02":24,"tb-p03":18,"tb-p04":18,"tb-p05":9,"tb-p06":24,"tb-p07":24,"tb-p08":24,"tb-p09":7,"tb-b01":24,"tb-b02":24,"tb-b03":7,"tb-m18":24,"tb-m19":24,"tb-m20":12,"tb-m21":1,"tb-m22":24,"tb-m23":4,"tb-m24":12,"ak-m01":24,"ak-m02":1,"ak-m03":24,"ak-m04":1,"ak-m05":18,"ak-m06":9,"ak-m07":9,"ak-m08":1,"ak-m09":7,"ak-m10":24,"ak-m11":7,"ak-m12":24,"ak-m13":1,"ak-m14":12,"ak-m15":9,"ak-m16":7,"ak-m17":1,"ak-m18":3,"ak-m19":7,"ak-m20":5,"ak-m21":6,"ak-m22":9,"ak-m23":3,"ak-m24":7,"ak-m25":4,"ak-m26":1,"ak-b01":24,"ak-b02":24,"ak-b03":24,"ak-p01":12,"ak-p02":9,"bk-m01":1,"bk-m02":3,"bk-m03":1,"bk-m04":24,"bk-m05":24,"bk-m06":2,"bk-m07":1,"bk-b01":24,"bk-b02":24,"bk-p01":7,"bk-p02":3,"bk-p03":4,"ck-m01":6,"ck-m02":3,"ck-m03":1,"ck-m04":1,"ck-m05":1,"ck-m06":4,"ck-m07":1,"ck-m08":1,"ck-m09":1,"ck-m10":5,"ck-m11":12,"ck-m12":12,"ck-m13":1,"ck-m14":12,"ck-m15":9,"ck-m16":1,"ck-b01":24,"ck-b02":24,"ck-b03":24,"ck-b04":24,"ck-b05":24,"ck-b06":24,"ck-p01":6,"ck-p02":18,"ck-p03":9,"dk-m01":24,"dk-m02":24,"dk-m03":18,"dk-m04":6,"dk-m05":2,"dk-b01":24,"dk-b02":24,"dk-p01":24,"dk-p02":18,"sk-m01":21,"sk-m02":5,"sk-m03":5,"sk-m04":1,"sk-m05":7,"sk-m06":1,"sk-m07":1,"sk-m08":3,"sk-m09":1,"sk-m10":4,"sk-m11":1,"sk-m12":3,"sk-m13":3,"sk-m14":1,"sk-m15":4,"sk-m16":12,"sk-m17":1,"sk-m18":1,"sk-m19":1,"sk-m20":6,"sk-m21":1,"sk-m22":1,"sk-m23":1,"sk-m24":12,"sk-m25":9,"sk-m26":1,"sk-m27":3,"sk-m28":1,"sr-m01":24,"sr-m02":20,"sr-m03":24,"sr-m04":24,"sr-m05":4,"sr-m06":5,"sr-m07":24,"sr-m08":24,"sr-m09":24,"sr-m10":1,"sr-m11":24,"sr-m12":3,"sr-m13":20,"sr-m14":24,"sr-m15":5,"sr-m16":24,"sr-m17":12,"sr-m18":1,"sr-m19":3,"sr-m20":16,"sr-m21":1,"sr-m22":24,"sr-m23":24,"sr-m24":2,"sr-m25":15,"sr-m26":3,"sr-m27":3,"sr-m28":16,"sr-m29":24,"sr-m30":15,"sr-m31":4,"sr-m32":6,"sr-m33":24,"sr-m34":5,"sr-m35":3,"sr-m36":3,"sr-m37":1,"sr-m38":1,"sr-b01":24,"sr-b02":24,"sr-b03":12,"sr-p01":9,"a2x-m01":24,"a2x-m02":24,"a2x-m03":24,"a2x-m04":24,"a2x-m05":12,"a2x-m06":24,"a2x-m07":24,"a2x-m08":24,"a2x-m09":24,"a2x-m10":24,"a2x-m11":24,"a2x-m12":23,"a2x-m13":5,"a2x-m14":16,"a2x-m15":15,"a2x-m16":12,"a2x-m19":1,"a2x-m20":24,"a2x-m21":24,"a2x-m23":1,"a2x-m24":23,"a2x-b01":24,"a2x-b02":24,"a2x-p01":24,"a2x-p02":24,"a2x-p03":24,"a2x-p04":24};
+  const VALUE_MIN = 8, VALUE_SHARE = 4;
+  const variedQ = (q) => (VARIETY[q.id] || 0) >= VALUE_MIN;
+  const instIsTest = (inst) => keyHash(instKey(inst)) % VALUE_SHARE === 0;
+  // a question instance for Practice (forTest false) or for Test Mode (true); returns the seed actually used so the question can be rebuilt
+  function genInst(q, seed, forTest) {
+    if (!variedQ(q)) return { seed, inst: q.gen(makeR(seed)) };
+    let first = null;
+    for (let k = 0; k < 60; k++) { const s2 = k ? ((seed + k * 7919) % 2147483646) + 1 : seed; const inst = q.gen(makeR(s2)); if (!first) first = { seed: s2, inst }; if (instIsTest(inst) === forTest) return { seed: s2, inst }; }
+    return first;
+  }
   (function markReserve() {
     const h = (id) => { let x = 5381; for (const ch of id) x = ((x * 33) ^ ch.charCodeAt(0)) >>> 0; return x; };
-    const groups = {}, pairs = {};
-    // 1.5 (Mike 11 Nov): half of the linked (multi-topic) questions are test-only, keeping at least one per combination of topics in Practice
-    Q.forEach(q => { if (q.fe28 || q.reserve === false || q.reserve === true || !isLinked(q)) return; const k = [...qTopics(q)].sort().join('+'); (pairs[k] = pairs[k] || []).push(q); });
-    Object.values(pairs).forEach(list => { const r = Math.min(Math.floor(list.length / 2), list.length - 1); list.slice().sort((a, b) => h(a.id) - h(b.id)).slice(0, r).forEach(q => { q.reserve = true; q.reserveLinked = true; }); });
-    Q.forEach(q => { if (q.fe28 || q.reserve === false) return; if (q.reserve === true || isLinked(q)) return; (groups[q.strands[0] + '|' + q.paper] = groups[q.strands[0] + '|' + q.paper] || []).push(q); });
+    const groups = {};
+    Q.forEach(q => { if (q.fe28 || q.reserve === false) return; (groups[q.strands[0] + '|' + q.paper] = groups[q.strands[0] + '|' + q.paper] || []).push(q); });
     Object.entries(groups).forEach(([k, list]) => {
-      const forced = Q.filter(q => q.reserve === true && !q.reserveLinked && (q.strands[0] + '|' + q.paper) === k).length, n = list.length + forced, is1A = k.endsWith('|1A');
-      let r = is1A ? Math.min(Math.floor(n * 0.25), Math.max(0, n - 6)) : (n >= 3 ? Math.max(1, Math.floor(n / 4)) : 0);
+      const low = list.filter(q => q.reserve !== true && !variedQ(q)), forced = list.filter(q => q.reserve === true).length, n = list.length, is1A = k.endsWith('|1A');
+      let r = is1A ? Math.min(Math.floor(low.length * 0.25), Math.max(0, n - 6)) : (low.length >= 3 ? Math.max(1, Math.floor(low.length / 4)) : 0);
       r = Math.max(0, r - forced);
-      list.slice().sort((a, b) => h(a.id) - h(b.id)).slice(0, r).forEach(q => { q.reserve = true; });
+      low.slice().sort((a, b) => h(a.id) - h(b.id)).slice(0, r).forEach(q => { q.reserve = true; });
     });
   })();
-  const RESERVED = Q.filter(q => q.reserve === true).length, RES_LINKED = Q.filter(q => q.reserveLinked).length, LIVE_Q = Q.filter(q => !q.fe28).length;
+  const RESERVED = Q.filter(q => q.reserve === true).length, LIVE_Q = Q.filter(q => !q.fe28).length, VARIED_N = Q.filter(q => !q.fe28 && q.reserve !== true && variedQ(q)).length;
+  const TSRC = [['first', 'Test-Only First', 'Test-only questions first, topped up from Practice'], ['practice', 'Practice Only', 'Only questions students can practise'], ['mixed', 'Mixed', 'A random mix of test-only and Practice questions']];
+  const srcOf = (v) => (v === false ? 'practice' : v === 'practice' || v === 'mixed' ? v : 'first');
   function addMissed(id) { if (!S.missed.includes(id)) S.missed.push(id); }
   function clearMissed(id) { S.missed = S.missed.filter(x => x !== id); }
   function logAttempt(q, score, t, mode) {
@@ -17341,6 +17408,10 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
 
   /* ---------- rail ---------- */
   const RAIL_FOLD = new Set(); // topics collapsed in the Questions panel (this visit only)
+  // 1.5 push 4 (student request, 3 Nov): topics grouped by syllabus theme, each group collapsible and selectable as a whole
+  const THEMES = [['A', 'Space, Time & Motion', 'Space, time and motion'], ['B', 'Particulate Matter', 'The particulate nature of matter'], ['C', 'Wave Behaviour', 'Wave behaviour'], ['D', 'Fields', 'Fields'], ['E', 'Nuclear & Quantum', 'Nuclear and quantum physics']];
+  const THEME_FOLD = new Set();
+  const themeOf = (tid) => (/^[A-E]\./.test(tid) ? tid[0] : null);
   function renderRail() {
     const st = S.settings;
     const rail = $('#rail');
@@ -17350,8 +17421,8 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     const n = det || notes ? nStr : blitz ? quPool().length : recall ? cardPool().length : pool().length;
     const unit = recall ? 'card' : notes || det ? 'strand' : 'question';
     const li = (s, live) => `<li><label class="${live ? '' : 'disabled'}"${RAIL_SHORT[s.id] ? ` title="${esc(s.name)}"` : ''}><input type="checkbox" data-strand="${s.id}" ${st.sel.includes(s.id) && live ? 'checked' : ''} ${live ? '' : 'disabled'}><span>${esc(RAIL_SHORT[s.id] || s.name)}${s.hl ? '<span class="hl">HL</span>' : ''}</span></label>${s.info ? `<button type="button" class="sinfo" aria-label="Includes: ${esc(s.info)}" data-tip="${esc(TL(s.info))}">i</button>` : ''}</li>`;
-    const shown = TOPICS.filter(t => (isHL() || !topicHL(t)) && t.live), allFolded = shown.length > 0 && shown.every(t => RAIL_FOLD.has(t.id));
-    const tree = TOPICS.filter(t => isHL() || !topicHL(t)).map(t => {
+    const shown = TOPICS.filter(t => (isHL() || !topicHL(t)) && t.live), allFolded = THEMES.every(([k]) => THEME_FOLD.has(k)) && shown.filter(t => !themeOf(t.id)).every(t => RAIL_FOLD.has(t.id));
+    const topicHTML = (t) => {
       const vis = t.strands.filter(s => levelOK(s.id)), slS = vis.filter(s => !s.hl), hlS = vis.filter(s => s.hl);
       const on = vis.filter(s => st.sel.includes(s.id)).length;
       const state = !t.live ? '' : on === 0 ? '' : on === vis.length ? 'checked' : 'data-mixed="1"';
@@ -17361,6 +17432,13 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
         ${t.live ? `<input type="checkbox" data-topic="${t.id}" ${state} aria-label="Select all of ${esc(t.name)}">` : ''}
         <span class="tname"><span class="tid${t.id === 'Skills' ? ' tip' : ''}"${t.id === 'Skills' ? ` data-tip="${SSP_TIP}"` : ''}>${tname(t.id)}</span> <span${RAIL_TSHORT[t.id] ? ` title="${esc(t.name)}"` : ''}>${esc(RAIL_TSHORT[t.id] || t.name)}</span>${tag}</span>${t.live ? '' : '<span class="soon">next</span>'}</summary>
         <ul>${list}</ul></details>`;
+    };
+    const vis = TOPICS.filter(t => isHL() || !topicHL(t));
+    const tree = vis.filter(t => !themeOf(t.id)).map(topicHTML).join('') + THEMES.map(([k, nm, full]) => {
+      const ts = vis.filter(t => themeOf(t.id) === k); if (!ts.length) return '';
+      const live = ts.filter(t => t.live), ids = live.flatMap(t => t.strands.map(x => x.id)).filter(levelOK), on = ids.filter(id => st.sel.includes(id)).length;
+      const state = !ids.length ? 'disabled' : on === 0 ? '' : on === ids.length ? 'checked' : 'data-mixed="1"';
+      return `<details class="theme" data-tfold="${k}" ${THEME_FOLD.has(k) ? '' : 'open'}><summary><span class="caret">▶</span><input type="checkbox" data-theme="${k}" ${state} aria-label="Select all of Theme ${k}"><span class="tname" title="Theme ${k}: ${esc(full)}"><span class="tid">${k}</span> ${esc(nm)}</span><span class="theme-n muted small num">${on}/${ids.length}</span></summary><div class="theme-body">${ts.map(topicHTML).join('')}</div></details>`;
     }).join('');
     const hiddenHL = isHL() ? 0 : ALL_STRANDS.filter(x => x.live && x.hl).length;
     rail.innerHTML = `
@@ -17384,7 +17462,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
       const b = e.target.closest('button'); if (!b) return;
       const st = S.settings;
       if (b.id === 'railToggle') { rail.classList.toggle('collapsed'); renderRail(); return; }
-      if (b.id === 'railFold') { const ids = TOPICS.filter(t => t.live).map(t => t.id), fold = b.getAttribute('aria-pressed') !== 'true'; ids.forEach(id => fold ? RAIL_FOLD.add(id) : RAIL_FOLD.delete(id)); renderRail(); return; }
+      if (b.id === 'railFold') { const ids = TOPICS.filter(t => t.live).map(t => t.id), fold = b.getAttribute('aria-pressed') !== 'true'; ids.forEach(id => fold ? RAIL_FOLD.add(id) : RAIL_FOLD.delete(id)); THEMES.forEach(([k]) => fold ? THEME_FOLD.add(k) : THEME_FOLD.delete(k)); renderRail(); return; }
       if (b.dataset.level) st.level = b.dataset.level;
       else if (b.dataset.paper) st.papers[b.dataset.paper] = !st.papers[b.dataset.paper];
       else if (b.dataset.chili) st.chili[b.dataset.chili] = !st.chili[b.dataset.chili];
@@ -17395,11 +17473,13 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
       else return;
       save(); onSelectionChange();
     });
-    rail.addEventListener('toggle', (e) => { const d = e.target; if (!d.dataset || !d.dataset.fold) return; if (d.open) RAIL_FOLD.delete(d.dataset.fold); else RAIL_FOLD.add(d.dataset.fold);
-      const btn = $('#railFold'); if (btn) { const sh = $$('details[data-fold]', rail), all = sh.length && sh.every(x => !x.open); btn.textContent = all ? 'Expand All' : 'Collapse All'; btn.setAttribute('aria-pressed', String(!!all)); } }, true);
+    rail.addEventListener('toggle', (e) => { const d = e.target; if (!d.dataset || (!d.dataset.fold && !d.dataset.tfold)) return;
+      if (d.dataset.tfold) { if (d.open) THEME_FOLD.delete(d.dataset.tfold); else THEME_FOLD.add(d.dataset.tfold); } else if (d.open) RAIL_FOLD.delete(d.dataset.fold); else RAIL_FOLD.add(d.dataset.fold);
+      const btn = $('#railFold'); if (btn) { const sh = $$('details[data-tfold], .tree > details[data-fold]', rail), all = sh.length && sh.every(x => !x.open); btn.textContent = all ? 'Expand All' : 'Collapse All'; btn.setAttribute('aria-pressed', String(!!all)); } }, true);
     rail.addEventListener('change', (e) => {
       const i = e.target; const st = S.settings;
       if (i.dataset.strand) { st.sel = i.checked ? [...new Set([...st.sel, i.dataset.strand])] : st.sel.filter(x => x !== i.dataset.strand); }
+      else if (i.dataset.theme) { const ids = TOPICS.filter(t => t.live && themeOf(t.id) === i.dataset.theme).flatMap(t => t.strands.map(s => s.id)).filter(levelOK); st.sel = i.checked ? [...new Set([...st.sel, ...ids])] : st.sel.filter(x => !ids.includes(x)); }
       else if (i.dataset.topic) { const ids = TOPICS.find(t => t.id === i.dataset.topic).strands.map(s => s.id).filter(levelOK); st.sel = i.checked ? [...new Set([...st.sel, ...ids])] : st.sel.filter(x => !ids.includes(x)); }
       else if (i.id === 'missedOnly') st.missedOnly = i.checked;
       else if (i.id === 'railCmd') st.incCmd = i.checked;
@@ -17532,7 +17612,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
       q = (fresh.length ? fresh : list)[rnd((fresh.length ? fresh : list).length)];
       P.recent.push(q.id); if (P.recent.length > 30) P.recent.shift();
     }
-    P.q = q; P.seed = newSeed(); P.inst = q.gen(makeR(P.seed)); P.picked = null; P.revealed = false; P.ticks = {}; P.logged = false; P.t0 = now(); P.tUsed = 0; P.texts = {};
+    P.q = q; { const g = genInst(q, newSeed(), false); P.seed = g.seed; P.inst = g.inst; } P.picked = null; P.revealed = false; P.ticks = {}; P.logged = false; P.t0 = now(); P.tUsed = 0; P.texts = {};
   }
   function renderPractice(main) {
     if (!P.q) practiceNext();
@@ -17680,9 +17760,11 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     const items = [];
     for (const p of PAPERS) {
       const tgt = marks[p] || 0; if (!tgt) continue;
-      let m = 0; let list = weightedOrder(src.pool.filter(q => q.paper === p && (src.tonly !== false || q.reserve !== true)), shuf, src.hl === undefined ? isHL() : src.hl);
-      if (src.tonly !== false) list = list.filter(q => q.reserve === true).concat(list.filter(q => q.reserve !== true)); // test-only first, then top up from Practice questions
-      const take = (q) => { const seed = seedOf(); items.push({ q, seed, inst: q.gen(makeR(seed)), time: 0, answer: null, done: false, ticks: {}, texts: {} }); m += q.marks; };
+      const how = srcOf(src.tonly), rf = R ? R.f : Math.random;
+      let m = 0; let list = weightedOrder(src.pool.filter(q => q.paper === p && (how !== 'practice' || q.reserve !== true)), shuf, src.hl === undefined ? isHL() : src.hl);
+      if (how === 'first') list = list.filter(q => q.reserve === true).concat(list.filter(q => q.reserve !== true)); // test-only first, then top up from Practice questions
+      // varied templates: test-only values for 'first', Practice values for 'practice', either at random for 'mixed'
+      const take = (q) => { const g = genInst(q, seedOf(), how === 'first' ? true : how === 'practice' ? false : rf() < 0.5); items.push({ q, seed: g.seed, inst: g.inst, time: 0, answer: null, done: false, ticks: {}, texts: {} }); m += q.marks; };
       for (const q of list) {
         if (m >= tgt) break;
         if (p !== '1A' && m + q.marks > tgt + 2) continue; // written questions must not overshoot the target by more than 2 marks
@@ -17804,7 +17886,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     const w = bitW(), put = (v, b) => w.put(v, b);
     const sl = !c.strands.some(id => STRAND[id] && STRAND[id].hl);
     const lk = Math.max(0, LINKED.findIndex(x => x[0] === c.linked)), kd = Math.max(0, CODE_TYPES.findIndex(x => x[0] === c.kind));
-    put(1, 3); put(c.seed & 0xfffff, 20); put(c.fp & 0x3ff, 10); put(c.chili, 3); put(lk, 2); put(sl ? 1 : 0, 1); put(kd, 2); put(c.ms ? 1 : 0, 1); put(c.strict === false ? 0 : 1, 1); put(c.cover ? 1 : 0, 1); put(c.booklet ? 1 : 0, 1); put(c.dl === false ? 0 : 1, 1); put(c.tonly === false ? 0 : 1, 1); put(c.retake ? 1 : 0, 1);
+    put(2, 3); put(c.seed & 0xfffff, 20); put(c.fp & 0x3ff, 10); put(c.chili, 3); put(lk, 2); put(sl ? 1 : 0, 1); put(kd, 2); put(c.ms ? 1 : 0, 1); put(c.strict === false ? 0 : 1, 1); put(c.cover ? 1 : 0, 1); put(c.booklet ? 1 : 0, 1); put(c.dl === false ? 0 : 1, 1); put(Math.max(0, TSRC.findIndex(x => x[0] === srcOf(c.tonly))), 2); put(c.retake ? 1 : 0, 1);
     const papersOn = PAPERS.reduce((a, p, i) => a | ((c.marks[p] || 0) > 0 ? 1 << i : 0), 0);
     const pi = PRESETS.findIndex(t => sameMarks(presetMarks(c, t, papersOn), c.marks));
     if (pi >= 0) { put(0, 1); put(pi, 3); put(papersOn, 3); } else { put(1, 1); PAPERS.forEach(p => put(c.marks[p], 7)); }
@@ -17814,9 +17896,9 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   }
   function decodeCode(str) {
     const pc = parseCode(str); if (!pc || pc.old || pc.bad || pc.cat !== 'T') return null;
-    const r = bitR(pc.big); if (!r || r.len < 30 || r.take(3) !== 1) return null;
+    const r = bitR(pc.big), fmt = r ? r.take(3) : 0; if (!r || r.len < 30 || (fmt !== 1 && fmt !== 2)) return null; // format 1 (12 Nov) had a yes/no test-only switch
     const c = { seed: r.take(20), fp: r.take(10), chili: r.take(3) }; c.linked = (LINKED[r.take(2)] || LINKED[0])[0]; c.sl = r.take(1) === 1; c.kind = r.take(2) === 0 ? 'online' : 'print';
-    c.ms = r.take(1) === 1; c.strict = r.take(1) === 1; c.hideClock = false; c.cover = r.take(1) === 1; c.booklet = r.take(1) === 1; c.dl = r.take(1) === 1; c.tonly = r.take(1) === 1; c.retake = r.take(1) === 1;
+    c.ms = r.take(1) === 1; c.strict = r.take(1) === 1; c.hideClock = false; c.cover = r.take(1) === 1; c.booklet = r.take(1) === 1; c.dl = r.take(1) === 1; c.tonly = fmt === 1 ? (r.take(1) === 1 ? 'first' : 'practice') : (TSRC[r.take(2)] || TSRC[0])[0]; c.retake = r.take(1) === 1;
     let preset = null; if (r.take(1) === 0) preset = [r.take(3), r.take(3)]; else c.marks = { '1A': r.take(7), '1B': r.take(7), '2': r.take(7) };
     const byStrand = r.take(1) === 1, rest = r.rest();
     c.strands = byStrand ? maskRead(rest, codeStrands()) : liveStrandsOf(maskRead(rest, CODE_TOPICS), c.sl);
@@ -17844,7 +17926,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     return m; }
   function makeClassCode() {
     const marks = currentMarks();
-    const c = { seed: 1 + rnd(0xffffe), chili: [1, 2, 3].reduce((a, k) => a | (S.settings.chili[k] ? 1 << (k - 1) : 0), 0), marks, strands: effSel(), linked: S.settings.linked || 'off', kind: EX.kind || 'online', ms: !!EX.ms, strict: EX.strict, hideClock: false, cover: !!EX.cover, booklet: !!EX.booklet, dl: EX.dl !== false, tonly: EX.tonly !== false, retake: !!EX.retake }; c.sl = !c.strands.some(id => STRAND[id] && STRAND[id].hl);
+    const c = { seed: 1 + rnd(0xffffe), chili: [1, 2, 3].reduce((a, k) => a | (S.settings.chili[k] ? 1 << (k - 1) : 0), 0), marks, strands: effSel(), linked: S.settings.linked || 'off', kind: EX.kind || 'online', ms: !!EX.ms, strict: EX.strict, hideClock: false, cover: !!EX.cover, booklet: !!EX.booklet, dl: EX.dl !== false, tonly: srcOf(EX.tonly), retake: !!EX.retake }; c.sl = !c.strands.some(id => STRAND[id] && STRAND[id].hl);
     PAPERS.forEach(p => { if (!S.settings.papers[p] && EX.mode !== 'paper') c.marks[p] = 0; c.marks[p] = Math.min(p === '1A' ? MAX_1A : 127, c.marks[p]); });
     if (!sumMarks(c.marks) || !codePool(c).length) return null;
     c.fp = fp10(codePool(c)); c.fpOk = true; c.str = encodeCode(c);
@@ -17852,7 +17934,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   }
   function topicCodes(strands) { const order = TOPICS.map(t => t.id); return [...new Set(strands.map(id => STRAND[id] && STRAND[id].topic).filter(Boolean))].sort((a, b) => order.indexOf(a) - order.indexOf(b)).map(tname).join(', '); }
   function topicsOf(strands) { const order = TOPICS.map(t => t.id); return [...new Set(strands.map(id => STRAND[id] && STRAND[id].topic).filter(Boolean))].sort((a, b) => order.indexOf(a) - order.indexOf(b)).map(tname).join(', '); }
-  function marksLine(m) { const rp = realPaperFor(m); return PAPERS.filter(p => m[p]).map(p => `${PAPER_NAME[p]} <b class="num">${m[p]}</b>`).join(' · ') + ` <span class="exsum-total">= <b class="num">${sumMarks(m)}</b> marks · ${rp ? `<b class="num">${rp.min}</b> min (${rp.label})` : `about <b class="num">${estMin(m)}</b> min`}</span>`; }
+  function marksLine(m) { const rp = realPaperFor(m); return PAPERS.filter(p => m[p]).map(p => `${PAPER_NAME[p]} <b class="num">${m[p]}</b>`).join(' · ') + ` <span class="exsum-total">= <b class="num">${sumMarks(m)}</b> marks · ${rp ? `<b class="num">${rp.min}</b> min (${rp.label})` : `about <b class="num">${estMin(m)}</b> min`}</span>${(m['1B'] || 0) + (m['2'] || 0) > 0 ? ' <span class="muted small">· written questions come whole, so the paper can run a few marks over; the timer uses the real total</span>' : ''}`; }
 
 
   /* ======================= TEACHER ACCESS (1.4) =======================
@@ -17888,7 +17970,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   const kindName = (k) => (CODE_TYPES.find(x => x[0] === k) || CODE_TYPES[0])[1];
   const codeOpts = (c) => (c.kind === 'online'
     ? `Finish ${c.strict ? 'Strict' : 'Soft'} · students ${c.dl === false ? 'cannot' : 'can'} print or download their results · retakes ${c.retake ? 'allowed' : 'not allowed'}`
-    : `markscheme ${c.ms ? 'included' : 'not included'} for students · cover sheet ${c.cover ? 'on' : 'off'} · answer booklet ${c.booklet ? 'on' : 'off'}`) + ` · test-only questions ${c.tonly === false ? 'not used' : 'used first'}`;
+    : `markscheme ${c.ms ? 'included' : 'not included'} for students · cover sheet ${c.cover ? 'on' : 'off'} · answer booklet ${c.booklet ? 'on' : 'off'}`) + ` · questions: ${(TSRC.find(x => x[0] === srcOf(c.tonly)) || TSRC[0])[1].toLowerCase()}`;
   // what a student sees in Test Mode without teacher access: a class code box, then only what the code allows (1.4)
   function studentExamView() {
     const intro = head('Test Mode 📝', 'Tests set by your teacher. Enter the class code your teacher gives you.');
@@ -17909,8 +17991,8 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     return head('Test Mode 📝', 'A test set by your teacher.') + `<section class="panel exset"><div class="exrow"><div class="exlab">Class code</div><div class="exctl">${box}</div></div><div class="exgo">${act}</div></section>${teacherLine()}`;
   }
   function renderExam(main) {
-    if (PENDING_CODE && (!EX || EX.phase === 'setup')) { const c = decodeCode(PENDING_CODE); PENDING_CODE = null; if (c) { if (!EX) EX = { phase: 'setup', mode: 'ib', paper: 'sl1', target: 30, kind: 'online', ms: false, cover: true, booklet: true, dl: true, tonly: true, retake: false, marks: { '1A': 5, '1B': 4, '2': 4 } }; EX.code = c; EX.strict = c.strict; EX.hideClock = false; } else toast(BAD_CODE); }
-    if (!EX) EX = { phase: 'setup', mode: 'ib', paper: 'sl1', target: 30, kind: 'online', ms: false, cover: true, booklet: true, dl: true, tonly: true, retake: false, marks: { '1A': 5, '1B': 4, '2': 11 }, strict: true, hideClock: false, code: null };
+    if (PENDING_CODE && (!EX || EX.phase === 'setup')) { const c = decodeCode(PENDING_CODE); PENDING_CODE = null; if (c) { if (!EX) EX = { phase: 'setup', mode: 'ib', paper: 'sl1', target: 30, kind: 'online', ms: false, cover: true, booklet: true, dl: true, tonly: 'first', retake: false, marks: { '1A': 5, '1B': 4, '2': 4 } }; EX.code = c; EX.strict = c.strict; EX.hideClock = false; } else toast(BAD_CODE); }
+    if (!EX) EX = { phase: 'setup', mode: 'ib', paper: 'sl1', target: 30, kind: 'online', ms: false, cover: true, booklet: true, dl: true, tonly: 'first', retake: false, marks: { '1A': 5, '1B': 4, '2': 11 }, strict: true, hideClock: false, code: null };
     if (EX.phase === 'setup') {
       const n = (EX.mode === 'paper' ? pool({ ignorePapers: true }) : pool()).length, av = availMarks(pool());
       const seg = (attr, val, label, on) => `<button type="button" data-${attr}="${val}" aria-pressed="${on}">${label}</button>`;
@@ -17922,7 +18004,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
           <div class="row"><button class="btn sm" id="exCopy">Copy</button><button class="btn sm btn-clear" id="exClear">Clear</button><span class="muted small">Overrides your selection.</span></div></div>`;
       } else {
         const m = currentMarks();
-        length = `<div class="seg" role="group" aria-label="Paper length">${seg('exmode', 'paper', 'IB paper', EX.mode === 'paper')}${seg('exmode', 'ib', 'IB Proportions', EX.mode === 'ib')}${seg('exmode', 'custom', 'Custom', EX.mode === 'custom')}</div>` +
+        length = `<div class="seg" role="group" aria-label="Paper length">${seg('exmode', 'paper', 'IB paper', EX.mode === 'paper')}${seg('exmode', 'ib', 'IB Proportions', EX.mode === 'ib')}${seg('exmode', 'custom', 'Custom Marks', EX.mode === 'custom')}</div>` +
           (EX.mode === 'paper'
             ? `<div class="paperchips" role="group" aria-label="IB paper">${REAL_PAPERS.filter(p => p.id.startsWith(isHL() ? 'hl' : 'sl')).map(p => `<button type="button" class="paperchip" data-expaper="${p.id}" aria-pressed="${EX.paper === p.id}"><b>${p.label}</b><span>${p.sub}</span></button>`).join('')}</div><p class="muted small">The real paper's marks and time, using questions from your selected topics (the Papers filter is ignored).</p>`
             : EX.mode === 'ib'
@@ -17936,7 +18018,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
         <section class="panel exset">
           <div class="exrow"><div class="exlab">${EX.code ? 'Class code' : 'Length'}</div><div class="exctl">${length}</div></div>
           <div class="exrow"><div class="exlab">Finish</div><div class="exctl"><div class="seg" role="group" aria-label="Finish">${seg('exfin', 'strict', 'Strict', EX.strict)}${seg('exfin', 'soft', 'Soft', !EX.strict)}</div><span class="muted small">${fin}</span></div></div>
-          ${EX.code ? `<div class="exrow"><div class="exlab">Code type</div><div class="exctl"><b>${kindName(EX.code.kind)}</b> · <span class="muted">${codeOpts(EX.code)}</span></div></div>` : `<div class="exrow"><div class="exlab">Code type</div><div class="exctl"><div class="seg" role="group" aria-label="Code type">${CODE_TYPES.map(([k, l]) => seg('exkind', k, l, EX.kind === k)).join('')}</div>
+          ${EX.code ? `<div class="exrow"><div class="exlab">Code type</div><div class="exctl"><span><b>${kindName(EX.code.kind)}</b> <span class="muted small">· ${codeOpts(EX.code)}</span></span></div></div>` : `<div class="exrow"><div class="exlab">Code type</div><div class="exctl"><div class="seg" role="group" aria-label="Code type">${CODE_TYPES.map(([k, l]) => seg('exkind', k, l, EX.kind === k)).join('')}</div>
             <span class="muted small">${(CODE_TYPES.find(x => x[0] === EX.kind) || CODE_TYPES[0])[2]}. Students who enter the code get only this.</span>
             ${EX.kind !== 'online' ? `<div class="ex-opts">
               <div class="ex-opt"><span class="small">Markscheme for students</span><div class="seg" role="group" aria-label="Markscheme for students">${seg('exms', 'no', 'Questions only', !EX.ms)}${seg('exms', 'yes', 'With markscheme', EX.ms)}</div></div>
@@ -17945,8 +18027,8 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
               : `<div class="ex-opts"><div class="ex-opt"><span class="small">Students can print or download their results</span><div class="seg" role="group" aria-label="Students can print or download their results">${seg('exdl', 'on', 'On', EX.dl !== false)}${seg('exdl', 'off', 'Off', EX.dl === false)}</div></div>
               <div class="ex-opt"><span class="small">Allow retakes</span><div class="seg" role="group" aria-label="Allow retakes">${seg('exretake', 'yes', 'Yes', !!EX.retake)}${seg('exretake', 'no', 'No', !EX.retake)}</div></div></div>
               <span class="muted small">The code also sets Finish as chosen above. With retakes off, a device that has finished this code cannot start it again. Print/PDF gives a printable copy as a backup.</span>`}</div></div>`}
-          ${EX.code ? '' : `<div class="exrow"><div class="exlab">Questions</div><div class="exctl"><div class="seg" role="group" aria-label="Test-only questions">${seg('extonly', 'use', 'Use test-only questions', EX.tonly !== false)}${seg('extonly', 'no', "Don't use", EX.tonly === false)}</div>
-            <span class="muted small"><b>${RESERVED} of ${LIVE_Q} questions are test-only</b> (including ${RES_LINKED} linked-topic questions): they never appear in Practice, Games or Recall. ${EX.tonly === false ? 'Off: the test uses only questions students can practise.' : 'On: the test uses them first, then tops up with Practice questions.'}</span></div></div>
+          ${EX.code ? '' : `<div class="exrow"><div class="exlab">Questions</div><div class="exctl"><div class="seg" role="group" aria-label="Question source">${TSRC.map(([k, l]) => seg('extonly', k, l, srcOf(EX.tonly) === k)).join('')}</div>
+            <span class="muted small">${(TSRC.find(x => x[0] === srcOf(EX.tonly)) || TSRC[0])[2]}. <b>Test-only:</b> ${RESERVED} question types (mostly conceptual) and about 1 in ${VALUE_SHARE} sets of values for the ${VARIED_N} question types whose numbers change; students never see these in Practice, Games or Recall.</span></div></div>
           <div class="exrow"><div class="exlab">Linked topics</div><div class="exctl"><div class="seg" role="group" aria-label="Linked topics">${LINKED.map(([k, l, d]) => seg('exlinked', k, l, (S.settings.linked || 'off') === k)).join('')}</div>
             <span class="muted small">${(LINKED.find(x => x[0] === (S.settings.linked || 'off')) || LINKED[0])[2]}. Linked questions combine two topics, eg energy (A.3) with circuits (B.5). Practice and Games always use Off.</span></div></div>`}
           ${EX.code ? '' : `<div class="exrow"><div class="exlab">Class code <span class="exopt">optional</span></div><div class="exctl">
@@ -18051,13 +18133,13 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   function gradeTile() {
     const r = exScore();
     const s = r.unmarked ? 'Tick the markscheme first' : EX.total < 20 ? 'Rough guide: short paper' : `Estimate · ${EX.hl ? 'HL' : 'SL'}`;
-    return `<div class="tile grade-tile"><span class="k">Est. DP grade</span><span class="v num" id="exGrade">${r.grade}</span><span class="s">${s}</span></div>`;
+    return `<div class="tile grade-tile"><span class="k">Est. DP grade</span><span class="v num" id="exGrade">${r.unmarked ? '—' : r.grade}</span><span class="s">${s}</span></div>`;
   }
   function renderExamReview(main) {
     const used = (EX.finishedAt - EX.start) / 1000;
-    const byPaper = PAPERS.map(p => { const its = EX.items.filter(x => x.q.paper === p); if (!its.length) return ''; const m = its.reduce((a, x) => a + x.q.marks, 0), t = its.reduce((a, x) => a + x.time, 0) / 1000; const mpm = t / 60 / m; const r = rate(p, EX.level); return `<tr><td>${PAPER_NAME[p]}</td><td class="num">${m}</td><td class="num">${fmtMin(t)}</td><td class="num">${mpm.toFixed(2)}</td><td class="num">${r.toFixed(2)}</td><td><span class="pill ${mpm > r * 1.1 ? 'warn' : 'good'}">${mpm > r * 1.1 ? 'Slower than exam pace' : 'Within exam pace'}</span></td></tr>`; }).join('');
+    const byPaper = PAPERS.map(p => { const its = EX.items.filter(x => x.q.paper === p); if (!its.length) return ''; const m = its.reduce((a, x) => a + x.q.marks, 0), t = its.reduce((a, x) => a + x.time, 0) / 1000; const mpm = t / 60 / m; const r = rate(p, EX.level); return `<tr><td>${PAPER_NAME[p]}</td><td class="num">${m}</td><td class="num">${fmtMin(t)}</td><td class="num">${mpm.toFixed(2)}</td><td class="num">${r.toFixed(2)}</td><td>${t < 1 ? '<span class="muted small">no time recorded</span>' : `<span class="pill ${mpm > r * 1.1 ? 'warn' : 'good'}">${mpm > r * 1.1 ? 'Slower than exam pace' : 'Within exam pace'}</span>`}</td></tr>`; }).join('');
     const flags = EX.items.map((x, i) => { const exp = x.q.marks * rate(x.q.paper, EX.level) * 60, t = x.time / 1000; if (t > exp * 1.5 && t > 60) return `<li>Question ${i + 1}: ${fmtMin(t)} on a ${x.q.marks}-mark question (exam pace ${fmtMin(exp)})</li>`; if (x.q.paper === '1A' && x.answer !== null && x.answer !== x.inst.answer && t < exp * 0.35) return `<li>Question ${i + 1}: answered wrongly in ${fmtMin(t)}. Possibly rushed.</li>`; return ''; }).filter(Boolean);
-    main.innerHTML = head('Exam Results 📝', `${fmtClock(used)} used of ${fmtClock(EX.allowed)}${EX.pauses ? ` · paused ${EX.pauses} time${EX.pauses > 1 ? 's' : ''} (${fmtClock(EX.pausedMs / 1000)})` : ''}`) + `
+    main.innerHTML = head('Test Results 📝', `${fmtClock(used)} used of ${fmtClock(EX.allowed)}${EX.pauses ? ` · paused ${EX.pauses} time${EX.pauses > 1 ? 's' : ''} (${fmtClock(EX.pausedMs / 1000)})` : ''}`) + `
       <div class="tiles" id="exTiles">${exTiles()}</div>
       <p class="pause-note ${EX.pauses ? 'has' : ''}"><span aria-hidden="true">⏸</span> ${pauseSummary(EX)}</p>
       <p class="muted small grade-note">The estimated DP grade uses approximate IB DP Physics grade boundaries (${EX.hl ? 'HL' : 'SL'}) for the percentage you scored; see Stats for the table. Real boundaries change each session and include your IA, so treat it as a guide only.</p>
@@ -18090,7 +18172,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
         if (d.exmode) { EX.mode = d.exmode; if (EX.mode === 'custom' && !sumMarks(EX.marks)) EX.marks = ibMarks(EX.target); renderExam(main); return; }
         if (d.extarget) { if (d.extarget === 'custom') EX.tcustom = true; else { EX.tcustom = false; EX.target = +d.extarget; } EX.marks = ibMarks(EX.target); renderExam(main); return; }
         if (d.exkind) { EX.kind = d.exkind; if (EX.kind === 'print' && EX.cover === undefined) EX.cover = EX.booklet = true; renderExam(main); return; }
-        if (d.extonly) { EX.tonly = d.extonly === 'use'; renderExam(main); return; }
+        if (d.extonly) { EX.tonly = srcOf(d.extonly); renderExam(main); return; }
         if (d.exlinked) { S.settings.linked = d.exlinked; save(); renderRail(); renderExam(main); return; }
         if (d.exretake) { EX.retake = d.exretake === 'yes'; renderExam(main); return; }
         if (d.excover) { EX.cover = d.excover === 'on'; renderExam(main); return; }
@@ -18113,7 +18195,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
         const marks = EX.code ? EX.code.marks : currentMarks();
         if (!sumMarks(marks)) { toast('Choose at least 1 mark for one of the papers.'); return; }
         const seed = EX.code ? EX.code.seed : newSeed(), hl = EX.code ? codeHL(EX.code) : isHL();
-        const items = buildExam(marks, { pool: EX.code ? codePool(EX.code) : EX.mode === 'paper' ? pool({ ignorePapers: true }) : pool(), R: makeR(seed), hl, tonly: EX.code ? EX.code.tonly !== false : EX.tonly !== false });
+        const items = buildExam(marks, { pool: EX.code ? codePool(EX.code) : EX.mode === 'paper' ? pool({ ignorePapers: true }) : pool(), R: makeR(seed), hl, tonly: EX.code ? srcOf(EX.code.tonly) : srcOf(EX.tonly) });
         EX.target = sumMarks(marks);
         if (!items.length) { toast('No questions match your selection.'); return; }
         const total = items.reduce((a, x) => a + x.q.marks, 0);
@@ -18195,7 +18277,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     chest: ['.kkkkkkk.', 'kbbbbbbbk', 'kbbbybbbk', 'kkkkykkkk', 'kbbbbbbbk', 'kbbbbbbbk', '.kkkkkkk.'],
     door: ['.kkkkk.', 'kbbbbbk', 'kbkbkbk', 'kbkbkbk', 'kbbbybk', 'kbkbkbk', 'kbbbbbk'],
   };
-  const heartsHTML = (n, max) => `<span class="qu-hearts" role="img" aria-label="${n} of ${max} hearts">${Array.from({ length: max }, (_, i) => px(i < n ? SPR.heart : SPR.heartEmpty, 3, i < n ? 'full' : 'empty')).join('')}</span>`;
+  const heartsHTML = (n, max) => `<span class="qu-hearts tip" tabindex="0" data-tip="Hearts: ${n} of ${max}. A wrong answer costs one; 5 right in a row restores one; beating a boss adds a heart container." role="img" aria-label="${n} of ${max} hearts">${Array.from({ length: max }, (_, i) => px(i < n ? SPR.heart : SPR.heartEmpty, 3, i < n ? 'full' : 'empty')).join('')}</span>`;
   const quRealmName = (t) => REALM[t] || t;
   function quPool(c) {
     c = c || (GA && GA.qcode);
@@ -18228,7 +18310,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     if (boss) { const top = Math.max(...c.map(q => q.chili)); c = c.filter(q => q.chili === top); }
     const q = c[Math.floor(Qs.rng() * c.length)]; Qs.recent.push(q.id);
     const seed = 1 + Math.floor(Qs.rng() * 2e9);
-    Qs.cur = { q, seed, inst: q.gen(makeR(seed)), t0: now(), picked: null, boss, struck: [], done: false };
+    const g = genInst(q, seed, false); Qs.cur = { q, seed: g.seed, inst: g.inst, t0: now(), picked: null, boss, struck: [], done: false };
   }
   function quStart() {
     const st = quSettings(), c = GA.qcode, list = quPool();
@@ -18296,7 +18378,9 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     return `<div class="qu-map" aria-label="Realm map">${realms.map((t, i) => { const done = !!Qs && (Qs.lap > 0 || i < Qs.realmIdx || (Qs.phase === 'clear' && i === Qs.realmIdx)); const here = Qs && i === Qs.realmIdx;
       return `<div class="qu-stop${done ? ' done' : ''}${here ? ' here' : ''}"><span class="qu-pin">${here ? px(SPR.hero, 3) : done ? px(SPR.flag, 3) : px(SPR.door, 3)}</span><span class="qu-name"><b>${esc(quRealmName(t))}</b><span class="muted small">${t}</span></span></div>`; }).join('<span class="qu-road" aria-hidden="true"></span>')}</div>`;
   }
-  const quItems = () => `<span class="qu-items"><button type="button" class="qu-item" id="quPotion" ${QU.potions && !QU.cur.done && !QU.cur.struck.length ? '' : 'disabled'} title="Potion: removes two wrong options">${px(SPR.potion, 3)}<b class="num">${QU.potions}</b></button><button type="button" class="qu-item" id="quShield" ${QU.shields && !QU.cur.done && !QU.cur.boss ? '' : 'disabled'} title="Shield: skip this room safely (not boss rooms)">${px(SPR.shield, 3)}<b class="num">${QU.shields}</b></button></span>`;
+  // items keep their tooltips even when they can't be used (aria-disabled rather than disabled, so hover still works)
+  const quItems = () => { const pOk = QU.potions && !QU.cur.done && !QU.cur.struck.length, sOk = QU.shields && !QU.cur.done && !QU.cur.boss;
+    return `<span class="qu-items"><button type="button" class="qu-item tip${pOk ? '' : ' off'}" id="quPotion" aria-disabled="${!pOk}" data-tip="Potion 🧪 (${QU.potions}/${QU_ITEM_CAP}): removes two wrong options from this room. Earned for every 3 right in a row." aria-label="Potion, ${QU.potions} left: removes two wrong options">${px(SPR.potion, 3)}<b class="num">${QU.potions}</b></button><button type="button" class="qu-item tip${sOk ? '' : ' off'}" id="quShield" aria-disabled="${!sOk}" data-tip="Shield 🛡 (${QU.shields}/${QU_ITEM_CAP}): skip this room safely, with no heart lost. Not in boss rooms. Earned for 5 in a row when your hearts are full." aria-label="Shield, ${QU.shields} left: skip this room">${px(SPR.shield, 3)}<b class="num">${QU.shields}</b></button></span>`; };
   function questSetup() {
     const st = quSettings(), c = GA.qcode, list = quPool(), realms = quRealms(list);
     return modeBack('gaModes', 'All Games') + `<section class="panel qu-title"><div class="qu-banner">${px(SPR.hero, 5, '', 'The hero')}<div><h2>Physics Quest</h2><p>Cross the realms, one room at a time. Every wrong answer costs a heart. Beat each realm's boss to move on.</p></div>${px(SPR.boss, 5, 'qu-boss-art', 'A boss')}</div></section>` + (list.length ? `
@@ -18312,7 +18396,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   function renderQuest(main) {
     const Qs = QU;
     if (!Qs) { main.innerHTML = questSetup(); return; }
-    const bar = `<div class="instrument qu-bar"><div class="row">${heartsHTML(Qs.hearts, Qs.max)}${Qs.timer && Qs.phase === 'room' ? `<span class="clock qu-clock" id="quClock">${Qs.timer} s</span>` : ''}<span class="spacer"></span>${Qs.phase === 'room' ? quItems() : ''}<span class="pill info num">Rooms ${Qs.cleared}</span>${Qs.streak > 1 ? `<span class="pill neutral num">🔥 ${Qs.streak}</span>` : ''}${soundBtn()}</div></div>`;
+    const bar = `<div class="instrument qu-bar"><div class="row">${heartsHTML(Qs.hearts, Qs.max)}${Qs.timer && Qs.phase === 'room' ? `<span class="clock qu-clock" id="quClock">${Qs.timer} s</span>` : ''}<span class="spacer"></span>${Qs.phase === 'room' ? quItems() : ''}<span class="pill info num tip" tabindex="0" data-tip="Rooms cleared on this quest">Rooms ${Qs.cleared}</span>${Qs.streak > 1 ? `<span class="pill neutral num tip" tabindex="0" data-tip="Streak: 3 in a row earns a Potion, 5 in a row a heart (or a Shield)">🔥 ${Qs.streak}</span>` : ''}${soundBtn()}</div></div>`;
     if (Qs.phase === 'clear') {
       main.innerHTML = bar + `<section class="panel qu-clear"><div class="qu-banner">${px(SPR.chest, 5)}<div><h2>${esc(quRealmName(Qs.realms[Qs.realmIdx]))} Cleared!</h2><p>${Qs.realmIdx + 1 >= Qs.realms.length ? 'You crossed every realm. The road loops back, and the realms grow harder.' : `Next: <b>${esc(quRealmName(Qs.realms[Qs.realmIdx + 1]))}</b>.`}</p></div></div>${quMap(false)}
         <div class="row"><button class="btn primary qu-go" id="quOnward">Onward ⚔️</button><button class="btn ghost" id="quQuit">End Quest</button></div></section>`;
@@ -18347,7 +18431,8 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
   ];
   const gameCodeBox = () => `<section class="panel gcode"><label class="lbl" for="gcIn"><b>Have a game code?</b> <span class="muted small">Codes start MVP-G-</span></label><div class="codeform">${codeInput('gcIn', 'G', 'Game code (starts MVP-G-)')}<button class="btn primary sm" id="gcUse">Go</button></div></section>`;
   function gameCards() {
-    return head('Games 🕹️', 'Go on a quest and challenge your class. Choose a game, or enter a code from your teacher or a friend.') + gameCodeBox() + `<div class="mode-cards">${GAME_CARDS.map(([k, ic, name, d]) => `<button type="button" class="mode-card" data-gamode="${k}"><span class="wic" aria-hidden="true">${ic}</span><b>${name}</b><span>${d}</span></button>`).join('')}
+    const qb = Math.max(0, ...Object.values((S.quest || {}).best || {})), best = { quest: qb ? `Your best: ${qb} rooms` : '', lms: S.lmsBest ? `Your best: ${fmtClock(S.lmsBest)} survived` : '' };
+    return head('Games 🕹️', 'Go on a quest and challenge your class. Choose a game, or enter a code from your teacher or a friend.') + gameCodeBox() + `<div class="mode-cards">${GAME_CARDS.map(([k, ic, name, d]) => `<button type="button" class="mode-card" data-gamode="${k}"><span class="wic" aria-hidden="true">${ic}</span><b>${name}</b><span>${d}</span>${best[k] ? `<span class="mc-best num">🏆 ${best[k]}</span>` : ''}</button>`).join('')}
       <div class="mode-card soon" aria-disabled="true"><span class="wic" aria-hidden="true">🎮</span><b>More Games Coming Soon…</b></div></div><p class="muted small">Your scores for each game are on its own screen and on the Stats page. Unit Analysis is now in Skills 🧰.</p>`;
   }
   const modeBack = (id, label) => `<div class="mode-back"><button type="button" class="btn backbtn" id="${id}"><span aria-hidden="true">←</span> ${label}</button></div>`;
@@ -18365,7 +18450,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     if (QU && QU.phase !== 'over' && SFX.musicOn()) SFX.music(true, QU.phase === 'room' && QU.room === QU_ROOMS, 'quest');
     lmsTheme(); document.documentElement.classList.toggle('quest', GA.picked && GA.mode === 'quest' && !!QU);
     if (!GA.picked) { main.innerHTML = gameCards(); return; }
-    if (GA.mode === 'lms') { main.innerHTML = modeBack('gaModes', 'All Games') + head('Last Man Standing 💀', 'Play against your class with a shared code.') + lmsSetup() + lmsStats(); return; }
+    if (GA.mode === 'lms') { main.innerHTML = modeBack('gaModes', 'All Games') + head('Last Man Standing 💀', 'Survive as long as you can, on your own or against your class.') + lmsSetup() + lmsStats(); return; }
     renderQuest(main);
   }
   function bindGames(main) {
@@ -18383,7 +18468,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
       if (b.id === 'lmsMake') { const c = lmsMake(); if (!c) { toast('Turn on at least one topic with Paper 1A questions.'); return; } GA.lmsCode = c; renderGames(main); return; }
       if (b.id === 'lmsClear') { GA.lmsCode = null; renderGames(main); return; }
       if (b.id === 'lmsCopy') { copyCode(GA.lmsCode.str); return; }
-      if (b.id === 'lmsEnter') { LM = { phase: 'ready', code: GA.lmsCode, seq: lmsSeq(GA.lmsCode) }; lmsTheme(); renderGames(main); return; }
+      if (b.id === 'lmsEnter') { const c = GA.lmsCode || lmsMake(); if (!c) { toast('Tick at least one topic with Paper 1A questions in the Topics panel.'); return; } LM = { phase: 'ready', code: c, seq: lmsSeq(c) }; lmsTheme(); renderGames(main); return; }
       // Physics Quest
       if (b.dataset.quhearts) { quSettings().quHearts = +b.dataset.quhearts; save(); renderGames(main); return; }
       if (b.dataset.qutimer !== undefined) { quSettings().quTimer = +b.dataset.qutimer; save(); renderGames(main); return; }
@@ -18394,23 +18479,24 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
       if (b.id === 'quEnd') { QU = null; GA.phase = 'setup'; renderRail(); renderGames(main); return; }
       if (b.id === 'quPrint') { gameReport('quest'); return; }
       if (!QU) return;
-      if (b.id === 'quQuit') { if (QU.phase === 'over') return; if (!b.dataset.sure) { b.dataset.sure = '1'; b.textContent = 'Click again to end the quest'; return; } quOver(true); return; }
+      if (b.id === 'quQuit') { if (QU.phase === 'over') return; if (!b.dataset.sure) { b.dataset.sure = '1'; b.textContent = 'Click Again to End the Quest'; return; } quOver(true); return; }
       if (b.id === 'quOnward' && QU.phase === 'clear') { quNextRealm(); renderGames(main); return; }
       if (QU.phase !== 'room') return;
       const cur = QU.cur;
       if (b.id === 'quNext' && cur.done) { quAdvance(); renderGames(main); return; }
+      if ((b.id === 'quPotion' || b.id === 'quShield') && b.getAttribute('aria-disabled') === 'true') { toast(b.id === 'quPotion' ? (QU.potions ? 'You can use one Potion per room, before you answer.' : 'No Potions yet: get 3 right in a row.') : (cur.boss ? 'Shields don\'t work in boss rooms.' : QU.shields ? 'Use a Shield before you answer.' : 'No Shields yet: get 5 in a row with full hearts.')); return; }
       if (b.id === 'quPotion' && QU.potions && !cur.done && !cur.struck.length) { const wrong = cur.inst.options.map((_, i) => i).filter(i => i !== cur.inst.answer); cur.struck = shuffle(wrong).slice(0, 2); QU.potions--; SFX.item(); renderGames(main); return; }
       if (b.id === 'quShield' && QU.shields && !cur.done && !cur.boss) { QU.shields--; QU.cleared++; SFX.item(); toast('🛡 The Shield carries you safely through this room.'); cur.done = true; cur.skipped = true; cur.picked = cur.inst.answer; quAdvance(); renderGames(main); return; }
       if (b.dataset.opt !== undefined && !cur.done) { quAnswer(+b.dataset.opt); return; }
     };
   }
-  if (/[?&]qa\b/.test(location.search)) window.__quAns = () => (QU && QU.cur && !QU.cur.done ? QU.cur.inst.answer : -1); // browser tests only
+  if (/[?&]qa\b/.test(location.search)) { window.__quAns = () => (QU && QU.cur && !QU.cur.done ? QU.cur.inst.answer : -1); window.__skDup = (mode, n) => { let bad = 0; for (let i = 1; i <= n; i++) { for (let k = 0; k < 1; k++) { const raw = (mode === 'sf' ? skSF : skGraph)(makeR(i * 104729)); if (!optsDistinct(raw)) bad++; } } return bad; }; window.__valCheck = () => { let leak = 0, miss = 0, n = 0; Q.filter(q => !q.fe28 && variedQ(q)).forEach((q, i) => { for (let k = 1; k <= 3; k++) { n++; if (instIsTest(genInst(q, i * 1000 + k, false).inst)) leak++; if (!instIsTest(genInst(q, i * 1000 + k, true).inst)) miss++; } }); return { n, leak, miss }; }; window.__skMakeOk = (mode, n) => { let bad = 0; for (let i = 1; i <= n; i++) { const r = skMake(mode, i * 7); if (!r || !optsDistinct(r)) bad++; } return bad; }; } // browser tests only
   const copyCode = (t) => { (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast('Code copied.'), () => toast('Select the code and copy it: ' + t)); };
   /* Last Man Standing stats: separate from Blitz Classic (1.1) */
   function lmsStats() {
     const runs = S.lmsRuns || [], ans = S.log.filter(x => x.mode === 'lms'), right = ans.filter(x => x.score > 0).length;
     const recent = runs.slice(-8).reverse();
-    return `<section class="panel" id="lmsStats"><h3>Your Last Man Standing Stats</h3>${runs.length || ans.length ? `
+    return `<section class="panel" id="lmsStats"><h3>Your Last Man Standing Stats 💀</h3>${runs.length || ans.length ? `
       <div class="tiles"><div class="tile"><span class="k">Runs</span><span class="v num">${runs.length}</span></div><div class="tile"><span class="k">Best survival</span><span class="v num">${S.lmsBest ? fmtClock(S.lmsBest) : '–'}</span></div><div class="tile"><span class="k">Questions answered</span><span class="v num">${ans.length}</span></div><div class="tile"><span class="k">Correct</span><span class="v num">${pct(right, ans.length)}%</span></div></div>
       ${recent.length ? `<div class="tbl-wrap"><table class="stats"><thead><tr><th>Date</th><th>Survived</th><th>Correct</th><th></th></tr></thead><tbody>${recent.map(r => `<tr><td>${new Date(r.ts).toLocaleDateString()}</td><td class="num">${fmtClock(r.survived)}</td><td class="num">${r.correct} / ${r.answered}</td><td class="small muted">${r.gaveUp ? 'Gave up' : ''}</td></tr>`).join('')}</tbody></table></div>` : ''}` : '<p class="muted">No Last Man Standing runs yet. Your survival times will appear here.</p>'}</section>`;
   }
@@ -18493,15 +18579,14 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
   }
   function lmsSetup() {
     const c = GA.lmsCode;
-    return `<section class="panel lms-intro"><h3>Last Man Standing 💀</h3>
+    return `<section class="panel lms-intro">
       <ul class="lms-rules"><li>Everyone starts with <b>${fmtClock(lmsStart())}</b> on the clock${c && c.start ? ' (set by the code)' : ' (choose it before you make the code: the code locks it)'}.</li><li>Correct answer: <b>+60 s</b>. Wrong answer: <b>−60 s</b>.</li><li>Everyone with the same code gets the same questions in the same order, and they get harder as you go.</li><li>Last one standing wins.</li></ul>
-      ${c ? `<div class="codebox"><div class="code-str num">${c.str}</div><div class="small">Topics: <b>${topicsOf(lmsPool(c).flatMap(q => q.strands))}</b> · ${lmsPool(c).length} question types</div>
-        ${c.fpOk ? '' : '<p class="warn small">This code was made with a different version of the question bank, so your questions may not match everyone else\'s. Ask for a new code.</p>'}
-        <div class="row"><button class="btn primary" id="lmsEnter">Enter 💀</button><button class="btn sm" id="lmsCopy">Copy Code</button><button class="btn sm btn-clear" id="lmsClear">Clear</button></div></div>`
-      : `<p class="muted small">This mode needs a code so everyone faces the same questions. One person makes it from the topics ticked in the Topics panel and shares it.</p>
-        <div class="codeform">${codeInput('gcIn', 'G', 'Game code (starts MVP-G-)')}<button class="btn sm" id="gcUse">Use Code</button><span class="muted small">or</span><button class="btn primary sm" id="lmsMake">Make a Code</button></div>`}
+      <p class="muted small">Play on your own, or make a code from the topics ticked in the Topics panel and share it so your class faces the same questions. Got a code? Enter it at the top of Games.</p>
+      ${c ? `<p class="small">Topics: <b>${topicsOf(lmsPool(c).flatMap(q => q.strands))}</b> · ${lmsPool(c).length} question types</p>${c.fpOk ? '' : '<p class="warn small">This code was made with a different version of the question bank, so your questions may not match everyone else\'s. Ask for a new code.</p>'}` : ''}
       ${c && c.start ? `<p class="small lms-start"><b>Starting time:</b> ${c.start} min, set by the code.</p>` : `<div class="lms-start"><span class="muted small">Starting time:</span><div class="chips" role="group" aria-label="Starting time">${[3, 5, 10].map(m => `<button type="button" class="chip" data-lmsstart="${m}" aria-pressed="${!S.settings.lmsCustom && (+S.settings.lmsStart || 3) === m}">${m} min</button>`).join('')}<button type="button" class="chip" data-lmsstart="custom" aria-pressed="${!!S.settings.lmsCustom}">Custom</button></div>${S.settings.lmsCustom ? `<label class="field lms-custom"><span>Minutes (1 to 60)</span><input type="number" id="lmsStartIn" min="1" max="60" step="1" value="${+S.settings.lmsStart || 3}"></label>` : ''}</div>`}
-      ${S.lmsBest ? `<p class="muted small">Your best survival time: <b class="num">${fmtClock(S.lmsBest)}</b></p>` : ''}</section>`;
+      ${codeRow('lms', c, 'Everyone with this code gets the same questions in the same order, with the same starting time.')}
+      ${S.lmsBest ? `<p class="muted small">Your best survival time: <b class="num">${fmtClock(S.lmsBest)}</b></p>` : ''}
+      <div class="row"><button class="btn primary qu-go" id="lmsEnter">Play 💀</button></div></section>`;
   }
   /* ---------- Last man standing sound: synthesised with Web Audio, no files ---------- */
   const SFX = (() => {
@@ -18605,7 +18690,7 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
       <div class="go-actions" id="goActions">${L.canExit ? `<button class="btn primary" id="lmsRestart">Restart</button><button class="btn" id="lmsEnd">End</button>` : '<span class="go-wait">…</span>'}</div></section>${lmsReview(L)}`;
     typeset($('#lmsReview'));
   }
-  function lmsNext() { const e = LM.seq[LM.idx % LM.seq.length]; LM.idx++; LM.cur = { q: e.q, seed: e.seed, inst: e.q.gen(makeR(e.seed)), t0: now(), picked: null }; }
+  function lmsNext() { const e = LM.seq[LM.idx % LM.seq.length]; LM.idx++; const g = genInst(e.q, e.seed, false); LM.cur = { q: e.q, seed: g.seed, inst: g.inst, t0: now(), picked: null }; }
   function lmsTick() {
     const L = LM; if (!L) return;
     if (L.phase === 'count') {
@@ -18701,6 +18786,8 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
         out.push({ id: 'scales-' + id, cs, topic, hard: false, prompt: `Is this equation homogeneous?<div class="udeq">$$${tex}$$</div>`, opts: ['✔ Homogeneous: every term has the same units', '✘ Not homogeneous: the units do not match'], ans: ok ? 0 : 1,
           why: `<ul class="udwhy"><li>Left side: ${udFmt(L)}</li>${R.map((r, i) => `<li>${R.length > 1 ? `Right side, term ${i + 1}` : 'Right side'}: ${udFmt(r)} ${udSame(r, L) ? '✔' : '✘'}</li>`).join('')}</ul>${note ? note : ''}` });
       });
+    } else if (cs === 'convert') {
+      UD_CONV.forEach(([id, prompt, right, wrong, why, topic]) => out.push(mk({ id: 'convert-' + id, cs, topic: topic || 'Skills', hard: /MeV|kW h|cm<sup>[23]|g cm/.test(prompt), prompt, opts: [right, ...wrong], ans: 0, why })));
     } else {
       (cs === 'impostor' ? UD_IMP : UD_DED).forEach(([id, prompt, tgt, opts, topic, note]) => {
         const T = UD_SYM[tgt], vs = opts.map(o => udVec(o[1])), ans = vs.findIndex(v => udSame(v, T));
@@ -18757,7 +18844,7 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
     }
     if (UD.phase === 'over') {
       const acc = pct(UD.right, UD.n), wrong = UD.hist.filter(h => !h.ok);
-      main.innerHTML = headD + `<section class="panel ud-desk ud-over"><h3>${UD.mode === 'chase' ? 'Time’s Up, Inspector' : 'Case Closed'}</h3>
+      main.innerHTML = modeBack('skModes', 'All Skills') + headD + `<section class="panel ud-desk ud-over"><h3>${UD.mode === 'chase' ? 'Time’s Up, Inspector' : 'Case Closed'}</h3>
         <div class="tiles"><div class="tile"><span class="k">Clues solved</span><span class="v num">${UD.right}</span><span class="s num">of ${UD.n}</span></div><div class="tile"><span class="k">Accuracy</span><span class="v num">${acc}%</span></div><div class="tile"><span class="k">Best streak</span><span class="v num">${UD.bestStreak}</span></div>${UD.mode === 'chase' ? `<div class="tile"><span class="k">Best ${UD.dur}-minute chase</span><span class="v num">${(S.ud.best || {})[UD.dur] || 0}</span><span class="s">${UD.newBest ? 'New record!' : ''}</span></div>` : ''}</div>
         <p>${acc >= 80 ? 'A masterful investigation. The units hold no secrets from you.' : acc >= 50 ? 'Good detective work. Review the false leads below and try again.' : 'The trail went cold this time. Read the clues below, then reopen the case.'}</p>
         <div class="row"><button class="btn primary" id="udAgain">Play Again</button><button class="btn" id="udSetup">Change Cases</button></div></section>
@@ -18767,7 +18854,7 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
     const q = UD.q, answered = UD.picked !== null;
     const top = UD.mode === 'chase' ? `<div class="ud-bar"><span class="ud-clock num" id="udClock">${fmtClock(Math.max(0, Math.ceil((UD.end - now()) / 1000)))}</span><span>Solved <b class="num">${UD.right}</b></span><span>Streak <b class="num">${UD.streak}</b>${UD.streak >= 5 ? ' 🔥' : ''}</span><span class="spacer"></span><button class="btn ghost sm" id="udQuit">End</button></div>`
       : `<div class="ud-bar"><span>Clue <b class="num">${UD.n + (answered ? 0 : 1)}</b> of 10</span><span>Solved <b class="num">${UD.right}</b></span><span class="spacer"></span><button class="btn ghost sm" id="udQuit">End</button></div>`;
-    main.innerHTML = headD + top + `<section class="panel ud-desk ud-q"><div class="ud-case-tag">${udCaseName(q.cs)}${q.hard ? ' <span class="ud-hard">case file</span>' : ''}</div>
+    main.innerHTML = modeBack('skModes', 'All Skills') + headD + top + `<section class="panel ud-desk ud-q"><div class="ud-case-tag">${udCaseName(q.cs)}${q.hard ? ' <span class="ud-hard">case file</span>' : ''}</div>
       <div class="ud-prompt">${q.prompt}</div>
       <div class="ud-opts${q.opts.length === 2 ? ' two' : ''}">${q.opts.map((o, i) => `<button type="button" class="ud-opt${answered ? (i === q.ans ? ' right' : i === UD.picked ? ' wrong' : '') : ''}" data-udopt="${i}" ${answered ? 'disabled' : ''}>${o}</button>`).join('')}</div>
       ${answered ? `<div class="ud-verdict ${UD.picked === q.ans ? 'good' : 'bad'}" role="status"><b>${UD.verdict}</b> <span>${q.why}</span></div>
@@ -18880,7 +18967,7 @@ ${docWatermark(id)}${docFooter(id)}</body></html>`;
   }
   function shortDef(c) {
     const t = maskTerm(c); const m = t.match(/^(.{25,}?[.:;])\s/);
-    const first = m ? m[1].replace(/:$/, '.') : t; return (first.split('$').length % 2) ? first : t;
+    const first = m ? m[1].replace(/[:;]$/, '.') : t; return (first.split('$').length % 2) ? first : t;
   }
   function distractTerms(c, n) {
     const all = [...new Set(CARDS.filter(x => x.term && x.term !== c.term && (x.type === 'cmd') === (c.type === 'cmd')).map(x => x.term))];
@@ -19219,7 +19306,7 @@ ${docWatermark('')}${docFooter('')}</body></html>`;
     const flagged = cards.filter(c => S.cards[c.id].flag).length;
     const dueNow = cards.filter(c => S.cards[c.id].due <= now()).length;
     const paceRows = PAPERS.map(p => {
-      const xs = timed.filter(x => x.paper === p); if (!xs.length) return `<tr><td>${PAPER_NAME[p]}</td><td colspan="4" class="muted">No timed attempts yet</td></tr>`;
+      const xs = timed.filter(x => x.paper === p); if (!xs.length) return `<tr><td>${PAPER_NAME[p]}</td><td class="muted">—</td><td class="num">${rate(p).toFixed(2)}</td><td colspan="2" class="muted small">No timed attempts yet</td></tr>`;
       const m = xs.reduce((a, x) => a + x.marks, 0), t = xs.reduce((a, x) => a + x.t, 0) / 60, mpm = t / m, r = rate(p);
       return `<tr><td>${PAPER_NAME[p]}</td><td class="num">${mpm.toFixed(2)}</td><td class="num">${r.toFixed(2)}</td><td><div class="bar ${mpm > r * 1.1 ? 'warn' : 'good'}"><i style="width:${Math.min(100, 100 * mpm / (r * 2))}%"></i></div></td><td><span class="pill ${mpm > r * 1.1 ? 'warn' : 'good'}">${mpm > r * 1.1 ? 'Slower than exam pace' : 'At or under exam pace'}</span></td></tr>`;
     }).join('');
@@ -19242,7 +19329,7 @@ ${docWatermark('')}${docFooter('')}</body></html>`;
     const tab = STAT_TABS.some(t => t[0] === S.settings.statsTab) ? S.settings.statsTab : 'practice';
     main.innerHTML = head('Your Stats 📈', 'Everything here is stored only in this browser. Nothing is sent to your teacher or anyone else.') + `
       <div class="stat-tabs" role="tablist" aria-label="Stats sections">${STAT_TABS.map(([k, l]) => `<button type="button" role="tab" class="stat-tab" data-stab="${k}" aria-selected="${tab === k}">${l}</button>`).join('')}</div>
-      ${tab !== 'practice' ? '' : `<section class="panel"><h3>Pace: Minutes per Mark</h3><p class="muted small">From practice and exam attempts. IB pace is 2.0 min/mark for Paper 1 and 1.65 for Paper 2.</p><div class="tbl-wrap"><table class="stats"><thead><tr><th>Paper</th><th>Your pace</th><th>IB pace</th><th style="min-width:90px"></th><th></th></tr></thead><tbody>${paceRows}</tbody></table></div></section>
+      ${tab !== 'practice' ? '' : `<section class="panel"><h3>Pace: Minutes per Mark</h3><p class="muted small">From Practice and Test Mode attempts. IB pace is 2.0 min/mark for Paper 1 and 1.65 for Paper 2.</p><div class="tbl-wrap"><table class="stats"><thead><tr><th>Paper</th><th>Your pace</th><th>IB pace</th><th style="min-width:90px"></th><th></th></tr></thead><tbody>${paceRows}</tbody></table></div></section>
       <section class="panel"><h3>By Strand</h3>${strandRows ? `<p class="muted small">Pace is your time divided by IB time for the same marks: under 1.00× is faster than exam pace.</p><div class="tbl-wrap"><table class="stats"><thead><tr><th>Strand</th><th>Tries</th><th style="min-width:140px">Marks</th><th>Pace</th><th></th></tr></thead><tbody>${strandRows}</tbody></table></div>` : '<p class="muted">Answer a few questions to see your strengths and gaps.</p>'}</section>
       <div class="form-grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
         <section class="panel"><h3>By Difficulty</h3>${chiliRows ? `<table class="stats"><tbody>${chiliRows}</tbody></table>` : '<p class="muted">No attempts yet.</p>'}</section>
@@ -19254,7 +19341,7 @@ ${docWatermark('')}${docFooter('')}</body></html>`;
       <section class="panel" id="gradeBands"><h3>Estimated DP Grade Boundaries</h3>
         <p class="muted small">Test Mode estimates your grade from the percentage you score, using these approximate minimums. They are typical of recent IB DP Physics sessions, not official FE2025 boundaries: real boundaries are set each session and include the IA, so use them as a guide only.</p>
         <div class="tbl-wrap"><table class="stats"><thead><tr><th>Level</th>${[7, 6, 5, 4, 3, 2, 1].map(g => `<th class="num">${g}</th>`).join('')}</tr></thead><tbody>${['SL', 'HL'].map(l => `<tr><td><span class="lvl-${l.toLowerCase()}">${l}</span></td>${GRADE_BANDS[l].map(v => `<td class="num">${v}%</td>`).join('')}<td class="num">0%</td></tr>`).join('')}</tbody></table></div></section>`}
-      ${tab !== 'games' ? '' : (questStats() + lmsStats() + udStats()) || '<section class="panel"><h3>Games</h3><p class="muted">Play a game to see your scores here.</p></section>'}
+      ${tab !== 'games' ? '' : (questStats() + lmsStats()) || '<section class="panel"><h3>Games</h3><p class="muted">Play a game to see your scores here.</p></section>'}
       <section class="panel backup-box"><h3>Move or Back Up Your Progress</h3><p class="muted small">Progress lives in this browser only. Copy the backup code and paste it into the box on another device to continue there.</p>
         <div class="row"><button class="btn" id="bkCopy">Copy Backup Code</button><button class="btn" id="bkShow">Restore from a Code</button><span class="spacer"></span><button class="btn danger" id="rsAsk">Reset All Progress</button></div>
         <div id="bkArea"></div></section>`;
@@ -19292,7 +19379,7 @@ ${docWatermark('')}${docFooter('')}</body></html>`;
   /* Printable files (worksheets, exam results): authorship comment at the top, and a watermark line on every printed page
      (CSS page-margin boxes: Chrome and Edge) plus a footer at the end of the document (all browsers). */
   const SITE_URL = 'https://mvpoirier.github.io/physics-lab/', REPO_URL = 'https://github.com/mvpoirier/mvpoirier.github.io';
-  const DOC_DATE = '11 November 2026';
+  const DOC_DATE = '12 November 2026';
   const docComment = (what, id) => `<!--
   MVPhysics Lab · ${what}${id ? ' · ' + id : ''}
   Made with version ${APP_VERSION} (built ${DOC_DATE}) on ${new Date().toISOString().slice(0, 10)}
@@ -19445,7 +19532,7 @@ ${docWatermark('')}${docFooter('')}</body></html>`;
     if (code && !TEACHER && EX && EX.code) { if (EX.code.kind === 'online') { toast('This code is for an online test.'); return; } variant = 'student'; msOnly = false; }
     if (variant === 'student') answers = EX && EX.code && EX.code.kind !== 'online' ? !!EX.code.ms : false;
     if (!code) { toast('No questions match your selection.'); return; }
-    const items = buildExam(code.marks, { pool: codePool(code), R: makeR(code.seed), hl: codeHL(code), tonly: code.tonly !== false });
+    const items = buildExam(code.marks, { pool: codePool(code), R: makeR(code.seed), hl: codeHL(code), tonly: srcOf(code.tonly) });
     if (!items.length) { toast('No questions match your selection.'); return; }
     status.textContent = 'Preparing…';
     if (window.MathJax && MathJax.startup && MathJax.startup.promise) await MathJax.startup.promise;
@@ -19523,7 +19610,7 @@ ${docWatermark('')}${docFooter(answers ? 'Class code ' + code.str + ' (markschem
 ${docComment('Exam results', seedTxt)}<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(resTitle)}</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700;900&display=swap"><style>${mjCss}${WS_CSS}${REP_CSS}</style></head><body>
 <div class="hint"><span>To make a PDF: Print this page, then choose <b>Save as PDF</b>.</span><button onclick="window.print()">Print</button></div>
-<div class="wshead"><h1><b>MVP</b>hysics Lab · Exam Results</h1><div class="wscode">${esc(seedTxt)}</div></div>
+<div class="wshead"><h1><b>MVP</b>hysics Lab · Test Results</h1><div class="wscode">${esc(seedTxt)}</div></div>
 <div class="meta"><span>${dateStr}</span><span>${EX.hl ? 'HL' : 'SL'}</span><span>${PAPERS.filter(p => EX.items.some(x => x.q.paper === p)).map(p => `${PAPER_NAME[p]} (${EX.items.filter(x => x.q.paper === p).reduce((n, x) => n + x.q.marks, 0)})`).join(' · ')}</span><span>${esc(topicsOf([...new Set(EX.items.flatMap(x => x.q.strands))]))}</span></div>
 <div class="namebox"><span>Name:</span><span>Class:</span><span>Teacher:</span></div>
 <div class="summary"><div><small>Score</small><b>${r.score} / ${EX.total}</b></div><div><small>Percentage</small><b>${r.pct}%</b></div><div><small>Est. DP grade</small><b>${r.grade}</b></div><div><small>Paper 1A</small><b>${r.mcq.length ? `${r.m} / ${r.mcq.length}` : '–'}</b></div><div><small>Written</small><b>${r.wr.length ? `${r.w} / ${r.wr.reduce((a, x) => a + x.q.marks, 0)}` : '–'}</b></div><div><small>Time used</small><b>${fmtClock(used)}</b></div></div>
@@ -19642,7 +19729,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     { v: '1.1 Beta', d: '3 November 2026', m: 'Claude Opus 5.5', items: ['Games and Recall now open with cards for each mode and a short description; inside a mode, “← All games” or “← All recall modes” takes you back.', 'The offline copy shows an OFFLINE badge next to the version, with a tooltip explaining it.', 'New Welcome page: a quick guide to every mode, a short tour, and how to use the site for revision. Click the MVPhysics heading at any time to come back to it.', 'Blitz is now part of Games 🕹️, with two modes so far: Blitz and Last Man Standing. More game modes will follow.', '“Only questions I’ve missed” is now at the top of the question panel in Practice and highlighted when you have missed questions to practise (it now applies to Practice only; Exam Mode always uses your full selection).', 'Stats: a Last Man Standing best tile; Blitz average time to 0.1 s.', 'The version is shown in the badge (BETA 1.1), and the Claude model used for each build is listed in this revision history.', 'Fixed: flashcards scrolled sideways on phones.', 'Last Man Standing: a Give up button (with a check first); a run you give up does not count as a best time.', 'Last Man Standing: after every run, a review of each question you answered, right or wrong, with the worked solution. Wrong answers go into "Only questions I\'ve missed".', 'Last Man Standing has its own stats (runs, best survival, recent runs), separate from Blitz Classic, so the Blitz stats now show the right mode.', 'Notes and Recall: the All and None buttons stay together.', 'Removed Saved selections from the question panel.', 'Solutions for radiated intensity now start from the data booklet equation L = σAT⁴ (or eσAT⁴).', 'FE2028 percentage error, difference and change equations shown as separate equations.'] },
     { v: '1.2 Beta', d: '4 November 2026', m: 'Claude Opus 5.5', items: ['The site is now called <b>MVPhysics Lab</b>, with a new address: <b>mvpoirier.github.io/mvphysics/</b>. The old revision-lab address takes you there automatically, and your saved progress carries over. A 🏆 now shows on the browser tab.', 'The site address (with nothing after it) now always opens the Welcome page. Links to a page, such as …/#practice or …/#games, still open that page.', 'The Welcome page is simpler: the welcome message, what’s here and how to revise. The start buttons, level switch and tour are gone (use SL/HL at the top of the page).', 'Printed papers look like IB exams: answer boxes with a border and dotted lines. With “IB-style test” ticked, the order is cover sheet (topics, marks, time, instructions, class code), Paper 1A answer sheet (always 40 rows), Paper 1A, Paper 1B, Paper 2, then the markschemes, starting with the answer sheet with the correct answers crossed.', 'Games: Blitz now ends with a review of every question you answered, with worked solutions, and both Blitz and Last Man Standing can print their results.', 'The Print buttons open the paper or results in a new tab with the print window already open: choose a printer, or Save as PDF.', 'Printed tests: no site name on the cover; the class code appears only on the markscheme pages; the answer sheet lists the topics; and a one-page question overview (topics, strand, difficulty and marks for every question) comes before the markschemes.', 'Last Man Standing: choose the starting time (3, 5 or 10 minutes, or your own).', 'New Syllabus toggle (FE2025 / FE2028) in the Questions panel and in Recall. FE2025 is on by default; FE2028 adds content that is new for exams from May 2028, tagged FE2028.', 'Game stats are now on each game’s own screen and on the Stats page.', 'More resources on precision, accuracy, percentage error and percentage difference; more solutions now start from the data booklet equation.'] },
     { v: '1.3 Beta', d: '5 November 2026', m: 'Claude Opus 5.5', items: ['New game: <b>Unit Detective 🔍</b>. Five case files on units: The Mystery Quantity (identify), Down to the Bones (SI base units), The Scales of Justice (is the equation homogeneous?), The Impostor Equation (the one formula that could be right) and The Deduction (predict a formula from units alone). Play an untimed Investigation of 10 clues, or The Chase against the clock. Harder “case file” clues include constants such as σ, G, μ<sub>0</sub> and ε<sub>0</sub>.', 'The side panel is now called <b>Topics</b> and appears in Recall and Notes too. One selection is shared by every mode; the topic chips at the top of Recall and Notes are gone.', 'Command terms: a switch at the top of the Topics panel in Recall and Notes. Notes now has a Command terms section, grouped by assessment objective, with worked examples of which answer earns the marks.', 'Stats has section buttons: Practice, Exam, Games and Recall. Unit Detective scores are under Games.', 'The space above the footer is the same on every page.', '“← All Games” and “← All Recall Modes” are now buttons. The backup box in Stats has its own colour.', 'Clearer feedback links: <b>🚩 Report a Problem</b> under each question, card and note; <b>💬 Send Feedback</b> in the footer on every page.', 'Headings and buttons use Title Case.', 'Unit Detective uses the same look as the rest of the site.', 'New address: <b>mvpoirier.github.io/physics-lab/</b>. Old links (…/mvphysics/ and …/revision-lab/) still work and your progress carries over.', 'Stats opens straight on its sections (the summary cards at the top are gone). Reset All Progress is a red button.', 'About: the revision history starts collapsed, with one group per major Beta version and a short summary of the Alpha builds.'] },
-    { v: '1.5 Beta', d: '11 November 2026', m: 'Claude Opus 5.5', items: ['<b>Test-only questions:</b> about a quarter of each strand’s Paper 1A questions now appear only in Test Mode, so tests have questions students have not practised. Teachers choose whether a test uses them (first, then topped up from Practice questions).', 'Test Mode codes are <b>Online</b> or <b>Printable</b>; online codes can allow or block <b>retakes</b> on the same device.', 'New <b>Skills 🧰</b> section: a Significant Figures drill and Graphing practice (gradients, intercepts, uncertainty), built from Mr Poirier’s SSP guide and tasks.', 'Clicking Games, Recall or Skills in the top bar takes you back to its list; clearer back buttons.', 'Ten questions that never changed now have new values or versions. Practice’s Pace coach fills with time like Test Mode.', 'Notes: Electronics 101 links for circuits (B.5) and AC (D.4); shorter names in the Topics panel; the FE2028 card has an arrow like the other notes.', '<b>Mr Poirier’s notes</b> in Notes for Skills, A.1–A.5 and B.1–B.5 (his tips and conventions), and a <b>TOK &amp; NOS</b> box for every topic, with stories (Millikan, the 1919 eclipse, false colour) and links.', 'About 75 new questions from Mr Poirier’s practice questions and labs (A.1–B.5 and Skills), a new <b>Nature of Science</b> strand in Skills with questions and Recall cards, three new Paper 1B labs, and new versions of the skydiver question.', '<b>Linked topics</b> are now a Test Mode option for teachers; half of the linked questions are test-only. Test Mode shows how many questions are test-only.', 'Last Man Standing: class codes set the starting time; a music-only mute; fixed maths that sometimes showed as raw code when answering quickly.', '<b>Physics Quest ⚔️</b> replaces Blitz: an adventure through the realms of physics with 3, 5 or 10 hearts, potions, shields, a boss room in every realm, an optional room timer, original pixel art and music (with music and sound mutes).', '<b>Unit Analysis 🔍</b> (was Unit Detective) is now in Skills.', '<b>New codes:</b> every code starts MVP-. Test Mode codes are MVP-T-…, game codes are MVP-G-… and can be entered at the top of Games; a code typed in the wrong place opens the right one. Older codes no longer work.'] },
+    { v: '1.5 Beta', d: '11 November 2026', m: 'Claude Opus 5.5', items: ['<b>Test-only questions:</b> about a quarter of each strand’s Paper 1A questions now appear only in Test Mode, so tests have questions students have not practised. Teachers choose whether a test uses them (first, then topped up from Practice questions).', 'Test Mode codes are <b>Online</b> or <b>Printable</b>; online codes can allow or block <b>retakes</b> on the same device.', 'New <b>Skills 🧰</b> section: a Significant Figures drill and Graphing practice (gradients, intercepts, uncertainty), built from Mr Poirier’s SSP guide and tasks.', 'Clicking Games, Recall or Skills in the top bar takes you back to its list; clearer back buttons.', 'Ten questions that never changed now have new values or versions. Practice’s Pace coach fills with time like Test Mode.', 'Notes: Electronics 101 links for circuits (B.5) and AC (D.4); shorter names in the Topics panel; the FE2028 card has an arrow like the other notes.', '<b>Mr Poirier’s notes</b> in Notes for Skills, A.1–A.5 and B.1–B.5 (his tips and conventions), and a <b>TOK &amp; NOS</b> box for every topic, with stories (Millikan, the 1919 eclipse, false colour) and links.', 'About 75 new questions from Mr Poirier’s practice questions and labs (A.1–B.5 and Skills), a new <b>Nature of Science</b> strand in Skills with questions and Recall cards, three new Paper 1B labs, and new versions of the skydiver question.', '<b>Linked topics</b> are now a Test Mode option for teachers; half of the linked questions are test-only. Test Mode shows how many questions are test-only.', 'Last Man Standing: class codes set the starting time; a music-only mute; fixed maths that sometimes showed as raw code when answering quickly.', '<b>Physics Quest ⚔️</b> replaces Blitz: an adventure through the realms of physics with 3, 5 or 10 hearts, potions, shields, a boss room in every realm, an optional room timer, original pixel art and music (with music and sound mutes).', '<b>Unit Analysis 🔍</b> (was Unit Detective) is now in Skills.', '<b>New codes:</b> every code starts MVP-. Test Mode codes are MVP-T-…, game codes are MVP-G-… and can be entered at the top of Games; a code typed in the wrong place opens the right one. Older codes no longer work.', '<b>Test-only questions are now mostly test-only <i>values</i>:</b> every question whose numbers change is back in Practice, while about 1 in 4 of its sets of values is kept for Test Mode; only questions that hardly change (mostly conceptual) are kept back whole. Teachers choose Test-only First, Practice Only or Mixed.', 'Topics panel: topics grouped into Themes A–E, which you can fold and tick as a whole.', 'Unit Analysis Case 6, <b>The Paper Trail</b> (base units and conversions), Greek-letter Recall cards, item tooltips and best scores in Physics Quest, and a simpler Last Man Standing set-up (Make a Code or Play).', 'Fixed: Skills Graphing could show two identical answers.'] },
     { v: '1.4 Beta', d: '6–9 November 2026', m: 'Claude Opus 5.5', items: ['<b>Test Mode</b> (was Exam Mode) is set by your teacher: students enter a class code, and the code decides the test.', 'Teacher options for codes: online or printable, cover sheet, answer booklet, markscheme, results printing; Paper 1A capped at 40 questions; printouts named after the code.', 'During a test: a pace bar that fills with time, red lines for the 30, 15 and 5 minute alerts, a 🔔 mute button, a red Finish Paper button and a Pace timer switch.', '<b>Linked topics</b> (Off, Include, Only) and shareable codes for Blitz (BLZ-) and Unit Detective (UD-).', '<b>42 new questions</b> on the mistakes IB examiners reported in 2025, with new question styles.', 'Notes: 🖨 Print/PDF and an FE2028 Changes switch. Unit Detective mixes all five case files.', 'SL/HL colour bar, a footer like MYPoirier Science Lab, and the new Terms of Use (© Mike Poirier, all rights reserved; free for students and teachers).'] },
   ];
   HISTORY.forEach(h => { h.items = h.items.map(TL); });
@@ -19829,14 +19916,19 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     const g = fit.m, mk = (v, u) => `$${sigTex(v, 3)}\\,\\mathrm{${u}}$`;
     if (kind === 'grad') return { stem: `${ctx.intro} What is the gradient of the line of best fit, with its unit?` + svg, options: [mk(g, ctx.gu), mk(g, ctx.gwrong[0]), mk(1 / g, ctx.gwrong[0]), mk(fit.c + g * ctx.xMax, ctx.gwrong[1])], answer: 0, solution: `Gradient $= \\dfrac{\\Delta y}{\\Delta x}$ using two points far apart on the line (not data points). Its unit is the $y$ unit divided by the $x$ unit: ${mk(g, ctx.gu)}.` };
     if (kind === 'mean') { const [v, u, how] = ctx.fromM(g); return { stem: `${ctx.intro} Use the gradient to find ${ctx.gq}.` + svg, options: [mk(v, u), mk(1 / v * (Math.abs(v) > 50 ? 1e4 : 1), u), ctx.id === 'rho' ? mk(g, u) : mk(g, ctx.gu), mk(v / (ctx.id === 'pend' ? 4 * Math.PI * Math.PI : ctx.id === 'sound' ? 4 : 10), u)], answer: 0, solution: `Gradient $= ${sigTex(g, 3)}\\,\\mathrm{${ctx.gu}}$. ${how}: ${mk(v, u)}.` }; }
-    if (kind === 'int') { const [what, u, f, why] = ctx.intq, v = f(fit.c); return { stem: `${ctx.intro} What does the intercept on the vertical axis give?` + svg, options: [`${what} $= ${sigTex(Math.abs(v), 2)}\\,\\mathrm{${u}}$`, `${what} $= ${sigTex(Math.abs(g), 2)}\\,\\mathrm{${u}}$`, `${ctx.gq} $= ${sigTex(Math.abs(fit.c), 2)}\\,\\mathrm{${ctx.gu}}$`, `nothing useful: only the gradient matters`], answer: 0, solution: `${why} Reading the intercept: $${sigTex(fit.c, 2)}\\,\\mathrm{${u}}$.` }; }
+    if (kind === 'int') { const [what, u, f, why] = ctx.intq, v = f(fit.c); return { stem: `${ctx.intro} What does the intercept on the vertical axis give?` + svg, options: [`${what} $= ${sigTex(Math.abs(v), 2)}\\,\\mathrm{${u}}$`, `${what} $= ${sigTex(Math.abs(Math.abs(g) - Math.abs(v)) < 1e-9 ? Math.abs(v) / 2 : Math.abs(g), 2)}\\,\\mathrm{${u}}$`, `${ctx.gq} $= ${sigTex(Math.abs(fit.c), 2)}\\,\\mathrm{${ctx.gu}}$`, `nothing useful: only the gradient matters`], answer: 0, solution: `${why} Reading the intercept: $${sigTex(fit.c, 2)}\\,\\mathrm{${u}}$.` }; }
     const gmax = g * (1 + 0.04 * R.pick([1, 1.5, 2])), gmin = g * (1 - 0.04 * R.pick([1, 1.5, 2])), dg = Math.abs(gmax - gmin) / 2, best = (gmax + gmin) / 2;
+    // the value stops at the same decimal place as the 1-significant-figure uncertainty (eg 4.0 ± 0.2, 60 ± 5)
+    const place = (u) => Math.floor(Math.log10(Math.abs(+sigPlain(u, 1)))), atU = (v, u) => { const k = place(u); return k >= 0 ? String(Math.round(v / 10 ** k) * 10 ** k) : v.toFixed(-k); }, uS = (u) => sigPlain(u, 1);
     return { stem: `${ctx.intro} The steepest and shallowest straight lines that pass through all the error bars have gradients $${sigTex(gmax, 3)}$ and $${sigTex(gmin, 3)}\\,\\mathrm{${ctx.gu}}$. What is the gradient with its uncertainty?` + svg,
-      options: [`$(${sigTex(best, 3)} \\pm ${sigTex(dg, 1)})\\,\\mathrm{${ctx.gu}}$`, `$(${sigTex(best, 3)} \\pm ${sigTex(2 * dg, 1)})\\,\\mathrm{${ctx.gu}}$`, `$(${sigTex(best, 3)} \\pm ${sigTex(dg / Math.abs(best) * 100, 1)})\\,\\mathrm{${ctx.gu}}$`, `$(${sigTex(gmax, 3)} \\pm ${sigTex(dg, 1)})\\,\\mathrm{${ctx.gu}}$`], answer: 0,
-      solution: `Uncertainty in the gradient $= \\dfrac{\\text{max gradient} - \\text{min gradient}}{2} = ${sigTex(dg, 1)}$; the value is the best-fit (or mean) gradient, and the uncertainty is given to 1 significant figure.` };
+      options: [`$(${atU(best, dg)} \\pm ${uS(dg)})\\,\\mathrm{${ctx.gu}}$`, `$(${atU(best, 2 * dg)} \\pm ${uS(2 * dg)})\\,\\mathrm{${ctx.gu}}$`, `$(${atU(best, dg / Math.abs(best) * 100)} \\pm ${uS(dg / Math.abs(best) * 100)})\\,\\mathrm{${ctx.gu}}$`, `$(${atU(gmax, dg)} \\pm ${uS(dg)})\\,\\mathrm{${ctx.gu}}$`], answer: 0,
+      solution: `Uncertainty in the gradient $= \\dfrac{\\text{max gradient} - \\text{min gradient}}{2} = ${sigTex(dg, 1)}$; the value is the best-fit (or mean) gradient, and the uncertainty is given to 1 significant figure, with the value rounded to the same decimal place: $(${atU(best, dg)} \\pm ${uS(dg)})\\,\\mathrm{${ctx.gu}}$.` };
   }
+  // every option must be different (1.5 push 4: Graphing once showed the same emf twice when the intercept and the gradient had the same size)
+  const optsDistinct = (o) => new Set(o.options.map(t => t.replace(/\s+/g, ''))).size === o.options.length;
+  function skMake(mode, seed) { for (let k = 0; k < 30; k++) { const raw = (mode === 'sf' ? skSF : skGraph)(makeR(seed + k * 7919)); if (optsDistinct(raw)) return raw; } return null; }
   function skNew() {
-    const R = makeR(newSeed()), raw = SK.mode === 'sf' ? skSF(R) : skGraph(R);
+    const raw = skMake(SK.mode, newSeed()) || skMake(SK.mode, newSeed()) || (SK.mode === 'sf' ? skSF : skGraph)(makeR(newSeed())), R = makeR(newSeed());
     const order = R.shuffle(raw.options.map((t, i) => i));
     SK.q = { ...raw, options: order.map(i => raw.options[i]), answer: order.indexOf(raw.answer) }; SK.done = false; SK.pick = null;
   }
@@ -19883,7 +19975,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     if (v !== PREV_VIEW && v !== 'skills' && UD) { clearInterval(UD.tm); UD = null; }
     if (v !== PREV_VIEW && v !== 'blitz' && QU) { SFX.music(false); if (QU.phase === 'over') { QU = null; if (GA) GA.phase = 'setup'; } }
     document.documentElement.classList.toggle('quest', v === 'blitz' && !!QU && !!GA && GA.picked && GA.mode === 'quest');
-    if (v !== PREV_VIEW) { if (v === 'recall') { RC_PICKED = false; if (GM && GM.tm) clearInterval(GM.tm); GM = null; } if (v === 'blitz' && GA && GA.phase === 'setup' && !LM) GA.picked = false; PREV_VIEW = v; }
+    if (v !== PREV_VIEW) { if (v === 'recall') { RC_PICKED = false; if (GM && GM.tm) clearInterval(GM.tm); GM = null; } if (v === 'skills' && !(UD && UD.phase === 'play')) { if (UD) { clearInterval(UD.tm); UD = null; } SK = { mode: null }; } if (v === 'blitz' && GA && GA.phase === 'setup' && !LM) GA.picked = false; PREV_VIEW = v; }
     $$('nav.tabs a, #aboutBtn').forEach(a => a.setAttribute('aria-current', a.getAttribute('href') === '#' + (ROUTE_HREF[v] || v) ? 'page' : 'false'));
     if (v !== 'welcome' && v !== 'about' && S.settings.lastView !== v) { S.settings.lastView = v; save(); }
     main.onclick = main.onchange = main.oninput = main.onkeydown = null;
