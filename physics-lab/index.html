@@ -1066,6 +1066,51 @@ main li mjx-container { max-width: 100%; overflow-x: auto; overflow-y: hidden; v
 .test-entry .te-teacher .teacher-access, .test-entry .te-teacher .pin-open { margin: 0; }
 @media (max-width: 700px) { .test-entry .te-row { grid-template-columns: minmax(0, 1fr); } }
 
+/* ---------- 1.5 push 6: Sims 🔬 · Circuit Lab ---------- */
+.sim-card b .pill { margin-left: 6px; vertical-align: middle; }
+.cl-wrap { display: grid; gap: 14px; }
+.cl-tabs { flex-wrap: wrap; }
+.cl-opts { display: flex; flex-wrap: wrap; gap: 10px; }
+.cl-grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(260px, 1fr); gap: 18px; align-items: start; }
+@media (max-width: 980px) { .cl-grid { grid-template-columns: minmax(0, 1fr); } }
+.cl-diagram { background: var(--sheet); border: 1px solid var(--line); border-radius: 12px; padding: 6px; }
+.clsvg { width: 100%; height: auto; display: block; }
+.clsvg .cw { fill: none; stroke: var(--ink); stroke-width: 2.2; stroke-linejoin: round; }
+.clsvg .cflow { fill: none; stroke: var(--accent); stroke-width: 3; stroke-dasharray: 2 16; stroke-linecap: round; animation: cl-flow linear infinite; }
+@keyframes cl-flow { to { stroke-dashoffset: -36; } }
+@media (prefers-reduced-motion: reduce) { .clsvg .cflow { animation: none; } }
+.clsvg .cres, .clsvg .cmeter, .clsvg .cmask { fill: var(--sheet); stroke: var(--ink); stroke-width: 2; }
+.clsvg .cmask { stroke: none; }
+.clsvg .cplate { stroke: var(--ink); stroke-width: 2.4; }
+.clsvg .cplate.thick { stroke-width: 6; }
+.clsvg .cbox { fill: none; stroke: var(--muted); stroke-width: 1.4; stroke-dasharray: 6 5; }
+.clsvg .cldr { fill: none; stroke: var(--ink); stroke-width: 1.6; }
+.clsvg .carrow { fill: none; stroke: var(--ink); stroke-width: 1.8; }
+.clsvg .carrowhead { fill: var(--ink); }
+.clsvg .cml { font: 700 13px var(--f-body); fill: var(--ink); }
+.clsvg .clab { font: 500 12.5px var(--f-body); fill: var(--muted); }
+.clsvg .cread { font: 700 13px var(--f-mono); fill: var(--accent); }
+.clsvg .cread.hid { fill: var(--warn); font-size: 16px; }
+.cl-side { display: grid; gap: 14px; }
+.cl-sliders { display: grid; gap: 10px; }
+.cl-sl { display: grid; gap: 4px; font-size: 14px; }
+.cl-sl span { display: flex; justify-content: space-between; gap: 8px; }
+.cl-sl input[type=range] { width: 100%; accent-color: var(--accent); }
+.cl-read { display: grid; gap: 6px; }
+.cl-meter { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; padding: 7px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); font-size: 13.5px; }
+.cl-meter b { font-family: var(--f-mono); color: var(--accent); font-size: 15px; white-space: nowrap; }
+.cl-meter.hid b { color: var(--warn); }
+.cl-ch { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; display: grid; gap: 8px; background: var(--surface); }
+.cl-ch.ok { border-color: var(--good); background: var(--good-soft); }
+.cl-ch.no { border-color: var(--bad); background: var(--bad-soft); }
+.cl-ch input[type=number] { width: 140px; padding: 6px 8px; border: 1px solid var(--line); border-radius: 8px; background: var(--sheet); color: var(--ink); font-family: var(--f-mono); }
+.cl-work summary { cursor: pointer; font-weight: 600; }
+.cl-work ul { margin: 8px 0 0; padding-left: 20px; display: grid; gap: 6px; }
+.cl-gwrap { max-width: 560px; }
+.cl-wrap { grid-template-columns: minmax(0, 1fr); }
+.cl-tabs { display: flex; flex-wrap: wrap; max-width: 100%; }
+.cl-tabs button { flex: 1 1 auto; }
+
 </style>
 <header class="top"><div class="top-inner">
   <div class="brand"><h1><b class="mvp">MVP</b>hysics Lab <span class="trophy" aria-hidden="true">🏆</span><span class="beta-tag" title="Beta for student testing: version 1.5 Beta">Beta 1.5</span></h1></div>
@@ -17584,7 +17629,7 @@ const FOOTER_TEXT = 'Questions are original and written in the style of the IB D
     if (note && !FORM.note) copyText(note, () => toast('Form opened. Your note is copied: paste it into the form.'));
     else toast('Form opened in a new tab. Press Submit there to send it.');
   }, true);
-  const VIEW_NAME = { welcome: 'Welcome', practice: 'Practice', exam: 'Test Mode', blitz: 'Games', recall: 'Recall', notes: 'Notes', stats: 'Stats', about: 'About' };
+  const VIEW_NAME = { welcome: 'Welcome', practice: 'Practice', exam: 'Test Mode', blitz: 'Games', recall: 'Recall', sims: 'Sims', skills: 'Skills', notes: 'Notes', stats: 'Stats', about: 'About' };
   function reportFields(kind, ref, seed, where) {
     const f = { type: kind === 'general' ? 'General feedback' : 'Problem', id: ref, title: '', paper: '', seed: seed || '', where, version: APP_VERSION };
     if (kind === 'question') { const q = Q.find(x => x.id === ref); if (q) { f.title = q.title; f.paper = PAPER_NAME[q.paper]; } }
@@ -19796,7 +19841,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     { v: '1.1 Beta', d: '3 November 2026', m: 'Claude Opus 5.5', items: ['Games and Recall now open with cards for each mode and a short description; inside a mode, “← All games” or “← All recall modes” takes you back.', 'The offline copy shows an OFFLINE badge next to the version, with a tooltip explaining it.', 'New Welcome page: a quick guide to every mode, a short tour, and how to use the site for revision. Click the MVPhysics heading at any time to come back to it.', 'Blitz is now part of Games 🕹️, with two modes so far: Blitz and Last Man Standing. More game modes will follow.', '“Only questions I’ve missed” is now at the top of the question panel in Practice and highlighted when you have missed questions to practise (it now applies to Practice only; Exam Mode always uses your full selection).', 'Stats: a Last Man Standing best tile; Blitz average time to 0.1 s.', 'The version is shown in the badge (BETA 1.1), and the Claude model used for each build is listed in this revision history.', 'Fixed: flashcards scrolled sideways on phones.', 'Last Man Standing: a Give up button (with a check first); a run you give up does not count as a best time.', 'Last Man Standing: after every run, a review of each question you answered, right or wrong, with the worked solution. Wrong answers go into "Only questions I\'ve missed".', 'Last Man Standing has its own stats (runs, best survival, recent runs), separate from Blitz Classic, so the Blitz stats now show the right mode.', 'Notes and Recall: the All and None buttons stay together.', 'Removed Saved selections from the question panel.', 'Solutions for radiated intensity now start from the data booklet equation L = σAT⁴ (or eσAT⁴).', 'FE2028 percentage error, difference and change equations shown as separate equations.'] },
     { v: '1.2 Beta', d: '4 November 2026', m: 'Claude Opus 5.5', items: ['The site is now called <b>MVPhysics Lab</b>, with a new address: <b>mvpoirier.github.io/mvphysics/</b>. The old revision-lab address takes you there automatically, and your saved progress carries over. A 🏆 now shows on the browser tab.', 'The site address (with nothing after it) now always opens the Welcome page. Links to a page, such as …/#practice or …/#games, still open that page.', 'The Welcome page is simpler: the welcome message, what’s here and how to revise. The start buttons, level switch and tour are gone (use SL/HL at the top of the page).', 'Printed papers look like IB exams: answer boxes with a border and dotted lines. With “IB-style test” ticked, the order is cover sheet (topics, marks, time, instructions, class code), Paper 1A answer sheet (always 40 rows), Paper 1A, Paper 1B, Paper 2, then the markschemes, starting with the answer sheet with the correct answers crossed.', 'Games: Blitz now ends with a review of every question you answered, with worked solutions, and both Blitz and Last Man Standing can print their results.', 'The Print buttons open the paper or results in a new tab with the print window already open: choose a printer, or Save as PDF.', 'Printed tests: no site name on the cover; the class code appears only on the markscheme pages; the answer sheet lists the topics; and a one-page question overview (topics, strand, difficulty and marks for every question) comes before the markschemes.', 'Last Man Standing: choose the starting time (3, 5 or 10 minutes, or your own).', 'New Syllabus toggle (FE2025 / FE2028) in the Questions panel and in Recall. FE2025 is on by default; FE2028 adds content that is new for exams from May 2028, tagged FE2028.', 'Game stats are now on each game’s own screen and on the Stats page.', 'More resources on precision, accuracy, percentage error and percentage difference; more solutions now start from the data booklet equation.'] },
     { v: '1.3 Beta', d: '5 November 2026', m: 'Claude Opus 5.5', items: ['New game: <b>Unit Detective 🔍</b>. Five case files on units: The Mystery Quantity (identify), Down to the Bones (SI base units), The Scales of Justice (is the equation homogeneous?), The Impostor Equation (the one formula that could be right) and The Deduction (predict a formula from units alone). Play an untimed Investigation of 10 clues, or The Chase against the clock. Harder “case file” clues include constants such as σ, G, μ<sub>0</sub> and ε<sub>0</sub>.', 'The side panel is now called <b>Topics</b> and appears in Recall and Notes too. One selection is shared by every mode; the topic chips at the top of Recall and Notes are gone.', 'Command terms: a switch at the top of the Topics panel in Recall and Notes. Notes now has a Command terms section, grouped by assessment objective, with worked examples of which answer earns the marks.', 'Stats has section buttons: Practice, Exam, Games and Recall. Unit Detective scores are under Games.', 'The space above the footer is the same on every page.', '“← All Games” and “← All Recall Modes” are now buttons. The backup box in Stats has its own colour.', 'Clearer feedback links: <b>🚩 Report a Problem</b> under each question, card and note; <b>💬 Send Feedback</b> in the footer on every page.', 'Headings and buttons use Title Case.', 'Unit Detective uses the same look as the rest of the site.', 'New address: <b>mvpoirier.github.io/physics-lab/</b>. Old links (…/mvphysics/ and …/revision-lab/) still work and your progress carries over.', 'Stats opens straight on its sections (the summary cards at the top are gone). Reset All Progress is a red button.', 'About: the revision history starts collapsed, with one group per major Beta version and a short summary of the Alpha builds.'] },
-    { v: '1.5 Beta', d: '11 November 2026', m: 'Claude Opus 5.5', items: ['<b>Test-only questions:</b> about a quarter of each strand’s Paper 1A questions now appear only in Test Mode, so tests have questions students have not practised. Teachers choose whether a test uses them (first, then topped up from Practice questions).', 'Test Mode codes are <b>Online</b> or <b>Printable</b>; online codes can allow or block <b>retakes</b> on the same device.', 'New <b>Skills 🧰</b> section: a Significant Figures drill and Graphing practice (gradients, intercepts, uncertainty), built from Mr Poirier’s SSP guide and tasks.', 'Clicking Games, Recall or Skills in the top bar takes you back to its list; clearer back buttons.', 'Ten questions that never changed now have new values or versions. Practice’s Pace coach fills with time like Test Mode.', 'Notes: Electronics 101 links for circuits (B.5) and AC (D.4); shorter names in the Topics panel; the FE2028 card has an arrow like the other notes.', '<b>Mr Poirier’s notes</b> in Notes for Skills, A.1–A.5 and B.1–B.5 (his tips and conventions), and a <b>TOK &amp; NOS</b> box for every topic, with stories (Millikan, the 1919 eclipse, false colour) and links.', 'About 75 new questions from Mr Poirier’s practice questions and labs (A.1–B.5 and Skills), a new <b>Nature of Science</b> strand in Skills with questions and Recall cards, three new Paper 1B labs, and new versions of the skydiver question.', '<b>Linked topics</b> are now a Test Mode option for teachers; half of the linked questions are test-only. Test Mode shows how many questions are test-only.', 'Last Man Standing: class codes set the starting time; a music-only mute; fixed maths that sometimes showed as raw code when answering quickly.', '<b>Physics Quest ⚔️</b> replaces Blitz: an adventure through the realms of physics with 3, 5 or 10 hearts, potions, shields, a boss room in every realm, an optional room timer, original pixel art and music (with music and sound mutes).', '<b>Unit Analysis 🔍</b> (was Unit Detective) is now in Skills.', '<b>New codes:</b> every code starts MVP-. Test Mode codes are MVP-T-…, game codes are MVP-G-… and can be entered at the top of Games; a code typed in the wrong place opens the right one. Older codes no longer work.', '<b>Test-only questions are now mostly test-only <i>values</i>:</b> every question whose numbers change is back in Practice, while about 1 in 4 of its sets of values is kept for Test Mode; only questions that hardly change (mostly conceptual) are kept back whole. Teachers choose Test-only First, Practice Only or Mixed.', 'Topics panel: topics grouped into Themes A–E, which you can fold and tick as a whole.', 'Unit Analysis Case 6, <b>The Paper Trail</b> (base units and conversions), Greek-letter Recall cards, item tooltips and best scores in Physics Quest, and a simpler Last Man Standing set-up (Make a Code or Play).', 'Fixed: Skills Graphing could show two identical answers.', 'The top bar is now Practice, Skills, Recall, Games, Notes, Stats. Test Mode has moved to the bottom of Practice: enter a class code there. While a test is running you stay in it until you finish.', 'New looks: a green-and-gold Physics Quest and a brooding red Last Man Standing.'] },
+    { v: '1.5 Beta', d: '11 November 2026', m: 'Claude Opus 5.5', items: ['<b>Test-only questions:</b> about a quarter of each strand’s Paper 1A questions now appear only in Test Mode, so tests have questions students have not practised. Teachers choose whether a test uses them (first, then topped up from Practice questions).', 'Test Mode codes are <b>Online</b> or <b>Printable</b>; online codes can allow or block <b>retakes</b> on the same device.', 'New <b>Skills 🧰</b> section: a Significant Figures drill and Graphing practice (gradients, intercepts, uncertainty), built from Mr Poirier’s SSP guide and tasks.', 'Clicking Games, Recall or Skills in the top bar takes you back to its list; clearer back buttons.', 'Ten questions that never changed now have new values or versions. Practice’s Pace coach fills with time like Test Mode.', 'Notes: Electronics 101 links for circuits (B.5) and AC (D.4); shorter names in the Topics panel; the FE2028 card has an arrow like the other notes.', '<b>Mr Poirier’s notes</b> in Notes for Skills, A.1–A.5 and B.1–B.5 (his tips and conventions), and a <b>TOK &amp; NOS</b> box for every topic, with stories (Millikan, the 1919 eclipse, false colour) and links.', 'About 75 new questions from Mr Poirier’s practice questions and labs (A.1–B.5 and Skills), a new <b>Nature of Science</b> strand in Skills with questions and Recall cards, three new Paper 1B labs, and new versions of the skydiver question.', '<b>Linked topics</b> are now a Test Mode option for teachers; half of the linked questions are test-only. Test Mode shows how many questions are test-only.', 'Last Man Standing: class codes set the starting time; a music-only mute; fixed maths that sometimes showed as raw code when answering quickly.', '<b>Physics Quest ⚔️</b> replaces Blitz: an adventure through the realms of physics with 3, 5 or 10 hearts, potions, shields, a boss room in every realm, an optional room timer, original pixel art and music (with music and sound mutes).', '<b>Unit Analysis 🔍</b> (was Unit Detective) is now in Skills.', '<b>New codes:</b> every code starts MVP-. Test Mode codes are MVP-T-…, game codes are MVP-G-… and can be entered at the top of Games; a code typed in the wrong place opens the right one. Older codes no longer work.', '<b>Test-only questions are now mostly test-only <i>values</i>:</b> every question whose numbers change is back in Practice, while about 1 in 4 of its sets of values is kept for Test Mode; only questions that hardly change (mostly conceptual) are kept back whole. Teachers choose Test-only First, Practice Only or Mixed.', 'Topics panel: topics grouped into Themes A–E, which you can fold and tick as a whole.', 'Unit Analysis Case 6, <b>The Paper Trail</b> (base units and conversions), Greek-letter Recall cards, item tooltips and best scores in Physics Quest, and a simpler Last Man Standing set-up (Make a Code or Play).', 'Fixed: Skills Graphing could show two identical answers.', 'The top bar is now Practice, Skills, Recall, Sims, Games, Notes, Stats. Test Mode has moved to the bottom of Practice: enter a class code there. While a test is running you stay in it until you finish.', 'New looks: a green-and-gold Physics Quest and a brooding red Last Man Standing.', '<b>Sims 🔬</b>, a new section of interactive simulations. The first is <b>Circuit Lab</b> (B.5): series, parallel, internal resistance with your own V–I graph, and potential dividers with an LDR or thermistor, with challenges to predict the meter readings.'] },
     { v: '1.4 Beta', d: '6–9 November 2026', m: 'Claude Opus 5.5', items: ['<b>Test Mode</b> (was Exam Mode) is set by your teacher: students enter a class code, and the code decides the test.', 'Teacher options for codes: online or printable, cover sheet, answer booklet, markscheme, results printing; Paper 1A capped at 40 questions; printouts named after the code.', 'During a test: a pace bar that fills with time, red lines for the 30, 15 and 5 minute alerts, a 🔔 mute button, a red Finish Paper button and a Pace timer switch.', '<b>Linked topics</b> (Off, Include, Only) and shareable codes for Blitz (BLZ-) and Unit Detective (UD-).', '<b>42 new questions</b> on the mistakes IB examiners reported in 2025, with new question styles.', 'Notes: 🖨 Print/PDF and an FE2028 Changes switch. Unit Detective mixes all five case files.', 'SL/HL colour bar, a footer like MYPoirier Science Lab, and the new Terms of Use (© Mike Poirier, all rights reserved; free for students and teachers).'] },
   ];
   HISTORY.forEach(h => { h.items = h.items.map(TL); });
@@ -19884,6 +19929,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     ['practice', '🎯', 'Practice', 'One question at a time, with full worked solutions and markschemes. Retry any calculation with new values. Tests from your teacher start at the bottom of Practice.'],
     ['skills', '🧰', 'Skills', 'Practise the tools of physics: significant figures, graphs and gradients, and Unit Analysis.'],
     ['recall', '🧠', 'Recall', 'Learn the words and equations that earn marks: definitions, equations and command terms, with flashcards that come back just before you forget them.'],
+    ['sims', '🔬', 'Sims', 'Interactive simulations built around "predict, then check", starting with Circuit Lab for B.5.'],
     ['games', '🕹️', 'Games', 'Go on Physics Quest or survive Last Man Standing with your class: physics games with scores, streaks and personal bests.'],
     ['notes', '📓', 'Notes', 'Short notes for every strand: data booklet equations, what you must know, common mistakes, videos and simulations.'],
     ['stats', '📈', 'Stats', 'Your progress by topic and paper, your pace, test results and best scores. Back up your progress here too.'],
@@ -20028,8 +20074,175 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
       }
     };
   }
+  /* ======================= SIMS 🔬 (1.5 push 6, Mike 12 Nov) =======================
+     Interactive simulations built around "predict, then check". First sim: Circuit Lab (B.5), with four set-ups:
+     series, parallel, internal resistance (with a V–I graph) and potential dividers (LDR or thermistor).
+     All values are calculated from the circuit (ideal meters; the cell's internal resistance r sits inside the dashed box). */
+  const SIM_CARDS = [
+    ['circuit', '⚡', 'Circuit Lab', 'B.5', 'Build intuition for series and parallel circuits, internal resistance and potential dividers. Change the values, watch the meters, then predict the readings before you check.'],
+  ];
+  const CL_TABS = [['series', 'Series'], ['parallel', 'Parallel'], ['internal', 'Internal Resistance'], ['divider', 'Potential Divider']];
+  let SM = { sim: null };
+  const clDefaults = () => ({ tab: 'series', emf: 6, r: 0.5, R1: 10, R2: 20, R: 8, pts: [], sensor: 'ldr', light: 50, temp: 25, Rf: 10, across: 'sensor', ch: null });
+  const f3 = (x) => (Math.abs(x) >= 100 ? x.toFixed(0) : Math.abs(x) >= 10 ? x.toFixed(1) : Math.abs(x) >= 1 ? x.toFixed(2) : x.toFixed(3));
+  // light level (%) and temperature (°C) to resistance in kΩ: an LDR falls from about 1 MΩ in the dark to 10 kΩ in bright light; an NTC thermistor is 10 kΩ at 25 °C
+  const ldrK = (L) => 1000 / Math.max(1, L);
+  const thermK = (T) => 10 * Math.exp(3950 * (1 / (T + 273.15) - 1 / 298.15));
+  function clSolve(c) {
+    const o = {};
+    if (c.tab === 'series') { o.Rt = c.R1 + c.R2; o.I = c.emf / (o.Rt + c.r); o.V1 = o.I * c.R1; o.V2 = o.I * c.R2; o.Vt = c.emf - o.I * c.r; o.lost = o.I * c.r; }
+    else if (c.tab === 'parallel') { o.Rp = c.R1 * c.R2 / (c.R1 + c.R2); o.I = c.emf / (o.Rp + c.r); o.Vp = o.I * o.Rp; o.I1 = o.Vp / c.R1; o.I2 = o.Vp / c.R2; o.Vt = c.emf - o.I * c.r; o.lost = o.I * c.r; }
+    else if (c.tab === 'internal') { o.I = c.emf / (c.R + c.r); o.Vt = o.I * c.R; o.lost = o.I * c.r; o.P = o.I * o.I * c.R; }
+    else { o.Rs = c.sensor === 'ldr' ? ldrK(c.light) : thermK(c.temp); o.I = c.emf / (c.Rf + o.Rs); o.Vs = o.I * o.Rs; o.Vf = o.I * c.Rf; o.Vout = c.across === 'sensor' ? o.Vs : o.Vf; }
+    return o;
+  }
+  // what the meters show: [id, label, value, unit]
+  function clMeters(c, o) {
+    if (c.tab === 'series') return [['I', 'Ammeter A', o.I, 'A'], ['V1', 'Voltmeter across R₁', o.V1, 'V'], ['V2', 'Voltmeter across R₂', o.V2, 'V'], ['Vt', 'Voltmeter across the cell (terminal pd)', o.Vt, 'V']];
+    if (c.tab === 'parallel') return [['I', 'Ammeter A (main)', o.I, 'A'], ['I1', 'Ammeter A₁ (R₁ branch)', o.I1, 'A'], ['I2', 'Ammeter A₂ (R₂ branch)', o.I2, 'A'], ['Vp', 'Voltmeter across the branches', o.Vp, 'V']];
+    if (c.tab === 'internal') return [['I', 'Ammeter A', o.I, 'A'], ['Vt', 'Voltmeter V (terminal pd)', o.Vt, 'V']];
+    return [['I', 'Current', o.I, 'mA'], ['Vout', `Voltmeter across the ${c.across === 'sensor' ? (c.sensor === 'ldr' ? 'LDR' : 'thermistor') : 'fixed resistor'} (V<sub>out</sub>)`, o.Vout, 'V']];
+  }
+  function clWorking(c, o) {
+    const E = c.emf, r = c.r;
+    if (c.tab === 'series') return [`Total resistance: $R = R_1 + R_2 + r = ${c.R1} + ${c.R2} + ${r} = ${f3(o.Rt + r)}\\,\\Omega$`, `Current (the same everywhere in series): $I = \\dfrac{\\varepsilon}{R + r} = \\dfrac{${E}}{${f3(o.Rt + r)}} = ${f3(o.I)}\\,\\mathrm{A}$`, `pd across each resistor: $V = IR$, so $V_1 = ${f3(o.V1)}\\,\\mathrm{V}$ and $V_2 = ${f3(o.V2)}\\,\\mathrm{V}$ (the larger resistor takes the larger share)`, `Terminal pd: $V = \\varepsilon - Ir = ${E} - ${f3(o.I)} \\times ${r} = ${f3(o.Vt)}\\,\\mathrm{V}$ = $V_1 + V_2$; the "lost volts" $Ir = ${f3(o.lost)}\\,\\mathrm{V}$`];
+    if (c.tab === 'parallel') return [`Parallel resistance: $\\dfrac{1}{R_\\parallel} = \\dfrac{1}{${c.R1}} + \\dfrac{1}{${c.R2}}$, so $R_\\parallel = ${f3(o.Rp)}\\,\\Omega$ (less than either resistor)`, `Main current: $I = \\dfrac{\\varepsilon}{R_\\parallel + r} = \\dfrac{${E}}{${f3(o.Rp + r)}} = ${f3(o.I)}\\,\\mathrm{A}$`, `The branches share the same pd: $V = ${f3(o.Vp)}\\,\\mathrm{V}$`, `Branch currents: $I_1 = \\dfrac{V}{R_1} = ${f3(o.I1)}\\,\\mathrm{A}$, $I_2 = \\dfrac{V}{R_2} = ${f3(o.I2)}\\,\\mathrm{A}$, and $I_1 + I_2 = I$ (Kirchhoff's first law)`];
+    if (c.tab === 'internal') return [`$I = \\dfrac{\\varepsilon}{R + r} = \\dfrac{${E}}{${c.R} + ${r}} = ${f3(o.I)}\\,\\mathrm{A}$`, `Terminal pd: $V = \\varepsilon - Ir = ${E} - ${f3(o.I)} \\times ${r} = ${f3(o.Vt)}\\,\\mathrm{V}$; lost volts $Ir = ${f3(o.lost)}\\,\\mathrm{V}$`, `Power in the external resistor: $P = I^2R = ${f3(o.P)}\\,\\mathrm{W}$ (largest when $R = r$)`, `Plot $V$ against $I$: a straight line with gradient $-r$ and $V$-intercept $\\varepsilon$.`];
+    const sn = c.sensor === 'ldr' ? 'LDR' : 'thermistor';
+    return [`${sn === 'thermistor' ? 'Thermistor' : sn} resistance: $${f3(o.Rs)}\\,\\mathrm{k\\Omega}$ ${c.sensor === 'ldr' ? `at ${c.light}% light (more light, less resistance)` : `at ${c.temp}\\,^\\circ\\mathrm{C}$ (an NTC thermistor: hotter, less resistance)`}`, `Current: $I = \\dfrac{V_\\text{in}}{R_\\text{fixed} + R_\\text{${sn}}} = \\dfrac{${E}}{${c.Rf} + ${f3(o.Rs)}}\\,\\mathrm{k\\Omega} = ${f3(o.I)}\\,\\mathrm{mA}$`, `The pd divides in the ratio of the resistances: $V_\\text{out} = V_\\text{in}\\dfrac{R_\\text{${c.across === 'sensor' ? sn : 'fixed'}}}{R_\\text{fixed} + R_\\text{${sn}}} = ${f3(o.Vout)}\\,\\mathrm{V}$`, c.across === 'sensor' ? `As the ${sn}'s resistance rises, it takes a bigger share, so $V_\\text{out}$ rises: ${c.sensor === 'ldr' ? 'a dark-activated switch (eg a street light).' : 'a cold-activated switch (eg a frost alarm).'}` : `Across the fixed resistor, $V_\\text{out}$ rises as the ${sn}'s resistance falls: ${c.sensor === 'ldr' ? 'a light-activated switch.' : 'a heat-activated switch (eg a fire alarm).'}`];
+  }
+  /* ---------- the circuit diagram (IB symbols) ---------- */
+  function clSvg(c, o, hide) {
+    const W = [], C = [], T = [];
+    const ln = (pts, flow) => { W.push(`<polyline class="cw" points="${pts.map(p => p.join(',')).join(' ')}"/>`); if (flow) W.push(`<polyline class="cflow" style="animation-duration:${flow}s" points="${pts.map(p => p.join(',')).join(' ')}"/>`); };
+    const speed = (I, unit) => { const a = Math.abs(unit === 'mA' ? I / 1000 * 200 : I); return a < 1e-4 ? 0 : Math.max(0.25, Math.min(6, 0.9 / a)).toFixed(2); };
+    const resH = (x, y, lab) => { C.push(`<rect class="cres" x="${x - 28}" y="${y - 10}" width="56" height="20" rx="2"/>`); if (lab) T.push(`<text class="clab" x="${x}" y="${y - 16}" text-anchor="middle">${lab}</text>`); };
+    const resV = (x, y, lab, side = 1) => { C.push(`<rect class="cres" x="${x - 10}" y="${y - 26}" width="20" height="52" rx="2"/>`); if (lab) T.push(`<text class="clab" x="${x + side * 18}" y="${y + 4}" text-anchor="${side > 0 ? 'start' : 'end'}">${lab}</text>`); };
+    const meter = (x, y, L, id, val, unit, pos = 'below') => { C.push(`<circle class="cmeter" cx="${x}" cy="${y}" r="15"/><text class="cml" x="${x}" y="${y + 5}" text-anchor="middle">${L}</text>`);
+      const [tx, ty, an] = pos === 'left' ? [x - 22, y + 5, 'end'] : pos === 'right' ? [x + 22, y + 5, 'start'] : [x, y + 33, 'middle'];
+      T.push(`<text class="cread${hide === id ? ' hid' : ''}" x="${tx}" y="${ty}" text-anchor="${an}">${hide === id ? '?' : f3(val) + ' ' + unit}</text>`); };
+    const cell = (x, y, withR) => {
+      C.push(`<rect class="cmask" x="${x - 18}" y="${y - 10}" width="36" height="20"/><line class="cplate" x1="${x - 18}" y1="${y - 6}" x2="${x + 18}" y2="${y - 6}"/><line class="cplate thick" x1="${x - 9}" y1="${y + 6}" x2="${x + 9}" y2="${y + 6}"/>`);
+      T.push(`<text class="clab" x="${x - 24}" y="${y + 4}" text-anchor="end">${withR ? 'ε' : 'V in'} = ${c.emf} V</text>`);
+      if (withR) { resV(x, y + 56, '', 1); T.push(`<text class="clab" x="${x - 16}" y="${y + 60}" text-anchor="end">r = ${c.r} Ω</text>`); C.push(`<rect class="cbox" x="${x - 84}" y="${y - 28}" width="112" height="118" rx="6"/>`); }
+    };
+    const X0 = 140, X1 = 600, Y0 = 50, Y1 = 290, CY = 140;
+    // a voltmeter connected across the ends of a horizontal resistor at (x, Y0), drawn below it
+    const vAcross = (x, yv, L, id, val) => { ln([[x - 38, Y0], [x - 38, yv], [x - 15, yv]]); ln([[x + 38, Y0], [x + 38, yv], [x + 15, yv]]); meter(x, yv, L, id, val, 'V'); };
+    if (c.tab === 'series' || c.tab === 'parallel' || c.tab === 'internal') {
+      const fl = speed(o.I);
+      ln([[X0, CY], [X0, Y0], [X1, Y0], [X1, Y1], [X0, Y1], [X0, CY]], fl);
+      cell(X0, CY, true);
+      meter(X1, 170, 'A', 'I', o.I, 'A', 'left');
+      // terminal pd voltmeter across the cell (connected outside the dashed box)
+      if (c.tab !== 'parallel') { ln([[X0, Y0 + 30], [220, Y0 + 30], [220, 155]]); ln([[X0, Y1 - 10], [220, Y1 - 10], [220, 185]]); meter(220, 170, 'V', 'Vt', o.Vt, 'V', 'right'); }
+      if (c.tab === 'series') {
+        resH(330, Y0, `R₁ = ${c.R1} Ω`); resH(480, Y0, `R₂ = ${c.R2} Ω`);
+        vAcross(330, 115, 'V₁', 'V1', o.V1); vAcross(480, 115, 'V₂', 'V2', o.V2);
+      } else if (c.tab === 'parallel') {
+        const a = 250, bb = 520, yb = 130;
+        ln([[a, Y0], [a, yb], [bb, yb], [bb, Y0]], speed(o.I2));
+        resH(340, Y0, `R₁ = ${c.R1} Ω`); resH(340, yb, `R₂ = ${c.R2} Ω`);
+        meter(450, Y0, 'A₁', 'I1', o.I1, 'A'); meter(450, yb, 'A₂', 'I2', o.I2, 'A');
+        ln([[a, yb], [a, 220], [370, 220]]); ln([[bb, yb], [bb, 220], [400, 220]]); meter(385, 220, 'V', 'Vp', o.Vp, 'V');
+      } else {
+        resH(400, Y0, `R = ${c.R} Ω`); C.push(`<line class="carrow" x1="366" y1="${Y0 + 22}" x2="434" y2="${Y0 - 22}" marker-end="url(#clArrow)"/>`);
+      }
+    } else {
+      // potential divider: ideal supply, fixed resistor above the sensor on the right
+      const sn = c.sensor, fl = speed(o.I, 'mA');
+      ln([[X0, CY], [X0, Y0], [X1, Y0], [X1, Y1], [X0, Y1], [X0, CY]], fl);
+      cell(X0, CY, false);
+      resV(X1, 110, `R = ${c.Rf} kΩ`, 1);
+      resV(X1, 230, `${sn === 'ldr' ? 'LDR' : 'Thermistor'}: ${f3(o.Rs)} kΩ`, 1);
+      if (sn === 'ldr') { C.push(`<circle class="cldr" cx="${X1}" cy="230" r="32"/>`); [[-58, -30], [-58, -10]].forEach(([dx, dy]) => C.push(`<line class="carrow" x1="${X1 + dx}" y1="${230 + dy}" x2="${X1 + dx + 22}" y2="${230 + dy + 10}" marker-end="url(#clArrow)"/>`)); }
+      else C.push(`<polyline class="carrow" points="${X1 - 26},${262} ${X1 - 18},${262} ${X1 + 18},${198}"/>`);
+      const yy = c.across === 'sensor' ? [190, 270, 230] : [70, 150, 110];
+      ln([[X1, yy[0]], [480, yy[0]], [480, yy[2] - 15]]); ln([[X1, yy[1]], [480, yy[1]], [480, yy[2] + 15]]); meter(480, yy[2], 'V', 'Vout', o.Vout, 'V', 'left');
+    }
+    return `<svg class="clsvg" viewBox="0 0 760 330" role="img" aria-label="Circuit diagram"><defs><marker id="clArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="carrowhead"/></marker></defs>${W.join('')}${C.join('')}${T.join('')}</svg>`;
+  }
+  /* ---------- controls ---------- */
+  function clSliders(c) {
+    const sl = (k, label, min, max, step, unit) => `<label class="cl-sl"><span><span>${label}</span><b class="num" id="clv-${k}">${c[k]}${unit ? ' ' + unit : ''}</b></span><input type="range" data-cl="${k}" min="${min}" max="${max}" step="${step}" value="${c[k]}" ${c.ch && !c.ch.done ? 'disabled' : ''}></label>`;
+    if (c.tab === 'divider') return sl('emf', 'Supply V<sub>in</sub>', 1, 12, 0.5, 'V') + sl('Rf', 'Fixed resistor R', 1, 100, 1, 'kΩ') + (c.sensor === 'ldr' ? sl('light', 'Light level', 1, 100, 1, '%') : sl('temp', 'Temperature', -10, 100, 1, '°C'));
+    return sl('emf', 'emf ε', 1, 12, 0.5, 'V') + sl('r', 'Internal resistance r', 0, 5, 0.1, 'Ω') + (c.tab === 'internal' ? sl('R', 'Variable resistor R', 0.5, 50, 0.5, 'Ω') : sl('R1', 'R₁', 1, 100, 1, 'Ω') + sl('R2', 'R₂', 1, 100, 1, 'Ω'));
+  }
+  function clGraph(c) {
+    if (c.tab !== 'internal') return '';
+    const pts = c.pts, fit = pts.length >= 3 ? linfit(pts.map(p => [p.I, p.V])) : null;
+    const xMax = Math.max(0.5, ...pts.map(p => p.I)) * 1.15, yMax = Math.max(c.emf, ...pts.map(p => p.V)) * 1.1;
+    const svg = pts.length ? graph({ xMax: +xMax.toPrecision(2), yMax: +yMax.toPrecision(2), xLabel: 'I / A', yLabel: 'V / V', points: pts.map(p => ({ x: p.I, y: p.V })), lines: fit ? [{ pts: [[0, fit.c], [-fit.c / fit.m, 0]], cls: 'g-fit' }] : [], aria: 'terminal pd against current' }) : '';
+    return `<section class="panel cl-graph"><h3>Your V–I Graph</h3><p class="muted small">Change R, then press <b>Record Reading</b>. With 3 or more points, the line of best fit gives the emf (V-intercept) and the internal resistance (−gradient).</p>
+      <div class="row"><button class="btn primary sm" id="clRec">Record Reading</button><button class="btn sm" id="clClearPts" ${pts.length ? '' : 'disabled'}>Clear Points</button><span class="muted small num">${pts.length} point${pts.length === 1 ? '' : 's'}</span></div>
+      ${svg ? `<div class="cl-gwrap">${svg}</div>` : ''}${fit ? `<p class="small">From your line: <b>ε ≈ ${f3(fit.c)} V</b> (intercept) and <b>r ≈ ${f3(-fit.m)} Ω</b> (−gradient). The cell's real values are ε = ${c.emf} V and r = ${c.r} Ω${c.ch ? '' : ''}.</p>` : ''}</section>`;
+  }
+  // challenge: random values, one meter hidden; the student predicts it, then checks
+  function clNewChallenge(c) {
+    const pick = (a) => a[Math.floor(Math.random() * a.length)];
+    c.emf = pick([1.5, 3, 4.5, 6, 9, 12]); c.r = pick([0, 0.5, 1, 1.5, 2]);
+    if (c.tab === 'series' || c.tab === 'parallel') { c.R1 = pick([5, 10, 12, 15, 20, 30, 40]); c.R2 = pick([5, 10, 15, 20, 25, 40, 60]); }
+    if (c.tab === 'internal') { c.R = pick([2, 3, 4, 5, 6, 8, 10, 12]); c.r = pick([0.5, 1, 1.5, 2, 3]); }
+    if (c.tab === 'divider') { c.Rf = pick([5, 10, 20, 47]); if (c.sensor === 'ldr') c.light = pick([5, 10, 20, 50, 100]); else c.temp = pick([0, 10, 25, 40, 60]); c.r = 0; }
+    const o = clSolve(c), ms = clMeters(c, o), m = pick(c.tab === 'divider' ? ms.filter(x => x[0] === 'Vout') : ms);
+    c.ch = { id: m[0], label: m[1], ans: m[2], unit: m[3], guess: null, done: false };
+  }
+  function renderSims(main) {
+    if (!SM.sim) {
+      main.innerHTML = head('Sims 🔬', 'Interactive simulations: change the values, watch what happens, then predict before you check.') + `<div class="mode-cards">${SIM_CARDS.map(([k, ic, name, tp, d]) => `<button type="button" class="mode-card sim-card" data-sim="${k}"><span class="wic" aria-hidden="true">${ic}</span><b>${name} <span class="pill info small">${tp}</span></b><span>${d}</span></button>`).join('')}
+        <div class="mode-card soon" aria-disabled="true"><span class="wic" aria-hidden="true">🌈</span><b>Energy Levels & Spectra <span class="pill neutral small">E.1</span></b><span>Coming soon</span></div></div>`;
+      return;
+    }
+    const c = SM.c, o = clSolve(c), hide = c.ch && !c.ch.done ? c.ch.id : null;
+    const tabs = `<div class="seg cl-tabs" role="group" aria-label="Circuit">${CL_TABS.map(([k, l]) => `<button type="button" data-cltab="${k}" aria-pressed="${c.tab === k}">${l}</button>`).join('')}</div>`;
+    const extra = c.tab === 'divider' ? `<div class="cl-opts"><div class="seg" role="group" aria-label="Sensor">${[['ldr', 'LDR'], ['therm', 'Thermistor']].map(([k, l]) => `<button type="button" data-clsensor="${k}" aria-pressed="${c.sensor === k}">${l}</button>`).join('')}</div><div class="seg" role="group" aria-label="Voltmeter across">${[['sensor', 'V<sub>out</sub> across sensor'], ['fixed', 'V<sub>out</sub> across R']].map(([k, l]) => `<button type="button" data-clacross="${k}" aria-pressed="${c.across === k}">${l}</button>`).join('')}</div></div>` : '';
+    const ch = c.ch;
+    const chPanel = ch ? `<div class="cl-ch ${ch.done ? (ch.ok ? 'ok' : 'no') : ''}"><p class="small" style="margin:0"><b>Challenge:</b> predict the reading on the <b>${ch.label}</b>.</p>
+        <div class="row"><input type="number" step="any" id="clGuess" ${ch.done ? 'disabled' : ''} value="${ch.guess ?? ''}" aria-label="Your prediction"><span>${ch.unit}</span>${ch.done ? '' : '<button class="btn primary sm" id="clCheck">Check</button>'}<button class="btn sm" id="clNew">${ch.done ? 'Next Challenge' : 'Skip'}</button><button class="btn sm ghost" id="clFree">Free Play</button></div>
+        ${ch.done ? `<p class="small">${ch.ok ? '✓ Correct' : '✗ Not quite'}: the reading is <b>${f3(ch.ans)} ${ch.unit}</b>${ch.guess !== null ? ` (you said ${ch.guess})` : ''}. ${SM.right}/${SM.n} correct${SM.streak > 1 ? ` · 🔥 ${SM.streak}` : ''}</p>` : '<p class="muted small">The sliders are locked until you check. Use the working panel below only after you have tried!</p>'}</div>`
+      : `<div class="row"><button class="btn primary" id="clNew">Start a Challenge</button><span class="muted small">Random values; one meter is hidden. Predict it, then check (within 2%).</span></div>`;
+    main.innerHTML = `<div class="mode-back"><button type="button" class="btn backbtn" id="smModes"><span aria-hidden="true">←</span> All Sims</button></div>` + head('Circuit Lab ⚡', 'B.5 Current and circuits. Ideal meters; the dashed box is a real cell: emf ε with internal resistance r. Moving dots show the conventional current.')
+      + `<section class="panel cl-wrap">${tabs}${extra}<div class="cl-grid"><div class="cl-diagram" id="clDiagram">${clSvg(c, o, hide)}</div>
+        <div class="cl-side"><div class="cl-sliders">${clSliders(c)}</div><div class="cl-read" id="clRead">${clMeters(c, o).map(([id, l, v, u]) => `<div class="cl-meter${hide === id ? ' hid' : ''}"><span>${l}</span><b class="num">${hide === id ? '?' : f3(v) + ' ' + u}</b></div>`).join('')}</div></div></div>
+        ${chPanel}
+        <details class="cl-work" ${ch && !ch.done ? '' : 'open'}><summary>How It Works</summary><ul>${clWorking(c, o).map(x => `<li>${x}</li>`).join('')}</ul></details></section>${clGraph(c)}`;
+    typeset(main);
+  }
+  function clRefresh() { // a slider moved: redraw the diagram, readings and working without rebuilding the page
+    const c = SM.c, o = clSolve(c);
+    const d = $('#clDiagram'); if (d) d.innerHTML = clSvg(c, o, null);
+    const rd = $('#clRead'); if (rd) rd.innerHTML = clMeters(c, o).map(([id, l, v, u]) => `<div class="cl-meter"><span>${l}</span><b class="num">${f3(v)} ${u}</b></div>`).join('');
+    const w = $('.cl-work ul'); if (w) { w.innerHTML = clWorking(c, o).map(x => `<li>${x}</li>`).join(''); typeset(w); }
+  }
+  function bindSims(main) {
+    main.oninput = (e) => {
+      const k = e.target.dataset && e.target.dataset.cl; if (!k || !SM.c) return;
+      SM.c[k] = +e.target.value; const lab = $('#clv-' + k); if (lab) lab.textContent = SM.c[k] + ({ emf: ' V', r: ' Ω', R: ' Ω', R1: ' Ω', R2: ' Ω', Rf: ' kΩ', light: ' %', temp: ' °C' }[k] || '');
+      clRefresh();
+    };
+    main.onclick = (e) => {
+      const b = e.target.closest('button'); if (!b) return;
+      if (b.dataset.sim) { SM = { sim: b.dataset.sim, c: clDefaults(), right: 0, n: 0, streak: 0 }; renderSims(main); return; }
+      if (b.id === 'smModes') { SM = { sim: null }; renderSims(main); return; }
+      const c = SM.c; if (!c) return;
+      if (b.dataset.cltab) { c.tab = b.dataset.cltab; c.ch = null; if (c.tab === 'divider') c.emf = Math.min(c.emf, 12); renderSims(main); return; }
+      if (b.dataset.clsensor) { c.sensor = b.dataset.clsensor; c.ch = null; renderSims(main); return; }
+      if (b.dataset.clacross) { c.across = b.dataset.clacross; c.ch = null; renderSims(main); return; }
+      if (b.id === 'clNew') { clNewChallenge(c); renderSims(main); const g = $('#clGuess'); if (g) g.focus(); return; }
+      if (b.id === 'clFree') { c.ch = null; renderSims(main); return; }
+      if (b.id === 'clCheck' && c.ch && !c.ch.done) {
+        const g = parseFloat(($('#clGuess') || {}).value); if (!isFinite(g)) { toast('Type your prediction first.'); return; }
+        c.ch.guess = g; c.ch.done = true; c.ch.ok = Math.abs(g - c.ch.ans) <= Math.max(0.02 * Math.abs(c.ch.ans), 0.005);
+        SM.n++; if (c.ch.ok) { SM.right++; SM.streak++; } else SM.streak = 0; renderSims(main); return;
+      }
+      if (b.id === 'clRec') { const o = clSolve(c); if (c.pts.some(p => Math.abs(p.I - o.I) < 1e-6)) { toast('You already recorded this reading: change R first.'); return; } c.pts.push({ I: o.I, V: o.Vt }); c.pts.sort((a, z) => a.I - z.I); renderSims(main); return; }
+      if (b.id === 'clClearPts') { c.pts = []; renderSims(main); return; }
+    };
+    main.onchange = (e) => { const k = e.target.dataset && e.target.dataset.cl; if (SM.c && SM.c.tab === 'internal' && (k === 'emf' || k === 'r') && SM.c.pts.length) { SM.c.pts = []; toast('You changed the cell, so your graph points were cleared.'); renderSims(main); } };
+    main.onkeydown = (e) => { if (e.target.id === 'clGuess' && e.key === 'Enter') { e.preventDefault(); const k = $('#clCheck'); if (k) k.click(); } };
+  }
   const VIEWS = {
-    practice: [renderPractice, bindPractice, 'Practice 🎯'], skills: [renderSkills, bindSkills, 'Skills 🧰'], recall: [renderRecall, bindRecall, 'Recall 🧠'], blitz: [renderGames, bindGames, 'Games 🕹️'],
+    practice: [renderPractice, bindPractice, 'Practice 🎯'], skills: [renderSkills, bindSkills, 'Skills 🧰'], recall: [renderRecall, bindRecall, 'Recall 🧠'], sims: [renderSims, bindSims, 'Sims 🔬'], blitz: [renderGames, bindGames, 'Games 🕹️'],
     notes: [renderNotes, bindNotes, 'Notes 📓'], exam: [renderExam, bindExam, 'Test 📝', true], stats: [renderStats, bindStats, 'Stats 📈'],
     about: [renderAbout, bindAbout, 'About', true], welcome: [renderWelcome, bindWelcome, 'Welcome', true],
   };
@@ -20048,7 +20261,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     main.onclick = main.onchange = main.oninput = main.onkeydown = null;
     clearInterval(paceTimer);
     lmsTheme();
-    const noRail = v === 'stats' || v === 'skills' || v === 'about' || v === 'welcome' || (v === 'exam' && !TEACHER); // 1.4: students in Test Mode see no sidebar (the code sets the topics)
+    const noRail = v === 'stats' || v === 'skills' || v === 'sims' || v === 'about' || v === 'welcome' || (v === 'exam' && !TEACHER); // 1.4: students in Test Mode see no sidebar (the code sets the topics)
     document.querySelector('.shell').classList.toggle('no-rail', noRail);
     if (!noRail) renderRail();
     VIEWS[v][0](main); VIEWS[v][1](main);
@@ -20090,6 +20303,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
       e.preventDefault(); const main = $('#main');
       if (v === 'blitz') { if ((GA && GA.phase === 'run') || LM) { toast('End the current game first.'); return; } if (GA) { GA.picked = false; GA.phase = 'setup'; } QU = null; document.documentElement.classList.remove('quest'); SFX.music(false); renderRail(); renderGames(main); bindGames(main); }
       else if (v === 'recall') { RC_PICKED = false; if (GM && GM.tm) clearInterval(GM.tm); GM = null; renderRecall(main); bindRecall(main); }
+      else if (v === 'sims') { SM = { sim: null }; renderSims(main); bindSims(main); }
       else if (v === 'skills') { if (UD && UD.phase === 'play' && UD.mode === 'chase') { toast('End the current game first.'); return; } if (UD) { clearInterval(UD.tm); UD = null; } SK = { mode: null }; renderSkills(main); bindSkills(main); }
       window.scrollTo(0, 0);
     });
