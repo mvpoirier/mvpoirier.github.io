@@ -1370,6 +1370,8 @@ details.class-games:not([open]), details.ug-fold:not([open]) { padding-bottom: 6
 .pill.crit-B { background: color-mix(in srgb, #0ea5e9 16%, var(--surface)); } .pill.crit-C { background: color-mix(in srgb, #a855f7 16%, var(--surface)); } .pill.crit-D { background: color-mix(in srgb, #f59e0b 18%, var(--surface)); }
 .gcard .gc-top .pill { margin-left: auto; font-size: 11px; }
 @media (min-width: 1100px) { .top-inner { gap: 12px 14px; } nav.tabs a { padding: 7px 8px; } }
+.sk-notes-h { margin: 26px 0 10px; font: 700 20px var(--f-display); display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.sknote .tid.crit-B { background: color-mix(in srgb, #0ea5e9 18%, var(--surface)); color: var(--ink); } .sknote .tid.crit-C { background: color-mix(in srgb, #a855f7 18%, var(--surface)); color: var(--ink); } .sknote .tid.crit-D { background: color-mix(in srgb, #f59e0b 20%, var(--surface)); color: var(--ink); }
 
 </style>
 </head>
@@ -8175,6 +8177,116 @@ const SKILLS = (() => {
   return { CARDS, gen: (id, R, y) => CARDS.find(c => c.id === id).gen(R, y) };
 })();
 
+/* Science Skills notes (Notes page): advice for Criteria B, C and D, by year. An idea is text (all years) or [firstYear, text]. */
+const SKILL_NOTES = [
+  { id: 'rq', crit: 'B', name: 'Research questions & variables', drill: null,
+    ideas: ['A <b>research question</b> names both variables: "How does the <i>independent variable</i> affect the <i>dependent variable</i>?" e.g. How does the temperature of water (°C) affect the time for a tablet to dissolve (s)?',
+      'The <b>independent variable (IV)</b> is the one you change on purpose. The <b>dependent variable (DV)</b> is the one you measure. <b>Control variables (CVs)</b> are kept the same so the test is fair.',
+      'For each control variable, say <b>why</b> it matters and <b>how</b> you will keep it the same (e.g. "Use 50 mL of acid measured with a 50 mL measuring cylinder, because more acid would react faster").',
+      'Plan a useful <b>range</b> of the IV: at least five values, spread evenly (e.g. 20, 30, 40, 50, 60 °C).',
+      [10, 'Make the research question measurable: include units and the range, e.g. "…over the range 20–60 °C".'],
+      [11, 'Justify the range and the number of values with background science or a pilot test, and say how you will measure the DV precisely (instrument and resolution).']],
+    mistakes: ['Writing a question with no measurable DV ("Does temperature affect dissolving?").', 'Listing control variables without saying how they are controlled.', 'Changing two variables at once.'] },
+  { id: 'hyp', crit: 'B', name: 'Hypotheses & predictions',
+    ideas: ['A hypothesis is a testable prediction <b>with a scientific reason</b>: <b>If</b> [IV change] <b>then</b> [DV change] <b>because</b> [science].',
+      'Example: If the temperature of the water increases, then the tablet will dissolve faster, because particles have more kinetic energy and collide more often.',
+      'The "because" must use science from the unit (particles, cells, forces…), not "because it makes sense".',
+      [10, 'Say the expected <b>pattern</b>, not just the direction: e.g. "the solubility will increase, but not in a straight line".'],
+      [11, 'Where you can, predict the mathematical relationship (proportional, inverse, levelling off) and link it to an equation from the unit.']],
+    mistakes: ['No "because", or a reason that is not scientific.', 'Predicting something you cannot measure.', 'Writing "I think…" instead of a clear If…then… statement.'] },
+  { id: 'method', crit: 'B', name: 'Planning a method & safety',
+    ideas: ['List the <b>equipment</b> with sizes (e.g. 100 mL beaker, thermometer reading to 1 °C).',
+      'Write <b>numbered steps</b> that someone else could follow exactly: quantities, times and how each variable is measured or controlled.',
+      'Plan to <b>repeat</b> each value of the IV at least three times so you can calculate a mean and spot anomalies.',
+      'Include a <b>risk assessment</b>: the hazard, the risk, and how you will reduce it (e.g. acid is corrosive → wear goggles, use dilute acid, wipe spills).',
+      [10, 'Explain how your method makes the results <b>valid</b> (fair test) and <b>reliable</b> (repeats).'],
+      [11, 'Consider ethics and the environment (living things, waste disposal) and justify your choice of equipment by its precision.']],
+    mistakes: ['Vague steps ("add some acid").', 'Forgetting how the DV is measured.', 'Safety that is generic ("be careful") instead of specific to the hazard.'] },
+  { id: 'measure', crit: 'B', name: 'Measuring, units & uncertainty',
+    ideas: ['Use <b>SI units</b>: metre (m), kilogram (kg), second (s), kelvin (K) or °C, and their prefixes: milli (m) = ÷ 1000, centi (c) = ÷ 100, kilo (k) = × 1000.',
+      'Read scales at eye level to avoid <b>parallax</b>; read a measuring cylinder at the bottom of the <b>meniscus</b>.',
+      'Zero (tare) a balance before measuring; check a thermometer is fully in the liquid.',
+      [10, 'The <b>resolution</b> of an instrument is its smallest division; a smaller division gives more <b>precise</b> readings.'],
+      [11, '<b>Uncertainty</b>: for an analogue scale use ± half the smallest division (a ruler marked in mm: ± 0.5 mm); for a digital reading use ± 1 in the last digit. Record values to match the instrument.']],
+    mistakes: ['Mixing units (mL and L) in one column.', 'Reading the top of the meniscus.', 'Recording more decimal places than the instrument can measure.'] },
+  { id: 'tables', crit: 'C', name: 'Data tables', drill: 'tab',
+    ideas: ['Put the <b>independent variable in the first column</b>, then the trials of the dependent variable, then the mean.',
+      'Every heading has the quantity <b>and its unit</b>, e.g. <i>Temperature (°C)</i>. Do not write units next to each number.',
+      'Record every value from the same instrument to the <b>same number of decimal places</b>.',
+      'Give the table a clear title, and mark any anomalies (e.g. with an asterisk*).',
+      [10, 'Separate <b>raw data</b> (what you measured) from <b>processed data</b> (means, % change) and show one worked example of each calculation.'],
+      [11, 'Include the uncertainty in the heading, e.g. <i>Time (s) ± 0.01 s</i>, and process uncertainties where needed.']],
+    mistakes: ['No units in the headings.', 'Inconsistent decimal places.', 'Hiding or deleting anomalies.'] },
+  { id: 'avg', crit: 'C', name: 'Averages, range & anomalies', drill: 'tab',
+    ideas: ['<b>Mean</b> = sum of the values ÷ number of values. Example: (14.6 + 15.4 + 15.1) ÷ 3 = 15.03 → 15.0.',
+      'An <b>anomaly</b> is a result that does not fit the pattern of the others. Identify it, leave it out of the mean, say why, and repeat that trial if you can.',
+      '<b>Range</b> = highest − lowest. A small range means the results are close together (more reliable).',
+      'Give a mean to the same number of decimal places as the data (or one more at most).',
+      [11, 'Half the range of the repeats is a simple estimate of the uncertainty in the mean: e.g. range 0.8 s → mean ± 0.4 s.']],
+    mistakes: ['Including an obvious anomaly in the mean.', 'Rounding a mean to more decimal places than the data justify.', 'Calling the range "the difference" without saying which values.'] },
+  { id: 'pct', crit: 'C', name: 'Percent change, error & difference', drill: 'tab',
+    ideas: ['<b>Percent change</b> = (new − original) ÷ original × 100. A negative answer is a decrease. Example: 40 → 50 is (50 − 40) ÷ 40 × 100 = +25%.',
+      [10, '<b>Percent error</b> compares your result with an accepted (true) value: % error = |measured − accepted| ÷ accepted × 100. Example: g measured as 9.2 m/s², accepted 9.81 m/s²: 0.61 ÷ 9.81 × 100 = 6.2%.'],
+      [10, '<b>Percent difference</b> compares two measured values when neither is "correct": % difference = |A − B| ÷ ((A + B) ÷ 2) × 100. Example: 12.0 and 13.0 → 1.0 ÷ 12.5 × 100 = 8.0%.'],
+      [10, 'Use % error to judge <b>accuracy</b>: a small % error means your result is close to the accepted value.'],
+      [11, 'Compare the % error with your uncertainty: if the % error is bigger than the % uncertainty, there is probably a systematic error.']],
+    mistakes: ['Dividing by the new value instead of the original (% change) or the accepted value (% error).', 'Forgetting to multiply by 100.', 'Leaving out the sign for a decrease (% change).'] },
+  { id: 'sf', crit: 'C', name: 'Rounding & significant figures', drill: 'sf',
+    ideas: ['<b>Rounding</b>: look at the next digit. 5 or more rounds up; 4 or less stays the same. 3.456 → 3.46 (2 decimal places).',
+      'Keep all the digits in the middle of a calculation and round only the final answer.',
+      [10, '<b>Significant figures</b> (s.f.) are the digits that carry meaning. Leading zeros do not count (0.0045 has 2 s.f.); zeros between digits do (305 has 3); trailing zeros after a decimal point do (2.50 has 3).'],
+      [11, 'For × and ÷, give the answer to the <b>fewest significant figures</b> in the data. For + and −, give it to the <b>fewest decimal places</b>.'],
+      [11, 'Round large numbers but keep their size: 45 678 to 2 s.f. is 46 000. Use scientific notation when the zeros are confusing: 4.6 × 10⁴.']],
+    mistakes: ['Copying every digit from the calculator.', 'Rounding in the middle of a calculation.', [10, 'Counting leading zeros as significant.']] },
+  { id: 'graph', crit: 'C', name: 'Graphing', drill: 'graph',
+    ideas: ['<b>Line graph</b> (scatter plot with a line of best fit) when the IV is continuous (numbers); <b>bar chart</b> when the IV is categories.',
+      'IV on the <b>x-axis</b>, DV on the <b>y-axis</b>, both labelled with quantity and unit. Choose an even scale that uses more than half of the grid.',
+      'Plot points with small crosses, then draw a smooth <b>line or curve of best fit</b> with points roughly balanced either side. Never join dot-to-dot.',
+      'Give the graph a title: "The effect of [IV] on [DV]".',
+      [10, 'Read between points (<b>interpolation</b>) with confidence; reading beyond the data (<b>extrapolation</b>) is less reliable.'],
+      [11, 'For a straight line, the <b>gradient</b> = Δy ÷ Δx (use a large triangle) and has units (y-unit ÷ x-unit); the <b>y-intercept</b> is where the line crosses the y-axis. Add error bars if you know the uncertainty.']],
+    mistakes: ['Uneven scales or scales that start at odd numbers.', 'Forcing the line through the origin or through every point.', 'Missing axis labels or units.'] },
+  { id: 'concl', crit: 'C', name: 'Describing trends & conclusions',
+    ideas: ['Describe the <b>trend</b> with data: "As the temperature increased from 20 °C to 60 °C, the time to dissolve decreased from 95 s to 30 s."',
+      '<b>Explain</b> the trend with science from the unit (the "because").',
+      'Say whether the data <b>support</b>, <b>partly support</b> or <b>do not support</b> the hypothesis, and quote data as evidence. Data support a hypothesis; they do not prove it.',
+      [10, 'Describe the shape: proportional, levelling off, a peak (optimum), and quote where it changes.'],
+      [11, 'Comment on the strength of the evidence: the spread of repeats, anomalies, the size of the uncertainty and the % error.']],
+    mistakes: ['Describing without numbers.', 'Saying the hypothesis is "proven".', 'Explaining something that is not in the data.'] },
+  { id: 'eval', crit: 'C', name: 'Evaluating the method', drill: 'eval',
+    ideas: ['<b>Reliable</b> = repeats give similar results. <b>Valid</b> = a fair test that measures what it should (control variables kept the same).',
+      '<b>Random errors</b> scatter results either way (e.g. reaction time with a stopwatch): reduce them with repeats and means. <b>Systematic errors</b> shift every result the same way (e.g. a balance not zeroed, heat lost to the air): repeats do not help, so fix the method.',
+      'For each weakness: say what it is, how it affected the results, and a <b>specific improvement</b> (e.g. "use a water bath set to 40 °C" not "be more careful").',
+      'Suggest an <b>extension</b>: a new question to investigate next.',
+      [10, '<b>Precise</b> = readings close to each other; <b>accurate</b> = close to the true value. Results can be precise but not accurate if there is a systematic error.'],
+      [11, 'Judge which weakness had the <b>biggest</b> effect, using your data (spread, anomalies, % error), and prioritise that improvement.']],
+    mistakes: ['Improvements that are not specific.', 'Blaming "human error" without saying what it was.', 'Thinking more repeats will remove a systematic error.'] },
+  { id: 'apa', crit: 'D', name: 'Referencing (APA 7)',
+    ideas: ['Cite every source you use, in the text and in a <b>reference list</b> at the end, in alphabetical order by author, with a hanging indent.',
+      '<b>In-text citation</b>: (Author, Year), e.g. (Smith, 2023) or Smith (2023) found that… For an organisation: (World Health Organization, 2024). If there is no date, use (n.d.).',
+      '<b>Website</b>: Author, A. A. (Year, Month Day). <i>Title of page</i>. Site Name. URL',
+      '<b>Journal article</b>: Author, A. A., & Author, B. B. (Year). Title of article. <i>Journal Name, volume</i>(issue), pages. https://doi.org/…',
+      '<b>Book</b>: Author, A. A. (Year). <i>Title of book</i>. Publisher.',
+      [10, 'For two authors cite (Lee & Patel, 2022); for three or more use the first author and "et al.": (Garcia et al., 2021).'],
+      [11, 'Quote rarely: paraphrase instead, and when you quote, add the page number: (Smith, 2023, p. 14).']],
+    mistakes: ['A reference list with no in-text citations (or the other way round).', 'Listing a URL only, with no author, date or title.', 'Citing Google or "the internet" as a source.'] },
+  { id: 'sources', crit: 'D', name: 'Choosing & judging sources',
+    ideas: ['Use a mix of reliable sources: government and university sites, science organisations, peer-reviewed articles and quality news.',
+      'Check each source (CRAAP test): <b>Currency</b> (how recent?), <b>Relevance</b>, <b>Authority</b> (who wrote it, what expertise?), <b>Accuracy</b> (evidence, citations?) and <b>Purpose</b> (to inform, sell or persuade?).',
+      'Be careful with sites that sell a product, campaign for a cause, or have no author.',
+      [10, 'Compare at least two sources: do they agree? If not, which is more reliable, and why?'],
+      [11, 'Explain how the reliability or bias of a source affects your argument, and use data from sources, not just opinions.']],
+    mistakes: ['Using only one source.', 'Trusting a source because it looks professional.', 'Not saying why a source is reliable.'] },
+  { id: 'impact', crit: 'D', name: 'Writing about impacts (Criterion D)',
+    ideas: ['Describe how the science is <b>applied</b> to solve a problem or meet a need, with a real example.',
+      'Discuss the <b>implications</b> from several viewpoints: social, economic, environmental, ethical, political and cultural. Give advantages <b>and</b> disadvantages.',
+      'Support each point with evidence from a cited source (data, examples, expert views).',
+      'Finish with a <b>concluding appraisal</b>: your judgement, weighing the arguments.',
+      [10, 'Use specific data and named examples; explain <b>why</b> each implication matters, and for whom.'],
+      [11, 'Evaluate: compare the strength of the arguments, consider short-term and long-term effects, and include counter-arguments before reaching a balanced conclusion.']],
+    mistakes: ['Only giving one side.', 'Opinions without evidence or citations.', 'A conclusion that does not answer the question.'] }
+];
+
 /* ---- engine.js ---- */
 /* ===== MYPoirier Science Lab: app =====
    Rail, practice sheet, markscheme ticks, spaced-repetition recall, notes panels, stats tabs and backup code. Organised for MYP: years → units → subtopics, Criterion A strands and level bands. */
@@ -8250,7 +8362,7 @@ const SKILLS = (() => {
 
   /* ---------- storage (device only) ---------- */
   const DEF = () => ({
-    settings: { theme: '', year: 11, sel: ALL_SUBS.slice(), crit: { i: true, ii: true, iii: true }, band: { 2: true, 4: true, 6: true, 8: true }, missedOnly: false, incCmd: true, rmode: 'flash', statsTab: 'practice', flipCards: false },
+    settings: { theme: '', year: 11, sel: ALL_SUBS.slice(), crit: { i: true, ii: true, iii: true }, band: { 2: true, 4: true, 6: true, 8: true }, missedOnly: false, incCmd: true, incSkills: true, rmode: 'flash', statsTab: 'practice', flipCards: false },
     log: [], cards: {}, missed: [], days: [], games: {}, skills: {}, newDay: { d: '', n: 0 }, seenWelcome: false,
   });
   function load() {
@@ -8343,6 +8455,7 @@ const SKILLS = (() => {
       <div class="rail-body">
         ${!practice ? '' : `<div class="missed-box ${S.missed.length ? 'has' : ''} ${st.missedOnly ? 'on' : ''}"><label class="switch"><input type="checkbox" id="missedOnly" ${st.missedOnly ? 'checked' : ''}> <span><b>Only Questions I've Missed</b> <span class="missed-n num">${S.missed.filter(id => QBY[id] && QBY[id].y === Y()).length}</span><small>${st.missedOnly ? 'On: practising your missed questions' : 'Questions you get wrong will collect here'}</small></span></label></div>`}
         ${recall || notes ? `<div class="fieldset cmd-box"><label class="switch"><input type="checkbox" id="railCmd" ${st.incCmd ? 'checked' : ''}> <span><b>Command Terms</b><small>${recall ? 'Include the command-term cards' : 'Show the command terms at the top of Notes'}</small></span></label></div>` : ''}
+        ${notes ? `<div class="fieldset cmd-box"><label class="switch"><input type="checkbox" id="railSkills" ${st.incSkills ? 'checked' : ''}> <span><b>Science Skills</b><small>Show advice for Criteria B, C and D after the unit notes</small></span></label></div>` : ''}
         ${!practice ? '' : `<div class="fieldset"><span class="lbl">Criterion A strand</span><div class="chips">${STRANDS.map(s => `<button class="chip s-${s.id}" data-crit="${s.id}" aria-pressed="${!!st.crit[s.id]}" data-tip="${esc(s.blurb)}">${s.label} ${s.name}</button>`).join('')}</div></div>
         ${v === 'test' ? '' : `<div class="fieldset"><span class="lbl">Level</span><div class="chips">${BANDS.map(b => `<button class="chip lv" data-band="${b}" aria-pressed="${!!st.band[b]}" data-tip="Achievement level ${BAND_LABEL[b]}">${BAND_LABEL[b]}</button>`).join('')}</div></div>`}`}
         <div class="fieldset"><span class="lbl">Units &amp; subtopics</span><div class="row" style="gap:6px"><button class="btn sm" id="selAll">Select All</button><button class="btn sm" id="selNone">Clear All</button><button class="btn sm" id="railFold" aria-pressed="${allFolded}">${allFolded ? 'Expand All' : 'Collapse All'}</button></div><div class="tree">${tree}</div></div>
@@ -8370,6 +8483,7 @@ const SKILLS = (() => {
       else if (i.dataset.unit) { const ks = CONTENT[i.dataset.unit].subs.map(s => `${i.dataset.unit}:${s.id}`); st.sel = i.checked ? [...new Set([...st.sel, ...ks])] : st.sel.filter(x => !ks.includes(x)); }
       else if (i.id === 'missedOnly') st.missedOnly = i.checked;
       else if (i.id === 'railCmd') st.incCmd = i.checked;
+      else if (i.id === 'railSkills') st.incSkills = i.checked;
       else return;
       save(); onSelectionChange();
     });
@@ -9688,7 +9802,17 @@ ${docWatermark(variant === 'ms' ? id : '')}${docFooter(msId)}</body></html>`;
           ${reportBox({ type: 'Problem', id: k, title: s.name, yu: unitLabel(u), where: 'Notes' })}</details>`;
       }).join('');
     }).join('');
-    main.innerHTML = head('Unit Notes 📓', 'Short notes for each subtopic ticked in the panel, in lesson order: key ideas, common mistakes and key terms.') + cmd + bar + (keys.length ? body : emptySel('Tick at least one subtopic in the panel.'));
+    const yv = (x) => Array.isArray(x) ? (x[0] <= Y() ? x[1] : null) : x;
+    const CRIT_NAME = { B: 'Inquiring and designing', C: 'Processing and evaluating', D: 'Reflecting on the impacts of science' };
+    const skills = !S.settings.incSkills ? '' : `<h3 class="sk-notes-h">🧰 Science Skills <span class="muted small">Year ${Y()}: advice for Criteria B, C and D</span></h3>` + ['B', 'C', 'D'].map(cr => SKILL_NOTES.filter(n => n.crit === cr).map(n => {
+      const k = 'sk-' + n.id, ideas = n.ideas.map(yv).filter(Boolean), mist = n.mistakes.map(yv).filter(Boolean);
+      return `<details class="panel note sknote" data-note="${k}" ${NOTE_OPEN.has(k) ? 'open' : ''}><summary><h3><span class="tid crit-${cr}" data-tip="Criterion ${cr}: ${CRIT_NAME[cr]}">${cr}</span>${esc(n.name)}</h3></summary>
+        <div class="cols"><div><h4 class="muted small" style="text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">How To</h4><ul>${ideas.map(x => `<li>${x}</li>`).join('')}</ul></div>
+        <div><h4 class="muted small" style="text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">Common Mistakes</h4><ul class="mist">${mist.map(x => `<li>${x}</li>`).join('')}</ul></div></div>
+        ${n.drill ? `<p class="small"><a href="#skills" data-skgo="${n.drill}">Practise this in Skills 🧰 →</a></p>` : ''}
+        ${reportBox({ type: 'Problem', id: k, title: n.name, yu: `Year ${Y()} Science Skills`, where: 'Notes' })}</details>`;
+    }).join('')).join('');
+    main.innerHTML = head('Unit Notes 📓', 'Short notes for each subtopic ticked in the panel, in lesson order: key ideas, common mistakes and key terms. Science Skills advice follows the unit notes.') + cmd + bar + (keys.length ? body : emptySel('Tick at least one subtopic in the panel.')) + skills;
   }
   // "More help": public videos, simulations and readings from the class slides (LINKS in links.js)
   const LINK_ICON = { video: '▶️', sim: '🧪', read: '📄', game: '🎲' };
@@ -9736,7 +9860,7 @@ ${docWatermark('')}${docFooter('')}</body></html>`;
   }
   function bindNotes(main) {
     if (!main.__noteT) { main.addEventListener('toggle', (e) => { const d = e.target; if (d.dataset && d.dataset.note) { if (d.open) NOTE_OPEN.add(d.dataset.note); else NOTE_OPEN.delete(d.dataset.note); } }, true); main.__noteT = true; }
-    main.onclick = (e) => { if (e.target.closest('#notesPrint')) { printNotes(); return; } const b = e.target.closest('[data-nall]'); if (!b) return; $$('details.note', main).forEach(d => { d.open = b.dataset.nall === '1'; }); };
+    main.onclick = (e) => { if (e.target.closest('#notesPrint')) { printNotes(); return; } const g = e.target.closest('[data-skgo]'); if (g) { SK = { mode: g.dataset.skgo, q: null, right: 0, n: 0, streak: 0 }; return; } const b = e.target.closest('[data-nall]'); if (!b) return; $$('details.note', main).forEach(d => { d.open = b.dataset.nall === '1'; }); };
   }
 
   /* ======================= STATS ======================= */
@@ -9836,7 +9960,7 @@ ${docWatermark('')}${docFooter('')}</body></html>`;
     { v: '0.2 alpha', d: '5 November 2026', items: ['New design: header, side panel, question sheet, markscheme ticks, spaced-repetition Recall (Flashcards, Pick’em!, Match It!), Notes panels, Stats tabs and backup code.', 'Every unit is split into subtopics, one per lesson topic, and every subtopic has questions for A i, A ii and A iii.', 'Unit games: Element Match (Year 9 Chemistry) and Graph It! (Year 11 Forces & Motion).', 'Notes for every subtopic with key ideas, common mistakes and key terms.'] },
     { v: '0.3 alpha', d: '5 November 2026', items: ['Games page grouped by unit, with Class Games for every year.', 'New unit games: Build-an-Atom and Periodic Mystery (Y9 Chemistry); Free-Body Builder, Stop in Time and suvat Sprint (Y11 Forces & Motion).', 'Blitz and Last Man Standing with class codes, using multiple-choice questions from the ticked subtopics.', 'Y9 Chemistry: a simplified Periodic Table (elements 1–20, whole-number atomic masses) on every question, in the header and in Notes.', 'Last Man Standing arena: ready screen, 3-2-1 countdown, synthesised music and sound effects, heartbeat in the last 30 seconds, Give Up and Game Over.', 'Code boxes start with their prefix (LMS-) and add capitals and dashes as you type.'] },
     { v: '0.4 alpha', d: '6 November 2026', items: ['New <b>Test</b> mode: a timed Criterion A test like the unit tests, with a section for each strand from level 1–2 to 7–8. Answers stay hidden until the end; the site marks short answers, you tick the markschemes for written answers, and each strand gets a best-fit level. Print your results, or use a TST- class code so everyone gets the same test.', 'New unit: <b>Year 11 Combustible Fuels</b> (8 subtopics, 55 question types): fuels and SDG 7, hydrocarbons, naming and isomers with drawn structural formulas, alcohols, crude oil and boiling point, combustion and balancing, enthalpy profiles and bond enthalpy, moles, energy per gram and emissions.', 'More question types matched to the unit tests: Y9 Disease (vectors, Jenner, Fleming, Ebola, bacterial growth, vaccine boosters), Y9 Chemistry (nuclear notation, particle tables, spotting Bohr-diagram errors, covalent names, evidence of chemical change, ionisation energy trends), Y11 Exchange & Transport (Boyle\'s law, the double circulation, valves, blood pressure, exercise spirometry, maximum heart rate) and Y11 Forces & Motion (crane tension, runway length, skydiver, multi-stage v–t graphs, theory vs real data).', 'Stop in Time: everyday objects in the road instead of people.', 'A <b>Data Booklet</b> button for every year in the header (and on questions that need it): the Periodic Table for Year 9 (elements 1–20), the full Periodic Table for Years 10 and 11, and the physics formula sheet for Year 11. Point at, tap or tab to any element for its details.', '<b>Hints</b> in Practice: up to three per question (a nudge, the method, then the first step). Stats shows how often you answer without hints.', 'New Year 11 Fuels games: <b>Isomer Hunt</b> and <b>Balance It!</b>', 'New Year 9 Chemistry activity: <b>Periodic People</b>. Arrange a family of secret agents into a table, build the missing one, then see the elements they stand for.', '<b>🚩 Report a Problem</b> on every question (including in Test mode), flashcard, note and the Data Booklet, and <b>💬 Send Feedback</b> in the footer: they open your teacher’s Google Form already filled in.', '<b>Pause</b> in Test mode: the timer stops and the questions are hidden until you resume. Pauses are shown with your results.', 'Online tests: show or hide the timer, and sound alerts at 30, 15 and 5 minutes left and when time is up (🔔 can be turned off).', 'Test mode is set up by your teacher: enter the TST- class code they give you. A code gives an online test, a worksheet or a test/exam to print (cover sheet, a section for each strand, the data booklet at the end), with or without the markscheme. Teachers unlock the full set-up with 🔑 Teacher access and can print a Student Copy, the Markscheme or Both.', 'The welcome card takes the colour of your year, and the revision history is grouped into collapsible stages.', 'Fixes: sorting questions always use every category; written-answer markschemes line up properly.'] },
-    { v: '0.5 alpha', d: '11 November 2026', items: ['Four new units: <b>Year 9 Unit 3, Evidence of a Changing Climate</b>; <b>Year 10 Unit 1, Population & Conservation</b> and <b>Year 10 Unit 2, Solution Chemistry</b> (games for Solution Chemistry come in 0.6); <b>Year 11 Unit 4, Digestion & Metabolism</b>. Each has questions for every strand and level, notes, recall cards, hints, Test mode and printables.', '<b>Year 9 Chemistry of Industry</b> now matches this year\'s unit: new questions on atomic radius, ionisation energy, group 1 and 17 reactivity, metal properties, relative atomic mass, Rutherford\'s experiment, atoms vs ions vs compounds, identifying elements from their properties, and choosing the correct Lewis or Bohr diagram. Equations and chemical change stay as practice-only <i>good to know</i> extras (not in tests). New games: <b>Bohr ↔ Lewis</b> and <b>Give or Share?</b>', 'New <b>Skills 🧰</b> section for lab and report skills (Criterion C): <b>Tables & Averages</b>, <b>Graphing</b>, <b>Evaluate It</b> and <b>Rounding & Sig Figs</b>. Endless questions with new values, pitched at your year, with a running score, streaks and Stats. Coming soon: Variables, Hypothesis Builder, Measure It, Lab Safety and Referencing (APA 7).', 'Games page: every section stays open, with smaller cards and a bar at the top to jump to Class Games or any unit.', 'For now the site shows <b>Units 1 and 2</b> in every year while they are refined; Units 3 and 4 come back in later builds.', 'New games: <b>Weather or Climate?</b> (Y9), <b>Oh Deer!</b> (Y10), <b>Digest It!</b> (Y11), and three Year 9 Chemistry games: <b>Element, Molecule or Compound?</b>, <b>Diagram Detective</b> (Bohr, Lewis and dot-and-cross diagrams) and <b>Ionic Matchmaker</b>.', '<b>Periodic People</b>: elements 1–20, 1, 2 or 3 missing characters, optional hints, and a new caterpillar theme.', 'Timed games: choose 3, 5 or 10 minutes, or your own time. suvat Sprint keeps the chosen equation on screen.', 'Test mode: about a quarter of the questions are kept for tests only, and tests use their own versions of the fact questions, so tests always include questions you have not practised.', 'New questions: fields and pressure (Y11 Forces & Motion); chemical and physical change, and forces between molecules (Y9 Chemistry).', 'Free-body diagrams show the ground when there is a normal force, and labels are never cut off. Speeds are in m s<sup>−1</sup>; km h<sup>−1</sup> appears only in an optional "good to know" question.', 'Notes: <b>More Help</b> links (videos, simulations and readings from the class slides) and <b>Print/PDF</b>; notes now start straight with the subtopics.', 'One <b>Data Booklet & Command Terms</b> button in the header. A clearer <b>All Games</b> button; the Games tab also returns to the list of games.', 'All codes now start with <b>MYP-</b>. Year 10 is blue.', 'Test Mode: <b>Online</b> or <b>Printable</b> codes; teachers choose whether to use test-only questions, results printing, retakes, the cover sheet and answer space; a pace bar with alert lines, Sound on/off and a Pace timer switch.', 'Last Man Standing: the starting time is locked into the code.'] },
+    { v: '0.5 alpha', d: '11 November 2026', items: ['Four new units: <b>Year 9 Unit 3, Evidence of a Changing Climate</b>; <b>Year 10 Unit 1, Population & Conservation</b> and <b>Year 10 Unit 2, Solution Chemistry</b> (games for Solution Chemistry come in 0.6); <b>Year 11 Unit 4, Digestion & Metabolism</b>. Each has questions for every strand and level, notes, recall cards, hints, Test mode and printables.', '<b>Year 9 Chemistry of Industry</b> now matches this year\'s unit: new questions on atomic radius, ionisation energy, group 1 and 17 reactivity, metal properties, relative atomic mass, Rutherford\'s experiment, atoms vs ions vs compounds, identifying elements from their properties, and choosing the correct Lewis or Bohr diagram. Equations and chemical change stay as practice-only <i>good to know</i> extras (not in tests). New games: <b>Bohr ↔ Lewis</b> and <b>Give or Share?</b>', 'New <b>Skills 🧰</b> section for lab and report skills (Criterion C): <b>Tables & Averages</b>, <b>Graphing</b>, <b>Evaluate It</b> and <b>Rounding & Sig Figs</b>. Endless questions with new values, pitched at your year, with a running score, streaks and Stats. Coming soon: Variables, Hypothesis Builder, Measure It, Lab Safety and Referencing (APA 7).', '<b>Science Skills</b> in Notes: how-to advice for Criteria B, C and D at your year level (variables, hypotheses, methods, measuring, tables, averages, % change/error/difference, rounding and significant figures, graphing, conclusions, evaluating, APA 7 referencing, judging sources and writing about impacts), with links to the matching Skills drills. Turn it on or off in the panel.', 'Games page: every section stays open, with smaller cards and a bar at the top to jump to Class Games or any unit.', 'For now the site shows <b>Units 1 and 2</b> in every year while they are refined; Units 3 and 4 come back in later builds.', 'New games: <b>Weather or Climate?</b> (Y9), <b>Oh Deer!</b> (Y10), <b>Digest It!</b> (Y11), and three Year 9 Chemistry games: <b>Element, Molecule or Compound?</b>, <b>Diagram Detective</b> (Bohr, Lewis and dot-and-cross diagrams) and <b>Ionic Matchmaker</b>.', '<b>Periodic People</b>: elements 1–20, 1, 2 or 3 missing characters, optional hints, and a new caterpillar theme.', 'Timed games: choose 3, 5 or 10 minutes, or your own time. suvat Sprint keeps the chosen equation on screen.', 'Test mode: about a quarter of the questions are kept for tests only, and tests use their own versions of the fact questions, so tests always include questions you have not practised.', 'New questions: fields and pressure (Y11 Forces & Motion); chemical and physical change, and forces between molecules (Y9 Chemistry).', 'Free-body diagrams show the ground when there is a normal force, and labels are never cut off. Speeds are in m s<sup>−1</sup>; km h<sup>−1</sup> appears only in an optional "good to know" question.', 'Notes: <b>More Help</b> links (videos, simulations and readings from the class slides) and <b>Print/PDF</b>; notes now start straight with the subtopics.', 'One <b>Data Booklet & Command Terms</b> button in the header. A clearer <b>All Games</b> button; the Games tab also returns to the list of games.', 'All codes now start with <b>MYP-</b>. Year 10 is blue.', 'Test Mode: <b>Online</b> or <b>Printable</b> codes; teachers choose whether to use test-only questions, results printing, retakes, the cover sheet and answer space; a pace bar with alert lines, Sound on/off and a Pace timer switch.', 'Last Man Standing: the starting time is locked into the code.'] },
   ];
   function renderAbout(main) {
     const rows = LIVE_UNITS.map(u => { const qs = Q.filter(q => q.uid === u.id); return `<tr><td><b>Y${u.y} U${u.n}</b> ${esc(u.title)}</td><td class="num">${CONTENT[u.id].subs.length}</td>${STRANDS.map(s => `<td class="num">${qs.filter(q => q.s === s.id).length}</td>`).join('')}<td class="num"><b>${qs.length}</b></td><td class="num">${CARDS.filter(c => c.uid === u.id).length}</td></tr>`; }).join('');
