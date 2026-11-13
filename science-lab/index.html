@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--
   MYPoirier Science Lab: MYP Science Criterion A revision (Years 9-11, MYP 3-5)
-  Version: 1.0 · Built: 13 November 2026
+  Version: 1.1 · Built: 13 November 2026
   Author: Mike Poirier (https://github.com/mvpoirier), developed with Claude by Anthropic
   Terms: © 2026 Mike Poirier. All rights reserved. Free for students and teachers for their own study and classroom teaching; any other copying, hosting, adapting or commercial or tutoring use needs written permission.
   Site: https://mvpoirier.github.io/science-lab/
@@ -1139,7 +1139,7 @@ details.hist-stage > ol.history { margin-top: 12px; }
 @media print {
   .print-only { display: block !important; }
   .doc-foot { margin-top: 18px; padding-top: 8px; border-top: 1px solid #bbb; font-size: 8pt; color: #555; }
-  @page { @bottom-left { content: "MYPoirier Science Lab · 1.0 · © 2026 Mike Poirier · All rights reserved · Not for commercial or tutoring use · mvpoirier.github.io/science-lab"; font: 7pt "IBM Plex Sans", Arial, sans-serif; color: #888; } @bottom-right { content: "Page " counter(page) " of " counter(pages); font: 7pt "IBM Plex Sans", Arial, sans-serif; color: #888; } }
+  @page { @bottom-left { content: "MYPoirier Science Lab · 1.1 · © 2026 Mike Poirier · All rights reserved · Not for commercial or tutoring use · mvpoirier.github.io/science-lab"; font: 7pt "IBM Plex Sans", Arial, sans-serif; color: #888; } @bottom-right { content: "Page " counter(page) " of " counter(pages); font: 7pt "IBM Plex Sans", Arial, sans-serif; color: #888; } }
 }
 #termsInfo, #creditsInfo { scroll-margin-top: 84px; }
 
@@ -1393,13 +1393,19 @@ details.class-games:not([open]), details.ug-fold:not([open]) { padding-bottom: 6
 .test-entry .te-row { display: flex; align-items: center; gap: 14px 20px; flex-wrap: wrap; }
 .test-entry .te-lab { display: flex; flex-direction: column; gap: 2px; margin-right: auto; }
 .test-entry .te-teacher { margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--line); justify-content: flex-start; }
+/* Beta 1.1 codes: the Games code box and the Make a Code row */
+.gcode { display: flex; align-items: center; gap: 10px 18px; flex-wrap: wrap; padding: 14px 18px; margin-bottom: 14px; }
+.gcode .lbl { margin-right: auto; display: flex; flex-direction: column; gap: 2px; }
+.code-row { display: flex; align-items: center; gap: 8px 12px; flex-wrap: wrap; margin: 10px 0; }
+.code-row .lbl { font-weight: 600; font-size: 14px; }
+.code-chip { padding: 5px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); font-family: var(--f-mono); }
 
 </style>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="logoMark" viewBox="0 0 120 120"><rect x="2" y="2" width="116" height="116" rx="28" fill="#141B3D" stroke="#2A3366" stroke-width="2"/><circle cx="22" cy="24" r="1.5" fill="#FFFFFF"/><circle cx="100" cy="26" r="1.5" fill="#AEB6D9"/><circle cx="98" cy="98" r="1.5" fill="#FFFFFF"/><circle cx="60" cy="104" r="1.2" fill="#AEB6D9"/><g fill="none" stroke="#C9D0EE" stroke-width="3"><ellipse cx="60" cy="60" rx="46" ry="17"/><ellipse cx="60" cy="60" rx="46" ry="17" transform="rotate(60 60 60)"/><ellipse cx="60" cy="60" rx="46" ry="17" transform="rotate(120 60 60)"/></g><circle cx="60" cy="60" r="11" fill="#FFD166"/><circle cx="106" cy="60" r="7" fill="#34D399" stroke="#141B3D" stroke-width="2"/><circle cx="37" cy="20.2" r="7" fill="#60A5FA" stroke="#141B3D" stroke-width="2"/><circle cx="37" cy="99.8" r="7" fill="#C4B5FD" stroke="#141B3D" stroke-width="2"/></symbol></defs></svg>
 <header class="top"><div class="top-inner">
-  <div class="brand"><h1><svg class="logo-mark" aria-hidden="true"><use href="#logoMark"></use></svg><b class="mvp"><span class="y9c">M</span><span class="y10c">Y</span><span class="y11c">P</span></b>oirier Science Lab <span class="beta-tag" title="Beta build for testing: version 1.0">BETA 1.0</span></h1></div>
+  <div class="brand"><h1><svg class="logo-mark" aria-hidden="true"><use href="#logoMark"></use></svg><b class="mvp"><span class="y9c">M</span><span class="y10c">Y</span><span class="y11c">P</span></b>oirier Science Lab <span class="beta-tag" title="Beta build for testing: version 1.1">BETA 1.1</span></h1></div>
   <nav class="tabs" id="tabs" aria-label="Modes"></nav>
   <div class="hbar">
     <div class="course-seg year-seg" id="yearSeg" role="group" aria-label="Year"></div>
@@ -1414,7 +1420,7 @@ details.class-games:not([open]), details.ug-fold:not([open]) { padding-bottom: 6
 </div>
 <footer class="site-foot"><div class="foot-wrap">
   <div class="foot-inner">
-    <div class="foot-brand"><div class="foot-name"><svg class="logo-mark" aria-hidden="true"><use href="#logoMark"></use></svg><b class="mvp"><span class="y9c">M</span><span class="y10c">Y</span><span class="y11c">P</span></b>oirier Science Lab <span class="beta-tag">BETA 1.0</span></div></div>
+    <div class="foot-brand"><div class="foot-name"><svg class="logo-mark" aria-hidden="true"><use href="#logoMark"></use></svg><b class="mvp"><span class="y9c">M</span><span class="y10c">Y</span><span class="y11c">P</span></b>oirier Science Lab <span class="beta-tag">BETA 1.1</span></div></div>
     <nav class="foot-links" aria-label="Site">
       <a href="#about">About</a>
       <a href="#about" data-terms="1">Terms of Use</a>
@@ -8638,7 +8644,7 @@ const SKILL_NOTES = [
    Rail, practice sheet, markscheme ticks, spaced-repetition recall, notes panels, stats tabs and backup code. Organised for MYP: years → units → subtopics, Criterion A strands and level bands. */
 (function () {
   'use strict';
-  const VERSION = '1.0', BUILT = '13 November 2026';
+  const VERSION = '1.1', BUILT = '13 November 2026';
   const KEY = 'myp-science-lab.v1';
   const DAY = 864e5;
   const $ = (s, el = document) => el.querySelector(s);
@@ -9062,15 +9068,14 @@ const SKILL_NOTES = [
     P.q = q; P.seed = newSeed(); P.inst = buildInst(q, P.seed); P.st = newState(); P.logged = false; P.t0 = now(); P.tUsed = 0;
   }
   // Test Mode lives at the bottom of Practice (as in MVPhysics Lab): enter a class code here
-  let PENDING_TEST = '';
   const testEntry = () => `<section class="panel test-entry" aria-label="Test Mode"><div class="te-row"><div class="te-lab"><b>Test Mode 📝</b><span class="muted small">Got a class code from your teacher?</span></div>
-    <div class="codeform">${codeBoxHTML('pxCodeIn', 'MYP', 'Class code', '')}<button class="btn primary sm" id="pxUse">Open Test</button></div></div>
-    <div class="te-row te-teacher small">${TEACH ? '🔓 Teacher access is on for this device. <a class="btn sm primary" href="#test">Set Up a Test</a>' : '<a class="linkbtn" href="#test">🔑 Teacher access</a>'}</div></section>`;
+    <div class="codeform">${codeBoxHTML('pxCodeIn', 'T', 'Class code (starts MYP-T-)', '')}<button class="btn primary sm" id="pxUse">Open Test</button></div></div>
+    ${TEACH ? '<div class="te-row te-teacher small">🔓 Teacher access is on for this device. <a class="btn sm primary" href="#test">Set Up a Test</a><button type="button" class="linkbtn" id="tLockPx">Lock</button></div>' : ''}</section>`;
   document.addEventListener('click', (e) => {
-    const b = e.target.closest('#pxUse'); if (!b) return;
-    const v = ($('#pxCodeIn') || {}).value || '';
-    if (!tstDecode(v)) { toast("That code isn't valid. Check it and try again."); return; }
-    PENDING_TEST = v; location.hash = '#test';
+    if (e.target.closest('#tLockPx')) { teacherLock(); toast('Teacher access is off for this device.'); render(); return; }
+    const b = e.target.closest('#pxUse'); if (!b || b.disabled) return;
+    const v = ($('#pxCodeIn') || {}).value || ''; b.disabled = true;
+    tryTeacher(v).then(ok => { b.disabled = false; if (ok) { if (location.hash === '#test') render(); else location.hash = '#test'; return; } if (!routeCode(v, 'practice')) { PENDING_CODE = v; location.hash = '#test'; } });
   });
   document.addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target && e.target.id === 'pxCodeIn') { e.preventDefault(); const b = $('#pxUse'); if (b) b.click(); } });
   function renderPractice(main) {
@@ -9167,7 +9172,24 @@ const SKILL_NOTES = [
     'y11-balance-it': 'Balance combustion equations against the clock.', 'y11-digest-it': 'Follow a meal: enzymes, products and where.'
   };
   const gameCard = (g) => { const best = S.games[g.id]; return `<button type="button" class="mode-card gcard" data-game="${g.id}"><span class="gc-top"><span class="wic" aria-hidden="true">${g.icon}</span><b>${g.name}</b></span><span class="gc-d">${GAME_SHORT[g.id] || g.desc}</span>${best ? `<span class="muted small num gc-best">Best: ${g.bestText(best)}</span>` : ''}</button>`; };
+  const gameCodeBox = () => `<section class="panel gcode"><label class="lbl" for="gcIn"><b>Have a game code?</b> <span class="muted small">Codes start MYP-G-</span></label><div class="codeform">${codeBoxHTML('gcIn', 'G', 'Game code (starts MYP-G-)', '')}<button class="btn primary sm" id="gcUse">Go</button></div></section>`;
+  // open a game from a MYP-G- code (typed in the Games box, or forwarded from another box)
+  function openGameCode(v) {
+    const pc = parseCode(v); if (!pc || pc.cat !== 'G') return false;
+    const id = GAME_CODES[pc.game], c = id === 'lms' ? lmsDecode(v) : null;
+    if (!c) { toast(BAD_CODE); return true; }
+    if (c.y !== Y()) { S.settings.year = c.y; save(); applyYear(); }
+    const g = gameById(id); GA = { id: g.id, ...g.start(makeR(newSeed())) }; GA.code = c; GA.codeIn = '';
+    startTimer(); render(); return true;
+  }
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('#gcUse'); if (!b || b.disabled) return;
+    const v = ($('#gcIn') || {}).value || ''; b.disabled = true;
+    tryTeacher(v).then(ok => { b.disabled = false; if (ok) { location.hash = '#test'; return; } if (!routeCode(v, 'games')) openGameCode(v); });
+  });
+  document.addEventListener('keydown', (e) => { if (e.target && e.target.id === 'gcIn' && e.key === 'Enter') { e.preventDefault(); const g = document.getElementById('gcUse'); if (g) g.click(); } });
   function renderGames(main) {
+    if (PENDING_CODE && (parseCode(PENDING_CODE) || {}).cat === 'G') { const v = PENDING_CODE; PENDING_CODE = null; GA = null; if (openGameCode(v)) return; }
     if (!GA || GA.id !== 'lms') lmsTheme();
     if (!GA) {
       const list = gamesForYear(), cls = yearLive().length ? list.filter(g => g.y === 0) : [];
@@ -9178,7 +9200,7 @@ const SKILL_NOTES = [
         return `<section class="unit-games empty" id="ug-${u.id}">${hd}<p class="muted small ug-soon">${live ? 'Games for this unit are coming soon. In the meantime, try Blitz or Last Man Standing with this unit ticked.' : 'This unit is coming soon.'}</p></section>`;
       }).join('');
       const jump = `<nav class="games-jump" aria-label="Jump to a game section">${cls.length ? `<button type="button" class="chip" data-gjump="classGames">🏁 Class Games</button>` : ''}${yearUnits().map(u => `<button type="button" class="chip" data-gjump="ug-${u.id}" title="${esc(u.title)}">${u.em} Unit ${u.n} · ${esc(u.subject)}</button>`).join('')}</nav>`;
-      main.innerHTML = head('Games 🕹️', 'Race the clock, beat your best and challenge your class.') + jump +
+      main.innerHTML = head('Games 🕹️', 'Race the clock, beat your best and challenge your class. Choose a game, or enter a code from your teacher or a friend.') + gameCodeBox() + jump +
         (cls.length ? `<section class="unit-games class-games" id="classGames"><div class="ug-head"><span class="ug-em" aria-hidden="true">🏁</span><div><span class="ug-n">All Year ${Y()} units</span><h3>Class Games</h3></div></div><div class="mode-cards">${cls.map(gameCard).join('')}</div></section>` : '') + unitPanels;
       return;
     }
@@ -9266,23 +9288,44 @@ const SKILL_NOTES = [
   const B32 = '0123456789ABCDEFGHJKMNPQRSTVWXYZ';
   const toB32 = (big) => { let t = ''; while (big > 0n) { t = B32[Number(big & 31n)] + t; big >>= 5n; } return t; };
   const fromB32 = (str) => { let big = 0n; for (const ch of str) { const i = B32.indexOf(ch); if (i < 0) return null; big = big * 32n + BigInt(i); } return big; };
-  const codeGroup = (t) => 'MYP-' + t.match(/.{1,4}/g).join('-');
+  /* Beta 1.1 (as MVPhysics Lab since Beta 1.5): every code is MYP-<category>-<body>. MYP-T- = Test Mode; MYP-G-<game letter> = a game's
+     shared set-up; L, P, C and S are reserved ("coming soon"). A code typed in the wrong box is sent where it belongs. Older Science Lab
+     codes (no category letter) show one "older version" message. Lists that codes index into (subtopics per year) only ever grow at the end. */
+  const groups4 = (t) => (t.match(/.{1,4}/g) || []).join('-');
+  const CODE_CATS = { T: 'Test Mode', G: 'Games', L: 'Online Lobby', P: 'Practice Set', C: 'Card Deck', S: 'Skills' };
+  const GAME_CODES = { S: 'lms' };
+  const SOON_CATS = { L: 'Online lobby codes are coming soon.', P: 'Practice Set codes are coming soon.', C: 'Card Deck codes are coming soon.', S: 'Skills codes are coming soon.' };
+  const OLD_CODE = 'This code is from an older version of MYPoirier Science Lab. Ask your teacher for a new code.';
+  const BAD_CODE = "That code isn't valid. Check it and try again.";
+  function parseCode(str) {
+    let t = String(str || '').toUpperCase().replace(/[^0-9A-Z]/g, '');
+    if (/^(BLZ|LMS|TST)/.test(t)) return { old: true };
+    if (!t.startsWith('MYP') || t.length < 5) return null;
+    t = t.slice(3); let cat = t[0]; if (cat === '1' || cat === 'I') cat = 'L';
+    if (!CODE_CATS[cat]) return { old: true };
+    t = t.slice(1); let game = null;
+    if (cat === 'G') { game = t[0]; t = t.slice(1); if (!GAME_CODES[game]) return { cat, bad: true }; }
+    t = t.replace(/O/g, '0').replace(/[IL]/g, '1');
+    const big = fromB32(t); if (big === null || big === 0n) return { cat, game, bad: true };
+    return { cat, game, big };
+  }
+  const codeStr = (cat, game, big) => `MYP-${cat}-` + groups4((game || '') + toB32(big));
   const lmsPool = (c) => Q.filter(q => q.mcqOnly && inPractice(q) && q.y === c.y && c.subs.includes(q.subKey));
   const fp10 = (list) => { let h = 5381; for (const ch of list.map(q => q.qid).sort().join('|')) h = ((h * 33) ^ ch.charCodeAt(0)) >>> 0; return h & 0x3ff; };
   function lmsEncode(c) {
     let big = 1n; const put = (v, n) => { big = (big << BigInt(n)) | BigInt(v); };
-    const keys = yearSubKeys(c.y); put(2, 3); put(c.y - 9, 2); put(c.seed & 0xfffff, 20); put(c.fp & 0x3ff, 10); put(Math.max(0, LMS_STARTS.indexOf(c.startMin || 3)), 2); put(keys.length, 6); keys.forEach(k => put(c.subs.includes(k) ? 1 : 0, 1));
-    return codeGroup(toB32(big));
+    const keys = yearSubKeys(c.y); put(3, 3); put(c.y - 9, 2); put(c.seed & 0xfffff, 20); put(c.fp & 0x3ff, 10); put(Math.max(0, LMS_STARTS.indexOf(c.startMin || 3)), 2); put(keys.length, 6); keys.forEach(k => put(c.subs.includes(k) ? 1 : 0, 1));
+    return codeStr('G', 'S', big);
   }
   function lmsDecode(str) {
-    const t = String(str || '').toUpperCase().replace(/^(MYP|LMS)/, '').replace(/[^0-9A-Z]/g, '').replace(/O/g, '0').replace(/[IL]/g, '1');
-    const big = fromB32(t); if (!big) return null; const bits = big.toString(2).slice(1); let pos = 0;
+    const pc = parseCode(str); if (!pc || pc.cat !== 'G' || pc.game !== 'S' || !pc.big) return null;
+    const big = pc.big, bits = big.toString(2).slice(1); let pos = 0;
     const take = (n) => { const v = parseInt(bits.slice(pos, pos + n) || '0', 2); pos += n; return v; };
-    if (bits.length < 41) return null; const ver = take(3); if (ver !== 1 && ver !== 2) return null;
-    const y = 9 + take(2), seed = take(20), fp = take(10), startMin = ver === 2 ? LMS_STARTS[take(2)] : 3, n = take(6), keys = yearSubKeys(y); if (!YEARS.some(Y => Y.y === y)) return null;
+    if (bits.length < 43 || take(3) !== 3) return null;
+    const y = 9 + take(2), seed = take(20), fp = take(10), startMin = LMS_STARTS[take(2)], n = take(6), keys = yearSubKeys(y); if (!YEARS.some(Y => Y.y === y)) return null;
     const subs = []; for (let i = 0; i < n; i++) if (take(1) && keys[i]) subs.push(keys[i]);
     const c = { y, seed, fp, subs, startMin }; if (!subs.length || !lmsPool(c).length) return null;
-    c.fpOk = fp10(lmsPool(c)) === fp; c.str = codeGroup(t); return c;
+    c.fpOk = fp10(lmsPool(c)) === fp; c.str = codeStr('G', 'S', big); return c;
   }
   function lmsMake(startMin) { const subs = yearSubKeys(Y()).filter(k => subOK(k)); const c = { y: Y(), seed: 1 + Math.floor(Math.random() * 0xffffe), subs, startMin: startMin || 3 }; if (!subs.length || !lmsPool(c).length) return null; c.fp = fp10(lmsPool(c)); c.fpOk = true; c.str = lmsEncode(c); return c; }
   // same code → same order; the level rises from 1–2 to 7–8 as the game goes on
@@ -9295,21 +9338,39 @@ const SKILL_NOTES = [
   }
   /* ---------- Code boxes: start with the prefix, capitals and dashes added while you type ---------- */
   // used for every class-code box (Last Man Standing now; test codes later)
-  const codeBoxHTML = (id, prefix, label, value) => `<input type="text" class="codebox-in" id="${id}" data-codeprefix="${prefix}" value="${esc(value || prefix + '-')}" autocomplete="off" autocapitalize="characters" spellcheck="false" inputmode="text" aria-label="${label}">`;
-  function formatCode(raw, prefix) {
-    let t = String(raw || '').toUpperCase();
-    if (t.startsWith(prefix)) t = t.slice(prefix.length);
-    t = t.replace(/O/g, '0').replace(/[IL]/g, '1').replace(/[^0-9A-Z]/g, '').replace(/U/g, '');
-    return `${prefix}-${(t.match(/.{1,4}/g) || []).join('-')}`;
+  // a code box starts MYP-<category>- ; capitals and a dash every 4 characters as you type or paste; a whole pasted code replaces the prefix
+  const codeBoxHTML = (id, cat, label, value) => `<input type="text" class="codebox-in codein" id="${id}" data-prefix="MYP-${cat}" value="${esc(value || `MYP-${cat}-`)}" autocomplete="off" autocapitalize="characters" spellcheck="false" inputmode="text" aria-label="${esc(label)}">`;
+  function fmtCodeBox(el) {
+    const def = (el.dataset.prefix || 'MYP-T').slice(4);
+    let raw = el.value.toUpperCase().replace(/[^0-9A-Z]/g, '');
+    if (/^(BLZ|LMS|TST)/.test(raw) || (raw && 'MYP'.startsWith(raw) && raw !== 'MYP')) { el.value = raw; return; } // an old code, or the start of MYP- typed into an empty box
+    let cat = def; const catOf = (ch) => (ch === '1' || ch === 'I' ? 'L' : ch);
+    // wantCat: MYP was typed again with nothing after it yet, so the next letter typed is the category (stops a doubled MYP-MYP-)
+    const wantCat = el.dataset.wantCat === '1'; el.dataset.wantCat = '';
+    while (raw.startsWith('MYP')) { raw = raw.slice(3); if (raw[0]) { cat = catOf(raw[0]); raw = raw.slice(1); } else el.dataset.wantCat = '1'; }
+    if (wantCat) { if (!raw) el.dataset.wantCat = '1'; else if (CODE_CATS[catOf(raw[0])]) { cat = catOf(raw[0]); raw = raw.slice(1); } }
+    el.value = `MYP-${cat}-` + groups4(raw);
   }
-  function bindCodeBox(el) {
-    if (!el || el.dataset.bound) return; el.dataset.bound = '1';
-    const prefix = el.dataset.codeprefix;
-    const fix = () => { const before = el.value, caretAtEnd = el.selectionStart >= before.length; const v = formatCode(before, prefix); if (v !== before) { el.value = v; if (caretAtEnd) el.setSelectionRange(v.length, v.length); } };
-    el.addEventListener('input', fix);
-    el.addEventListener('keydown', (e) => { if ((e.key === 'Backspace' || e.key === 'Delete') && el.selectionStart <= prefix.length + 1 && el.selectionEnd <= prefix.length + 1) e.preventDefault(); });
-    el.addEventListener('focus', () => { if (!el.value) el.value = prefix + '-'; setTimeout(() => el.setSelectionRange(el.value.length, el.value.length), 0); });
-    el.addEventListener('paste', () => setTimeout(fix, 0));
+  document.addEventListener('input', (e) => { const el = e.target; if (el && el.classList && el.classList.contains('codein')) { const atEnd = el.selectionStart >= el.value.length; fmtCodeBox(el); if (atEnd) el.setSelectionRange(el.value.length, el.value.length); } });
+  function bindCodeBox() {} // formatting is handled for every .codein box by the listener above
+  // the Make a Code row used in game set-ups (code entry itself is only in the box at the top of Games)
+  const codeRow = (kind, cur, hint) => cur
+    ? `<div class="code-row"><span class="lbl">Shared code</span><span class="code-chip"><span class="code-str num">${cur.str}</span></span><button class="btn sm" id="${kind}Copy">Copy</button><button class="btn sm btn-clear" id="${kind}Clear">Clear</button><span class="muted small">${hint}</span></div>`
+    : `<div class="code-row"><span class="lbl">Shared code <span class="muted small">optional</span></span><button class="btn sm" id="${kind}Make">Make a Code</button><span class="muted small">${hint}</span></div>`;
+  /* send a code to the right place: Test Mode codes open Test Mode, Games codes open their game. Returns true when it handled the code
+     (moved elsewhere or showed a message); false when the code belongs where it was typed. */
+  let PENDING_CODE = null;
+  function routeCode(v, here) {
+    const pc = parseCode(v);
+    if (!pc) { toast(BAD_CODE); return true; }
+    if (pc.old) { toast(OLD_CODE); return true; }
+    if (SOON_CATS[pc.cat]) { toast(SOON_CATS[pc.cat]); return true; }
+    if (pc.bad) { toast(BAD_CODE); return true; }
+    const want = pc.cat === 'T' ? 'test' : 'games';
+    if (want === 'test' ? !tstDecode(v) : (GAME_CODES[pc.game] === 'lms' && !lmsDecode(v))) { toast(BAD_CODE); return true; }
+    if (want === here) return false;
+    PENDING_CODE = v; if (!(here === 'practice' && want === 'test')) toast(want === 'test' ? 'That is a Test Mode code: opening Test Mode.' : 'That is a Games code: opening Games.');
+    location.hash = want === 'test' ? '#test' : '#games'; return true;
   }
 
   /* ---------- Last Man Standing sound: synthesised with Web Audio (no files), as in MVPhysics Lab ---------- */
@@ -9408,16 +9469,16 @@ const SKILL_NOTES = [
     render(G) {
       if (G.phase === 'setup') {
         const c = G.code;
-        return `<section class="panel lms-intro"><h3>Last Man Standing 💀</h3><ul class="lms-rules"><li>Everyone starts with <b>${c ? c.startMin : G.startMin} minutes</b> on the clock${c ? ' (set by the code)' : ' (the person who makes the code chooses it, and it is locked into the code)'}.</li><li>Right answer: <b>+60 s</b>. Wrong answer: <b>−60 s</b>.</li><li>Everyone with the same code gets the same questions in the same order, and they get harder as you go.</li><li>Last one standing wins.</li></ul>
-          ${c ? `<div class="codebox"><div class="code-str num">${c.str}</div><div class="small">Starting time: <b>${c.startMin} min</b> · Year ${c.y} · ${c.subs.length} subtopic${c.subs.length > 1 ? 's' : ''}: ${esc(c.subs.map(k => SUB[k].name).join(', '))} · ${lmsPool(c).length} question types</div>
-              ${c.fpOk ? '' : '<p class="warn small">This code was made with a different version of the question bank, so your questions may not match everyone else\'s. Ask for a new code.</p>'}
-              <div class="row"><button class="btn primary" id="lmsGo">Enter 💀</button><button class="btn sm" id="lmsCopy">Copy Code</button><button class="btn sm ghost" id="lmsClear">Use a Different Code</button></div></div>`
-            : `<p class="muted small">This mode needs a code so everyone faces the same questions. One person creates it from the subtopics ticked in the panel on the left and shares it.</p>
-              <div class="codeform">${codeBoxHTML('lmsIn', 'MYP', 'Last Man Standing code', G.codeIn)}<button class="btn sm" id="lmsJoin">Use Code</button><span class="muted small">or</span><button class="btn sm primary" id="lmsMake">Make a Code</button></div>${G.err ? `<p class="small" style="color:var(--bad)">${G.err}</p>` : ''}`}
-          ${c ? '' : `<div class="lms-start"><span class="muted small">Starting time:</span><div class="chips" role="group" aria-label="Starting time">${LMS_STARTS.map(m => `<button type="button" class="chip" data-lmt="${m}" aria-pressed="${G.startMin === m}">${m} min</button>`).join('')}</div></div>`}
-          ${S.games.lms ? `<p class="muted small">Your best survival time: <b class="num">${fmtClock(S.games.lms.time)}</b></p>` : ''}</section>`;
+        return `<section class="panel lms-intro"><h3>Last Man Standing 💀</h3><ul class="lms-rules"><li>You start with <b>${c ? c.startMin : G.startMin} minutes</b> on the clock${c ? ' (set by the code)' : ''}.</li><li>Right answer: <b>+60 s</b>. Wrong answer: <b>−60 s</b>.</li><li>Everyone with the same code gets the same questions in the same order, and they get harder as you go.</li><li>Last one standing wins.</li></ul>
+          <p class="muted small">Play on your own, or make a code from the subtopics ticked in the panel and share it so your class faces the same questions. Got a code? Enter it in the <b>Have a game code?</b> box at the top of Games.</p>
+          ${c ? `<p class="small">Year ${c.y} · ${c.subs.length} subtopic${c.subs.length > 1 ? 's' : ''}: ${esc(c.subs.map(k => SUB[k].name).join(', '))} · ${lmsPool(c).length} question types</p>${c.fpOk ? '' : '<p class="warn small">This code was made with a different version of the question bank, so your questions may not match everyone else\'s. Ask for a new code.</p>'}
+              <p class="small lms-start"><b>Starting time:</b> ${c.startMin} min, set by the code.</p>`
+            : `<div class="lms-start"><span class="muted small">Starting time:</span><div class="chips" role="group" aria-label="Starting time">${LMS_STARTS.map(m => `<button type="button" class="chip" data-lmt="${m}" aria-pressed="${G.startMin === m}">${m} min</button>`).join('')}</div></div>`}
+          ${codeRow('lms', c, 'Everyone with this code gets the same questions in the same order, with the same starting time.')}${G.err ? `<p class="small" style="color:var(--bad)">${G.err}</p>` : ''}
+          ${S.games.lms ? `<p class="muted small">Your best survival time: <b class="num">${fmtClock(S.games.lms.time)}</b></p>` : ''}
+          <div class="row"><button class="btn primary" id="lmsGo">Play 💀</button></div></section>`;
       }
-      if (G.phase === 'ready') return soundBtn() + `<section class="lms-stage"><div class="lms-skull" aria-hidden="true">💀</div><h2 class="lms-title">LAST MAN STANDING</h2><div class="code-str num">${G.code.str}</div>
+      if (G.phase === 'ready') return soundBtn() + `<section class="lms-stage"><div class="lms-skull" aria-hidden="true">💀</div><h2 class="lms-title">LAST MAN STANDING</h2>${G.solo ? `<div class="small muted">Playing on your own</div>` : `<div class="code-str num">${G.code.str}</div>`}
         <p class="lms-sub">Wait until everyone is in the arena.${SFX.isOn() ? ' Sound is on 🔊' : ''}</p><button class="btn primary lms-go" id="lmsReady">Everyone's Ready</button><button class="btn ghost sm" id="lmsLeave">Leave</button></section>`;
       if (G.phase === 'count') return soundBtn() + `<section class="lms-stage"><div class="lms-count" id="lmsCount" aria-live="assertive">${G.lastCount || ''}</div></section>`;
       if (G.phase === 'run') {
@@ -9444,7 +9505,8 @@ const SKILL_NOTES = [
         if (b.id === 'lmsJoin') { G.codeIn = typed(); const c = lmsDecode(G.codeIn); if (!c) { G.err = 'That code was not recognised. Check it and try again.'; return true; } G.code = c; G.err = null; return true; }
         if (b.id === 'lmsCopy' && G.code) { try { navigator.clipboard.writeText(G.code.str); toast('Code copied.'); } catch (e) { toast(G.code.str); } return false; }
         if (b.id === 'lmsClear') { G.code = null; G.codeIn = ''; return true; }
-        if (b.id === 'lmsGo' && G.code) { SFX.unlock(); G.phase = 'ready'; return { rail: true }; }
+        // Play: with a shared code, or on your own (a private set from the ticked subtopics and the chosen starting time)
+        if (b.id === 'lmsGo') { if (!G.code) { const c = lmsMake(G.startMin); if (!c) { G.err = 'Tick at least one subtopic with multiple-choice questions first.'; return true; } G.code = c; G.solo = true; } G.err = ''; SFX.unlock(); G.phase = 'ready'; return { rail: true }; }
         return false;
       }
       if (b.id === 'lmsLeave' || b.id === 'lmsEnd') { SFX.music(false); Object.assign(G, { phase: 'setup', end: null, saved: false }); return { rail: true }; }
@@ -9473,7 +9535,7 @@ const SKILL_NOTES = [
     bestText: (best) => `lasted ${fmtClock(best.time)} (${best.correct} correct)`
   };
   GAMES.unshift(blitzGame, lmsGame);
-  window.__CODE = { lmsEncode, lmsDecode, lmsMake, lmsSeq, lmsPool };
+  window.__CODE = { lmsEncode, lmsDecode, lmsMake, lmsSeq, lmsPool, parseCode };
 
   /* ======================= TEST MODE =======================
      A timed Criterion A test like the unit tests: a section for each strand, questions from level 1–2 up to 7–8.
@@ -9482,30 +9544,30 @@ const SKILL_NOTES = [
   let TS = null, tsTimer = null;
   const TS_MIN = { 2: 1.5, 4: 2.5, 6: 4, 8: 6 }; // minutes allowed per question at each level band
   const tsPool = (c) => Q.filter(q => inTest(q) && (c.tonly !== false || !q.testOnly) && q.y === c.y && c.subs.includes(q.subKey) && c.strands.includes(q.s));
-  const tstGroup = (t) => 'MYP-' + t.match(/.{1,4}/g).join('-');
   const TS_KINDS = [['online', 'Online', 'A timed test taken on screen'], ['print', 'Printable', 'A paper to print or save as a PDF']];
   const kindName = (k) => (TS_KINDS.find(x => x[0] === k) || TS_KINDS[0])[1];
   function tstEncode(c) {
     let big = 1n; const put = (v, n) => { big = (big << BigInt(n)) | BigInt(v); };
     // format 4 (0.5): kind is Online or Printable, plus the layout, results, test-only and retake switches
-    const keys = yearSubKeys(c.y); put(4, 3); put(c.y - 9, 2); put(c.seed & 0xfffff, 20); put(c.fp & 0x3ff, 10);
+    const keys = yearSubKeys(c.y); put(5, 3); put(c.y - 9, 2); put(c.seed & 0xfffff, 20); put(c.fp & 0x3ff, 10);
     STRANDS.forEach(s => put(c.strands.includes(s.id) ? 1 : 0, 1)); put(c.per - 1, 1); put(c.strict ? 1 : 0, 1); put(c.kind === 'print' ? 1 : 0, 1); put(c.ms ? 1 : 0, 1);
     put(c.cover ? 1 : 0, 1); put(c.space ? 1 : 0, 1); put(c.results ? 1 : 0, 1); put(c.tonly === false ? 0 : 1, 1); put(c.retake ? 1 : 0, 1);
     put(keys.length, 6); keys.forEach(k => put(c.subs.includes(k) ? 1 : 0, 1));
-    return tstGroup(toB32(big));
+    return codeStr('T', null, big);
   }
   function tstDecode(str) {
-    const t = String(str || '').toUpperCase().replace(/^(MYP|TST)/, '').replace(/[^0-9A-Z]/g, '').replace(/O/g, '0').replace(/[IL]/g, '1');
-    const big = fromB32(t); if (!big) return null; const bits = big.toString(2).slice(1); let pos = 0;
+    const pc = parseCode(str); if (!pc || pc.cat !== 'T' || !pc.big) return null;
+    const big = pc.big, bits = big.toString(2).slice(1); let pos = 0;
     const take = (n) => { const v = parseInt(bits.slice(pos, pos + n) || '0', 2); pos += n; return v; };
-    if (bits.length < 49 || take(3) !== 4) return null;
+    if (bits.length < 49 || take(3) !== 5) return null;
     const y = 9 + take(2), seed = take(20), fp = take(10); if (!YEARS.some(Y => Y.y === y)) return null;
     const strands = STRANDS.filter(() => take(1)).map(s => s.id), per = take(1) + 1, strict = !!take(1), kind = take(1) ? 'print' : 'online', ms = !!take(1);
     const cover = !!take(1), space = !!take(1), results = !!take(1), tonly = !!take(1), retake = !!take(1), n = take(6), keys = yearSubKeys(y);
     const subs = []; for (let i = 0; i < n; i++) if (take(1) && keys[i]) subs.push(keys[i]);
     const c = { y, seed, fp, strands, per, strict, kind, ms, cover, space, results, tonly, retake, subs }; if (!subs.length || !strands.length || !tsPool(c).length) return null;
-    c.fpOk = fp10(tsPool(c)) === fp; c.str = tstGroup(t); return c;
+    c.fpOk = fp10(tsPool(c)) === fp; c.str = codeStr('T', null, big); return c;
   }
+  window.__TESTCODE = (y) => { const subs = yearSubKeys(y).filter(k => (SUB[k] || {}).live !== false && Q.some(q => q.subKey === k)); const c = { y, seed: 12345, strands: ['i', 'ii', 'iii'], per: 1, strict: true, kind: 'online', ms: false, cover: true, space: true, results: true, tonly: true, retake: false, subs }; c.fp = fp10(tsPool(c)); return tstEncode(c); };
   function tsConfig() {
     const k = TS.kind || 'online', pr = k === 'print';
     return { y: Y(), seed: 1 + Math.floor(Math.random() * 0xffffe), strands: STRANDS.map(s => s.id).filter(s => TS.strands[s]), per: TS.per, strict: TS.strict, kind: k, ms: pr && !!TS.ms, cover: pr && TS.cover !== false, space: pr && TS.space !== false, results: !pr && TS.results !== false, tonly: TS.tonly !== false, retake: !pr && !!TS.retake, subs: yearSubKeys(Y()).filter(k2 => subOK(k2)) };
@@ -9585,10 +9647,11 @@ const SKILL_NOTES = [
      Without teacher access, Test mode shows only a class code box. The page stores only a PBKDF2-SHA256 hash of the
      passphrase. A correct passphrase is remembered (lightly masked) on this device and re-checked against the hash on
      every load, so a hand-set flag does nothing. This stops students and casual users; it is not a server-side lock. */
-  const TEACHER = { salt: 'mypoirier-science-lab:teacher:v1', hash: '73a5d0fe17c83e96e3d89fecce5ade5e37cf34a7bc0698818096ee06351f23f0', iter: 200000, key: 'myp-science-lab.tk' };
+  const TEACHER = { salt: 'myp-science-lab:teacher:v1', hash: 'c3ca7a92b76fc2e875bf29ecca9aeeee7e53fd215c58836b6e00ffa6f502a44c', iter: 200000, key: 'myp-science-lab.tk' };
+  const tNorm = (t) => String(t || '').toUpperCase().replace(/[^0-9A-Z]/g, '');
   let TEACH = false;
   async function teacherHash(pass) {
-    const enc = new TextEncoder(), k = await crypto.subtle.importKey('raw', enc.encode(pass), 'PBKDF2', false, ['deriveBits']);
+    const enc = new TextEncoder(), k = await crypto.subtle.importKey('raw', enc.encode(tNorm(pass)), 'PBKDF2', false, ['deriveBits']);
     const bits = await crypto.subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-256', salt: enc.encode(TEACHER.salt), iterations: TEACHER.iter }, k, 256);
     return [...new Uint8Array(bits)].map(b => b.toString(16).padStart(2, '0')).join('');
   }
@@ -9601,6 +9664,12 @@ const SKILL_NOTES = [
     if (await teacherHash(pass) !== TEACHER.hash) return 'wrong';
     TEACH = true; if (remember) { try { localStorage.setItem(TEACHER.key, maskPass(pass)); } catch (e) { /* ignore */ } }
     return 'ok';
+  }
+  // a teacher types MYP-T- plus the shared passphrase into any code box (no visible teacher login)
+  async function tryTeacher(v) {
+    const t = tNorm(v); if (!t.startsWith('MYPT') || t.length < 9 || !cryptoOK()) return false;
+    let r = 'wrong'; try { r = await teacherUnlock(t.slice(4)); } catch (e) { return false; }
+    if (r !== 'ok') return false; toast('Teacher access on for this device.'); return true;
   }
   function teacherLock() { TEACH = false; try { localStorage.removeItem(TEACHER.key); } catch (e) { /* ignore */ } }
   async function teacherRestore() {
@@ -9772,7 +9841,7 @@ ${docWatermark(variant === 'ms' ? id : '')}${docFooter(msId)}</body></html>`;
 
   function renderTest(main) {
     if (!TS) TS = { phase: 'setup', strands: { i: true, ii: true, iii: true }, per: 1, strict: true, code: null };
-    if (PENDING_TEST && TS.phase === 'setup') { const c = tstDecode(PENDING_TEST); PENDING_TEST = ''; if (c) { if (c.y !== Y()) { S.settings.year = c.y; save(); applyYear(); } TS.code = c; TS.typed = ''; } }
+    if (PENDING_CODE && TS.phase === 'setup') { const c = tstDecode(PENDING_CODE); PENDING_CODE = null; if (!c) toast(BAD_CODE); else { if (c.y !== Y()) { S.settings.year = c.y; save(); applyYear(); } TS.code = c; TS.typed = ''; } }
     if (TS.phase === 'run') return renderTestRun(main);
     if (TS.phase === 'review') return renderTestReview(main);
     if (!TEACH) return renderTestStudent(main);
@@ -9800,16 +9869,15 @@ ${docWatermark(variant === 'ms' ? id : '')}${docFooter(msId)}</body></html>`;
         <div class="exrow"><div class="exlab">Cover sheet</div><div class="exctl"><div class="seg" role="group" aria-label="Cover sheet">${seg('tscov', 'on', 'On', TS.cover !== false)}${seg('tscov', 'off', 'Off', TS.cover === false)}</div><span class="muted small">${TS.cover !== false ? 'Name, time allowed, instructions, the sections and levels, and the data booklet at the end.' : 'A short heading with name, date and class.'}</span></div></div>
         <div class="exrow"><div class="exlab">Answer space</div><div class="exctl"><div class="seg" role="group" aria-label="Answer space">${seg('tssp', 'on', 'On', TS.space !== false)}${seg('tssp', 'off', 'Off', TS.space === false)}</div><span class="muted small">${TS.space !== false ? 'Lined space for working and written answers.' : 'Compact: answer lines only.'}</span></div></div>`}
         <div class="exrow"><div class="exlab">Class code <span class="exopt">optional</span></div><div class="exctl">
-          <div class="codeform">${codeBoxHTML('tsCodeIn', 'MYP', 'Class code', TS.typed)}<button class="btn sm" id="tsUse">Use</button><button class="btn sm primary" id="tsMake">Make a Code</button></div>
-          <span class="muted small">Same code, same questions for everyone. Uses the ticked subtopics and the settings above.</span></div></div>`;
-    main.innerHTML = head('Test Mode 📝', 'Set up a test, then share its class code.') + `
+          <div class="row"><button class="btn sm primary" id="tsMake">Make a Code</button></div>
+          <span class="muted small">Same code, same questions for everyone. Uses the ticked subtopics and the settings above. To open a code, type it in the Test Mode box at the bottom of Practice.</span></div></div>`;
+    main.innerHTML = '<nav class="mode-back games-back" aria-label="Test Mode"><a class="btn backbtn" href="#practice"><span aria-hidden="true">←</span> Back to Practice</a></nav>' + head('Test Mode 📝', 'Set up a test, then share its class code.') + `
       <section class="panel exset">${settings}
         <div class="exgo"><div class="row">${(TS.code ? TS.code.kind : TS.kind || 'online') === 'online' ? '<button class="btn primary" id="tsStart">Start Test</button><button class="btn" id="prOpen">🖨 Print/PDF</button>' : '<button class="btn primary" id="prOpen">🖨 Print/PDF</button>'}</div>
           <div class="row ex-out"><span class="muted small">Print:</span><div class="seg" role="group" aria-label="What to print">${[['student', 'Student Copy'], ['ms', 'Markscheme'], ['both', 'Both']].map(([k, l]) => seg('tsout', k, l, (TS.out || 'both') === k)).join('')}</div><span class="muted small">${(TS.out || 'both') === 'student' ? 'What students get.' : (TS.out || 'both') === 'ms' ? 'Overview and markscheme.' : 'Questions, then markscheme.'}</span></div>
           <p class="muted small" id="prStatus">Opens in a new tab: print, or Save as PDF. The class code appears only on the markscheme.</p></div>
       </section>
       ${(S.tests || []).filter(t => t.y === Y()).length ? `<section class="panel"><h3>Your Recent Tests</h3>${tsHistory()}</section>` : ''}${teacherBar()}`;
-    bindCodeBox($('#tsCodeIn', main));
   }
   const onOff = (v) => v ? 'on' : 'off';
   function tsCodeSummary(c) {
@@ -9832,18 +9900,12 @@ ${docWatermark(variant === 'ms' ? id : '')}${docFooter(msId)}</body></html>`;
         <p class="muted small">Short answers are marked for you; you mark written answers with the markscheme.${c.retake ? '' : ' You can take this test once.'}</p></div>`)
         : `<div class="exgo"><p class="small">A test to print${c.cover ? ', with a cover sheet and the data booklet' : ''}. ${c.ms ? 'The markscheme is at the end.' : 'Your teacher has the markscheme.'}</p>
           <div class="row"><button class="btn primary" id="prOpen">🖨 Print/PDF</button></div><p class="muted small" id="prStatus"></p></div>`}`
-      : `<div class="exrow"><div class="exlab">Class code</div><div class="exctl"><div class="codeform">${codeBoxHTML('tsCodeIn', 'MYP', 'Class code', TS.typed)}<button class="btn sm primary" id="tsUse">Use</button></div>
-        <span class="muted small">The code decides the test: an online test, or a test to print.</span></div></div>
+      : `<div class="exrow"><div class="exlab">Class code</div><div class="exctl"><p class="small" style="margin:0">Type the class code from your teacher (it starts <b>MYP-T-</b>) in the <b>Test Mode</b> box at the bottom of Practice.</p>
+        <div class="row"><a class="btn sm primary" href="#practice">Go to Practice</a></div></div></div>
         <p class="muted small">For practice on your own, use Practice, Games and Recall.</p>`;
-    main.innerHTML = head('Test Mode 📝', c ? 'A test set by your teacher.' : 'Tests set by your teacher. Enter the class code your teacher gives you.') + `
+    main.innerHTML = '<nav class="mode-back games-back" aria-label="Test Mode"><a class="btn backbtn" href="#practice"><span aria-hidden="true">←</span> Back to Practice</a></nav>' + head('Test Mode 📝', c ? 'A test set by your teacher.' : 'Tests set by your teacher. Enter the class code your teacher gives you.') + `
       <section class="panel exset">${box}</section>
-      ${(S.tests || []).filter(t => t.y === Y()).length ? `<section class="panel"><h3>Your Recent Tests</h3>${tsHistory()}</section>` : ''}
-      <div class="teacher-access"><button type="button" class="linkbtn small" id="tOpen" aria-expanded="${!!TS.tForm}">🔑 Teacher access</button>
-        ${TS.tForm ? `<form class="tform" id="tForm" autocomplete="off"><label class="small" for="tPass">Teacher passphrase</label><div class="row"><input type="password" id="tPass" class="ans" autocomplete="current-password" aria-label="Teacher passphrase"><button class="btn sm primary" type="submit">Unlock</button></div>
-          <p class="muted small" id="tMsg">${cryptoOK() ? 'Teacher access stays on for this device until you press Lock.' : 'Teacher access needs a secure page (https). Open the site from mvpoirier.github.io.'}</p></form>` : ''}</div>`;
-    bindCodeBox($('#tsCodeIn', main));
-    const f = $('#tForm', main);
-    if (f) { const inp = $('#tPass', f); inp.focus(); f.onsubmit = async (e) => { e.preventDefault(); const msg = $('#tMsg', f); msg.textContent = 'Checking…'; const r = await teacherUnlock(inp.value); if (r === 'ok') { TS.tForm = false; render(); toast('Teacher access is on for this device.'); } else { msg.textContent = r === 'nocrypto' ? 'Teacher access needs a secure page (https).' : 'That passphrase is not right.'; inp.select(); } }; }
+      ${(S.tests || []).filter(t => t.y === Y()).length ? `<section class="panel"><h3>Your Recent Tests</h3>${tsHistory()}</section>` : ''}`;
   }
   function tsHistory() {
     const rows = (S.tests || []).filter(t => t.y === Y()).slice(-8).reverse().map(t => `<tr><td>${new Date(t.ts).toLocaleDateString()}</td><td class="num">${t.n}</td>${STRANDS.map(s => `<td class="num">${t.levels[s.id] != null ? t.levels[s.id] : '–'}</td>`).join('')}<td class="num"><b>${t.levels.all}</b></td><td class="num">${fmtClock(t.used)}</td><td class="num">${t.pauses || 0}</td><td class="small muted">${t.code || ''}</td></tr>`).join('');
@@ -9921,7 +9983,6 @@ ${docWatermark(variant === 'ms' ? id : '')}${docFooter(msId)}</body></html>`;
       const b = e.target.closest('button'); if (!b) return;
       if (TS.phase === 'setup') {
         const d = b.dataset;
-        if (b.id === 'tOpen') { TS.tForm = !TS.tForm; render(); return; }
         if (b.id === 'tLock') { teacherLock(); TS.code = null; render(); toast('Teacher access is off. Test mode now shows only the class code box.'); return; }
         if (!TEACH && !['tsUse', 'tsClear', 'tsStart', 'prOpen'].includes(b.id)) return; // students can only use a code
         if (b.id === 'prOpen') { tsPrint('open', TS.out || 'both'); if (TEACH) renderTest(main); return; }
@@ -10276,7 +10337,7 @@ ${docWatermark('')}${docFooter('')}</body></html>`;
 
   /* ======================= WELCOME and ABOUT ======================= */
   const WMODES = [
-    ['practice', '🎯', 'Practice', 'One question at a time for every Criterion A strand (A i, A ii, A iii) and level from 1–2 to 7–8, with worked solutions and markschemes. Test Mode is at the bottom: enter the MYP- code your teacher gives you.'],
+    ['practice', '🎯', 'Practice', 'One question at a time for every Criterion A strand (A i, A ii, A iii) and level from 1–2 to 7–8, with worked solutions and markschemes. Test Mode is at the bottom: enter the MYP-T- code your teacher gives you.'],
     ['skills', '🧰', 'Skills', 'Drills for the skills behind every criterion: command terms, tables and averages, graphing, evaluating, significant figures and APA 7 referencing.'],
     ['recall', '🧠', 'Recall', 'Learn the key terms and command terms that earn marks, with flashcards that come back just before you forget them.'],
     ['sims', '🔬', 'Sims', 'Interactive simulations for each unit: change the values, predict, then check. Coming soon.'],
@@ -10322,6 +10383,7 @@ ${docWatermark('')}${docFooter('')}</body></html>`;
     { v: '0.3 alpha', d: '5 November 2026', items: ['Games page grouped by unit, with Class Games for every year.', 'New unit games: Build-an-Atom and Periodic Mystery (Y9 Chemistry); Free-Body Builder, Stop in Time and suvat Sprint (Y11 Forces & Motion).', 'Blitz and Last Man Standing with class codes, using multiple-choice questions from the ticked subtopics.', 'Y9 Chemistry: a simplified Periodic Table (elements 1–20, whole-number atomic masses) on every question, in the header and in Notes.', 'Last Man Standing arena: ready screen, 3-2-1 countdown, synthesised music and sound effects, heartbeat in the last 30 seconds, Give Up and Game Over.', 'Code boxes start with their prefix (LMS-) and add capitals and dashes as you type.'] },
     { v: '0.4 alpha', d: '6 November 2026', items: ['New <b>Test</b> mode: a timed Criterion A test like the unit tests, with a section for each strand from level 1–2 to 7–8. Answers stay hidden until the end; the site marks short answers, you tick the markschemes for written answers, and each strand gets a best-fit level. Print your results, or use a TST- class code so everyone gets the same test.', 'New unit: <b>Year 11 Combustible Fuels</b> (8 subtopics, 55 question types): fuels and SDG 7, hydrocarbons, naming and isomers with drawn structural formulas, alcohols, crude oil and boiling point, combustion and balancing, enthalpy profiles and bond enthalpy, moles, energy per gram and emissions.', 'More question types matched to the unit tests: Y9 Disease (vectors, Jenner, Fleming, Ebola, bacterial growth, vaccine boosters), Y9 Chemistry (nuclear notation, particle tables, spotting Bohr-diagram errors, covalent names, evidence of chemical change, ionisation energy trends), Y11 Exchange & Transport (Boyle\'s law, the double circulation, valves, blood pressure, exercise spirometry, maximum heart rate) and Y11 Forces & Motion (crane tension, runway length, skydiver, multi-stage v–t graphs, theory vs real data).', 'Stop in Time: everyday objects in the road instead of people.', 'A <b>Data Booklet</b> button for every year in the header (and on questions that need it): the Periodic Table for Year 9 (elements 1–20), the full Periodic Table for Years 10 and 11, and the physics formula sheet for Year 11. Point at, tap or tab to any element for its details.', '<b>Hints</b> in Practice: up to three per question (a nudge, the method, then the first step). Stats shows how often you answer without hints.', 'New Year 11 Fuels games: <b>Isomer Hunt</b> and <b>Balance It!</b>', 'New Year 9 Chemistry activity: <b>Periodic People</b>. Arrange a family of secret agents into a table, build the missing one, then see the elements they stand for.', '<b>🚩 Report a Problem</b> on every question (including in Test mode), flashcard, note and the Data Booklet, and <b>💬 Send Feedback</b> in the footer: they open your teacher’s Google Form already filled in.', '<b>Pause</b> in Test mode: the timer stops and the questions are hidden until you resume. Pauses are shown with your results.', 'Online tests: show or hide the timer, and sound alerts at 30, 15 and 5 minutes left and when time is up (🔔 can be turned off).', 'Test mode is set up by your teacher: enter the TST- class code they give you. A code gives an online test, a worksheet or a test/exam to print (cover sheet, a section for each strand, the data booklet at the end), with or without the markscheme. Teachers unlock the full set-up with 🔑 Teacher access and can print a Student Copy, the Markscheme or Both.', 'The welcome card takes the colour of your year, and the revision history is grouped into collapsible stages.', 'Fixes: sorting questions always use every category; written-answer markschemes line up properly.'] },
     { v: '0.5 alpha', d: '11 November 2026', items: ['Four new units: <b>Year 9 Unit 3, Evidence of a Changing Climate</b>; <b>Year 10 Unit 1, Population & Conservation</b> and <b>Year 10 Unit 2, Solution Chemistry</b> (games for Solution Chemistry come in 0.6); <b>Year 11 Unit 4, Digestion & Metabolism</b>. Each has questions for every strand and level, notes, recall cards, hints, Test mode and printables.', '<b>Year 9 Chemistry of Industry</b> now matches this year\'s unit: new questions on atomic radius, ionisation energy, group 1 and 17 reactivity, metal properties, relative atomic mass, Rutherford\'s experiment, atoms vs ions vs compounds, identifying elements from their properties, and choosing the correct Lewis or Bohr diagram. Equations and chemical change stay as practice-only <i>good to know</i> extras (not in tests). New games: <b>Bohr ↔ Lewis</b> and <b>Give or Share?</b>', 'New <b>Skills 🧰</b> section for lab and report skills (Criterion C): <b>Tables & Averages</b>, <b>Graphing</b>, <b>Evaluate It</b> and <b>Rounding & Sig Figs</b>, arranged by criterion A to D. Endless questions with new values, pitched at your year, with a running score, streaks and Stats. Also <b>Command Terms</b> (Criterion A) and <b>Referencing (APA 7)</b> (Criterion D). Coming soon: Variables, Hypothesis Builder, Measure It and Lab Safety.', 'New <b>Solar Atom</b> logo, with <b>M</b>, <b>Y</b> and <b>P</b> in the Year 9, 10 and 11 colours.', '<b>Science Skills</b> in Notes: how-to advice for Criteria B, C and D at your year level (variables, hypotheses, methods, measuring, tables, averages, % change/error/difference, rounding and significant figures, graphing, conclusions, evaluating, APA 7 referencing, judging sources and writing about impacts), with links to the matching Skills drills. Turn it on or off in the panel.', 'Games page: every section stays open, with smaller cards and a bar at the top to jump to Class Games or any unit.', 'For now the site shows <b>Units 1 and 2</b> in every year while they are refined; Units 3 and 4 come back in later builds.', 'New games: <b>Weather or Climate?</b> (Y9), <b>Oh Deer!</b> (Y10), <b>Digest It!</b> (Y11), and three Year 9 Chemistry games: <b>Element, Molecule or Compound?</b>, <b>Diagram Detective</b> (Bohr, Lewis and dot-and-cross diagrams) and <b>Ionic Matchmaker</b>.', '<b>Periodic People</b>: elements 1–20, 1, 2 or 3 missing characters, optional hints, and a new caterpillar theme.', 'Timed games: choose 3, 5 or 10 minutes, or your own time. suvat Sprint keeps the chosen equation on screen.', 'Test mode: about a quarter of the questions are kept for tests only, and tests use their own versions of the fact questions, so tests always include questions you have not practised.', 'New questions: fields and pressure (Y11 Forces & Motion); chemical and physical change, and forces between molecules (Y9 Chemistry).', 'Free-body diagrams show the ground when there is a normal force, and labels are never cut off. Speeds are in m s<sup>−1</sup>; km h<sup>−1</sup> appears only in an optional "good to know" question.', 'Notes: <b>More Help</b> links (videos, simulations and readings from the class slides) and <b>Print/PDF</b>; notes now start straight with the subtopics.', 'One <b>Data Booklet & Command Terms</b> button in the header. A clearer <b>All Games</b> button; the Games tab also returns to the list of games.', 'All codes now start with <b>MYP-</b>. Year 10 is blue.', 'Test Mode: <b>Online</b> or <b>Printable</b> codes; teachers choose whether to use test-only questions, results printing, retakes, the cover sheet and answer space; a pace bar with alert lines, Sound on/off and a Pace timer switch.', 'Last Man Standing: the starting time is locked into the code.'] },
+    { v: '1.1 beta', d: '13 November 2026', items: ['<b>New codes</b>, the same as MVPhysics Lab: every code starts <b>MYP-</b>. Test codes start <b>MYP-T-</b> and game codes start <b>MYP-G-</b> (Last Man Standing: MYP-G-S…). Codes from earlier versions no longer work: ask your teacher for a new one.', '<b>Two code boxes</b>: the Test Mode box at the bottom of Practice, and a new <b>Have a game code?</b> box at the top of Games. Type any code in either box and it opens in the right place. MYP-L-, MYP-P-, MYP-C- and MYP-S- codes are coming soon.', 'Last Man Standing: press <b>Play 💀</b> to play on your own straight away, or <b>Make a Code</b> (then Copy or Clear it) so your class faces the same questions; everyone else types the code in the box at the top of Games.', 'Test Mode has a <b>Back to Practice</b> button.']},
     { v: '1.0 beta', d: '12 November 2026', items: ['<b>First beta, for student testing.</b> Units 1 and 2 are complete for Years 9, 10 and 11: Disease & Our Immune System and Chemistry of Industry (Y9), Population & Conservation and Solution Chemistry (Y10), Exchange & Transport and Forces & Motion (Y11). Units 3 and 4 return in later builds.', 'Full audit: every subtopic now has questions at every level band (1–2, 3–4, 5–6, 7–8) in A i, A ii and A iii, with about 110 new questions: data questions, applying questions in unfamiliar situations, and evaluating claims.', 'Year 9 relative atomic mass: you explain what it means and which isotope is most common, but you are not asked to calculate it.', 'The top bar is now in this order: Practice, Skills, Recall, Sims, Games, Notes, Stats. <b>Test Mode</b> is at the bottom of Practice: enter your class code there; while a test is running you stay in it until you finish. <b>Sims 🔬</b> is a new section, coming soon.', 'The Alpha builds (0.1–0.5) built the site, Test Mode, games, Recall, Notes, Skills and the new logo; see the Alpha history below.']}
   ];
   function renderAbout(main) {
