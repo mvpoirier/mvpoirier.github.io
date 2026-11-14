@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--
   MVPhysics Lab: IB DP Physics revision (SL and HL)
-  Version: 1.6 Beta (online edition) · Built: 13 November 2026
+  Version: 1.6 Beta (online edition) · Built: 14 November 2026
   Author: Mike Poirier (https://github.com/mvpoirier), developed with Claude by Anthropic
   Terms: © 2026 Mike Poirier. All rights reserved. Free for students and teachers for their own study and classroom teaching; any other copying, hosting, adapting or commercial or tutoring use needs written permission.
   Site: https://mvpoirier.github.io/physics-lab/
@@ -1131,6 +1131,26 @@ main li mjx-container { max-width: 100%; overflow-x: auto; overflow-y: hidden; v
 .sk-guide summary { cursor: pointer; font-weight: 700; }
 .sk-guide ul, .sk-guide ol { margin: 8px 0 0; padding-left: 20px; display: grid; gap: 4px; }
 .sk-guide table td { vertical-align: top; }
+/* Sims · Powers of Ten (1.6) */
+.p10 { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 14px; align-items: stretch; }
+.p10-stage { position: relative; border-radius: 12px; overflow: hidden; background: #02030a; aspect-ratio: 16 / 10; min-width: 0; }
+.p10-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: grab; touch-action: none; }
+.p10-stage canvas:active { cursor: grabbing; }
+.p10-hud { position: absolute; left: 14px; top: 12px; padding: 8px 14px 9px; border-radius: 10px; background: rgba(5, 8, 22, .68); color: #fff; pointer-events: none; display: grid; gap: 1px; border: 1px solid rgba(255, 255, 255, .16); }
+.p10-hud b { font: 800 34px/1.05 var(--f-display); font-variant-numeric: tabular-nums; } .p10-hud b sup { font-size: .58em; }
+.p10-hud span { font-size: 13.5px; color: #c9d6ff; }
+.p10-hint { position: absolute; left: 14px; bottom: 12px; font-size: 12px; color: rgba(255, 255, 255, .7); background: rgba(5, 8, 22, .5); padding: 3px 8px; border-radius: 6px; pointer-events: none; }
+.p10-info { border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; background: var(--surface-2, var(--surface)); display: flex; flex-direction: column; gap: 8px; min-height: 0; overflow: auto; }
+.p10-info h3 { margin: 0; font-size: 17px; line-height: 1.25; } .p10-info p { margin: 0; font-size: 14px; line-height: 1.5; }
+.p10-info ul { list-style: none; margin: auto 0 0; padding: 10px 0 0; border-top: 1px solid var(--line); display: grid; gap: 6px; } .p10-info li { display: grid; gap: 0; font-size: 12.5px; color: var(--muted); } .p10-info li b { color: var(--ink); font-size: 14px; font-variant-numeric: tabular-nums; }
+.p10-theo { align-self: flex-start; font: 700 10.5px/1.3 var(--f-body); letter-spacing: .06em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--warn); color: var(--warn); background: var(--warn-soft); }
+.p10-ctl { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; } .p10-ctl input[type=range] { flex: 1 1 220px; min-width: 140px; } .p10-ctl #p10Minus, .p10-ctl #p10Plus { min-width: 36px; font-size: 17px; font-weight: 700; }
+.p10-marks { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px; }
+.p10-marks button { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 3px 11px; font-size: 12.5px; font-weight: 600; cursor: pointer; }
+.p10-marks button:hover { border-color: var(--accent); } .p10-marks button[aria-pressed="true"] { background: var(--accent); color: var(--surface); border-color: var(--accent); }
+.p10-ch { grid-column: 1 / -1; border-top: 1px solid var(--line); padding-top: 12px; } .p10-ch .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.p10-opt.ok { border-color: var(--good, #1a8f4c); background: var(--good-soft, #e3f6ea); color: var(--good, #1a8f4c); opacity: 1; } .p10-opt.no { border-color: var(--bad, #c0392b); background: var(--bad-soft, #fbe9e7); color: var(--bad, #c0392b); opacity: 1; }
+@media (max-width: 900px) { .p10 { grid-template-columns: minmax(0, 1fr); } .p10-stage { aspect-ratio: 4 / 3; } .p10-hud b { font-size: 26px; } }
 
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><pattern id="mvpKn" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="4" height="4" fill="#161a22"/><line x1="0" y1="0" x2="0" y2="4" stroke="#343c4a" stroke-width="1.4"/></pattern></defs><symbol id="mvpLogo" viewBox="0 0 120 124"><path d="M29 95 V110 A31 9 0 0 0 91 110 V95 Z" fill="url(#mvpKn)" stroke="#aab4c3" stroke-width="1.6"/><ellipse cx="60" cy="95" rx="31" ry="9" fill="#2f3744" stroke="#aab4c3" stroke-width="1.6"/><ellipse cx="60" cy="94" rx="18" ry="5" fill="#c98a12"/><ellipse cx="60" cy="92.4" rx="18" ry="5" fill="#f2b632"/><path d="M54 70 H66 V91 A6 2 0 0 1 54 91 Z" fill="#c98a12"/><path d="M33 26 C12 24 14 54 38 54" fill="none" stroke="#c98a12" stroke-width="7" stroke-linecap="round"/><path d="M87 26 C108 24 106 54 82 54" fill="none" stroke="#c98a12" stroke-width="7" stroke-linecap="round"/><path d="M30 12 H90 V38 C90 60 73 72 60 72 C47 72 30 60 30 38 Z" fill="#f2b632"/><g fill="none" stroke="#0b1f3a" stroke-width="2.6"><ellipse cx="60" cy="40" rx="21" ry="8"/><ellipse cx="60" cy="40" rx="21" ry="8" transform="rotate(60 60 40)"/><ellipse cx="60" cy="40" rx="21" ry="8" transform="rotate(120 60 40)"/></g><circle cx="60" cy="40" r="4.5" fill="#0b1f3a"/></symbol></svg>
@@ -1164,7 +1184,7 @@ main li mjx-container { max-width: 100%; overflow-x: auto; overflow-y: hidden; v
   <details class="report report-general foot-report" id="footFb"><summary class="foot-fb-sum"><span class="flag" aria-hidden="true">💬</span> Send Feedback</summary><div class="report-body"><textarea class="report-note" rows="3" placeholder="Your feedback: a bug, an idea, something confusing… Say which page or feature." aria-label="Your feedback"></textarea><div class="row"><a class="btn sm primary send-report" href="#" target="_blank" rel="noopener" data-send="general|||footer">Send Report ↗</a><button type="button" class="btn sm" data-report="general|||footer">Copy Report</button><span class="muted small">Send Report opens your teacher’s Google Form (sign in with your school account). The page you are on is added automatically. Copy Report is a backup.</span></div></div></details>
   <div class="foot-meta">
     <span>© 2026 <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a>. All rights reserved: free for students and teachers; see the Terms of Use on the About page.</span>
-    <span class="foot-ver">Updated 13 November 2026</span>
+    <span class="foot-ver">Updated 14 November 2026</span>
   </div>
 </div></footer>
 <script>
@@ -16863,6 +16883,447 @@ addBooklet('b2-albedo', [L`S = 1.36\times10^{3}\,\mathrm{W\,m^{-2}}`, L`\sigma =
 const SHOW_IBP = false;
 if (!SHOW_IBP) for (const n of Object.values(NOTES)) if (n.links) n.links = n.links.filter(l => !/ibphysics\.net/.test(l.url));
 
+/* ======================= SIMS · POWERS OF TEN 🔭 (1.6, Mike 13 Nov) =======================
+   A zoom from the Planck length (10^-35 m) to the observable universe (10^27 m) and a little beyond, inspired by the idea of the
+   1977 film "Powers of Ten". All art is original and drawn by code. Everything has a real position in metres measured from the start
+   point (a snowflake on a polar bear's head, on the sea ice of Hudson Bay near Churchill, Manitoba), so zooming out re-centres on the Sun, the galaxy and the
+   universe by itself. The view is 10^z metres wide. Hand-written 3D: an orthographic camera with yaw and pitch (drag to rotate).
+   Stops marked THEO are theoretical and labelled as such on screen. P10.mount(el) builds the sim inside el. */
+const P10 = (() => {
+  const ZMIN = -36, ZMAX = 29, AU = 1.496e11, LY = 9.461e15, RE = 6.371e6;
+  const THEO = { '-36': 1, '-35': 1, '-34': 1, '-33': 1, '-32': 1, '-31': 1, 28: 1, 29: 1 };
+  // [title, what you are looking at]
+  const INFO = {
+    '-36': ['Below the Planck Length', 'Below about 1.6 × 10⁻³⁵ m our theories of space and time break down. Distance itself may have no meaning here. Nobody knows what, if anything, is smaller.'],
+    '-35': ['The Planck Length · Strings?', 'The Planck length, 1.6 × 10⁻³⁵ m, is built from the constants G, ħ and c. String theory proposes that every particle is a tiny vibrating string about this size, with different vibrations appearing as different particles. There is no experimental evidence yet.'],
+    '-34': ['Quantum Foam?', 'Some theories predict that space-time itself fluctuates violently at this scale, like foam. This is far beyond anything we can test.'],
+    '-33': ['Approaching the Planck Scale', 'Gravity is expected to become as strong as the other forces near here. That needs a theory of quantum gravity, and we do not have a tested one.'],
+    '-32': ['Still Unexplored', 'Nothing is known to exist at this scale. Every model of what happens here is an extrapolation across more than ten powers of ten.'],
+    '-31': ['Grand Unification?', 'Grand unified theories suggest that the strong, weak and electromagnetic forces merge into a single force at about 10⁻³¹ m. This is unconfirmed.'],
+    '-30': ['One Quectometre', '10⁻³⁰ m is 1 qm. Quecto, added in 2022, is the smallest SI prefix: below this there are no prefixes left.'],
+    '-29': ['The Desert', 'Many physicists expect no new structure across these scales, a stretch nicknamed “the desert”. Others expect surprises. We have no data either way.'],
+    '-28': ['Far Beyond Any Accelerator', 'Probing this scale would take about a billion times the collision energy of the Large Hadron Collider.'],
+    '-27': ['One Rontometre', '10⁻²⁷ m is 1 rm. The most energetic cosmic ray ever detected (about 3 × 10²⁰ eV) corresponds to roughly 4 × 10⁻²⁷ m: nature reaches energies our machines cannot.'],
+    '-26': ['Unexplored Territory', 'No experiment has resolved anything here. Quarks and electrons still look like points.'],
+    '-25': ['Unexplored Territory', 'If an atom were blown up to the size of the observable universe, this view would be about as wide as Jupiter’s orbit.'],
+    '-24': ['One Yoctometre', '10⁻²⁴ m is 1 ym. To a low-energy neutrino, a nucleon is a target only a few yoctometres wide, which is why neutrinos pass straight through the Earth.'],
+    '-23': ['Unexplored Territory', 'Still twelve powers of ten above the Planck length. There is as much “room” below us as between an atom and a person.'],
+    '-22': ['Unexplored Territory', 'No known objects. The energy needed to look this closely is far above anything made in a laboratory.'],
+    '-21': ['One Zeptometre', '10⁻²¹ m is 1 zm. We are now past the smallest distances any experiment has measured directly.'],
+    '-20': ['The Edge of Experiment', 'The highest-energy collisions at the Large Hadron Collider probe distances down to roughly 10⁻¹⁹ to 10⁻²⁰ m. Smaller than this, we have no direct measurements.'],
+    '-19': ['Quarks and Electrons: Points?', 'Down to this scale quarks and electrons show no size and no inner structure. LIGO detects gravitational waves by sensing mirror movements of about 10⁻¹⁹ m.'],
+    '-18': ['One Attometre', '10⁻¹⁸ m is 1 am. The weak nuclear force only acts over about this distance, because the W and Z bosons that carry it are so massive.'],
+    '-17': ['Between the Quarks', 'A seething field of gluons and short-lived quark–antiquark pairs. Most of a proton’s mass is the energy of this field, not the mass of its quarks.'],
+    '-16': ['Inside the Proton', 'A proton is two up quarks and one down quark (uud), held together by the strong force, which is carried by gluons. Quarks are never found alone: this is called confinement.'],
+    '-15': ['One Femtometre · The Proton', '10⁻¹⁵ m is 1 fm. A proton is about 1.7 fm across. The strong nuclear force only acts over a few femtometres.'],
+    '-14': ['The Nucleus', 'This oxygen-16 nucleus has 8 protons and 8 neutrons and is about 6 fm across, yet it holds 99.97% of the atom’s mass. Nuclear radius: R = R₀A^⅓ with R₀ = 1.2 fm.'],
+    '-13': ['Empty Space', 'The nucleus is a speck in the middle of the atom. If the atom were a hockey rink, the nucleus would be a 3 mm grain at centre ice.'],
+    '-12': ['One Picometre', '10⁻¹² m is 1 pm. Gamma rays have wavelengths of about this size or smaller. The electron’s Compton wavelength is 2.4 pm.'],
+    '-11': ['Inner Electrons', 'Oxygen’s two innermost electrons are most likely to be found within about 10 pm of the nucleus. Electrons are described by probability clouds, not by orbits.'],
+    '-10': ['The Atom', '10⁻¹⁰ m. Atoms are 1 to 5 × 10⁻¹⁰ m across. In a water molecule each O–H bond is 96 pm long, and the angle between the two bonds is 104.5°.'],
+    '-9': ['One Nanometre · Molecules', 'In ice each water molecule is joined to four neighbours by hydrogen bonds, 0.28 nm apart, building open hexagonal rings. That open structure is why ice is less dense than water.'],
+    '-8': ['The Crystal Lattice', 'Ten nanometres: about 35 water molecules in a row. This repeating hexagonal pattern is the reason snowflakes have six-fold symmetry.'],
+    '-7': ['100 Nanometres', 'Smaller than the wavelength of visible light (400 to 700 nm), so no ordinary light microscope can see this. A typical virus is about 100 nm across.'],
+    '-6': ['One Micrometre', '10⁻⁶ m is 1 µm. Visible light has wavelengths of 0.4 to 0.7 µm. Bacteria are 1 to 5 µm long.'],
+    '-5': ['Ten Micrometres', 'The ice looks smooth, with tiny steps where crystal layers end. A red blood cell is about 8 µm across; a human hair is 50 to 100 µm thick.'],
+    '-4': ['A Tenth of a Millimetre', 'About the thickness of a polar bear’s guard hair, and close to the smallest detail the unaided eye can resolve. We are over the snowflake’s central hexagonal plate.'],
+    '-3': ['One Millimetre · The Snowflake', 'A snow crystal a few millimetres across, grown from water vapour around a speck of dust. It contains around 10¹⁸ water molecules.'],
+    '-2': ['One Centimetre', 'Polar bear fur with a snowflake caught on top. Each guard hair is hollow and transparent, not white: the fur looks white because it scatters light. The skin underneath is black.'],
+    '-1': ['Ten Centimetres', 'Thick fur on the bear’s head, with a fresh snowflake. Ten centimetres is about the width of your hand.'],
+    0: ['One Metre', 'The face of a polar bear on the sea ice of Hudson Bay near Churchill, Manitoba, Canada. Adult males are 2.4 to 3 m long. The metre is defined as the distance light travels in 1/299 792 458 of a second.'],
+    1: ['Ten Metres', 'The bear and its tracks across wind-packed snow. Ten metres is about the length of a bus.'],
+    2: ['100 Metres', 'Sea ice with snow drifts, a pressure ridge and a ringed seal at its breathing hole. A sprinter covers this distance in about 10 s.'],
+    3: ['One Kilometre', 'Ice floes separated by cracks called leads, and ridges where floes have been pushed together. About a 12-minute walk from side to side.'],
+    4: ['Ten Kilometres', 'Pack ice on Hudson Bay, with the shore and the town of Churchill to the south-west. Mount Everest is 8.8 km high, and airliners cruise 10 to 12 km up.'],
+    5: ['100 Kilometres', 'The west coast of Hudson Bay. Churchill is known as the polar bear capital of the world. Space is usually said to begin 100 km up, at the Kármán line.'],
+    6: ['One Megametre', '1000 km. Hudson Bay, frozen over in winter, with Manitoba and Nunavut along its shore. The curve of the Earth begins to show.'],
+    7: ['The Earth', 'Ten megametres. Earth’s diameter is 12 742 km (1.27 × 10⁷ m) and its mass is 5.97 × 10²⁴ kg.'],
+    8: ['100 Megametres', 'The Earth floats alone. Geostationary satellites orbit 36 000 km above the equator.'],
+    9: ['One Gigametre · The Moon’s Orbit', 'The Moon orbits 384 000 km away and takes 27.3 days to go round. The Sun’s diameter is 1.39 Gm.'],
+    10: ['Ten Gigametres', 'The Earth and Moon shrink to a pair of dots. Earth moves along its orbit at 30 km s⁻¹, crossing this view in about four days.'],
+    11: ['100 Gigametres', 'Part of Earth’s orbit. The Sun is 150 Gm away: that distance is 1 astronomical unit (AU), or 8.3 light-minutes.'],
+    12: ['One Terametre · Inner Solar System', 'The orbits of Mercury, Venus, Earth and Mars, and the asteroid belt. Jupiter orbits 5.2 AU from the Sun.'],
+    13: ['Ten Terametres · The Solar System', 'All eight planets. Neptune orbits 30 AU out and takes 165 years to go round once. Kepler’s third law: T² ∝ r³.'],
+    14: ['100 Terametres', 'The Kuiper belt and the heliopause, where the solar wind stops. Voyager 1, launched in 1977, is about 170 AU away: the most distant thing humans have made.'],
+    15: ['One Petametre', 'The Sun is now just a bright star, and its planets are far too faint to see.'],
+    16: ['Ten Petametres · One Light-Year', 'One light-year is 9.46 × 10¹⁵ m. The Oort cloud, a vast shell of icy bodies that long-period comets come from, is thought to surround the Sun out to about here.'],
+    17: ['100 Petametres · The Nearest Stars', 'The nearest star system, Alpha Centauri, is 4.2 to 4.4 light-years away. Distances like this are measured by stellar parallax.'],
+    18: ['One Exametre', 'About 100 light-years. A few thousand stars lie within this distance, including Sirius, Vega and Arcturus. Our earliest radio broadcasts have travelled about this far.'],
+    19: ['Ten Exametres', 'About 1000 light-years: stars, gas and dust in our part of the galaxy. Most stars you can see with the naked eye are within this range.'],
+    20: ['100 Exametres', 'About 10 000 light-years: the spiral arms appear. The galaxy’s disc is only about 1000 light-years thick.'],
+    21: ['One Zettametre · The Milky Way', 'Our galaxy: a barred spiral about 100 000 light-years across with 100 to 400 billion stars. The Sun orbits 26 000 light-years from the centre, once every 230 million years.'],
+    22: ['Ten Zettametres', 'The Milky Way and its satellite galaxies, the Magellanic Clouds. Most of the galaxy’s mass is unseen dark matter, known from how fast its stars orbit.'],
+    23: ['100 Zettametres · The Local Group', 'About 10 million light-years. The Andromeda galaxy is 2.5 million light-years away and approaching. It and the Milky Way dominate the Local Group of about 80 galaxies.'],
+    24: ['One Yottametre', 'About 100 million light-years. Every dot is a galaxy. The Virgo Cluster is 54 million light-years away. Distant galaxies recede from us: Hubble’s law, v = H₀d.'],
+    25: ['Ten Yottametres', 'About 1 billion light-years. Laniakea, our home supercluster, is roughly 500 million light-years across.'],
+    26: ['100 Yottametres · The Cosmic Web', 'About 10 billion light-years. Galaxies form filaments and sheets around huge voids, like a sponge. Dark energy, about 68% of the universe’s energy, is making the expansion speed up. Its nature is unknown.'],
+    27: ['One Ronnametre · The Observable Universe', 'The observable universe is 93 billion light-years (8.8 × 10²⁶ m) across and holds perhaps two trillion galaxies. Its edge is the limit light has had time to reach us from in 13.8 billion years.'],
+    28: ['Beyond the Horizon', 'We cannot see past the horizon, but there is no reason for the universe to stop there. Space is measured to be very nearly flat, which suggests the whole universe is far larger than the part we can observe, and possibly infinite.'],
+    29: ['A Multiverse?', 'Some theories of cosmic inflation predict countless other “bubble” universes, perhaps with different physical laws. There is no evidence, and it may never be testable. This is where physics meets speculation.'],
+  };
+  const MARKS = [[-35, 'Strings'], [-18, 'Quark'], [-15, 'Proton'], [-14, 'Nucleus'], [-10, 'Atom'], [-9, 'Molecule'], [-3, 'Snowflake'], [0, 'Polar Bear'], [2, 'Sea Ice'], [5, 'Hudson Bay'], [7, 'Earth'], [9, 'Moon'], [13, 'Solar System'], [17, 'Nearest Stars'], [21, 'Milky Way'], [23, 'Local Group'], [26, 'Cosmic Web'], [27, 'Observable Universe'], [29, 'Beyond']];
+  // Guess the Scale: [thing, size in metres as text, nearest power of ten]
+  const GUESS = [['the diameter of a hydrogen atom', '1 × 10⁻¹⁰ m', -10], ['the diameter of a proton', '1.7 × 10⁻¹⁵ m', -15], ['the diameter of an oxygen nucleus', '6 × 10⁻¹⁵ m', -14], ['the thickness of a human hair', 'about 1 × 10⁻⁴ m', -4],
+    ['the diameter of a red blood cell', '8 × 10⁻⁶ m', -5], ['the length of a bacterium', '2 × 10⁻⁶ m', -6], ['the diameter of a typical virus', '1 × 10⁻⁷ m', -7], ['the width of a DNA double helix', '2 × 10⁻⁹ m', -9], ['the height of an adult', 'about 1.7 m', 0],
+    ['the length of a hockey rink', '61 m', 2], ['the height of Mount Everest', '8.8 × 10³ m', 4], ['the diameter of the Earth', '1.3 × 10⁷ m', 7], ['the diameter of Jupiter', '1.4 × 10⁸ m', 8], ['the diameter of the Sun', '1.4 × 10⁹ m', 9],
+    ['the distance from the Earth to the Sun', '1.5 × 10¹¹ m', 11], ['the radius of Neptune’s orbit', '4.5 × 10¹² m', 13], ['one light-year', '9.5 × 10¹⁵ m', 16], ['the distance to the nearest star beyond the Sun', '4 × 10¹⁶ m', 17],
+    ['the diameter of the Milky Way', '1 × 10²¹ m', 21], ['the distance to the Andromeda galaxy', '2.4 × 10²² m', 22], ['the diameter of the observable universe', '8.8 × 10²⁶ m', 27], ['the Planck length', '1.6 × 10⁻³⁵ m', -35]];
+  const PRE = { '-30': ['q', 'quecto'], '-27': ['r', 'ronto'], '-24': ['y', 'yocto'], '-21': ['z', 'zepto'], '-18': ['a', 'atto'], '-15': ['f', 'femto'], '-12': ['p', 'pico'], '-9': ['n', 'nano'], '-6': ['µ', 'micro'], '-3': ['m', 'milli'], 0: ['', ''], 3: ['k', 'kilo'], 6: ['M', 'mega'], 9: ['G', 'giga'], 12: ['T', 'tera'], 15: ['P', 'peta'], 18: ['E', 'exa'], 21: ['Z', 'zetta'], 24: ['Y', 'yotta'], 27: ['R', 'ronna'] };
+  const SUP = (n) => String(n).replace(/-/g, '⁻').replace(/\d/g, (d) => '⁰¹²³⁴⁵⁶⁷⁸⁹'[d]);
+  const pow = (n) => '10' + SUP(n);
+  // 10^n m with its SI prefix: 10^7 -> "10 Mm", "ten megametres"
+  function metric(n) {
+    if (n === -2) return ['1 cm', 'one centimetre']; if (n === -1) return ['10 cm', 'ten centimetres'];
+    if (n < -30) return [pow(n + 30) + ' qm', 'smaller than any SI prefix'];
+    const b = Math.floor(n / 3) * 3, k = n - b, p = PRE[b], num = ['1', '10', '100'][k], w = ['one', 'ten', 'one hundred'][k];
+    return [num + ' ' + p[0] + 'm', w + ' ' + p[1] + 'metre' + (k ? 's' : '')];
+  }
+  const sig = (x) => (x >= 100 ? x.toFixed(0) : x >= 10 ? x.toFixed(0) : x.toFixed(1));
+  function eng(x, unit, pre) { let i = 0; while (x >= 1000 && i < pre.length - 1) { x /= 1000; i++; } return sig(x) + ' ' + pre[i] + unit; }
+  // automatic comparison facts for a view 10^n m wide
+  function facts(n) {
+    const out = [], w = Math.pow(10, n), t = w / 2.998e8;
+    let ts;
+    if (t < 1e-24) ts = pow(Math.round(Math.log10(t))) + ' s'; else if (t < 1) { const u = [['ys', 1e-24], ['zs', 1e-21], ['as', 1e-18], ['fs', 1e-15], ['ps', 1e-12], ['ns', 1e-9], ['µs', 1e-6], ['ms', 1e-3]]; let k = 0; while (k < u.length - 1 && t >= u[k + 1][1]) k++; ts = sig(t / u[k][1]) + ' ' + u[k][0]; }
+    else if (t < 90) ts = sig(t) + ' s'; else if (t < 5400) ts = sig(t / 60) + ' minutes'; else if (t < 1.3e5) ts = sig(t / 3600) + ' hours'; else if (t < 4e7) ts = sig(t / 86400) + ' days';
+    else { const y = t / 3.156e7; ts = y < 1e3 ? sig(y) + ' years' : y < 1e6 ? sig(y / 1e3) + ' thousand years' : y < 1e9 ? sig(y / 1e6) + ' million years' : y < 1e12 ? sig(y / 1e9) + ' billion years' : sig(y / 1e12) + ' trillion years'; }
+    out.push(['Light crosses this view in', ts]);
+    if (n <= -6) { const E = 1.2398e-6 / w, kind = n <= -12 ? 'gamma ray' : n <= -9 ? 'X-ray' : n <= -7 ? 'ultraviolet' : 'infrared'; out.push(['A photon with this wavelength', eng(E, 'eV', ['', 'k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y', 'R', 'Q']) + (n >= -15 ? ' (' + kind + ')' : '')]); }
+    if (n >= 9 && n <= 14) out.push(['In astronomical units', sig(w / AU >= 1 ? w / AU : 0) === '0.0' || w / AU < 1 ? (w / AU).toPrecision(2) + ' AU' : sig(w / AU) + ' AU']);
+    if (n >= 15) { const l = w / LY; out.push(['In light-years', l < 1e3 ? (l < 1 ? l.toPrecision(2) : sig(l)) : l < 1e6 ? sig(l / 1e3) + ' thousand' : l < 1e9 ? sig(l / 1e6) + ' million' : l < 1e12 ? sig(l / 1e9) + ' billion' : sig(l / 1e12) + ' trillion']); }
+    return out;
+  }
+
+  /* ---------- seeded data ---------- */
+  const rng = (s) => () => { s |= 0; s = s + 0x6D2B79F5 | 0; let t = Math.imul(s ^ s >>> 15, 1 | s); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+  let DATA = null;
+  function build() {
+    if (DATA) return DATA; const D = {}; let r = rng(7);
+    const gauss = () => (r() + r() + r() + r() - 2) / 1.0;
+    const inSphere = () => { for (;;) { const x = r() * 2 - 1, y = r() * 2 - 1, z = r() * 2 - 1; if (x * x + y * y + z * z <= 1) return [x, y, z]; } };
+    // Milky Way: bulge + four spiral arms + thin disc (units of the disc radius, 5e20 m)
+    D.gal = []; for (let i = 0; i < 1300; i++) { const p = inSphere(), s = Math.pow(r(), 1.6) * 0.16; D.gal.push([p[0] * s * 1.5, p[1] * s, p[2] * s * 0.7, 0]); }
+    for (let i = 0; i < 5200; i++) { const arm = i % 4, u = Math.pow(r(), 0.75), th = arm * Math.PI / 2 + u * 4.4 + gauss() * 0.16, rad = 0.12 + u * 0.88 + gauss() * 0.02; D.gal.push([Math.cos(th) * rad, Math.sin(th) * rad, gauss() * 0.012, r() < 0.08 ? 2 : 1]); }
+    for (let i = 0; i < 1500; i++) { const th = r() * 6.283, rad = Math.sqrt(r()); D.gal.push([Math.cos(th) * rad, Math.sin(th) * rad, gauss() * 0.015, 3]); }
+    D.spiral = []; for (let i = 0; i < 260; i++) { const arm = i % 2, u = Math.pow(r(), 0.7), th = arm * Math.PI + u * 4 + gauss() * 0.2, rad = i < 60 ? r() * 0.2 : 0.1 + u * 0.9; D.spiral.push([Math.cos(th) * rad, Math.sin(th) * rad, gauss() * 0.03]); }
+    D.near = []; for (let i = 0; i < 420; i++) { const p = inSphere(); D.near.push([p[0], p[1], p[2], r()]); }             // stars within ~300 light-years
+    D.arm = []; for (let i = 0; i < 2600; i++) { const p = inSphere(); D.arm.push([p[0], p[1], p[2] * 0.1, r()]); }          // stars within ~3000 light-years
+    D.oort = []; for (let i = 0; i < 1500; i++) { const p = inSphere(), l = Math.hypot(p[0], p[1], p[2]) || 1, s = 0.35 + r() * 0.65; D.oort.push([p[0] / l * s, p[1] / l * s, p[2] / l * s]); }
+    D.belt = []; for (let i = 0; i < 500; i++) { const th = r() * 6.283, rad = 2.2 + r() * 1.0; D.belt.push([Math.cos(th) * rad, Math.sin(th) * rad, gauss() * 0.08]); }
+    D.kuiper = []; for (let i = 0; i < 700; i++) { const th = r() * 6.283, rad = 32 + r() * 18; D.kuiper.push([Math.cos(th) * rad, Math.sin(th) * rad, gauss() * 2.5]); }
+    // galaxies near us (Laniakea) and the cosmic web (nodes joined to their nearest neighbours, galaxies sprinkled along the filaments)
+    D.super = []; const cl = []; for (let i = 0; i < 26; i++) cl.push(inSphere());
+    for (let i = 0; i < 900; i++) { const c = cl[i % 26], s = 0.02 + r() * 0.13; D.super.push([c[0] + gauss() * s, c[1] + gauss() * s, c[2] + gauss() * s]); }
+    const web = (seed, nodes) => { const q = rng(seed), rs = r; r = q; const N = [], P = []; for (let i = 0; i < nodes; i++) N.push(inSphere());
+      N.forEach((a, i) => { const d = N.map((b, j) => [(a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2 + (a[2] - b[2]) ** 2, j]).sort((x, y) => x[0] - y[0]);
+        for (let k = 1; k <= 3; k++) { const b = N[d[k][1]]; if (d[k][1] < i && k < 3) continue; for (let m = 0; m < 16; m++) { const u = q(); P.push([a[0] + (b[0] - a[0]) * u + gauss() * 0.012, a[1] + (b[1] - a[1]) * u + gauss() * 0.012, a[2] + (b[2] - a[2]) * u + gauss() * 0.012]); } }
+        for (let m = 0; m < 10; m++) P.push([a[0] + gauss() * 0.02, a[1] + gauss() * 0.02, a[2] + gauss() * 0.02]); });
+      r = rs; return P.filter(p => p[0] * p[0] + p[1] * p[1] + p[2] * p[2] <= 1.02); };
+    D.web = web(11, 170); D.web2 = web(23, 150);
+    D.bub = []; for (let i = 0; i < 9; i++) { const p = inSphere(); D.bub.push([p[0] * 0.8, p[1] * 0.8, p[2] * 0.5, 0.12 + r() * 0.2, r() * 360]); }
+    D.sky = []; for (let i = 0; i < 240; i++) D.sky.push([r(), r(), r() * 1.3 + 0.3, r()]);
+    // electron cloud of oxygen: 2 inner electrons close in, 6 outer ones (units of 1e-10 m), nucleons of O-16 (units of 1 fm)
+    D.cloud = []; for (let i = 0; i < 1500; i++) { const p = inSphere(), l = Math.hypot(p[0], p[1], p[2]) || 1, inner = i < 320, rad = inner ? 0.02 + Math.abs(gauss()) * 0.07 : 0.28 + Math.abs(gauss()) * 0.26; D.cloud.push([p[0] / l * rad, p[1] / l * rad, p[2] / l * rad, inner ? 1 : 0]); }
+    D.nuc = [[0, 0, 0, 1]]; for (let i = 0; i < 15; i++) { const y = 1 - (i + 0.5) / 7.5, rad = Math.sqrt(1 - y * y), th = i * 2.39996; D.nuc.push([Math.cos(th) * rad * 1.75, y * 1.75, Math.sin(th) * rad * 1.75, i % 2 ? 1 : 0]); }
+    D.foam = []; for (let i = 0; i < 90; i++) D.foam.push([r(), r(), r(), r()]);
+    r = rng(31);
+    D.hairs = []; for (let i = 0; i < 1100; i++) D.hairs.push([r() * 14 - 7, r() * 10 - 5, 2.5 + r() * 3.5, (r() - 0.5) * 0.5, 0.018 + r() * 0.014, r()]);                  // polar bear guard hairs (units of 1 cm)
+    D.tufts = []; for (let i = 0; i < 520; i++) { const t = r() * 6.283, q = Math.sqrt(r()); D.tufts.push([q * Math.cos(t), q * Math.sin(t), r()]); }
+    D.drifts = []; for (let i = 0; i < 90; i++) D.drifts.push([r() * 5 - 2.5, r() * 3.4 - 1.7, 0.08 + r() * 0.22, 0.015 + r() * 0.03]);                                     // wind-packed snow drifts
+    const line = (n, span, jit) => { const t = r() * 6.283, o = (r() - 0.5) * span, nx = Math.cos(t), ny = Math.sin(t), pts = []; for (let i = 0; i <= n; i++) { const u = (i / n - 0.5) * span * 2.2; pts.push([nx * u - ny * o + (r() - 0.5) * jit, ny * u + nx * o + (r() - 0.5) * jit]); } return pts; };
+    D.cracks = []; for (let i = 0; i < 16; i++) D.cracks.push({ pts: line(14, 3.4, 0.28), w: r() < 0.25 ? 0.022 : 0.006 + r() * 0.006 });
+    D.cracks.forEach(cr => { if (cr.pts.some(q => Math.hypot(q[0], q[1]) < 0.4)) cr.pts.forEach(q => { q[0] += 0.75; q[1] += 0.6; }); });
+    D.ridges = []; for (let i = 0; i < 9; i++) D.ridges.push(line(18, 3.2, 0.12));
+    D.spruce = []; for (let i = 0; i < 900; i++) D.spruce.push([r() * 7 - 3.5, r() * 3.6 - 3.6, r()]);
+    D.ponds = []; for (let i = 0; i < 150; i++) D.ponds.push([r() * 4 - 2.1, r() * 4 - 2.1, 0.012 + r() * 0.035, r()]);
+    D.woods = []; for (let i = 0; i < 160; i++) D.woods.push([r() * 3.8 - 2, r() * 1.7 - 2.05, 0.08 + r() * 0.2, r()]);
+    // Earth: rough coastlines as [latitude, longitude]; turned so that southern Manitoba (49.9 N, 97.1 W) faces up
+    const LAND = [
+      // North America, with more care around Canada
+      [[58.5, -162], [61, -165.5], [64.5, -166], [66.5, -164], [68.5, -166.5], [71, -157], [70.2, -145], [69.5, -139], [69.5, -133], [70, -128], [69.8, -121], [68, -114.5], [67.8, -108], [68.5, -98], [69.5, -95.5], [71.5, -94.5], [69.5, -92.5], [68.5, -90], [69, -85.5], [69.8, -82], [67.5, -81.5], [66.3, -83.5], [66.2, -86], [64, -88], [62.5, -92.5], [61, -94], [58.8, -94.2], [57, -92.5], [57, -89], [55.2, -85], [55, -82.5], [53, -82], [51.5, -80.5], [52, -79], [54.5, -79.5], [56, -76.5], [58.5, -78], [60.5, -78], [62.5, -78], [62, -74], [61, -70], [58.5, -68], [58.5, -66], [60.3, -64.7], [57, -61.5], [54, -57], [52, -55.7], [51.5, -57], [50, -60], [50, -66], [48.5, -69], [49, -65], [48, -64.5], [46, -64], [45.5, -61], [43.5, -65.5], [45, -67], [43.5, -70], [42, -70], [40.5, -74], [35, -76], [31, -81], [25, -80], [30, -84], [29, -90], [29, -95], [26, -97], [21, -97], [18, -94], [21, -87], [16, -88], [15, -83], [10, -83], [8, -78], [8, -82], [14, -92], [16, -96], [20, -105], [23, -110], [31, -115], [34, -120], [40, -124], [48.4, -124.7], [50, -127.5], [54, -130.5], [55.5, -131], [58.5, -135], [60, -141], [60, -147], [59, -152], [57, -156], [55, -162]],
+      [[60, -44], [65, -40], [70, -22], [76, -19], [82, -25], [83, -40], [81, -62], [76, -70], [70, -55], [65, -53]],
+      [[12, -72], [10, -62], [5, -52], [0, -50], [-5, -35], [-13, -38], [-23, -42], [-34, -54], [-40, -62], [-52, -69], [-55, -68], [-50, -75], [-40, -73], [-30, -71], [-18, -70], [-14, -76], [-5, -81], [1, -80], [8, -77]],
+      [[35, -6], [37, 10], [32, 22], [31, 32], [22, 37], [12, 43], [11, 51], [2, 46], [-10, 40], [-20, 35], [-26, 33], [-34, 26], [-34, 18], [-22, 14], [-12, 13], [-5, 12], [4, 9], [5, -4], [5, -8], [10, -15], [15, -17], [21, -17], [28, -13]],
+      [[36, -9], [43, -9], [48, -5], [51, 2], [54, 8], [57, 10], [58, 6], [62, 5], [70, 20], [71, 28], [68, 42], [66, 45], [68, 58], [72, 70], [76, 100], [77, 105], [72, 130], [70, 160], [66, 178], [60, 165], [52, 157], [60, 150], [54, 137], [45, 137], [40, 128], [35, 127], [38, 122], [30, 122], [23, 115], [21, 108], [10, 106], [9, 100], [2, 103], [8, 98], [16, 95], [22, 90], [16, 81], [8, 77], [20, 72], [25, 62], [26, 56], [22, 60], [13, 45], [20, 40], [29, 34], [36, 36], [36, 28], [40, 26], [38, 22], [40, 19], [45, 13], [38, 16], [44, 8], [42, 3], [37, -2]],
+      [[-12, 131], [-11, 142], [-18, 146], [-28, 153], [-38, 147], [-38, 140], [-32, 133], [-34, 118], [-22, 114], [-17, 122]],
+      [[-68, 0], [-68, 30], [-67, 60], [-66, 90], [-66, 120], [-68, 150], [-72, 180], [-74, -150], [-73, -120], [-72, -90], [-66, -62], [-72, -40], [-71, -15]],
+      // Canada's Arctic islands and Newfoundland
+      [[62, -66], [64, -65], [66.5, -61.5], [70, -67.5], [73.5, -80], [73, -89], [70.5, -88.5], [70, -79], [67, -74], [65, -77.5], [64.3, -74]],
+      [[69, -101.5], [70, -117], [73, -118], [73, -108], [71.5, -102]], [[76.5, -89], [80, -95], [83, -75], [82, -62], [78, -72], [76.5, -78]], [[71.5, -123], [74.5, -124], [74, -116], [72, -119]],
+      [[75, -80], [76.8, -90], [75.5, -96], [74.5, -90]], [[63.2, -81], [65.5, -84.5], [64, -87]], [[47, -53], [46.7, -56], [47.7, -59.3], [51.5, -55.8], [49.5, -53.5]],
+    ];
+    const ll = (la, lo) => { la *= Math.PI / 180; lo *= Math.PI / 180; return [Math.cos(la) * Math.cos(lo), Math.cos(la) * Math.sin(lo), Math.sin(la)]; };
+    const p0 = ll(58.8, -94.05), el = Math.hypot(p0[0], p0[1]), east = [-p0[1] / el, p0[0] / el, 0], north = [p0[1] * east[2] - p0[2] * east[1], p0[2] * east[0] - p0[0] * east[2], p0[0] * east[1] - p0[1] * east[0]];
+    D.loc = (la, lo) => { const v = ll(la, lo); return [v[0] * east[0] + v[1] * east[1] + v[2] * east[2], v[0] * north[0] + v[1] * north[1] + v[2] * north[2], v[0] * p0[0] + v[1] * p0[1] + v[2] * p0[2]]; };
+    D.land = LAND.map((poly, i) => { const out = []; for (let k = 0; k < poly.length; k++) { const a = poly[k], b = poly[(k + 1) % poly.length]; let dl = b[1] - a[1]; if (dl > 180) dl -= 360; if (dl < -180) dl += 360; for (let s = 0; s < 4; s++) out.push(D.loc(a[0] + (b[0] - a[0]) * s / 4, a[1] + dl * s / 4)); } return { pts: out, ice: i === 1 || i === 6 || (i >= 8 && i <= 11) }; });
+    // lakes as [latitude, longitude, half-width in degrees east-west, half-height north-south]; Hudson Bay's winter ice
+    D.water = [[47.6, -87.8, 3.2, 0.9], [44, -87, 0.9, 2], [45, -82.3, 1.4, 1.5], [42.2, -81.2, 1.9, 0.5], [43.6, -77.8, 1.3, 0.45], [52.6, -97.8, 0.7, 1.7], [51.2, -98.6, 0.5, 0.9], [61.6, -114, 2.6, 0.7], [66, -120.5, 2.4, 1], [57.2, -102.2, 0.9, 0.9], [59.1, -109.2, 1.9, 0.4], [50.5, -88.5, 0.6, 0.6]]
+      .map(w => { const pts = []; for (let i = 0; i < 18; i++) { const t = i / 18 * 6.283; pts.push(D.loc(w[0] + Math.sin(t) * w[3], w[1] + Math.cos(t) * w[2] / Math.cos(w[0] * Math.PI / 180) * 0.62)); } return pts; });
+    D.bayIce = [[64, -88], [62.5, -92.5], [61, -94], [58.8, -94.2], [57, -92.5], [57, -89], [55.2, -85], [55, -82.5], [53, -82], [51.5, -80.5], [52, -79], [54.5, -79.5], [56, -76.5], [58.5, -78], [60.5, -78], [62.5, -78], [63.5, -80], [63.2, -81], [64, -87]].map(q => D.loc(q[0], q[1]));
+    D.clouds = []; r = rng(5); for (let i = 0; i < 110; i++) { const p = inSphere(), l = Math.hypot(p[0], p[1], p[2]) || 1; D.clouds.push([p[0] / l, p[1] / l, p[2] / l, 0.02 + r() * 0.045]); }
+    return (DATA = D);
+  }
+
+  /* ---------- state ---------- */
+  const ST = { z: 0, yaw: 0, dp: 0, auto: 0, speed: 1, fly: null, music: false, ch: null, right: 0, n: 0, shown: null };
+  let root = null, cv = null, ctx = null, raf = 0, last = 0, T = 0, W = 0, H = 0, DPR = 1, labels = [];
+  const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
+  const trap = (z, a, b, c, d) => (z <= a || z >= d ? 0 : z < b ? (z - a) / (b - a) : z > c ? (d - z) / (d - c) : 1);
+  const autoPitch = (z) => (z > 7.5 ? clamp((z - 7.5) / 3, 0, 1) * 1.0 : z < -9.8 ? clamp((-9.8 - z) / 2, 0, 1) * 0.5 : 0);
+
+  /* ---------- drawing ---------- */
+  function frame(now) {
+    raf = 0; if (!root || !root.isConnected) { stop(); return; }
+    const dt = Math.min(0.05, (now - last) / 1000 || 0); last = now; T += dt;
+    if (ST.fly) { const f = ST.fly; f.t += dt / f.d; const u = clamp(f.t, 0, 1), e = u * u * (3 - 2 * u); ST.z = f.a + (f.b - f.a) * e; if (u >= 1) ST.fly = null; }
+    else if (ST.auto) { ST.z = clamp(ST.z + ST.auto * ST.speed * 0.3 * dt, ZMIN, ZMAX); if (ST.z <= ZMIN || ST.z >= ZMAX) { ST.auto = 0; ui(); } }
+    draw(); hud(); raf = requestAnimationFrame(frame);
+  }
+  function resize() { const b = cv.getBoundingClientRect(); DPR = Math.min(2, window.devicePixelRatio || 1); W = Math.max(200, b.width); H = Math.max(150, b.height); cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR); }
+  function draw() {
+    const D = build(), z = ST.z, k = W / Math.pow(10, z), cx = W / 2, cy = H / 2, c = ctx;
+    const pitch = clamp(autoPitch(z) + ST.dp, 0, 1.45), ca = Math.cos(ST.yaw), sa = Math.sin(ST.yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
+    const rot = (x, y, zz) => { const x1 = x * ca - y * sa, y1 = x * sa + y * ca; return [x1, y1 * cp - zz * sp, y1 * sp + zz * cp]; };
+    const P = (x, y, zz) => { const v = rot(x, y, zz); return [cx + v[0] * k, cy - v[1] * k, v[2]]; };
+    const on = (p, m) => p[0] > -m && p[0] < W + m && p[1] > -m && p[1] < H + m;
+    labels = [];
+    const label = (p, s, a, dy) => { if (a > 0.05 && on(p, 0)) labels.push([p[0], p[1] + (dy || -10), s, Math.min(1, a)]); };
+    c.setTransform(DPR, 0, 0, DPR, 0, 0); c.globalAlpha = 1; c.fillStyle = z < -7 ? '#05071a' : '#02030a'; c.fillRect(0, 0, W, H);
+    // a flat drawing lying in the ground plane at the origin; 1 unit = size metres
+    const flat = (size, a, fn) => { if (a <= 0.01) return; const u = size * k; c.save(); c.globalAlpha = a; c.transform(ca * u, -sa * cp * u, -sa * u, -ca * cp * u, cx, cy); fn(1 / u); c.restore(); };
+    const dots = (pts, org, scale, a, colour, px, twinkle) => { if (a <= 0.01) return; c.fillStyle = colour; c.globalAlpha = a; for (let i = 0; i < pts.length; i++) { const q = pts[i], p = P(org[0] + q[0] * scale, org[1] + q[1] * scale, org[2] + q[2] * scale); if (p[0] < 0 || p[0] > W || p[1] < 0 || p[1] > H) continue; const s = twinkle ? px * (0.6 + 0.8 * ((i * 7919) % 97) / 97) : px; c.fillRect(p[0] - s / 2, p[1] - s / 2, s, s); } c.globalAlpha = 1; };
+    const ball = (x, y, rad, col, a, glow) => { if (rad < 0.3 || a <= 0.01) return; c.globalAlpha = a; if (glow) { const g = c.createRadialGradient(x, y, 0, x, y, rad * glow); g.addColorStop(0, col); g.addColorStop(1, 'rgba(0,0,0,0)'); c.fillStyle = g; c.beginPath(); c.arc(x, y, rad * glow, 0, 6.283); c.fill(); }
+      const g = c.createRadialGradient(x - rad * 0.35, y - rad * 0.35, rad * 0.05, x, y, rad); g.addColorStop(0, '#ffffff'); g.addColorStop(0.25, col); g.addColorStop(1, 'rgba(0,0,0,0.75)'); c.fillStyle = col; c.beginPath(); c.arc(x, y, rad, 0, 6.283); c.fill(); c.fillStyle = g; c.globalAlpha = a * 0.75; c.fill(); c.globalAlpha = 1; };
+    const ring = (org, rad, a, col, lw, dash) => { const rp = rad * k; if (a <= 0.01 || rp < 3 || rp > W * 60) return; c.globalAlpha = a; c.strokeStyle = col; c.lineWidth = lw || 1; if (dash) c.setLineDash(dash); c.beginPath(); for (let i = 0; i <= 120; i++) { const t = i / 120 * 6.283, p = P(org[0] + Math.cos(t) * rad, org[1] + Math.sin(t) * rad, org[2]); i ? c.lineTo(p[0], p[1]) : c.moveTo(p[0], p[1]); } c.stroke(); c.setLineDash([]); c.globalAlpha = 1; };
+
+    /* ===== outward: space ===== */
+    const SUN = [-AU, 0, 0], GAL = [-AU + 2.46e20, 0, 0], UNI = 4.4e26;
+    // the sky of distant stars
+    const skyA = trap(z, 6.3, 8, 22.5, 24); if (skyA > 0) { c.fillStyle = '#fff'; D.sky.forEach(s => { c.globalAlpha = skyA * (0.35 + 0.5 * s[3]) * (0.8 + 0.2 * Math.sin(T * 2 + s[3] * 40)); c.fillRect(s[0] * W, s[1] * H, s[2], s[2]); }); c.globalAlpha = 1; }
+    // beyond the horizon: more cosmic web, then bubble universes (theoretical)
+    let a = trap(z, 27.0, 27.8, 30, 31); if (a > 0) { dots(D.web2, [0, 0, 0], UNI * 14, a * 0.5, '#8f7bd6', 1.3); dots(D.web, [0, 0, 0], UNI * 5, a * 0.55, '#7f9be6', 1.3); }
+    a = trap(z, 28.1, 28.9, 30, 31); if (a > 0) D.bub.forEach((b, i) => { const p = P(b[0] * 6e28, b[1] * 6e28, b[2] * 6e28), rad = b[3] * 6e28 * k, g = c.createRadialGradient(p[0], p[1], rad * 0.1, p[0], p[1], rad); g.addColorStop(0, `hsla(${b[4]},70%,60%,0)`); g.addColorStop(0.8, `hsla(${b[4]},70%,60%,0.16)`); g.addColorStop(1, `hsla(${b[4]},80%,75%,0.5)`); c.globalAlpha = a * (0.7 + 0.3 * Math.sin(T * 0.7 + i)); c.fillStyle = g; c.beginPath(); c.arc(p[0], p[1], rad, 0, 6.283); c.fill(); c.globalAlpha = 1; if (i < 3) label(p, 'another universe?', a * 0.8, 0); });
+    // the cosmic web and the edge of the observable universe
+    a = trap(z, 24.6, 25.6, 28.4, 29.4); dots(D.web, [0, 0, 0], UNI, a * 0.85, '#b9a6ff', z > 27.6 ? 1 : 1.5, true);
+    a = trap(z, 25.6, 26.4, 29, 29.8); if (a > 0) { const rad = UNI * k; if (rad > 2) { c.globalAlpha = a; for (let i = 0; i < 180; i++) { const t = i / 180 * 6.283; c.strokeStyle = `hsl(${20 + 200 * (0.5 + 0.5 * Math.sin(i * 12.9898)) | 0},80%,62%)`; c.lineWidth = Math.max(1, Math.min(5, rad * 0.02)); c.beginPath(); c.arc(cx, cy, rad, t, t + 0.036); c.stroke(); } c.globalAlpha = 1; label([cx, cy - rad, 0], rad < 30 ? 'our observable universe' : 'edge of the observable universe', a, -8); } else { ball(cx, cy, 2, '#ffd9a8', a, 4); label([cx, cy, 0], 'our observable universe', a); } }
+    // galaxies of our supercluster, the Local Group, the Milky Way
+    dots(D.super, [1e23, 5e22, 0], 5e23, trap(z, 22.8, 23.4, 24.6, 25.2) * 0.9, '#d9d2ff', 1.6, true); dots(D.web2, [0, 0, 0], 1.1e26, trap(z, 24.8, 25.4, 26.6, 27.2) * 0.8, '#c3b4ff', 1.5, true);
+    a = trap(z, 22.6, 23.4, 25.8, 26.6); dots(D.super, [0, 0, 0], 2.6e24, a * 0.9, '#d9d2ff', 1.6, true);
+    if (a > 0) { label(P(3.5e23, 3.6e23, 1e23), 'Virgo Cluster', a * trap(z, 23.2, 23.6, 24.8, 25.4)); label(P(0, 0, 0), 'Laniakea Supercluster', a * trap(z, 24.6, 25, 25.8, 26.4), -24); }
+    a = trap(z, 21.2, 21.9, 24.2, 25); if (a > 0) [[1.6e22, 1.7e22, 5e21, 1.05e21, 'Andromeda (M31)', '#cdd7ff'], [2.2e22, 1.4e22, -8e21, 3e20, 'Triangulum (M33)', '#bfd0ff'], [1.2e21, -9e20, -3e20, 7e19, 'Large Magellanic Cloud', '#e6ecff'], [1.7e21, -6e20, -9e20, 4e19, 'Small Magellanic Cloud', '#e6ecff'], [-9e21, 6e21, 2e21, 4e19, '', '#dfe6ff'], [5e21, -1.3e22, 1e21, 4e19, '', '#dfe6ff'], [-1.4e22, -4e21, -3e21, 4e19, '', '#dfe6ff']].forEach(g => {
+      const o = [GAL[0] + g[0], GAL[1] + g[1], g[2]], rp = g[3] * k; if (rp < 2.5) { const p = P(o[0], o[1], o[2]); ball(p[0], p[1], 1.4, g[5], a, 3); } else { c.fillStyle = g[5]; c.globalAlpha = a * 0.9; D.spiral.forEach(q => { const p = P(o[0] + (q[0] * 0.8 + q[2] * 0.5) * g[3], o[1] + q[1] * g[3], o[2] + (q[0] * 0.5 - q[2]) * g[3]); c.fillRect(p[0], p[1], 1.4, 1.4); }); c.globalAlpha = 1; }
+      if (g[4]) label(P(o[0], o[1], o[2]), g[4], a * (g[3] < 1e20 ? trap(z, 21.6, 22, 22.5, 22.8) : trap(z, 22.2, 22.6, 23.3, 23.7)), -6 - Math.min(40, rp)); });
+    const galR = 5e20, galPx = galR * k; a = trap(z, 18.6, 19.6, 26, 27);
+    if (a > 0) { if (galPx < 4) { const p = P(GAL[0], GAL[1], 0); ball(p[0], p[1], 1.6, '#fff1c9', a, 4); label(p, 'Milky Way', a * trap(z, 22.4, 22.8, 23.3, 23.7), 16); }
+      else { c.globalAlpha = a; const cols = ['#ffe2a6', '#cfe0ff', '#ff9fc0', '#8fa6d8']; for (let pass = 0; pass < 4; pass++) { c.fillStyle = cols[pass]; const s = pass === 0 ? 1.7 : pass === 3 ? 1 : 1.4; for (let i = 0; i < D.gal.length; i++) { const q = D.gal[i]; if (q[3] !== pass) continue; const p = P(GAL[0] + q[0] * galR, GAL[1] + q[1] * galR, q[2] * galR); if (p[0] < 0 || p[0] > W || p[1] < 0 || p[1] > H) continue; c.fillRect(p[0], p[1], s, s); } }
+        c.globalAlpha = 1; const pc = P(GAL[0], GAL[1], 0); ball(pc[0], pc[1], galPx * 0.07, '#ffe9b8', a * 0.5, 2.6); label(pc, 'Milky Way', a * trap(z, 20.6, 21, 22.6, 23)); const ps = P(SUN[0], SUN[1], 0), ya = a * trap(z, 19.6, 20.2, 22.2, 22.8); if (ya > 0) { c.globalAlpha = ya; c.strokeStyle = '#ffd24a'; c.lineWidth = 1.5; c.beginPath(); c.arc(ps[0], ps[1], 6, 0, 6.283); c.stroke(); c.globalAlpha = 1; label(ps, 'the Sun is here', ya, -14); } } }
+    // stars of our neighbourhood
+    a = trap(z, 17.6, 18.4, 20.0, 20.7); dots(D.arm, SUN, 1e20, a * 0.9, '#e8eeff', 1.5, true);
+    a = trap(z, 15.6, 16.4, 19.2, 20); dots(D.near, SUN, 2.8e18, a, '#fff6e0', 1.7, true);
+    if (a > 0) [[4.1e16, 4.2e15, -5e15, 'Alpha Centauri'], [-2e16, 5.2e16, 1e16, 'Barnard’s Star'], [-7e16, -3.5e16, -2e16, 'Sirius'], [-9e16, 4e16, 3e16, 'Procyon'], [1.5e17, 1.6e17, 8e16, 'Vega'], [2.5e17, -2e17, 1.2e17, 'Arcturus']].forEach(s => { const p = P(SUN[0] + s[0], s[1], s[2]); ball(p[0], p[1], 2, '#fff', a * trap(z, 15.6, 16.2, 18.6, 19.2), 3); label(p, s[3], a * trap(z, 16.2, 16.6, 18.2, 18.8)); });
+    // the Oort cloud, Kuiper belt, heliopause, planets and the Sun
+    a = trap(z, 14.6, 15.4, 17.3, 18); dots(D.oort, SUN, 7.5e15, a * 0.85, '#9fc7e8', 1.5); if (a > 0) label(P(SUN[0], z < 16.5 ? 2.4e15 : 7e15, 0), 'Oort cloud', a * 0.9);
+    a = trap(z, 12.6, 13.2, 14.8, 15.4); dots(D.kuiper, SUN, AU, a * 0.6, '#b8c4d6', 1.2); ring(SUN, 120 * AU, a * 0.5, '#7fd0ff', 1, [4, 6]); if (a > 0) { label(P(SUN[0], 120 * AU, 0), 'heliopause', a * trap(z, 13.4, 13.8, 14.8, 15.2)); label(P(SUN[0] + 40 * AU, 0, 0), 'Kuiper belt', a * trap(z, 13.2, 13.6, 14.4, 14.8), 14); }
+    a = trap(z, 11.4, 12, 13.2, 13.8); dots(D.belt, SUN, AU, a * 0.55, '#a89c8a', 1.1);
+    const PL = [['Mercury', 0.387, '#b5aca3', 2.4e6, 4.15], ['Venus', 0.723, '#e8cf9a', 6.05e6, 1.62], ['Earth', 1, '#5fa8ff', RE, 0], ['Mars', 1.524, '#d9643a', 3.4e6, 0.53], ['Jupiter', 5.2, '#e0b98a', 7e7, 0.084], ['Saturn', 9.58, '#ecd9a0', 5.8e7, 0.034], ['Uranus', 19.2, '#a8e4ea', 2.5e7, 0.012], ['Neptune', 30.07, '#5b7bff', 2.5e7, 0.006]];
+    const solA = trap(z, 9.8, 10.6, 14.6, 15.4);
+    if (solA > 0) PL.forEach((pl, i) => { const rad = pl[1] * AU, rp = rad * k; ring(SUN, rad, solA * 0.55 * clamp(rp / 14, 0, 1), '#6f86b8', 1); if (i === 2) return;
+      const th = i * 2.1 + T * pl[4] * 0.05, p = P(SUN[0] + Math.cos(th) * rad, Math.sin(th) * rad, 0), pa = solA * clamp(rp / 14, 0, 1) * (rp > W * 30 ? 0 : 1); ball(p[0], p[1], Math.max(i > 3 ? 2.6 : 2, pl[3] * k), pl[2], pa); if (i === 5) { c.globalAlpha = pa; c.strokeStyle = '#ecd9a0'; c.lineWidth = 1; c.beginPath(); c.ellipse(p[0], p[1], Math.max(5, pl[3] * k * 2.1), Math.max(1.6, pl[3] * k * 2.1 * Math.max(0.25, sp)), 0, 0, 6.283); c.stroke(); c.globalAlpha = 1; } label(p, pl[0], pa * clamp((rp - 26) / 20, 0, 1), -9 - Math.max(2, pl[3] * k)); });
+    a = trap(z, 8.6, 9.4, 18.4, 19.2); if (a > 0) { const p = P(SUN[0], 0, 0), rad = Math.max(2.5, 6.96e8 * k); if (on(p, rad * 5)) { ball(p[0], p[1], rad, '#ffd24a', a, 3.2); label(p, 'Sun', a * trap(z, 10.6, 11, 16.4, 17), -10 - rad); } }
+    // the Moon
+    a = trap(z, 7.6, 8.2, 10.4, 11.2); ring([0, 0, 0], 3.844e8, a * 0.5, '#8a96ad', 1, [3, 5]); if (a > 0) { const th = 0.9 + T * 0.04, p = P(Math.cos(th) * 3.844e8, Math.sin(th) * 3.844e8, 0), rad = Math.max(1.8, 1.737e6 * k); ball(p[0], p[1], rad, '#c9c9c9', a); label(p, 'Moon', a * trap(z, 8.2, 8.6, 9.8, 10.2), -8 - rad); }
+    // the Earth: its centre is one Earth radius below the start point
+    a = trap(z, 5.4, 6.0, 13.6, 14.4);
+    if (a > 0) { const pc = P(0, 0, -RE), rad = RE * k;
+      if (rad < 2.2) { ball(pc[0], pc[1], 2.2, '#5fa8ff', a); label(pc, 'Earth', a * trap(z, 9.6, 10, 13, 13.6), -9); }
+      else if (rad < W * 40) { c.save(); c.globalAlpha = a; c.beginPath(); c.arc(pc[0], pc[1], rad, 0, 6.283); const og = c.createRadialGradient(pc[0] - rad * 0.3, pc[1] - rad * 0.3, rad * 0.1, pc[0], pc[1], rad); og.addColorStop(0, '#3f8fe0'); og.addColorStop(1, '#123a7a'); c.fillStyle = og; c.fill(); c.clip();
+        const poly = (pts, col) => { const v = pts.map(q => rot(q[0], q[1], q[2])); if (!v.some(q => q[2] > 0)) return; c.beginPath(); v.forEach((q, i) => { let x = q[0], y = q[1]; if (q[2] < 0) { const l = Math.hypot(x, y) || 1; x /= l; y /= l; } const X = pc[0] + x * rad, Y = pc[1] - y * rad; i ? c.lineTo(X, Y) : c.moveTo(X, Y); }); c.closePath(); c.fillStyle = col; c.fill(); };
+        D.land.forEach(L => poly(L.pts, L.ice ? '#eef4f8' : '#6f9a5a'));
+        // winter: snow over the north of North America and Eurasia
+        const np = rot.apply(null, D.loc(90, 0)); if (np[2] > -0.3) { const g = c.createRadialGradient(pc[0] + np[0] * rad, pc[1] - np[1] * rad, rad * 0.5, pc[0] + np[0] * rad, pc[1] - np[1] * rad, rad * 0.98); g.addColorStop(0, 'rgba(236,243,247,0.96)'); g.addColorStop(1, 'rgba(240,246,250,0)'); c.globalCompositeOperation = 'source-atop'; c.fillStyle = g; c.fillRect(pc[0] - rad, pc[1] - rad, rad * 2, rad * 2); c.globalCompositeOperation = 'source-over'; }
+        poly(D.bayIce, '#dfeaf2'); D.water.forEach(w => poly(w, '#2f6fc0'));
+        c.fillStyle = 'rgba(255,255,255,0.4)'; D.clouds.forEach((q, i) => { const dr = T * 0.004 + i, v = rot(q[0] * Math.cos(dr * 0.02) - q[1] * Math.sin(dr * 0.02), q[0] * Math.sin(dr * 0.02) + q[1] * Math.cos(dr * 0.02), q[2]); if (v[2] > 0.15 && rad > 30) { c.beginPath(); c.ellipse(pc[0] + v[0] * rad, pc[1] - v[1] * rad, q[3] * rad * 1.6, q[3] * rad * 0.6 * v[2], i, 0, 6.283); c.fill(); } });
+        const sv = rot(-1, 0, 0), sg = c.createLinearGradient(pc[0] + sv[0] * rad, pc[1] - sv[1] * rad, pc[0] - sv[0] * rad, pc[1] + sv[1] * rad); sg.addColorStop(0, 'rgba(0,0,10,0)'); sg.addColorStop(0.55, 'rgba(0,0,10,0.08)'); sg.addColorStop(1, 'rgba(0,0,10,0.72)'); c.fillStyle = sg; c.fillRect(pc[0] - rad, pc[1] - rad, rad * 2, rad * 2);
+        c.restore(); c.globalAlpha = a * 0.5; c.strokeStyle = '#9fd0ff'; c.lineWidth = Math.max(1, Math.min(4, rad * 0.02)); c.beginPath(); c.arc(pc[0], pc[1], rad + c.lineWidth / 2, 0, 6.283); c.stroke(); c.globalAlpha = 1; label([pc[0], pc[1] - rad, 0], 'Earth', a * trap(z, 7.6, 8, 9.4, 9.8), -8);
+        // place names, and the flag as Canada comes into view
+        const G = (la, lo) => { const q = D.loc(la, lo), v = rot(q[0], q[1], q[2]); return [pc[0] + v[0] * rad, pc[1] - v[1] * rad, v[2]]; }, gl = (la, lo, txt, al) => { const q = G(la, lo); if (q[2] > 0.2) label(q, txt, a * al, 4); };
+        gl(60, -86, 'Hudson Bay', trap(z, 5.9, 6.2, 7.0, 7.3)); gl(40, -100, 'North America', trap(z, 7.1, 7.3, 7.8, 8)); gl(73, -42, 'Greenland', trap(z, 6.9, 7.1, 7.6, 7.8)); gl(84, -150, 'Arctic Ocean', trap(z, 6.9, 7.1, 7.6, 7.8)); gl(52, -160, 'Pacific Ocean', trap(z, 7.1, 7.3, 7.8, 8)); gl(38, -52, 'Atlantic Ocean', trap(z, 7.1, 7.3, 7.8, 8));
+        const fa = a * trap(z, 6.2, 6.5, 7.7, 8.1), fp = G(55.5, -106); if (fa > 0 && fp[2] > 0.2) { const fw = 66, fh = 33, fx = fp[0] - fw / 2, fy = fp[1] - fh - 26, wave = Math.sin(T * 2) * 1.5; c.save(); c.globalAlpha = fa; c.strokeStyle = '#3a3f4a'; c.lineWidth = 2.5; c.beginPath(); c.moveTo(fx, fy - 3); c.lineTo(fx, fp[1]); c.stroke(); c.shadowColor = 'rgba(0,0,0,0.45)'; c.shadowBlur = 6 * DPR; c.fillStyle = '#fff'; c.fillRect(fx, fy, fw, fh); c.shadowBlur = 0; c.fillStyle = '#d52b1e'; c.fillRect(fx, fy, fw / 4, fh); c.fillRect(fx + fw * 0.75, fy, fw / 4, fh);
+          const LF = [[50, 4], [58, 24], [72, 16], [68, 40], [86, 34], [80, 50], [96, 58], [76, 66], [80, 80], [56, 76], [54, 96], [46, 96], [44, 76], [20, 80], [24, 66], [4, 58], [20, 50], [14, 34], [32, 40], [28, 16], [42, 24]]; c.beginPath(); LF.forEach((q, i) => { const X = fx + fw / 2 + (q[0] - 50) * 0.27, Y = fy + fh / 2 + (q[1] - 50) * 0.27 + (i % 2 ? wave * 0 : 0); i ? c.lineTo(X, Y) : c.moveTo(X, Y); }); c.closePath(); c.fill(); c.strokeStyle = 'rgba(0,0,0,0.25)'; c.lineWidth = 1; c.strokeRect(fx, fy, fw, fh); c.restore(); label([fp[0], fp[1], 0], 'Canada', fa, 14); } } }
+    /* ===== the ground: sea ice on Hudson Bay near Churchill, Manitoba ===== */
+    a = trap(z, -1.6, -1.2, 5.7, 6.3); if (a > 0) { c.globalAlpha = a; c.fillStyle = '#e4edf3'; c.fillRect(0, 0, W, H); c.globalAlpha = 1; }
+    const path = (pts, sc) => { c.beginPath(); pts.forEach((q, i) => (i ? c.lineTo(q[0] * sc, q[1] * sc) : c.moveTo(q[0] * sc, q[1] * sc))); };
+    // the west coast of Hudson Bay (1 unit = 300 km)
+    const reg = trap(z, 4.5, 5.1, 6.0, 6.6);
+    flat(3e5, reg, (px) => { const coast = [[-0.35, 1.9], [-0.3, 1.3], [-0.15, 0.7], [-0.08, 0.25], [-0.035, -0.012], [0.12, -0.2], [0.35, -0.42], [0.62, -0.58], [0.8, -0.62], [1.05, -0.5], [1.5, -0.75], [1.9, -1.1], [1.9, -2.1], [-2.1, -2.1], [-2.1, 1.9]];
+      D.cracks.forEach(cr => { c.strokeStyle = 'rgba(70,110,150,0.45)'; c.lineWidth = Math.max(px, cr.w * 0.25); path(cr.pts, 0.6); c.stroke(); });
+      path(coast, 1); c.closePath(); c.fillStyle = '#e3ddcb'; c.fill(); c.save(); c.clip(); D.woods.forEach(q => { c.fillStyle = q[3] < 0.6 ? '#587d55' : '#6d8f67'; c.beginPath(); c.ellipse(q[0], q[1], q[2], q[2] * 0.7, q[3] * 3, 0, 6.283); c.fill(); });
+      D.ponds.forEach(q => { c.fillStyle = '#b9d6ea'; c.beginPath(); c.ellipse(q[0], q[1], q[2], q[2] * 0.6, q[3] * 3, 0, 6.283); c.fill(); });
+      c.strokeStyle = '#8fb8d8'; c.lineWidth = Math.max(1.5 * px, 0.008); c.lineCap = 'round'; c.beginPath(); c.moveTo(-0.03, -0.02); c.bezierCurveTo(-0.2, -0.3, -0.6, -0.3, -0.95, -0.62); c.moveTo(0.8, -0.62); c.bezierCurveTo(0.5, -0.9, 0.3, -1.1, 0.1, -1.55); c.stroke(); c.restore();
+      c.strokeStyle = '#ffffff'; c.lineWidth = Math.max(1.5 * px, 0.006); path(coast.slice(0, 12), 1); c.stroke(); c.fillStyle = '#3a3f4a'; c.beginPath(); c.arc(-0.035, -0.012, Math.max(3 * px, 0.004), 0, 6.283); c.fill(); });
+    if (reg > 0) { const la = reg * trap(z, 4.9, 5.2, 6.0, 6.3); label(P(2.4e5, 1.5e5, 0), 'Hudson Bay', la, 0); label(P(-1.05e4, -3.6e3, 0), 'Churchill', la, 16); label(P(-1.9e5, -2.7e5, 0), 'Manitoba', la * trap(z, 5.3, 5.6, 6, 6.3), 0); label(P(-1.9e5, 2.7e5, 0), 'Nunavut', la * trap(z, 5.3, 5.6, 6, 6.3), 0); }
+    // pack ice and the shore at Churchill (1 unit = 10 km)
+    const shoreA = trap(z, 3.1, 3.7, 5.0, 5.6);
+    flat(1e4, shoreA, (px) => { D.cracks.forEach(cr => { c.strokeStyle = '#5d83a6'; c.lineWidth = Math.max(px, cr.w * 0.9); path(cr.pts, 1); c.stroke(); }); c.fillStyle = '#3f6f9c'; c.beginPath(); c.ellipse(1.5, 0.95, 0.42, 0.16, 0.5, 0, 6.283); c.fill();
+      const shore = [[-3.6, 0.95], [-1.6, 0.3], [-0.95, -0.15], [-0.82, -0.5], [-0.66, -0.52], [-0.3, -0.8], [0.6, -1.3], [2, -1.9], [3.6, -2.3], [3.6, -3.7], [-3.6, -3.7]]; path(shore, 1); c.closePath(); c.fillStyle = '#e3ddcb'; c.fill(); c.save(); c.clip();
+      for (let i = 0; i < 40; i++) { const q = D.drifts[i]; c.fillStyle = 'rgba(255,255,255,0.8)'; c.beginPath(); c.ellipse(q[0] * 1.4, q[1] - 1.9, q[2] * 1.6, q[3] * 6, 0.3, 0, 6.283); c.fill(); }
+      D.spruce.forEach(q => { if (q[1] > -0.9 - q[2] * 0.8) return; c.fillStyle = '#3d6146'; const sz = 0.018 + q[2] * 0.02; c.fillRect(q[0], q[1], sz, sz); });
+      c.strokeStyle = '#c7dcec'; c.lineWidth = 0.13; c.lineCap = 'round'; c.beginPath(); c.moveTo(-0.74, -0.5); c.bezierCurveTo(-0.8, -1.3, -1.1, -2, -0.95, -3.7); c.stroke(); c.restore();
+      c.strokeStyle = '#ffffff'; c.lineWidth = Math.max(2 * px, 0.012); path(shore.slice(0, 9), 1); c.stroke();
+      c.fillStyle = '#4a4f5c'; for (let i = 0; i < 6; i++) for (let j = 0; j < 3; j++) if ((i * 3 + j) % 4) c.fillRect(-0.62 + i * 0.045, -0.72 + j * 0.04 - i * 0.012, 0.028, 0.022); c.fillStyle = '#b9bcc4'; c.fillRect(-0.7, -0.6, 0.05, 0.035); });
+    if (shoreA > 0) { const la = shoreA * trap(z, 3.5, 3.8, 4.6, 4.9); label(P(-5200, -6800, 0), 'Churchill', la, 20); label(P(1.2e4, 8e3, 0), 'Hudson Bay (sea ice)', la * trap(z, 4.1, 4.3, 4.6, 4.9), 0); label(P(-8300, -1.7e4, 0), 'Churchill River', la * 0.9, 0); }
+    // ice floes and leads (1 unit = 300 m)
+    flat(300, trap(z, 1.5, 2.1, 3.3, 3.8), (px) => { D.ridges.forEach(rg => { c.strokeStyle = 'rgba(255,255,255,0.95)'; c.lineWidth = Math.max(1.5 * px, 0.012); path(rg, 1); c.stroke(); c.strokeStyle = 'rgba(120,160,195,0.5)'; c.lineWidth = Math.max(px, 0.005); c.save(); c.translate(0.008, -0.008); path(rg, 1); c.stroke(); c.restore(); });
+      D.cracks.forEach(cr => { c.strokeStyle = '#4f7699'; c.lineWidth = Math.max(px, cr.w * 0.8); c.lineJoin = 'round'; path(cr.pts, 1); c.stroke(); if (cr.w > 0.02) { c.strokeStyle = '#2f5b86'; c.lineWidth = cr.w * 0.4; path(cr.pts, 1); c.stroke(); } }); });
+    // wind-packed snow, a pressure ridge, the bear's tracks and a seal at its breathing hole (1 unit = 20 m)
+    flat(20, trap(z, -0.8, -0.2, 2.5, 3.1), (px) => { D.drifts.forEach(q => { c.fillStyle = 'rgba(150,180,205,0.3)'; c.beginPath(); c.ellipse(q[0] + 0.006, q[1] - 0.008, q[2], q[3], 0.35, 0, 6.283); c.fill(); c.fillStyle = 'rgba(255,255,255,0.92)'; c.beginPath(); c.ellipse(q[0], q[1], q[2], q[3], 0.35, 0, 6.283); c.fill(); });
+      c.lineJoin = 'round'; c.strokeStyle = 'rgba(120,160,195,0.7)'; c.lineWidth = 0.05; path(D.ridges[0], 0.75); c.save(); c.translate(0.3, 0.75); c.stroke(); c.strokeStyle = '#ffffff'; c.lineWidth = 0.028; c.translate(-0.008, 0.008); c.stroke(); c.restore();
+      c.fillStyle = 'rgba(110,145,180,0.45)'; for (let i = 0; i < 42; i++) { const x = -2.4 + i * 0.052, y = -0.5 + 0.5 * Math.sin((x + 2.4) * 0.66) ** 2 * (x + 2.4) / 2.4 - 0.0 + (x > -0.3 ? (x + 0.3) * 0.0 : 0), yy = y * (1 - clamp((x + 0.6) / 0.5, 0, 1)); [-1, 1].forEach(sd => { c.beginPath(); c.ellipse(x + (sd > 0 ? 0.026 : 0), yy + sd * 0.014, 0.009, 0.007, 0, 0, 6.283); c.fill(); }); }
+      c.fillStyle = '#1f3f63'; c.beginPath(); c.ellipse(0.72, -0.42, 0.022, 0.016, 0, 0, 6.283); c.fill(); c.fillStyle = '#7c838f'; c.beginPath(); c.ellipse(0.775, -0.405, 0.04, 0.013, 0.25, 0, 6.283); c.fill(); c.fillStyle = '#5c626d'; c.beginPath(); c.arc(0.74, -0.415, 0.011, 0, 6.283); c.fill(); });
+    if (trap(z, -0.8, -0.2, 2.5, 3.1) > 0) label(P(15, -8.3, 0), 'ringed seal', trap(z, 1.2, 1.4, 1.9, 2.1), 16);
+    // the polar bear, seen from above, walking east (1 unit = 1 m); the snowflake lands on its head
+    flat(1, trap(z, -1.5, -1.1, 1.9, 2.5), (px) => { const u = k; c.translate(-1.3, 0); if (u < 4) { c.fillStyle = '#f3ecd9'; c.strokeStyle = '#8c8266'; c.lineWidth = px; c.beginPath(); c.ellipse(-0.25, 0, Math.max(1.1, 2.5 * px), Math.max(0.5, 1.6 * px), 0, 0, 6.283); c.fill(); c.stroke(); return; }
+      const fur = '#f6f0df', shade = '#e2d6ba', edge = '#b9ab8a'; c.lineJoin = 'round'; c.lineCap = 'round';
+      c.fillStyle = 'rgba(70,100,135,0.22)'; c.beginPath(); c.ellipse(-0.15, -0.22, 1.5, 0.62, 0, 0, 6.283); c.fill();                                                           // shadow on the ice
+      const paw = (x, y, rot0) => { c.save(); c.translate(x, y); c.rotate(rot0); c.fillStyle = fur; c.strokeStyle = edge; c.lineWidth = 0.02; c.beginPath(); c.ellipse(0, 0, 0.2, 0.135, 0, 0, 6.283); c.fill(); c.stroke(); c.strokeStyle = '#2b2b2b'; c.lineWidth = 0.014; for (let i = -2; i <= 2; i++) { c.beginPath(); c.moveTo(0.19, i * 0.045); c.lineTo(0.235, i * 0.05); c.stroke(); } c.restore(); };
+      paw(0.98, 0.5, 0.2); paw(0.48, -0.52, -0.1); paw(-0.82, 0.52, 0.1); paw(-1.22, -0.46, -0.15);
+      c.fillStyle = fur; c.strokeStyle = edge; c.lineWidth = 0.022; c.beginPath(); c.ellipse(-1.36, 0.02, 0.09, 0.07, 0, 0, 6.283); c.fill(); c.stroke();                         // tail
+      c.beginPath(); c.moveTo(-1.32, 0); c.bezierCurveTo(-1.34, 0.5, -0.7, 0.56, -0.2, 0.47); c.bezierCurveTo(0.3, 0.52, 0.72, 0.42, 0.95, 0.25); c.bezierCurveTo(1.1, 0.2, 1.2, 0.2, 1.3, 0.17); c.lineTo(1.3, -0.17); c.bezierCurveTo(1.2, -0.2, 1.1, -0.2, 0.95, -0.25); c.bezierCurveTo(0.72, -0.42, 0.3, -0.52, -0.2, -0.47); c.bezierCurveTo(-0.7, -0.56, -1.34, -0.5, -1.32, 0); c.closePath();
+      const bg = c.createLinearGradient(0, 0.55, 0, -0.55); bg.addColorStop(0, '#fbf7ea'); bg.addColorStop(0.55, fur); bg.addColorStop(1, shade); c.fillStyle = bg; c.fill(); c.stroke();
+      c.save(); c.clip(); D.tufts.forEach(q => { const x = -0.2 + q[0] * 1.25, y = q[1] * 0.5; c.strokeStyle = q[2] < 0.5 ? 'rgba(160,145,110,0.35)' : 'rgba(255,255,255,0.8)'; c.lineWidth = 0.012; c.beginPath(); c.moveTo(x, y); c.quadraticCurveTo(x - 0.05, y + (q[2] - 0.5) * 0.04, x - 0.09 - q[2] * 0.05, y + (q[2] - 0.5) * 0.07); c.stroke(); }); c.restore();
+      [0.22, -0.22].forEach(y => { c.fillStyle = fur; c.strokeStyle = edge; c.lineWidth = 0.02; c.beginPath(); c.arc(1.2, y, 0.085, 0, 6.283); c.fill(); c.stroke(); c.fillStyle = '#6b5f4a'; c.beginPath(); c.arc(1.21, y, 0.04, 0, 6.283); c.fill(); });   // ears
+      c.fillStyle = fur; c.strokeStyle = edge; c.lineWidth = 0.022; c.beginPath(); c.ellipse(1.38, 0, 0.27, 0.225, 0, 0, 6.283); c.fill(); c.stroke();                               // head
+      c.beginPath(); c.ellipse(1.64, 0, 0.17, 0.115, 0, 0, 6.283); c.fillStyle = '#fbf7ea'; c.fill(); c.stroke(); c.fillStyle = '#16171a'; c.beginPath(); c.ellipse(1.79, 0, 0.045, 0.055, 0, 0, 6.283); c.fill();   // snout and nose
+      [0.105, -0.105].forEach(y => { c.beginPath(); c.arc(1.5, y, 0.024, 0, 6.283); c.fill(); }); });
+    // polar bear fur close up: hollow, transparent guard hairs over black skin (1 unit = 1 cm)
+    flat(0.01, trap(z, -3.7, -3.2, -0.9, -0.45), (px) => { const u = 0.01 * k; c.fillStyle = u > 300 ? '#3a342b' : '#efe7d2'; c.fillRect(-70, -70, 140, 140); const vw = W / u / 2 + 6, vh = H / u / 2 + 1; c.lineCap = 'round';
+      D.hairs.forEach(h => { if (h[0] > vw || h[0] + h[2] < -vw || Math.abs(h[1]) > vh + 2) return; const x1 = h[0] + h[2], y1 = h[1] + h[2] * h[3]; c.strokeStyle = 'rgba(120,105,75,0.35)'; c.lineWidth = h[4] * 1.5; c.beginPath(); c.moveTo(h[0], h[1] - h[4] * 0.6); c.quadraticCurveTo((h[0] + x1) / 2, h[1] + h[2] * h[3] * 0.2 - h[4] * 0.6, x1, y1 - h[4] * 0.6); c.stroke();
+        c.strokeStyle = h[5] < 0.5 ? '#fffdf5' : '#f4ecd6'; c.lineWidth = h[4]; c.beginPath(); c.moveTo(h[0], h[1]); c.quadraticCurveTo((h[0] + x1) / 2, h[1] + h[2] * h[3] * 0.2, x1, y1); c.stroke(); if (u > 500) { c.strokeStyle = 'rgba(190,200,210,0.55)'; c.lineWidth = h[4] * 0.3; c.stroke(); } }); });
+    flat(0.0015, trap(z, -4.6, -3.9, -0.6, 0), (px) => { const u = 0.0015 * k; if (u < 2.2) { c.fillStyle = '#fff'; c.beginPath(); c.arc(0, 0, 1.6 * px, 0, 6.283); c.fill(); return; }
+      c.strokeStyle = '#ffffff'; c.lineCap = 'round'; c.shadowColor = 'rgba(120,190,255,0.9)'; c.shadowBlur = Math.min(14, u * 0.08) * DPR; const arm = (len, w, depth) => { c.lineWidth = w; c.beginPath(); c.moveTo(0, 0); c.lineTo(0, len); c.stroke(); if (!depth) return; [0.32, 0.52, 0.72, 0.88].forEach((f, i) => [-1, 1].forEach(sg => { c.save(); c.translate(0, len * f); c.rotate(sg * Math.PI / 3); arm(len * [0.34, 0.3, 0.2, 0.1][i], w * 0.7, depth - 1); c.restore(); })); };
+      for (let i = 0; i < 6; i++) { c.save(); c.rotate(i * Math.PI / 3); arm(1, 0.034, u > 60 ? 2 : 1); c.restore(); }
+      c.shadowBlur = 0; c.fillStyle = '#d9efff'; c.strokeStyle = '#fff'; c.lineWidth = 0.03; c.beginPath(); for (let i = 0; i < 6; i++) { const t = i * Math.PI / 3 + Math.PI / 6; i ? c.lineTo(Math.cos(t) * 0.17, Math.sin(t) * 0.17) : c.moveTo(Math.cos(t) * 0.17, Math.sin(t) * 0.17); } c.closePath(); c.fill(); c.stroke(); c.strokeStyle = 'rgba(120,175,225,0.8)'; c.lineWidth = 0.008; [0.11, 0.06].forEach(rr => { c.beginPath(); for (let i = 0; i <= 6; i++) { const t = i * Math.PI / 3 + Math.PI / 6; c.lineTo(Math.cos(t) * rr, Math.sin(t) * rr); } c.stroke(); }); for (let i = 0; i < 6; i++) { const t = i * Math.PI / 3 + Math.PI / 6; c.beginPath(); c.moveTo(Math.cos(t) * 0.06, Math.sin(t) * 0.06); c.lineTo(Math.cos(t) * 0.17, Math.sin(t) * 0.17); c.stroke(); } });
+    /* ===== inward: into the ice ===== */
+    a = trap(z, -8.4, -7.7, -4.0, -3.5); if (a > 0) { c.globalAlpha = a; const g = c.createLinearGradient(0, 0, W, H); g.addColorStop(0, '#cfeaff'); g.addColorStop(1, '#9fcdee'); c.fillStyle = g; c.fillRect(0, 0, W, H); c.globalAlpha = 1;
+      // crystal steps: nested hexagons that repeat at every scale
+      for (let j = Math.floor(z) - 2; j <= Math.floor(z) + 1; j++) [1, 2.2, 4.6].forEach((m, mi) => { const rad = Math.pow(10, j) * m * k; if (rad < 14 || rad > W * 3) return; c.globalAlpha = a * 0.55 * clamp((rad - 14) / 60, 0, 1) * clamp((W * 3 - rad) / W, 0, 1); c.strokeStyle = mi === 1 ? '#ffffff' : '#7fb4dc'; c.lineWidth = mi === 1 ? 2 : 1.2; c.beginPath(); for (let i = 0; i <= 6; i++) { const t = i * Math.PI / 3 + Math.PI / 6 + ST.yaw, X = cx + Math.cos(t) * rad, Y = cy + Math.sin(t) * rad * cp; i ? c.lineTo(X, Y) : c.moveTo(X, Y); } c.stroke(); });
+      for (let j = Math.floor(z) - 2; j <= Math.floor(z); j++) for (let i = 0; i < 22; i++) { const h1 = Math.sin(i * 127.1 + j * 311.7) * 43758.5453, h2 = Math.sin(i * 269.5 + j * 183.3) * 43758.5453, fx = (h1 - Math.floor(h1) - 0.5) * 9, fy = (h2 - Math.floor(h2) - 0.5) * 6, m = Math.pow(10, j), p = P(fx * m, fy * m, 0), rad = m * (0.05 + 0.06 * ((i * 7) % 5) / 5) * k; if (rad < 1 || !on(p, rad)) continue; c.globalAlpha = a * 0.5 * clamp((rad - 1) / 4, 0, 1) * clamp((90 - rad) / 60, 0, 1); const g = c.createRadialGradient(p[0] - rad * 0.3, p[1] - rad * 0.3, 0, p[0], p[1], rad); g.addColorStop(0, '#ffffff'); g.addColorStop(1, 'rgba(120,180,225,0.25)'); c.fillStyle = g; c.beginPath(); c.arc(p[0], p[1], rad, 0, 6.283); c.fill(); }
+      c.globalAlpha = 1; }
+    // the hexagonal lattice of water molecules (O red, H white); the central oxygen is at the start point
+    a = trap(z, -10.0, -9.5, -7.95, -7.45);
+    if (a > 0 && z < -7.45) { const A = 2.76e-10, u = A * k, s3 = Math.sqrt(3), n = Math.ceil(W / u / s3 / 2) + 1, m = Math.ceil(H / u / 1.5 / 2 / Math.max(0.3, cp)) + 1, dirs = [[0, 1], [-s3 / 2, -0.5], [s3 / 2, -0.5]], small = u < 9;
+      c.save(); c.globalAlpha = a; c.transform(ca * u, -sa * cp * u, -sa * u, -ca * cp * u, cx, cy);
+      for (let j = -m; j <= m; j++) for (let i = -n - Math.ceil(m / 2); i <= n + Math.ceil(m / 2); i++) { const bx = i * s3 + j * s3 / 2, by = j * 1.5; if (Math.abs(bx) > (W / u) / 2 + 2) continue;
+        for (let sub = 0; sub < 2; sub++) { const ox = bx, oy = by + sub, sg = sub ? -1 : 1, h = ((i * 73856093) ^ (j * 19349663) ^ (sub * 83492791)) >>> 0;
+          if (small) { c.fillStyle = '#e2584f'; c.fillRect(ox - 0.16, oy - 0.16, 0.32, 0.32); continue; }
+          if (!sub) { c.strokeStyle = 'rgba(160,200,255,0.3)'; c.lineWidth = 0.018; c.setLineDash([0.05, 0.05]); dirs.forEach(d => { c.beginPath(); c.moveTo(ox, oy); c.lineTo(ox + d[0], oy + d[1]); c.stroke(); }); c.setLineDash([]); }
+          const skip = h % 3; dirs.forEach((d, di) => { if (di === skip) return; const hx = ox + d[0] * sg * 0.35, hy = oy + d[1] * sg * 0.35, g = c.createRadialGradient(hx, hy, 0, hx, hy, 0.15); g.addColorStop(0, '#ffffff'); g.addColorStop(0.6, 'rgba(230,240,255,0.85)'); g.addColorStop(1, 'rgba(230,240,255,0)'); c.fillStyle = g; c.beginPath(); c.arc(hx, hy, 0.15, 0, 6.283); c.fill(); });
+          const g = c.createRadialGradient(ox, oy, 0, ox, oy, 0.27); g.addColorStop(0, '#ff8a7a'); g.addColorStop(0.55, 'rgba(226,72,60,0.9)'); g.addColorStop(1, 'rgba(226,72,60,0)'); c.fillStyle = g; c.beginPath(); c.arc(ox, oy, 0.27, 0, 6.283); c.fill(); } }
+      c.restore(); if (u > 90) { const la = a * trap(z, -10.6, -10.2, -9.2, -8.9); label(P(0, 0, 0), 'O', la, 4); label(P(0, A * 0.35, 0), 'H', la, 4); label(P(A * 0.9, A * 0.2, 0), 'hydrogen bond', la * 0.8, 0); } }
+    // the oxygen atom: an electron probability cloud
+    a = trap(z, -14.2, -13.4, -9.9, -9.45); if (a > 0) { const ha = a * trap(z, -11.2, -10.6, -9.9, -9.45); [[-0.866, -0.5], [0.866, -0.5]].forEach(d => { const p = P(d[0] * 0.966e-10, d[1] * 0.966e-10, 0), hr = 0.4e-10 * k, g = c.createRadialGradient(p[0], p[1], 0, p[0], p[1], hr); g.addColorStop(0, 'rgba(255,255,255,0.75)'); g.addColorStop(1, 'rgba(255,255,255,0)'); c.globalAlpha = ha; c.fillStyle = g; c.beginPath(); c.arc(p[0], p[1], hr, 0, 6.283); c.fill(); label(p, 'H', ha, 4); }); c.globalAlpha = 1; const gr = 0.75e-10 * k; if (gr < W * 3) { const g = c.createRadialGradient(cx, cy, 0, cx, cy, gr); g.addColorStop(0, 'rgba(226,72,60,0.3)'); g.addColorStop(1, 'rgba(226,72,60,0)'); c.globalAlpha = a; c.fillStyle = g; c.beginPath(); c.arc(cx, cy, gr, 0, 6.283); c.fill(); } const sc = 1e-10, spin = T * 0.3, cs = Math.cos(spin), sn = Math.sin(spin); c.fillStyle = '#7fe0ff'; for (let i = 0; i < D.cloud.length; i++) { const q = D.cloud[i], j = (i + Math.floor(T * 12)) % D.cloud.length, w = D.cloud[j], f = 1 + 0.04 * (w[0] + w[1]), p = P((q[0] * cs - q[1] * sn) * sc * f, (q[0] * sn + q[1] * cs) * sc * f, q[2] * sc * f); if (p[0] < 0 || p[0] > W || p[1] < 0 || p[1] > H) continue; c.globalAlpha = a * (q[3] ? 0.9 : 0.55); c.fillRect(p[0], p[1], q[3] ? 2 : 1.6, q[3] ? 2 : 1.6); } c.globalAlpha = 1; label([cx, cy - 0.3e-10 * k, 0], 'electron cloud of oxygen', a * trap(z, -10.9, -10.6, -10.1, -9.9)); label([cx, cy, 0], 'inner electrons', a * trap(z, -11.6, -11.3, -10.9, -10.7), -30); }
+    // the nucleus: 8 protons (red) and 8 neutrons (grey)
+    a = trap(z, -17.2, -16.4, -11.6, -11); if (a > 0) { const fm = 1e-15, rn = 0.85 * fm * k; if (rn < 0.8) { ball(cx, cy, 1.6, '#ffb0a0', a, 3); label([cx, cy, 0], 'nucleus', a * trap(z, -13.6, -13.2, -12.4, -12)); }
+      else { const sh = D.nuc.map((q, i) => { const jx = Math.sin(T * 3 + i) * 0.05, p = P((q[0] + jx) * fm, (q[1] + Math.cos(T * 2.3 + i * 2) * 0.05) * fm, q[2] * fm); return [p[0], p[1], p[2], q[3], i]; }).sort((x, y) => x[2] - y[2]); const fade = clamp((z + 15.05) / 0.5, 0, 1); sh.forEach(s => ball(s[0], s[1], rn, s[3] ? '#e0483c' : '#9aa3b5', a * fade)); label([cx, cy - 2.9 * fm * k, 0], 'oxygen-16 nucleus', a * trap(z, -14.6, -14.3, -13.6, -13.3), -6); } }
+    // inside the central proton: three quarks, gluons and a sea of short-lived pairs
+    a = trap(z, -19.6, -18.8, -15.3, -14.8); if (a > 0) { const fm = 1e-15, rp = 0.85 * fm * k; c.globalAlpha = a * 0.5 * trap(z, -17.4, -16.6, -15.3, -14.8); const g = c.createRadialGradient(cx, cy, rp * 0.2, cx, cy, rp); g.addColorStop(0, 'rgba(255,120,100,0.05)'); g.addColorStop(0.85, 'rgba(255,120,100,0.22)'); g.addColorStop(1, 'rgba(255,170,150,0.6)'); c.fillStyle = g; c.beginPath(); c.arc(cx, cy, rp, 0, 6.283); c.fill(); c.globalAlpha = 1;
+      const Q = [[0, 0, 0]]; for (let i = 1; i < 3; i++) { const th = T * 0.9 + i * 2.6; Q.push([Math.cos(th) * 0.34 * fm, Math.sin(th * 1.3) * 0.26 * fm, Math.sin(th) * 0.3 * fm]); } const qp = Q.map(q => P(q[0], q[1], q[2])), cols = ['#ff4d4d', '#39d353', '#4d8dff'], shift = Math.floor(T * 1.5) % 3;
+      c.lineWidth = 2; for (let i = 0; i < 3; i++) { const A1 = qp[i], B1 = qp[(i + 1) % 3], dx = B1[0] - A1[0], dy = B1[1] - A1[1], len = Math.hypot(dx, dy) || 1; if (len > W * 8) continue; c.strokeStyle = 'rgba(255,214,90,' + 0.8 * a + ')'; c.beginPath(); const nseg = 60; for (let s = 0; s <= nseg; s++) { const u = s / nseg, wob = Math.sin(u * 28 - T * 14) * Math.min(9, len * 0.03) * Math.sin(u * Math.PI); const X = A1[0] + dx * u - dy / len * wob, Y = A1[1] + dy * u + dx / len * wob; s ? c.lineTo(X, Y) : c.moveTo(X, Y); } c.stroke(); }
+      D.foam.forEach((f, i) => { const life = (T * (0.4 + f[3]) + f[2] * 9) % 1, p = P((f[0] - 0.5) * 1.3 * fm, (f[1] - 0.5) * 1.3 * fm, (f[2] - 0.5) * fm); if (!on(p, 0)) return; c.globalAlpha = a * Math.sin(life * Math.PI) * 0.7; c.fillStyle = i % 2 ? '#ffd0ff' : '#c8ffd8'; c.fillRect(p[0], p[1], 2, 2); c.fillRect(p[0] + 5, p[1] + 3, 2, 2); }); c.globalAlpha = 1;
+      qp.forEach((p, i) => { if (!on(p, 40)) return; ball(p[0], p[1], 7, cols[(i + shift) % 3], a, 3.2); label(p, i === 2 ? 'down quark' : 'up quark', a * trap(z, -17.2, -16.8, -15.8, -15.4), -16); }); label(qp[0], 'a quark: no measurable size', a * trap(z, -19.4, -19, -17.6, -17.2), -18); label([cx, cy + 60, 0], 'gluon field', a * trap(z, -17.6, -17.3, -16.6, -16.3), 0); label([cx, cy - rp, 0], 'proton', a * trap(z, -15.5, -15.2, -14.9, -14.8), 16); }
+    // the unexplored scales: only fluctuations of the vacuum
+    a = z < -19 && z > -35 ? Math.min(trap(z, -99, -98, -19.6, -19), trap(z, -35, -34.4, 99, 100)) : 0;
+    if (a > 0) D.foam.forEach((f, i) => { const sh = ((f[2] + z * 0.37) % 1 + 1) % 1, life = (T * (0.25 + f[3] * 0.5) + f[2] * 7) % 1, x = ((f[0] - 0.5) * (0.4 + sh * 2.4) + 0.5) * W, y = ((f[1] - 0.5) * (0.4 + sh * 2.4) + 0.5) * H, rr = 3 + sh * 16; if (x < -20 || x > W + 20 || y < -20 || y > H + 20) return; const g = c.createRadialGradient(x, y, 0, x, y, rr); g.addColorStop(0, i % 3 ? 'rgba(140,160,255,0.55)' : 'rgba(220,150,255,0.55)'); g.addColorStop(1, 'rgba(0,0,0,0)'); c.globalAlpha = a * Math.sin(life * Math.PI) * 0.6; c.fillStyle = g; c.beginPath(); c.arc(x, y, rr, 0, 6.283); c.fill(); });
+    c.globalAlpha = 1; if (a > 0) label([cx, cy, 0], 'no known structure at this scale', a * 0.6 * trap(z, -33.8, -33.2, -20.6, -20), 4);
+    // strings (theoretical): vibrating loops at the Planck scale, on quantum foam
+    a = trap(z, -37.5, -37, -34.2, -33.5);
+    if (a > 0) { const lp = 1.6e-35; D.foam.forEach((f, i) => { const p = P((f[0] - 0.5) * 14 * lp, (f[1] - 0.5) * 14 * lp, (f[2] - 0.5) * 6 * lp), rr = (0.2 + f[3] * 0.5) * lp * k * (0.8 + 0.3 * Math.sin(T * 2 + i)); if (!on(p, rr) || rr < 1) return; c.globalAlpha = a * 0.16; c.strokeStyle = '#8a7bff'; c.lineWidth = 1; c.beginPath(); c.arc(p[0], p[1], rr, 0, 6.283); c.stroke(); });
+      [[0, 0, 0, 1, '#ff6ad5', 0], [3.2, 1.6, 0.5, 0.8, '#6ae0ff', 1], [-2.8, 2.2, -1, 0.9, '#b6ff6a', 2], [1.2, -3, 1, 0.7, '#ffd36a', 3], [-3.4, -1.8, 0.4, 0.85, '#ff8a6a', 4], [6, -1, -0.5, 0.75, '#c58aff', 5], [-6.5, 0.6, 0.8, 0.8, '#6affc2', 6]].forEach(s => { const R0 = s[3] * 0.17 * lp, tilt = s[5] * 1.1; c.globalAlpha = a; c.strokeStyle = s[4]; c.lineWidth = 2.2; c.shadowColor = s[4]; c.shadowBlur = 10 * DPR; c.beginPath(); for (let i = 0; i <= 90; i++) { const t = i / 90 * 6.283, rr = R0 * (1 + 0.22 * Math.sin((3 + s[5] % 3) * t + T * 5) + 0.1 * Math.sin((5 + s[5]) * t - T * 7)), zz = R0 * 0.3 * Math.sin((2 + s[5] % 2) * t + T * 4), x0 = Math.cos(t) * rr, y0 = Math.sin(t) * rr, p = P(s[0] * 0.45 * lp + x0, s[1] * 0.45 * lp + y0 * Math.cos(tilt) - zz * Math.sin(tilt), s[2] * 0.45 * lp + y0 * Math.sin(tilt) + zz * Math.cos(tilt)); i ? c.lineTo(p[0], p[1]) : c.moveTo(p[0], p[1]); } c.stroke(); c.shadowBlur = 0; });
+      c.globalAlpha = 1; label([cx, cy - 0.24 * lp * k, 0], 'a vibrating string?', a * trap(z, -35.6, -35.3, -34.6, -34.3), -8); if (z < -35.4) { c.globalAlpha = clamp((-35.4 - z) / 0.6, 0, 0.85); c.fillStyle = '#05071a'; c.fillRect(0, 0, W, H); c.globalAlpha = clamp((-35.4 - z) / 0.6, 0, 1); c.fillStyle = '#b7b9d6'; c.font = '600 44px system-ui, sans-serif'; c.textAlign = 'center'; c.fillText('?', cx, cy + 14); c.globalAlpha = 1; } }
+    // labels, the scale bar and a soft vignette
+    c.font = '600 12.5px system-ui, -apple-system, Segoe UI, sans-serif'; c.textAlign = 'center';
+    labels.forEach(l => { c.globalAlpha = l[3]; c.lineWidth = 3; c.strokeStyle = z > -1.4 && z < 5.8 || (z > -8 && z < -3.6) ? 'rgba(255,255,255,0.85)' : 'rgba(0,0,10,0.8)'; c.fillStyle = z > -1.4 && z < 5.8 || (z > -8 && z < -3.6) ? '#0b1f3a' : '#f2f5ff'; c.strokeText(l[2], l[0], l[1]); c.fillText(l[2], l[0], l[1]); }); c.globalAlpha = 1;
+    const vg = c.createRadialGradient(cx, cy, Math.min(W, H) * 0.45, cx, cy, Math.max(W, H) * 0.75); vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,10,0.45)'); c.fillStyle = vg; c.fillRect(0, 0, W, H);
+    const b = Math.floor(z - 0.12), bw = W * Math.pow(10, b - z), bx = W - 18 - bw, by = H - 20; c.fillStyle = 'rgba(5,8,22,0.6)'; c.fillRect(bx - 8, by - 20, bw + 16, 30); c.strokeStyle = '#fff'; c.lineWidth = 2; c.beginPath(); c.moveTo(bx, by - 5); c.lineTo(bx, by + 3); c.lineTo(bx + bw, by + 3); c.lineTo(bx + bw, by - 5); c.stroke(); c.fillStyle = '#fff'; c.font = '600 12px system-ui, sans-serif'; c.textAlign = 'center'; c.fillText(pow(b) + ' m', bx + bw / 2, by - 6);
+  }
+
+  /* ---------- page: HUD, info box, controls ---------- */
+  const $ = (s) => root.querySelector(s);
+  function hud() {
+    const n = clamp(Math.round(ST.z), ZMIN, ZMAX); const sl = $('#p10Slide'); if (sl && document.activeElement !== sl) sl.value = ST.z.toFixed(2);
+    if (n === ST.shown) return; ST.shown = n; const m = metric(n), inf = INFO[n], th = THEO[n];
+    $('#p10Pow').innerHTML = '10<sup>' + String(n).replace('-', '−') + '</sup> m'; $('#p10Met').textContent = m[0] + ' · ' + m[1];
+    $('#p10Info').innerHTML = (th ? '<span class="p10-theo">Theoretical</span>' : '') + '<h3>' + inf[0] + '</h3><p>' + inf[1] + '</p><ul>' + facts(n).map(f => '<li><span>' + f[0] + '</span><b>' + f[1] + '</b></li>').join('') + '</ul>';
+    root.querySelectorAll('[data-p10mark]').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.p10mark === n)));
+    cv.setAttribute('aria-label', 'Powers of Ten view, ' + pow(n) + ' metres wide: ' + inf[0]);
+  }
+  function ui() {
+    const pl = $('#p10Out'), pi = $('#p10In'); if (!pl) return; pl.setAttribute('aria-pressed', String(ST.auto > 0)); pi.setAttribute('aria-pressed', String(ST.auto < 0));
+    $('#p10Speed').textContent = ST.speed + '×'; const mu = $('#p10Music'); mu.setAttribute('aria-pressed', String(ST.music)); mu.textContent = ST.music ? '🎵 Music On' : '🎵 Music Off';
+    const ch = ST.ch, box = $('#p10Ch');
+    if (!ch) { box.innerHTML = '<div class="row"><button type="button" class="btn primary sm" id="p10ChNew">Guess the Scale</button><span class="muted small">Predict which power of ten matches an object, then fly there to check.' + (ST.n ? ' Score: ' + ST.right + '/' + ST.n : '') + '</span></div>'; return; }
+    box.innerHTML = '<p class="small" style="margin:0 0 6px"><b>Guess the Scale:</b> which power of ten is closest to <b>' + ch.q[0] + '</b>?</p><div class="row">' + ch.opts.map(o => '<button type="button" class="btn sm p10-opt' + (ch.done ? (o === ch.q[2] ? ' ok' : o === ch.pick ? ' no' : '') : '') + '" data-p10opt="' + o + '"' + (ch.done ? ' disabled' : '') + '>' + pow(o) + ' m</button>').join('')
+      + (ch.done ? '<button type="button" class="btn primary sm" id="p10ChNew">Next</button>' : '') + '<button type="button" class="btn sm ghost" id="p10ChEnd">Stop</button></div>'
+      + (ch.done ? '<p class="small" style="margin:6px 0 0">' + (ch.pick === ch.q[2] ? '✓ Correct' : '✗ Not quite') + ': ' + ch.q[0] + ' is ' + ch.q[1] + ', so the nearest power of ten is ' + pow(ch.q[2]) + ' m. Score: ' + ST.right + '/' + ST.n + '</p>' : '');
+  }
+  function flyTo(n) { ST.auto = 0; const d = clamp(Math.abs(n - ST.z) * 0.28, 0.6, 5); ST.fly = { a: ST.z, b: clamp(n, ZMIN, ZMAX), t: 0, d }; ui(); }
+  function newGuess() { let q; do { q = GUESS[Math.floor(Math.random() * GUESS.length)]; } while (ST.ch && ST.ch.q === q); const set = new Set([q[2]]); const offs = [-9, -6, -4, -3, -2, 2, 3, 4, 6, 9]; while (set.size < 4) { const o = q[2] + offs[Math.floor(Math.random() * offs.length)]; if (o >= ZMIN + 1 && o <= 27) set.add(o); } ST.ch = { q, opts: [...set].sort((a, b) => a - b), done: false, pick: null }; ui(); }
+
+  /* ---------- lo-fi music: an original loop made with Web Audio ---------- */
+  let AU_ = null;
+  function musicOn() {
+    const C = window.AudioContext || window.webkitAudioContext; if (!C) return false;
+    const ac = new C(), master = ac.createGain(), lp = ac.createBiquadFilter(); master.gain.value = 0; lp.type = 'lowpass'; lp.frequency.value = 2100; lp.connect(master); master.connect(ac.destination); master.gain.linearRampToValueAtTime(0.5, ac.currentTime + 1.2);
+    const nb = ac.createBuffer(1, ac.sampleRate * 2, ac.sampleRate), nd = nb.getChannelData(0); for (let i = 0; i < nd.length; i++) nd[i] = (Math.random() * 2 - 1) * (Math.random() < 0.0009 ? 6 : 0.25);
+    const crackle = ac.createBufferSource(), cg = ac.createGain(), hp = ac.createBiquadFilter(); crackle.buffer = nb; crackle.loop = true; hp.type = 'highpass'; hp.frequency.value = 1800; cg.gain.value = 0.035; crackle.connect(hp); hp.connect(cg); cg.connect(master); crackle.start();
+    const f = (m) => 440 * Math.pow(2, (m - 69) / 12), CH = [[53, 57, 60, 64], [52, 55, 59, 62], [50, 53, 57, 60], [48, 52, 55, 59]], PENT = [72, 74, 76, 79, 81, 84], beat = 60 / 72; let bar = 0, next = ac.currentTime + 0.15, seed = 3;
+    const rnd = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
+    const tone = (m, t, d, g, type, det) => { const o = ac.createOscillator(), e = ac.createGain(); o.type = type; o.frequency.value = f(m); o.detune.value = (det || 0) + Math.sin(t * 0.7) * 6; e.gain.setValueAtTime(0, t); e.gain.linearRampToValueAtTime(g, t + 0.02); e.gain.exponentialRampToValueAtTime(0.0008, t + d); o.connect(e); e.connect(lp); o.start(t); o.stop(t + d + 0.05); };
+    const noise = (t, d, g, freq, q) => { const s = ac.createBufferSource(), e = ac.createGain(), bp = ac.createBiquadFilter(); s.buffer = nb; bp.type = 'bandpass'; bp.frequency.value = freq; bp.Q.value = q; e.gain.setValueAtTime(g, t); e.gain.exponentialRampToValueAtTime(0.0008, t + d); s.connect(bp); bp.connect(e); e.connect(master); s.start(t, Math.random()); s.stop(t + d + 0.02); };
+    const kick = (t, g) => { const o = ac.createOscillator(), e = ac.createGain(); o.frequency.setValueAtTime(120, t); o.frequency.exponentialRampToValueAtTime(42, t + 0.14); e.gain.setValueAtTime(g, t); e.gain.exponentialRampToValueAtTime(0.0008, t + 0.3); o.connect(e); e.connect(master); o.start(t); o.stop(t + 0.32); };
+    const sched = () => { while (next < ac.currentTime + 0.4) { const ch = CH[bar % 4], t = next;
+      ch.forEach((m, i) => { tone(m, t + i * 0.035, beat * 3.6, 0.075, 'triangle'); tone(m, t + i * 0.035, beat * 3.2, 0.05, 'sine', 7); tone(m, t + beat * 2.5 + i * 0.02, beat * 1.4, 0.035, 'triangle'); }); tone(ch[0] - 12, t, beat * 1.8, 0.16, 'sine'); tone(ch[0] - 12, t + beat * 2.5, beat * 1.2, 0.12, 'sine');
+      kick(t, 0.5); kick(t + beat * 2, 0.42); if (bar % 2) kick(t + beat * 2.5, 0.25); noise(t + beat, 0.16, 0.22, 1700, 0.8); noise(t + beat * 3, 0.16, 0.25, 1700, 0.8);
+      for (let h = 0; h < 8; h++) noise(t + (Math.floor(h / 2) + (h % 2 ? 0.58 : 0)) * beat, 0.04, h % 2 ? 0.035 : 0.06, 7000, 1.5);
+      for (let h = 0; h < 8; h++) if (rnd() < 0.3) tone(PENT[Math.floor(rnd() * PENT.length)], t + (Math.floor(h / 2) + (h % 2 ? 0.58 : 0)) * beat, beat * 1.5, 0.05, 'sine', 3);
+      next += beat * 4; bar++; } };
+    sched(); const iv = setInterval(sched, 120); AU_ = { ac, master, iv }; return true;
+  }
+  function musicOff() { if (!AU_) return; const a = AU_; AU_ = null; clearInterval(a.iv); try { a.master.gain.cancelScheduledValues(a.ac.currentTime); a.master.gain.setTargetAtTime(0, a.ac.currentTime, 0.15); setTimeout(() => { try { a.ac.close(); } catch (e) {} }, 700); } catch (e) {} }
+  function stop() { if (raf) cancelAnimationFrame(raf); raf = 0; musicOff(); ST.music = false; ST.auto = 0; root = null; window.removeEventListener('resize', onResize); document.removeEventListener('keydown', onKey); }
+  const onResize = () => { if (cv) resize(); };
+  const onKey = (e) => { if (!root || !root.isConnected || /INPUT|TEXTAREA|SELECT/.test((e.target.tagName || ''))) return; const k = e.key; if (k === '+' || k === '=' || k === 'ArrowUp') { flyTo(Math.round(ST.z) + 1); e.preventDefault(); } else if (k === '-' || k === '_' || k === 'ArrowDown') { flyTo(Math.round(ST.z) - 1); e.preventDefault(); } else if (k === ' ') { ST.auto = ST.auto ? 0 : 1; ST.fly = null; ui(); e.preventDefault(); } };
+
+  function mount(el) {
+    if (root && root !== el) stop(); root = el; build(); ST.shown = null;
+    el.innerHTML = '<div class="p10"><div class="p10-stage"><canvas id="p10Canvas" tabindex="0" role="img"></canvas><div class="p10-hud"><b id="p10Pow"></b><span id="p10Met"></span></div><div class="p10-hint">Scroll to zoom · drag to rotate</div></div>'
+      + '<aside class="p10-info" id="p10Info" aria-live="polite"></aside>'
+      + '<div class="p10-ctl"><button type="button" class="btn sm" id="p10Minus" aria-label="Zoom in by one power of ten">−</button><input type="range" id="p10Slide" min="' + ZMIN + '" max="' + ZMAX + '" step="0.01" aria-label="Power of ten"><button type="button" class="btn sm" id="p10Plus" aria-label="Zoom out by one power of ten">+</button>'
+      + '<span class="seg" role="group" aria-label="Autoplay"><button type="button" id="p10In" aria-pressed="false">◀ Zoom In</button><button type="button" id="p10Out" aria-pressed="false">Zoom Out ▶</button></span><button type="button" class="btn sm" id="p10Speed" aria-label="Autoplay speed">1×</button><button type="button" class="btn sm" id="p10Music" aria-pressed="false">🎵 Music Off</button><button type="button" class="btn sm" id="p10Reset">Reset View</button></div>'
+      + '<div class="p10-marks" role="group" aria-label="Jump to a landmark">' + MARKS.map(m => '<button type="button" class="chip-btn" data-p10mark="' + m[0] + '" aria-pressed="false">' + m[1] + '</button>').join('') + '</div><div class="p10-ch" id="p10Ch"></div></div>';
+    cv = $('#p10Canvas'); ctx = cv.getContext('2d'); resize(); ui();
+    cv.addEventListener('wheel', (e) => { e.preventDefault(); ST.fly = null; ST.auto = 0; ST.z = clamp(ST.z + clamp(e.deltaY, -120, 120) * (e.deltaMode ? 0.03 : 0.0022), ZMIN, ZMAX); ui(); }, { passive: false });
+    const ptr = new Map(); let pinch = 0;
+    cv.addEventListener('pointerdown', (e) => { ptr.set(e.pointerId, [e.clientX, e.clientY]); try { cv.setPointerCapture(e.pointerId); } catch (x) {} });
+    cv.addEventListener('pointermove', (e) => { const p = ptr.get(e.pointerId); if (!p) return; if (ptr.size === 1) { ST.yaw += (e.clientX - p[0]) * 0.008; ST.dp = clamp(ST.dp + (e.clientY - p[1]) * 0.006, -1.2, 1.45); } ptr.set(e.pointerId, [e.clientX, e.clientY]);
+      if (ptr.size === 2) { const v = [...ptr.values()], d = Math.hypot(v[0][0] - v[1][0], v[0][1] - v[1][1]); if (pinch) { ST.fly = null; ST.auto = 0; ST.z = clamp(ST.z - Math.log10(d / pinch), ZMIN, ZMAX); } pinch = d; } });
+    const up = (e) => { ptr.delete(e.pointerId); pinch = 0; }; cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
+    el.addEventListener('input', (e) => { if (e.target.id === 'p10Slide') { ST.fly = null; ST.auto = 0; ST.z = +e.target.value; ui(); } });
+    el.addEventListener('click', (e) => { const b = e.target.closest('button'); if (!b) return;
+      if (b.id === 'p10Plus') flyTo(Math.round(ST.z) + 1); else if (b.id === 'p10Minus') flyTo(Math.round(ST.z) - 1);
+      else if (b.id === 'p10Out') { ST.fly = null; ST.auto = ST.auto > 0 ? 0 : 1; ui(); } else if (b.id === 'p10In') { ST.fly = null; ST.auto = ST.auto < 0 ? 0 : -1; ui(); }
+      else if (b.id === 'p10Speed') { ST.speed = ST.speed === 1 ? 2 : ST.speed === 2 ? 4 : 1; ui(); }
+      else if (b.id === 'p10Music') { if (ST.music) { musicOff(); ST.music = false; } else ST.music = musicOn(); ui(); }
+      else if (b.id === 'p10Reset') { ST.yaw = 0; ST.dp = 0; flyTo(0); }
+      else if (b.dataset.p10mark) flyTo(+b.dataset.p10mark);
+      else if (b.id === 'p10ChNew') newGuess(); else if (b.id === 'p10ChEnd') { ST.ch = null; ui(); }
+      else if (b.dataset.p10opt && ST.ch && !ST.ch.done) { const ch = ST.ch; ch.pick = +b.dataset.p10opt; ch.done = true; ST.n++; if (ch.pick === ch.q[2]) ST.right++; ui(); flyTo(ch.q[2]); } });
+    window.addEventListener('resize', onResize); document.addEventListener('keydown', onKey);
+    last = performance.now(); if (!raf) raf = requestAnimationFrame(frame);
+  }
+  return { mount, stop, state: ST, INFO, THEO, MARKS, GUESS, metric, facts, pow, ZMIN, ZMAX, _draw: () => draw() };
+})();
+
 /* ===== Recall games for B.1, B.3 and B.5: term groups (Pick the term) and "Which answer gets the mark?" ===== */
 TERM_GROUPS.push(
   ['internal energy', 'absolute temperature', 'thermal equilibrium', 'specific heat capacity', 'specific latent heat'],
@@ -17314,7 +17775,7 @@ function tname0(id) { return id.replace('.', ''); }
 
 </script>
 <script>
-const FOOTER_TEXT = 'Questions are original and written in the style of the IB DP Physics course (first assessment 2025).<br>Developed by <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a> using Claude. © 2026 Mike Poirier. All rights reserved: free for students and teachers; see the Terms of Use on the About page.<br>Version 1.6 Beta · Last updated: 13 November 2026';
+const FOOTER_TEXT = 'Questions are original and written in the style of the IB DP Physics course (first assessment 2025).<br>Developed by <a href="https://github.com/mvpoirier/" target="_blank" rel="noopener">Mike Poirier</a> using Claude. © 2026 Mike Poirier. All rights reserved: free for students and teachers; see the Terms of Use on the About page.<br>Version 1.6 Beta · Last updated: 14 November 2026';
 /* ===== MVPhysics Lab — app ===== */
 (function () {
   'use strict';
@@ -19513,7 +19974,7 @@ ${docWatermark('')}${docFooter('')}</body></html>`;
   /* Printable files (worksheets, exam results): authorship comment at the top, and a watermark line on every printed page
      (CSS page-margin boxes: Chrome and Edge) plus a footer at the end of the document (all browsers). */
   const SITE_URL = 'https://mvpoirier.github.io/physics-lab/', REPO_URL = 'https://github.com/mvpoirier/mvpoirier.github.io';
-  const DOC_DATE = '13 November 2026';
+  const DOC_DATE = '14 November 2026';
   const docComment = (what, id) => `<!--
   MVPhysics Lab · ${what}${id ? ' · ' + id : ''}
   Made with version ${APP_VERSION} (built ${DOC_DATE}) on ${new Date().toISOString().slice(0, 10)}
@@ -19863,7 +20324,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     { v: '1.1 Beta', d: '3 November 2026', m: 'Claude Opus 5.5', items: ['Games and Recall now open with cards for each mode and a short description; inside a mode, “← All games” or “← All recall modes” takes you back.', 'The offline copy shows an OFFLINE badge next to the version, with a tooltip explaining it.', 'New Welcome page: a quick guide to every mode, a short tour, and how to use the site for revision. Click the MVPhysics heading at any time to come back to it.', 'Blitz is now part of Games 🕹️, with two modes so far: Blitz and Last Man Standing. More game modes will follow.', '“Only questions I’ve missed” is now at the top of the question panel in Practice and highlighted when you have missed questions to practise (it now applies to Practice only; Exam Mode always uses your full selection).', 'Stats: a Last Man Standing best tile; Blitz average time to 0.1 s.', 'The version is shown in the badge (BETA 1.1), and the Claude model used for each build is listed in this revision history.', 'Fixed: flashcards scrolled sideways on phones.', 'Last Man Standing: a Give up button (with a check first); a run you give up does not count as a best time.', 'Last Man Standing: after every run, a review of each question you answered, right or wrong, with the worked solution. Wrong answers go into "Only questions I\'ve missed".', 'Last Man Standing has its own stats (runs, best survival, recent runs), separate from Blitz Classic, so the Blitz stats now show the right mode.', 'Notes and Recall: the All and None buttons stay together.', 'Removed Saved selections from the question panel.', 'Solutions for radiated intensity now start from the data booklet equation L = σAT⁴ (or eσAT⁴).', 'FE2028 percentage error, difference and change equations shown as separate equations.'] },
     { v: '1.2 Beta', d: '4 November 2026', m: 'Claude Opus 5.5', items: ['The site is now called <b>MVPhysics Lab</b>, with a new address: <b>mvpoirier.github.io/mvphysics/</b>. The old revision-lab address takes you there automatically, and your saved progress carries over. A 🏆 now shows on the browser tab.', 'The site address (with nothing after it) now always opens the Welcome page. Links to a page, such as …/#practice or …/#games, still open that page.', 'The Welcome page is simpler: the welcome message, what’s here and how to revise. The start buttons, level switch and tour are gone (use SL/HL at the top of the page).', 'Printed papers look like IB exams: answer boxes with a border and dotted lines. With “IB-style test” ticked, the order is cover sheet (topics, marks, time, instructions, class code), Paper 1A answer sheet (always 40 rows), Paper 1A, Paper 1B, Paper 2, then the markschemes, starting with the answer sheet with the correct answers crossed.', 'Games: Blitz now ends with a review of every question you answered, with worked solutions, and both Blitz and Last Man Standing can print their results.', 'The Print buttons open the paper or results in a new tab with the print window already open: choose a printer, or Save as PDF.', 'Printed tests: no site name on the cover; the class code appears only on the markscheme pages; the answer sheet lists the topics; and a one-page question overview (topics, strand, difficulty and marks for every question) comes before the markschemes.', 'Last Man Standing: choose the starting time (3, 5 or 10 minutes, or your own).', 'New Syllabus toggle (FE2025 / FE2028) in the Questions panel and in Recall. FE2025 is on by default; FE2028 adds content that is new for exams from May 2028, tagged FE2028.', 'Game stats are now on each game’s own screen and on the Stats page.', 'More resources on precision, accuracy, percentage error and percentage difference; more solutions now start from the data booklet equation.'] },
     { v: '1.3 Beta', d: '5 November 2026', m: 'Claude Opus 5.5', items: ['New game: <b>Unit Detective 🔍</b>. Five case files on units: The Mystery Quantity (identify), Down to the Bones (SI base units), The Scales of Justice (is the equation homogeneous?), The Impostor Equation (the one formula that could be right) and The Deduction (predict a formula from units alone). Play an untimed Investigation of 10 clues, or The Chase against the clock. Harder “case file” clues include constants such as σ, G, μ<sub>0</sub> and ε<sub>0</sub>.', 'The side panel is now called <b>Topics</b> and appears in Recall and Notes too. One selection is shared by every mode; the topic chips at the top of Recall and Notes are gone.', 'Command terms: a switch at the top of the Topics panel in Recall and Notes. Notes now has a Command terms section, grouped by assessment objective, with worked examples of which answer earns the marks.', 'Stats has section buttons: Practice, Exam, Games and Recall. Unit Detective scores are under Games.', 'The space above the footer is the same on every page.', '“← All Games” and “← All Recall Modes” are now buttons. The backup box in Stats has its own colour.', 'Clearer feedback links: <b>🚩 Report a Problem</b> under each question, card and note; <b>💬 Send Feedback</b> in the footer on every page.', 'Headings and buttons use Title Case.', 'Unit Detective uses the same look as the rest of the site.', 'New address: <b>mvpoirier.github.io/physics-lab/</b>. Old links (…/mvphysics/ and …/revision-lab/) still work and your progress carries over.', 'Stats opens straight on its sections (the summary cards at the top are gone). Reset All Progress is a red button.', 'About: the revision history starts collapsed, with one group per major Beta version and a short summary of the Alpha builds.'] },
-    { v: '1.6 Beta', d: '12 November 2026', m: 'Claude Fable 5.2', items: ['<b>New logo:</b> the Atom Cup, a gold trophy with an atom on a hockey puck, in the header, the footer, the browser tab and large on the Welcome page.'] },
+    { v: '1.6 Beta', d: '12 November 2026', m: 'Claude Fable 5.2', items: ['<b>New logo:</b> the Atom Cup, a gold trophy with an atom on a hockey puck, in the header, the footer, the browser tab and large on the Welcome page.', '<b>New sim: Powers of Ten.</b> Zoom from the Planck length (10⁻³⁵ m) to the observable universe (10²⁷ m) and a little beyond, starting from a snowflake on a polar bear near Churchill, Manitoba. Every power of ten shows its SI prefix and an info box; scroll, drag to rotate, autoplay, jump to landmarks, play Guess the Scale, and turn on the lo-fi music.'] },
     { v: '1.5 Beta', d: '11 November 2026', m: 'Claude Opus 5.5', items: ['<b>Test-only questions:</b> about a quarter of each strand’s Paper 1A questions now appear only in Test Mode, so tests have questions students have not practised. Teachers choose whether a test uses them (first, then topped up from Practice questions).', 'Test Mode codes are <b>Online</b> or <b>Printable</b>; online codes can allow or block <b>retakes</b> on the same device.', 'New <b>Skills 🧰</b> section: a Significant Figures drill and Graphing practice (gradients, intercepts, uncertainty), built from Mr Poirier’s SSP guide and tasks.', 'Clicking Games, Recall or Skills in the top bar takes you back to its list; clearer back buttons.', 'Ten questions that never changed now have new values or versions. Practice’s Pace coach fills with time like Test Mode.', 'Notes: Electronics 101 links for circuits (B.5) and AC (D.4); shorter names in the Topics panel; the FE2028 card has an arrow like the other notes.', '<b>Mr Poirier’s notes</b> in Notes for Skills, A.1–A.5 and B.1–B.5 (his tips and conventions), and a <b>TOK &amp; NOS</b> box for every topic, with stories (Millikan, the 1919 eclipse, false colour) and links.', 'About 75 new questions from Mr Poirier’s practice questions and labs (A.1–B.5 and Skills), a new <b>Nature of Science</b> strand in Skills with questions and Recall cards, three new Paper 1B labs, and new versions of the skydiver question.', '<b>Linked topics</b> are now a Test Mode option for teachers; half of the linked questions are test-only. Test Mode shows how many questions are test-only.', 'Last Man Standing: class codes set the starting time; a music-only mute; fixed maths that sometimes showed as raw code when answering quickly.', '<b>Physics Quest ⚔️</b> replaces Blitz: an adventure through the realms of physics with 3, 5 or 10 hearts, potions, shields, a boss room in every realm, an optional room timer, original pixel art and music (with music and sound mutes).', '<b>Unit Analysis 🔍</b> (was Unit Detective) is now in Skills.', '<b>New codes:</b> every code starts MVP-. Test Mode codes are MVP-T-…, game codes are MVP-G-… and can be entered at the top of Games; a code typed in the wrong place opens the right one. Older codes no longer work.', '<b>Test-only questions are now mostly test-only <i>values</i>:</b> every question whose numbers change is back in Practice, while about 1 in 4 of its sets of values is kept for Test Mode; only questions that hardly change (mostly conceptual) are kept back whole. Teachers choose Test-only First, Practice Only or Mixed.', 'Topics panel: topics grouped into Themes A–E, which you can fold and tick as a whole.', 'Unit Analysis Case 6, <b>The Paper Trail</b> (base units and conversions), Greek-letter Recall cards, item tooltips and best scores in Physics Quest, and a simpler Last Man Standing set-up (Make a Code or Play).', 'Fixed: Skills Graphing could show two identical answers.', 'The top bar is now Practice, Skills, Recall, Sims, Games, Notes, Stats. Test Mode has moved to the bottom of Practice: enter a class code there. While a test is running you stay in it until you finish.', 'New looks: a green-and-gold Physics Quest and a brooding red Last Man Standing.', '<b>Sims 🔬</b>, a new section of interactive simulations. The first is <b>Circuit Lab</b> (B.5): series, parallel, internal resistance with your own V–I graph, and potential dividers with an LDR or thermistor, with challenges to predict the meter readings.', '<b>Skills</b> is now four groups: Tools of Physics, Exam Problem Solving, Internal Assessment and Extended Essay. New: <b>Uncertainties</b>, <b>Linearise It!</b>, <b>Paper 2 Technique</b>, <b>IA Criteria Explained</b>, <b>Research Question Builder</b>, <b>EE Criteria Explained</b> and <b>EE Topic &amp; Research Question</b>, each with a Quick Guide. More cards are coming soon.'] },
     { v: '1.4 Beta', d: '6–9 November 2026', m: 'Claude Opus 5.5', items: ['<b>Test Mode</b> (was Exam Mode) is set by your teacher: students enter a class code, and the code decides the test.', 'Teacher options for codes: online or printable, cover sheet, answer booklet, markscheme, results printing; Paper 1A capped at 40 questions; printouts named after the code.', 'During a test: a pace bar that fills with time, red lines for the 30, 15 and 5 minute alerts, a 🔔 mute button, a red Finish Paper button and a Pace timer switch.', '<b>Linked topics</b> (Off, Include, Only) and shareable codes for Blitz (BLZ-) and Unit Detective (UD-).', '<b>42 new questions</b> on the mistakes IB examiners reported in 2025, with new question styles.', 'Notes: 🖨 Print/PDF and an FE2028 Changes switch. Unit Detective mixes all five case files.', 'SL/HL colour bar, a footer like MYPoirier Science Lab, and the new Terms of Use (© Mike Poirier, all rights reserved; free for students and teachers).'] },
   ];
@@ -20305,6 +20766,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
      series, parallel, internal resistance (with a V–I graph) and potential dividers (LDR or thermistor).
      All values are calculated from the circuit (ideal meters; the cell's internal resistance r sits inside the dashed box). */
   const SIM_CARDS = [
+    ['powers', '🔭', 'Powers of Ten', 'Tools', 'Zoom from the Planck length to the edge of the observable universe, one power of ten at a time. See the SI prefixes in action, read what exists at each scale, then test yourself with Guess the Scale.'],
     ['circuit', '⚡', 'Circuit Lab', 'B.5', 'Build intuition for series and parallel circuits, internal resistance and potential dividers. Change the values, watch the meters, then predict the readings before you check.'],
   ];
   const CL_TABS = [['series', 'Series'], ['parallel', 'Parallel'], ['internal', 'Internal Resistance'], ['divider', 'Potential Divider']];
@@ -20419,6 +20881,10 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
         <div class="mode-card soon" aria-disabled="true"><span class="wic" aria-hidden="true">🌈</span><b>Energy Levels & Spectra <span class="pill neutral small">E.1</span></b><span>Coming soon</span></div></div>`;
       return;
     }
+    if (SM.sim === 'powers') { // 1.6 (Mike 13 Nov): Powers of Ten lives in its own file (topics/zz-powers.js) and draws itself
+      main.innerHTML = `<div class="mode-back"><button type="button" class="btn backbtn" id="smModes"><span aria-hidden="true">←</span> All Sims</button></div>` + head('Powers of Ten 🔭', 'Tools of Physics: orders of magnitude, SI prefixes and estimation. The view is the stated power of ten wide, in metres. Stops marked Theoretical are ideas without experimental evidence.') + '<section class="panel p10-wrap" id="p10Root"></section>';
+      P10.mount($('#p10Root')); return;
+    }
     const c = SM.c, o = clSolve(c), hide = c.ch && !c.ch.done ? c.ch.id : null;
     const tabs = `<div class="seg cl-tabs" role="group" aria-label="Circuit">${CL_TABS.map(([k, l]) => `<button type="button" data-cltab="${k}" aria-pressed="${c.tab === k}">${l}</button>`).join('')}</div>`;
     const extra = c.tab === 'divider' ? `<div class="cl-opts"><div class="seg" role="group" aria-label="Sensor">${[['ldr', 'LDR'], ['therm', 'Thermistor']].map(([k, l]) => `<button type="button" data-clsensor="${k}" aria-pressed="${c.sensor === k}">${l}</button>`).join('')}</div><div class="seg" role="group" aria-label="Voltmeter across">${[['sensor', 'V<sub>out</sub> across sensor'], ['fixed', 'V<sub>out</sub> across R']].map(([k, l]) => `<button type="button" data-clacross="${k}" aria-pressed="${c.across === k}">${l}</button>`).join('')}</div></div>` : '';
@@ -20449,7 +20915,7 @@ ${docWatermark(seedTxt)}${docFooter(seedTxt)}</body></html>`;
     main.onclick = (e) => {
       const b = e.target.closest('button'); if (!b) return;
       if (b.dataset.sim) { SM = { sim: b.dataset.sim, c: clDefaults(), right: 0, n: 0, streak: 0 }; renderSims(main); return; }
-      if (b.id === 'smModes') { SM = { sim: null }; renderSims(main); return; }
+      if (b.id === 'smModes') { P10.stop(); SM = { sim: null }; renderSims(main); return; }
       const c = SM.c; if (!c) return;
       if (b.dataset.cltab) { c.tab = b.dataset.cltab; c.ch = null; if (c.tab === 'divider') c.emf = Math.min(c.emf, 12); renderSims(main); return; }
       if (b.dataset.clsensor) { c.sensor = b.dataset.clsensor; c.ch = null; renderSims(main); return; }
