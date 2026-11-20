@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--
   MYPoirier Science Lab: MYP Science Criterion A revision (Years 9-11, MYP 3-5)
-  Version: 1.3 · Built: 20 November 2026
+  Version: 1.3.1 · Built: 20 November 2026
   Author: Mike Poirier (https://github.com/mvpoirier), developed with Claude by Anthropic
   Terms: © 2026 Mike Poirier. All rights reserved. Free for students and teachers for their own study and classroom teaching; any other copying, hosting, adapting or commercial or tutoring use needs written permission.
   Site: https://mvpoirier.github.io/science-lab/
@@ -784,6 +784,7 @@ ol.history .hm { font-size: 11.5px; }
 /* offline badge (offline copy only) */
 .offline-tag { display: inline-block; margin-left: 6px; padding: 2px 7px; border-radius: 999px; border: 1px solid var(--warn); color: var(--warn); background: var(--warn-soft); font: 700 10.5px/1.3 var(--f-body); letter-spacing: .06em; text-transform: uppercase; vertical-align: middle; cursor: help; }
 .foot-name .offline-tag { vertical-align: 2px; }
+.teach-tag { border-color: var(--good); color: var(--good); background: var(--good-soft); }
 /* welcome: full-width intro */
 .welcome-hero p { max-width: none; }
 /* mode cards on Games and Recall */
@@ -1139,7 +1140,7 @@ details.hist-stage > ol.history { margin-top: 12px; }
 @media print {
   .print-only { display: block !important; }
   .doc-foot { margin-top: 18px; padding-top: 8px; border-top: 1px solid #bbb; font-size: 8pt; color: #555; }
-  @page { @bottom-left { content: "MYPoirier Science Lab · 1.3 · © 2026 Mike Poirier · All rights reserved · Not for commercial or tutoring use · mvpoirier.github.io/science-lab"; font: 7pt "IBM Plex Sans", Arial, sans-serif; color: #888; } @bottom-right { content: "Page " counter(page) " of " counter(pages); font: 7pt "IBM Plex Sans", Arial, sans-serif; color: #888; } }
+  @page { @bottom-left { content: "MYPoirier Science Lab · 1.3.1 · © 2026 Mike Poirier · All rights reserved · Not for commercial or tutoring use · mvpoirier.github.io/science-lab"; font: 7pt "IBM Plex Sans", Arial, sans-serif; color: #888; } @bottom-right { content: "Page " counter(page) " of " counter(pages); font: 7pt "IBM Plex Sans", Arial, sans-serif; color: #888; } }
 }
 #termsInfo, #creditsInfo { scroll-margin-top: 84px; }
 
@@ -1460,12 +1461,20 @@ svg .pg-name { fill: var(--dg-ink); font-size: 14px; font-weight: 700; } svg .pg
 svg .shell-out { stroke: var(--dg-os) !important; stroke-width: 2 !important; } svg .el-out { fill: var(--dg-os) !important; }
 svg .bohr-br { fill: none; stroke: var(--dg-ink); stroke-width: 2; } svg .bohr-q { fill: var(--dg-ink); font-weight: 700; }
 
+/* graph bands (named regions along the x-axis) and callouts (named points) */
+.figure svg .gband0 { fill: var(--dg-of); opacity: .35; } .figure svg .gband1 { fill: var(--dg-df); opacity: .45; }
+.figure svg .gband-t { fill: var(--dg-ink); font-weight: 600; }
+.figure svg .callout circle { fill: none; stroke: var(--dg-os); stroke-width: 2; }
+.figure svg .callout text { fill: var(--dg-ink); font-weight: 600; paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
+svg .lewis-sym { font-size: 34px; font-weight: 700; fill: var(--dg-ink); }
+.figure svg .gb-art { fill: var(--dg-of); opacity: .4; } .figure svg .gb-cap { fill: var(--dg-mu); opacity: .12; } .figure svg .gb-vein { fill: var(--dg-df); opacity: .55; }
+
 </style>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="logoMark" viewBox="0 0 120 120"><rect x="2" y="2" width="116" height="116" rx="28" fill="#141B3D" stroke="#2A3366" stroke-width="2"/><circle cx="22" cy="24" r="1.5" fill="#FFFFFF"/><circle cx="100" cy="26" r="1.5" fill="#AEB6D9"/><circle cx="98" cy="98" r="1.5" fill="#FFFFFF"/><circle cx="60" cy="104" r="1.2" fill="#AEB6D9"/><g fill="none" stroke="#C9D0EE" stroke-width="3"><ellipse cx="60" cy="60" rx="46" ry="17"/><ellipse cx="60" cy="60" rx="46" ry="17" transform="rotate(60 60 60)"/><ellipse cx="60" cy="60" rx="46" ry="17" transform="rotate(120 60 60)"/></g><circle cx="60" cy="60" r="11" fill="#FFD166"/><circle cx="106" cy="60" r="7" fill="#34D399" stroke="#141B3D" stroke-width="2"/><circle cx="37" cy="20.2" r="7" fill="#60A5FA" stroke="#141B3D" stroke-width="2"/><circle cx="37" cy="99.8" r="7" fill="#C4B5FD" stroke="#141B3D" stroke-width="2"/></symbol></defs></svg>
 <header class="top"><div class="top-inner">
-  <div class="brand"><h1><svg class="logo-mark" aria-hidden="true"><use href="#logoMark"></use></svg><b class="mvp"><span class="y9c">M</span><span class="y10c">Y</span><span class="y11c">P</span></b>oirier Science Lab <span class="beta-tag" title="Beta build for testing: version 1.3">BETA 1.3</span></h1></div>
+  <div class="brand"><h1><svg class="logo-mark" aria-hidden="true"><use href="#logoMark"></use></svg><b class="mvp"><span class="y9c">M</span><span class="y10c">Y</span><span class="y11c">P</span></b>oirier Science Lab <span class="beta-tag" title="Beta build for testing: version 1.3.1">BETA 1.3.1</span></h1></div>
   <nav class="tabs" id="tabs" aria-label="Modes"></nav>
   <div class="hbar">
     <div class="course-seg year-seg" id="yearSeg" role="group" aria-label="Year"></div>
@@ -1480,7 +1489,7 @@ svg .bohr-br { fill: none; stroke: var(--dg-ink); stroke-width: 2; } svg .bohr-q
 </div>
 <footer class="site-foot"><div class="foot-wrap">
   <div class="foot-inner">
-    <div class="foot-brand"><div class="foot-name"><svg class="logo-mark" aria-hidden="true"><use href="#logoMark"></use></svg><b class="mvp"><span class="y9c">M</span><span class="y10c">Y</span><span class="y11c">P</span></b>oirier Science Lab <span class="beta-tag">BETA 1.3</span></div></div>
+    <div class="foot-brand"><div class="foot-name"><svg class="logo-mark" aria-hidden="true"><use href="#logoMark"></use></svg><b class="mvp"><span class="y9c">M</span><span class="y10c">Y</span><span class="y11c">P</span></b>oirier Science Lab <span class="beta-tag">BETA 1.3.1</span><span class="offline-tag teach-tag tip" id="teachTag" tabindex="0" hidden data-tip="Teacher mode is on for this device: Test Mode shows the teacher tools. Lock it from Test Mode when you are done." aria-label="Teacher mode is on for this device: Test Mode shows the teacher tools. Lock it from Test Mode when you are done.">Teacher</span></div></div>
     <nav class="foot-links" aria-label="Site">
       <a href="#about">About</a>
       <a href="#about" data-terms="1">Terms of Use</a>
@@ -1748,6 +1757,8 @@ const SVG = (() => {
   const path = (d, cls = 'ln') => `<path d="${d}" class="${cls}"/>`;
   // numbered marker used in label questions
   const mk = (x, y, n) => `<g class="mkr"><circle cx="${f(x)}" cy="${f(y)}" r="11"/><text x="${f(x)}" y="${f(y + 4)}" text-anchor="middle">${n}</text></g>`;
+  // a named point on a graph: ring on the point, the name beside it (kept inside the plot)
+  const callout = (x, y, t, right) => { const w = String(t).length * 6.6, left = x + 10 + w > right, ty = y < 44 ? y + 20 : y - 14; return `<g class="callout"><circle cx="${f(x)}" cy="${f(y)}" r="6"/><text x="${f(left ? x - 10 : x + 10)}" y="${f(ty)}" text-anchor="${left ? 'end' : 'start'}" class="tx sm">${t}</text></g>`; };
   function arrow(x1, y1, x2, y2, cls = 'ar', head = 9) {
     const a = Math.atan2(y2 - y1, x2 - x1), h1 = a + Math.PI * 0.85, h2 = a - Math.PI * 0.85;
     return `<g class="${cls}"><line x1="${f(x1)}" y1="${f(y1)}" x2="${f(x2)}" y2="${f(y2)}"/><path d="M${f(x2)} ${f(y2)} L${f(x2 + head * Math.cos(h1))} ${f(y2 + head * Math.sin(h1))} L${f(x2 + head * Math.cos(h2))} ${f(y2 + head * Math.sin(h2))} Z"/></g>`;
@@ -1758,6 +1769,8 @@ const SVG = (() => {
     const pw = W - L - R, ph = H - T - B;
     const X = (x) => L + (x - o.xmin) / (o.xmax - o.xmin) * pw, Y = (y) => T + ph - (y - o.ymin) / (o.ymax - o.ymin) * ph;
     let g = '';
+    // o.bands: [[x0, x1, label]] shaded regions along the x-axis, named at the top (alternate shades)
+    (o.bands || []).forEach((b, i) => { g += `<rect x="${f(X(b[0]))}" y="${f(T)}" width="${f(X(b[1]) - X(b[0]))}" height="${f(ph)}" class="gband ${b[3] || 'gband' + (i % 2)}"/>` + text((X(b[0]) + X(b[1])) / 2, T + 14, b[2], 'tx sm gband-t'); });
     for (let x = o.xmin; x <= o.xmax + 1e-9; x += o.xstep) g += line(X(x), T, X(x), T + ph, 'gd') + text(X(x), T + ph + 18, fmtTick(x), 'tk');
     for (let y = o.ymin; y <= o.ymax + 1e-9; y += o.ystep) g += line(L, Y(y), L + pw, Y(y), 'gd') + text(L - 8, Y(y) + 4, fmtTick(y), 'tk', 'end');
     g += line(L, T + ph, L + pw, T + ph, 'ax') + line(L, T, L, T + ph, 'ax');
@@ -1770,7 +1783,7 @@ const SVG = (() => {
       if (s.dots) s.pts.forEach(p => { g += `<circle cx="${f(X(p[0]))}" cy="${f(Y(p[1]))}" r="3.5" class="dot dot${i}"/>`; });
       if (s.label) { const p = s.labelAt || s.pts[s.pts.length - 1]; g += text(X(p[0]) + 6, Y(p[1]) - 6, s.label, `tx sl${i}`, 'start'); }
     });
-    (o.marks || []).forEach(m => { g += mk(X(m[0]), Y(m[1]), m[2]); });
+    (o.marks || []).forEach(m => { g += String(m[2]).length > 2 ? callout(X(m[0]), Y(m[1]), m[2], L + pw) : mk(X(m[0]), Y(m[1]), m[2]); });
     return svg(W, H, g, o.label || 'Graph');
   }
   function fmtTick(v) { return Math.abs(v) < 1e-9 ? '0' : (+v.toFixed(3)).toString(); }
@@ -1801,13 +1814,13 @@ const SVG = (() => {
   // Lewis (electron dot) symbol for an atom with v valence electrons
   function lewis(sym, v) {
     // fill singly top, right, bottom, left, then pair up (Hund-style, as taught)
-    const S = 110, c = S / 2, pos = [[0, -26], [26, 0], [0, 26], [-26, 0]], along = [[1, 0], [0, 1], [1, 0], [0, 1]];
+    const S = 120, c = S / 2, hx = sym.length > 1 ? 38 : 30, pos = [[0, -30], [hx, 0], [0, 30], [-hx, 0]], along = [[1, 0], [0, 1], [1, 0], [0, 1]];
     const k = [0, 0, 0, 0]; for (let i = 0; i < v; i++) k[i % 4]++;
-    let g = text(c, c + 9, sym, 'tx big');
+    let g = `<text x="${c}" y="${c + 11}" text-anchor="middle" class="tx lewis-sym" style="font-size:34px;font-weight:700">${sym}</text>`;
     k.forEach((n, side) => {
       const [px, py] = pos[side], [ax, ay] = along[side];
-      if (n === 1) g += circle(c + px, c + py, 3.6, 'el');
-      if (n === 2) g += circle(c + px - ax * 6, c + py - ay * 6, 3.6, 'el') + circle(c + px + ax * 6, c + py + ay * 6, 3.6, 'el');
+      if (n === 1) g += circle(c + px, c + py, 4, 'el el-out');
+      if (n === 2) g += circle(c + px - ax * 7, c + py - ay * 7, 4, 'el el-out') + circle(c + px + ax * 7, c + py + ay * 7, 4, 'el el-out');
     });
     return svg(S, S, g, `Lewis symbol of ${sym}`);
   }
@@ -2696,7 +2709,7 @@ const DIAG = (() => {
   function bohrShells(shells, Z, N) {
     const { svg, circle, text } = SVG, n = shells.length, R0 = 30, step = 26, S = 2 * (R0 + step * n) + 30, c = S / 2;
     let g = circle(c, c, R0 - 6, 'nuc') + text(c, c - 2, `${Z}p`, 'tx sm') + text(c, c + 12, `${N}n`, 'tx sm');
-    shells.forEach((k, i) => { const r = R0 + step * (i + 0.5); g += circle(c, c, r, 'shell'); for (let j = 0; j < k; j++) { const a = -Math.PI / 2 + j * 2 * Math.PI / k; g += circle(c + r * Math.cos(a), c + r * Math.sin(a), 4.2, 'el'); } });
+    shells.forEach((k, i) => { const r = R0 + step * (i + 0.5), out = i === n - 1; g += circle(c, c, r, out ? 'shell shell-out' : 'shell'); for (let j = 0; j < k; j++) { const a = -Math.PI / 2 + j * 2 * Math.PI / k; g += circle(c + r * Math.cos(a), c + r * Math.sin(a), 4.2, out ? 'el el-out' : 'el'); } });
     return svg(S, S, g, 'Bohr diagram');
   }
   const COVALENT = [['CO<sub>2</sub>', 'CO2', 'carbon dioxide'], ['CO', 'CO', 'carbon monoxide'], ['SO<sub>2</sub>', 'SO2', 'sulfur dioxide'], ['SO<sub>3</sub>', 'SO3', 'sulfur trioxide'], ['NO<sub>2</sub>', 'NO2', 'nitrogen dioxide'], ['NO', 'NO', 'nitrogen monoxide'], ['N<sub>2</sub>O', 'N2O', 'dinitrogen monoxide'], ['CCl<sub>4</sub>', 'CCl4', 'carbon tetrachloride'], ['PCl<sub>3</sub>', 'PCl3', 'phosphorus trichloride'], ['SiO<sub>2</sub>', 'SiO2', 'silicon dioxide'], ['CS<sub>2</sub>', 'CS2', 'carbon disulfide'], ['N<sub>2</sub>O<sub>4</sub>', 'N2O4', 'dinitrogen tetroxide'], ['P<sub>2</sub>O<sub>5</sub>', 'P2O5', 'diphosphorus pentoxide'], ['SF<sub>6</sub>', 'SF6', 'sulfur hexafluoride']];
@@ -4818,7 +4831,7 @@ const DIAG = (() => {
     { id: 'cardio-iii6-bp', sub: 'cardio', s: 'iii', b: 6, topic: 'Blood pressure', gen: (R) => {
       const sys = R.pick([115, 120, 125, 130]), dia = R.pick([75, 80, 85]);
       const pts = [[0, sys], [1, sys - 8], [2, (sys + dia) / 2 + 4], [3, dia + 6], [4, 35], [5, 25], [6, 12], [7, 6]];
-      const fig = graph({ xmin: 0, xmax: 7, xstep: 1, ymin: 0, ymax: 140, ystep: 20, xlabel: 'Distance from the heart (arbitrary)', ylabel: 'Blood pressure / mmHg', series: [{ pts, dots: true }], marks: [[0, sys, 'aorta'], [4, 35, 'capillaries'], [7, 6, 'vena cava']], label: 'Blood pressure graph' });
+      const fig = graph({ xmin: 0, xmax: 7, xstep: 1, ymin: 0, ymax: 140, ystep: 20, xlabel: 'Distance from the heart (arbitrary)', ylabel: 'Blood pressure / mmHg', series: [{ pts, dots: true }], bands: [[0, 3.5, 'Arteries', 'gb-art'], [3.5, 4.5, 'Capillaries', 'gb-cap'], [4.5, 7, 'Veins', 'gb-vein']], marks: [[0, sys, 'aorta'], [7, 6, 'vena cava']], label: 'Blood pressure graph' });
       return { type: 'parts', stem: '<p>The graph shows the average blood pressure as blood travels from the left ventricle through the systemic circuit.</p>', fig, parts: [
         { type: 'num', stem: 'Deduce the blood pressure in the aorta.', ans: sys, unit: 'mmHg', tolAbs: 3 },
         { type: 'mcq', stem: 'Describe the trend.', choices: ['Blood pressure decreases with distance from the heart', 'Blood pressure increases with distance from the heart', 'Blood pressure stays the same'], ans: 0 },
@@ -9312,7 +9325,7 @@ const SKILL_NOTES = [
    Rail, practice sheet, markscheme ticks, spaced-repetition recall, notes panels, stats tabs and backup code. Organised for MYP: years → units → subtopics, Criterion A strands and level bands. */
 (function () {
   'use strict';
-  const VERSION = '1.3', BUILT = '20 November 2026';
+  const VERSION = '1.3.1', BUILT = '20 November 2026';
   const KEY = 'myp-science-lab.v1';
   const DAY = 864e5;
   const $ = (s, el = document) => el.querySelector(s);
@@ -10361,7 +10374,7 @@ const SKILL_NOTES = [
   async function teacherUnlock(pass, remember = true) {
     if (!cryptoOK()) return 'nocrypto';
     if (await teacherHash(pass) !== TEACHER.hash) return 'wrong';
-    TEACH = true; if (remember) { try { localStorage.setItem(TEACHER.key, maskPass(pass)); } catch (e) { /* ignore */ } }
+    TEACH = true; syncTeachTag(); if (remember) { try { localStorage.setItem(TEACHER.key, maskPass(pass)); } catch (e) { /* ignore */ } }
     return 'ok';
   }
   // a teacher types MYP-T- plus the shared passphrase into any code box (no visible teacher login)
@@ -10370,11 +10383,13 @@ const SKILL_NOTES = [
     let r = 'wrong'; try { r = await teacherUnlock(t.slice(4)); } catch (e) { return false; }
     if (r !== 'ok') return false; toast('Teacher access on for this device.'); return true;
   }
-  function teacherLock() { TEACH = false; try { localStorage.removeItem(TEACHER.key); } catch (e) { /* ignore */ } }
+  // footer badge, like the offline one, shown while teacher mode is unlocked
+  function syncTeachTag() { const t = document.getElementById('teachTag'); if (t) t.hidden = !TEACH; }
+  function teacherLock() { TEACH = false; syncTeachTag(); try { localStorage.removeItem(TEACHER.key); } catch (e) { /* ignore */ } }
   async function teacherRestore() {
     let m = null; try { m = localStorage.getItem(TEACHER.key); } catch (e) { /* ignore */ }
     if (!m || !cryptoOK()) return;
-    try { if (await teacherHash(unmaskPass(m)) === TEACHER.hash) { TEACH = true; if (currentView() === 'test' && TS && TS.phase === 'setup') render(); } } catch (e) { /* ignore */ }
+    try { if (await teacherHash(unmaskPass(m)) === TEACHER.hash) { TEACH = true; syncTeachTag(); if (currentView() === 'test' && TS && TS.phase === 'setup') render(); } } catch (e) { /* ignore */ }
   }
 
   /* ======================= PRINTABLE WORKSHEETS AND TESTS (teacher access) =======================
@@ -11082,6 +11097,7 @@ ${docWatermark('')}${docFooter('')}</body></html>`;
     { v: '0.3 alpha', d: '5 November 2026', items: ['Games page grouped by unit, with Class Games for every year.', 'New unit games: Build-an-Atom and Periodic Mystery (Y9 Chemistry); Free-Body Builder, Stop in Time and suvat Sprint (Y11 Forces & Motion).', 'Blitz and Last Man Standing with class codes, using multiple-choice questions from the ticked subtopics.', 'Y9 Chemistry: a simplified Periodic Table (elements 1–20, whole-number atomic masses) on every question, in the header and in Notes.', 'Last Man Standing arena: ready screen, 3-2-1 countdown, synthesised music and sound effects, heartbeat in the last 30 seconds, Give Up and Game Over.', 'Code boxes start with their prefix (LMS-) and add capitals and dashes as you type.'] },
     { v: '0.4 alpha', d: '6 November 2026', items: ['New <b>Test</b> mode: a timed Criterion A test like the unit tests, with a section for each strand from level 1–2 to 7–8. Answers stay hidden until the end; the site marks short answers, you tick the markschemes for written answers, and each strand gets a best-fit level. Print your results, or use a TST- class code so everyone gets the same test.', 'New unit: <b>Year 11 Combustible Fuels</b> (8 subtopics, 55 question types): fuels and SDG 7, hydrocarbons, naming and isomers with drawn structural formulas, alcohols, crude oil and boiling point, combustion and balancing, enthalpy profiles and bond enthalpy, moles, energy per gram and emissions.', 'More question types matched to the unit tests: Y9 Disease (vectors, Jenner, Fleming, Ebola, bacterial growth, vaccine boosters), Y9 Chemistry (nuclear notation, particle tables, spotting Bohr-diagram errors, covalent names, evidence of chemical change, ionisation energy trends), Y11 Exchange & Transport (Boyle\'s law, the double circulation, valves, blood pressure, exercise spirometry, maximum heart rate) and Y11 Forces & Motion (crane tension, runway length, skydiver, multi-stage v–t graphs, theory vs real data).', 'Stop in Time: everyday objects in the road instead of people.', 'A <b>Data Booklet</b> button for every year in the header (and on questions that need it): the Periodic Table for Year 9 (elements 1–20), the full Periodic Table for Years 10 and 11, and the physics formula sheet for Year 11. Point at, tap or tab to any element for its details.', '<b>Hints</b> in Practice: up to three per question (a nudge, the method, then the first step). Stats shows how often you answer without hints.', 'New Year 11 Fuels games: <b>Isomer Hunt</b> and <b>Balance It!</b>', 'New Year 9 Chemistry activity: <b>Periodic People</b>. Arrange a family of secret agents into a table, build the missing one, then see the elements they stand for.', '<b>🚩 Report a Problem</b> on every question (including in Test mode), flashcard, note and the Data Booklet, and <b>💬 Send Feedback</b> in the footer: they open your teacher’s Google Form already filled in.', '<b>Pause</b> in Test mode: the timer stops and the questions are hidden until you resume. Pauses are shown with your results.', 'Online tests: show or hide the timer, and sound alerts at 30, 15 and 5 minutes left and when time is up (🔔 can be turned off).', 'Test mode is set up by your teacher: enter the TST- class code they give you. A code gives an online test, a worksheet or a test/exam to print (cover sheet, a section for each strand, the data booklet at the end), with or without the markscheme. Teachers unlock the full set-up with 🔑 Teacher access and can print a Student Copy, the Markscheme or Both.', 'The welcome card takes the colour of your year, and the revision history is grouped into collapsible stages.', 'Fixes: sorting questions always use every category; written-answer markschemes line up properly.'] },
     { v: '0.5 alpha', d: '11 November 2026', items: ['Four new units: <b>Year 9 Unit 3, Evidence of a Changing Climate</b>; <b>Year 10 Unit 1, Population & Conservation</b> and <b>Year 10 Unit 2, Solution Chemistry</b> (games for Solution Chemistry come in 0.6); <b>Year 11 Unit 4, Digestion & Metabolism</b>. Each has questions for every strand and level, notes, recall cards, hints, Test mode and printables.', '<b>Year 9 Chemistry of Industry</b> now matches this year\'s unit: new questions on atomic radius, ionisation energy, group 1 and 17 reactivity, metal properties, relative atomic mass, Rutherford\'s experiment, atoms vs ions vs compounds, identifying elements from their properties, and choosing the correct Lewis or Bohr diagram. Equations and chemical change stay as practice-only <i>good to know</i> extras (not in tests). New games: <b>Bohr ↔ Lewis</b> and <b>Give or Share?</b>', 'New <b>Skills 🧰</b> section for lab and report skills (Criterion C): <b>Tables & Averages</b>, <b>Graphing</b>, <b>Evaluate It</b> and <b>Rounding & Sig Figs</b>, arranged by criterion A to D. Endless questions with new values, pitched at your year, with a running score, streaks and Stats. Also <b>Command Terms</b> (Criterion A) and <b>Referencing (APA 7)</b> (Criterion D). Coming soon: Variables, Hypothesis Builder, Measure It and Lab Safety.', 'New <b>Solar Atom</b> logo, with <b>M</b>, <b>Y</b> and <b>P</b> in the Year 9, 10 and 11 colours.', '<b>Science Skills</b> in Notes: how-to advice for Criteria B, C and D at your year level (variables, hypotheses, methods, measuring, tables, averages, % change/error/difference, rounding and significant figures, graphing, conclusions, evaluating, APA 7 referencing, judging sources and writing about impacts), with links to the matching Skills drills. Turn it on or off in the panel.', 'Games page: every section stays open, with smaller cards and a bar at the top to jump to Class Games or any unit.', 'For now the site shows <b>Units 1 and 2</b> in every year while they are refined; Units 3 and 4 come back in later builds.', 'New games: <b>Weather or Climate?</b> (Y9), <b>Oh Deer!</b> (Y10), <b>Digest It!</b> (Y11), and three Year 9 Chemistry games: <b>Element, Molecule or Compound?</b>, <b>Diagram Detective</b> (Bohr, Lewis and dot-and-cross diagrams) and <b>Ionic Matchmaker</b>.', '<b>Periodic People</b>: elements 1–20, 1, 2 or 3 missing characters, optional hints, and a new caterpillar theme.', 'Timed games: choose 3, 5 or 10 minutes, or your own time. suvat Sprint keeps the chosen equation on screen.', 'Test mode: about a quarter of the questions are kept for tests only, and tests use their own versions of the fact questions, so tests always include questions you have not practised.', 'New questions: fields and pressure (Y11 Forces & Motion); chemical and physical change, and forces between molecules (Y9 Chemistry).', 'Free-body diagrams show the ground when there is a normal force, and labels are never cut off. Speeds are in m s<sup>−1</sup>; km h<sup>−1</sup> appears only in an optional "good to know" question.', 'Notes: <b>More Help</b> links (videos, simulations and readings from the class slides) and <b>Print/PDF</b>; notes now start straight with the subtopics.', 'One <b>Data Booklet & Command Terms</b> button in the header. A clearer <b>All Games</b> button; the Games tab also returns to the list of games.', 'All codes now start with <b>MYP-</b>. Year 10 is blue.', 'Test Mode: <b>Online</b> or <b>Printable</b> codes; teachers choose whether to use test-only questions, results printing, retakes, the cover sheet and answer space; a pace bar with alert lines, Sound on/off and a Pace timer switch.', 'Last Man Standing: the starting time is locked into the code.'] },
+    { v: '1.3.1 beta', d: '20 November 2026', items: ['<b>Teacher badge.</b> When teacher mode is unlocked on a device, a Teacher badge shows in the footer next to the version, like the Offline badge. Locking teacher mode in Test Mode removes it.', '<b>More diagram fixes.</b> Year 11: the blood pressure graph names the artery, capillary and vein regions (the old point labels were cut off). Year 9: larger Lewis symbols with dots spaced clear of two-letter symbols, and the check-the-Bohr-diagram question now uses the new Bohr style.'] },
     { v: '1.3 beta', d: '20 November 2026', items: ['<b>Clearer diagrams.</b> Year 11 free-body diagrams: every arrow starts at the centre of the object, arrows in the same direction are drawn to scale, and the object is drawn as a crate, car or skydiver (or a plain box, square or circle). Year 10: food webs are set out in rows by trophic level, and the quadrat field shows plants in every square with the sampled squares outlined and counted. Year 9: drawings of all four pathogen types (with a new “identify the pathogen” question), and Bohr diagrams highlight the outer shell and put ions in square brackets with their charge.', 'Unit 1 checked against the Unit 1 tests for every year. New questions: Year 9 (match the antibody to the antigen shape, helpful vs harmful microbes, “more harm than good?”, evaluating vaccine safety data); Year 10 (compare and contrast key terms, choose and describe a sampling method, explain a population recovery graph, repeated capture–recapture estimates, quadrat data and sample size).', 'Year 10 Solution Chemistry: pick the correct picture of water molecules around an ion, percentage by mass (mass needed, evaporation), and sorting independent, dependent and controlled variables.', 'Blood Route has a final round on the double circulation map.', 'Recall: new diagram flashcards (Year 11 heart and ventilatory system): name the numbered structure. They also appear in Pick\'em!', 'Skills: <b>Command Terms in Your Units</b>: the same idea answered four ways (state, outline, describe, explain) with your Unit 1 and 2 content.', 'Fix: in some multiple-choice parts the right answer was always first; the choices are now shuffled.', 'Accessibility: the unit checkboxes in the side panel no longer sit inside the fold button, links in the footer text are underlined, and the Outbreak! class picture has a text description.']},
     { v: '1.2 beta', d: '19 November 2026', items: ['Three new games: <b>Outbreak!</b> (Year 9 Disease: spread a cold through a class, then test hand-washing, staying at home and vaccination), <b>Dissolve or Not?</b> (Year 10 Solution Chemistry: polar, non-polar and the solubility rules) and <b>Blood Route</b> (Year 11 Exchange & Transport: the path of blood through the heart, lungs and body).', 'Year 10: the bonding triangle now matches the one on the tests (from the DP Chemistry Data Booklet), with sloped region edges, so pairs like calcium and selenium are ionic. New on-screen diagram questions: pick the correct dot-and-cross diagram, and the correct Bohr diagrams of two ions.', 'Year 11 Forces & Motion: new questions like the unit test: find the net and applied force with friction, and a crash with and without an airbag, step by step.', 'Data Booklet (Years 10 and 11): percent error and percent difference equations.', 'More Help links for Year 11 Organisation of an organism.', 'Year 9 nuclear notation: either order of the two numbers is accepted.', 'Year 11 Exchange & Transport: new heart and ventilation diagrams. The heart is drawn cut open inside one muscle wall, with valves, chordae tendineae and septum; the lungs run from the nose to the diaphragm. New figures in Notes: the double circulation map, breathing in vs breathing out, and an alveolus with its capillary. All diagrams follow dark mode and print in black and white. New question: read the double circulation map.']},
     { v: '1.1 beta', d: '13 November 2026', items: ['<b>New codes</b>: every code starts <b>MYP-</b>. Test codes start <b>MYP-T-</b> and game codes start <b>MYP-G-</b> (Last Man Standing: MYP-G-S…). Codes from earlier versions no longer work: ask your teacher for a new one.', '<b>Two code boxes</b>: the Test Mode box at the bottom of Practice, and a new <b>Have a game code?</b> box at the top of Games. Type any code in either box and it opens in the right place. MYP-L-, MYP-P-, MYP-C- and MYP-S- codes are coming soon.', 'Last Man Standing: press <b>Play 💀</b> to play on your own straight away, or <b>Make a Code</b> (then Copy or Clear it) so your class faces the same questions; everyone else types the code in the box at the top of Games.', 'Test Mode has a <b>Back to Practice</b> button.', '<b>Test-only values</b>: questions whose numbers or examples change are back in Practice, but about 1 in 4 of their value sets are kept for tests, so a test still has values nobody has practised. Only questions with little variety (mostly written, conceptual ones) are kept for tests whole.', 'Teachers choose where test questions come from: <b>Test-Only First</b>, <b>Practice Only</b> or <b>Mixed</b>. Test codes made in Beta 1.0 still work.', 'Click the tab you are on to go back to its list: Games and Skills close the open game or drill, Recall leaves a round.']},
