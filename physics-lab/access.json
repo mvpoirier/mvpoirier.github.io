@@ -1,6 +1,6 @@
 {
  "v": 2,
- "updated": "2026-11-23T09:25:54Z",
+ "updated": "2026-11-25T13:07:00Z",
  "settings": {
   "trial": [
    "a1-",
@@ -19,7 +19,7 @@
    "shareVal": 0.3333333333333333,
    "anyTemplate": true
   },
-  "weeklyFormUrl": ""
+  "weeklyFormUrl": "https://docs.google.com/forms/d/e/1FAIpQLSdme_RQQ9MWjMtK_-OhWbqG73GA4qB7m4pt1ciOodtrXNsd3w/viewform"
  },
  "state": {
   "m:student": {
