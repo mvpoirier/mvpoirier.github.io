@@ -97,3 +97,8 @@ exclude:
   - LICENSE
   - README.md
   - CNAME
+  - AGENTS.md
+  - REVIEWER.md
+  - CLAUDE.md
+  - GEMINI.md
+  - docs

@@ -23,3 +23,7 @@
 - **Theme:** based on [Jekyll Now](https://github.com/barryclark/jekyll-now/) (MIT).
 - Details: see [LICENSE](LICENSE).
 
+
+## For AI Agents
+
+AI agents read [AGENTS.md](AGENTS.md) first. Reviewers follow [REVIEWER.md](REVIEWER.md) and take work from [docs/review/QUEUE.md](docs/review/QUEUE.md); the builder follows [CLAUDE.md](CLAUDE.md).
