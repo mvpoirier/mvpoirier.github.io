@@ -1,21 +1,81 @@
 ---
-layout: default
-published: true
+layout: mvp
+nav: home
+description: "Mike Poirier, physics and science teacher in Bangkok. Web apps and resources for students and teachers."
 ---
-<div>
-{{ '## Hey there! 👋
-  
-My name is Mike Poirier, and I am interested in science education, physics, and computer science.<br>
+  <section class="hero" aria-labelledby="hello">
+    <canvas id="wave" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <img class="avatar" src="/images/mvpoirier-320.jpg" alt="Mike Poirier" width="148" height="148">
+      <div>
+        <h1 id="hello">Hi, I'm <span>Mike</span>.</h1>
+        <p class="lede">I teach physics and science at NIST International School in Bangkok, and I make web apps for students and teachers. I've taught internationally since 2009, in China, South Korea, Oman and now Thailand.</p>
+        <div class="social">
+          <a href="https://www.linkedin.com/in/mvpoirier8" class="tip" data-tip="LinkedIn" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.5 3.5a2 2 0 1 1 0 4 2 2 0 0 1 0-4zM3 9h3v12H3zM9 9h2.9v1.7h.1c.4-.8 1.4-1.9 3.1-1.9 3.3 0 3.9 2.2 3.9 5V21h-3v-6.2c0-1.5 0-3.3-2-3.3s-2.3 1.6-2.3 3.2V21H9z"/></svg></a>
+          <a class="tip" data-tip="GitHub" href="https://github.com/mvpoirier" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.6.4-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.6 9.6 0 0 1 5 0c1.9-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9V21c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></svg></a>
+          <a href="https://www.youtube.com/@mvpoiriervideo" class="tip" data-tip="YouTube" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 8.2a3 3 0 0 0-2.1-2.1C18 5.6 12 5.6 12 5.6s-6 0-7.9.5A3 3 0 0 0 2 8.2 31 31 0 0 0 1.6 12 31 31 0 0 0 2 15.8a3 3 0 0 0 2.1 2.1c1.9.5 7.9.5 7.9.5s6 0 7.9-.5a3 3 0 0 0 2.1-2.1c.3-1.2.4-2.5.4-3.8s-.1-2.6-.4-3.8zM10 15.1V8.9l5.2 3.1z"/></svg></a>
+          <a class="tip mail" data-tip="Email" href="/" aria-label="Email Mike"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5 12 13l8.5-6.5"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-I have been teaching internationally since 2009, and created this site to help share some of the things I have made or found over the years to support teaching and learning. I hope that some the [Physics](/physics) and [Coding](/coding) resources are useful for you.<br>
+  <section class="block" aria-labelledby="projects-h">
+    <div class="wrap">
+      <h2 id="projects-h">Current Projects</h2>
+      <div class="projects">
+        <a class="proj" href="/physics-lab/">
+          <img src="/images/icons/mvphysics-lab.svg" alt="" width="46" height="46">
+          <div><h3>MVPhysics Lab</h3><p>Revision for IB DP Physics, SL and HL</p></div>
+          <span class="go" aria-hidden="true">↗</span>
+        </a>
+        <a class="proj" href="/science-lab/">
+          <img src="/images/icons/science-lab.svg" alt="" width="46" height="46">
+          <div><h3>MYPoirier Science Lab</h3><p>MYP Science practice for Years 9 to 11</p></div>
+          <span class="go" aria-hidden="true">↗</span>
+        </a>
+        <a class="proj" href="/mvplanner/">
+          <img src="/images/icons/mvplanner.svg" alt="" width="46" height="46">
+          <div><h3>MVPlanner</h3><p>A ring-binder lesson planner for teachers</p></div>
+          <span class="go" aria-hidden="true">↗</span>
+        </a>
+        <a class="proj" href="/espanso-helper/">
+          <img src="/images/icons/espanso-helper.svg" alt="" width="46" height="46">
+          <div><h3>Espanso Helper</h3><p>Edit Espanso comment banks for feedback</p></div>
+          <span class="go" aria-hidden="true">↗</span>
+        </a>
+      </div>
+      <p class="more"><a href="/projects/">See all projects →</a></p>
+    </div>
+  </section>
 
-If you are interested in continuing the conversation, you can connect with me at a few different places shared on <a href="https://linktr.ee/mvpoirier" target="_blank">Linktree</a>.<br><br>
-  
-> "Our imagination is stretched to the utmost, <br>
-> not, as in fiction,  <br>
-> to imagine things, <br>
-> which are not really there,  <br>
-> but just to comprehend those things,  <br>
-> which are there."  <br>
-> -- *Richard Feynman*' | markdownify }}
-</div>
+  <section class="block" aria-labelledby="links-h">
+    <div class="wrap">
+      <h2 id="links-h">Resources</h2>
+      <div class="lists">
+        <div>
+          <h3>Physics</h3>
+          <ul>
+            <li><a class="inside" href="/physics_dp/"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5"/></svg>DP Physics Archive</a></li>
+            <li><a class="inside" href="/physics_myp/"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4z"/><path d="M7 10v5c0 1.7 2.2 3 5 3s5-1.3 5-3v-5"/></svg>MYP Physics Archive</a></li>
+            <li><a class="inside" href="/physics/"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1.6"/><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/></svg>The Physics Hub</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Coding</h3>
+          <ul>
+            <li><a href="https://github.com/mvpoirier"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="8" r="2.5"/><path d="M6 8.5v7M18 10.5c0 4-6 3-10 6"/></svg>GitHub</a></li>
+            <li><a class="inside" href="/coding_dp/"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>DP Computer Science Archive</a></li>
+            <li><a class="inside" href="/coding/"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg>The Coding Hub</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="quote" aria-label="Quote">
+    <div class="wrap">
+      <span class="mark" aria-hidden="true"></span>
+      <blockquote>“Our imagination is stretched to the utmost, not, as in fiction, to imagine things which are not really there, but just to comprehend those things which are there.”<cite>Richard Feynman</cite></blockquote>
+    </div>
+  </section>
